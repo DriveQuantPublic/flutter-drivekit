@@ -1,0 +1,19 @@
+name: flutter_drivekit
+
+packages:
+  - packages/drivekit_core/*
+  - packages/drivekit_trip_analysis/*
+
+scripts:
+  analyze:
+    exec: |
+      dart analyze --fatal-infos . && \
+      dart format --set-exit-if-changed lib test
+
+    description: Run analyzer in every packages
+
+  fix:
+    exec: |
+      dart fix . --apply && 
+      dart format lib test
+    description: Run fix in every packages
