@@ -1,0 +1,27 @@
+version: 2
+enable-beta-ecosystems: true
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "/drivekit_trip_analysis"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "/drivekit_trip_analysis/example"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "/drivekit_trip_analysis_platform_interface"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "/drivekit_trip_analysis_android"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "/drivekit_trip_analysis_ios"
+    schedule:
+      interval: "daily"

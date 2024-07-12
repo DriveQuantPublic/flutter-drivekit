@@ -1,0 +1,73 @@
+{
+  "folders": [
+    {
+      "name": "⚙️ DriveKit core",
+      "path": "packages/drivekit_core/drivekit_core"
+    },
+    {
+      "name": "💼 DriveKit core platform interface",
+      "path": "packages/drivekit_core/drivekit_core_platform_interface"
+    },
+    {
+      "name": "🤖 DriveKit core android",
+      "path": "packages/drivekit_core/drivekit_core_android"
+    },
+    {
+      "name": "🍎 DriveKit core iOS",
+      "path": "packages/drivekit_core/drivekit_core_ios"
+    },
+    {
+      "name": "📈 DriveKit trip analysis",
+      "path": "packages/drivekit_trip_analysis/driveKit_trip_analysis"
+    },
+    {
+      "name": "💼 DriveKit trip analysis platform interface",
+      "path": "packages/drivekit_trip_analysis/driveKit_trip_analysis_platform_interface"
+    },
+    {
+      "name": "🤖 DriveKit trip analysis android",
+      "path": "packages/drivekit_trip_analysis/driveKit_trip_analysis_android"
+    },
+    {
+      "name": "🍎 DriveKit trip analysis iOS",
+      "path": "packages/drivekit_trip_analysis/driveKit_trip_analysis_ios"
+    },
+    {
+      "name": "🌪 All",
+      "path": "./"
+    }
+  ],
+  "settings": {
+    "files.exclude": {
+      "**.flutter-plugins**": true,
+      "**.iml": true,
+      "**.metadata": true,
+      "**/.dart_tool": true,
+      "**/.idea": true,
+      "**/coverage": true
+    },
+    "explorer.fileNesting.enabled": true,
+    "explorer.fileNesting.patterns": {
+      "*.dart": "${capture}.freezed.dart"
+    }
+  },
+  "launch": {
+    "configurations": [
+      {
+        "name": "⚙️ core example app",
+        "request": "launch",
+        "type": "dart",
+        "cwd": "${workspaceFolder:⚙️ DriveKit core}/example",
+        "program": "lib/main.dart"
+      },
+      {
+        "name": "📈 trip analysis example app",
+        "request": "launch",
+        "type": "dart",
+        "cwd": "${workspaceFolder:📈 DriveKit trip analysis}/example",
+        "program": "lib/main.dart"
+      }
+    ],
+    "compounds": []
+  }
+}

@@ -1,0 +1,32 @@
+name: drivekit_trip_analysis
+description: Flutter plugin for DriveQuant's DriveKit trip analysis SDK
+version: 0.1.0+1
+publish_to: none
+
+environment:
+  sdk: ^3.4.0
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        default_package: drivekit_trip_analysis_android
+      ios:
+        default_package: drivekit_trip_analysis_ios
+
+dependencies:
+  drivekit_trip_analysis_android:
+    path: ../drivekit_trip_analysis_android
+  drivekit_trip_analysis_ios:
+    path: ../drivekit_trip_analysis_ios
+  drivekit_trip_analysis_platform_interface:
+    path: ../drivekit_trip_analysis_platform_interface
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  mocktail: ^1.0.4
+  plugin_platform_interface: ^2.1.8
+  very_good_analysis: ^6.0.0
