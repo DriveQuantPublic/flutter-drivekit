@@ -1,14 +1,17 @@
 import Flutter
 import UIKit
 
-public class DrivekitTripAnalysisPlugin: NSObject, FlutterPlugin {
-  public static func register(with registrar: FlutterPluginRegistrar) {
-    let channel = FlutterMethodChannel(name: "drivekit_trip_analysis_ios", binaryMessenger: registrar.messenger())
-    let instance = DrivekitTripAnalysisPlugin()
-    registrar.addMethodCallDelegate(instance, channel: channel)
-  }
+extension FlutterError: Error {}
 
-  public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-    result("iOS")
-  }
+public class DrivekitTripAnalysisPlugin: NSObject, FlutterPlugin, IOSTripAnalysisApi {
+    public static func register(with registrar: FlutterPluginRegistrar) {
+        let messenger : FlutterBinaryMessenger = registrar.messenger()
+        let api : IOSTripAnalysisApi & NSObjectProtocol = DrivekitTripAnalysisPlugin.init()
+
+        IOSTripAnalysisApiSetup.setUp(binaryMessenger: messenger, api: api);
+    }
+
+    public func getPlatformName() throws -> String {
+        return "iOS"
+    }
 }
