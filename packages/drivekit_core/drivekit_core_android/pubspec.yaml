@@ -11,7 +11,7 @@ flutter:
     implements: drivekit_core
     platforms:
       android:
-        package: com.example.verygoodcore
+        package: com.drivekit.core
         pluginClass: DrivekitCorePlugin
         dartPluginClass: DrivekitCoreAndroid
 
