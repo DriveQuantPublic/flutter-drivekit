@@ -1,5 +1,5 @@
-import 'package:drivekit_trip_analysis_ios/src/trip_analysis_api.g.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_drivekit_trip_analysis_ios/src/trip_analysis_api.g.dart';
 import 'package:flutter_drivekit_trip_analysis_platform_interface/flutter_drivekit_trip_analysis_platform_interface.dart';
 
 /// The iOS implementation of [DrivekitTripAnalysisPlatform].

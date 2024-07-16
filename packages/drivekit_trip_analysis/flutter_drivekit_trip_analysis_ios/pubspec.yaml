@@ -1,5 +1,5 @@
-name: drivekit_trip_analysis_ios
-description: iOS implementation of the drivekit_trip_analysis plugin
+name: flutter_drivekit_trip_analysis_ios
+description: iOS implementation of the flutter_drivekit_trip_analysis plugin
 version: 0.1.0+1
 publish_to: none
 
@@ -8,7 +8,7 @@ environment:
 
 flutter:
   plugin:
-    implements: drivekit_trip_analysis
+    implements: flutter_drivekit_trip_analysis
     platforms:
       ios:
         pluginClass: DrivekitTripAnalysisPlugin
