@@ -15,12 +15,12 @@ flutter:
         default_package: drivekit_core_ios
 
 dependencies:
-  drivekit_core_ios:
-    path: ../drivekit_core_ios
   flutter:
     sdk: flutter
   flutter_drivekit_core_android:
     path: ../flutter_drivekit_core_android
+  flutter_drivekit_core_ios:
+    path: ../flutter_drivekit_core_ios
   flutter_drivekit_core_platform_interface:
     path: ../flutter_drivekit_core_platform_interface
 

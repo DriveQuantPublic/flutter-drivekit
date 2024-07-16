@@ -14,7 +14,7 @@
     },
     {
       "name": "🍎 DriveKit core iOS",
-      "path": "packages/drivekit_core/drivekit_core_ios"
+      "path": "packages/drivekit_core/flutter_drivekit_core_ios"
     },
     {
       "name": "📈 DriveKit trip analysis",
