@@ -1,0 +1,29 @@
+name: flutter_drivekit_core_ios
+description: iOS implementation of the flutter_drivekit_core plugin
+version: 0.1.0+1
+publish_to: none
+
+environment:
+  sdk: ^3.4.0
+
+flutter:
+  plugin:
+    implements: flutter_drivekit_core
+    platforms:
+      ios:
+        pluginClass: DrivekitCorePlugin
+        dartPluginClass: DrivekitCoreIOS
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_drivekit_core_platform_interface:
+    path: ../flutter_drivekit_core_platform_interface
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  mocktail: ^1.0.4
+  pigeon: ^20.0.2
+  plugin_platform_interface: ^2.1.8
+  very_good_analysis: ^6.0.0
