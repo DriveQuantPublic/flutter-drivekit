@@ -22,4 +22,7 @@ class DrivekitCoreIOS extends DrivekitCorePlatform {
 
   @override
   Future<String> getPlatformName() => iosCoreApi.getPlatformName();
+
+  @override
+  Future<void> setApiKey(String key) => iosCoreApi.setApiKey(key);
 }

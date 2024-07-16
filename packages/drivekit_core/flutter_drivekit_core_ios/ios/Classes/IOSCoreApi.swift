@@ -86,6 +86,7 @@ class IOSCoreApiPigeonCodec: FlutterStandardMessageCodec, @unchecked Sendable {
 /// Generated protocol from Pigeon that represents a handler of messages from Flutter.
 protocol IOSCoreApi {
   func getPlatformName() throws -> String
+  func setApiKey(key: String) throws
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
@@ -106,6 +107,21 @@ class IOSCoreApiSetup {
       }
     } else {
       getPlatformNameChannel.setMessageHandler(nil)
+    }
+    let setApiKeyChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.pigeon_core_package.IOSCoreApi.setApiKey\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      setApiKeyChannel.setMessageHandler { message, reply in
+        let args = message as! [Any?]
+        let keyArg = args[0] as! String
+        do {
+          try api.setApiKey(key: keyArg)
+          reply(wrapResult(nil))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      setApiKeyChannel.setMessageHandler(nil)
     }
   }
 }

@@ -54,6 +54,7 @@ private object CoreApiPigeonCodec : StandardMessageCodec() {
 /** Generated interface from Pigeon that represents a handler of messages from Flutter. */
 interface AndroidCoreApi {
   fun getPlatformName(): String
+  fun setApiKey(key: String)
 
   companion object {
     /** The codec used by AndroidCoreApi. */
@@ -70,6 +71,24 @@ interface AndroidCoreApi {
           channel.setMessageHandler { _, reply ->
             val wrapped: List<Any?> = try {
               listOf(api.getPlatformName())
+            } catch (exception: Throwable) {
+              wrapError(exception)
+            }
+            reply.reply(wrapped)
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_core_package.AndroidCoreApi.setApiKey$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { message, reply ->
+            val args = message as List<Any?>
+            val keyArg = args[0] as String
+            val wrapped: List<Any?> = try {
+              api.setApiKey(keyArg)
+              listOf(null)
             } catch (exception: Throwable) {
               wrapError(exception)
             }
