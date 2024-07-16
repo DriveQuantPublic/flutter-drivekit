@@ -1,5 +1,5 @@
-name: drivekit_trip_analysis_platform_interface
-description: A common platform interface for the drivekit_trip_analysis plugin.
+name: flutter_drivekit_trip_analysis_platform_interface
+description: A common platform interface for the flutter_drivekit_trip_analysis plugin.
 version: 0.1.0+1
 publish_to: none
 

@@ -1,4 +1,4 @@
-import 'package:drivekit_trip_analysis_platform_interface/src/method_channel_drivekit_trip_analysis.dart';
+import 'package:flutter_drivekit_trip_analysis_platform_interface/src/method_channel_drivekit_trip_analysis.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 /// The interface that implementations of drivekit_trip_analysis must implement.

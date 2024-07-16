@@ -1,6 +1,6 @@
 import 'package:drivekit_trip_analysis_android/src/trip_analysis_api.g.dart';
-import 'package:drivekit_trip_analysis_platform_interface/drivekit_trip_analysis_platform_interface.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_drivekit_trip_analysis_platform_interface/flutter_drivekit_trip_analysis_platform_interface.dart';
 
 /// The Android implementation of [DrivekitTripAnalysisPlatform].
 class DrivekitTripAnalysisAndroid extends DrivekitTripAnalysisPlatform {

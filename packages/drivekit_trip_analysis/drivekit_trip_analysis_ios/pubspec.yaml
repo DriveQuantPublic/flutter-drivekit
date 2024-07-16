@@ -15,10 +15,10 @@ flutter:
         dartPluginClass: DrivekitTripAnalysisIOS
 
 dependencies:
-  drivekit_trip_analysis_platform_interface:
-    path: ../drivekit_trip_analysis_platform_interface
   flutter:
     sdk: flutter
+  flutter_drivekit_trip_analysis_platform_interface:
+    path: ../flutter_drivekit_trip_analysis_platform_interface
 
 dev_dependencies:
   flutter_test:
