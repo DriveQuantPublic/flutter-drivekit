@@ -1,5 +1,6 @@
 import Flutter
 import UIKit
+import DriveKitCoreModule
 
 extension FlutterError: Error {}
 
@@ -16,5 +17,6 @@ public class DrivekitCorePlugin: NSObject, FlutterPlugin, IOSCoreApi {
     }
 
     public func setApiKey(key:String) {
+        DriveKit.shared.setApiKey(key: key)
     }
 }
