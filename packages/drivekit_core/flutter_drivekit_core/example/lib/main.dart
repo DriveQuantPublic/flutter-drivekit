@@ -1,5 +1,5 @@
-import 'package:drivekit_core/drivekit_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_drivekit_core/flutter_drivekit_core.dart';
 
 void main() => runApp(const MyApp());
 

@@ -2,7 +2,7 @@
   "folders": [
     {
       "name": "⚙️ DriveKit core",
-      "path": "packages/drivekit_core/drivekit_core"
+      "path": "packages/drivekit_core/flutter_drivekit_core"
     },
     {
       "name": "💼 DriveKit core platform interface",

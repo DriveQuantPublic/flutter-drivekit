@@ -1,4 +1,4 @@
-name: drivekit_core
+name: flutter_drivekit_core
 description: Flutter plugin for DriveQuant's DriveKit core SDK
 version: 0.1.0+1
 publish_to: none

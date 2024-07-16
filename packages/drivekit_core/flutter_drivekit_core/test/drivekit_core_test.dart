@@ -1,5 +1,5 @@
-import 'package:drivekit_core/drivekit_core.dart';
 import 'package:drivekit_core_platform_interface/drivekit_core_platform_interface.dart';
+import 'package:flutter_drivekit_core/flutter_drivekit_core.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
