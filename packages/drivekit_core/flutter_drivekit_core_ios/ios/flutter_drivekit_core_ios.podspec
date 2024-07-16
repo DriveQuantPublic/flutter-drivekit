@@ -2,7 +2,7 @@
 # To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html
 #
 Pod::Spec.new do |s|
-  s.name             = 'drivekit_core_ios'
+  s.name             = 'flutter_drivekit_core_ios'
   s.version          = '0.0.1'
   s.summary          = 'An iOS implementation of the drivekit_core plugin.'
   s.description      = <<-DESC
