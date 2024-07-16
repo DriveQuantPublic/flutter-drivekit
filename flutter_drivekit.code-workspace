@@ -6,7 +6,7 @@
     },
     {
       "name": "💼 DriveKit core platform interface",
-      "path": "packages/drivekit_core/drivekit_core_platform_interface"
+      "path": "packages/drivekit_core/flutter_drivekit_core_platform_interface"
     },
     {
       "name": "🤖 DriveKit core android",

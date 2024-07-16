@@ -16,10 +16,10 @@ flutter:
         dartPluginClass: DrivekitCoreAndroid
 
 dependencies:
-  drivekit_core_platform_interface:
-    path: ../drivekit_core_platform_interface
   flutter:
     sdk: flutter
+  flutter_drivekit_core_platform_interface:
+    path: ../flutter_drivekit_core_platform_interface
 
 dev_dependencies:
   flutter_test:

@@ -1,5 +1,5 @@
-import 'package:drivekit_core_platform_interface/src/method_channel_drivekit_core.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_drivekit_core_platform_interface/src/method_channel_drivekit_core.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

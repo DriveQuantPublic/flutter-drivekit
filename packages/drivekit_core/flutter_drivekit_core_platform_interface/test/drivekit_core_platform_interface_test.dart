@@ -1,4 +1,4 @@
-import 'package:drivekit_core_platform_interface/drivekit_core_platform_interface.dart';
+import 'package:flutter_drivekit_core_platform_interface/flutter_drivekit_core_platform_interface.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 class DrivekitCoreMock extends DrivekitCorePlatform {

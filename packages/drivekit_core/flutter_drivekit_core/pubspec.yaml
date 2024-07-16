@@ -19,10 +19,10 @@ dependencies:
     path: ../drivekit_core_android
   drivekit_core_ios:
     path: ../drivekit_core_ios
-  drivekit_core_platform_interface:
-    path: ../drivekit_core_platform_interface
   flutter:
     sdk: flutter
+  flutter_drivekit_core_platform_interface:
+    path: ../flutter_drivekit_core_platform_interface
 
 dev_dependencies:
   flutter_test:

@@ -1,4 +1,4 @@
-import 'package:drivekit_core_platform_interface/src/method_channel_drivekit_core.dart';
+import 'package:flutter_drivekit_core_platform_interface/src/method_channel_drivekit_core.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 /// The interface that implementations of drivekit_core must implement.

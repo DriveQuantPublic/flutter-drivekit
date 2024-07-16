@@ -1,6 +1,6 @@
-import 'package:drivekit_core_platform_interface/drivekit_core_platform_interface.dart';
 import 'package:flutter/foundation.dart' show visibleForTesting;
 import 'package:flutter/services.dart';
+import 'package:flutter_drivekit_core_platform_interface/flutter_drivekit_core_platform_interface.dart';
 
 /// An implementation of [DrivekitCorePlatform] that uses method channels.
 class MethodChannelDrivekitCore extends DrivekitCorePlatform {
