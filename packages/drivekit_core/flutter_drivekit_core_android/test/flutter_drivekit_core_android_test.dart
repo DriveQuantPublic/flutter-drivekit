@@ -1,4 +1,4 @@
-import 'package:drivekit_core_android/drivekit_core_android.dart';
+import 'package:flutter_drivekit_core_android/flutter_drivekit_core_android.dart';
 import 'package:flutter_drivekit_core_platform_interface/flutter_drivekit_core_platform_interface.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';

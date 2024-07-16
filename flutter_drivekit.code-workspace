@@ -10,7 +10,7 @@
     },
     {
       "name": "🤖 DriveKit core android",
-      "path": "packages/drivekit_core/drivekit_core_android"
+      "path": "packages/drivekit_core/flutter_drivekit_core_android"
     },
     {
       "name": "🍎 DriveKit core iOS",
