@@ -29,5 +29,5 @@ abstract class DrivekitCorePlatform extends PlatformInterface {
   }
 
   /// Return the current platform name.
-  Future<String?> getPlatformName();
+  Future<String> getPlatformName();
 }

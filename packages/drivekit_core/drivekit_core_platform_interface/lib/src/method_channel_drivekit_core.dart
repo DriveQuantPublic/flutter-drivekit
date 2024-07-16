@@ -9,7 +9,7 @@ class MethodChannelDrivekitCore extends DrivekitCorePlatform {
   final methodChannel = const MethodChannel('drivekit_core');
 
   @override
-  Future<String?> getPlatformName() {
-    return methodChannel.invokeMethod<String>('getPlatformName');
+  Future<String> getPlatformName() {
+    throw UnimplementedError('getPlatformName() has not been implemented.');
   }
 }
