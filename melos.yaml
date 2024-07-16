@@ -19,7 +19,30 @@ scripts:
       dart fix . --apply && 
       dart format lib test
     description: Run fix in every packages
-  
+
+  test:
+    exec: flutter test --no-pub --test-randomize-ordering-seed random
+    description: Run test in every packages
+    packageFilters:
+      dirExists:
+        - test
+  test:cov:
+    exec: |
+      rm -rf coverage && \
+      flutter test --coverage --no-pub --test-randomize-ordering-seed random && \
+      remove_from_coverage -f coverage/lcov.info -r '\.g\.dart|\.freezed\.dart' && \
+      genhtml coverage/lcov.info -o coverage 
+    description: Run test with coverage in every packages
+    packageFilters:
+      dirExists:
+        - test
+  open:cov:
+    exec: |
+      open coverage/index.html
+    description: Open test coverage in a package
+    packageFilters:
+      fileExists: "coverage/index.html"
+
   pigeon:
     exec: |
       dart run pigeon \
