@@ -14,6 +14,8 @@ class _SliverApiKeyState extends State<SliverApiKey> {
   final TextEditingController _apiKeyController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final driveKitCore = DriveKitCore();
+
     return MultiSliver(
       children: [
         TextField(
@@ -27,7 +29,7 @@ class _SliverApiKeyState extends State<SliverApiKey> {
         SliverToBoxAdapter(
           child: ElevatedButton(
             onPressed: () {
-              setApiKey(_apiKeyController.text);
+              driveKitCore.setApiKey(_apiKeyController.text);
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   backgroundColor: Theme.of(context).primaryColor,

@@ -10,6 +10,7 @@ class MockDrivekitCorePlatform extends Mock
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+  final driveKitCore = DriveKitCore();
 
   group('DrivekitCore', () {
     late DrivekitCorePlatform drivekitCorePlatform;
@@ -27,7 +28,7 @@ void main() {
           () => drivekitCorePlatform.getPlatformName(),
         ).thenAnswer((_) async => platformName);
 
-        final actualPlatformName = await getPlatformName();
+        final actualPlatformName = await driveKitCore.getPlatformName();
         expect(actualPlatformName, equals(platformName));
       });
     });
