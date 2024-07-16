@@ -18,7 +18,7 @@
     },
     {
       "name": "📈 DriveKit trip analysis",
-      "path": "packages/drivekit_trip_analysis/driveKit_trip_analysis"
+      "path": "packages/drivekit_trip_analysis/flutter_driveKit_trip_analysis"
     },
     {
       "name": "💼 DriveKit trip analysis platform interface",

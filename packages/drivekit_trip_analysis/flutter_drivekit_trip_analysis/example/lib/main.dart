@@ -1,5 +1,5 @@
-import 'package:drivekit_trip_analysis/drivekit_trip_analysis.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_drivekit_trip_analysis/flutter_drivekit_trip_analysis.dart';
 
 void main() => runApp(const MyApp());
 

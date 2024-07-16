@@ -1,4 +1,4 @@
-name: drivekit_trip_analysis
+name: flutter_drivekit_trip_analysis
 description: Flutter plugin for DriveQuant's DriveKit trip analysis SDK
 version: 0.1.0+1
 publish_to: none
