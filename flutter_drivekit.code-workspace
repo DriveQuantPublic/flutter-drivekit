@@ -26,7 +26,7 @@
     },
     {
       "name": "🤖 DriveKit trip analysis android",
-      "path": "packages/drivekit_trip_analysis/driveKit_trip_analysis_android"
+      "path": "packages/drivekit_trip_analysis/flutter_driveKit_trip_analysis_android"
     },
     {
       "name": "🍎 DriveKit trip analysis iOS",
