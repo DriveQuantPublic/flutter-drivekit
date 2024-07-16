@@ -3,6 +3,8 @@ name: flutter_drivekit
 packages:
   - packages/drivekit_core/*
   - packages/drivekit_trip_analysis/*
+  - packages/drivekit_core/drivekit_core/example
+  - packages/drivekit_trip_analysis/drivekit_trip_analysis/example
 
 scripts:
   analyze:

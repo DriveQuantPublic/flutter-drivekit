@@ -11,7 +11,7 @@ flutter:
     implements: drivekit_core
     platforms:
       android:
-        package: com.example.verygoodcore
+        package: com.drivekit.core
         pluginClass: DrivekitCorePlugin
         dartPluginClass: DrivekitCoreAndroid
 
@@ -24,5 +24,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  mocktail: ^1.0.4
+  pigeon: ^20.0.2
   plugin_platform_interface: ^2.1.8
   very_good_analysis: ^6.0.0

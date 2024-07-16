@@ -1,0 +1,23 @@
+package com.drivekit.trip_analysis
+
+import AndroidTripAnalysisApi
+import android.content.Context
+import io.flutter.embedding.engine.plugins.FlutterPlugin
+
+class DrivekitTripAnalysisPlugin : FlutterPlugin, AndroidTripAnalysisApi {
+    private var context: Context? = null
+
+    override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
+        AndroidTripAnalysisApi.setUp(flutterPluginBinding.binaryMessenger, this)
+        context = flutterPluginBinding.applicationContext
+    }
+
+    override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
+        AndroidTripAnalysisApi.setUp(binding.binaryMessenger, null)
+        context = null
+    }
+
+    override fun getPlatformName(): String {
+        return "android"
+    }
+}

@@ -1,14 +1,17 @@
 import Flutter
 import UIKit
 
-public class DrivekitCorePlugin: NSObject, FlutterPlugin {
-  public static func register(with registrar: FlutterPluginRegistrar) {
-    let channel = FlutterMethodChannel(name: "drivekit_core_ios", binaryMessenger: registrar.messenger())
-    let instance = DrivekitCorePlugin()
-    registrar.addMethodCallDelegate(instance, channel: channel)
-  }
+extension FlutterError: Error {}
 
-  public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-    result("iOS")
-  }
+public class DrivekitCorePlugin: NSObject, FlutterPlugin, IOSCoreApi {
+    public static func register(with registrar: FlutterPluginRegistrar) {
+        let messenger : FlutterBinaryMessenger = registrar.messenger()
+        let api : IOSCoreApi & NSObjectProtocol = DrivekitCorePlugin.init()
+
+        IOSCoreApiSetup.setUp(binaryMessenger: messenger, api: api);
+    }
+
+    public func getPlatformName() throws -> String {
+        return "iOS"
+    }
 }
