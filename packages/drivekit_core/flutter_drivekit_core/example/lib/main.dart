@@ -24,14 +24,23 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('DrivekitCore Example')),
-      body: const CustomScrollView(
+    return const Scaffold(
+      body: CustomScrollView(
         slivers: [
+          SliverAppBar(
+            title: Text('DriveKit Core Example'),
+            pinned: true,
+          ),
           SliverGap(32),
-          SliverPlatformName(),
+          SliverPadding(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            sliver: SliverPlatformName(),
+          ),
           SliverGap(32),
-          SliverApiKey(),
+          SliverPadding(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            sliver: SliverApiKey(),
+          ),
           SliverGap(32),
         ],
       ),
