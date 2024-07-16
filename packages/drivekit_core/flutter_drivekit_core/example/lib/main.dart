@@ -1,3 +1,4 @@
+import 'package:drivekit_core_example/widgets/sliver_api_key.dart';
 import 'package:drivekit_core_example/widgets/sliver_platform_name.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -29,6 +30,8 @@ class _HomePageState extends State<HomePage> {
         slivers: [
           SliverGap(32),
           SliverPlatformName(),
+          SliverGap(32),
+          SliverApiKey(),
           SliverGap(32),
         ],
       ),

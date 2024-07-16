@@ -15,35 +15,37 @@ class _SliverPlatformNameState extends State<SliverPlatformName> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiSliver(children: [
-      if (_platformName != null)
+    return MultiSliver(
+      children: [
+        if (_platformName != null)
+          SliverToBoxAdapter(
+            child: Text(
+              'Platform Name: $_platformName',
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
+          ),
+        const SliverGap(16),
         SliverToBoxAdapter(
-          child: Text(
-            'Platform Name: $_platformName',
-            style: Theme.of(context).textTheme.headlineSmall,
+          child: ElevatedButton(
+            onPressed: () async {
+              if (!context.mounted) return;
+              try {
+                final result = await getPlatformName();
+                setState(() => _platformName = result);
+              } catch (error) {
+                if (!context.mounted) return;
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    backgroundColor: Theme.of(context).primaryColor,
+                    content: Text('$error'),
+                  ),
+                );
+              }
+            },
+            child: const Text('Get Platform Name'),
           ),
         ),
-      const SliverGap(16),
-      SliverToBoxAdapter(
-        child: ElevatedButton(
-          onPressed: () async {
-            if (!context.mounted) return;
-            try {
-              final result = await getPlatformName();
-              setState(() => _platformName = result);
-            } catch (error) {
-              if (!context.mounted) return;
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  backgroundColor: Theme.of(context).primaryColor,
-                  content: Text('$error'),
-                ),
-              );
-            }
-          },
-          child: const Text('Get Platform Name'),
-        ),
-      ),
-    ]);
+      ],
+    );
   }
 }
