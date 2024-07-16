@@ -14,4 +14,7 @@ public class DrivekitCorePlugin: NSObject, FlutterPlugin, IOSCoreApi {
     public func getPlatformName() throws -> String {
         return "iOS"
     }
+
+    public func setApiKey(key:String) {
+    }
 }

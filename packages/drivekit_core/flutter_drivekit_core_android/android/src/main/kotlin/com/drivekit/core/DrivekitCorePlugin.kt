@@ -22,4 +22,8 @@ class DrivekitCorePlugin : FlutterPlugin, AndroidCoreApi {
         return "android"
     }
 
+    override fun setApiKey(key:String) {
+
+    }
+
 }
