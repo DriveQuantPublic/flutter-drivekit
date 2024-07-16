@@ -5,7 +5,7 @@ class DrivekitTripAnalysisMock extends DrivekitTripAnalysisPlatform {
   static const mockPlatformName = 'Mock';
 
   @override
-  Future<String?> getPlatformName() async => mockPlatformName;
+  Future<String> getPlatformName() async => mockPlatformName;
 }
 
 void main() {

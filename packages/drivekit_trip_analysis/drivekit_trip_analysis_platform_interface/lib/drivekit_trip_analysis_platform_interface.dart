@@ -32,5 +32,5 @@ abstract class DrivekitTripAnalysisPlatform extends PlatformInterface {
   }
 
   /// Return the current platform name.
-  Future<String?> getPlatformName();
+  Future<String> getPlatformName();
 }

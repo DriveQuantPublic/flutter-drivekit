@@ -10,7 +10,7 @@ class MethodChannelDrivekitTripAnalysis extends DrivekitTripAnalysisPlatform {
   final methodChannel = const MethodChannel('drivekit_trip_analysis');
 
   @override
-  Future<String?> getPlatformName() {
-    return methodChannel.invokeMethod<String>('getPlatformName');
+  Future<String> getPlatformName() {
+    throw UnimplementedError('getPlatformName() has not been implemented.');
   }
 }

@@ -30,15 +30,6 @@ void main() {
         final actualPlatformName = await getPlatformName();
         expect(actualPlatformName, equals(platformName));
       });
-
-      test('throws exception when platform implementation is missing',
-          () async {
-        when(
-          () => drivekitTripAnalysisPlatform.getPlatformName(),
-        ).thenAnswer((_) async => null);
-
-        expect(getPlatformName, throwsException);
-      });
     });
   });
 }
