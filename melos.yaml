@@ -19,3 +19,13 @@ scripts:
       dart fix . --apply && 
       dart format lib test
     description: Run fix in every packages
+  
+  pigeon:
+    exec: |
+      dart run pigeon \
+      --input pigeon/messages.dart \
+    packageFilters:
+      dirExists:
+        - pigeon
+
+    description: Generate pigeon code
