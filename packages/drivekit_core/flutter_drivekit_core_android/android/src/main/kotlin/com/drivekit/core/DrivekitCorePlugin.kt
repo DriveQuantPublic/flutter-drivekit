@@ -3,6 +3,7 @@ package com.drivekit.core
 import AndroidCoreApi
 import android.content.Context
 import io.flutter.embedding.engine.plugins.FlutterPlugin
+import com.drivequant.drivekit.core.DriveKit
 
 class DrivekitCorePlugin : FlutterPlugin, AndroidCoreApi {
     private var context: Context? = null
@@ -23,7 +24,7 @@ class DrivekitCorePlugin : FlutterPlugin, AndroidCoreApi {
     }
 
     override fun setApiKey(key:String) {
-
+       DriveKit.setApiKey(key)
     }
 
 }

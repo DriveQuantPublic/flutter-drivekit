@@ -14,10 +14,13 @@ buildscript {
     }
 }
 
-allprojects {
+rootProject.allprojects {
     repositories {
         google()
         mavenCentral()
+        maven {
+            url "https://maven.drivequant.com/repository/android-sdk/"
+        }
     }
 }
 
@@ -52,6 +55,7 @@ android {
     dependencies {
         testImplementation 'org.jetbrains.kotlin:kotlin-test'
         testImplementation 'org.mockito:mockito-core:5.0.0'
+        implementation 'com.drivequant.drivekit:drivekit-core:2.3.0'
     }
 
     testOptions {
