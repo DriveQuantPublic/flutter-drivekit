@@ -34,6 +34,7 @@ android {
     }
 
 
+    namespace = "com.example.verygoodcore.example"
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
