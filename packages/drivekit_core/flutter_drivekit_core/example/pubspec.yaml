@@ -11,6 +11,10 @@ dependencies:
     sdk: flutter
   flutter_drivekit_core:
     path: ../
+  gap: ^3.0.1
+  sliver_tools: ^0.2.12
+
+  
 
 dev_dependencies:
   flutter_test:
