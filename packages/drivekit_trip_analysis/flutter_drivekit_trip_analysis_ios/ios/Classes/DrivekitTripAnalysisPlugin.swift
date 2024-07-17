@@ -1,5 +1,6 @@
 import Flutter
 import UIKit
+import DriveKitTripAnalysisModule
 
 extension FlutterError: Error {}
 
