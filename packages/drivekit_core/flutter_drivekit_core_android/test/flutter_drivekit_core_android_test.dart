@@ -22,5 +22,16 @@ void main() {
       final name = await drivekitCore.getPlatformName();
       expect(name, 'Android');
     });
+
+    test('setApiKey calls setApiKey method with correct key', () async {
+      //mock
+      final androidCoreApi = MockAndroidCoreApi();
+      when(() => androidCoreApi.setApiKey(any())).thenAnswer((_) async {});
+
+      //test
+      final drivekitCore = DrivekitCoreAndroid(androidCoreApi: androidCoreApi);
+      await drivekitCore.setApiKey('api_key');
+      verify(() => androidCoreApi.setApiKey('api_key')).called(1);
+    });
   });
 }

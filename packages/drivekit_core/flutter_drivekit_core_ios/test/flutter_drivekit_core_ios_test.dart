@@ -22,5 +22,16 @@ void main() {
       final name = await drivekitCore.getPlatformName();
       expect(name, 'iOS');
     });
+
+    test('setApiKey calls setApiKey method with correct key', () async {
+      //mock
+      final iosCoreApi = MockIOSCoreApi();
+      when(() => iosCoreApi.setApiKey(any())).thenAnswer((_) async {});
+
+      //test
+      final drivekitCore = DrivekitCoreIOS(iosCoreApi: iosCoreApi);
+      await drivekitCore.setApiKey('api_key');
+      verify(() => iosCoreApi.setApiKey('api_key')).called(1);
+    });
   });
 }

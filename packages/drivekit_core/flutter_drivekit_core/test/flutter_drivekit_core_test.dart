@@ -32,5 +32,15 @@ void main() {
         expect(actualPlatformName, equals(platformName));
       });
     });
+
+    group('setApiKey', () {
+      test('calls setApiKey on platform implementation', () async {
+        when(() => drivekitCorePlatform.setApiKey(any()))
+            .thenAnswer((_) async {});
+
+        await driveKitCore.setApiKey('api_key');
+        verify(() => drivekitCorePlatform.setApiKey('api_key'));
+      });
+    });
   });
 }
