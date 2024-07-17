@@ -12,5 +12,7 @@ concurrency:
 jobs:
   analyze:
     uses: ./.github/workflows/shared-analyze.yaml
+  test:
+    uses: ./.github/workflows/shared-test.yaml
 
 
