@@ -38,5 +38,14 @@ void main() {
       await DrivekitCorePlatform.instance.setApiKey('api_key');
       verify(() => androidCoreApi.setApiKey('api_key')).called(1);
     });
+
+    test('setUserId calls setUserId method with correct ID', () async {
+      //mock
+      when(() => androidCoreApi.setUserId(any())).thenAnswer((_) async {});
+
+      //test
+      await DrivekitCorePlatform.instance.setUserId('user_id');
+      verify(() => androidCoreApi.setUserId('user_id')).called(1);
+    });
   });
 }

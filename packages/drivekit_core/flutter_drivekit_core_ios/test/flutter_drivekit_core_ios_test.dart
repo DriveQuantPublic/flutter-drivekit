@@ -37,5 +37,14 @@ void main() {
       await DrivekitCorePlatform.instance.setApiKey('api_key');
       verify(() => iosCoreApi.setApiKey('api_key')).called(1);
     });
+
+    test('setUserId calls setUserId method with correct key', () async {
+      //mock
+      when(() => iosCoreApi.setUserId(any())).thenAnswer((_) async {});
+
+      //test
+      await DrivekitCorePlatform.instance.setUserId('user_id');
+      verify(() => iosCoreApi.setUserId('user_id')).called(1);
+    });
   });
 }

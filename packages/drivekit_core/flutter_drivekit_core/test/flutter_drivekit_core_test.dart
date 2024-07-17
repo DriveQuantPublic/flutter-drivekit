@@ -42,5 +42,15 @@ void main() {
         verify(() => drivekitCorePlatform.setApiKey('api_key'));
       });
     });
+
+    group('setUserId', () {
+      test('calls setUserId on platform implementation', () async {
+        when(() => drivekitCorePlatform.setUserId(any()))
+            .thenAnswer((_) async {});
+
+        await driveKitCore.setUserId('user_id');
+        verify(() => drivekitCorePlatform.setUserId('user_id'));
+      });
+    });
   });
 }
