@@ -9,7 +9,7 @@ class DriveKitCore {
   Future<String> getPlatformName() => _platform.getPlatformName();
 
   /// Sets the DriveQuant API key.
-  /// You should the key in a secure place in your app, and then
+  /// You should store the key in a secure place in your app, and then
   /// call this method with the key to initiate the SDK.
   /// If you don't have an API key, please contact [DriveQuant](https://docs.drivequant.com/#contact-us).
   ///
