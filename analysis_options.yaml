@@ -3,3 +3,6 @@ analyzer:
   exclude:
     - "build/**"
     - "**/*.g.dart"
+linter:
+  rules: 
+    avoid_positional_boolean_parameters: false

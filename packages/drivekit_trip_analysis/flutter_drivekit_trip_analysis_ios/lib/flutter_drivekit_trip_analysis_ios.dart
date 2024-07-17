@@ -25,5 +25,6 @@ class DrivekitTripAnalysisIOS extends DrivekitTripAnalysisPlatform {
   Future<String> getPlatformName() => iosTripAnalysisApi.getPlatformName();
 
   @override
-  Future<void> activateAutoStart(bool activate) => iosTripAnalysisApi.activateAutoStart(activate);
+  Future<void> activateAutoStart(bool activate) =>
+      iosTripAnalysisApi.activateAutoStart(activate);
 }
