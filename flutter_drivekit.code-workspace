@@ -5,7 +5,7 @@
       "path": "packages/drivekit_core/flutter_drivekit_core"
     },
     {
-      "name": "💼 DriveKit core platform interface",
+      "name": "📚 DriveKit core platform interface",
       "path": "packages/drivekit_core/flutter_drivekit_core_platform_interface"
     },
     {
@@ -21,7 +21,7 @@
       "path": "packages/drivekit_trip_analysis/flutter_driveKit_trip_analysis"
     },
     {
-      "name": "💼 DriveKit trip analysis platform interface",
+      "name": "📚 DriveKit trip analysis platform interface",
       "path": "packages/drivekit_trip_analysis/flutter_driveKit_trip_analysis_platform_interface"
     },
     {

@@ -1,4 +1,4 @@
-import 'package:flutter_drivekit_core_platform_interface/src/method_channel_drivekit_core.dart';
+import 'package:flutter_drivekit_core_platform_interface/src/default_drivekit_core.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 /// The interface that implementations of drivekit_core must implement.
@@ -14,11 +14,11 @@ abstract class DrivekitCorePlatform extends PlatformInterface {
 
   static final Object _token = Object();
 
-  static DrivekitCorePlatform _instance = MethodChannelDrivekitCore();
+  static DrivekitCorePlatform _instance = DefaultDrivekitCore();
 
   /// The default instance of [DrivekitCorePlatform] to use.
   ///
-  /// Defaults to [MethodChannelDrivekitCore].
+  /// Defaults to [DefaultDrivekitCore].
   static DrivekitCorePlatform get instance => _instance;
 
   /// Platform-specific plugins should set this with their own platform-specific

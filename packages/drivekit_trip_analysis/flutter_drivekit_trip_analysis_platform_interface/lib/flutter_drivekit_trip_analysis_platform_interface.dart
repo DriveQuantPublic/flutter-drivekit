@@ -1,4 +1,4 @@
-import 'package:flutter_drivekit_trip_analysis_platform_interface/src/method_channel_drivekit_trip_analysis.dart';
+import 'package:flutter_drivekit_trip_analysis_platform_interface/src/default_drivekit_trip_analysis.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 /// The interface that implementations of drivekit_trip_analysis must implement.
@@ -15,12 +15,11 @@ abstract class DrivekitTripAnalysisPlatform extends PlatformInterface {
 
   static final Object _token = Object();
 
-  static DrivekitTripAnalysisPlatform _instance =
-      MethodChannelDrivekitTripAnalysis();
+  static DrivekitTripAnalysisPlatform _instance = DefaultDrivekitTripAnalysis();
 
   /// The default instance of [DrivekitTripAnalysisPlatform] to use.
   ///
-  /// Defaults to [MethodChannelDrivekitTripAnalysis].
+  /// Defaults to [DefaultDrivekitTripAnalysis].
   static DrivekitTripAnalysisPlatform get instance => _instance;
 
   /// Platform-specific plugins should set this with their own platform-specific
