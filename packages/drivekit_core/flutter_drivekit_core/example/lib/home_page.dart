@@ -1,5 +1,6 @@
 import 'package:drivekit_core_example/widgets/sliver_api_key.dart';
 import 'package:drivekit_core_example/widgets/sliver_platform_name.dart';
+import 'package:drivekit_core_example/widgets/sliver_set_user_id.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -24,6 +25,11 @@ class HomePage extends StatelessWidget {
           SliverPadding(
             padding: EdgeInsets.symmetric(horizontal: 16),
             sliver: SliverApiKey(),
+          ),
+          SliverGap(32),
+          SliverPadding(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            sliver: SliverSetUserId(),
           ),
           SliverGap(32),
         ],
