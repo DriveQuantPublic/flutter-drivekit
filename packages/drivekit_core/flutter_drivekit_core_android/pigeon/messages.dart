@@ -15,4 +15,5 @@ import 'package:pigeon/pigeon.dart';
 abstract class AndroidCoreApi {
   String getPlatformName();
   void setApiKey(String key);
+  void setUserId(String userId);
 }

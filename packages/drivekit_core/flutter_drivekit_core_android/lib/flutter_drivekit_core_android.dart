@@ -25,4 +25,7 @@ class DrivekitCoreAndroid extends DrivekitCorePlatform {
 
   @override
   Future<void> setApiKey(String key) => androidCoreApi.setApiKey(key);
+
+  @override
+  Future<void> setUserId(String userId) => androidCoreApi.setUserId(userId);
 }

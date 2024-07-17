@@ -19,4 +19,8 @@ public class DrivekitCorePlugin: NSObject, FlutterPlugin, IOSCoreApi {
     public func setApiKey(key:String) {
         DriveKit.shared.setApiKey(key: key)
     }
+
+    public func setUserId(userId:String) {
+        DriveKit.shared.setUserId(userId: userId)
+    }
 }

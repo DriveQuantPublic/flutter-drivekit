@@ -32,5 +32,25 @@ void main() {
         expect(actualPlatformName, equals(platformName));
       });
     });
+
+    group('setApiKey', () {
+      test('calls setApiKey on platform implementation', () async {
+        when(() => drivekitCorePlatform.setApiKey(any()))
+            .thenAnswer((_) async {});
+
+        await driveKitCore.setApiKey('api_key');
+        verify(() => drivekitCorePlatform.setApiKey('api_key'));
+      });
+    });
+
+    group('setUserId', () {
+      test('calls setUserId on platform implementation', () async {
+        when(() => drivekitCorePlatform.setUserId(any()))
+            .thenAnswer((_) async {});
+
+        await driveKitCore.setUserId('user_id');
+        verify(() => drivekitCorePlatform.setUserId('user_id'));
+      });
+    });
   });
 }

@@ -8,8 +8,24 @@ class DriveKitCore {
   /// Returns the name of the current platform.
   Future<String> getPlatformName() => _platform.getPlatformName();
 
-  /// Sets the API key.
+  /// Sets the DriveQuant API key.
+  /// You should store the key in a secure place in your app, and then
+  /// call this method with the key to initiate the SDK.
+  /// If you don't have an API key, please contact [DriveQuant](https://docs.drivequant.com/#contact-us).
+  ///
+  /// DriveKit SDK will not work until you set the API key and the userId.
   Future<void> setApiKey(String key) async {
     await _platform.setApiKey(key);
+  }
+
+  /// Identifies the user with the given id.
+  /// Each driver must be identified with a unique identifier.
+  /// You can call setApiKey and setUserId methods anywhere in the code.
+  /// DriveKit will save the value locally. If the app is killed and
+  /// relaunched, DriveKit will be reconfigured automatically
+  ///
+  /// DriveKit SDK will not work until you set the API key and the userId.
+  Future<void> setUserId(String userId) async {
+    await _platform.setUserId(userId);
   }
 }
