@@ -27,4 +27,8 @@ class DrivekitCorePlugin : FlutterPlugin, AndroidCoreApi {
        DriveKit.setApiKey(key)
     }
 
+    override fun setUserId(userId:String) {
+        DriveKit.setUserId(userId)
+    }
+
 }
