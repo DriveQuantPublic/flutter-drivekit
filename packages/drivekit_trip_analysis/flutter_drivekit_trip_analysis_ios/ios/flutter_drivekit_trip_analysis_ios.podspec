@@ -2,7 +2,7 @@
 # To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html
 #
 Pod::Spec.new do |s|
-  s.name             = 'drivekit_trip_analysis_ios'
+  s.name             = 'flutter_drivekit_trip_analysis_ios'
   s.version          = '0.0.1'
   s.summary          = 'An iOS implementation of the drivekit_trip_analysis plugin.'
   s.description      = <<-DESC
@@ -11,10 +11,10 @@ Pod::Spec.new do |s|
   s.homepage         = 'http://example.com'
   s.license          = { :type => 'BSD', :file => '../LICENSE' }
   s.author           = { 'Your Company' => 'email@example.com' }
-  s.source           = { :path => '.' }  
+  s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
-  s.platform = :ios, '9.0'
+  s.platform = :ios, '12.0'
 
   # Flutter.framework does not contain a i386 slice.
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386' }
