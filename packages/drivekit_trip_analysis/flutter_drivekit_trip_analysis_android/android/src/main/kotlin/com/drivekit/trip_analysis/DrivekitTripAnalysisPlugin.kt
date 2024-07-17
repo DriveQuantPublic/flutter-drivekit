@@ -2,6 +2,7 @@ package com.drivekit.trip_analysis
 
 import AndroidTripAnalysisApi
 import android.content.Context
+import com.drivequant.drivekit.tripanalysis.DriveKitTripAnalysis
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 
 class DrivekitTripAnalysisPlugin : FlutterPlugin, AndroidTripAnalysisApi {
