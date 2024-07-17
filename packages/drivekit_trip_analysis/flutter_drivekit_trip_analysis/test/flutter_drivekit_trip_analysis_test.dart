@@ -12,6 +12,7 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   group('DrivekitTripAnalysis', () {
+    final driveKitTripAnalysis = DrivekitTripAnalysis();
     late DrivekitTripAnalysisPlatform drivekitTripAnalysisPlatform;
 
     setUp(() {
@@ -27,7 +28,7 @@ void main() {
           () => drivekitTripAnalysisPlatform.getPlatformName(),
         ).thenAnswer((_) async => platformName);
 
-        final actualPlatformName = await getPlatformName();
+        final actualPlatformName = await driveKitTripAnalysis.getPlatformName();
         expect(actualPlatformName, equals(platformName));
       });
     });

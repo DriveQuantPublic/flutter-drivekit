@@ -3,5 +3,9 @@ import 'package:flutter_drivekit_trip_analysis_platform_interface/flutter_drivek
 DrivekitTripAnalysisPlatform get _platform =>
     DrivekitTripAnalysisPlatform.instance;
 
-/// Returns the name of the current platform.
-Future<String> getPlatformName() => _platform.getPlatformName();
+/// The main class of the plugin.
+/// This class provides methods to interact with the DriveKit Trip Analysis SDK.
+class DrivekitTripAnalysis {
+  /// Returns the name of the current platform.
+  Future<String> getPlatformName() => _platform.getPlatformName();
+}

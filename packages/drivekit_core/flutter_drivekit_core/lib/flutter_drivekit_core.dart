@@ -2,10 +2,14 @@ import 'package:flutter_drivekit_core_platform_interface/flutter_drivekit_core_p
 
 DrivekitCorePlatform get _platform => DrivekitCorePlatform.instance;
 
-/// Returns the name of the current platform.
-Future<String> getPlatformName() => _platform.getPlatformName();
+/// The main class of the plugin.
+/// This class provides methods to interact with the DriveKit Core SDK.
+class DriveKitCore {
+  /// Returns the name of the current platform.
+  Future<String> getPlatformName() => _platform.getPlatformName();
 
-/// Sets the API key.
-Future<void> setApiKey(String key) async {
-  await _platform.setApiKey(key);
+  /// Sets the API key.
+  Future<void> setApiKey(String key) async {
+    await _platform.setApiKey(key);
+  }
 }
