@@ -3,7 +3,7 @@ plugins {
     id "kotlin-android"
 }
 
-group 'com.example.verygoodcore'
+group 'com.example.verygoodtrip'
 version '1.0-SNAPSHOT'
 
 rootProject.allprojects {
@@ -18,7 +18,7 @@ rootProject.allprojects {
 
 android {
     if (project.android.hasProperty("namespace")) {
-        namespace 'com.example.verygoodcore'
+        namespace 'com.example.verygoodtrip'
     }
 
     compileSdk 34
