@@ -15,4 +15,8 @@ public class DrivekitTripAnalysisPlugin: NSObject, FlutterPlugin, IOSTripAnalysi
     public func getPlatformName() throws -> String {
         return "iOS"
     }
+
+    public func activateAutoStart(activate: Bool) throws {
+        DriveKitTripAnalysis.shared.activateAutoStart(enable: activate)
+    }
 }

@@ -14,4 +14,5 @@ import 'package:pigeon/pigeon.dart';
 @HostApi()
 abstract class IOSTripAnalysisApi {
   String getPlatformName();
+  void activateAutoStart(bool activate);
 }

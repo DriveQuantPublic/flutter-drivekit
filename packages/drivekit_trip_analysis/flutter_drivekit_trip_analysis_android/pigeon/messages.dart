@@ -15,4 +15,5 @@ import 'package:pigeon/pigeon.dart';
 @HostApi()
 abstract class AndroidTripAnalysisApi {
   String getPlatformName();
+  void activateAutoStart(bool activate);
 }
