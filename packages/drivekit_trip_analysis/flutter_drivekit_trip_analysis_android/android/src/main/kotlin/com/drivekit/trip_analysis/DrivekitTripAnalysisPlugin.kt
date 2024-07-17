@@ -21,4 +21,9 @@ class DrivekitTripAnalysisPlugin : FlutterPlugin, AndroidTripAnalysisApi {
     override fun getPlatformName(): String {
         return "android"
     }
+
+    override fun activateAutoStart(activate: Boolean) {
+        DriveKitTripAnalysis.activateAutoStart(activate)
+    }
+
 }

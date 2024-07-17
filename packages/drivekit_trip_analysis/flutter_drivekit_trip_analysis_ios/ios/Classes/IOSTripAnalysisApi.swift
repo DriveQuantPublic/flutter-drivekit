@@ -86,6 +86,7 @@ class IOSTripAnalysisApiPigeonCodec: FlutterStandardMessageCodec, @unchecked Sen
 /// Generated protocol from Pigeon that represents a handler of messages from Flutter.
 protocol IOSTripAnalysisApi {
   func getPlatformName() throws -> String
+  func activateAutoStart(activate: Bool) throws
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
@@ -106,6 +107,21 @@ class IOSTripAnalysisApiSetup {
       }
     } else {
       getPlatformNameChannel.setMessageHandler(nil)
+    }
+    let activateAutoStartChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.pigeon_trip_analysis_package.IOSTripAnalysisApi.activateAutoStart\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      activateAutoStartChannel.setMessageHandler { message, reply in
+        let args = message as! [Any?]
+        let activateArg = args[0] as! Bool
+        do {
+          try api.activateAutoStart(activate: activateArg)
+          reply(wrapResult(nil))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      activateAutoStartChannel.setMessageHandler(nil)
     }
   }
 }

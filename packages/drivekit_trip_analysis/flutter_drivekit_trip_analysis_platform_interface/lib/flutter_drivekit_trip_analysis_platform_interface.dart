@@ -32,4 +32,7 @@ abstract class DrivekitTripAnalysisPlatform extends PlatformInterface {
 
   /// Return the current platform name.
   Future<String> getPlatformName();
+
+  /// Activate autostart mode.
+  Future<void> activateAutoStart(bool activate);
 }
