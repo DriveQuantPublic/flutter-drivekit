@@ -9,6 +9,8 @@ class DefaultDrivekitTripAnalysis extends DrivekitTripAnalysisPlatform {
   Future<String> getPlatformName() {
     throw UnimplementedError('getPlatformName() has not been implemented.');
   }
+
+  @override
   Future<void> activateAutoStart(bool activate) {
     throw UnimplementedError('activateAutoStart() has not been implemented.');
   }
