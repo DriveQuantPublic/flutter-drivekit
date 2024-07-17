@@ -33,4 +33,7 @@ abstract class DrivekitCorePlatform extends PlatformInterface {
 
   /// Set the API key.
   Future<void> setApiKey(String key);
+
+  /// Identifies the user with the given id.
+  Future<void> setUserId(String userId);
 }

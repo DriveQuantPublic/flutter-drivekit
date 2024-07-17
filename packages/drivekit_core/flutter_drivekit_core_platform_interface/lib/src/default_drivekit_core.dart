@@ -14,4 +14,9 @@ class DefaultDrivekitCore extends DrivekitCorePlatform {
   Future<void> setApiKey(String key) {
     throw UnimplementedError('setApiKey() has not been implemented.');
   }
+
+  @override
+  Future<void> setUserId(String userId) {
+    throw UnimplementedError('setUserId() has not been implemented.');
+  }
 }

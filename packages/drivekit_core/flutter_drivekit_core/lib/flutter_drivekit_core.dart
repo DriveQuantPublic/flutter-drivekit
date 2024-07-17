@@ -12,4 +12,9 @@ class DriveKitCore {
   Future<void> setApiKey(String key) async {
     await _platform.setApiKey(key);
   }
+
+  /// Identifies the user with the given id.
+  Future<void> setUserId(String userId) async {
+    await _platform.setUserId(userId);
+  }
 }
