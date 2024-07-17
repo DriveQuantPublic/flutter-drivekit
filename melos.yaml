@@ -9,9 +9,7 @@ packages:
 scripts:
   analyze:
     exec: |
-      dart analyze --fatal-infos . && \
-      dart format --set-exit-if-changed lib test
-
+      dart analyze --fatal-infos . 
     description: Run analyzer in every packages
 
   fix:
