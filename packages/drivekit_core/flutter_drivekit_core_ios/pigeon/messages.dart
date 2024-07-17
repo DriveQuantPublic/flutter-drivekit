@@ -7,7 +7,7 @@ import 'package:pigeon/pigeon.dart';
     dartOut: 'lib/src/core_api.g.dart',
     dartOptions: DartOptions(),
     swiftOut: 'ios/Classes/IOSCoreApi.swift',
-    swiftOptions: SwiftOptions(),
+    swiftOptions: SwiftOptions(errorClassName: 'FlutterCoreError'),
     dartPackageName: 'pigeon_core_package',
   ),
 )
