@@ -19,4 +19,8 @@ public class DrivekitTripAnalysisPlugin: NSObject, FlutterPlugin, IOSTripAnalysi
     public func activateAutoStart(activate: Bool) throws {
         DriveKitTripAnalysis.shared.activateAutoStart(enable: activate)
     }
+
+    public func activateCrashDetection(activate: Bool) throws {
+        DriveKitTripAnalysis.shared.activateCrashDetection(enable: activate)
+    }
 }

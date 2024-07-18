@@ -19,4 +19,5 @@ import 'package:pigeon/pigeon.dart';
 abstract class AndroidTripAnalysisApi {
   String getPlatformName();
   void activateAutoStart(bool activate);
+  void activateCrashDetection(bool activate);
 }
