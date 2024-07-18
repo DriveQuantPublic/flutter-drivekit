@@ -24,10 +24,19 @@ if [ ! -f "$platform_interface_file" ] || [ ! -f "$api_file" ]; then
     usage
 fi
 
-# Extract the last method from PlatformInterface class
-last_method=$(awk '/class PlatformInterface/,/^}/' "$platform_interface_file" |
-              grep -E '^\s*[A-Za-z].*\(.*\);$' |
-              tail -n 1)
+# Extract the entire PlatformInterface class content
+platform_interface_content=$(awk '/class PlatformInterface/,/^}/' "$platform_interface_file")
+
+# Extract all method declarations, including multi-line methods
+methods=$(echo "$platform_interface_content" | awk '
+  /^[ \t]*[A-Za-z0-9_]+[ \t]+[A-Za-z0-9_]+\(/ {if (method != "") print method; method=$0; next}
+  /\);[ \t]*$/ {print method " " $0; method=""}
+  method {method=method " " $0}
+  END {if (method != "") print method}
+')
+
+# Get the last method
+last_method=$(echo "$methods" | tail -n 1)
 
 # Check if a method was found
 if [ -z "$last_method" ]; then
@@ -35,8 +44,8 @@ if [ -z "$last_method" ]; then
     exit 1
 fi
 
-# Prepare the method for insertion without the trailing semicolon
-escaped_method=$(printf '%s\n' "$last_method" | sed 's/[&/\]/\\&/g' | sed 's/;$//')
+# Prepare the method for insertion without the trailing semicolon and any leading/trailing spaces
+escaped_method=$(echo "$last_method" | sed 's/[&/\]/\\&/g' | sed 's/;$//' | sed 's/^[ \t]*//' | sed 's/[ \t]*$//')
 
 # Extract return type (part before the first space character)
 return_type=$(echo "$escaped_method" | awk '{print $1}')
@@ -62,3 +71,4 @@ echo "Last method from PlatformInterface has been copied to the end of Api class
 echo "Method name: $method_name"
 echo "Return type: $return_type"
 echo "Method arguments: $method_arguments"
+echo "Method argument names: $method_arguments_names"
