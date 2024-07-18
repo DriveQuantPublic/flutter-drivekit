@@ -50,3 +50,12 @@ scripts:
         - pigeon
 
     description: Generate pigeon code
+
+  gen:
+    description: Generate code in every packages from the last method in platform interfaces
+    run: |
+      ./scripts/add_to_public_package.sh \
+      ./packages/drivekit_core/flutter_drivekit_core_platform_interface/lib/flutter_drivekit_core_platform_interface.dart \
+      ./packages/drivekit_core/flutter_drivekit_core/lib/flutter_drivekit_core.dart \
+      DrivekitCorePlatform \
+      DriveKitCore

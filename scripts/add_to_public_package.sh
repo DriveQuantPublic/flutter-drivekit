@@ -7,16 +7,21 @@ usage() {
     echo "Usage: $0 <platform_interface_file> <api_file>"
     echo "  <platform_interface_file>: Path to the Dart file containing PlatformInterface class"
     echo "  <api_file>: Path to the Dart file containing Api class"
+    echo "  <platform_interface_class_name>: name of the class containing the platform interface"
+    echo "  <api_class_name>: name of the class containing the api"
     exit 1
 }
 
 # Check if the correct number of arguments is provided
-if [ "$#" -ne 2 ]; then
+if [ "$#" -ne 4 ]; then
     usage
 fi
 
 platform_interface_file="$1"
 api_file="$2"
+
+platform_interface_class_name="$3"
+api_class_name="$4"
 
 # Check if the files exist
 if [ ! -f "$platform_interface_file" ] || [ ! -f "$api_file" ]; then
@@ -25,7 +30,7 @@ if [ ! -f "$platform_interface_file" ] || [ ! -f "$api_file" ]; then
 fi
 
 # Extract the entire PlatformInterface class content
-platform_interface_content=$(awk '/class PlatformInterface/,/^}/' "$platform_interface_file")
+platform_interface_content=$(awk "/class $platform_interface_class_name/,/^}/" "$platform_interface_file")
 
 # Extract all method declarations, including multi-line methods
 methods=$(echo "$platform_interface_content" | awk '
@@ -40,7 +45,7 @@ last_method=$(echo "$methods" | tail -n 1)
 
 # Check if a method was found
 if [ -z "$last_method" ]; then
-    echo "Error: No method found in PlatformInterface class."
+    echo "Error: No method found in $platform_interface_class_name class."
     exit 1
 fi
 
@@ -65,7 +70,7 @@ positional_arguments=$(echo "$method_arguments" | sed 's/{.*}//')
 # Create a new variable positional_arguments_names
 positional_arguments_names=$(echo "$positional_arguments" | sed -E 's/([A-Za-z0-9_]+ )([A-Za-z0-9_]+)/\2/g' | tr '\n' ',' | sed 's/, ,/,/g' | sed 's/,$//')
 
-# Create a new variable named_arguments_call
+# Create a String of named arguments for the method call in the format: arg_name:arg_name, ...
 named_arguments_call=""
 IFS=',' read -ra named_args_array <<< "$named_arguments"
 for arg in "${named_args_array[@]}"; do
@@ -103,11 +108,11 @@ else
 fi
 
 # Insert the last method at the end of Api class
-sed -i '' "/class Api/,/^}/ {/^}/i\\
-$final_return_type $method_name($method_arguments) { return $method_name($method_arguments_call); }
+sed -i '' "/class $api_class_name/,/^}/ {/^}/i\\
+$final_return_type $method_name($method_arguments) => _platform.$method_name($method_arguments_call,); 
 }" "$api_file"
 
 # Format the api.dart file
 dart format "$api_file"
 
-echo "Last method from PlatformInterface has been copied to the end of Api class in $api_file and the file has been formatted."
+echo "Last method from $platform_interface_class_name has been copied to the end of $api_class_name class in $api_file and the file has been formatted."
