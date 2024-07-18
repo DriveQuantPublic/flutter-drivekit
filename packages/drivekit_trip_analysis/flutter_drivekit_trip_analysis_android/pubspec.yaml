@@ -11,7 +11,7 @@ flutter:
     implements: flutter_drivekit_trip_analysis
     platforms:
       android:
-        package: com.drivekit.trip_analysis
+        package: com.drivequant.drivekit.flutter.tripanalysis
         pluginClass: DrivekitTripAnalysisPlugin
         dartPluginClass: DrivekitTripAnalysisAndroid
 
