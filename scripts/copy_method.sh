@@ -29,7 +29,7 @@ platform_interface_content=$(awk '/class PlatformInterface/,/^}/' "$platform_int
 
 # Extract all method declarations, including multi-line methods
 methods=$(echo "$platform_interface_content" | awk '
-  /^[ \t]*[A-Za-z0-9_]+[ \t]+[A-Za-z0-9_]+\(/ {if (method != "") print method; method=$0; next}
+  /^[ \t]*(Future<[A-Za-z0-9_<> ,]+>|[A-Za-z0-9_]+)[ \t]+[A-Za-z0-9_]+\(/ {if (method != "") print method; method=$0; next}
   /\);[ \t]*$/ {print method " " $0; method=""}
   method {method=method " " $0}
   END {if (method != "") print method}
@@ -95,13 +95,19 @@ if [ -n "$named_arguments_call" ]; then
     fi
 fi
 
+# Determine if return_type is already Future
+if [[ "$return_type" == Future* ]]; then
+    final_return_type="$return_type"
+else
+    final_return_type="Future<$return_type>"
+fi
+
 # Insert the last method at the end of Api class
 sed -i '' "/class Api/,/^}/ {/^}/i\\
-Future<$return_type> $method_name($method_arguments) { return $method_name($method_arguments_call); }
+$final_return_type $method_name($method_arguments) { return $method_name($method_arguments_call); }
 }" "$api_file"
 
 # Format the api.dart file
 dart format "$api_file"
 
 echo "Last method from PlatformInterface has been copied to the end of Api class in $api_file and the file has been formatted."
-
