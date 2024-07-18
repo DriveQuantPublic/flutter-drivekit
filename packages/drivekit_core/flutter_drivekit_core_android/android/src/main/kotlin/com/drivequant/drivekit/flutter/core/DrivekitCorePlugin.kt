@@ -1,6 +1,5 @@
 package com.drivequant.drivekit.flutter.core
 
-import AndroidCoreApi
 import android.content.Context
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import com.drivequant.drivekit.core.DriveKit
