@@ -6,6 +6,9 @@
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         tools:replace="android:label">
+        
+        <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+        
         <activity
             android:name=".MainActivity"
             android:exported="true"
