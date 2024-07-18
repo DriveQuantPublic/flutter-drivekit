@@ -1,4 +1,4 @@
-package com.drivekit.core
+package com.drivequant.drivekit.flutter.core
 
 import AndroidCoreApi
 import android.content.Context

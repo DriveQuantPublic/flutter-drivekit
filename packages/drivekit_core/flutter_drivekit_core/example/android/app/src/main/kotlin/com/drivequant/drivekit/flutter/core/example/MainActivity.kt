@@ -1,4 +1,4 @@
-package com.example.verygoodcore.example
+package com.drivequant.drivekit.flutter.core.example
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -6,7 +6,7 @@ import 'package:pigeon/pigeon.dart';
   PigeonOptions(
     dartOut: 'lib/src/core_api.g.dart',
     dartOptions: DartOptions(),
-    kotlinOut: 'android/src/main/kotlin/com/drivekit/core/CoreApi.kt',
+    kotlinOut: 'android/src/main/kotlin/com/drivequant/drivekit/flutter/core/CoreApi.kt',
     kotlinOptions: KotlinOptions(errorClassName: 'FlutterCoreError'),
     dartPackageName: 'pigeon_core_package',
   ),
