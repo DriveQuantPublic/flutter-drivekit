@@ -17,6 +17,8 @@ class DefaultDrivekitTripAnalysis extends DrivekitTripAnalysisPlatform {
 
   @override
   Future<void> activateCrashDetection(bool activate) {
-    throw UnimplementedError('activateCrashDetection() has not been implemented.');
+    throw UnimplementedError(
+      'activateCrashDetection() has not been implemented.',
+      );
   }
 }
