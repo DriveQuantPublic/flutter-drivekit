@@ -1,4 +1,4 @@
-package com.drivekit.trip_analysis
+package com.drivequant.drivekit.flutter.tripanalysis
 
 import AndroidTripAnalysisApi
 import android.content.Context

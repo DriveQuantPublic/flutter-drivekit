@@ -3,7 +3,7 @@ plugins {
     id "kotlin-android"
 }
 
-group 'com.example.verygoodtrip'
+group 'com.drivequant.drivekit.flutter.tripanalysis'
 version '1.0-SNAPSHOT'
 
 rootProject.allprojects {
@@ -18,7 +18,7 @@ rootProject.allprojects {
 
 android {
     if (project.android.hasProperty("namespace")) {
-        namespace 'com.example.verygoodtrip'
+        namespace 'com.drivequant.drivekit.flutter.tripanalysis'
     }
 
     compileSdk 34
