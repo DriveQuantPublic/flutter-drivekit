@@ -56,3 +56,11 @@ android {
         }
     }
 }
+
+// To run formating on build and clean. Can find a better solution on commit hook
+tasks.named('preBuild') {
+    dependsOn 'formatKotlin'
+}
+tasks.named('clean') {
+    dependsOn 'formatKotlin'
+}
