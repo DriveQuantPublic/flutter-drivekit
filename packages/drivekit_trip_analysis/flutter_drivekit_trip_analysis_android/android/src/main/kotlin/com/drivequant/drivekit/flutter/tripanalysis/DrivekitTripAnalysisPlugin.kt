@@ -1,21 +1,20 @@
-package com.drivekit.core
+package com.drivequant.drivekit.flutter.tripanalysis
 
-import AndroidCoreApi
+import AndroidTripAnalysisApi
 import android.content.Context
+import com.drivequant.drivekit.tripanalysis.DriveKitTripAnalysis
 import io.flutter.embedding.engine.plugins.FlutterPlugin
-import com.drivequant.drivekit.core.DriveKit
 
-class DrivekitCorePlugin : FlutterPlugin, AndroidCoreApi {
+class DrivekitTripAnalysisPlugin : FlutterPlugin, AndroidTripAnalysisApi {
     private var context: Context? = null
 
-
     override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-        AndroidCoreApi.setUp(flutterPluginBinding.binaryMessenger, this)
+        AndroidTripAnalysisApi.setUp(flutterPluginBinding.binaryMessenger, this)
         context = flutterPluginBinding.applicationContext
     }
 
     override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
-        AndroidCoreApi.setUp(binding.binaryMessenger, null)
+        AndroidTripAnalysisApi.setUp(binding.binaryMessenger, null)
         context = null
     }
 
@@ -23,12 +22,8 @@ class DrivekitCorePlugin : FlutterPlugin, AndroidCoreApi {
         return "android"
     }
 
-    override fun setApiKey(key:String) {
-       DriveKit.setApiKey(key)
-    }
-
-    override fun setUserId(userId:String) {
-        DriveKit.setUserId(userId)
+    override fun activateAutoStart(activate: Boolean) {
+        DriveKitTripAnalysis.activateAutoStart(activate)
     }
 
 }

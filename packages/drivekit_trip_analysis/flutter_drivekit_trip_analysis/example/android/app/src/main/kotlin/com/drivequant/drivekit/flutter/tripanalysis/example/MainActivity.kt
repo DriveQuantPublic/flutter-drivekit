@@ -1,4 +1,4 @@
-package com.example.verygoodtrip.example
+package com.drivequant.drivekit.flutter.tripanalysis.example
 
 import io.flutter.embedding.android.FlutterActivity
 
