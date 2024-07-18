@@ -1,6 +1,7 @@
 plugins {
     id "com.android.library"
     id "kotlin-android"
+    id "org.jmailen.kotlinter" version "4.4.0"
 }
 
 group 'com.drivequant.drivekit.flutter.core'
