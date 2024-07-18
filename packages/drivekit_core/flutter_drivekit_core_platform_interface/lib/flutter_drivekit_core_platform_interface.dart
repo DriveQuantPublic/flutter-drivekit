@@ -36,4 +36,7 @@ abstract class DrivekitCorePlatform extends PlatformInterface {
 
   /// Identifies the user with the given id.
   Future<void> setUserId(String userId);
+
+  /// Resets the DriveKit SDK.
+  Future<void> reset();
 }

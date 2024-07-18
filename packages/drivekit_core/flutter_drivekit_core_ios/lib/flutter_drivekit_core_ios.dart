@@ -28,4 +28,7 @@ class DrivekitCoreIOS extends DrivekitCorePlatform {
 
   @override
   Future<void> setUserId(String userId) => iosCoreApi.setUserId(userId);
+
+  @override
+  Future<void> reset() => iosCoreApi.reset();
 }

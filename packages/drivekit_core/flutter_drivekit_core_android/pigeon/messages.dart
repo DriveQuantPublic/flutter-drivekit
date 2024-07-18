@@ -19,4 +19,5 @@ abstract class AndroidCoreApi {
   String getPlatformName();
   void setApiKey(String key);
   void setUserId(String userId);
+  void reset();
 }
