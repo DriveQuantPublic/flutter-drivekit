@@ -10,7 +10,7 @@ usage() {
     exit 1
 }
 
-# Check if correct number of arguments are provided
+# Check if the correct number of arguments is provided
 if [ "$#" -ne 2 ]; then
     usage
 fi
@@ -18,7 +18,7 @@ fi
 platform_interface_file="$1"
 api_file="$2"
 
-# Check if files exist
+# Check if the files exist
 if [ ! -f "$platform_interface_file" ] || [ ! -f "$api_file" ]; then
     echo "Error: One or both input files do not exist."
     usage
@@ -56,19 +56,52 @@ method_name=$(echo "$escaped_method" | awk '{print $2}' | cut -d '(' -f 1)
 # Extract method arguments (everything between '(' and ')')
 method_arguments=$(echo "$escaped_method" | sed -n 's/.*(\(.*\)).*/\1/p')
 
-# Remove argument types, keeping only argument names, and handle trailing comma
-method_arguments_names=$(echo "$method_arguments" | sed -E 's/([A-Za-z0-9_]+ )([A-Za-z0-9_]+)/\2/g' | sed 's/, ,/,/g' | sed 's/,$//')
+# Extract named arguments (everything between '{' and '}')
+named_arguments=$(echo "$method_arguments" | grep -o '{.*}' | tr -d '{}' | sed 's/,$//')
+
+# Extract positional arguments (everything not between '{' and '}')
+positional_arguments=$(echo "$method_arguments" | sed 's/{.*}//')
+
+# Create a new variable positional_arguments_names
+positional_arguments_names=$(echo "$positional_arguments" | sed -E 's/([A-Za-z0-9_]+ )([A-Za-z0-9_]+)/\2/g' | tr '\n' ',' | sed 's/, ,/,/g' | sed 's/,$//')
+
+# Create a new variable named_arguments_call
+named_arguments_call=""
+IFS=',' read -ra named_args_array <<< "$named_arguments"
+for arg in "${named_args_array[@]}"; do
+    arg=$(echo "$arg" | sed 's/^[ \t]*//;s/[ \t]*$//')
+    if [[ "$arg" == "required "* ]]; then
+        arg_name=$(echo "$arg" | awk '{print $3}')
+    else
+        arg_name=$(echo "$arg" | awk '{print $2}')
+    fi
+    # If there is a trailing comma, the last entry is empty, so we 
+    # check if the added arg is a valid argument name
+    if [[ "$arg_name" =~ ^[A-Za-z0-9_]+$ ]]; then
+        named_arguments_call+="$arg_name:$arg_name, "
+    fi
+done
+
+# Remove trailing comma and space
+named_arguments_call=$(echo "$named_arguments_call" | sed 's/, $//')
+
+# Create a variable method_arguments_call
+method_arguments_call="$positional_arguments_names"
+if [ -n "$named_arguments_call" ]; then
+    if [ -n "$positional_arguments_names" ]; then
+        method_arguments_call+=", $named_arguments_call"
+    else
+        method_arguments_call+="$named_arguments_call"
+    fi
+fi
 
 # Insert the last method at the end of Api class
 sed -i '' "/class Api/,/^}/ {/^}/i\\
-Future<$return_type> $method_name($method_arguments) { return $method_name($method_arguments_names); }
+Future<$return_type> $method_name($method_arguments) { return $method_name($method_arguments_call); }
 }" "$api_file"
 
 # Format the api.dart file
 dart format "$api_file"
 
 echo "Last method from PlatformInterface has been copied to the end of Api class in $api_file and the file has been formatted."
-echo "Method name: $method_name"
-echo "Return type: $return_type"
-echo "Method arguments: $method_arguments"
-echo "Method argument names: $method_arguments_names"
+
