@@ -77,7 +77,6 @@ positional_arguments_names=$(echo "$positional_arguments" | sed -E 's/([A-Za-z0-
 named_arguments_call=""
 IFS=',' read -ra named_args_array <<< "$named_arguments"
 for arg in "${named_args_array[@]}"; do
-    arg=$(echo "$arg" | sed 's/^[ \t]*//;s/[ \t]*$//')
     if [[ "$arg" == "required "* ]]; then
         arg_name=$(echo "$arg" | awk '{print $3}')
     else
