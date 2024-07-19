@@ -25,3 +25,17 @@ DrivekitCorePlatform \
 IOSCoreApi
 
 melos pigeon
+
+./scripts/add_to_platform_dart_file.sh \
+./packages/drivekit_core/flutter_drivekit_core_platform_interface/lib/flutter_drivekit_core_platform_interface.dart \
+./packages/drivekit_core/flutter_drivekit_core_android/lib/flutter_drivekit_core_android.dart \
+DrivekitCorePlatform \
+DrivekitCoreAndroid \
+androidCoreApi
+
+./scripts/add_to_platform_dart_file.sh \
+./packages/drivekit_core/flutter_drivekit_core_platform_interface/lib/flutter_drivekit_core_platform_interface.dart \
+./packages/drivekit_core/flutter_drivekit_core_ios/lib/flutter_drivekit_core_ios.dart \
+DrivekitCorePlatform \
+DrivekitCoreIOS \
+iosCoreApi
