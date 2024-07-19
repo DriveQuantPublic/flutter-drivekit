@@ -21,4 +21,10 @@ class DrivekitTripAnalysis {
   Future<void> activateAutoStart(bool activate) async {
     await _platform.activateAutoStart(activate);
   }
+
+  /// You can start a trip by calling startTrip method
+  Future<void> startTrip() async {
+    await _platform.startTrip();
+  }
+
 }

@@ -2,6 +2,7 @@
 // See also: https://pub.dev/packages/pigeon
 @file:Suppress("UNCHECKED_CAST", "ArrayInDataClass")
 
+package com.drivequant.drivekit.flutter.trip_analysis
 
 import android.util.Log
 import io.flutter.plugin.common.BasicMessageChannel
@@ -102,7 +103,7 @@ interface AndroidTripAnalysisApi {
       run {
         val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.startTrip$separatedMessageChannelSuffix", codec)
         if (api != null) {
-          channel.setMessageHandler { message, reply ->
+          channel.setMessageHandler { _, reply ->
             val wrapped: List<Any?> = try {
               api.startTrip()
               listOf(null)

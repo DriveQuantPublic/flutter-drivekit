@@ -26,4 +26,8 @@ class DrivekitTripAnalysisPlugin : FlutterPlugin, AndroidTripAnalysisApi {
         DriveKitTripAnalysis.activateAutoStart(activate)
     }
 
+    override fun startTrip() {
+        DriveKitTripAnalysis.startTrip()
+    }
+
 }
