@@ -111,7 +111,7 @@ fi
 
 # Insert the last method at the end of Api class
 sed -i '' "/class $api_class_name/,/^}/ {/^}/i\\
-@override $final_return_type $method_name($method_arguments) => $pigeon_api_name.$method_name($method_arguments_call,); 
+@override $final_return_type $method_name($method_arguments) => $pigeon_api_name.$method_name($method_arguments_call); 
 }" "$api_file"
 
 # Format the api.dart file
