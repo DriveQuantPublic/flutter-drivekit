@@ -49,7 +49,7 @@ This monorepo's plugins are federated plugins, which means they are composed of 
 
 Here is the architecture of a federated plugin (in this case, the `drivekit_core` plugin, but all plugins follow the same structure):
 
-![alt text](doc/drivekit_core_plugin_architecture.png)
+![architecture schema](doc/drivekit_core_plugin_architecture.png)
 
 - `flutter_drivekit_core` is the public package of the plugin, the one users will import in their apps.
 - `flutter_drivekit_core_android` is the Android implementation of the plugin. It is responsible for communication with the Android DriveKit SDK.
