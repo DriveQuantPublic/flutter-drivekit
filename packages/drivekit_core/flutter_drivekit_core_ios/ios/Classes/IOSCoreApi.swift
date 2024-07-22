@@ -88,6 +88,7 @@ protocol IOSCoreApi {
   func getPlatformName() throws -> String
   func setApiKey(key: String) throws
   func setUserId(userId: String) throws
+  func isTokenValid() throws -> Bool
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
@@ -138,6 +139,19 @@ class IOSCoreApiSetup {
       }
     } else {
       setUserIdChannel.setMessageHandler(nil)
+    }
+    let isTokenValidChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.pigeon_core_package.IOSCoreApi.isTokenValid\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      isTokenValidChannel.setMessageHandler { _, reply in
+        do {
+          let result = try api.isTokenValid()
+          reply(wrapResult(result))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      isTokenValidChannel.setMessageHandler(nil)
     }
   }
 }

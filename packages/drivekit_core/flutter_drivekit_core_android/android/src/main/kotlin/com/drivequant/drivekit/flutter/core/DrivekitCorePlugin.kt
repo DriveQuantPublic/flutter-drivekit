@@ -30,4 +30,7 @@ class DrivekitCorePlugin : FlutterPlugin, AndroidCoreApi {
         DriveKit.setUserId(userId)
     }
 
+    override fun isTokenValid(): Boolean {
+        return DriveKit.isTokenValid()
+    }
 }

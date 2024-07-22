@@ -28,4 +28,8 @@ class DrivekitCoreIOS extends DrivekitCorePlatform {
 
   @override
   Future<void> setUserId(String userId) => iosCoreApi.setUserId(userId);
+  
+  @override
+  Future<bool> isTokenValid() => iosCoreApi.isTokenValid();
+
 }
