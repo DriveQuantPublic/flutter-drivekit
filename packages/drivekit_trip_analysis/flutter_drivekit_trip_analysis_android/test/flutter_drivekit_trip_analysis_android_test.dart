@@ -36,5 +36,20 @@ void main() {
           await DrivekitTripAnalysisPlatform.instance.getPlatformName();
       expect(name, 'Android');
     });
+
+    test('activateAutoStart calls android implementation with correct argument',
+        () async {
+      //mock
+      when(() => androidTripAnalysisApi.activateAutoStart(any()))
+          .thenAnswer((_) async {});
+
+      //test
+      await DrivekitTripAnalysisPlatform.instance.activateAutoStart(true);
+      verify(() => androidTripAnalysisApi.activateAutoStart(true)).called(1);
+      verifyNever(() => androidTripAnalysisApi.activateAutoStart(false));
+
+      await DrivekitTripAnalysisPlatform.instance.activateAutoStart(false);
+      verify(() => androidTripAnalysisApi.activateAutoStart(false)).called(1);
+    });
   });
 }
