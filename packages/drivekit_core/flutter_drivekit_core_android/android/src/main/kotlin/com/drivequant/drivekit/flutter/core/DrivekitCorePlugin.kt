@@ -22,12 +22,15 @@ class DrivekitCorePlugin : FlutterPlugin, AndroidCoreApi {
         return "android"
     }
 
-    override fun setApiKey(key:String) {
+    override fun setApiKey(key: String) {
        DriveKit.setApiKey(key)
     }
 
-    override fun setUserId(userId:String) {
+    override fun setUserId(userId: String) {
         DriveKit.setUserId(userId)
     }
 
+    override fun reset() {
+        DriveKit.reset()
+    }
 }

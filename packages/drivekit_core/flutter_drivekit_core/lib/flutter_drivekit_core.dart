@@ -28,4 +28,14 @@ class DriveKitCore {
   Future<void> setUserId(String userId) async {
     await _platform.setUserId(userId);
   }
+
+  /// Resets the DriveKit SDK.
+  /// If you need to reset DriveKit configuration (user logout for example),
+  /// you can call the following method.
+  ///
+  /// All data saved locally will be erased and default configuration for every
+  /// module will be restored.
+  Future<void> reset() async {
+    await _platform.reset();
+  }
 }
