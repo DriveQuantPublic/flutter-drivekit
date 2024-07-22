@@ -21,4 +21,16 @@ class DrivekitTripAnalysis {
   Future<void> activateAutoStart(bool activate) async {
     await _platform.activateAutoStart(activate);
   }
+
+  /// If the crash detection configuration is enabled for your company, your API
+  /// key carries out the feature access and the crash detection will be enabled
+  /// accordingly. 
+  /// 
+  /// However, you can deactivate and reactivate the function if necessary using
+  /// a dedicated setting. 
+  /// 
+  /// You can enable it by calling the following method:
+  Future<void> activateCrashDetection(bool activate) async {
+    await _platform.activateCrashDetection(activate);
+  }
 }
