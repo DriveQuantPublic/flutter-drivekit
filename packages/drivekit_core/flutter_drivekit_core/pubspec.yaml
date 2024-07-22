@@ -10,9 +10,9 @@ flutter:
   plugin:
     platforms:
       android:
-        default_package: drivekit_core_android
+        default_package: flutter_drivekit_core_android
       ios:
-        default_package: drivekit_core_ios
+        default_package: flutter_drivekit_core_ios
 
 dependencies:
   flutter:
