@@ -7,10 +7,10 @@ import 'package:pigeon/pigeon.dart';
     dartOut: 'lib/src/trip_analysis_api.g.dart',
     dartOptions: DartOptions(),
     kotlinOut:
-        'android/src/main/kotlin/com/drivekit/trip_analysis/TripAnalysisApi.kt',
+        'android/src/main/kotlin/com/drivequant/drivekit/flutter/tripanalysis/TripAnalysisApi.kt',
     kotlinOptions: KotlinOptions(
-        errorClassName: 'FlutterTripAnalysisError',
-        package: 'com.drivequant.drivekit.flutter.trip_analysis',
+      errorClassName: 'FlutterTripAnalysisError',
+      package: 'com.drivequant.drivekit.flutter.trip_analysis',
     ),
     dartPackageName: 'pigeon_trip_analysis_package',
   ),
