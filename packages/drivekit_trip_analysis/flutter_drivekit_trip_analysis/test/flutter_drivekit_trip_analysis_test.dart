@@ -32,5 +32,19 @@ void main() {
         expect(actualPlatformName, equals(platformName));
       });
     });
+    group('activateAutoStart', () {
+      test('calls platform implementation', () async {
+        when(() => drivekitTripAnalysisPlatform.activateAutoStart(any()))
+            .thenAnswer((_) async {});
+
+        await driveKitTripAnalysis.activateAutoStart(true);
+        verify(() => drivekitTripAnalysisPlatform.activateAutoStart(true));
+        verifyNever(
+          () => drivekitTripAnalysisPlatform.activateAutoStart(false),
+        );
+        await driveKitTripAnalysis.activateAutoStart(false);
+        verify(() => drivekitTripAnalysisPlatform.activateAutoStart(false));
+      });
+    });
   });
 }
