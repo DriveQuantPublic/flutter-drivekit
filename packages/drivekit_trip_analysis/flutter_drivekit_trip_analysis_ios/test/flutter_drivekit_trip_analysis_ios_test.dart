@@ -1,4 +1,5 @@
 import 'package:flutter_drivekit_trip_analysis_ios/flutter_drivekit_trip_analysis_ios.dart';
+import 'package:flutter_drivekit_trip_analysis_ios/src/trip_analysis_api.g.dart';
 import 'package:flutter_drivekit_trip_analysis_platform_interface/flutter_drivekit_trip_analysis_platform_interface.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -7,6 +8,13 @@ import 'mocks/mocks.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+  late IOSTripAnalysisApi iOSTripAnalysisApi;
+
+  setUp(() {
+    iOSTripAnalysisApi = MockIOSTripAnalysisApi();
+    DrivekitTripAnalysisPlatform.instance =
+        DrivekitTripAnalysisIOS(iosTripAnalysisApi: iOSTripAnalysisApi);
+  });
 
   group('DrivekitTripAnalysisIOS', () {
     test('can be registered', () {
@@ -19,13 +27,11 @@ void main() {
 
     test('getPlatformName returns correct name', () async {
       //mocks
-      final iOSTripAnalysisApi = MockIOSTripAnalysisApi();
       when(iOSTripAnalysisApi.getPlatformName).thenAnswer((_) async => 'iOS');
 
       //test
-      final drivekitTripAnalysisIOS =
-          DrivekitTripAnalysisIOS(iosTripAnalysisApi: iOSTripAnalysisApi);
-      final name = await drivekitTripAnalysisIOS.getPlatformName();
+      final name =
+          await DrivekitTripAnalysisPlatform.instance.getPlatformName();
       expect(name, 'iOS');
     });
   });
