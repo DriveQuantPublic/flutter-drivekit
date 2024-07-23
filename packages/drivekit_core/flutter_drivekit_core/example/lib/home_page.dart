@@ -4,6 +4,7 @@ import 'package:drivekit_core_example/widgets/sliver_is_token_valid.dart';
 import 'package:drivekit_core_example/widgets/sliver_permission_request.dart';
 import 'package:drivekit_core_example/widgets/sliver_platform_name.dart';
 import 'package:drivekit_core_example/widgets/sliver_set_user_id.dart';
+import 'package:drivekit_core_example/widgets/sliver_start_trip.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -48,6 +49,11 @@ class HomePage extends StatelessWidget {
           SliverPadding(
             padding: EdgeInsets.symmetric(horizontal: 16),
             sliver: SliverTokenValidity(),
+          ),
+          SliverGap(32),
+          SliverPadding(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            sliver: SliverStartTrip(),
           ),
           SliverGap(32),
         ],
