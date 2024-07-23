@@ -61,4 +61,27 @@ abstract final class DrivekitTripAnalysis {
   static Future<bool> isTripRunning() async {
     return _platform.isTripRunning();
   }
+
+  /// To obtain a more precise analysis on driving behavior,
+  /// it's recommended to configure the vehicle used by the driver.
+  /// You can do this by calling the setVehicle method with the driver's vehicle
+  ///
+  /// Otherwise, the analysis will be based on this default vehicle:
+  ///   carTypeIndex = 1,
+  ///   carEngineIndex = 1,
+  ///   carPower = 150,
+  ///   carMass = 1400,
+  ///   carGearboxIndex = 2,
+  ///   carConsumption = 4.5,
+  ///   engineDisplacement = 1200,
+  ///   frontTireSize = "205/55/16",
+  ///   rearTireSize = "205/55/16",
+  ///   length = 4.5,
+  ///   width = 1.8,
+  ///   height = 1.45,
+  ///   engineCylinderNb = 4,
+  ///   driveWheels = 0
+  Future<void> setVehicle(Vehicle vehicle) async {
+    await _platform.setVehicle(vehicle);
+  }
 }
