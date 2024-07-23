@@ -21,6 +21,11 @@ abstract class AndroidTripAnalysisApi {
   void activateAutoStart(bool activate);
 }
 
+@FlutterApi()
+abstract class FlutterTripAnalysisApi {
+  void onAuthenticationError(PigeonRequestError errorType);
+}
+
 enum PigeonDeleteAccountStatus {
   success,
   failed_to_delete,

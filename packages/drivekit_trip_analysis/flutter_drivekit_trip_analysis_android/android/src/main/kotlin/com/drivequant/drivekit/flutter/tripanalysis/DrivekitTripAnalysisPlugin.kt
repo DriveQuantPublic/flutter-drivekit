@@ -8,9 +8,11 @@ class DrivekitTripAnalysisPlugin :
     FlutterPlugin,
     AndroidTripAnalysisApi {
     private var context: Context? = null
+    private var flutterApi: FlutterTripAnalysisApi? = null
 
     override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         AndroidTripAnalysisApi.setUp(flutterPluginBinding.binaryMessenger, this)
+        flutterApi = FlutterTripAnalysisApi(flutterPluginBinding.binaryMessenger)
         context = flutterPluginBinding.applicationContext
     }
 
@@ -23,5 +25,12 @@ class DrivekitTripAnalysisPlugin :
 
     override fun activateAutoStart(activate: Boolean) {
         DriveKitTripAnalysis.activateAutoStart(activate)
+    }
+
+    // example of how to call flutter from native, will be used with listener
+    private fun onAuthenticationError(requestError: PigeonRequestError) {
+        flutterApi?.onAuthenticationError(requestError) { echo ->
+            Result.success(echo)
+        }
     }
 }

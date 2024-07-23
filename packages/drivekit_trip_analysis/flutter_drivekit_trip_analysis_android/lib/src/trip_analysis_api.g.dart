@@ -15,6 +15,16 @@ PlatformException _createConnectionError(String channelName) {
   );
 }
 
+List<Object?> wrapResponse({Object? result, PlatformException? error, bool empty = false}) {
+  if (empty) {
+    return <Object?>[];
+  }
+  if (error == null) {
+    return <Object?>[result];
+  }
+  return <Object?>[error.code, error.message, error.details];
+}
+
 enum PigeonDeleteAccountStatus {
   success,
   failed_to_delete,
@@ -135,6 +145,41 @@ class AndroidTripAnalysisApi {
       );
     } else {
       return;
+    }
+  }
+}
+
+abstract class FlutterTripAnalysisApi {
+  static const MessageCodec<Object?> pigeonChannelCodec = _PigeonCodec();
+
+  void onAuthenticationError(PigeonRequestError errorType);
+
+  static void setUp(FlutterTripAnalysisApi? api, {BinaryMessenger? binaryMessenger, String messageChannelSuffix = '',}) {
+    messageChannelSuffix = messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
+    {
+      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+          'dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.onAuthenticationError$messageChannelSuffix', pigeonChannelCodec,
+          binaryMessenger: binaryMessenger);
+      if (api == null) {
+        __pigeon_channel.setMessageHandler(null);
+      } else {
+        __pigeon_channel.setMessageHandler((Object? message) async {
+          assert(message != null,
+          'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.onAuthenticationError was null.');
+          final List<Object?> args = (message as List<Object?>?)!;
+          final PigeonRequestError? arg_errorType = (args[0] as PigeonRequestError?);
+          assert(arg_errorType != null,
+              'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.onAuthenticationError was null, expected non-null PigeonRequestError.');
+          try {
+            api.onAuthenticationError(arg_errorType!);
+            return wrapResponse(empty: true);
+          } on PlatformException catch (e) {
+            return wrapResponse(error: e);
+          }          catch (e) {
+            return wrapResponse(error: PlatformException(code: 'error', message: e.toString()));
+          }
+        });
+      }
     }
   }
 }
