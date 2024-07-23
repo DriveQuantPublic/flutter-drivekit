@@ -29,6 +29,10 @@ abstract class AndroidTripAnalysisApi {
 @FlutterApi()
 abstract class FlutterTripAnalysisApi {
   void onAuthenticationError(PigeonRequestError errorType);
+  void onAccountDeleted(PigeonDeleteAccountStatus status);
+  void onConnected();
+  void onDisconnected();
+  void userIdUpdateStatus(PigeonUpdateUserIdStatus status, String? userId);
 }
 
 enum PigeonDeleteAccountStatus {

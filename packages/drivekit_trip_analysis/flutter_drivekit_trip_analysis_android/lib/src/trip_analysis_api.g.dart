@@ -269,6 +269,14 @@ abstract class FlutterTripAnalysisApi {
 
   void onAuthenticationError(PigeonRequestError errorType);
 
+  void onAccountDeleted(PigeonDeleteAccountStatus status);
+
+  void onConnected();
+
+  void onDisconnected();
+
+  void userIdUpdateStatus(PigeonUpdateUserIdStatus status, String? userId);
+
   static void setUp(FlutterTripAnalysisApi? api, {BinaryMessenger? binaryMessenger, String messageChannelSuffix = '',}) {
     messageChannelSuffix = messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
     {
@@ -287,6 +295,95 @@ abstract class FlutterTripAnalysisApi {
               'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.onAuthenticationError was null, expected non-null PigeonRequestError.');
           try {
             api.onAuthenticationError(arg_errorType!);
+            return wrapResponse(empty: true);
+          } on PlatformException catch (e) {
+            return wrapResponse(error: e);
+          }          catch (e) {
+            return wrapResponse(error: PlatformException(code: 'error', message: e.toString()));
+          }
+        });
+      }
+    }
+    {
+      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+          'dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.onAccountDeleted$messageChannelSuffix', pigeonChannelCodec,
+          binaryMessenger: binaryMessenger);
+      if (api == null) {
+        __pigeon_channel.setMessageHandler(null);
+      } else {
+        __pigeon_channel.setMessageHandler((Object? message) async {
+          assert(message != null,
+          'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.onAccountDeleted was null.');
+          final List<Object?> args = (message as List<Object?>?)!;
+          final PigeonDeleteAccountStatus? arg_status = (args[0] as PigeonDeleteAccountStatus?);
+          assert(arg_status != null,
+              'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.onAccountDeleted was null, expected non-null PigeonDeleteAccountStatus.');
+          try {
+            api.onAccountDeleted(arg_status!);
+            return wrapResponse(empty: true);
+          } on PlatformException catch (e) {
+            return wrapResponse(error: e);
+          }          catch (e) {
+            return wrapResponse(error: PlatformException(code: 'error', message: e.toString()));
+          }
+        });
+      }
+    }
+    {
+      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+          'dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.onConnected$messageChannelSuffix', pigeonChannelCodec,
+          binaryMessenger: binaryMessenger);
+      if (api == null) {
+        __pigeon_channel.setMessageHandler(null);
+      } else {
+        __pigeon_channel.setMessageHandler((Object? message) async {
+          try {
+            api.onConnected();
+            return wrapResponse(empty: true);
+          } on PlatformException catch (e) {
+            return wrapResponse(error: e);
+          }          catch (e) {
+            return wrapResponse(error: PlatformException(code: 'error', message: e.toString()));
+          }
+        });
+      }
+    }
+    {
+      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+          'dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.onDisconnected$messageChannelSuffix', pigeonChannelCodec,
+          binaryMessenger: binaryMessenger);
+      if (api == null) {
+        __pigeon_channel.setMessageHandler(null);
+      } else {
+        __pigeon_channel.setMessageHandler((Object? message) async {
+          try {
+            api.onDisconnected();
+            return wrapResponse(empty: true);
+          } on PlatformException catch (e) {
+            return wrapResponse(error: e);
+          }          catch (e) {
+            return wrapResponse(error: PlatformException(code: 'error', message: e.toString()));
+          }
+        });
+      }
+    }
+    {
+      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+          'dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.userIdUpdateStatus$messageChannelSuffix', pigeonChannelCodec,
+          binaryMessenger: binaryMessenger);
+      if (api == null) {
+        __pigeon_channel.setMessageHandler(null);
+      } else {
+        __pigeon_channel.setMessageHandler((Object? message) async {
+          assert(message != null,
+          'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.userIdUpdateStatus was null.');
+          final List<Object?> args = (message as List<Object?>?)!;
+          final PigeonUpdateUserIdStatus? arg_status = (args[0] as PigeonUpdateUserIdStatus?);
+          assert(arg_status != null,
+              'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.userIdUpdateStatus was null, expected non-null PigeonUpdateUserIdStatus.');
+          final String? arg_userId = (args[1] as String?);
+          try {
+            api.userIdUpdateStatus(arg_status!, arg_userId);
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);
