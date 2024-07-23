@@ -52,5 +52,17 @@ void main() {
         verify(() => drivekitCorePlatform.setUserId('user_id'));
       });
     });
+
+    group('isTokenValid', () {
+      test('returns true if token is valid and user is connected', () async {
+        const tokenValidity = true;
+        when(
+          () => drivekitCorePlatform.isTokenValid(),
+        ).thenAnswer((_) async => tokenValidity);
+
+        final actualTokenValidity = await driveKitCore.isTokenValid();
+        expect(actualTokenValidity, equals(tokenValidity));
+      });
+    });
   });
 }

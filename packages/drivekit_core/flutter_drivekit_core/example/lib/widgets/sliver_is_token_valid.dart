@@ -9,7 +9,6 @@ class SliverTokenValidity extends StatefulWidget {
 }
 
 class _SliverTokenValidityState extends State<SliverTokenValidity> {
-
   @override
   Widget build(BuildContext context) {
     final driveKitCore = DriveKitCore();
@@ -18,8 +17,8 @@ class _SliverTokenValidityState extends State<SliverTokenValidity> {
         onPressed: () async {
           final isValid = await driveKitCore.isTokenValid();
           final alertMessage = isValid
-          ? 'Token is valid : user is connected' 
-          : 'Token is not valid : user is not connected';
+              ? 'Token is valid : user is connected'
+              : 'Token is not valid : user is not connected';
           if (context.mounted) {
             await showDialog<void>(
               context: context,
@@ -32,24 +31,24 @@ class _SliverTokenValidityState extends State<SliverTokenValidity> {
                         Text(alertMessage),
                       ],
                     ),
-                    ),
-                actions: <Widget>[
-                  TextButton(
-                    child: const Text('OK'),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
                   ),
-                ],
-              );
-            },
-          );            
-        }
-      },
-      child: const Text(
-        'Check token validity',
+                  actions: <Widget>[
+                    TextButton(
+                      child: const Text('OK'),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ],
+                );
+              },
+            );
+          }
+        },
+        child: const Text(
+          'Check token validity',
+        ),
       ),
-    ),
     );
   }
 }
