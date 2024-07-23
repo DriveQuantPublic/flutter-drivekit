@@ -26,6 +26,11 @@ abstract class AndroidTripAnalysisApi {
   bool isTripRunning();
 }
 
+@FlutterApi()
+abstract class FlutterTripAnalysisApi {
+  void onAuthenticationError(PigeonRequestError errorType);
+}
+
 enum PigeonDeleteAccountStatus {
   success,
   failed_to_delete,

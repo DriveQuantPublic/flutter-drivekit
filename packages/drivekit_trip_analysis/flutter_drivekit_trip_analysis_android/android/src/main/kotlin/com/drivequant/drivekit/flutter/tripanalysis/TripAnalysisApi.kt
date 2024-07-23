@@ -32,6 +32,9 @@ private fun wrapError(exception: Throwable): List<Any?> {
   }
 }
 
+private fun createConnectionError(channelName: String): FlutterTripAnalysisError {
+  return FlutterTripAnalysisError("channel-error",  "Unable to establish connection on channel: '$channelName'.", "")}
+
 /**
  * Error class for passing custom error details to Flutter via a thrown PlatformException.
  * @property code The error code.
@@ -258,6 +261,32 @@ interface AndroidTripAnalysisApi {
           channel.setMessageHandler(null)
         }
       }
+    }
+  }
+}
+/** Generated class from Pigeon that represents Flutter messages that can be called from Kotlin. */
+class FlutterTripAnalysisApi(private val binaryMessenger: BinaryMessenger, private val messageChannelSuffix: String = "") {
+  companion object {
+    /** The codec used by FlutterTripAnalysisApi. */
+    val codec: MessageCodec<Any?> by lazy {
+      TripAnalysisApiPigeonCodec
+    }
+  }
+  fun onAuthenticationError(errorTypeArg: PigeonRequestError, callback: (Result<Unit>) -> Unit)
+{
+    val separatedMessageChannelSuffix = if (messageChannelSuffix.isNotEmpty()) ".$messageChannelSuffix" else ""
+    val channelName = "dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.onAuthenticationError$separatedMessageChannelSuffix"
+    val channel = BasicMessageChannel<Any?>(binaryMessenger, channelName, codec)
+    channel.send(listOf(errorTypeArg)) {
+      if (it is List<*>) {
+        if (it.size > 1) {
+          callback(Result.failure(FlutterTripAnalysisError(it[0] as String, it[1] as String, it[2] as String?)))
+        } else {
+          callback(Result.success(Unit))
+        }
+      } else {
+        callback(Result.failure(createConnectionError(channelName)))
+      } 
     }
   }
 }
