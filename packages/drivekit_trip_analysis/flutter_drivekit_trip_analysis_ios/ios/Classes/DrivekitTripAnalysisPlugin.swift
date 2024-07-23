@@ -27,4 +27,12 @@ public class DrivekitTripAnalysisPlugin: NSObject, FlutterPlugin, IOSTripAnalysi
     public func startTrip() throws {
         DriveKitTripAnalysis.shared.startTrip()
     }
+
+    public func stopTrip() {
+        DriveKitTripAnalysis.shared.stopTrip()
+    }
+
+    public func cancelTrip() {
+        DriveKitTripAnalysis.shared.cancelTrip()
+    }
 }

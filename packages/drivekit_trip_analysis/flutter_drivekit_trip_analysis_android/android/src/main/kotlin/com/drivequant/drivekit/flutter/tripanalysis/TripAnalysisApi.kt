@@ -58,6 +58,8 @@ interface AndroidTripAnalysisApi {
   fun activateAutoStart(activate: Boolean)
   fun activateCrashDetection(activate: Boolean)
   fun startTrip()
+  fun stopTrip()
+  fun cancelTrip()
 
   companion object {
     /** The codec used by AndroidTripAnalysisApi. */
@@ -125,6 +127,38 @@ interface AndroidTripAnalysisApi {
           channel.setMessageHandler { _, reply ->
             val wrapped: List<Any?> = try {
               api.startTrip()
+              listOf(null)
+            } catch (exception: Throwable) {
+              wrapError(exception)
+            }
+            reply.reply(wrapped)
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.stopTrip$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { _, reply ->
+            val wrapped: List<Any?> = try {
+              api.stopTrip()
+              listOf(null)
+            } catch (exception: Throwable) {
+              wrapError(exception)
+            }
+            reply.reply(wrapped)
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.cancelTrip$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { _, reply ->
+            val wrapped: List<Any?> = try {
+              api.cancelTrip()
               listOf(null)
             } catch (exception: Throwable) {
               wrapError(exception)

@@ -41,4 +41,10 @@ abstract class DrivekitTripAnalysisPlatform extends PlatformInterface {
 
   /// Manually start a trip
   Future<void> startTrip();
+
+  /// Manually stop the trip.
+  Future<void> stopTrip();
+
+  /// Cancel the trip.
+  Future<void> cancelTrip();
 }

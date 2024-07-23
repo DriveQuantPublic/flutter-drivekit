@@ -63,13 +63,29 @@ void main() {
       });
     });
 
-    group('startTrip', () {
+    group('manage trip manually', () {
       test('calls startTrip on platform implementation', () async {
         when(() => drivekitTripAnalysisPlatform.startTrip())
             .thenAnswer((_) async {});
 
         await drivekitTripAnalysisPlatform.startTrip();
         verify(() => drivekitTripAnalysisPlatform.startTrip());
+      });
+
+      test('stopTrip calls platform implementation', () async {
+        when(() => drivekitTripAnalysisPlatform.stopTrip())
+            .thenAnswer((_) async {});
+
+        await driveKitTripAnalysis.stopTrip();
+        verify(() => drivekitTripAnalysisPlatform.stopTrip());
+      });
+
+      test('cancelTrip calls platform implementation', () async {
+        when(() => drivekitTripAnalysisPlatform.cancelTrip())
+            .thenAnswer((_) async {});
+
+        await driveKitTripAnalysis.cancelTrip();
+        verify(() => drivekitTripAnalysisPlatform.cancelTrip());
       });
     });
   });

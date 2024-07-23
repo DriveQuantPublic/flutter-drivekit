@@ -68,12 +68,31 @@ void main() {
       verify(() => androidTripAnalysisApi.activateCrashDetection(false))
           .called(1);
     });
-    test('calls startTrip on platform implementation', () async {
+
+    test('startTrip calls android implementation', () async {
       //mock
       when(() => androidTripAnalysisApi.startTrip()).thenAnswer((_) async {});
 
       await DrivekitTripAnalysisPlatform.instance.startTrip();
       verify(() => androidTripAnalysisApi.startTrip()).called(1);
+    });
+
+    test('stopTrip calls android implementation', () async {
+      //mock
+      when(() => androidTripAnalysisApi.stopTrip()).thenAnswer((_) async {});
+
+      //test
+      await DrivekitTripAnalysisPlatform.instance.stopTrip();
+      verify(() => androidTripAnalysisApi.stopTrip()).called(1);
+    });
+
+    test('cancelTrip calls android implementation', () async {
+      //mock
+      when(() => androidTripAnalysisApi.cancelTrip()).thenAnswer((_) async {});
+
+      //test
+      await DrivekitTripAnalysisPlatform.instance.cancelTrip();
+      verify(() => androidTripAnalysisApi.cancelTrip()).called(1);
     });
   });
 }
