@@ -77,7 +77,7 @@ extension DrivekitTripAnalysisPlugin: DriveKitDelegate {
     }
 
     public func driveKit(_ driveKit: DriveKitCoreModule.DriveKit, didReceiveAuthenticationError error: DriveKitCoreModule.RequestError) {
-        guard let pigeonError = PigeonRequestError(rawValue: error.rawValue) else { return }
+        let pigeonError = PigeonRequestError.init(from: error)
         flutterAPI?.driveKitDidReceiveAuthenticationError(error: pigeonError) { result in
             switch result {
             case .success():
@@ -89,7 +89,7 @@ extension DrivekitTripAnalysisPlugin: DriveKitDelegate {
     }
 
     public func userIdUpdateStatusChanged(status: DriveKitCoreModule.UpdateUserIdStatus, userId: String?) {
-        guard let pigeonStatus = PigeonUpdateUserIdStatus(rawValue: status.rawValue) else { return }
+        let pigeonStatus = PigeonUpdateUserIdStatus.init(from: status)
         flutterAPI?.userIdUpdateStatusChanged(status: pigeonStatus, userId: userId) { result in
             switch result {
             case .success():
@@ -101,7 +101,7 @@ extension DrivekitTripAnalysisPlugin: DriveKitDelegate {
     }
 
     public func driveKit(_ driveKit: DriveKitCoreModule.DriveKit, accountDeletionCompleted status: DriveKitCoreModule.DeleteAccountStatus) {
-        guard let pigeonStatus = PigeonDeleteAccountStatus(rawValue: status.rawValue) else { return }
+        let pigeonStatus = PigeonDeleteAccountStatus.init(from: status)
         flutterAPI?.driveKitAccountDeletionCompleted(status: pigeonStatus) { result in
             switch result {
             case .success():
@@ -113,7 +113,7 @@ extension DrivekitTripAnalysisPlugin: DriveKitDelegate {
     }
 
     public func driveKit(_ driveKit: DriveKitCoreModule.DriveKit, backgroundFetchStatusChanged status: DriveKitCoreModule.DriveKitBackgroundFetchStatus) {
-        guard let pigeonStatus = PigeonBackgroundFetchStatus(rawValue: status.rawValue) else { return }
+        let pigeonStatus = PigeonBackgroundFetchStatus.init(from: status)
         flutterAPI?.driveKitBackgroundFetchStatusChanged(status: pigeonStatus) { result in
             switch result {
             case .success():
