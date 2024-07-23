@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter_drivekit_trip_analysis_ios/src/adapter.dart';
 import 'package:flutter_drivekit_trip_analysis_ios/src/trip_analysis_api.g.dart';
 import 'package:flutter_drivekit_trip_analysis_platform_interface/flutter_drivekit_trip_analysis_platform_interface.dart';
 
@@ -43,4 +44,8 @@ class DrivekitTripAnalysisIOS extends DrivekitTripAnalysisPlatform {
 
   @override
   Future<bool> isTripRunning() => iosTripAnalysisApi.isTripRunning();
+
+  @override
+  Future<void> setVehicle(Vehicle vehicle) =>
+      iosTripAnalysisApi.setVehicle(vehicle.toPigeonImplementation());
 }
