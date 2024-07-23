@@ -1,10 +1,11 @@
 import Flutter
 import UIKit
 import DriveKitTripAnalysisModule
+import DriveKitCoreModule
 
 extension FlutterError: Error {}
 
-public class DrivekitTripAnalysisPlugin: NSObject, FlutterPlugin, IOSTripAnalysisApi {
+public class DrivekitTripAnalysisPlugin: NSObject, FlutterPlugin, IOSTripAnalysisApi, DriveKitDelegate {
     var flutterAPI: FlutterTripAnalysisApi? = nil
 
     public static func register(with registrar: FlutterPluginRegistrar) {
@@ -14,7 +15,9 @@ public class DrivekitTripAnalysisPlugin: NSObject, FlutterPlugin, IOSTripAnalysi
     }
 
     init(binaryMessenger: FlutterBinaryMessenger) {
+        super.init()
         self.flutterAPI = FlutterTripAnalysisApi(binaryMessenger: binaryMessenger)
+        configureDriveKitDelegate()
     }
 
     public func getPlatformName() throws -> String {
@@ -43,5 +46,9 @@ public class DrivekitTripAnalysisPlugin: NSObject, FlutterPlugin, IOSTripAnalysi
 
     func isTripRunning() throws -> Bool {
         return DriveKitTripAnalysis.shared.isTripRunning()
+    }
+
+    private func configureDriveKitDelegate(){
+        DriveKit.shared.addDriveKitDelegate(self)
     }
 }
