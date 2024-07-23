@@ -15,9 +15,65 @@ PlatformException _createConnectionError(String channelName) {
   );
 }
 
+enum PigeonDeleteAccountStatus {
+  success,
+  failed_to_delete,
+  forbidden,
+}
+
+enum PigeonRequestError {
+  no_network,
+  unauthenticated,
+  forbidden,
+  server_error,
+  client_error,
+  unknown_error,
+  limit_reached,
+}
+
+enum PigeonUpdateUserIdStatus {
+  updated,
+  failed_to_update,
+  invalid_user_id,
+  already_used,
+  saved_for_repost,
+}
+
 
 class _PigeonCodec extends StandardMessageCodec {
   const _PigeonCodec();
+  @override
+  void writeValue(WriteBuffer buffer, Object? value) {
+    if (value is PigeonDeleteAccountStatus) {
+      buffer.putUint8(129);
+      writeValue(buffer, value.index);
+    } else     if (value is PigeonRequestError) {
+      buffer.putUint8(130);
+      writeValue(buffer, value.index);
+    } else     if (value is PigeonUpdateUserIdStatus) {
+      buffer.putUint8(131);
+      writeValue(buffer, value.index);
+    } else {
+      super.writeValue(buffer, value);
+    }
+  }
+
+  @override
+  Object? readValueOfType(int type, ReadBuffer buffer) {
+    switch (type) {
+      case 129: 
+        final int? value = readValue(buffer) as int?;
+        return value == null ? null : PigeonDeleteAccountStatus.values[value];
+      case 130: 
+        final int? value = readValue(buffer) as int?;
+        return value == null ? null : PigeonRequestError.values[value];
+      case 131: 
+        final int? value = readValue(buffer) as int?;
+        return value == null ? null : PigeonUpdateUserIdStatus.values[value];
+      default:
+        return super.readValueOfType(type, buffer);
+    }
+  }
 }
 
 class AndroidTripAnalysisApi {
