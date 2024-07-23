@@ -37,24 +37,24 @@ abstract class FlutterTripAnalysisApi {
 
 enum PigeonDeleteAccountStatus {
   success,
-  failed_to_delete,
+  failedToDelete,
   forbidden;
 }
 
 enum PigeonRequestError{
-  no_network,
+  noNetwork,
   unauthenticated,
   forbidden,
-  server_error,
-  client_error,
-  unknown_error,
-  limit_reached;
+  serverError,
+  clientError,
+  unknownError,
+  limitReached;
 }
 
 enum PigeonUpdateUserIdStatus{
   updated,
-  failed_to_update,
-  invalid_user_id,
-  already_used,
-  saved_for_repost;
+  failedToUpdate,
+  invalidUserId,
+  alreadyUsed,
+  savedForRepost;
 }
