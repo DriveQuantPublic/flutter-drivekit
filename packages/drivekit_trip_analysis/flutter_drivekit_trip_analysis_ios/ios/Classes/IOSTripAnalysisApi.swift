@@ -63,10 +63,45 @@ private func nilOrValue<T>(_ value: Any?) -> T? {
   if value is NSNull { return nil }
   return value as! T?
 }
+
+/// Generated class from Pigeon that represents data sent in messages.
+struct PigeonVehicle {
+  var carTypeIndex: Int64
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ __pigeon_list: [Any?]) -> PigeonVehicle? {
+    let carTypeIndex = __pigeon_list[0] is Int64 ? __pigeon_list[0] as! Int64 : Int64(__pigeon_list[0] as! Int32)
+
+    return PigeonVehicle(
+      carTypeIndex: carTypeIndex
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      carTypeIndex
+    ]
+  }
+}
 private class IOSTripAnalysisApiPigeonCodecReader: FlutterStandardReader {
+  override func readValue(ofType type: UInt8) -> Any? {
+    switch type {
+    case 129:
+      return PigeonVehicle.fromList(self.readValue() as! [Any?])
+    default:
+      return super.readValue(ofType: type)
+    }
+  }
 }
 
 private class IOSTripAnalysisApiPigeonCodecWriter: FlutterStandardWriter {
+  override func writeValue(_ value: Any) {
+    if let value = value as? PigeonVehicle {
+      super.writeByte(129)
+      super.writeValue(value.toList())
+    } else {
+      super.writeValue(value)
+    }
+  }
 }
 
 private class IOSTripAnalysisApiPigeonCodecReaderWriter: FlutterStandardReaderWriter {
@@ -92,6 +127,7 @@ protocol IOSTripAnalysisApi {
   func stopTrip() throws
   func cancelTrip() throws
   func isTripRunning() throws -> Bool
+  func setVehicle(vehicle: PigeonVehicle) throws
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
@@ -194,6 +230,21 @@ class IOSTripAnalysisApiSetup {
       }
     } else {
       isTripRunningChannel.setMessageHandler(nil)
+    }
+    let setVehicleChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.pigeon_trip_analysis_package.IOSTripAnalysisApi.setVehicle\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      setVehicleChannel.setMessageHandler { message, reply in
+        let args = message as! [Any?]
+        let vehicleArg = args[0] as! PigeonVehicle
+        do {
+          try api.setVehicle(vehicle: vehicleArg)
+          reply(wrapResult(nil))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      setVehicleChannel.setMessageHandler(nil)
     }
   }
 }
