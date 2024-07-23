@@ -16,17 +16,7 @@ class _SliverResetState extends State<SliverReset> {
       child: ElevatedButton(
         onPressed: () async {
           if (!context.mounted) return;
-          try {
-            await driveKitCore.reset();
-          } catch (error) {
-            if (!context.mounted) return;
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                backgroundColor: Theme.of(context).primaryColor,
-                content: Text('$error'),
-              ),
-            );
-          }
+          await driveKitCore.reset();
         },
         child: const Text('Reset'),
       ),
