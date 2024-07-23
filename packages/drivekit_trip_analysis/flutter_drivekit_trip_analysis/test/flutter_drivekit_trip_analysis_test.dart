@@ -46,5 +46,15 @@ void main() {
         verify(() => drivekitTripAnalysisPlatform.activateAutoStart(false));
       });
     });
+
+    group('startTrip', () {
+      test('calls startTrip on platform implementation', () async {
+        when(() => drivekitTripAnalysisPlatform.startTrip())
+            .thenAnswer((_) async {});
+
+        await drivekitTripAnalysisPlatform.startTrip();
+        verify(() => drivekitTripAnalysisPlatform.startTrip());
+      });
+    });
   });
 }
