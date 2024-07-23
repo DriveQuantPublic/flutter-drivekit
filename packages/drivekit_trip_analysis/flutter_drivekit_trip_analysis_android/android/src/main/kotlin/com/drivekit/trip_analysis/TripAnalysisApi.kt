@@ -2,7 +2,7 @@
 // See also: https://pub.dev/packages/pigeon
 @file:Suppress("UNCHECKED_CAST", "ArrayInDataClass")
 
-package com.drivequant.drivekit.flutter.core
+package com.drivequant.drivekit.flutter.trip_analysis
 
 import android.util.Log
 import io.flutter.plugin.common.BasicMessageChannel
@@ -17,7 +17,7 @@ private fun wrapResult(result: Any?): List<Any?> {
 }
 
 private fun wrapError(exception: Throwable): List<Any?> {
-  return if (exception is FlutterCoreError) {
+  return if (exception is FlutterTripAnalysisError) {
     listOf(
       exception.code,
       exception.message,
@@ -38,12 +38,12 @@ private fun wrapError(exception: Throwable): List<Any?> {
  * @property message The error message.
  * @property details The error details. Must be a datatype supported by the api codec.
  */
-class FlutterCoreError (
+class FlutterTripAnalysisError (
   val code: String,
   override val message: String? = null,
   val details: Any? = null
 ) : Throwable()
-private object CoreApiPigeonCodec : StandardMessageCodec() {
+private object TripAnalysisApiPigeonCodec : StandardMessageCodec() {
   override fun readValueOfType(type: Byte, buffer: ByteBuffer): Any? {
     return     super.readValueOfType(type, buffer)
   }
@@ -53,24 +53,22 @@ private object CoreApiPigeonCodec : StandardMessageCodec() {
 }
 
 /** Generated interface from Pigeon that represents a handler of messages from Flutter. */
-interface AndroidCoreApi {
+interface AndroidTripAnalysisApi {
   fun getPlatformName(): String
-  fun setApiKey(key: String)
-  fun setUserId(userId: String)
-  fun reset()
-  fun isTokenValid(): Boolean
+  fun activateAutoStart(activate: Boolean)
+  fun startTrip()
 
   companion object {
-    /** The codec used by AndroidCoreApi. */
+    /** The codec used by AndroidTripAnalysisApi. */
     val codec: MessageCodec<Any?> by lazy {
-      CoreApiPigeonCodec
+      TripAnalysisApiPigeonCodec
     }
-    /** Sets up an instance of `AndroidCoreApi` to handle messages through the `binaryMessenger`. */
+    /** Sets up an instance of `AndroidTripAnalysisApi` to handle messages through the `binaryMessenger`. */
     @JvmOverloads
-    fun setUp(binaryMessenger: BinaryMessenger, api: AndroidCoreApi?, messageChannelSuffix: String = "") {
+    fun setUp(binaryMessenger: BinaryMessenger, api: AndroidTripAnalysisApi?, messageChannelSuffix: String = "") {
       val separatedMessageChannelSuffix = if (messageChannelSuffix.isNotEmpty()) ".$messageChannelSuffix" else ""
       run {
-        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_core_package.AndroidCoreApi.getPlatformName$separatedMessageChannelSuffix", codec)
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.getPlatformName$separatedMessageChannelSuffix", codec)
         if (api != null) {
           channel.setMessageHandler { _, reply ->
             val wrapped: List<Any?> = try {
@@ -85,13 +83,13 @@ interface AndroidCoreApi {
         }
       }
       run {
-        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_core_package.AndroidCoreApi.setApiKey$separatedMessageChannelSuffix", codec)
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.activateAutoStart$separatedMessageChannelSuffix", codec)
         if (api != null) {
           channel.setMessageHandler { message, reply ->
             val args = message as List<Any?>
-            val keyArg = args[0] as String
+            val activateArg = args[0] as Boolean
             val wrapped: List<Any?> = try {
-              api.setApiKey(keyArg)
+              api.activateAutoStart(activateArg)
               listOf(null)
             } catch (exception: Throwable) {
               wrapError(exception)
@@ -103,45 +101,12 @@ interface AndroidCoreApi {
         }
       }
       run {
-        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_core_package.AndroidCoreApi.setUserId$separatedMessageChannelSuffix", codec)
-        if (api != null) {
-          channel.setMessageHandler { message, reply ->
-            val args = message as List<Any?>
-            val userIdArg = args[0] as String
-            val wrapped: List<Any?> = try {
-              api.setUserId(userIdArg)
-              listOf(null)
-            } catch (exception: Throwable) {
-              wrapError(exception)
-            }
-            reply.reply(wrapped)
-          }
-        } else {
-          channel.setMessageHandler(null)
-        }
-      }
-      run {
-        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_core_package.AndroidCoreApi.reset$separatedMessageChannelSuffix", codec)
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.startTrip$separatedMessageChannelSuffix", codec)
         if (api != null) {
           channel.setMessageHandler { _, reply ->
             val wrapped: List<Any?> = try {
-              api.reset()
+              api.startTrip()
               listOf(null)
-            } catch (exception: Throwable) {
-              wrapError(exception)
-            }
-            reply.reply(wrapped)
-          }
-        } else {
-          channel.setMessageHandler(null)
-        }
-      }
-      run {
-        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_core_package.AndroidCoreApi.isTokenValid$separatedMessageChannelSuffix", codec)
-        if (api != null) {
-          channel.setMessageHandler { _, reply ->
-            val wrapped: List<Any?> = try {
-              listOf(api.isTokenValid())
             } catch (exception: Throwable) {
               wrapError(exception)
             }

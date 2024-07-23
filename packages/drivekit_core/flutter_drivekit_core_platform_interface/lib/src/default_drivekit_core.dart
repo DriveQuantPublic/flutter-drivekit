@@ -24,4 +24,9 @@ class DefaultDrivekitCore extends DrivekitCorePlatform {
   Future<void> reset() {
     throw UnimplementedError('reset() has not been implemented.');
   }
+
+  @override
+  Future<bool> isTokenValid() {
+    throw UnimplementedError('isTokenValid() has not been implemented.');
+  }
 }

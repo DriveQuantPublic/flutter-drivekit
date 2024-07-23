@@ -49,5 +49,14 @@ void main() {
       await DrivekitTripAnalysisPlatform.instance.activateAutoStart(false);
       verify(() => iOSTripAnalysisApi.activateAutoStart(false)).called(1);
     });
+
+    test('calls startTrip on platform implementation', () async {
+      //mock
+      when(() => iOSTripAnalysisApi.startTrip()).thenAnswer((_) async {});
+
+      //test
+      await DrivekitTripAnalysisPlatform.instance.startTrip();
+      verify(() => iOSTripAnalysisApi.startTrip()).called(1);
+    });
   });
 }

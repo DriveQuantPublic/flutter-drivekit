@@ -32,4 +32,8 @@ class DrivekitCorePlugin :
     override fun reset() {
         DriveKit.reset()
     }
+
+    override fun isTokenValid(): Boolean {
+        return DriveKit.isTokenValid()
+    }
 }

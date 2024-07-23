@@ -54,6 +54,16 @@ void main() {
       //test
       await DrivekitCorePlatform.instance.reset();
       verify(() => iosCoreApi.reset()).called(1);
+    
+    });
+    
+    test('returns true if token is valid and user is connected', () async {
+      //mocks
+      when(iosCoreApi.isTokenValid).thenAnswer((_) async => true);
+
+      //test
+      final isValid = await DrivekitCorePlatform.instance.isTokenValid();
+      expect(isValid, true);
     });
   });
 }
