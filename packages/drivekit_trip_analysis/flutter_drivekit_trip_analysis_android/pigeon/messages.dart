@@ -25,3 +25,27 @@ abstract class AndroidTripAnalysisApi {
   void cancelTrip();
   bool isTripRunning();
 }
+
+enum PigeonDeleteAccountStatus {
+  success,
+  failed_to_delete,
+  forbidden;
+}
+
+enum PigeonRequestError{
+  no_network,
+  unauthenticated,
+  forbidden,
+  server_error,
+  client_error,
+  unknown_error,
+  limit_reached;
+}
+
+enum PigeonUpdateUserIdStatus{
+  updated,
+  failed_to_update,
+  invalid_user_id,
+  already_used,
+  saved_for_repost;
+}

@@ -43,12 +43,85 @@ class FlutterTripAnalysisError (
   override val message: String? = null,
   val details: Any? = null
 ) : Throwable()
+
+enum class PigeonDeleteAccountStatus(val raw: Int) {
+  SUCCESS(0),
+  FAILED_TO_DELETE(1),
+  FORBIDDEN(2);
+
+  companion object {
+    fun ofRaw(raw: Int): PigeonDeleteAccountStatus? {
+      return values().firstOrNull { it.raw == raw }
+    }
+  }
+}
+
+enum class PigeonRequestError(val raw: Int) {
+  NO_NETWORK(0),
+  UNAUTHENTICATED(1),
+  FORBIDDEN(2),
+  SERVER_ERROR(3),
+  CLIENT_ERROR(4),
+  UNKNOWN_ERROR(5),
+  LIMIT_REACHED(6);
+
+  companion object {
+    fun ofRaw(raw: Int): PigeonRequestError? {
+      return values().firstOrNull { it.raw == raw }
+    }
+  }
+}
+
+enum class PigeonUpdateUserIdStatus(val raw: Int) {
+  UPDATED(0),
+  FAILED_TO_UPDATE(1),
+  INVALID_USER_ID(2),
+  ALREADY_USED(3),
+  SAVED_FOR_REPOST(4);
+
+  companion object {
+    fun ofRaw(raw: Int): PigeonUpdateUserIdStatus? {
+      return values().firstOrNull { it.raw == raw }
+    }
+  }
+}
 private object TripAnalysisApiPigeonCodec : StandardMessageCodec() {
   override fun readValueOfType(type: Byte, buffer: ByteBuffer): Any? {
-    return     super.readValueOfType(type, buffer)
+    return when (type) {
+      129.toByte() -> {
+        return (readValue(buffer) as Int?)?.let {
+          PigeonDeleteAccountStatus.ofRaw(it)
+        }
+      }
+      130.toByte() -> {
+        return (readValue(buffer) as Int?)?.let {
+          PigeonRequestError.ofRaw(it)
+        }
+      }
+      131.toByte() -> {
+        return (readValue(buffer) as Int?)?.let {
+          PigeonUpdateUserIdStatus.ofRaw(it)
+        }
+      }
+      else -> super.readValueOfType(type, buffer)
+    }
   }
   override fun writeValue(stream: ByteArrayOutputStream, value: Any?)   {
-    super.writeValue(stream, value)
+    when (value) {
+      is PigeonDeleteAccountStatus -> {
+        stream.write(129)
+        writeValue(stream, value.raw)
+      }
+      is PigeonRequestError -> {
+        stream.write(130)
+        writeValue(stream, value.raw)
+      }
+      is PigeonUpdateUserIdStatus -> {
+        stream.write(131)
+        writeValue(stream, value.raw)
+      }
+      else -> super.writeValue(stream, value)
+    }
   }
 }
 
