@@ -25,13 +25,7 @@ class _SliverTokenValidityState extends State<SliverTokenValidity> {
               builder: (BuildContext context) {
                 return AlertDialog(
                   title: const Text('Token validity'),
-                  content: SingleChildScrollView(
-                    child: ListBody(
-                      children: <Widget>[
-                        Text(alertMessage),
-                      ],
-                    ),
-                  ),
+                  content: Text(alertMessage),
                   actions: <Widget>[
                     TextButton(
                       child: const Text('OK'),
