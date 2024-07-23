@@ -31,4 +31,7 @@ class DrivekitCoreAndroid extends DrivekitCorePlatform {
 
   @override
   Future<void> reset() => androidCoreApi.reset();
+
+  @override
+  Future<bool> isTokenValid() => androidCoreApi.isTokenValid();
 }

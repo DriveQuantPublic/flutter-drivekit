@@ -38,4 +38,8 @@ class DriveKitCore {
   Future<void> reset() async {
     await _platform.reset();
   }
+
+  /// Check the validity of the generated token
+  /// after connecting with API Key and User ID
+  Future<bool> isTokenValid() => _platform.isTokenValid();
 }
