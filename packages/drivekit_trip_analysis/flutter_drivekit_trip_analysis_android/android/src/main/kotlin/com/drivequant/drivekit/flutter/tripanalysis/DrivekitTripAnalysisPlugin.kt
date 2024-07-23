@@ -76,9 +76,4 @@ class DrivekitTripAnalysisPlugin : FlutterPlugin, AndroidTripAnalysisApi {
                 }
         )
     }
-
-    // example of how to call flutter from native, will be used with listener
-    private fun onAuthenticationError(requestError: PigeonRequestError) {
-        flutterApi?.onAuthenticationError(requestError) { echo -> Result.success(echo) }
-    }
 }
