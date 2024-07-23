@@ -43,12 +43,44 @@ class FlutterTripAnalysisError (
   override val message: String? = null,
   val details: Any? = null
 ) : Throwable()
+
+/** Generated class from Pigeon that represents data sent in messages. */
+data class PigeonVehicle (
+  val carTypeIndex: Long
+
+) {
+  companion object {
+    @Suppress("LocalVariableName")
+    fun fromList(__pigeon_list: List<Any?>): PigeonVehicle {
+      val carTypeIndex = __pigeon_list[0].let { num -> if (num is Int) num.toLong() else num as Long }
+      return PigeonVehicle(carTypeIndex)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      carTypeIndex,
+    )
+  }
+}
 private object TripAnalysisApiPigeonCodec : StandardMessageCodec() {
   override fun readValueOfType(type: Byte, buffer: ByteBuffer): Any? {
-    return     super.readValueOfType(type, buffer)
+    return when (type) {
+      129.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
+          PigeonVehicle.fromList(it)
+        }
+      }
+      else -> super.readValueOfType(type, buffer)
+    }
   }
   override fun writeValue(stream: ByteArrayOutputStream, value: Any?)   {
-    super.writeValue(stream, value)
+    when (value) {
+      is PigeonVehicle -> {
+        stream.write(129)
+        writeValue(stream, value.toList())
+      }
+      else -> super.writeValue(stream, value)
+    }
   }
 }
 
@@ -61,6 +93,7 @@ interface AndroidTripAnalysisApi {
   fun stopTrip()
   fun cancelTrip()
   fun isTripRunning(): Boolean
+  fun setVehicle(vehicle: PigeonVehicle)
 
   companion object {
     /** The codec used by AndroidTripAnalysisApi. */
@@ -176,6 +209,24 @@ interface AndroidTripAnalysisApi {
           channel.setMessageHandler { _, reply ->
             val wrapped: List<Any?> = try {
               listOf(api.isTripRunning())
+            } catch (exception: Throwable) {
+              wrapError(exception)
+            }
+            reply.reply(wrapped)
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.setVehicle$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { message, reply ->
+            val args = message as List<Any?>
+            val vehicleArg = args[0] as PigeonVehicle
+            val wrapped: List<Any?> = try {
+              api.setVehicle(vehicleArg)
+              listOf(null)
             } catch (exception: Throwable) {
               wrapError(exception)
             }

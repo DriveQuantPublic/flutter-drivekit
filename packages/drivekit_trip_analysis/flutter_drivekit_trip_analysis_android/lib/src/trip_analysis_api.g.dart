@@ -15,8 +15,49 @@ PlatformException _createConnectionError(String channelName) {
   );
 }
 
+class PigeonVehicle {
+  PigeonVehicle({
+    this.carTypeIndex = 1,
+  });
+
+  int carTypeIndex;
+
+  Object encode() {
+    return <Object?>[
+      carTypeIndex,
+    ];
+  }
+
+  static PigeonVehicle decode(Object result) {
+    result as List<Object?>;
+    return PigeonVehicle(
+      carTypeIndex: result[0]! as int,
+    );
+  }
+}
+
+
 class _PigeonCodec extends StandardMessageCodec {
   const _PigeonCodec();
+  @override
+  void writeValue(WriteBuffer buffer, Object? value) {
+    if (value is PigeonVehicle) {
+      buffer.putUint8(129);
+      writeValue(buffer, value.encode());
+    } else {
+      super.writeValue(buffer, value);
+    }
+  }
+
+  @override
+  Object? readValueOfType(int type, ReadBuffer buffer) {
+    switch (type) {
+      case 129:
+        return PigeonVehicle.decode(readValue(buffer)!);
+      default:
+        return super.readValueOfType(type, buffer);
+    }
+  }
 }
 
 class AndroidTripAnalysisApi {
@@ -209,6 +250,28 @@ class AndroidTripAnalysisApi {
       );
     } else {
       return (__pigeon_replyList[0] as bool?)!;
+    }
+  }
+
+  Future<void> setVehicle(PigeonVehicle vehicle) async {
+    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.setVehicle$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+      __pigeon_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: __pigeon_binaryMessenger,
+    );
+    final List<Object?>? __pigeon_replyList =
+        await __pigeon_channel.send(<Object?>[vehicle]) as List<Object?>?;
+    if (__pigeon_replyList == null) {
+      throw _createConnectionError(__pigeon_channelName);
+    } else if (__pigeon_replyList.length > 1) {
+      throw PlatformException(
+        code: __pigeon_replyList[0]! as String,
+        message: __pigeon_replyList[1] as String?,
+        details: __pigeon_replyList[2],
+      );
+    } else {
+      return;
     }
   }
 }
