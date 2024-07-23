@@ -1,11 +1,12 @@
 package com.drivequant.drivekit.flutter.tripanalysis
 
-import AndroidTripAnalysisApi
 import android.content.Context
 import com.drivequant.drivekit.tripanalysis.DriveKitTripAnalysis
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 
-class DrivekitTripAnalysisPlugin : FlutterPlugin, AndroidTripAnalysisApi {
+class DrivekitTripAnalysisPlugin :
+    FlutterPlugin,
+    AndroidTripAnalysisApi {
     private var context: Context? = null
 
     override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
@@ -18,14 +19,11 @@ class DrivekitTripAnalysisPlugin : FlutterPlugin, AndroidTripAnalysisApi {
         context = null
     }
 
-    override fun getPlatformName(): String {
-        return "android"
-    }
+    override fun getPlatformName(): String = "android"
 
     override fun activateAutoStart(activate: Boolean) {
         DriveKitTripAnalysis.activateAutoStart(activate)
     }
-
     override fun startTrip() {
         DriveKitTripAnalysis.startTrip()
     }

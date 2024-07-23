@@ -52,5 +52,15 @@ void main() {
         verify(() => drivekitCorePlatform.setUserId('user_id'));
       });
     });
+
+    group('reset', () {
+      test('calls reset on platform implementation', () async {
+        when(() => drivekitCorePlatform.reset())
+            .thenAnswer((_) async {});
+
+        await driveKitCore.reset();
+        verify(() => drivekitCorePlatform.reset());
+      });
+    });
   });
 }

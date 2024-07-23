@@ -50,3 +50,12 @@ scripts:
         - pigeon
 
     description: Generate pigeon code
+
+  gen:core:
+    description: Generate code in every packages from the last method in core platform interfaces
+    run: |
+      ./scripts/add_to_core.sh 
+  gen:trip_analysis:
+    description: Generate code in every packages from the last method in trip analysis platform interfaces
+    run: |
+      ./scripts/add_to_trip_analysis.sh 

@@ -1,12 +1,13 @@
 package com.drivequant.drivekit.flutter.core
 
 import android.content.Context
-import io.flutter.embedding.engine.plugins.FlutterPlugin
 import com.drivequant.drivekit.core.DriveKit
+import io.flutter.embedding.engine.plugins.FlutterPlugin
 
-class DrivekitCorePlugin : FlutterPlugin, AndroidCoreApi {
+class DrivekitCorePlugin :
+    FlutterPlugin,
+    AndroidCoreApi {
     private var context: Context? = null
-
 
     override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         AndroidCoreApi.setUp(flutterPluginBinding.binaryMessenger, this)
@@ -18,16 +19,17 @@ class DrivekitCorePlugin : FlutterPlugin, AndroidCoreApi {
         context = null
     }
 
-    override fun getPlatformName(): String {
-        return "android"
+    override fun getPlatformName(): String = "android"
+
+    override fun setApiKey(key: String) {
+        DriveKit.setApiKey(key)
     }
 
-    override fun setApiKey(key:String) {
-       DriveKit.setApiKey(key)
-    }
-
-    override fun setUserId(userId:String) {
+    override fun setUserId(userId: String) {
         DriveKit.setUserId(userId)
     }
 
+    override fun reset() {
+        DriveKit.reset()
+    }
 }
