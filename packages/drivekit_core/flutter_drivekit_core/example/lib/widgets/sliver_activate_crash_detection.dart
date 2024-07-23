@@ -11,8 +11,8 @@ class SliverActivateCrashDetection extends StatefulWidget {
 
 class _SliverActivateCrashDetectionState
     extends State<SliverActivateCrashDetection> {
-  // in DriveKit SDK, crash detection configuration defaults to false
-  bool _activateCrashDetection = false;
+  // in DriveKit SDK, crash detection configuration defaults to true
+  bool _activateCrashDetection = true;
 
   @override
   Widget build(BuildContext context) {
