@@ -1,0 +1,41 @@
+#!/bin/bash
+
+./scripts/add_to_public_package.sh \
+./packages/drivekit_trip_analysis/flutter_drivekit_trip_analysis_platform_interface/lib/flutter_drivekit_trip_analysis_platform_interface.dart \
+./packages/drivekit_trip_analysis/flutter_drivekit_trip_analysis/lib/flutter_drivekit_trip_analysis.dart \
+DrivekitTripAnalysisPlatform \
+DriveKitTripAnalysis
+
+./scripts/add_to_default_implem.sh \
+./packages/drivekit_trip_analysis/flutter_drivekit_trip_analysis_platform_interface/lib/flutter_drivekit_trip_analysis_platform_interface.dart \
+./packages/drivekit_trip_analysis/flutter_drivekit_trip_analysis_platform_interface/lib/src/default_drivekit_trip_analysis.dart \
+DrivekitTripAnalysisPlatform \
+DefaultDrivekitTripAnalysis
+
+./scripts/add_to_pigeon.sh \
+./packages/drivekit_trip_analysis/flutter_drivekit_trip_analysis_platform_interface/lib/flutter_drivekit_trip_analysis_platform_interface.dart \
+./packages/drivekit_trip_analysis/flutter_drivekit_trip_analysis_android/pigeon/messages.dart \
+DrivekitTripAnalysisPlatform \
+AndroidTripAnalysisApi
+
+./scripts/add_to_pigeon.sh \
+./packages/drivekit_trip_analysis/flutter_drivekit_trip_analysis_platform_interface/lib/flutter_drivekit_trip_analysis_platform_interface.dart \
+./packages/drivekit_trip_analysis/flutter_drivekit_trip_analysis_ios/pigeon/messages.dart \
+DrivekitTripAnalysisPlatform \
+IOSTripAnalysisApi
+
+melos pigeon
+
+./scripts/add_to_platform_dart_file.sh \
+./packages/drivekit_trip_analysis/flutter_drivekit_trip_analysis_platform_interface/lib/flutter_drivekit_trip_analysis_platform_interface.dart \
+./packages/drivekit_trip_analysis/flutter_drivekit_trip_analysis_android/lib/flutter_drivekit_trip_analysis_android.dart \
+DrivekitTripAnalysisPlatform \
+DrivekitTripAnalysisAndroid \
+androidTripAnalysisApi
+
+./scripts/add_to_platform_dart_file.sh \
+./packages/drivekit_trip_analysis/flutter_drivekit_trip_analysis_platform_interface/lib/flutter_drivekit_trip_analysis_platform_interface.dart \
+./packages/drivekit_trip_analysis/flutter_drivekit_trip_analysis_ios/lib/flutter_drivekit_trip_analysis_ios.dart \
+DrivekitTripAnalysisPlatform \
+DrivekitTripAnalysisIOS \
+iosTripAnalysisApi

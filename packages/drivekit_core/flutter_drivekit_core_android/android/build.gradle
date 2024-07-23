@@ -1,6 +1,7 @@
 plugins {
     id "com.android.library"
     id "kotlin-android"
+    id "org.jmailen.kotlinter" version "4.4.0"
 }
 
 group 'com.drivequant.drivekit.flutter.core'
@@ -54,4 +55,19 @@ android {
             }
         }
     }
+}
+
+tasks.formatKotlinMain {
+    exclude { it.file.path.contains("com/drivequant/drivekit/flutter/core/CoreApi.kt")}
+}
+
+tasks.lintKotlinMain {
+    exclude { it.file.path.contains("com/drivequant/drivekit/flutter/core/CoreApi.kt")}
+}
+// To run formating on build and clean. Can find a better solution on commit hook
+tasks.named('preBuild') {
+    dependsOn 'formatKotlin'
+}
+tasks.named('clean') {
+    dependsOn 'formatKotlin'
 }

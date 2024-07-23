@@ -70,5 +70,16 @@
 	<array>
 		<string>com.drivequant.diagnosis.app.refresh</string>
 	</array>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>DriveKit needs access to location to collect data.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>DriveKit needs access to location to collect data.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>DriveKit needs access to location to collect data.</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>location</string>
+	</array>
 </dict>
 </plist>

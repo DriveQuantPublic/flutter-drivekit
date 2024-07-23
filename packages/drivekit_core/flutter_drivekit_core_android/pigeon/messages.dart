@@ -6,10 +6,11 @@ import 'package:pigeon/pigeon.dart';
   PigeonOptions(
     dartOut: 'lib/src/core_api.g.dart',
     dartOptions: DartOptions(),
-    kotlinOut: 'android/src/main/kotlin/com/drivequant/drivekit/flutter/core/CoreApi.kt',
+    kotlinOut:
+        'android/src/main/kotlin/com/drivequant/drivekit/flutter/core/CoreApi.kt',
     kotlinOptions: KotlinOptions(
-        errorClassName: 'FlutterCoreError',
-        package: 'com.drivequant.drivekit.flutter.core',
+      errorClassName: 'FlutterCoreError',
+      package: 'com.drivequant.drivekit.flutter.core',
     ),
     dartPackageName: 'pigeon_core_package',
   ),
@@ -19,5 +20,6 @@ abstract class AndroidCoreApi {
   String getPlatformName();
   void setApiKey(String key);
   void setUserId(String userId);
+  void reset();
   bool isTokenValid();
 }

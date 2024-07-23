@@ -24,6 +24,10 @@ public class DrivekitCorePlugin: NSObject, FlutterPlugin, IOSCoreApi {
         DriveKit.shared.setUserId(userId: userId)
     }
 
+     public func reset() {
+        DriveKit.shared.reset()
+    }
+
     func isTokenValid() throws -> Bool {
         return DriveKit.shared.isTokenValid()
     }

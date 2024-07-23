@@ -10,9 +10,9 @@ flutter:
   plugin:
     platforms:
       android:
-        default_package: drivekit_trip_analysis_android
+        default_package: flutter_drivekit_trip_analysis_android
       ios:
-        default_package: drivekit_trip_analysis_ios
+        default_package: flutter_drivekit_trip_analysis_ios
 
 dependencies:
   flutter:

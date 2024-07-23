@@ -19,7 +19,12 @@ class DefaultDrivekitCore extends DrivekitCorePlatform {
   Future<void> setUserId(String userId) {
     throw UnimplementedError('setUserId() has not been implemented.');
   }
-  
+
+  @override
+  Future<void> reset() {
+    throw UnimplementedError('reset() has not been implemented.');
+  }
+
   @override
   Future<bool> isTokenValid() {
     throw UnimplementedError('isTokenValid() has not been implemented.');

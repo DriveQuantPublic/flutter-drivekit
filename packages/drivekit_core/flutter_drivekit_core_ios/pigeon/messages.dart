@@ -16,5 +16,6 @@ abstract class IOSCoreApi {
   String getPlatformName();
   void setApiKey(String key);
   void setUserId(String userId);
+  void reset();
   bool isTokenValid();
 }

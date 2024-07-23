@@ -37,8 +37,10 @@ abstract class DrivekitCorePlatform extends PlatformInterface {
   /// Identifies the user with the given id.
   Future<void> setUserId(String userId);
 
-    /// Check the validity of the generated token
-    /// after connecting with API Key and User ID
-  Future<bool> isTokenValid();
+  /// Resets the DriveKit SDK.
+  Future<void> reset();
 
+  /// Check the validity of the generated token
+  /// after connecting with API Key and User ID
+  Future<bool> isTokenValid();
 }
