@@ -20,4 +20,14 @@ abstract class IOSTripAnalysisApi {
   void stopTrip();
   void cancelTrip();
   bool isTripRunning();
+
+  void setVehicle(PigeonVehicle vehicle);
+}
+
+class PigeonVehicle {
+  const PigeonVehicle({
+    this.carTypeIndex = 1,
+  });
+
+  final int carTypeIndex;
 }
