@@ -71,7 +71,7 @@ To add a new method to the communication between Flutter and the native code in 
 - run this command to generate the necessary code. It will ask you to choose the package you want to generate the code for, or to generate the code for all packages.
 
   ```shell
-  melos run pigeon
+  melos pigeon
   ```
 
   If the command is not recognized, you can try to run
