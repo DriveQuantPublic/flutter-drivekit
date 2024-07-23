@@ -27,7 +27,10 @@ abstract class FlutterTripAnalysisApi {
   void driveKitDidConnect();
   void driveKitDidDisconnect();
   void driveKitDidReceiveAuthenticationError(PigeonRequestError error);
-  void userIdUpdateStatusChanged(PigeonUpdateUserIdStatus status, String? userId);
+  void userIdUpdateStatusChanged(
+      PigeonUpdateUserIdStatus status,
+      String? userId,
+  );
   void driveKitAccountDeletionCompleted(PigeonDeleteAccountStatus status);
   void driveKitBackgroundFetchStatusChanged(PigeonBackgroundFetchStatus status);
 }
