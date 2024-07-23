@@ -21,4 +21,6 @@ abstract class AndroidTripAnalysisApi {
   void activateAutoStart(bool activate);
   void activateCrashDetection(bool activate);
   void startTrip();
+  void stopTrip();
+  void cancelTrip();
 }

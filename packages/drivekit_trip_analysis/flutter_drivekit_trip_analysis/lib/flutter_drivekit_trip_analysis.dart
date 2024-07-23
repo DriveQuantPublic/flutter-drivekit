@@ -39,4 +39,20 @@ class DrivekitTripAnalysis {
   Future<void> startTrip() async {
     await _platform.startTrip();
   }
+
+  /// If a trip is currently being analyzed, calling this method will
+  /// immediately end the trip and it will be sent to DriveQuant's backend to be
+  /// analyzed.
+  /// If no trip is currently being analyzed, calling this method has no effect.
+  Future<void> stopTrip() async {
+    await _platform.stopTrip();
+  }
+
+  /// If a trip is currently being analyzed, calling this method will
+  /// immediately end the trip and it will not be analyzed by DriveQuant's
+  /// backend.
+  /// If no trip is currently being analyzed, calling this method has no effect.
+  Future<void> cancelTrip() async {
+    await _platform.cancelTrip();
+  }
 }

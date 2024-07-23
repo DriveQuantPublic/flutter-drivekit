@@ -66,13 +66,31 @@ void main() {
       verify(() => iOSTripAnalysisApi.activateCrashDetection(false)).called(1);
     });
 
-    test('calls startTrip on platform implementation', () async {
+    test('startTrip calls ios implementation', () async {
       //mock
       when(() => iOSTripAnalysisApi.startTrip()).thenAnswer((_) async {});
 
       //test
       await DrivekitTripAnalysisPlatform.instance.startTrip();
       verify(() => iOSTripAnalysisApi.startTrip()).called(1);
+    });
+
+    test('stopTrip calls ios implementation', () async {
+      //mock
+      when(() => iOSTripAnalysisApi.stopTrip()).thenAnswer((_) async {});
+
+      //test
+      await DrivekitTripAnalysisPlatform.instance.stopTrip();
+      verify(() => iOSTripAnalysisApi.stopTrip()).called(1);
+    });
+
+    test('cancelTrip calls ios implementation', () async {
+      //mock
+      when(() => iOSTripAnalysisApi.cancelTrip()).thenAnswer((_) async {});
+
+      //test
+      await DrivekitTripAnalysisPlatform.instance.cancelTrip();
+      verify(() => iOSTripAnalysisApi.cancelTrip()).called(1);
     });
   });
 }

@@ -89,6 +89,8 @@ protocol IOSTripAnalysisApi {
   func activateAutoStart(activate: Bool) throws
   func activateCrashDetection(activate: Bool) throws
   func startTrip() throws
+  func stopTrip() throws
+  func cancelTrip() throws
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
@@ -152,6 +154,32 @@ class IOSTripAnalysisApiSetup {
       }
     } else {
       startTripChannel.setMessageHandler(nil)
+    }
+    let stopTripChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.pigeon_trip_analysis_package.IOSTripAnalysisApi.stopTrip\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      stopTripChannel.setMessageHandler { _, reply in
+        do {
+          try api.stopTrip()
+          reply(wrapResult(nil))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      stopTripChannel.setMessageHandler(nil)
+    }
+    let cancelTripChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.pigeon_trip_analysis_package.IOSTripAnalysisApi.cancelTrip\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      cancelTripChannel.setMessageHandler { _, reply in
+        do {
+          try api.cancelTrip()
+          reply(wrapResult(nil))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      cancelTripChannel.setMessageHandler(nil)
     }
   }
 }
