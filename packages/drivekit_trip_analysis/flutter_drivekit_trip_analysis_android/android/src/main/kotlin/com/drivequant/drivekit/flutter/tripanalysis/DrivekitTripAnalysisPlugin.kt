@@ -40,7 +40,9 @@ class DrivekitTripAnalysisPlugin :
     private fun configureDriveKitListener() {
         DriveKit.addDriveKitListener(object : DriveKitListener {
             override fun onAccountDeleted(status: DeleteAccountStatus) {
-                TODO("Not yet implemented")
+                flutterApi?.onAccountDeleted(status.toPigeon()) { echo ->
+                    Result.success(echo)
+                }
             }
 
             override fun onAuthenticationError(errorType: RequestError) {
@@ -50,15 +52,21 @@ class DrivekitTripAnalysisPlugin :
             }
 
             override fun onConnected() {
-                TODO("Not yet implemented")
+                flutterApi?.onConnected { echo ->
+                    Result.success(echo)
+                }
             }
 
             override fun onDisconnected() {
-                TODO("Not yet implemented")
+                flutterApi?.onDisconnected { echo ->
+                    Result.success(echo)
+                }
             }
 
             override fun userIdUpdateStatus(status: UpdateUserIdStatus, userId: String?) {
-                TODO("Not yet implemented")
+                flutterApi?.userIdUpdateStatus(status.toPigeon(), userId) { echo ->
+                    Result.success(echo)
+                }
             }
         })
     }
