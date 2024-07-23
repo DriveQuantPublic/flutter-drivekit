@@ -46,5 +46,14 @@ void main() {
       await DrivekitCorePlatform.instance.setUserId('user_id');
       verify(() => iosCoreApi.setUserId('user_id')).called(1);
     });
+
+    test('reset calls reset method', () async {
+      //mock
+      when(() => iosCoreApi.reset()).thenAnswer((_) async {});
+
+      //test
+      await DrivekitCorePlatform.instance.reset();
+      verify(() => iosCoreApi.reset()).called(1);
+    });
   });
 }
