@@ -55,11 +55,22 @@ void main() {
 
     group('reset', () {
       test('calls reset on platform implementation', () async {
-        when(() => drivekitCorePlatform.reset())
-            .thenAnswer((_) async {});
+        when(() => drivekitCorePlatform.reset()).thenAnswer((_) async {});
 
         await driveKitCore.reset();
         verify(() => drivekitCorePlatform.reset());
+      });
+    });
+
+    group('isTokenValid', () {
+      test('returns true if token is valid and user is connected', () async {
+        const tokenValidity = true;
+        when(
+          () => drivekitCorePlatform.isTokenValid(),
+        ).thenAnswer((_) async => tokenValidity);
+
+        final actualTokenValidity = await driveKitCore.isTokenValid();
+        expect(actualTokenValidity, equals(tokenValidity));
       });
     });
   });

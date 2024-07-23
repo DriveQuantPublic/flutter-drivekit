@@ -47,5 +47,14 @@ void main() {
       await DrivekitCorePlatform.instance.setUserId('user_id');
       verify(() => androidCoreApi.setUserId('user_id')).called(1);
     });
+
+    test('returns true if token is valid and user is connected', () async {
+      //mock
+      when(androidCoreApi.isTokenValid).thenAnswer((_) async => true);
+
+      //test
+      final isValid = await DrivekitCorePlatform.instance.isTokenValid();
+      expect(isValid, true);
+    });
   });
 }
