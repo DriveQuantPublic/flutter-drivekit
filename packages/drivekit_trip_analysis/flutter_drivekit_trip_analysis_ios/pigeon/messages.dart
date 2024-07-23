@@ -21,3 +21,43 @@ abstract class IOSTripAnalysisApi {
   void cancelTrip();
   bool isTripRunning();
 }
+
+@FlutterApi()
+abstract class FlutterTripAnalysisApi {
+  void driveKitDidConnect();
+  void driveKitDidDisconnect();
+  void driveKitDidReceiveAuthenticationError(PigeonRequestError error);
+  void userIdUpdateStatusChanged(PigeonUpdateUserIdStatus status, String? userId);
+  void driveKitAccountDeletionCompleted(PigeonDeleteAccountStatus status);
+  void driveKitBackgroundFetchStatusChanged(PigeonBackgroundFetchStatus status);
+}
+
+enum PigeonDeleteAccountStatus {
+  success,
+  failedToDelete,
+  forbidden;
+}
+
+enum PigeonRequestError{
+  wrongUrl,
+  noNetwork,
+  unauthenticated,
+  forbidden,
+  serverError,
+  clientError,
+  limitReached,
+  unknownError;
+}
+
+enum PigeonUpdateUserIdStatus{
+  updated,
+  failedToUpdate,
+  invalidUserId,
+  alreadyUsed,
+  savedForRepost;
+}
+
+enum PigeonBackgroundFetchStatus{
+  started,
+  completed;
+}
