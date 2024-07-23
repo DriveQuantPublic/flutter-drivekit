@@ -44,7 +44,9 @@ class DrivekitTripAnalysisPlugin :
             }
 
             override fun onAuthenticationError(errorType: RequestError) {
-                this@DrivekitTripAnalysisPlugin.onAuthenticationError(errorType)
+                flutterApi?.onAuthenticationError(errorType.toPigeon()) { echo ->
+                    Result.success(echo)
+                }
             }
 
             override fun onConnected() {
@@ -59,12 +61,5 @@ class DrivekitTripAnalysisPlugin :
                 TODO("Not yet implemented")
             }
         })
-    }
-
-    // example of how to call flutter from native, will be used with listener
-    private fun onAuthenticationError(requestError: RequestError) {
-        flutterApi?.onAuthenticationError(requestError.toPigeon()) { echo ->
-            Result.success(echo)
-        }
     }
 }
