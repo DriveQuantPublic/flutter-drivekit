@@ -9,7 +9,7 @@ packages:
 scripts:
   analyze:
     exec: |
-      dart analyze --fatal-infos . 
+      dart analyze --fatal-infos .
     description: Run analyzer in every packages
 
   fix:

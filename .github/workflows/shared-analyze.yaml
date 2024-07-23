@@ -31,3 +31,6 @@ jobs:
 
       - name: 🧐 Analyze
         run: melos analyze
+
+      - name: Run ktLint
+        run: ./ktLintCheck.sh
