@@ -68,5 +68,12 @@ void main() {
       verify(() => androidTripAnalysisApi.activateCrashDetection(false))
           .called(1);
     });
+    test('calls startTrip on platform implementation', () async {
+      //mock
+      when(() => androidTripAnalysisApi.startTrip()).thenAnswer((_) async {});
+
+      await DrivekitTripAnalysisPlatform.instance.startTrip();
+      verify(() => androidTripAnalysisApi.startTrip()).called(1);
+    });
   });
 }

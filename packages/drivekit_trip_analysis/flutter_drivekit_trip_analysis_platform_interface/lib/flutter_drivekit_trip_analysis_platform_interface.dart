@@ -38,4 +38,7 @@ abstract class DrivekitTripAnalysisPlatform extends PlatformInterface {
 
   /// Activate crash detection.
   Future<void> activateCrashDetection(bool activate);
+
+  /// Manually start a trip
+  Future<void> startTrip();
 }

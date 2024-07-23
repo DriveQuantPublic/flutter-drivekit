@@ -57,6 +57,7 @@ interface AndroidTripAnalysisApi {
   fun getPlatformName(): String
   fun activateAutoStart(activate: Boolean)
   fun activateCrashDetection(activate: Boolean)
+  fun startTrip()
 
   companion object {
     /** The codec used by AndroidTripAnalysisApi. */
@@ -108,6 +109,22 @@ interface AndroidTripAnalysisApi {
             val activateArg = args[0] as Boolean
             val wrapped: List<Any?> = try {
               api.activateCrashDetection(activateArg)
+              listOf(null)
+            } catch (exception: Throwable) {
+              wrapError(exception)
+            }
+            reply.reply(wrapped)
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.startTrip$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { _, reply ->
+            val wrapped: List<Any?> = try {
+              api.startTrip()
               listOf(null)
             } catch (exception: Throwable) {
               wrapError(exception)

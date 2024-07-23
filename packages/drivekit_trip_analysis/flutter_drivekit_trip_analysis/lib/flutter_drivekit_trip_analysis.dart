@@ -34,4 +34,9 @@ class DrivekitTripAnalysis {
   Future<void> activateCrashDetection(bool activate) async {
     await _platform.activateCrashDetection(activate);
   }
+
+  /// You can start a trip by calling startTrip method
+  Future<void> startTrip() async {
+    await _platform.startTrip();
+  }
 }
