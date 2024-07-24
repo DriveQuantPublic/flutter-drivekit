@@ -267,34 +267,34 @@ class AndroidTripAnalysisApi {
 abstract class FlutterTripAnalysisApi {
   static const MessageCodec<Object?> pigeonChannelCodec = _PigeonCodec();
 
-  void onAuthenticationError(PigeonRequestError errorType);
+  void pigeonOnAuthenticationError(PigeonRequestError errorType);
 
-  void onAccountDeleted(PigeonDeleteAccountStatus status);
+  void pigeonOnAccountDeleted(PigeonDeleteAccountStatus status);
 
-  void onConnected();
+  void pigeonOnConnected();
 
-  void onDisconnected();
+  void pigeonOnDisconnected();
 
-  void userIdUpdateStatus(PigeonUpdateUserIdStatus status, String? userId);
+  void pigeonUserIdUpdateStatus(PigeonUpdateUserIdStatus status, String? userId);
 
   static void setUp(FlutterTripAnalysisApi? api, {BinaryMessenger? binaryMessenger, String messageChannelSuffix = '',}) {
     messageChannelSuffix = messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
     {
       final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.onAuthenticationError$messageChannelSuffix', pigeonChannelCodec,
+          'dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.pigeonOnAuthenticationError$messageChannelSuffix', pigeonChannelCodec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
         __pigeon_channel.setMessageHandler(null);
       } else {
         __pigeon_channel.setMessageHandler((Object? message) async {
           assert(message != null,
-          'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.onAuthenticationError was null.');
+          'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.pigeonOnAuthenticationError was null.');
           final List<Object?> args = (message as List<Object?>?)!;
           final PigeonRequestError? arg_errorType = (args[0] as PigeonRequestError?);
           assert(arg_errorType != null,
-              'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.onAuthenticationError was null, expected non-null PigeonRequestError.');
+              'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.pigeonOnAuthenticationError was null, expected non-null PigeonRequestError.');
           try {
-            api.onAuthenticationError(arg_errorType!);
+            api.pigeonOnAuthenticationError(arg_errorType!);
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);
@@ -306,20 +306,20 @@ abstract class FlutterTripAnalysisApi {
     }
     {
       final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.onAccountDeleted$messageChannelSuffix', pigeonChannelCodec,
+          'dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.pigeonOnAccountDeleted$messageChannelSuffix', pigeonChannelCodec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
         __pigeon_channel.setMessageHandler(null);
       } else {
         __pigeon_channel.setMessageHandler((Object? message) async {
           assert(message != null,
-          'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.onAccountDeleted was null.');
+          'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.pigeonOnAccountDeleted was null.');
           final List<Object?> args = (message as List<Object?>?)!;
           final PigeonDeleteAccountStatus? arg_status = (args[0] as PigeonDeleteAccountStatus?);
           assert(arg_status != null,
-              'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.onAccountDeleted was null, expected non-null PigeonDeleteAccountStatus.');
+              'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.pigeonOnAccountDeleted was null, expected non-null PigeonDeleteAccountStatus.');
           try {
-            api.onAccountDeleted(arg_status!);
+            api.pigeonOnAccountDeleted(arg_status!);
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);
@@ -331,14 +331,14 @@ abstract class FlutterTripAnalysisApi {
     }
     {
       final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.onConnected$messageChannelSuffix', pigeonChannelCodec,
+          'dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.pigeonOnConnected$messageChannelSuffix', pigeonChannelCodec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
         __pigeon_channel.setMessageHandler(null);
       } else {
         __pigeon_channel.setMessageHandler((Object? message) async {
           try {
-            api.onConnected();
+            api.pigeonOnConnected();
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);
@@ -350,14 +350,14 @@ abstract class FlutterTripAnalysisApi {
     }
     {
       final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.onDisconnected$messageChannelSuffix', pigeonChannelCodec,
+          'dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.pigeonOnDisconnected$messageChannelSuffix', pigeonChannelCodec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
         __pigeon_channel.setMessageHandler(null);
       } else {
         __pigeon_channel.setMessageHandler((Object? message) async {
           try {
-            api.onDisconnected();
+            api.pigeonOnDisconnected();
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);
@@ -369,21 +369,21 @@ abstract class FlutterTripAnalysisApi {
     }
     {
       final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.userIdUpdateStatus$messageChannelSuffix', pigeonChannelCodec,
+          'dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.pigeonUserIdUpdateStatus$messageChannelSuffix', pigeonChannelCodec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
         __pigeon_channel.setMessageHandler(null);
       } else {
         __pigeon_channel.setMessageHandler((Object? message) async {
           assert(message != null,
-          'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.userIdUpdateStatus was null.');
+          'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.pigeonUserIdUpdateStatus was null.');
           final List<Object?> args = (message as List<Object?>?)!;
           final PigeonUpdateUserIdStatus? arg_status = (args[0] as PigeonUpdateUserIdStatus?);
           assert(arg_status != null,
-              'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.userIdUpdateStatus was null, expected non-null PigeonUpdateUserIdStatus.');
+              'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.pigeonUserIdUpdateStatus was null, expected non-null PigeonUpdateUserIdStatus.');
           final String? arg_userId = (args[1] as String?);
           try {
-            api.userIdUpdateStatus(arg_status!, arg_userId);
+            api.pigeonUserIdUpdateStatus(arg_status!, arg_userId);
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);

@@ -6,6 +6,7 @@ import com.drivequant.drivekit.core.driver.UpdateUserIdStatus
 import com.drivequant.drivekit.core.driver.deletion.DeleteAccountStatus
 import com.drivequant.drivekit.core.networking.DriveKitListener
 import com.drivequant.drivekit.core.networking.RequestError
+import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeon
 import com.drivequant.drivekit.tripanalysis.DriveKitTripAnalysis
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 
@@ -55,25 +56,27 @@ class DrivekitTripAnalysisPlugin : FlutterPlugin, AndroidTripAnalysisApi {
         DriveKit.addDriveKitListener(
                 object : DriveKitListener {
                     override fun onAccountDeleted(status: DeleteAccountStatus) {
-                        flutterApi?.onAccountDeleted(status.toPigeon()) { echo ->
+                        flutterApi?.pigeonOnAccountDeleted(status.toPigeon()) { echo ->
                             Result.success(echo)
                         }
                     }
 
                     override fun onAuthenticationError(errorType: RequestError) {
-                        this@DrivekitTripAnalysisPlugin.onAuthenticationError(errorType)
+                        flutterApi?.pigeonOnAuthenticationError(errorType.toPigeon()) { echo ->
+                            Result.success(echo)
+                        }
                     }
 
                     override fun onConnected() {
-                        flutterApi?.onConnected { echo -> Result.success(echo) }
+                        flutterApi?.pigeonOnConnected { echo -> Result.success(echo) }
                     }
 
                     override fun onDisconnected() {
-                        flutterApi?.onDisconnected { echo -> Result.success(echo) }
+                        flutterApi?.pigeonOnDisconnected { echo -> Result.success(echo) }
                     }
 
                     override fun userIdUpdateStatus(status: UpdateUserIdStatus, userId: String?) {
-                        flutterApi?.userIdUpdateStatus(status.toPigeon(), userId) { echo ->
+                        flutterApi?.pigeonUserIdUpdateStatus(status.toPigeon(), userId) { echo ->
                             Result.success(echo)
                         }
                     }

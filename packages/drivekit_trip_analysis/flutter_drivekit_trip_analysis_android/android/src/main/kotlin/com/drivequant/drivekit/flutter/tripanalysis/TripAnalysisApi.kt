@@ -272,10 +272,10 @@ class FlutterTripAnalysisApi(private val binaryMessenger: BinaryMessenger, priva
       TripAnalysisApiPigeonCodec
     }
   }
-  fun onAuthenticationError(errorTypeArg: PigeonRequestError, callback: (Result<Unit>) -> Unit)
+  fun pigeonOnAuthenticationError(errorTypeArg: PigeonRequestError, callback: (Result<Unit>) -> Unit)
 {
     val separatedMessageChannelSuffix = if (messageChannelSuffix.isNotEmpty()) ".$messageChannelSuffix" else ""
-    val channelName = "dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.onAuthenticationError$separatedMessageChannelSuffix"
+    val channelName = "dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.pigeonOnAuthenticationError$separatedMessageChannelSuffix"
     val channel = BasicMessageChannel<Any?>(binaryMessenger, channelName, codec)
     channel.send(listOf(errorTypeArg)) {
       if (it is List<*>) {
@@ -289,10 +289,10 @@ class FlutterTripAnalysisApi(private val binaryMessenger: BinaryMessenger, priva
       } 
     }
   }
-  fun onAccountDeleted(statusArg: PigeonDeleteAccountStatus, callback: (Result<Unit>) -> Unit)
+  fun pigeonOnAccountDeleted(statusArg: PigeonDeleteAccountStatus, callback: (Result<Unit>) -> Unit)
 {
     val separatedMessageChannelSuffix = if (messageChannelSuffix.isNotEmpty()) ".$messageChannelSuffix" else ""
-    val channelName = "dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.onAccountDeleted$separatedMessageChannelSuffix"
+    val channelName = "dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.pigeonOnAccountDeleted$separatedMessageChannelSuffix"
     val channel = BasicMessageChannel<Any?>(binaryMessenger, channelName, codec)
     channel.send(listOf(statusArg)) {
       if (it is List<*>) {
@@ -306,10 +306,10 @@ class FlutterTripAnalysisApi(private val binaryMessenger: BinaryMessenger, priva
       } 
     }
   }
-  fun onConnected(callback: (Result<Unit>) -> Unit)
+  fun pigeonOnConnected(callback: (Result<Unit>) -> Unit)
 {
     val separatedMessageChannelSuffix = if (messageChannelSuffix.isNotEmpty()) ".$messageChannelSuffix" else ""
-    val channelName = "dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.onConnected$separatedMessageChannelSuffix"
+    val channelName = "dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.pigeonOnConnected$separatedMessageChannelSuffix"
     val channel = BasicMessageChannel<Any?>(binaryMessenger, channelName, codec)
     channel.send(null) {
       if (it is List<*>) {
@@ -323,10 +323,10 @@ class FlutterTripAnalysisApi(private val binaryMessenger: BinaryMessenger, priva
       } 
     }
   }
-  fun onDisconnected(callback: (Result<Unit>) -> Unit)
+  fun pigeonOnDisconnected(callback: (Result<Unit>) -> Unit)
 {
     val separatedMessageChannelSuffix = if (messageChannelSuffix.isNotEmpty()) ".$messageChannelSuffix" else ""
-    val channelName = "dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.onDisconnected$separatedMessageChannelSuffix"
+    val channelName = "dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.pigeonOnDisconnected$separatedMessageChannelSuffix"
     val channel = BasicMessageChannel<Any?>(binaryMessenger, channelName, codec)
     channel.send(null) {
       if (it is List<*>) {
@@ -340,10 +340,10 @@ class FlutterTripAnalysisApi(private val binaryMessenger: BinaryMessenger, priva
       } 
     }
   }
-  fun userIdUpdateStatus(statusArg: PigeonUpdateUserIdStatus, userIdArg: String?, callback: (Result<Unit>) -> Unit)
+  fun pigeonUserIdUpdateStatus(statusArg: PigeonUpdateUserIdStatus, userIdArg: String?, callback: (Result<Unit>) -> Unit)
 {
     val separatedMessageChannelSuffix = if (messageChannelSuffix.isNotEmpty()) ".$messageChannelSuffix" else ""
-    val channelName = "dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.userIdUpdateStatus$separatedMessageChannelSuffix"
+    val channelName = "dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.pigeonUserIdUpdateStatus$separatedMessageChannelSuffix"
     val channel = BasicMessageChannel<Any?>(binaryMessenger, channelName, codec)
     channel.send(listOf(statusArg, userIdArg)) {
       if (it is List<*>) {

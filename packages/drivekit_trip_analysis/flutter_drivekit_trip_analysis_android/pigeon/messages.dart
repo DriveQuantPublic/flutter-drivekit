@@ -28,11 +28,14 @@ abstract class AndroidTripAnalysisApi {
 
 @FlutterApi()
 abstract class FlutterTripAnalysisApi {
-  void onAuthenticationError(PigeonRequestError errorType);
-  void onAccountDeleted(PigeonDeleteAccountStatus status);
-  void onConnected();
-  void onDisconnected();
-  void userIdUpdateStatus(PigeonUpdateUserIdStatus status, String? userId);
+  void pigeonOnAuthenticationError(PigeonRequestError errorType);
+  void pigeonOnAccountDeleted(PigeonDeleteAccountStatus status);
+  void pigeonOnConnected();
+  void pigeonOnDisconnected();
+  void pigeonUserIdUpdateStatus(
+    PigeonUpdateUserIdStatus status,
+    String? userId,
+  );
 }
 
 enum PigeonDeleteAccountStatus {
@@ -41,7 +44,7 @@ enum PigeonDeleteAccountStatus {
   forbidden;
 }
 
-enum PigeonRequestError{
+enum PigeonRequestError {
   noNetwork,
   unauthenticated,
   forbidden,
@@ -51,7 +54,7 @@ enum PigeonRequestError{
   limitReached;
 }
 
-enum PigeonUpdateUserIdStatus{
+enum PigeonUpdateUserIdStatus {
   updated,
   failedToUpdate,
   invalidUserId,
