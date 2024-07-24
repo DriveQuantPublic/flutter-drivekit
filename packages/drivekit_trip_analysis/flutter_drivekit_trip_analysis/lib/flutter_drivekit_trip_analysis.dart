@@ -6,6 +6,11 @@ DrivekitTripAnalysisPlatform get _platform =>
 /// The main class of the plugin.
 /// This class provides methods to interact with the DriveKit Trip Analysis SDK.
 class DrivekitTripAnalysis {
+  /// The default constructor.
+  DrivekitTripAnalysis() {
+    _platform.initializePlatform();
+  }
+
   /// Returns the name of the current platform.
   Future<String> getPlatformName() => _platform.getPlatformName();
 

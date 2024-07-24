@@ -29,6 +29,9 @@ abstract class DrivekitTripAnalysisPlatform extends PlatformInterface {
     PlatformInterface.verify(instance, _token);
     _instance = instance;
   }
+  /// Must be called when the app-facing package is initialized
+  /// Useful to start listening to method channels
+  void initializePlatform();
 
   /// Return the current platform name.
   Future<String> getPlatformName();
