@@ -100,5 +100,17 @@ void main() {
         });
       });
     });
+
+    group('setVehicle', () {
+      test('calls platform implementation', () async {
+        const vehicle = Vehicle();
+
+        when(() => drivekitTripAnalysisPlatform.setVehicle(vehicle))
+            .thenAnswer((_) async {});
+
+        await driveKitTripAnalysis.setVehicle(vehicle);
+        verify(() => drivekitTripAnalysisPlatform.setVehicle(vehicle));
+      });
+    });
   });
 }
