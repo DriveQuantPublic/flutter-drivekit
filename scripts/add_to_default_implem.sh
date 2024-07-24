@@ -34,7 +34,7 @@ platform_interface_content=$(awk "/class $platform_interface_class_name/,/^}/" "
 
 # Extract all method declarations, including multi-line methods
 methods=$(echo "$platform_interface_content" | awk '
-  /^[ \t]*(Future<[A-Za-z0-9_<> ,]+>|[A-Za-z0-9_]+)[ \t]+[A-Za-z0-9_]+\(/ {if (method != "") print method; method=$0; next}
+  /^[ \t]*(Future<[A-Za-z0-9_<>? ,]+>|[A-Za-z0-9_]+)[ \t]+[A-Za-z0-9_]+\(/ {if (method != "") print method; method=$0; next}
   /\);[ \t]*$/ {print method " " $0; method=""}
   method {method=method " " $0}
   END {if (method != "") print method}
