@@ -19,75 +19,108 @@ cat > "$HOOK_FILE" << 'EOF'
 KotlinChangedFiles="$(git --no-pager diff --name-status --no-color --cached | awk '$1 != "D" && $NF ~ /\.kt?$/ { print $NF }')"
 
 if [ -z "$KotlinChangedFiles" ]; then
-    echo "No kotlin staged files."
-    exit 0
-fi;
+    echo "No Kotlin staged files."
+else
+    echo "Running ktLint over these files:"
+    echo "$KotlinChangedFiles"
 
-echo "Running ktLint over these files:"
-echo "$KotlinChangedFiles"
-
-diff_kotlin=.git/unstaged-ktlint-git-hook.diff
-git diff --color=never > $diff_kotlin
-if [ -s $diff_kotlin]; then
-  git apply -R $diff_kotlin
-fi
-
-./scripts/ktLintFormat.sh
-gradleLint_command_exit_code=$?
-
-echo "Completed ktLint run."
-
-echo "$KotlinChangedFiles" | while read -r file; do
-    if [ -f $file ]; then
-        git add $file
+    diff_kotlin=.git/unstaged-ktlint-git-hook.diff
+    git diff --color=never > $diff_kotlin
+    if [ -s $diff_kotlin ]; then
+        git apply -R $diff_kotlin
     fi
-done
 
-if [ -s $diff_kotlin ]; then
-  git apply --ignore-whitespace $diff_kotlin
+    ./scripts/ktLintFormat.sh
+    gradleLint_command_exit_code=$?
+
+    echo "Completed ktLint run."
+
+    echo "$KotlinChangedFiles" | while read -r file; do
+        if [ -f $file ]; then
+            git add $file
+        fi
+    done
+
+    if [ -s $diff_kotlin ]; then
+        git apply --ignore-whitespace $diff_kotlin
+    fi
+    rm $diff_kotlin
+    unset diff_kotlin
+
+    echo "Completed ktlint hook."
 fi
-rm $diff_kotlin
-unset diff_kotlin
-
-echo "Completed ktlint hook."
 
 ######### Swift #########
 SwiftChangedFiles="$(git --no-pager diff --name-status --no-color --cached | awk '$1 != "D" && $NF ~ /\.swift$/ { print $NF }')"
 
 if [ -z "$SwiftChangedFiles" ]; then
     echo "No Swift staged files."
-    exit 0
-fi;
+else
+    echo "Running swiftlint over these files:"
+    echo "$SwiftChangedFiles"
 
-echo "Running swiftlint over these files:"
-echo "$SwiftChangedFiles"
-
-diff_swift=.git/unstaged-swiftlint-git-hook.diff
-git diff --color=never > $diff_swift
-if [ -s $diff_swift ]; then
-  git apply -R $diff_swift
-fi
-
-./scripts/swiftLint.sh
-swiftlint_command_exit_code=$?
-
-echo "Completed swiftlint run."
-
-echo "$SwiftChangedFiles" | while read -r file; do
-    if [ -f $file ]; then
-        git add $file
+    diff_swift=.git/unstaged-swiftlint-git-hook.diff
+    git diff --color=never > $diff_swift
+    if [ -s $diff_swift ]; then
+        git apply -R $diff_swift
     fi
-done
 
-if [ -s $diff_swift ]; then
-  git apply --ignore-whitespace $diff_swift
+    ./scripts/swiftLint.sh
+    swiftlint_command_exit_code=$?
+
+    echo "Completed swiftlint run."
+
+    echo "$SwiftChangedFiles" | while read -r file; do
+        if [ -f $file ]; then
+            git add $file
+        fi
+    done
+
+    if [ -s $diff_swift ]; then
+        git apply --ignore-whitespace $diff_swift
+    fi
+    rm $diff_swift
+    unset diff_swift
+
+    echo "Completed swiftlint hook."
 fi
-rm $diff_swift
-unset diff_swift
 
-echo "Completed swiftlint hook."
+######### Dart #########
+DartChangedFiles="$(git --no-pager diff --name-status --no-color --cached | awk '$1 != "D" && $NF ~ /\.dart$/ { print $NF }')"
 
-exit $swiftlint_command_exit_code || $gradleLint_command_exit_code
+if [ -z "$DartChangedFiles" ]; then
+    echo "No Dart staged files."
+else
+    echo "Running melos fix over these files:"
+    echo "$DartChangedFiles"
+
+    diff_dart=.git/unstaged-melos-git-hook.diff
+    git diff --color=never > $diff_dart
+    if [ -s $diff_dart ]; then
+        git apply -R $diff_dart
+    fi
+
+    melos fix
+    melos_command_exit_code=$?
+
+    echo "Completed melos fix run."
+
+    echo "$DartChangedFiles" | while read -r file; do
+        if [ -f $file ]; then
+            git add $file
+        fi
+    done
+
+    if [ -s $diff_dart ]; then
+        git apply --ignore-whitespace $diff_dart
+    fi
+    rm $diff_dart
+    unset diff_dart
+
+    echo "Completed melos hook."
+fi
+
+exit ${swiftlint_command_exit_code:-0} || ${gradleLint_command_exit_code:-0} || ${melos_command_exit_code:-0}
 
 EOF
 
