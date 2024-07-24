@@ -1,4 +1,5 @@
 import 'package:flutter_drivekit_trip_analysis_android/flutter_drivekit_trip_analysis_android.dart';
+import 'package:flutter_drivekit_trip_analysis_android/src/adapter.dart';
 import 'package:flutter_drivekit_trip_analysis_android/src/trip_analysis_api.g.dart';
 import 'package:flutter_drivekit_trip_analysis_platform_interface/flutter_drivekit_trip_analysis_platform_interface.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -8,6 +9,10 @@ import 'mocks/mocks.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+
+  setUpAll(() {
+    registerFallbackValue(MockPigeonVehicle());
+  });
 
   group('DrivekitTripAnalysisAndroid', () {
     late AndroidTripAnalysisApi androidTripAnalysisApi;
@@ -104,6 +109,56 @@ void main() {
       final isRunning =
           await DrivekitTripAnalysisPlatform.instance.isTripRunning();
       expect(isRunning, false);
+    });
+
+    test('setVehicle calls android implementation', () async {
+      //mock
+      const mockVehicle = Vehicle();
+      when(() => androidTripAnalysisApi.setVehicle(any()))
+          .thenAnswer((_) async {});
+
+      //test
+      await DrivekitTripAnalysisPlatform.instance.setVehicle(mockVehicle);
+      verify(
+        () => androidTripAnalysisApi.setVehicle(any()),
+      ).called(1);
+    });
+
+    test('vehicle toPigeonImplementation mirrors vehicle properties', () {
+      //mock
+      const vehicle = Vehicle(
+        carTypeIndex: 0,
+        carEngineIndex: 2,
+        carPower: 3,
+        carMass: 4,
+        carGearboxIndex: 5,
+        carConsumption: 6.5,
+        engineDisplacement: 7,
+        frontTireSize: '200/59/13',
+        rearTireSize: '215/35/26',
+        length: 8.5,
+        width: 9.8,
+        height: 10.45,
+        engineCylinderNb: 11,
+        driveWheels: 12,
+      );
+
+      //test
+      final pigeonVehicle = vehicle.toPigeonImplementation();
+      expect(pigeonVehicle.carTypeIndex, 0);
+      expect(pigeonVehicle.carEngineIndex, 2);
+      expect(pigeonVehicle.carPower, 3);
+      expect(pigeonVehicle.carMass, 4);
+      expect(pigeonVehicle.carGearboxIndex, 5);
+      expect(pigeonVehicle.carConsumption, 6.5);
+      expect(pigeonVehicle.engineDisplacement, 7);
+      expect(pigeonVehicle.frontTireSize, '200/59/13');
+      expect(pigeonVehicle.rearTireSize, '215/35/26');
+      expect(pigeonVehicle.length, 8.5);
+      expect(pigeonVehicle.width, 9.8);
+      expect(pigeonVehicle.height, 10.45);
+      expect(pigeonVehicle.engineCylinderNb, 11);
+      expect(pigeonVehicle.driveWheels, 12);
     });
   });
 }
