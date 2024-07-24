@@ -15,6 +15,7 @@ Pod::Spec.new do |s|
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
   s.dependency 'DriveKitTripAnalysis', '2.3.0'
+  s.dependency 'SwiftLint'
   s.platform = :ios, '12.0'
 
   # Flutter.framework does not contain a i386 slice.
