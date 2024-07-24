@@ -1,4 +1,6 @@
 #!/bin/bash
+# This script is configured to be launched with melos
+# melos analyzeNative
 
 # Constant for the path to the gradlew script
 PROJECT_PATH="packages/drivekit_core/flutter_drivekit_core/example/android"
