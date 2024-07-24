@@ -19,7 +19,7 @@ scripts:
 
   analyzeNative:
     run: |
-      ./ktLintCheck.sh
+      ./scripts/ktLintCheck.sh
     description: Run analyzer in every kotlin lib packages
 
   fix:
