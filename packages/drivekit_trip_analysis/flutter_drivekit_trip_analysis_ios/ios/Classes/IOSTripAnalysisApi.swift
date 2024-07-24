@@ -67,18 +67,70 @@ private func nilOrValue<T>(_ value: Any?) -> T? {
 /// Generated class from Pigeon that represents data sent in messages.
 struct PigeonVehicle {
   var carTypeIndex: Int64
+  var carEngineIndex: Int64
+  var carPower: Int64
+  var carMass: Int64
+  var carGearboxIndex: Int64
+  var carConsumption: Double
+  var engineDisplacement: Int64
+  var frontTireSize: String
+  var rearTireSize: String
+  var length: Double
+  var width: Double
+  var height: Double
+  var engineCylinderNb: Int64
+  var driveWheels: Int64
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
   static func fromList(_ __pigeon_list: [Any?]) -> PigeonVehicle? {
     let carTypeIndex = __pigeon_list[0] is Int64 ? __pigeon_list[0] as! Int64 : Int64(__pigeon_list[0] as! Int32)
+    let carEngineIndex = __pigeon_list[1] is Int64 ? __pigeon_list[1] as! Int64 : Int64(__pigeon_list[1] as! Int32)
+    let carPower = __pigeon_list[2] is Int64 ? __pigeon_list[2] as! Int64 : Int64(__pigeon_list[2] as! Int32)
+    let carMass = __pigeon_list[3] is Int64 ? __pigeon_list[3] as! Int64 : Int64(__pigeon_list[3] as! Int32)
+    let carGearboxIndex = __pigeon_list[4] is Int64 ? __pigeon_list[4] as! Int64 : Int64(__pigeon_list[4] as! Int32)
+    let carConsumption = __pigeon_list[5] as! Double
+    let engineDisplacement = __pigeon_list[6] is Int64 ? __pigeon_list[6] as! Int64 : Int64(__pigeon_list[6] as! Int32)
+    let frontTireSize = __pigeon_list[7] as! String
+    let rearTireSize = __pigeon_list[8] as! String
+    let length = __pigeon_list[9] as! Double
+    let width = __pigeon_list[10] as! Double
+    let height = __pigeon_list[11] as! Double
+    let engineCylinderNb = __pigeon_list[12] is Int64 ? __pigeon_list[12] as! Int64 : Int64(__pigeon_list[12] as! Int32)
+    let driveWheels = __pigeon_list[13] is Int64 ? __pigeon_list[13] as! Int64 : Int64(__pigeon_list[13] as! Int32)
 
     return PigeonVehicle(
-      carTypeIndex: carTypeIndex
+      carTypeIndex: carTypeIndex,
+      carEngineIndex: carEngineIndex,
+      carPower: carPower,
+      carMass: carMass,
+      carGearboxIndex: carGearboxIndex,
+      carConsumption: carConsumption,
+      engineDisplacement: engineDisplacement,
+      frontTireSize: frontTireSize,
+      rearTireSize: rearTireSize,
+      length: length,
+      width: width,
+      height: height,
+      engineCylinderNb: engineCylinderNb,
+      driveWheels: driveWheels
     )
   }
   func toList() -> [Any?] {
     return [
-      carTypeIndex
+      carTypeIndex,
+      carEngineIndex,
+      carPower,
+      carMass,
+      carGearboxIndex,
+      carConsumption,
+      engineDisplacement,
+      frontTireSize,
+      rearTireSize,
+      length,
+      width,
+      height,
+      engineCylinderNb,
+      driveWheels,
     ]
   }
 }

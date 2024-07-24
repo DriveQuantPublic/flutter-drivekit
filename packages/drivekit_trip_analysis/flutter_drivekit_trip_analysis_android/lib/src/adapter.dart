@@ -5,6 +5,21 @@ import 'package:flutter_drivekit_trip_analysis_platform_interface/flutter_drivek
 extension PigeonAdapter on Vehicle {
   /// Converts a [Vehicle] to a [PigeonVehicle].
   PigeonVehicle toPigeonImplementation() {
-    return PigeonVehicle(carTypeIndex: carTypeIndex);
+    return PigeonVehicle(
+      carTypeIndex: carTypeIndex,
+      carEngineIndex: carEngineIndex,
+      carPower: carPower,
+      carMass: carMass,
+      carGearboxIndex: carGearboxIndex,
+      carConsumption: carConsumption,
+      engineDisplacement: engineDisplacement,
+      frontTireSize: frontTireSize,
+      rearTireSize: rearTireSize,
+      length: length,
+      width: width,
+      height: height,
+      engineCylinderNb: engineCylinderNb,
+      driveWheels: driveWheels,
+    );
   }
 }

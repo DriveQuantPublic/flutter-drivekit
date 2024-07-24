@@ -18,13 +18,65 @@ PlatformException _createConnectionError(String channelName) {
 class PigeonVehicle {
   PigeonVehicle({
     this.carTypeIndex = 1,
+    this.carEngineIndex = 1,
+    this.carPower = 150,
+    this.carMass = 1400,
+    this.carGearboxIndex = 2,
+    this.carConsumption = 4.5,
+    this.engineDisplacement = 1200,
+    this.frontTireSize = '205/55/16',
+    this.rearTireSize = '205/55/16',
+    this.length = 4.5,
+    this.width = 1.8,
+    this.height = 1.45,
+    this.engineCylinderNb = 4,
+    this.driveWheels = 0,
   });
 
   int carTypeIndex;
 
+  int carEngineIndex;
+
+  int carPower;
+
+  int carMass;
+
+  int carGearboxIndex;
+
+  double carConsumption;
+
+  int engineDisplacement;
+
+  String frontTireSize;
+
+  String rearTireSize;
+
+  double length;
+
+  double width;
+
+  double height;
+
+  int engineCylinderNb;
+
+  int driveWheels;
+
   Object encode() {
     return <Object?>[
       carTypeIndex,
+      carEngineIndex,
+      carPower,
+      carMass,
+      carGearboxIndex,
+      carConsumption,
+      engineDisplacement,
+      frontTireSize,
+      rearTireSize,
+      length,
+      width,
+      height,
+      engineCylinderNb,
+      driveWheels,
     ];
   }
 
@@ -32,6 +84,19 @@ class PigeonVehicle {
     result as List<Object?>;
     return PigeonVehicle(
       carTypeIndex: result[0]! as int,
+      carEngineIndex: result[1]! as int,
+      carPower: result[2]! as int,
+      carMass: result[3]! as int,
+      carGearboxIndex: result[4]! as int,
+      carConsumption: result[5]! as double,
+      engineDisplacement: result[6]! as int,
+      frontTireSize: result[7]! as String,
+      rearTireSize: result[8]! as String,
+      length: result[9]! as double,
+      width: result[10]! as double,
+      height: result[11]! as double,
+      engineCylinderNb: result[12]! as int,
+      driveWheels: result[13]! as int,
     );
   }
 }
