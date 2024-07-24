@@ -6,7 +6,7 @@ repository: https://github.com/DriveQuantPublic/flutter-drivekit/tree/main/packa
 
 environment:
   sdk: ^3.4.0
-  flutter: '>=1.10.0'
+  flutter: '>=1.20.0'
 
 dependencies:
   flutter:
