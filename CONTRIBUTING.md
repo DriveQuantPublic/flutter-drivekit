@@ -124,6 +124,7 @@ To ensure a consistent code style across the monorepo, avoid code smells and fac
 
 - KtLint for the android plugins
 - SwiftLint for the iOS plugins
+- Dart's static analysis tool for the flutter code
 
 ### Check on CI
 
@@ -143,4 +144,6 @@ It is recommended to use a pre-commit hook to format the code before committing.
 ./setup_precommit_hook.sh
 ```
 
-This script will format the files your are about to commit with the linter.
+This script will format the files your are about to commit with the linter. So your commit will take a time to run this script.
+
+Developers can be tempted to commit without this pre-commit hook to have instant commit. You can do this only if you have a tool on your IDEs that format the code on save (dart, swift, lint).
