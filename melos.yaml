@@ -22,11 +22,15 @@ scripts:
       ./scripts/ktLintCheck.sh
     description: Run analyzer in every kotlin lib packages
 
-  fix:
+  fixDart:
     exec: |
       dart fix . --apply && 
       dart format lib test
-    description: Run fix in every packages
+    description: Run dart fix in every packages
+
+  fix:
+    run: melos fixDart && ./scripts/ktLintFormat.sh && ./scripts/swiftLint.sh
+    description: Run fix in every packages for kotlin, dart and swift
 
   test:
     exec: flutter test --no-pub --test-randomize-ordering-seed random

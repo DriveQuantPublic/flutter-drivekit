@@ -126,6 +126,9 @@ To ensure a consistent code style across the monorepo, avoid code smells and fac
 - SwiftLint for the iOS plugins
 - Dart's static analysis tool for the flutter code
 
+You can manually run `melos fix` to manually fix the code style of all the 
+packages for these 3 languages.
+
 ### Check on CI
 
 On each pull request
