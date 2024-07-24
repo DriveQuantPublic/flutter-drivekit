@@ -1,7 +1,6 @@
 package com.drivequant.drivekit.flutter.tripanalysis
 
 import android.content.Context
-import com.drivequant.drivekit.flutter.trip_analysis.AndroidTripAnalysisApi
 import com.drivequant.drivekit.tripanalysis.DriveKitTripAnalysis
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 
