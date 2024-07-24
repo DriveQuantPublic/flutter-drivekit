@@ -1,7 +1,6 @@
 name: flutter_drivekit_core_android
 description: Android implementation of the flutter_drivekit_core plugin
-version: 0.1.0+1
-publish_to: none
+version: 0.0.1
 
 environment:
   sdk: ^3.4.0
@@ -18,8 +17,7 @@ flutter:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_drivekit_core_platform_interface:
-    path: ../flutter_drivekit_core_platform_interface
+  flutter_drivekit_core_platform_interface: 0.0.1
 
 dev_dependencies:
   flutter_test:
