@@ -24,7 +24,17 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final driveKitTripAnalysis = DrivekitTripAnalysis();
+    final driveKitTripAnalysis = DrivekitTripAnalysis(
+      onConnected: () {
+        if (!context.mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            backgroundColor: Colors.green,
+            content: Text('Connected'),
+          ),
+        );
+      },
+    );
 
     return Scaffold(
       appBar: AppBar(title: const Text('DrivekitTripAnalysis Example')),

@@ -52,7 +52,9 @@ class DrivekitTripAnalysisAndroid extends DrivekitTripAnalysisPlatform
   Future<bool> isTripRunning() => androidTripAnalysisApi.isTripRunning();
 
   @override
-  void pigeonOnConnected() {}
+  void pigeonOnConnected() {
+    onConnected?.call();
+  }
 
   @override
   void pigeonOnAccountDeleted(PigeonDeleteAccountStatus status) {}

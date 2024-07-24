@@ -7,8 +7,10 @@ DrivekitTripAnalysisPlatform get _platform =>
 /// This class provides methods to interact with the DriveKit Trip Analysis SDK.
 class DrivekitTripAnalysis {
   /// The default constructor.
-  DrivekitTripAnalysis() {
-    _platform.initializePlatform();
+  DrivekitTripAnalysis({void Function()? onConnected}) {
+    _platform
+      ..initializePlatform()
+      ..onConnected = onConnected;
   }
 
   /// Returns the name of the current platform.
