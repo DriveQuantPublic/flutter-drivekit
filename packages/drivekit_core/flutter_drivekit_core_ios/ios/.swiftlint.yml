@@ -1,2 +1,24 @@
 excluded:
   - Classes/IOSCoreApi.swift # Generated file
+
+line_length: 180
+function_parameter_count:
+  warning: 7
+type_name:
+  max_length:
+    warning: 50
+identifier_name:
+  max_length:
+    warning: 50
+  min_length:
+    error: 1
+    warning: 1
+function_body_length:
+  warning: 60
+large_tuple:
+  warning: 3
+  error: 4
+cyclomatic_complexity:
+  ignores_case_statements: true
+type_body_length:
+  warning: 200
