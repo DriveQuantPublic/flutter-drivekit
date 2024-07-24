@@ -46,19 +46,58 @@ class FlutterTripAnalysisError (
 
 /** Generated class from Pigeon that represents data sent in messages. */
 data class PigeonVehicle (
-  val carTypeIndex: Long
+  val carTypeIndex: Long,
+  val carEngineIndex: Long,
+  val carPower: Long,
+  val carMass: Long,
+  val carGearboxIndex: Long,
+  val carConsumption: Double,
+  val engineDisplacement: Long,
+  val frontTireSize: String,
+  val rearTireSize: String,
+  val length: Double,
+  val width: Double,
+  val height: Double,
+  val engineCylinderNb: Long,
+  val driveWheels: Long
 
 ) {
   companion object {
     @Suppress("LocalVariableName")
     fun fromList(__pigeon_list: List<Any?>): PigeonVehicle {
       val carTypeIndex = __pigeon_list[0].let { num -> if (num is Int) num.toLong() else num as Long }
-      return PigeonVehicle(carTypeIndex)
+      val carEngineIndex = __pigeon_list[1].let { num -> if (num is Int) num.toLong() else num as Long }
+      val carPower = __pigeon_list[2].let { num -> if (num is Int) num.toLong() else num as Long }
+      val carMass = __pigeon_list[3].let { num -> if (num is Int) num.toLong() else num as Long }
+      val carGearboxIndex = __pigeon_list[4].let { num -> if (num is Int) num.toLong() else num as Long }
+      val carConsumption = __pigeon_list[5] as Double
+      val engineDisplacement = __pigeon_list[6].let { num -> if (num is Int) num.toLong() else num as Long }
+      val frontTireSize = __pigeon_list[7] as String
+      val rearTireSize = __pigeon_list[8] as String
+      val length = __pigeon_list[9] as Double
+      val width = __pigeon_list[10] as Double
+      val height = __pigeon_list[11] as Double
+      val engineCylinderNb = __pigeon_list[12].let { num -> if (num is Int) num.toLong() else num as Long }
+      val driveWheels = __pigeon_list[13].let { num -> if (num is Int) num.toLong() else num as Long }
+      return PigeonVehicle(carTypeIndex, carEngineIndex, carPower, carMass, carGearboxIndex, carConsumption, engineDisplacement, frontTireSize, rearTireSize, length, width, height, engineCylinderNb, driveWheels)
     }
   }
   fun toList(): List<Any?> {
     return listOf(
       carTypeIndex,
+      carEngineIndex,
+      carPower,
+      carMass,
+      carGearboxIndex,
+      carConsumption,
+      engineDisplacement,
+      frontTireSize,
+      rearTireSize,
+      length,
+      width,
+      height,
+      engineCylinderNb,
+      driveWheels,
     )
   }
 }
