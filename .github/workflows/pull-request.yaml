@@ -12,6 +12,8 @@ concurrency:
 jobs:
   analyze:
     uses: ./.github/workflows/shared-analyze.yaml
+  analyzeSwift:
+    uses: ./.github/workflows/shared-analyzeSwift.yaml
   test:
     uses: ./.github/workflows/shared-test.yaml
 
