@@ -39,4 +39,9 @@ class DefaultDrivekitCore extends DrivekitCorePlatform {
   Future<void> deleteAccount({bool instantDeletion = false}) {
     throw UnimplementedError('deleteAccount() has not been implemented.');
   }
+
+  @override
+  Future<String?> getApiKey() {
+    throw UnimplementedError('getApiKey() has not been implemented.');
+  }
 }

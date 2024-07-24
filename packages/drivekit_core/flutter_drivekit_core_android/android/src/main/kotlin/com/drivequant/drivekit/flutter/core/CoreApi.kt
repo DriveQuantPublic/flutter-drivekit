@@ -61,6 +61,7 @@ interface AndroidCoreApi {
   fun reset()
   fun isTokenValid(): Boolean
   fun deleteAccount(instantDeletion: Boolean)
+  fun getApiKey(): String?
 
   companion object {
     /** The codec used by AndroidCoreApi. */
@@ -177,6 +178,21 @@ interface AndroidCoreApi {
             val wrapped: List<Any?> = try {
               api.deleteAccount(instantDeletionArg)
               listOf(null)
+            } catch (exception: Throwable) {
+              wrapError(exception)
+            }
+            reply.reply(wrapped)
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_core_package.AndroidCoreApi.getApiKey$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { _, reply ->
+            val wrapped: List<Any?> = try {
+              listOf(api.getApiKey())
             } catch (exception: Throwable) {
               wrapError(exception)
             }
