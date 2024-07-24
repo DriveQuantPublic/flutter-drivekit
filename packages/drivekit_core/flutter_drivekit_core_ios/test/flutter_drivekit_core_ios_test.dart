@@ -47,6 +47,16 @@ void main() {
       verify(() => iosCoreApi.setUserId('user_id')).called(1);
     });
 
+    test('reset calls reset method', () async {
+      //mock
+      when(() => iosCoreApi.reset()).thenAnswer((_) async {});
+
+      //test
+      await DrivekitCorePlatform.instance.reset();
+      verify(() => iosCoreApi.reset()).called(1);
+    
+    });
+    
     test('returns true if token is valid and user is connected', () async {
       //mocks
       when(iosCoreApi.isTokenValid).thenAnswer((_) async => true);

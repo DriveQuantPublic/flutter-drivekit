@@ -48,6 +48,15 @@ void main() {
       verify(() => androidCoreApi.setUserId('user_id')).called(1);
     });
 
+    test('reset calls reset method', () async {
+      //mock
+      when(() => androidCoreApi.reset()).thenAnswer((_) async {});
+
+      //test
+      await DrivekitCorePlatform.instance.reset();
+      verify(() => androidCoreApi.reset()).called(1);
+    });
+
     test('returns true if token is valid and user is connected', () async {
       //mock
       when(androidCoreApi.isTokenValid).thenAnswer((_) async => true);
