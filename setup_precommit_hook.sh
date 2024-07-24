@@ -91,7 +91,7 @@ DartChangedFiles="$(git --no-pager diff --name-status --no-color --cached | awk 
 if [ -z "$DartChangedFiles" ]; then
     echo "No Dart staged files."
 else
-    echo "Running melos fix over these files:"
+    echo "Running melos fixDart over these files:"
     echo "$DartChangedFiles"
 
     diff_dart=.git/unstaged-melos-git-hook.diff
@@ -100,10 +100,10 @@ else
         git apply -R $diff_dart
     fi
 
-    melos fix
+    melos fixDart
     melos_command_exit_code=$?
 
-    echo "Completed melos fix run."
+    echo "Completed melos fixDart run."
 
     echo "$DartChangedFiles" | while read -r file; do
         if [ -f $file ]; then
