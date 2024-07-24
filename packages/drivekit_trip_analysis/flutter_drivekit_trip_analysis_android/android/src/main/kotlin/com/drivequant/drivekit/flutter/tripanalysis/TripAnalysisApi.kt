@@ -56,6 +56,7 @@ private object TripAnalysisApiPigeonCodec : StandardMessageCodec() {
 interface AndroidTripAnalysisApi {
   fun getPlatformName(): String
   fun activateAutoStart(activate: Boolean)
+  fun activateCrashDetection(activate: Boolean)
   fun startTrip()
 
   companion object {
@@ -101,9 +102,27 @@ interface AndroidTripAnalysisApi {
         }
       }
       run {
-        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.startTrip$separatedMessageChannelSuffix", codec)
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.activateCrashDetection$separatedMessageChannelSuffix", codec)
         if (api != null) {
           channel.setMessageHandler { message, reply ->
+            val args = message as List<Any?>
+            val activateArg = args[0] as Boolean
+            val wrapped: List<Any?> = try {
+              api.activateCrashDetection(activateArg)
+              listOf(null)
+            } catch (exception: Throwable) {
+              wrapError(exception)
+            }
+            reply.reply(wrapped)
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.startTrip$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { _, reply ->
             val wrapped: List<Any?> = try {
               api.startTrip()
               listOf(null)

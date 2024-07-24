@@ -39,6 +39,7 @@ class FlutterTripAnalysisError(
     override val message: String? = null,
     val details: Any? = null
 ) : Throwable()
+
 private object TripAnalysisApiPigeonCodec : StandardMessageCodec() {
     override fun readValueOfType(type: Byte, buffer: ByteBuffer): Any? = super.readValueOfType(type, buffer)
     override fun writeValue(stream: ByteArrayOutputStream, value: Any?) {

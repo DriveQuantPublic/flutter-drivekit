@@ -35,7 +35,7 @@ void main() {
       expect(name, 'iOS');
     });
 
-    test('activateAutoStart calls android implementation with correct argument',
+    test('activateAutoStart calls ios implementation with correct argument',
         () async {
       //mock
       when(() => iOSTripAnalysisApi.activateAutoStart(any()))
@@ -48,6 +48,22 @@ void main() {
 
       await DrivekitTripAnalysisPlatform.instance.activateAutoStart(false);
       verify(() => iOSTripAnalysisApi.activateAutoStart(false)).called(1);
+    });
+
+    test(
+        'activateCrashDetection calls ios implementation with correct argument',
+        () async {
+      //mock
+      when(() => iOSTripAnalysisApi.activateCrashDetection(any()))
+          .thenAnswer((_) async {});
+
+      //test
+      await DrivekitTripAnalysisPlatform.instance.activateCrashDetection(true);
+      verify(() => iOSTripAnalysisApi.activateCrashDetection(true)).called(1);
+      verifyNever(() => iOSTripAnalysisApi.activateCrashDetection(false));
+
+      await DrivekitTripAnalysisPlatform.instance.activateCrashDetection(false);
+      verify(() => iOSTripAnalysisApi.activateCrashDetection(false)).called(1);
     });
 
     test('calls startTrip on platform implementation', () async {

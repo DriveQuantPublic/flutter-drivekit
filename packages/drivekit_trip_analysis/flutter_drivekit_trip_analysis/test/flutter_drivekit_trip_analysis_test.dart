@@ -47,6 +47,22 @@ void main() {
       });
     });
 
+    group('activateCrashDetection', () {
+      test('calls platform implementation', () async {
+        when(() => drivekitTripAnalysisPlatform.activateCrashDetection(any()))
+            .thenAnswer((_) async {});
+
+        await driveKitTripAnalysis.activateCrashDetection(true);
+        verify(() => drivekitTripAnalysisPlatform.activateCrashDetection(true));
+        verifyNever(
+          () => drivekitTripAnalysisPlatform.activateCrashDetection(false),
+        );
+        await driveKitTripAnalysis.activateCrashDetection(false);
+        verify(() => drivekitTripAnalysisPlatform.activateCrashDetection(false))
+            .called(1);
+      });
+    });
+
     group('startTrip', () {
       test('calls startTrip on platform implementation', () async {
         when(() => drivekitTripAnalysisPlatform.startTrip())

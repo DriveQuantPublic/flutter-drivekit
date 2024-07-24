@@ -22,9 +22,21 @@ class DrivekitTripAnalysis {
     await _platform.activateAutoStart(activate);
   }
 
+  /// Crash detection features, included into the DriveKit Trip Analysis
+  /// component, is able to collect and analyse smartphone sensors data to
+  /// automatically detect when a car accident occurs.
+  ///
+  /// DriveKit Trip Analysis analyzes signals from the GPS sensor and also
+  /// from the motion sensors (accelerometer, gyrometer and magnetometer).
+  ///
+  /// You can activate the feature by calling the following method with the
+  /// activate parameter to true
+  Future<void> activateCrashDetection(bool activate) async {
+    await _platform.activateCrashDetection(activate);
+  }
+
   /// You can start a trip by calling startTrip method
   Future<void> startTrip() async {
     await _platform.startTrip();
   }
-
 }
