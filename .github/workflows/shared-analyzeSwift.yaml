@@ -11,4 +11,4 @@ jobs:
       - name: SwiftLint core lib
         uses: norio-nomura/action-swiftlint@3.2.1
         env:
-          WORKING_DIRECTORY: packages/drivekit_core/flutter_drivekit_core_ios/ios/Classes
+          WORKING_DIRECTORY: packages/drivekit_core/flutter_drivekit_core_ios/ios
