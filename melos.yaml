@@ -7,10 +7,20 @@ packages:
   - packages/drivekit_trip_analysis/flutter_drivekit_trip_analysis/example
 
 scripts:
+
   analyze:
+    run: melos analyzeDart && melos analyzeNative
+    description: Run analyzer in every packages
+
+  analyzeDart:
     exec: |
       dart analyze --fatal-infos .
-    description: Run analyzer in every packages
+    description: Run analyzer in every Dart packages
+
+  analyzeNative:
+    run: |
+      ./ktLintCheck.sh
+    description: Run analyzer in every kotlin lib packages
 
   fix:
     exec: |
