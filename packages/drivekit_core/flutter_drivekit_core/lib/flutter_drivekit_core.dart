@@ -42,4 +42,8 @@ class DriveKitCore {
   /// Check the validity of the generated token
   /// after connecting with API Key and User ID
   Future<bool> isTokenValid() => _platform.isTokenValid();
+
+  /// Deletes a driver's account
+  Future<void> deleteAccount({bool instantDeletion = false}) =>
+      _platform.deleteAccount(instantDeletion: instantDeletion);
 }

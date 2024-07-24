@@ -34,4 +34,8 @@ class DrivekitCorePlugin :
     }
 
     override fun isTokenValid(): Boolean = DriveKit.isTokenValid()
+
+    override fun deleteAccount(instantDeletion: Boolean) {
+        DriveKit.deleteAccount(instantDeletion)
+    }
 }

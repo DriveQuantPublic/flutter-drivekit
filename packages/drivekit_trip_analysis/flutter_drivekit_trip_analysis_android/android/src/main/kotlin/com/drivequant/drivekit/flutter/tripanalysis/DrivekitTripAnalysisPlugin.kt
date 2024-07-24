@@ -32,7 +32,6 @@ class DrivekitTripAnalysisPlugin :
     override fun startTrip() {
         DriveKitTripAnalysis.startTrip()
     }
-
     override fun stopTrip() {
         DriveKitTripAnalysis.stopTrip()
     }

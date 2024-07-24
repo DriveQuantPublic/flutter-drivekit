@@ -22,4 +22,5 @@ abstract class AndroidCoreApi {
   void setUserId(String userId);
   void reset();
   bool isTokenValid();
+  void deleteAccount({bool instantDeletion = false});
 }

@@ -73,5 +73,15 @@ void main() {
         expect(actualTokenValidity, equals(tokenValidity));
       });
     });
+
+    group('delete account', () {
+      test('deletes user account', () async {
+        when(() => drivekitCorePlatform.deleteAccount())
+            .thenAnswer((_) async {});
+
+        await driveKitCore.deleteAccount();
+        verify(() => drivekitCorePlatform.deleteAccount());
+      });
+    });
   });
 }
