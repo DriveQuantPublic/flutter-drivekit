@@ -34,4 +34,8 @@ class DrivekitCoreAndroid extends DrivekitCorePlatform {
 
   @override
   Future<bool> isTokenValid() => androidCoreApi.isTokenValid();
+
+  @override
+  Future<void> deleteAccount({bool instantDeletion = false}) =>
+      androidCoreApi.deleteAccount(instantDeletion: instantDeletion);
 }

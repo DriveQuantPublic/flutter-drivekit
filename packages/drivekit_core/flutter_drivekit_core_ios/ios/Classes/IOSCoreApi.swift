@@ -90,6 +90,7 @@ protocol IOSCoreApi {
   func setUserId(userId: String) throws
   func reset() throws
   func isTokenValid() throws -> Bool
+  func deleteAccount(instantDeletion: Bool) throws
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
@@ -166,6 +167,21 @@ class IOSCoreApiSetup {
       }
     } else {
       isTokenValidChannel.setMessageHandler(nil)
+    }
+    let deleteAccountChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.pigeon_core_package.IOSCoreApi.deleteAccount\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      deleteAccountChannel.setMessageHandler { message, reply in
+        let args = message as! [Any?]
+        let instantDeletionArg = args[0] as! Bool
+        do {
+          try api.deleteAccount(instantDeletion: instantDeletionArg)
+          reply(wrapResult(nil))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      deleteAccountChannel.setMessageHandler(nil)
     }
   }
 }

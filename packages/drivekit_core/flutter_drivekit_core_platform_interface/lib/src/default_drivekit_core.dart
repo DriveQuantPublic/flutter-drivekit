@@ -29,4 +29,9 @@ class DefaultDrivekitCore extends DrivekitCorePlatform {
   Future<bool> isTokenValid() {
     throw UnimplementedError('isTokenValid() has not been implemented.');
   }
+
+  @override
+  Future<void> deleteAccount({bool instantDeletion = false}) {
+    throw UnimplementedError('deleteAccount() has not been implemented.');
+  }
 }

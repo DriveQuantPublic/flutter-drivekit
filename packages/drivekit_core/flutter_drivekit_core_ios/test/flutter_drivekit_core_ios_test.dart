@@ -65,5 +65,14 @@ void main() {
       final isValid = await DrivekitCorePlatform.instance.isTokenValid();
       expect(isValid, true);
     });
+
+    test('deletes user account', () async {
+      //mock
+      when(iosCoreApi.deleteAccount).thenAnswer((_) async {});
+
+      //test
+      await DrivekitCorePlatform.instance.deleteAccount();
+      verify(() => iosCoreApi.deleteAccount()).called(1);
+    });
   });
 }
