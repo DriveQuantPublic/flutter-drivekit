@@ -117,3 +117,30 @@ When submitting a pull request, make sure that all tests and the analyzer pass, 
 All the plugins have an example app in the `example` folder of their public package. It's useful to open the native projects with Android Studio and Xcode, and to increase the pub.dev score of the plugin.
 
 Nevertheless, only the DriveKit Core's example is meant to serve as a demonstration of how to use the DriveKit SDK, and demonstrates all plugins working together. Please follow the instructions in [the example's README](packages/drivekit_core/flutter_drivekit_core/example/README.md) to run it.
+
+## Linter
+
+To ensure a consistent code style across the monorepo, avoid code smells and facilitate merge, we use linters.
+
+- KtLint for the android plugins
+- SwiftLint for the iOS plugins
+
+### Check on CI
+
+On each pull request
+
+- Dart code style is checked with `melos analyze`
+- Android code style is checked with `melos analyze` that runs the ktLint gradle command
+- iOS code style is checked with `swiftlint` in its own github action
+
+If the code in your branch is not compliant with the linters, the CI will fail.
+
+### Pre-commit hook to format code
+
+It is recommended to use a pre-commit hook to format the code before committing. To do so, you can use the following command:
+
+```shell
+./setup_precommit_hook.sh
+```
+
+This script will format the files your are about to commit with the linter.

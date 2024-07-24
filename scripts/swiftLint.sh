@@ -1,4 +1,6 @@
 #!/bin/bash
+# This script is configured to be launched from root
+# used by pre-commit hook
 
 PROJECT_NAMES=("drivekit_core" "drivekit_trip_analysis")
 
