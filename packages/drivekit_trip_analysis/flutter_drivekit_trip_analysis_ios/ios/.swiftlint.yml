@@ -1,5 +1,5 @@
 excluded:
-  - Classes/IOSCoreApi.swift # Generated file
+  - Classes/IOSTripAnalysisApi.swift # Generated file
 
 line_length: 180
 function_parameter_count:
