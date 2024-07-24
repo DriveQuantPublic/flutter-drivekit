@@ -52,6 +52,22 @@ void main() {
       verify(() => androidTripAnalysisApi.activateAutoStart(false)).called(1);
     });
 
+    test('activateCrashDetection calls android implem. with correct argument',
+        () async {
+      //mock
+      when(() => androidTripAnalysisApi.activateCrashDetection(any()))
+          .thenAnswer((_) async {});
+
+      //test
+      await DrivekitTripAnalysisPlatform.instance.activateCrashDetection(true);
+      verify(() => androidTripAnalysisApi.activateCrashDetection(true))
+          .called(1);
+      verifyNever(() => androidTripAnalysisApi.activateCrashDetection(false));
+
+      await DrivekitTripAnalysisPlatform.instance.activateCrashDetection(false);
+      verify(() => androidTripAnalysisApi.activateCrashDetection(false))
+          .called(1);
+    });
     test('calls startTrip on platform implementation', () async {
       //mock
       when(() => androidTripAnalysisApi.startTrip()).thenAnswer((_) async {});

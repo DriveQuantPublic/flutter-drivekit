@@ -24,8 +24,12 @@ class DrivekitTripAnalysisPlugin :
     override fun activateAutoStart(activate: Boolean) {
         DriveKitTripAnalysis.activateAutoStart(activate)
     }
+
+    override fun activateCrashDetection(activate: Boolean) {
+        DriveKitTripAnalysis.activateCrashDetection(activate)
+    }
+
     override fun startTrip() {
         DriveKitTripAnalysis.startTrip()
     }
-
 }
