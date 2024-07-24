@@ -21,6 +21,8 @@ class DrivekitCorePlugin :
 
     override fun getPlatformName(): String = "android"
 
+    override fun getApiKey() = DriveKit.getApiKey()
+
     override fun setApiKey(key: String) {
         DriveKit.setApiKey(key)
     }

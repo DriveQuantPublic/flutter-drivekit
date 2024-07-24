@@ -46,4 +46,7 @@ abstract class DrivekitCorePlatform extends PlatformInterface {
 
   /// Deletes a driver's account
   Future<void> deleteAccount({bool instantDeletion = false});
+
+  /// Get the API key that has been set, or null
+  Future<String?> getApiKey();
 }

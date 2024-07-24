@@ -46,4 +46,7 @@ class DriveKitCore {
   /// Deletes a driver's account
   Future<void> deleteAccount({bool instantDeletion = false}) =>
       _platform.deleteAccount(instantDeletion: instantDeletion);
+
+  /// Check which DriveKit API Key you have set in the SDK.
+  Future<String?> getApiKey() => _platform.getApiKey();
 }

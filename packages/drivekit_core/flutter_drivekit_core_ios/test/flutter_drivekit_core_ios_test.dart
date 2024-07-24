@@ -73,5 +73,16 @@ void main() {
       await DrivekitCorePlatform.instance.deleteAccount();
       verify(() => iosCoreApi.deleteAccount()).called(1);
     });
+
+    test('getApiKey returns correct api key', () async {
+      //mock
+      const mockApiKey = '__mock_api_key';
+      when(() => iosCoreApi.setApiKey(mockApiKey))
+          .thenAnswer((_) async => mockApiKey);
+
+      //test
+      final apiKey = await DrivekitCorePlatform.instance.getApiKey();
+      expect(apiKey, mockApiKey);
+    });
   });
 }

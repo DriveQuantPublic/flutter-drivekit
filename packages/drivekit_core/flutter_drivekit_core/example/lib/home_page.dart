@@ -1,12 +1,13 @@
 import 'package:drivekit_core_example/widgets/sliver_activate_crash_detection.dart';
-import 'package:drivekit_core_example/widgets/sliver_api_key.dart';
 import 'package:drivekit_core_example/widgets/sliver_auto_start.dart';
 import 'package:drivekit_core_example/widgets/sliver_cancel_trip.dart';
 import 'package:drivekit_core_example/widgets/sliver_delete_account.dart';
+import 'package:drivekit_core_example/widgets/sliver_get_api_key.dart';
 import 'package:drivekit_core_example/widgets/sliver_is_token_valid.dart';
 import 'package:drivekit_core_example/widgets/sliver_permission_request.dart';
 import 'package:drivekit_core_example/widgets/sliver_platform_name.dart';
 import 'package:drivekit_core_example/widgets/sliver_reset.dart';
+import 'package:drivekit_core_example/widgets/sliver_set_api_key.dart';
 import 'package:drivekit_core_example/widgets/sliver_set_user_id.dart';
 import 'package:drivekit_core_example/widgets/sliver_start_trip.dart';
 import 'package:drivekit_core_example/widgets/sliver_stop_trip.dart';
@@ -38,9 +39,13 @@ class HomePage extends StatelessWidget {
           SliverGap(32),
           SliverPadding(
             padding: EdgeInsets.symmetric(horizontal: 16),
-            sliver: SliverApiKey(),
+            sliver: SliverGetApiKey(),
           ),
-          SliverGap(32),
+          SliverPadding(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            sliver: SliverSetApiKey(),
+          ),
+          SliverGap(16),
           SliverPadding(
             padding: EdgeInsets.symmetric(horizontal: 16),
             sliver: SliverSetUserId(),
