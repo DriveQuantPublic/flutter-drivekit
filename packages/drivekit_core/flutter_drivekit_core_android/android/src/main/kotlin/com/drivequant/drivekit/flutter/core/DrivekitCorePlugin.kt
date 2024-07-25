@@ -9,7 +9,9 @@ import com.drivequant.drivekit.core.networking.RequestError
 import com.drivequant.drivekit.flutter.core.mapper.PigeonMapper.toPigeon
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 
-class DrivekitCorePlugin : FlutterPlugin, AndroidCoreApi {
+class DrivekitCorePlugin :
+    FlutterPlugin,
+    AndroidCoreApi {
     private var context: Context? = null
     private var flutterApi: FlutterCoreApi? = null
 
@@ -57,33 +59,33 @@ class DrivekitCorePlugin : FlutterPlugin, AndroidCoreApi {
 
     private fun configureDriveKitListener() {
         DriveKit.addDriveKitListener(
-                object : DriveKitListener {
-                    override fun onAccountDeleted(status: DeleteAccountStatus) {
-                        flutterApi?.pigeonOnAccountDeleted(status.toPigeon()) { echo ->
-                            Result.success(echo)
-                        }
-                    }
-
-                    override fun onAuthenticationError(errorType: RequestError) {
-                        flutterApi?.pigeonOnAuthenticationError(errorType.toPigeon()) { echo ->
-                            Result.success(echo)
-                        }
-                    }
-
-                    override fun onConnected() {
-                        flutterApi?.pigeonOnConnected { echo -> Result.success(echo) }
-                    }
-
-                    override fun onDisconnected() {
-                        flutterApi?.pigeonOnDisconnected { echo -> Result.success(echo) }
-                    }
-
-                    override fun userIdUpdateStatus(status: UpdateUserIdStatus, userId: String?) {
-                        flutterApi?.pigeonUserIdUpdateStatus(status.toPigeon(), userId) { echo ->
-                            Result.success(echo)
-                        }
+            object : DriveKitListener {
+                override fun onAccountDeleted(status: DeleteAccountStatus) {
+                    flutterApi?.pigeonOnAccountDeleted(status.toPigeon()) { echo ->
+                        Result.success(echo)
                     }
                 }
+
+                override fun onAuthenticationError(errorType: RequestError) {
+                    flutterApi?.pigeonOnAuthenticationError(errorType.toPigeon()) { echo ->
+                        Result.success(echo)
+                    }
+                }
+
+                override fun onConnected() {
+                    flutterApi?.pigeonOnConnected { echo -> Result.success(echo) }
+                }
+
+                override fun onDisconnected() {
+                    flutterApi?.pigeonOnDisconnected { echo -> Result.success(echo) }
+                }
+
+                override fun userIdUpdateStatus(status: UpdateUserIdStatus, userId: String?) {
+                    flutterApi?.pigeonUserIdUpdateStatus(status.toPigeon(), userId) { echo ->
+                        Result.success(echo)
+                    }
+                }
+            }
         )
     }
 }

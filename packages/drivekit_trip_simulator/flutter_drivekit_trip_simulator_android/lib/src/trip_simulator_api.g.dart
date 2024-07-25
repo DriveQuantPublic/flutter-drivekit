@@ -15,7 +15,6 @@ PlatformException _createConnectionError(String channelName) {
   );
 }
 
-
 class _PigeonCodec extends StandardMessageCodec {
   const _PigeonCodec();
 }
@@ -24,9 +23,11 @@ class AndroidTripSimulatorApi {
   /// Constructor for [AndroidTripSimulatorApi].  The [binaryMessenger] named argument is
   /// available for dependency injection.  If it is left null, the default
   /// BinaryMessenger will be used which routes to the host platform.
-  AndroidTripSimulatorApi({BinaryMessenger? binaryMessenger, String messageChannelSuffix = ''})
+  AndroidTripSimulatorApi(
+      {BinaryMessenger? binaryMessenger, String messageChannelSuffix = ''})
       : __pigeon_binaryMessenger = binaryMessenger,
-        __pigeon_messageChannelSuffix = messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
+        __pigeon_messageChannelSuffix =
+            messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
   final BinaryMessenger? __pigeon_binaryMessenger;
 
   static const MessageCodec<Object?> pigeonChannelCodec = _PigeonCodec();
@@ -34,8 +35,10 @@ class AndroidTripSimulatorApi {
   final String __pigeon_messageChannelSuffix;
 
   Future<String> getPlatformName() async {
-    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_trip_simulator_package.AndroidTripSimulatorApi.getPlatformName$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+    final String __pigeon_channelName =
+        'dev.flutter.pigeon.pigeon_trip_simulator_package.AndroidTripSimulatorApi.getPlatformName$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel =
+        BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,

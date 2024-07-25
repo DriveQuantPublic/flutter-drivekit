@@ -121,7 +121,6 @@ class PigeonVehicle {
   }
 }
 
-
 class _PigeonCodec extends StandardMessageCodec {
   const _PigeonCodec();
   @override
@@ -137,7 +136,7 @@ class _PigeonCodec extends StandardMessageCodec {
   @override
   Object? readValueOfType(int type, ReadBuffer buffer) {
     switch (type) {
-      case 129: 
+      case 129:
         return PigeonVehicle.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);
@@ -149,9 +148,11 @@ class IOSTripAnalysisApi {
   /// Constructor for [IOSTripAnalysisApi].  The [binaryMessenger] named argument is
   /// available for dependency injection.  If it is left null, the default
   /// BinaryMessenger will be used which routes to the host platform.
-  IOSTripAnalysisApi({BinaryMessenger? binaryMessenger, String messageChannelSuffix = ''})
+  IOSTripAnalysisApi(
+      {BinaryMessenger? binaryMessenger, String messageChannelSuffix = ''})
       : __pigeon_binaryMessenger = binaryMessenger,
-        __pigeon_messageChannelSuffix = messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
+        __pigeon_messageChannelSuffix =
+            messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
   final BinaryMessenger? __pigeon_binaryMessenger;
 
   static const MessageCodec<Object?> pigeonChannelCodec = _PigeonCodec();
@@ -159,8 +160,10 @@ class IOSTripAnalysisApi {
   final String __pigeon_messageChannelSuffix;
 
   Future<String> getPlatformName() async {
-    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_trip_analysis_package.IOSTripAnalysisApi.getPlatformName$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+    final String __pigeon_channelName =
+        'dev.flutter.pigeon.pigeon_trip_analysis_package.IOSTripAnalysisApi.getPlatformName$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel =
+        BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
@@ -186,8 +189,10 @@ class IOSTripAnalysisApi {
   }
 
   Future<void> activateAutoStart(bool activate) async {
-    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_trip_analysis_package.IOSTripAnalysisApi.activateAutoStart$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+    final String __pigeon_channelName =
+        'dev.flutter.pigeon.pigeon_trip_analysis_package.IOSTripAnalysisApi.activateAutoStart$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel =
+        BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
@@ -208,8 +213,10 @@ class IOSTripAnalysisApi {
   }
 
   Future<void> activateCrashDetection(bool activate) async {
-    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_trip_analysis_package.IOSTripAnalysisApi.activateCrashDetection$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+    final String __pigeon_channelName =
+        'dev.flutter.pigeon.pigeon_trip_analysis_package.IOSTripAnalysisApi.activateCrashDetection$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel =
+        BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
@@ -230,8 +237,10 @@ class IOSTripAnalysisApi {
   }
 
   Future<void> startTrip() async {
-    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_trip_analysis_package.IOSTripAnalysisApi.startTrip$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+    final String __pigeon_channelName =
+        'dev.flutter.pigeon.pigeon_trip_analysis_package.IOSTripAnalysisApi.startTrip$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel =
+        BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
@@ -252,8 +261,10 @@ class IOSTripAnalysisApi {
   }
 
   Future<void> stopTrip() async {
-    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_trip_analysis_package.IOSTripAnalysisApi.stopTrip$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+    final String __pigeon_channelName =
+        'dev.flutter.pigeon.pigeon_trip_analysis_package.IOSTripAnalysisApi.stopTrip$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel =
+        BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
@@ -274,8 +285,10 @@ class IOSTripAnalysisApi {
   }
 
   Future<void> cancelTrip() async {
-    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_trip_analysis_package.IOSTripAnalysisApi.cancelTrip$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+    final String __pigeon_channelName =
+        'dev.flutter.pigeon.pigeon_trip_analysis_package.IOSTripAnalysisApi.cancelTrip$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel =
+        BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
@@ -296,8 +309,10 @@ class IOSTripAnalysisApi {
   }
 
   Future<bool> isTripRunning() async {
-    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_trip_analysis_package.IOSTripAnalysisApi.isTripRunning$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+    final String __pigeon_channelName =
+        'dev.flutter.pigeon.pigeon_trip_analysis_package.IOSTripAnalysisApi.isTripRunning$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel =
+        BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
@@ -323,8 +338,10 @@ class IOSTripAnalysisApi {
   }
 
   Future<void> setVehicle(PigeonVehicle vehicle) async {
-    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_trip_analysis_package.IOSTripAnalysisApi.setVehicle$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+    final String __pigeon_channelName =
+        'dev.flutter.pigeon.pigeon_trip_analysis_package.IOSTripAnalysisApi.setVehicle$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel =
+        BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
