@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_drivekit_trip_analysis/flutter_drivekit_trip_analysis.dart';
-import 'package:flutter_drivekit_trip_analysis_platform_interface/src/model.dart';
 
 class SliverAddVehicle extends StatefulWidget {
   const SliverAddVehicle({super.key});
