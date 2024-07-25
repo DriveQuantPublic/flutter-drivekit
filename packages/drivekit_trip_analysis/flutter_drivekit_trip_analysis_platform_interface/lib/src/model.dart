@@ -8,9 +8,13 @@ class Vehicle {
     this.carMass = 1400,
     this.carGearboxIndex = 2,
     this.carConsumption = 4.5,
+    this.carAutoGearboxNumber = 0,
     this.engineDisplacement = 1200,
-    this.frontTireSize = '205/55/16',
-    this.rearTireSize = '205/55/16',
+    this.carPassengers = 1,
+    this.dqIndex,
+    this.sra,
+    this.frontTireSize,
+    this.rearTireSize,
     this.length = 4.5,
     this.width = 1.8,
     this.height = 1.45,
@@ -42,17 +46,33 @@ class Vehicle {
   /// default value is 4.5
   final double carConsumption;
 
+  /// The car auto gearbox number
+  /// default value is 0
+  final int carAutoGearboxNumber;
+
   /// The engine displacement
   /// default value is 1200
   final int engineDisplacement;
 
+  /// The car passengers
+  /// default value is 1
+  final int carPassengers;
+
+  /// The dq index
+  /// default value is null
+  final String? dqIndex;
+
+  /// The sra
+  /// default value is null
+  final String? sra;
+
   /// The front tire size
-  /// default value is "205/55/16"
-  final String frontTireSize;
+  /// default value is null
+  final String? frontTireSize;
 
   /// The rear tire size
-  /// default value is "205/55/16"
-  final String rearTireSize;
+  /// default value is null
+  final String? rearTireSize;
 
   /// The length
   /// default value is 4.5
