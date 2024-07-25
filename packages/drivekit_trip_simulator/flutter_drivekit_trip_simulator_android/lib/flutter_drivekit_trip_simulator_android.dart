@@ -7,9 +7,9 @@ class DrivekitTripSimulatorAndroid extends DrivekitTripSimulatorPlatform {
   /// Creates a new instance of [DrivekitTripSimulatorAndroid].
   /// The optional [androidTripSimulatorApi] parameter is used for
   /// dependency injection in tests.
-  DrivekitTripSimulatorAndroid(
-      {AndroidTripSimulatorApi? androidTripSimulatorApi})
-      : androidTripSimulatorApi =
+  DrivekitTripSimulatorAndroid({
+    AndroidTripSimulatorApi? androidTripSimulatorApi,
+  }) : androidTripSimulatorApi =
             androidTripSimulatorApi ?? AndroidTripSimulatorApi();
 
   /// Registers this class as the default instance of

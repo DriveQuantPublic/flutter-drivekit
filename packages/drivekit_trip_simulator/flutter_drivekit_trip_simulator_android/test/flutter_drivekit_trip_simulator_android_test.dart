@@ -12,21 +12,27 @@ void main() {
 
     setUp(() {
       androidTripSimulatorApi = MockAndroidTripSimulatorApi();
-      DrivekitTripSimulatorPlatform.instance =
-          DrivekitTripSimulatorAndroid(androidTripSimulatorApi: androidTripSimulatorApi);
+      DrivekitTripSimulatorPlatform.instance = DrivekitTripSimulatorAndroid(
+        androidTripSimulatorApi: androidTripSimulatorApi,
+      );
     });
 
     test('can be registered', () {
       DrivekitTripSimulatorAndroid.registerWith();
-      expect(DrivekitTripSimulatorPlatform.instance, isA<DrivekitTripSimulatorAndroid>());
+      expect(
+        DrivekitTripSimulatorPlatform.instance,
+        isA<DrivekitTripSimulatorAndroid>(),
+      );
     });
 
     test('getPlatformName returns correct name', () async {
       //mock
-      when(androidTripSimulatorApi.getPlatformName).thenAnswer((_) async => 'Android');
+      when(androidTripSimulatorApi.getPlatformName)
+          .thenAnswer((_) async => 'Android');
 
       //test
-      final name = await DrivekitTripSimulatorPlatform.instance.getPlatformName();
+      final name =
+          await DrivekitTripSimulatorPlatform.instance.getPlatformName();
       expect(name, 'Android');
     });
   });
