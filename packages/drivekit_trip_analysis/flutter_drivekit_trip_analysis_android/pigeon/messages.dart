@@ -47,13 +47,17 @@ class PigeonVehicle {
 
   final int carTypeIndex;
   final int carEngineIndex;
-  final int carPower;
-  final int carMass;
+  final double carPower;
+  final double carMass;
   final int carGearboxIndex;
   final double carConsumption;
-  final int engineDisplacement;
-  final String frontTireSize;
-  final String rearTireSize;
+  final int carAutoGearboxNumber;
+  final double engineDisplacement;
+  final int carPassengers;
+  final String? dqIndex;
+  final String? sra;
+  final String? frontTireSize;
+  final String? rearTireSize;
   final double length;
   final double width;
   final double height;
