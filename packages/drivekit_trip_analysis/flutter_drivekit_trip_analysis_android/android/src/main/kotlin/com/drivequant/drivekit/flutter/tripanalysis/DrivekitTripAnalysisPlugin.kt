@@ -1,6 +1,7 @@
 package com.drivequant.drivekit.flutter.tripanalysis
 
 import android.content.Context
+import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper
 import com.drivequant.drivekit.tripanalysis.DriveKitTripAnalysis
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 
@@ -41,4 +42,8 @@ class DrivekitTripAnalysisPlugin :
     }
 
     override fun isTripRunning(): Boolean = DriveKitTripAnalysis.isTripRunning()
+
+    override fun setVehicle(vehicle: PigeonVehicle) {
+        DriveKitTripAnalysis.setVehicle(PigeonMapper.fromPigeonVehicle(vehicle))
+    }
 }
