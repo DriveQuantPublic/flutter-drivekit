@@ -68,13 +68,17 @@ private func nilOrValue<T>(_ value: Any?) -> T? {
 struct PigeonVehicle {
   var carTypeIndex: Int64
   var carEngineIndex: Int64
-  var carPower: Int64
-  var carMass: Int64
+  var carPower: Double
+  var carMass: Double
   var carGearboxIndex: Int64
   var carConsumption: Double
-  var engineDisplacement: Int64
-  var frontTireSize: String
-  var rearTireSize: String
+  var carAutoGearboxNumber: Int64
+  var engineDisplacement: Double
+  var carPassengers: Int64
+  var dqIndex: String? = nil
+  var sra: String? = nil
+  var frontTireSize: String? = nil
+  var rearTireSize: String? = nil
   var length: Double
   var width: Double
   var height: Double
@@ -85,18 +89,22 @@ struct PigeonVehicle {
   static func fromList(_ __pigeon_list: [Any?]) -> PigeonVehicle? {
     let carTypeIndex = __pigeon_list[0] is Int64 ? __pigeon_list[0] as! Int64 : Int64(__pigeon_list[0] as! Int32)
     let carEngineIndex = __pigeon_list[1] is Int64 ? __pigeon_list[1] as! Int64 : Int64(__pigeon_list[1] as! Int32)
-    let carPower = __pigeon_list[2] is Int64 ? __pigeon_list[2] as! Int64 : Int64(__pigeon_list[2] as! Int32)
-    let carMass = __pigeon_list[3] is Int64 ? __pigeon_list[3] as! Int64 : Int64(__pigeon_list[3] as! Int32)
+    let carPower = __pigeon_list[2] as! Double
+    let carMass = __pigeon_list[3] as! Double
     let carGearboxIndex = __pigeon_list[4] is Int64 ? __pigeon_list[4] as! Int64 : Int64(__pigeon_list[4] as! Int32)
     let carConsumption = __pigeon_list[5] as! Double
-    let engineDisplacement = __pigeon_list[6] is Int64 ? __pigeon_list[6] as! Int64 : Int64(__pigeon_list[6] as! Int32)
-    let frontTireSize = __pigeon_list[7] as! String
-    let rearTireSize = __pigeon_list[8] as! String
-    let length = __pigeon_list[9] as! Double
-    let width = __pigeon_list[10] as! Double
-    let height = __pigeon_list[11] as! Double
-    let engineCylinderNb = __pigeon_list[12] is Int64 ? __pigeon_list[12] as! Int64 : Int64(__pigeon_list[12] as! Int32)
-    let driveWheels = __pigeon_list[13] is Int64 ? __pigeon_list[13] as! Int64 : Int64(__pigeon_list[13] as! Int32)
+    let carAutoGearboxNumber = __pigeon_list[6] is Int64 ? __pigeon_list[6] as! Int64 : Int64(__pigeon_list[6] as! Int32)
+    let engineDisplacement = __pigeon_list[7] as! Double
+    let carPassengers = __pigeon_list[8] is Int64 ? __pigeon_list[8] as! Int64 : Int64(__pigeon_list[8] as! Int32)
+    let dqIndex: String? = nilOrValue(__pigeon_list[9])
+    let sra: String? = nilOrValue(__pigeon_list[10])
+    let frontTireSize: String? = nilOrValue(__pigeon_list[11])
+    let rearTireSize: String? = nilOrValue(__pigeon_list[12])
+    let length = __pigeon_list[13] as! Double
+    let width = __pigeon_list[14] as! Double
+    let height = __pigeon_list[15] as! Double
+    let engineCylinderNb = __pigeon_list[16] is Int64 ? __pigeon_list[16] as! Int64 : Int64(__pigeon_list[16] as! Int32)
+    let driveWheels = __pigeon_list[17] is Int64 ? __pigeon_list[17] as! Int64 : Int64(__pigeon_list[17] as! Int32)
 
     return PigeonVehicle(
       carTypeIndex: carTypeIndex,
@@ -105,7 +113,11 @@ struct PigeonVehicle {
       carMass: carMass,
       carGearboxIndex: carGearboxIndex,
       carConsumption: carConsumption,
+      carAutoGearboxNumber: carAutoGearboxNumber,
       engineDisplacement: engineDisplacement,
+      carPassengers: carPassengers,
+      dqIndex: dqIndex,
+      sra: sra,
       frontTireSize: frontTireSize,
       rearTireSize: rearTireSize,
       length: length,
@@ -123,7 +135,11 @@ struct PigeonVehicle {
       carMass,
       carGearboxIndex,
       carConsumption,
+      carAutoGearboxNumber,
       engineDisplacement,
+      carPassengers,
+      dqIndex,
+      sra,
       frontTireSize,
       rearTireSize,
       length,

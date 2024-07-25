@@ -23,7 +23,11 @@ class PigeonVehicle {
     this.carMass = 1400,
     this.carGearboxIndex = 2,
     this.carConsumption = 4.5,
+    this.carAutoGearboxNumber = 0,
     this.engineDisplacement = 1200,
+    this.carPassengers = 1,
+    this.dqIndex,
+    this.sra,
     this.frontTireSize = '205/55/16',
     this.rearTireSize = '205/55/16',
     this.length = 4.5,
@@ -37,19 +41,27 @@ class PigeonVehicle {
 
   int carEngineIndex;
 
-  int carPower;
+  double carPower;
 
-  int carMass;
+  double carMass;
 
   int carGearboxIndex;
 
   double carConsumption;
 
-  int engineDisplacement;
+  int carAutoGearboxNumber;
 
-  String frontTireSize;
+  double engineDisplacement;
 
-  String rearTireSize;
+  int carPassengers;
+
+  String? dqIndex;
+
+  String? sra;
+
+  String? frontTireSize;
+
+  String? rearTireSize;
 
   double length;
 
@@ -69,7 +81,11 @@ class PigeonVehicle {
       carMass,
       carGearboxIndex,
       carConsumption,
+      carAutoGearboxNumber,
       engineDisplacement,
+      carPassengers,
+      dqIndex,
+      sra,
       frontTireSize,
       rearTireSize,
       length,
@@ -85,18 +101,22 @@ class PigeonVehicle {
     return PigeonVehicle(
       carTypeIndex: result[0]! as int,
       carEngineIndex: result[1]! as int,
-      carPower: result[2]! as int,
-      carMass: result[3]! as int,
+      carPower: result[2]! as double,
+      carMass: result[3]! as double,
       carGearboxIndex: result[4]! as int,
       carConsumption: result[5]! as double,
-      engineDisplacement: result[6]! as int,
-      frontTireSize: result[7]! as String,
-      rearTireSize: result[8]! as String,
-      length: result[9]! as double,
-      width: result[10]! as double,
-      height: result[11]! as double,
-      engineCylinderNb: result[12]! as int,
-      driveWheels: result[13]! as int,
+      carAutoGearboxNumber: result[6]! as int,
+      engineDisplacement: result[7]! as double,
+      carPassengers: result[8]! as int,
+      dqIndex: result[9] as String?,
+      sra: result[10] as String?,
+      frontTireSize: result[11] as String?,
+      rearTireSize: result[12] as String?,
+      length: result[13]! as double,
+      width: result[14]! as double,
+      height: result[15]! as double,
+      engineCylinderNb: result[16]! as int,
+      driveWheels: result[17]! as int,
     );
   }
 }
