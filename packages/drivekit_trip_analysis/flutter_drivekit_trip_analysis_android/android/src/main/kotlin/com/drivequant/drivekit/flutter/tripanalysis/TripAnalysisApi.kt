@@ -48,13 +48,17 @@ class FlutterTripAnalysisError (
 data class PigeonVehicle (
   val carTypeIndex: Long,
   val carEngineIndex: Long,
-  val carPower: Long,
-  val carMass: Long,
+  val carPower: Double,
+  val carMass: Double,
   val carGearboxIndex: Long,
   val carConsumption: Double,
-  val engineDisplacement: Long,
-  val frontTireSize: String,
-  val rearTireSize: String,
+  val carAutoGearboxNumber: Long,
+  val engineDisplacement: Double,
+  val carPassengers: Long,
+  val dqIndex: String? = null,
+  val sra: String? = null,
+  val frontTireSize: String? = null,
+  val rearTireSize: String? = null,
   val length: Double,
   val width: Double,
   val height: Double,
@@ -67,19 +71,23 @@ data class PigeonVehicle (
     fun fromList(__pigeon_list: List<Any?>): PigeonVehicle {
       val carTypeIndex = __pigeon_list[0].let { num -> if (num is Int) num.toLong() else num as Long }
       val carEngineIndex = __pigeon_list[1].let { num -> if (num is Int) num.toLong() else num as Long }
-      val carPower = __pigeon_list[2].let { num -> if (num is Int) num.toLong() else num as Long }
-      val carMass = __pigeon_list[3].let { num -> if (num is Int) num.toLong() else num as Long }
+      val carPower = __pigeon_list[2] as Double
+      val carMass = __pigeon_list[3] as Double
       val carGearboxIndex = __pigeon_list[4].let { num -> if (num is Int) num.toLong() else num as Long }
       val carConsumption = __pigeon_list[5] as Double
-      val engineDisplacement = __pigeon_list[6].let { num -> if (num is Int) num.toLong() else num as Long }
-      val frontTireSize = __pigeon_list[7] as String
-      val rearTireSize = __pigeon_list[8] as String
-      val length = __pigeon_list[9] as Double
-      val width = __pigeon_list[10] as Double
-      val height = __pigeon_list[11] as Double
-      val engineCylinderNb = __pigeon_list[12].let { num -> if (num is Int) num.toLong() else num as Long }
-      val driveWheels = __pigeon_list[13].let { num -> if (num is Int) num.toLong() else num as Long }
-      return PigeonVehicle(carTypeIndex, carEngineIndex, carPower, carMass, carGearboxIndex, carConsumption, engineDisplacement, frontTireSize, rearTireSize, length, width, height, engineCylinderNb, driveWheels)
+      val carAutoGearboxNumber = __pigeon_list[6].let { num -> if (num is Int) num.toLong() else num as Long }
+      val engineDisplacement = __pigeon_list[7] as Double
+      val carPassengers = __pigeon_list[8].let { num -> if (num is Int) num.toLong() else num as Long }
+      val dqIndex = __pigeon_list[9] as String?
+      val sra = __pigeon_list[10] as String?
+      val frontTireSize = __pigeon_list[11] as String?
+      val rearTireSize = __pigeon_list[12] as String?
+      val length = __pigeon_list[13] as Double
+      val width = __pigeon_list[14] as Double
+      val height = __pigeon_list[15] as Double
+      val engineCylinderNb = __pigeon_list[16].let { num -> if (num is Int) num.toLong() else num as Long }
+      val driveWheels = __pigeon_list[17].let { num -> if (num is Int) num.toLong() else num as Long }
+      return PigeonVehicle(carTypeIndex, carEngineIndex, carPower, carMass, carGearboxIndex, carConsumption, carAutoGearboxNumber, engineDisplacement, carPassengers, dqIndex, sra, frontTireSize, rearTireSize, length, width, height, engineCylinderNb, driveWheels)
     }
   }
   fun toList(): List<Any?> {
@@ -90,7 +98,11 @@ data class PigeonVehicle (
       carMass,
       carGearboxIndex,
       carConsumption,
+      carAutoGearboxNumber,
       engineDisplacement,
+      carPassengers,
+      dqIndex,
+      sra,
       frontTireSize,
       rearTireSize,
       length,
