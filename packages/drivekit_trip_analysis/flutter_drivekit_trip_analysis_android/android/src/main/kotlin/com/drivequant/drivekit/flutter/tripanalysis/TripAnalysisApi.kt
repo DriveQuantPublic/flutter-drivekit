@@ -59,11 +59,11 @@ data class PigeonVehicle (
   val sra: String? = null,
   val frontTireSize: String? = null,
   val rearTireSize: String? = null,
-  val length: Double,
-  val width: Double,
-  val height: Double,
-  val engineCylinderNb: Long,
-  val driveWheels: Long
+  val length: Double? = null,
+  val width: Double? = null,
+  val height: Double? = null,
+  val engineCylinderNb: Long? = null,
+  val driveWheels: Long? = null
 
 ) {
   companion object {
@@ -82,11 +82,11 @@ data class PigeonVehicle (
       val sra = __pigeon_list[10] as String?
       val frontTireSize = __pigeon_list[11] as String?
       val rearTireSize = __pigeon_list[12] as String?
-      val length = __pigeon_list[13] as Double
-      val width = __pigeon_list[14] as Double
-      val height = __pigeon_list[15] as Double
-      val engineCylinderNb = __pigeon_list[16].let { num -> if (num is Int) num.toLong() else num as Long }
-      val driveWheels = __pigeon_list[17].let { num -> if (num is Int) num.toLong() else num as Long }
+      val length = __pigeon_list[13] as Double?
+      val width = __pigeon_list[14] as Double?
+      val height = __pigeon_list[15] as Double?
+      val engineCylinderNb = __pigeon_list[16].let { num -> if (num is Int) num.toLong() else num as Long? }
+      val driveWheels = __pigeon_list[17].let { num -> if (num is Int) num.toLong() else num as Long? }
       return PigeonVehicle(carTypeIndex, carEngineIndex, carPower, carMass, carGearboxIndex, carConsumption, carAutoGearboxNumber, engineDisplacement, carPassengers, dqIndex, sra, frontTireSize, rearTireSize, length, width, height, engineCylinderNb, driveWheels)
     }
   }
