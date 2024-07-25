@@ -39,7 +39,7 @@ public class DrivekitCorePlugin: NSObject, FlutterPlugin, IOSCoreApi {
     func isTokenValid() throws -> Bool {
         return DriveKit.shared.isTokenValid()
     }
-    
+
     func deleteAccount(instantDeletion: Bool) throws {
         DriveKit.shared.deleteAccount(instantDeletion: instantDeletion)
     }
