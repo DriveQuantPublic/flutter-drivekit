@@ -32,7 +32,7 @@ public class DrivekitCorePlugin: NSObject, FlutterPlugin, IOSCoreApi {
         return DriveKit.shared.config.getUserId()
     }
 
-     public func reset() {
+    public func reset() {
         DriveKit.shared.reset()
     }
 
