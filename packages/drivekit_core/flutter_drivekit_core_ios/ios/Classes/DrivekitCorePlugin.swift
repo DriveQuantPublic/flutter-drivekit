@@ -16,8 +16,8 @@ public class DrivekitCorePlugin: NSObject, FlutterPlugin, IOSCoreApi {
         return "iOS"
     }
 
-     public func getApiKey() throws -> String? {
-        DriveKit.shared.getApiKey()
+    public func getApiKey() throws -> String? {
+        return DriveKit.shared.config.getApiKey()
     }
 
     public func setApiKey(key: String) {
