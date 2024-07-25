@@ -1,0 +1,73 @@
+plugins {
+    id "com.android.library"
+    id "kotlin-android"
+    id "org.jmailen.kotlinter" version "4.4.0"
+}
+
+group 'com.drivequant.drivekit.flutter.tripsimulator'
+version '1.0-SNAPSHOT'
+
+rootProject.allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        maven {
+            url "https://maven.drivequant.com/repository/android-sdk/"
+        }
+    }
+}
+
+android {
+    if (project.android.hasProperty("namespace")) {
+        namespace 'com.drivequant.drivekit.flutter.tripsimulator'
+    }
+
+    compileSdk 34
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+        test.java.srcDirs += 'src/test/kotlin'
+    }
+
+    defaultConfig {
+        minSdkVersion 23
+    }
+
+    dependencies {
+        testImplementation 'org.jetbrains.kotlin:kotlin-test'
+        testImplementation 'org.mockito:mockito-core:5.0.0'
+        implementation 'com.drivequant.drivekit:drivekit-trip-simulator:2.3.0'
+    }
+
+    testOptions {
+        unitTests.all {
+            useJUnitPlatform()
+
+            testLogging {
+                events "passed", "skipped", "failed", "standardOut", "standardError"
+                outputs.upToDateWhen {false}
+                showStandardStreams = true
+            }
+        }
+    }
+}
+
+tasks.formatKotlinMain {
+    exclude { it.file.path.contains("com/drivequant/drivekit/flutter/tripsimulator/TripSimulatorApi.kt")}
+}
+
+tasks.lintKotlinMain {
+    exclude { it.file.path.contains("com/drivequant/drivekit/flutter/tripsimulator/TripSimulatorApi.kt")}
+}
+// To run formating on build and clean. Can find a better solution on commit hook
+tasks.named('preBuild') {
+    dependsOn 'formatKotlin'
+}
+tasks.named('clean') {
+    dependsOn 'formatKotlin'
+}
