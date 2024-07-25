@@ -55,4 +55,10 @@ class DrivekitTripAnalysis {
   Future<void> cancelTrip() async {
     await _platform.cancelTrip();
   }
+
+  /// This method returns false if the SDK is in INACTIVE state,
+  /// and no trip is currently running.
+  Future<bool> isTripRunning() async {
+    return _platform.isTripRunning();
+  }
 }

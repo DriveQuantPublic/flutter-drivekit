@@ -39,4 +39,6 @@ class DrivekitTripAnalysisPlugin :
     override fun cancelTrip() {
         DriveKitTripAnalysis.cancelTrip()
     }
+
+    override fun isTripRunning(): Boolean = DriveKitTripAnalysis.isTripRunning()
 }

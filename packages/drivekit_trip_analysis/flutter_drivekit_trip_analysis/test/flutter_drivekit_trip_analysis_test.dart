@@ -87,6 +87,19 @@ void main() {
         await driveKitTripAnalysis.cancelTrip();
         verify(() => drivekitTripAnalysisPlatform.cancelTrip());
       });
+
+      group('isTripRunning', () {
+        test('returns false if the SDK is in INACTIVE state', () async {
+          const isRunning = false;
+          when(
+            () => drivekitTripAnalysisPlatform.isTripRunning(),
+          ).thenAnswer((_) async => isRunning);
+
+          final actualIsRunningValue =
+              await driveKitTripAnalysis.isTripRunning();
+          expect(actualIsRunningValue, equals(isRunning));
+        });
+      });
     });
   });
 }

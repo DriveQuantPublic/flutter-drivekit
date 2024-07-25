@@ -91,6 +91,7 @@ protocol IOSTripAnalysisApi {
   func startTrip() throws
   func stopTrip() throws
   func cancelTrip() throws
+  func isTripRunning() throws -> Bool
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
@@ -180,6 +181,19 @@ class IOSTripAnalysisApiSetup {
       }
     } else {
       cancelTripChannel.setMessageHandler(nil)
+    }
+    let isTripRunningChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.pigeon_trip_analysis_package.IOSTripAnalysisApi.isTripRunning\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      isTripRunningChannel.setMessageHandler { _, reply in
+        do {
+          let result = try api.isTripRunning()
+          reply(wrapResult(result))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      isTripRunningChannel.setMessageHandler(nil)
     }
   }
 }

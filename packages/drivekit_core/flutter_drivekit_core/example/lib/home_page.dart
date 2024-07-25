@@ -5,6 +5,7 @@ import 'package:drivekit_core_example/widgets/sliver_cancel_trip.dart';
 import 'package:drivekit_core_example/widgets/sliver_delete_account.dart';
 import 'package:drivekit_core_example/widgets/sliver_get_user_id.dart';
 import 'package:drivekit_core_example/widgets/sliver_is_token_valid.dart';
+import 'package:drivekit_core_example/widgets/sliver_is_trip_running.dart';
 import 'package:drivekit_core_example/widgets/sliver_permission_request.dart';
 import 'package:drivekit_core_example/widgets/sliver_platform_name.dart';
 import 'package:drivekit_core_example/widgets/sliver_reset.dart';
@@ -90,6 +91,11 @@ class HomePage extends StatelessWidget {
           SliverPadding(
             padding: EdgeInsets.symmetric(horizontal: 16),
             sliver: SliverCancelTrip(),
+          ),
+          SliverGap(32),
+          SliverPadding(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            sliver: SliverIsTripRunning(),
           ),
           SliverGap(32),
         ],
