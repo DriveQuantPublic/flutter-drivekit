@@ -41,11 +41,11 @@ class HomePage extends StatelessWidget {
           SliverGap(32),
           SliverPadding(
             padding: EdgeInsets.symmetric(horizontal: 16),
-            sliver: SliverGetApiKey(),
+            sliver: SliverSetApiKey(),
           ),
           SliverPadding(
             padding: EdgeInsets.symmetric(horizontal: 16),
-            sliver: SliverSetApiKey(),
+            sliver: SliverGetApiKey(),
           ),
           SliverGap(16),
           SliverPadding(
