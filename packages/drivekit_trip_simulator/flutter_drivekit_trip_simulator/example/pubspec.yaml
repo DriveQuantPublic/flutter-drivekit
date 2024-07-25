@@ -1,0 +1,21 @@
+name: drivekit_trip_simulator_example
+description: Demonstrates how to use the drivekit_trip_simulator plugin.
+version: 0.1.0+1
+publish_to: none
+
+environment:
+  sdk: ^3.4.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_drivekit_trip_simulator:
+    path: ../
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  very_good_analysis: ^6.0.0
+
+flutter:
+  uses-material-design: true
