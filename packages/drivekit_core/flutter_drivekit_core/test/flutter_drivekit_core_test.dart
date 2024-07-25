@@ -33,7 +33,7 @@ void main() {
       });
     });
 
-    group('setApiKey', () {
+    group('apiKey', () {
       test('calls setApiKey on platform implementation', () async {
         when(() => drivekitCorePlatform.setApiKey(any()))
             .thenAnswer((_) async {});
@@ -41,15 +41,33 @@ void main() {
         await driveKitCore.setApiKey('api_key');
         verify(() => drivekitCorePlatform.setApiKey('api_key'));
       });
+
+      test('calls getApiKey on platform implementation', () async {
+        const mockedApiKey = 'apiKeyTest';
+        when(() => drivekitCorePlatform.getApiKey())
+            .thenAnswer((_) async => mockedApiKey);
+
+        final actualApiKey = await driveKitCore.getApiKey();
+        expect(actualApiKey, equals(mockedApiKey));
+      });
     });
 
-    group('setUserId', () {
+    group('userId', () {
       test('calls setUserId on platform implementation', () async {
         when(() => drivekitCorePlatform.setUserId(any()))
             .thenAnswer((_) async {});
 
         await driveKitCore.setUserId('user_id');
         verify(() => drivekitCorePlatform.setUserId('user_id'));
+      });
+
+      test('calls getUserId on platform implementation', () async {
+        const mockedUserId = 'userIdTest';
+        when(() => drivekitCorePlatform.getUserId())
+            .thenAnswer((_) async => mockedUserId);
+
+        final actualUserId = await driveKitCore.getUserId();
+        expect(actualUserId, equals(mockedUserId));
       });
     });
 
@@ -81,18 +99,6 @@ void main() {
 
         await driveKitCore.deleteAccount();
         verify(() => drivekitCorePlatform.deleteAccount());
-      });
-    });
-
-    group('getApiKey', () {
-      test('returns correct api key value when getApiKey is called', () async {
-        const mockApiKey = '__mock_api_key__';
-        when(
-          () => drivekitCorePlatform.setApiKey(mockApiKey),
-        ).thenAnswer((_) async => mockApiKey);
-
-        final actualApiKey = await driveKitCore.getApiKey();
-        expect(actualApiKey, equals(mockApiKey));
       });
     });
   });

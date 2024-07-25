@@ -38,6 +38,16 @@ void main() {
       verify(() => iosCoreApi.setApiKey('api_key')).called(1);
     });
 
+    test('getApiKey returns correct api key', () async {
+      const mockApiKey = 'apiKeyTest';
+      //mock
+      when(() => iosCoreApi.getApiKey()).thenAnswer((_) async => mockApiKey);
+
+      //test
+      final apiKey = await DrivekitCorePlatform.instance.getApiKey();
+      expect(apiKey, mockApiKey);
+    });
+
     test('setUserId calls setUserId method with correct key', () async {
       //mock
       when(() => iosCoreApi.setUserId(any())).thenAnswer((_) async {});
@@ -45,6 +55,16 @@ void main() {
       //test
       await DrivekitCorePlatform.instance.setUserId('user_id');
       verify(() => iosCoreApi.setUserId('user_id')).called(1);
+    });
+
+    test('getUserId calls getUserId method', () async {
+      const mockedUserId = 'userIdTest';
+      //mock
+      when(() => iosCoreApi.getUserId()).thenAnswer((_) async => mockedUserId);
+
+      //test
+      final userId = await DrivekitCorePlatform.instance.getUserId();
+      expect(userId, mockedUserId);
     });
 
     test('reset calls reset method', () async {
@@ -72,17 +92,6 @@ void main() {
       //test
       await DrivekitCorePlatform.instance.deleteAccount();
       verify(() => iosCoreApi.deleteAccount()).called(1);
-    });
-
-    test('getApiKey returns correct api key', () async {
-      //mock
-      const mockApiKey = '__mock_api_key';
-      when(() => iosCoreApi.setApiKey(mockApiKey))
-          .thenAnswer((_) async => mockApiKey);
-
-      //test
-      final apiKey = await DrivekitCorePlatform.instance.getApiKey();
-      expect(apiKey, mockApiKey);
     });
   });
 }

@@ -39,6 +39,18 @@ void main() {
       verify(() => androidCoreApi.setApiKey('api_key')).called(1);
     });
 
+    test('getApiKey calls getApiKey method', () async {
+      const mockApiKey = 'apiKeyTest';
+
+      //mock
+      when(() => androidCoreApi.getApiKey())
+          .thenAnswer((_) async => mockApiKey);
+
+      //test
+      final apiKey = await DrivekitCorePlatform.instance.getApiKey();
+      expect(apiKey, mockApiKey);
+    });
+
     test('setUserId calls setUserId method with correct ID', () async {
       //mock
       when(() => androidCoreApi.setUserId(any())).thenAnswer((_) async {});
@@ -46,6 +58,17 @@ void main() {
       //test
       await DrivekitCorePlatform.instance.setUserId('user_id');
       verify(() => androidCoreApi.setUserId('user_id')).called(1);
+    });
+
+    test('getUserId calls getUserId method', () async {
+      const mockedUserId = 'userIdTest';
+      //mock
+      when(() => androidCoreApi.getUserId())
+          .thenAnswer((_) async => mockedUserId);
+
+      //test
+      final userId = await DrivekitCorePlatform.instance.getUserId();
+      expect(userId, mockedUserId);
     });
 
     test('reset calls reset method', () async {
