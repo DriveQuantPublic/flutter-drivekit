@@ -32,7 +32,11 @@ class PigeonVehicle {
     this.carMass = 1400,
     this.carGearboxIndex = 2,
     this.carConsumption = 4.5,
+    this.carAutoGearboxNumber = 0,
     this.engineDisplacement = 1200,
+    this.carPassengers = 1,
+    this.dqIndex,
+    this.sra,
     this.frontTireSize = '205/55/16',
     this.rearTireSize = '205/55/16',
     this.length = 4.5,
@@ -44,13 +48,17 @@ class PigeonVehicle {
 
   final int carTypeIndex;
   final int carEngineIndex;
-  final int carPower;
-  final int carMass;
+  final double carPower;
+  final double carMass;
   final int carGearboxIndex;
   final double carConsumption;
-  final int engineDisplacement;
-  final String frontTireSize;
-  final String rearTireSize;
+  final int carAutoGearboxNumber;
+  final double engineDisplacement;
+  final int carPassengers;
+  final String? dqIndex;
+  final String? sra;
+  final String? frontTireSize;
+  final String? rearTireSize;
   final double length;
   final double width;
   final double height;
