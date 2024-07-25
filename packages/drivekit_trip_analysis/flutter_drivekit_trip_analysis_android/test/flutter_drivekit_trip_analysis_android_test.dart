@@ -168,7 +168,8 @@ void main() {
     });
 
     test(
-        'null vehicle toPigeonImplementation includes null attribute when possible else default attributes value',
+        'null vehicle.toPigeonImplementation includes null attributes'
+        ' and includes default attributes value if not possible to be null',
         () {
       const vehicle = Vehicle();
 

@@ -68,5 +68,3 @@ class PigeonVehicle {
   final int? engineCylinderNb;
   final int? driveWheels;
 }
-
-}
