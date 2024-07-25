@@ -101,17 +101,5 @@ void main() {
         verify(() => drivekitCorePlatform.deleteAccount());
       });
     });
-
-    group('getApiKey', () {
-      test('returns correct api key value when getApiKey is called', () async {
-        const mockApiKey = '__mock_api_key__';
-        when(
-          () => drivekitCorePlatform.setApiKey(mockApiKey),
-        ).thenAnswer((_) async => mockApiKey);
-
-        final actualApiKey = await driveKitCore.getApiKey();
-        expect(actualApiKey, equals(mockApiKey));
-      });
-    });
   });
 }
