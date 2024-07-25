@@ -32,9 +32,6 @@ abstract class DrivekitCorePlatform extends PlatformInterface {
   /// Useful to start listening to method channels
   void initializePlatform();
 
-  /// The callback to be called when the user is connected.
-  void Function()? onConnected;
-
   /// Return the current platform name.
   Future<String> getPlatformName();
 
