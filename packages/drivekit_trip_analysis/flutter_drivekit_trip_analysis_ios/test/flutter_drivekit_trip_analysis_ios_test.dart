@@ -121,7 +121,7 @@ void main() {
       ).called(1);
     });
 
-    test('vehicle toPigeonImplementation mirrors vehicle properties', () {
+    test('vehicle toPigeonImplementation includes all attributes', () {
       //mock
       const vehicle = Vehicle(
         carTypeIndex: 0,
@@ -130,7 +130,11 @@ void main() {
         carMass: 4,
         carGearboxIndex: 5,
         carConsumption: 6.5,
+        carAutoGearboxNumber: 1,
         engineDisplacement: 7,
+        carPassengers: 2,
+        dqIndex: 'dq',
+        sra: 'sra',
         frontTireSize: '200/59/13',
         rearTireSize: '215/35/26',
         length: 8.5,
@@ -148,7 +152,11 @@ void main() {
       expect(pigeonVehicle.carMass, 4);
       expect(pigeonVehicle.carGearboxIndex, 5);
       expect(pigeonVehicle.carConsumption, 6.5);
+      expect(pigeonVehicle.carAutoGearboxNumber, 1);
       expect(pigeonVehicle.engineDisplacement, 7);
+      expect(pigeonVehicle.carPassengers, 2);
+      expect(pigeonVehicle.dqIndex, 'dq');
+      expect(pigeonVehicle.sra, 'sra');
       expect(pigeonVehicle.frontTireSize, '200/59/13');
       expect(pigeonVehicle.rearTireSize, '215/35/26');
       expect(pigeonVehicle.length, 8.5);
