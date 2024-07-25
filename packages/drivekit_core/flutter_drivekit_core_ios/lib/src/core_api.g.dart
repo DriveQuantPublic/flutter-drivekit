@@ -15,19 +15,96 @@ PlatformException _createConnectionError(String channelName) {
   );
 }
 
+List<Object?> wrapResponse({Object? result, PlatformException? error, bool empty = false}) {
+  if (empty) {
+    return <Object?>[];
+  }
+  if (error == null) {
+    return <Object?>[result];
+  }
+  return <Object?>[error.code, error.message, error.details];
+}
+
+enum PigeonDeleteAccountStatus {
+  success,
+  failedToDelete,
+  forbidden,
+}
+
+enum PigeonRequestError {
+  wrongUrl,
+  noNetwork,
+  unauthenticated,
+  forbidden,
+  serverError,
+  clientError,
+  limitReached,
+  unknownError,
+}
+
+enum PigeonUpdateUserIdStatus {
+  updated,
+  failedToUpdate,
+  invalidUserId,
+  alreadyUsed,
+  savedForRepost,
+}
+
+enum PigeonBackgroundFetchStatus {
+  started,
+  completed,
+}
+
+
 class _PigeonCodec extends StandardMessageCodec {
   const _PigeonCodec();
+  @override
+  void writeValue(WriteBuffer buffer, Object? value) {
+    if (value is PigeonDeleteAccountStatus) {
+      buffer.putUint8(129);
+      writeValue(buffer, value.index);
+    } else     if (value is PigeonRequestError) {
+      buffer.putUint8(130);
+      writeValue(buffer, value.index);
+    } else     if (value is PigeonUpdateUserIdStatus) {
+      buffer.putUint8(131);
+      writeValue(buffer, value.index);
+    } else     if (value is PigeonBackgroundFetchStatus) {
+      buffer.putUint8(132);
+      writeValue(buffer, value.index);
+    } else {
+      super.writeValue(buffer, value);
+    }
+  }
+
+  @override
+  Object? readValueOfType(int type, ReadBuffer buffer) {
+    switch (type) {
+      case 129: 
+        final int? value = readValue(buffer) as int?;
+        return value == null ? null : PigeonDeleteAccountStatus.values[value];
+      case 130: 
+        final int? value = readValue(buffer) as int?;
+        return value == null ? null : PigeonRequestError.values[value];
+      case 131: 
+        final int? value = readValue(buffer) as int?;
+        return value == null ? null : PigeonUpdateUserIdStatus.values[value];
+      case 132: 
+        final int? value = readValue(buffer) as int?;
+        return value == null ? null : PigeonBackgroundFetchStatus.values[value];
+      default:
+        return super.readValueOfType(type, buffer);
+    }
+  }
 }
 
 class IOSCoreApi {
   /// Constructor for [IOSCoreApi].  The [binaryMessenger] named argument is
   /// available for dependency injection.  If it is left null, the default
   /// BinaryMessenger will be used which routes to the host platform.
-  IOSCoreApi(
-      {BinaryMessenger? binaryMessenger, String messageChannelSuffix = ''})
+  IOSCoreApi({BinaryMessenger? binaryMessenger, String messageChannelSuffix = ''})
       : __pigeon_binaryMessenger = binaryMessenger,
-        __pigeon_messageChannelSuffix =
-            messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
+        __pigeon_messageChannelSuffix = messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
   final BinaryMessenger? __pigeon_binaryMessenger;
 
   static const MessageCodec<Object?> pigeonChannelCodec = _PigeonCodec();
@@ -35,10 +112,8 @@ class IOSCoreApi {
   final String __pigeon_messageChannelSuffix;
 
   Future<String> getPlatformName() async {
-    final String __pigeon_channelName =
-        'dev.flutter.pigeon.pigeon_core_package.IOSCoreApi.getPlatformName$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel =
-        BasicMessageChannel<Object?>(
+    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_core_package.IOSCoreApi.getPlatformName$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
@@ -64,10 +139,8 @@ class IOSCoreApi {
   }
 
   Future<void> setApiKey(String key) async {
-    final String __pigeon_channelName =
-        'dev.flutter.pigeon.pigeon_core_package.IOSCoreApi.setApiKey$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel =
-        BasicMessageChannel<Object?>(
+    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_core_package.IOSCoreApi.setApiKey$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
@@ -88,10 +161,8 @@ class IOSCoreApi {
   }
 
   Future<void> setUserId(String userId) async {
-    final String __pigeon_channelName =
-        'dev.flutter.pigeon.pigeon_core_package.IOSCoreApi.setUserId$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel =
-        BasicMessageChannel<Object?>(
+    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_core_package.IOSCoreApi.setUserId$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
@@ -112,10 +183,8 @@ class IOSCoreApi {
   }
 
   Future<String?> getUserId() async {
-    final String __pigeon_channelName =
-        'dev.flutter.pigeon.pigeon_core_package.IOSCoreApi.getUserId$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel =
-        BasicMessageChannel<Object?>(
+    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_core_package.IOSCoreApi.getUserId$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
@@ -136,10 +205,8 @@ class IOSCoreApi {
   }
 
   Future<void> reset() async {
-    final String __pigeon_channelName =
-        'dev.flutter.pigeon.pigeon_core_package.IOSCoreApi.reset$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel =
-        BasicMessageChannel<Object?>(
+    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_core_package.IOSCoreApi.reset$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
@@ -160,10 +227,8 @@ class IOSCoreApi {
   }
 
   Future<bool> isTokenValid() async {
-    final String __pigeon_channelName =
-        'dev.flutter.pigeon.pigeon_core_package.IOSCoreApi.isTokenValid$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel =
-        BasicMessageChannel<Object?>(
+    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_core_package.IOSCoreApi.isTokenValid$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
@@ -189,16 +254,14 @@ class IOSCoreApi {
   }
 
   Future<void> deleteAccount({bool instantDeletion = false}) async {
-    final String __pigeon_channelName =
-        'dev.flutter.pigeon.pigeon_core_package.IOSCoreApi.deleteAccount$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel =
-        BasicMessageChannel<Object?>(
+    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_core_package.IOSCoreApi.deleteAccount$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
     );
-    final List<Object?>? __pigeon_replyList = await __pigeon_channel
-        .send(<Object?>[instantDeletion]) as List<Object?>?;
+    final List<Object?>? __pigeon_replyList =
+        await __pigeon_channel.send(<Object?>[instantDeletion]) as List<Object?>?;
     if (__pigeon_replyList == null) {
       throw _createConnectionError(__pigeon_channelName);
     } else if (__pigeon_replyList.length > 1) {
@@ -213,10 +276,8 @@ class IOSCoreApi {
   }
 
   Future<String?> getApiKey() async {
-    final String __pigeon_channelName =
-        'dev.flutter.pigeon.pigeon_core_package.IOSCoreApi.getApiKey$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel =
-        BasicMessageChannel<Object?>(
+    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_core_package.IOSCoreApi.getApiKey$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
@@ -237,10 +298,8 @@ class IOSCoreApi {
   }
 
   Future<void> disableLogging({bool showInConsole = true}) async {
-    final String __pigeon_channelName =
-        'dev.flutter.pigeon.pigeon_core_package.IOSCoreApi.disableLogging$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel =
-        BasicMessageChannel<Object?>(
+    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_core_package.IOSCoreApi.disableLogging$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
@@ -257,6 +316,165 @@ class IOSCoreApi {
       );
     } else {
       return;
+    }
+  }
+}
+
+abstract class FlutterCoreApi {
+  static const MessageCodec<Object?> pigeonChannelCodec = _PigeonCodec();
+
+  void driveKitDidConnect();
+
+  void driveKitDidDisconnect();
+
+  void driveKitDidReceiveAuthenticationError(PigeonRequestError error);
+
+  void userIdUpdateStatusChanged(PigeonUpdateUserIdStatus status, String? userId);
+
+  void driveKitAccountDeletionCompleted(PigeonDeleteAccountStatus status);
+
+  void driveKitBackgroundFetchStatusChanged(PigeonBackgroundFetchStatus status);
+
+  static void setUp(FlutterCoreApi? api, {BinaryMessenger? binaryMessenger, String messageChannelSuffix = '',}) {
+    messageChannelSuffix = messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
+    {
+      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+          'dev.flutter.pigeon.pigeon_core_package.FlutterCoreApi.driveKitDidConnect$messageChannelSuffix', pigeonChannelCodec,
+          binaryMessenger: binaryMessenger);
+      if (api == null) {
+        __pigeon_channel.setMessageHandler(null);
+      } else {
+        __pigeon_channel.setMessageHandler((Object? message) async {
+          try {
+            api.driveKitDidConnect();
+            return wrapResponse(empty: true);
+          } on PlatformException catch (e) {
+            return wrapResponse(error: e);
+          }          catch (e) {
+            return wrapResponse(error: PlatformException(code: 'error', message: e.toString()));
+          }
+        });
+      }
+    }
+    {
+      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+          'dev.flutter.pigeon.pigeon_core_package.FlutterCoreApi.driveKitDidDisconnect$messageChannelSuffix', pigeonChannelCodec,
+          binaryMessenger: binaryMessenger);
+      if (api == null) {
+        __pigeon_channel.setMessageHandler(null);
+      } else {
+        __pigeon_channel.setMessageHandler((Object? message) async {
+          try {
+            api.driveKitDidDisconnect();
+            return wrapResponse(empty: true);
+          } on PlatformException catch (e) {
+            return wrapResponse(error: e);
+          }          catch (e) {
+            return wrapResponse(error: PlatformException(code: 'error', message: e.toString()));
+          }
+        });
+      }
+    }
+    {
+      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+          'dev.flutter.pigeon.pigeon_core_package.FlutterCoreApi.driveKitDidReceiveAuthenticationError$messageChannelSuffix', pigeonChannelCodec,
+          binaryMessenger: binaryMessenger);
+      if (api == null) {
+        __pigeon_channel.setMessageHandler(null);
+      } else {
+        __pigeon_channel.setMessageHandler((Object? message) async {
+          assert(message != null,
+          'Argument for dev.flutter.pigeon.pigeon_core_package.FlutterCoreApi.driveKitDidReceiveAuthenticationError was null.');
+          final List<Object?> args = (message as List<Object?>?)!;
+          final PigeonRequestError? arg_error = (args[0] as PigeonRequestError?);
+          assert(arg_error != null,
+              'Argument for dev.flutter.pigeon.pigeon_core_package.FlutterCoreApi.driveKitDidReceiveAuthenticationError was null, expected non-null PigeonRequestError.');
+          try {
+            api.driveKitDidReceiveAuthenticationError(arg_error!);
+            return wrapResponse(empty: true);
+          } on PlatformException catch (e) {
+            return wrapResponse(error: e);
+          }          catch (e) {
+            return wrapResponse(error: PlatformException(code: 'error', message: e.toString()));
+          }
+        });
+      }
+    }
+    {
+      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+          'dev.flutter.pigeon.pigeon_core_package.FlutterCoreApi.userIdUpdateStatusChanged$messageChannelSuffix', pigeonChannelCodec,
+          binaryMessenger: binaryMessenger);
+      if (api == null) {
+        __pigeon_channel.setMessageHandler(null);
+      } else {
+        __pigeon_channel.setMessageHandler((Object? message) async {
+          assert(message != null,
+          'Argument for dev.flutter.pigeon.pigeon_core_package.FlutterCoreApi.userIdUpdateStatusChanged was null.');
+          final List<Object?> args = (message as List<Object?>?)!;
+          final PigeonUpdateUserIdStatus? arg_status = (args[0] as PigeonUpdateUserIdStatus?);
+          assert(arg_status != null,
+              'Argument for dev.flutter.pigeon.pigeon_core_package.FlutterCoreApi.userIdUpdateStatusChanged was null, expected non-null PigeonUpdateUserIdStatus.');
+          final String? arg_userId = (args[1] as String?);
+          try {
+            api.userIdUpdateStatusChanged(arg_status!, arg_userId);
+            return wrapResponse(empty: true);
+          } on PlatformException catch (e) {
+            return wrapResponse(error: e);
+          }          catch (e) {
+            return wrapResponse(error: PlatformException(code: 'error', message: e.toString()));
+          }
+        });
+      }
+    }
+    {
+      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+          'dev.flutter.pigeon.pigeon_core_package.FlutterCoreApi.driveKitAccountDeletionCompleted$messageChannelSuffix', pigeonChannelCodec,
+          binaryMessenger: binaryMessenger);
+      if (api == null) {
+        __pigeon_channel.setMessageHandler(null);
+      } else {
+        __pigeon_channel.setMessageHandler((Object? message) async {
+          assert(message != null,
+          'Argument for dev.flutter.pigeon.pigeon_core_package.FlutterCoreApi.driveKitAccountDeletionCompleted was null.');
+          final List<Object?> args = (message as List<Object?>?)!;
+          final PigeonDeleteAccountStatus? arg_status = (args[0] as PigeonDeleteAccountStatus?);
+          assert(arg_status != null,
+              'Argument for dev.flutter.pigeon.pigeon_core_package.FlutterCoreApi.driveKitAccountDeletionCompleted was null, expected non-null PigeonDeleteAccountStatus.');
+          try {
+            api.driveKitAccountDeletionCompleted(arg_status!);
+            return wrapResponse(empty: true);
+          } on PlatformException catch (e) {
+            return wrapResponse(error: e);
+          }          catch (e) {
+            return wrapResponse(error: PlatformException(code: 'error', message: e.toString()));
+          }
+        });
+      }
+    }
+    {
+      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+          'dev.flutter.pigeon.pigeon_core_package.FlutterCoreApi.driveKitBackgroundFetchStatusChanged$messageChannelSuffix', pigeonChannelCodec,
+          binaryMessenger: binaryMessenger);
+      if (api == null) {
+        __pigeon_channel.setMessageHandler(null);
+      } else {
+        __pigeon_channel.setMessageHandler((Object? message) async {
+          assert(message != null,
+          'Argument for dev.flutter.pigeon.pigeon_core_package.FlutterCoreApi.driveKitBackgroundFetchStatusChanged was null.');
+          final List<Object?> args = (message as List<Object?>?)!;
+          final PigeonBackgroundFetchStatus? arg_status = (args[0] as PigeonBackgroundFetchStatus?);
+          assert(arg_status != null,
+              'Argument for dev.flutter.pigeon.pigeon_core_package.FlutterCoreApi.driveKitBackgroundFetchStatusChanged was null, expected non-null PigeonBackgroundFetchStatus.');
+          try {
+            api.driveKitBackgroundFetchStatusChanged(arg_status!);
+            return wrapResponse(empty: true);
+          } on PlatformException catch (e) {
+            return wrapResponse(error: e);
+          }          catch (e) {
+            return wrapResponse(error: PlatformException(code: 'error', message: e.toString()));
+          }
+        });
+      }
     }
   }
 }

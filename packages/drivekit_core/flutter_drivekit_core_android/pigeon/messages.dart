@@ -27,3 +27,39 @@ abstract class AndroidCoreApi {
   String? getApiKey();
   void disableLogging({bool showInConsole = true});
 }
+
+@FlutterApi()
+abstract class FlutterCoreApi {
+  void pigeonOnAuthenticationError(PigeonRequestError errorType);
+  void pigeonOnAccountDeleted(PigeonDeleteAccountStatus status);
+  void pigeonOnConnected();
+  void pigeonOnDisconnected();
+  void pigeonUserIdUpdateStatus(
+      PigeonUpdateUserIdStatus status,
+      String? userId,
+      );
+}
+
+enum PigeonDeleteAccountStatus {
+  success,
+  failedToDelete,
+  forbidden;
+}
+
+enum PigeonRequestError {
+  noNetwork,
+  unauthenticated,
+  forbidden,
+  serverError,
+  clientError,
+  unknownError,
+  limitReached;
+}
+
+enum PigeonUpdateUserIdStatus {
+  updated,
+  failedToUpdate,
+  invalidUserId,
+  alreadyUsed,
+  savedForRepost;
+}

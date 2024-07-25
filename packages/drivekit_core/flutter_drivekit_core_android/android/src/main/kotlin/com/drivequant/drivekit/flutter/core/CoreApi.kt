@@ -32,6 +32,9 @@ private fun wrapError(exception: Throwable): List<Any?> {
   }
 }
 
+private fun createConnectionError(channelName: String): FlutterCoreError {
+  return FlutterCoreError("channel-error",  "Unable to establish connection on channel: '$channelName'.", "")}
+
 /**
  * Error class for passing custom error details to Flutter via a thrown PlatformException.
  * @property code The error code.
@@ -43,12 +46,85 @@ class FlutterCoreError (
   override val message: String? = null,
   val details: Any? = null
 ) : Throwable()
+
+enum class PigeonDeleteAccountStatus(val raw: Int) {
+  SUCCESS(0),
+  FAILED_TO_DELETE(1),
+  FORBIDDEN(2);
+
+  companion object {
+    fun ofRaw(raw: Int): PigeonDeleteAccountStatus? {
+      return values().firstOrNull { it.raw == raw }
+    }
+  }
+}
+
+enum class PigeonRequestError(val raw: Int) {
+  NO_NETWORK(0),
+  UNAUTHENTICATED(1),
+  FORBIDDEN(2),
+  SERVER_ERROR(3),
+  CLIENT_ERROR(4),
+  UNKNOWN_ERROR(5),
+  LIMIT_REACHED(6);
+
+  companion object {
+    fun ofRaw(raw: Int): PigeonRequestError? {
+      return values().firstOrNull { it.raw == raw }
+    }
+  }
+}
+
+enum class PigeonUpdateUserIdStatus(val raw: Int) {
+  UPDATED(0),
+  FAILED_TO_UPDATE(1),
+  INVALID_USER_ID(2),
+  ALREADY_USED(3),
+  SAVED_FOR_REPOST(4);
+
+  companion object {
+    fun ofRaw(raw: Int): PigeonUpdateUserIdStatus? {
+      return values().firstOrNull { it.raw == raw }
+    }
+  }
+}
 private object CoreApiPigeonCodec : StandardMessageCodec() {
   override fun readValueOfType(type: Byte, buffer: ByteBuffer): Any? {
-    return     super.readValueOfType(type, buffer)
+    return when (type) {
+      129.toByte() -> {
+        return (readValue(buffer) as Int?)?.let {
+          PigeonDeleteAccountStatus.ofRaw(it)
+        }
+      }
+      130.toByte() -> {
+        return (readValue(buffer) as Int?)?.let {
+          PigeonRequestError.ofRaw(it)
+        }
+      }
+      131.toByte() -> {
+        return (readValue(buffer) as Int?)?.let {
+          PigeonUpdateUserIdStatus.ofRaw(it)
+        }
+      }
+      else -> super.readValueOfType(type, buffer)
+    }
   }
   override fun writeValue(stream: ByteArrayOutputStream, value: Any?)   {
-    super.writeValue(stream, value)
+    when (value) {
+      is PigeonDeleteAccountStatus -> {
+        stream.write(129)
+        writeValue(stream, value.raw)
+      }
+      is PigeonRequestError -> {
+        stream.write(130)
+        writeValue(stream, value.raw)
+      }
+      is PigeonUpdateUserIdStatus -> {
+        stream.write(131)
+        writeValue(stream, value.raw)
+      }
+      else -> super.writeValue(stream, value)
+    }
   }
 }
 
@@ -221,6 +297,100 @@ interface AndroidCoreApi {
           channel.setMessageHandler(null)
         }
       }
+    }
+  }
+}
+/** Generated class from Pigeon that represents Flutter messages that can be called from Kotlin. */
+class FlutterCoreApi(private val binaryMessenger: BinaryMessenger, private val messageChannelSuffix: String = "") {
+  companion object {
+    /** The codec used by FlutterCoreApi. */
+    val codec: MessageCodec<Any?> by lazy {
+      CoreApiPigeonCodec
+    }
+  }
+  fun pigeonOnAuthenticationError(errorTypeArg: PigeonRequestError, callback: (Result<Unit>) -> Unit)
+{
+    val separatedMessageChannelSuffix = if (messageChannelSuffix.isNotEmpty()) ".$messageChannelSuffix" else ""
+    val channelName = "dev.flutter.pigeon.pigeon_core_package.FlutterCoreApi.pigeonOnAuthenticationError$separatedMessageChannelSuffix"
+    val channel = BasicMessageChannel<Any?>(binaryMessenger, channelName, codec)
+    channel.send(listOf(errorTypeArg)) {
+      if (it is List<*>) {
+        if (it.size > 1) {
+          callback(Result.failure(FlutterCoreError(it[0] as String, it[1] as String, it[2] as String?)))
+        } else {
+          callback(Result.success(Unit))
+        }
+      } else {
+        callback(Result.failure(createConnectionError(channelName)))
+      } 
+    }
+  }
+  fun pigeonOnAccountDeleted(statusArg: PigeonDeleteAccountStatus, callback: (Result<Unit>) -> Unit)
+{
+    val separatedMessageChannelSuffix = if (messageChannelSuffix.isNotEmpty()) ".$messageChannelSuffix" else ""
+    val channelName = "dev.flutter.pigeon.pigeon_core_package.FlutterCoreApi.pigeonOnAccountDeleted$separatedMessageChannelSuffix"
+    val channel = BasicMessageChannel<Any?>(binaryMessenger, channelName, codec)
+    channel.send(listOf(statusArg)) {
+      if (it is List<*>) {
+        if (it.size > 1) {
+          callback(Result.failure(FlutterCoreError(it[0] as String, it[1] as String, it[2] as String?)))
+        } else {
+          callback(Result.success(Unit))
+        }
+      } else {
+        callback(Result.failure(createConnectionError(channelName)))
+      } 
+    }
+  }
+  fun pigeonOnConnected(callback: (Result<Unit>) -> Unit)
+{
+    val separatedMessageChannelSuffix = if (messageChannelSuffix.isNotEmpty()) ".$messageChannelSuffix" else ""
+    val channelName = "dev.flutter.pigeon.pigeon_core_package.FlutterCoreApi.pigeonOnConnected$separatedMessageChannelSuffix"
+    val channel = BasicMessageChannel<Any?>(binaryMessenger, channelName, codec)
+    channel.send(null) {
+      if (it is List<*>) {
+        if (it.size > 1) {
+          callback(Result.failure(FlutterCoreError(it[0] as String, it[1] as String, it[2] as String?)))
+        } else {
+          callback(Result.success(Unit))
+        }
+      } else {
+        callback(Result.failure(createConnectionError(channelName)))
+      } 
+    }
+  }
+  fun pigeonOnDisconnected(callback: (Result<Unit>) -> Unit)
+{
+    val separatedMessageChannelSuffix = if (messageChannelSuffix.isNotEmpty()) ".$messageChannelSuffix" else ""
+    val channelName = "dev.flutter.pigeon.pigeon_core_package.FlutterCoreApi.pigeonOnDisconnected$separatedMessageChannelSuffix"
+    val channel = BasicMessageChannel<Any?>(binaryMessenger, channelName, codec)
+    channel.send(null) {
+      if (it is List<*>) {
+        if (it.size > 1) {
+          callback(Result.failure(FlutterCoreError(it[0] as String, it[1] as String, it[2] as String?)))
+        } else {
+          callback(Result.success(Unit))
+        }
+      } else {
+        callback(Result.failure(createConnectionError(channelName)))
+      } 
+    }
+  }
+  fun pigeonUserIdUpdateStatus(statusArg: PigeonUpdateUserIdStatus, userIdArg: String?, callback: (Result<Unit>) -> Unit)
+{
+    val separatedMessageChannelSuffix = if (messageChannelSuffix.isNotEmpty()) ".$messageChannelSuffix" else ""
+    val channelName = "dev.flutter.pigeon.pigeon_core_package.FlutterCoreApi.pigeonUserIdUpdateStatus$separatedMessageChannelSuffix"
+    val channel = BasicMessageChannel<Any?>(binaryMessenger, channelName, codec)
+    channel.send(listOf(statusArg, userIdArg)) {
+      if (it is List<*>) {
+        if (it.size > 1) {
+          callback(Result.failure(FlutterCoreError(it[0] as String, it[1] as String, it[2] as String?)))
+        } else {
+          callback(Result.success(Unit))
+        }
+      } else {
+        callback(Result.failure(createConnectionError(channelName)))
+      } 
     }
   }
 }
