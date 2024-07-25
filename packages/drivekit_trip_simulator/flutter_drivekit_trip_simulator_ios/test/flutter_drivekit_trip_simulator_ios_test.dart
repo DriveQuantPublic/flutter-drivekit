@@ -12,12 +12,16 @@ void main() {
 
     setUp(() {
       iosTripSimulatorApi = MockIOSTripSimulatorApi();
-      DrivekitTripSimulatorPlatform.instance = DrivekitTripSimulatorIOS(iosTripSimulatorApi: iosTripSimulatorApi);
+      DrivekitTripSimulatorPlatform.instance =
+          DrivekitTripSimulatorIOS(iosTripSimulatorApi: iosTripSimulatorApi);
     });
 
     test('can be registered', () {
       DrivekitTripSimulatorIOS.registerWith();
-      expect(DrivekitTripSimulatorPlatform.instance, isA<DrivekitTripSimulatorIOS>());
+      expect(
+        DrivekitTripSimulatorPlatform.instance,
+        isA<DrivekitTripSimulatorIOS>(),
+      );
     });
 
     test('getPlatformName returns correct name', () async {
@@ -25,7 +29,8 @@ void main() {
       when(iosTripSimulatorApi.getPlatformName).thenAnswer((_) async => 'iOS');
 
       //test
-      final name = await DrivekitTripSimulatorPlatform.instance.getPlatformName();
+      final name =
+          await DrivekitTripSimulatorPlatform.instance.getPlatformName();
       expect(name, 'iOS');
     });
   });

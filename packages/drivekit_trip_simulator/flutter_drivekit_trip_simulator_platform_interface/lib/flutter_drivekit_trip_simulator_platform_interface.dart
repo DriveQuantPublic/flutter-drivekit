@@ -16,7 +16,8 @@ abstract class DrivekitTripSimulatorPlatform extends PlatformInterface {
 
   static final Object _token = Object();
 
-  static DrivekitTripSimulatorPlatform _instance = DefaultDrivekitTripSimulator();
+  static DrivekitTripSimulatorPlatform _instance =
+      DefaultDrivekitTripSimulator();
 
   /// The default instance of [DrivekitTripSimulatorPlatform] to use.
   ///

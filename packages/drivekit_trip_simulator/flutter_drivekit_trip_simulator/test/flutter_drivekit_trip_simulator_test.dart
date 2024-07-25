@@ -28,7 +28,8 @@ void main() {
           () => drivekitTripSimulatorPlatform.getPlatformName(),
         ).thenAnswer((_) async => platformName);
 
-        final actualPlatformName = await driveKitTripSimulator.getPlatformName();
+        final actualPlatformName =
+            await driveKitTripSimulator.getPlatformName();
         expect(actualPlatformName, equals(platformName));
       });
     });
