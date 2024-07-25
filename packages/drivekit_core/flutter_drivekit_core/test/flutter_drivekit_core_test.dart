@@ -43,13 +43,22 @@ void main() {
       });
     });
 
-    group('setUserId', () {
+    group('userId', () {
       test('calls setUserId on platform implementation', () async {
         when(() => drivekitCorePlatform.setUserId(any()))
             .thenAnswer((_) async {});
 
         await driveKitCore.setUserId('user_id');
         verify(() => drivekitCorePlatform.setUserId('user_id'));
+      });
+
+      test('calls getUserId on platform implementation', () async {
+        const mockedUserId = 'userIdTest';
+        when(() => drivekitCorePlatform.getUserId())
+            .thenAnswer((_) async => mockedUserId);
+
+        final actualUserId = await driveKitCore.getUserId();
+        expect(actualUserId, equals(mockedUserId));
       });
     });
 

@@ -48,6 +48,17 @@ void main() {
       verify(() => androidCoreApi.setUserId('user_id')).called(1);
     });
 
+    test('getUserId calls getUserId method', () async {
+      const mockedUserId = 'userIdTest';
+      //mock
+      when(() => androidCoreApi.getUserId())
+          .thenAnswer((_) async => mockedUserId);
+
+      //test
+      final userId = await DrivekitCorePlatform.instance.getUserId();
+      expect(userId, mockedUserId);
+    });
+
     test('reset calls reset method', () async {
       //mock
       when(() => androidCoreApi.reset()).thenAnswer((_) async {});

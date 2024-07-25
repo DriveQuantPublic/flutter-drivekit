@@ -57,6 +57,7 @@ interface AndroidCoreApi {
   fun getPlatformName(): String
   fun setApiKey(key: String)
   fun setUserId(userId: String)
+  fun getUserId(): String?
   fun reset()
   fun isTokenValid(): Boolean
   fun deleteAccount(instantDeletion: Boolean)
@@ -112,6 +113,21 @@ interface AndroidCoreApi {
             val wrapped: List<Any?> = try {
               api.setUserId(userIdArg)
               listOf(null)
+            } catch (exception: Throwable) {
+              wrapError(exception)
+            }
+            reply.reply(wrapped)
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_core_package.AndroidCoreApi.getUserId$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { _, reply ->
+            val wrapped: List<Any?> = try {
+              listOf(api.getUserId())
             } catch (exception: Throwable) {
               wrapError(exception)
             }

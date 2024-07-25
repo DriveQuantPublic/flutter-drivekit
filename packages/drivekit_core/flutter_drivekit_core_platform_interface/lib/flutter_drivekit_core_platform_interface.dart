@@ -37,6 +37,9 @@ abstract class DrivekitCorePlatform extends PlatformInterface {
   /// Identifies the user with the given id.
   Future<void> setUserId(String userId);
 
+  /// Get the userId.
+  Future<String?> getUserId();
+
   /// Resets the DriveKit SDK.
   Future<void> reset();
 
@@ -44,6 +47,6 @@ abstract class DrivekitCorePlatform extends PlatformInterface {
   /// after connecting with API Key and User ID
   Future<bool> isTokenValid();
 
-  /// Deletes a driver's account
+  /// Deletes a driver's account.
   Future<void> deleteAccount({bool instantDeletion = false});
 }
