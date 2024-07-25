@@ -56,7 +56,9 @@ class DrivekitCoreAndroid extends DrivekitCorePlatform
       androidCoreApi.disableLogging(showInConsole: showInConsole);
 
   @override
-  void pigeonOnConnected() {}
+  void pigeonOnConnected() {
+    onConnected?.call();
+  }
 
   @override
   void pigeonOnAccountDeleted(PigeonDeleteAccountStatus status) {}
