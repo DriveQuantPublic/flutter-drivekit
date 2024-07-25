@@ -16,6 +16,10 @@ public class DrivekitCorePlugin: NSObject, FlutterPlugin, IOSCoreApi {
         return "iOS"
     }
 
+    public func getApiKey() throws -> String? {
+        return DriveKit.shared.config.getApiKey()
+    }
+
     public func setApiKey(key: String) {
         DriveKit.shared.setApiKey(key: key)
     }
@@ -28,14 +32,14 @@ public class DrivekitCorePlugin: NSObject, FlutterPlugin, IOSCoreApi {
         return DriveKit.shared.config.getUserId()
     }
 
-     public func reset() {
+    public func reset() {
         DriveKit.shared.reset()
     }
 
     func isTokenValid() throws -> Bool {
         return DriveKit.shared.isTokenValid()
     }
-    
+
     func deleteAccount(instantDeletion: Bool) throws {
         DriveKit.shared.deleteAccount(instantDeletion: instantDeletion)
     }

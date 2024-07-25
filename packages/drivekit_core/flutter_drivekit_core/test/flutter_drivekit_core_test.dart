@@ -33,13 +33,22 @@ void main() {
       });
     });
 
-    group('setApiKey', () {
+    group('apiKey', () {
       test('calls setApiKey on platform implementation', () async {
         when(() => drivekitCorePlatform.setApiKey(any()))
             .thenAnswer((_) async {});
 
         await driveKitCore.setApiKey('api_key');
         verify(() => drivekitCorePlatform.setApiKey('api_key'));
+      });
+
+      test('calls getApiKey on platform implementation', () async {
+        const mockedApiKey = 'apiKeyTest';
+        when(() => drivekitCorePlatform.getApiKey())
+            .thenAnswer((_) async => mockedApiKey);
+
+        final actualApiKey = await driveKitCore.getApiKey();
+        expect(actualApiKey, equals(mockedApiKey));
       });
     });
 

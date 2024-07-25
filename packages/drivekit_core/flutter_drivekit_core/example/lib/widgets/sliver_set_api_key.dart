@@ -3,14 +3,14 @@ import 'package:flutter_drivekit_core/flutter_drivekit_core.dart';
 import 'package:gap/gap.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 
-class SliverApiKey extends StatefulWidget {
-  const SliverApiKey({super.key});
+class SliverSetApiKey extends StatefulWidget {
+  const SliverSetApiKey({super.key});
 
   @override
-  State<SliverApiKey> createState() => _SliverApiKeyState();
+  State<SliverSetApiKey> createState() => _SliverSetApiKeyState();
 }
 
-class _SliverApiKeyState extends State<SliverApiKey> {
+class _SliverSetApiKeyState extends State<SliverSetApiKey> {
   final TextEditingController _apiKeyController = TextEditingController();
   @override
   Widget build(BuildContext context) {

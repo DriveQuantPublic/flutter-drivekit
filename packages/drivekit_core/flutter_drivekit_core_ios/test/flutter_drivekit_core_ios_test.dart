@@ -38,6 +38,16 @@ void main() {
       verify(() => iosCoreApi.setApiKey('api_key')).called(1);
     });
 
+    test('getApiKey returns correct api key', () async {
+      const mockApiKey = 'apiKeyTest';
+      //mock
+      when(() => iosCoreApi.getApiKey()).thenAnswer((_) async => mockApiKey);
+
+      //test
+      final apiKey = await DrivekitCorePlatform.instance.getApiKey();
+      expect(apiKey, mockApiKey);
+    });
+
     test('setUserId calls setUserId method with correct key', () async {
       //mock
       when(() => iosCoreApi.setUserId(any())).thenAnswer((_) async {});
