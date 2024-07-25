@@ -94,5 +94,16 @@ void main() {
       await DrivekitTripAnalysisPlatform.instance.cancelTrip();
       verify(() => androidTripAnalysisApi.cancelTrip()).called(1);
     });
+
+    test('isTripRunning returns false if the SDK is in INACTIVE state,',
+        () async {
+      //mocks
+      when(androidTripAnalysisApi.isTripRunning).thenAnswer((_) async => false);
+
+      //test
+      final isRunning =
+          await DrivekitTripAnalysisPlatform.instance.isTripRunning();
+      expect(isRunning, false);
+    });
   });
 }

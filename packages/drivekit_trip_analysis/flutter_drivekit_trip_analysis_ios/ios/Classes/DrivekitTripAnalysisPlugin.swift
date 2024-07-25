@@ -35,4 +35,8 @@ public class DrivekitTripAnalysisPlugin: NSObject, FlutterPlugin, IOSTripAnalysi
     public func cancelTrip() {
         DriveKitTripAnalysis.shared.cancelTrip()
     }
+
+    func isTripRunning() throws -> Bool {
+        return DriveKitTripAnalysis.shared.isTripRunning()
+    }
 }

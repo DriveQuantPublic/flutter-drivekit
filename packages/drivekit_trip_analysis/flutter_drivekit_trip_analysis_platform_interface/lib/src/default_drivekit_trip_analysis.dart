@@ -36,4 +36,9 @@ class DefaultDrivekitTripAnalysis extends DrivekitTripAnalysisPlatform {
   Future<void> cancelTrip() {
     throw UnimplementedError('cancelTrip() has not been implemented.');
   }
+
+  @override
+  Future<bool> isTripRunning() {
+    throw UnimplementedError('isTripRunning() has not been implemented.');
+  }
 }

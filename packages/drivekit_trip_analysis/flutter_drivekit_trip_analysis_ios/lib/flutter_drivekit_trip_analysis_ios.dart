@@ -40,4 +40,7 @@ class DrivekitTripAnalysisIOS extends DrivekitTripAnalysisPlatform {
 
   @override
   Future<void> cancelTrip() => iosTripAnalysisApi.cancelTrip();
+
+  @override
+  Future<bool> isTripRunning() => iosTripAnalysisApi.isTripRunning();
 }

@@ -47,4 +47,8 @@ abstract class DrivekitTripAnalysisPlatform extends PlatformInterface {
 
   /// Cancel the trip.
   Future<void> cancelTrip();
+
+  /// This method returns false if the SDK is in INACTIVE state,
+  /// and no trip is currently running.
+  Future<bool> isTripRunning();
 }
