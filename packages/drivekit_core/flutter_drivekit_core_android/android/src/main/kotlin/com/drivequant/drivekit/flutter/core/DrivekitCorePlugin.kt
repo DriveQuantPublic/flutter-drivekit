@@ -29,6 +29,8 @@ class DrivekitCorePlugin :
         DriveKit.setUserId(userId)
     }
 
+    override fun getUserId(): String? = DriveKit.config.userId
+
     override fun reset() {
         DriveKit.reset()
     }

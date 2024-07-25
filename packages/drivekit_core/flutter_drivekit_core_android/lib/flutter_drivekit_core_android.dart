@@ -30,6 +30,9 @@ class DrivekitCoreAndroid extends DrivekitCorePlatform {
   Future<void> setUserId(String userId) => androidCoreApi.setUserId(userId);
 
   @override
+  Future<String?> getUserId() => androidCoreApi.getUserId();
+
+  @override
   Future<void> reset() => androidCoreApi.reset();
 
   @override

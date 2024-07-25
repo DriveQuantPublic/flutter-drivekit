@@ -88,6 +88,7 @@ protocol IOSCoreApi {
   func getPlatformName() throws -> String
   func setApiKey(key: String) throws
   func setUserId(userId: String) throws
+  func getUserId() throws -> String?
   func reset() throws
   func isTokenValid() throws -> Bool
   func deleteAccount(instantDeletion: Bool) throws
@@ -141,6 +142,19 @@ class IOSCoreApiSetup {
       }
     } else {
       setUserIdChannel.setMessageHandler(nil)
+    }
+    let getUserIdChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.pigeon_core_package.IOSCoreApi.getUserId\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      getUserIdChannel.setMessageHandler { _, reply in
+        do {
+          let result = try api.getUserId()
+          reply(wrapResult(result))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      getUserIdChannel.setMessageHandler(nil)
     }
     let resetChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.pigeon_core_package.IOSCoreApi.reset\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {

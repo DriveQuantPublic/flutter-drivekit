@@ -29,6 +29,9 @@ class DriveKitCore {
     await _platform.setUserId(userId);
   }
 
+  /// Get the id of the currently identified user, if exists.
+  Future<String?> getUserId() => _platform.getUserId();
+
   /// Resets the DriveKit SDK.
   /// If you need to reset DriveKit configuration (user logout for example),
   /// you can call the following method.

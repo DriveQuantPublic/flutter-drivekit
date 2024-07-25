@@ -20,6 +20,7 @@ abstract class AndroidCoreApi {
   String getPlatformName();
   void setApiKey(String key);
   void setUserId(String userId);
+  String? getUserId();
   void reset();
   bool isTokenValid();
   void deleteAccount({bool instantDeletion = false});

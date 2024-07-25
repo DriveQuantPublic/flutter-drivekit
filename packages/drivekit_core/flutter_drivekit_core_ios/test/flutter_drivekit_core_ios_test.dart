@@ -47,6 +47,16 @@ void main() {
       verify(() => iosCoreApi.setUserId('user_id')).called(1);
     });
 
+    test('getUserId calls getUserId method', () async {
+      const mockedUserId = 'userIdTest';
+      //mock
+      when(() => iosCoreApi.getUserId()).thenAnswer((_) async => mockedUserId);
+
+      //test
+      final userId = await DrivekitCorePlatform.instance.getUserId();
+      expect(userId, mockedUserId);
+    });
+
     test('reset calls reset method', () async {
       //mock
       when(() => iosCoreApi.reset()).thenAnswer((_) async {});
