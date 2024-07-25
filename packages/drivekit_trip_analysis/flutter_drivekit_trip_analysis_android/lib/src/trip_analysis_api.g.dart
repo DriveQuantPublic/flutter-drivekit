@@ -30,11 +30,11 @@ class PigeonVehicle {
     this.sra,
     this.frontTireSize,
     this.rearTireSize,
-    this.length,
-    this.width,
-    this.height,
-    this.engineCylinderNb,
-    this.driveWheels,
+    this.length = 4.5,
+    this.width = 1.8,
+    this.height = 1.45,
+    this.engineCylinderNb = 4,
+    this.driveWheels = 0,
   });
 
   int carTypeIndex;
@@ -63,15 +63,15 @@ class PigeonVehicle {
 
   String? rearTireSize;
 
-  double? length;
+  double length;
 
-  double? width;
+  double width;
 
-  double? height;
+  double height;
 
-  int? engineCylinderNb;
+  int engineCylinderNb;
 
-  int? driveWheels;
+  int driveWheels;
 
   Object encode() {
     return <Object?>[
@@ -112,11 +112,11 @@ class PigeonVehicle {
       sra: result[10] as String?,
       frontTireSize: result[11] as String?,
       rearTireSize: result[12] as String?,
-      length: result[13] as double?,
-      width: result[14] as double?,
-      height: result[15] as double?,
-      engineCylinderNb: result[16] as int?,
-      driveWheels: result[17] as int?,
+      length: result[13]! as double,
+      width: result[14]! as double,
+      height: result[15]! as double,
+      engineCylinderNb: result[16]! as int,
+      driveWheels: result[17]! as int,
     );
   }
 }

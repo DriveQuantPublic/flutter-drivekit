@@ -39,4 +39,10 @@ public class DrivekitTripAnalysisPlugin: NSObject, FlutterPlugin, IOSTripAnalysi
     func isTripRunning() throws -> Bool {
         return DriveKitTripAnalysis.shared.isTripRunning()
     }
+
+    func setVehicle(vehicle: PigeonVehicle) throws {
+        DriveKitTripAnalysis.shared.setVehicle(
+            vehicle: PigeonMapper.initTripVehicle(from: vehicle)
+        )
+    }
 }
