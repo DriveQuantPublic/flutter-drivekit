@@ -166,5 +166,32 @@ void main() {
       expect(pigeonVehicle.engineCylinderNb, 11);
       expect(pigeonVehicle.driveWheels, 12);
     });
+
+    test(
+        'null vehicle toPigeonImplementation includes null attribute when possible else default attributes value',
+        () {
+      const vehicle = Vehicle();
+
+      //test
+      final pigeonVehicle = vehicle.toPigeonImplementation();
+      expect(pigeonVehicle.carTypeIndex, 1);
+      expect(pigeonVehicle.carEngineIndex, 1);
+      expect(pigeonVehicle.carPower, 150);
+      expect(pigeonVehicle.carMass, 1400);
+      expect(pigeonVehicle.carGearboxIndex, 2);
+      expect(pigeonVehicle.carConsumption, 4.5);
+      expect(pigeonVehicle.carAutoGearboxNumber, 0);
+      expect(pigeonVehicle.engineDisplacement, 1200);
+      expect(pigeonVehicle.carPassengers, 1);
+      expect(pigeonVehicle.dqIndex, isNull);
+      expect(pigeonVehicle.sra, isNull);
+      expect(pigeonVehicle.frontTireSize, isNull);
+      expect(pigeonVehicle.rearTireSize, isNull);
+      expect(pigeonVehicle.length, 4.5);
+      expect(pigeonVehicle.width, 1.8);
+      expect(pigeonVehicle.height, 1.45);
+      expect(pigeonVehicle.engineCylinderNb, 4);
+      expect(pigeonVehicle.driveWheels, 0);
+    });
   });
 }
