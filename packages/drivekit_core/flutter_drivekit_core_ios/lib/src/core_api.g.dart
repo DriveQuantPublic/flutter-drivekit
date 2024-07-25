@@ -192,7 +192,7 @@ class IOSCoreApi {
     final String __pigeon_channelName =
         'dev.flutter.pigeon.pigeon_core_package.IOSCoreApi.deleteAccount$__pigeon_messageChannelSuffix';
     final BasicMessageChannel<Object?> __pigeon_channel =
-        BasicMessageChannel<Object?>(
+       BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
@@ -245,8 +245,8 @@ class IOSCoreApi {
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
     );
-    final List<Object?>? __pigeon_replyList =
-        await __pigeon_channel.send(<Object?>[showInConsole]) as List<Object?>?;
+    final List<Object?>? __pigeon_replyList = await __pigeon_channel
+        .send(<Object?>[showInConsole]) as List<Object?>?;
     if (__pigeon_replyList == null) {
       throw _createConnectionError(__pigeon_channelName);
     } else if (__pigeon_replyList.length > 1) {

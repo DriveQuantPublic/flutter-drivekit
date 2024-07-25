@@ -101,7 +101,6 @@ class PigeonVehicle {
   }
 }
 
-
 class _PigeonCodec extends StandardMessageCodec {
   const _PigeonCodec();
   @override
@@ -319,8 +318,10 @@ class IOSTripAnalysisApi {
   }
 
   Future<void> setVehicle(PigeonVehicle vehicle) async {
-    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_trip_analysis_package.IOSTripAnalysisApi.setVehicle$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+    final String __pigeon_channelName =
+        'dev.flutter.pigeon.pigeon_trip_analysis_package.IOSTripAnalysisApi.setVehicle$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel =
+        BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
