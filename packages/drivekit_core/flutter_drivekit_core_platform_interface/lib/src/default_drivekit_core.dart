@@ -6,6 +6,11 @@ import 'package:flutter_drivekit_core_platform_interface/flutter_drivekit_core_p
 /// Used by default if no other implementation is registered.
 class DefaultDrivekitCore extends DrivekitCorePlatform {
   @override
+  void initializePlatform() {
+    throw UnimplementedError('initialize() has not been implemented.');
+  }
+
+  @override
   Future<String> getPlatformName() {
     throw UnimplementedError('getPlatformName() has not been implemented.');
   }

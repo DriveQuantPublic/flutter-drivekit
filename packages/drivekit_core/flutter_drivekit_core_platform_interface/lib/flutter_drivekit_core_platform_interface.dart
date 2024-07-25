@@ -28,6 +28,10 @@ abstract class DrivekitCorePlatform extends PlatformInterface {
     _instance = instance;
   }
 
+  /// Must be called when the app-facing package is initialized
+  /// Useful to start listening to method channels
+  void initializePlatform();
+
   /// Return the current platform name.
   Future<String> getPlatformName();
 
