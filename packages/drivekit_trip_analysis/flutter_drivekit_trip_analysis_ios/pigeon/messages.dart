@@ -37,13 +37,13 @@ class PigeonVehicle {
     this.carPassengers = 1,
     this.dqIndex,
     this.sra,
-    this.frontTireSize = '205/55/16',
-    this.rearTireSize = '205/55/16',
-    this.length,
-    this.width,
-    this.height,
-    this.engineCylinderNb,
-    this.driveWheels,
+    this.frontTireSize,
+    this.rearTireSize,
+    this.length = 4.5,
+    this.width = 1.8,
+    this.height = 1.45,
+    this.engineCylinderNb = 4,
+    this.driveWheels = 0,
   });
 
   final int carTypeIndex;
@@ -59,9 +59,9 @@ class PigeonVehicle {
   final String? sra;
   final String? frontTireSize;
   final String? rearTireSize;
-  final double? length;
-  final double? width;
-  final double? height;
-  final int? engineCylinderNb;
-  final int? driveWheels;
+  final double length;
+  final double width;
+  final double height;
+  final int engineCylinderNb;
+  final int driveWheels;
 }
