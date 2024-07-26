@@ -21,10 +21,17 @@ class DrivekitCoreAndroid extends DrivekitCorePlatform
   @visibleForTesting
   final AndroidCoreApi androidCoreApi;
 
+  // ensure the platform is initialized only once
+  bool _isInitialized = false;
+
   @override
   void initializePlatform() {
+    if (_isInitialized) return;
     FlutterCoreApi.setUp(this);
+    _isInitialized = true;
   }
+
+  final List<DriveKitListener> _listeners = [];
 
   @override
   Future<String> getPlatformName() => androidCoreApi.getPlatformName();
@@ -56,7 +63,16 @@ class DrivekitCoreAndroid extends DrivekitCorePlatform
       androidCoreApi.disableLogging(showInConsole: showInConsole);
 
   @override
-  void pigeonOnConnected() {}
+  void addDriveKitListener(DriveKitListener listener) {
+    _listeners.add(listener);
+  }
+
+  @override
+  void pigeonOnConnected() {
+    for (final listener in _listeners) {
+      listener.onConnected?.call();
+    }
+  }
 
   @override
   void pigeonOnAccountDeleted(PigeonDeleteAccountStatus status) {}

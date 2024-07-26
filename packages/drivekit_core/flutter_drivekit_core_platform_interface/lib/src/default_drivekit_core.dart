@@ -54,4 +54,9 @@ class DefaultDrivekitCore extends DrivekitCorePlatform {
   Future<void> disableLogging({bool showInConsole = true}) {
     throw UnimplementedError('disableLogging() has not been implemented.');
   }
+
+  @override
+  void addDriveKitListener(DriveKitListener listener) {
+    throw UnimplementedError('addDriveKitListener() has not been implemented.');
+  }
 }

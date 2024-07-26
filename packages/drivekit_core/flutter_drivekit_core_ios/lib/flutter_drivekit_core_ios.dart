@@ -20,10 +20,17 @@ class DrivekitCoreIOS extends DrivekitCorePlatform implements FlutterCoreApi {
   @visibleForTesting
   final IOSCoreApi iosCoreApi;
 
+  // ensure the platform is initialized only once
+  bool _isInitialized = false;
+
   @override
   void initializePlatform() {
+    if (_isInitialized) return;
     FlutterCoreApi.setUp(this);
+    _isInitialized = true;
   }
+
+  final List<DriveKitListener> _listeners = [];
 
   @override
   Future<String> getPlatformName() => iosCoreApi.getPlatformName();
@@ -61,7 +68,11 @@ class DrivekitCoreIOS extends DrivekitCorePlatform implements FlutterCoreApi {
   ) {}
 
   @override
-  void driveKitDidConnect() {}
+  void driveKitDidConnect() {
+    for (final listener in _listeners) {
+      listener.onConnected?.call();
+    }
+  }
 
   @override
   void driveKitDidDisconnect() {}
@@ -74,4 +85,9 @@ class DrivekitCoreIOS extends DrivekitCorePlatform implements FlutterCoreApi {
     PigeonUpdateUserIdStatus status,
     String? userId,
   ) {}
+
+  @override
+  void addDriveKitListener(DriveKitListener listener) {
+    _listeners.add(listener);
+  }
 }
