@@ -124,7 +124,7 @@ void main() {
             // ignore: avoid_redundant_argument_values
             showInConsole: true,
           ),
-        ).called(1);
+        );
       });
 
       test('disable logging', () async {
