@@ -41,4 +41,8 @@ class DrivekitTripAnalysisPlugin :
     }
 
     override fun isTripRunning(): Boolean = DriveKitTripAnalysis.isTripRunning()
+
+    override fun setMonitorPotentialTripStart(activate: Boolean) {
+        DriveKitTripAnalysis.monitorPotentialTripStart = activate
+    }
 }

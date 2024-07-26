@@ -100,6 +100,22 @@ void main() {
           expect(actualIsRunningValue, equals(isRunning));
         });
       });
+
+      group('monitorPotentialTripStart', () {
+        test('setMonitorPotentialTripStart calls platform implementation',
+            () async {
+          when(
+            () =>
+                drivekitTripAnalysisPlatform.setMonitorPotentialTripStart(true),
+          ).thenAnswer((_) async {});
+
+          await driveKitTripAnalysis.setMonitorPotentialTripStart(true);
+          verify(
+            () =>
+                drivekitTripAnalysisPlatform.setMonitorPotentialTripStart(true),
+          );
+        });
+      });
     });
   });
 }

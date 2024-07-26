@@ -51,4 +51,9 @@ abstract class DrivekitTripAnalysisPlatform extends PlatformInterface {
   /// This method returns false if the SDK is in INACTIVE state,
   /// and no trip is currently running.
   Future<bool> isTripRunning();
+
+  /// If this method is called with parameter to true and autostart is disable,
+  /// you will be able to listen for trip start trigger events, and the trip
+  /// analysis will not be started automatically.
+  Future<void> setMonitorPotentialTripStart(bool activate);
 }

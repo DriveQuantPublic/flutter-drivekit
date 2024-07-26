@@ -41,4 +41,11 @@ class DefaultDrivekitTripAnalysis extends DrivekitTripAnalysisPlatform {
   Future<bool> isTripRunning() {
     throw UnimplementedError('isTripRunning() has not been implemented.');
   }
+
+  @override
+  Future<void> setMonitorPotentialTripStart(bool activate) {
+    throw UnimplementedError(
+      'setMonitorPotentialTripStart() has not been implemented.',
+    );
+  }
 }

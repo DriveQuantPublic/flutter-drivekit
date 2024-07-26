@@ -20,4 +20,5 @@ abstract class IOSTripAnalysisApi {
   void stopTrip();
   void cancelTrip();
   bool isTripRunning();
+  void setMonitorPotentialTripStart(bool activate);
 }

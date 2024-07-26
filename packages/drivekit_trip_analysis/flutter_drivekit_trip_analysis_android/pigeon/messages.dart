@@ -24,4 +24,5 @@ abstract class AndroidTripAnalysisApi {
   void stopTrip();
   void cancelTrip();
   bool isTripRunning();
+  void setMonitorPotentialTripStart(bool activate);
 }

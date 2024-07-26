@@ -103,5 +103,17 @@ void main() {
           await DrivekitTripAnalysisPlatform.instance.isTripRunning();
       expect(isRunning, false);
     });
+
+    test('setMonitorPotentialTripStart calls iOS implementation', () async {
+      //mock
+      when(() => iOSTripAnalysisApi.setMonitorPotentialTripStart(any()))
+          .thenAnswer((_) async {});
+
+      //test
+      await DrivekitTripAnalysisPlatform.instance
+          .setMonitorPotentialTripStart(true);
+      verify(() => iOSTripAnalysisApi.setMonitorPotentialTripStart(true))
+          .called(1);
+    });
   });
 }

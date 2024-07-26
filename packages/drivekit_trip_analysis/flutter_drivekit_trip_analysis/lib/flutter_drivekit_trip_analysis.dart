@@ -61,4 +61,28 @@ class DrivekitTripAnalysis {
   Future<bool> isTripRunning() async {
     return _platform.isTripRunning();
   }
+
+  /// DriveKit's automatic start mode detects a trip and launches its recording
+  /// immediately. This operating mode may not be appropriate for all use cases.
+  /// Your application may require other information or business logic before
+  ///  enabling the trip recording. For example, it may be appropriate to check
+  /// that:
+  ///
+  /// A connected device is near to the smartphone.
+  ///
+  /// The trip recording is acceptable in a given time slot.
+  ///
+  /// In this case, you may want to subscribe to the events that are indicative
+  /// of the trip start but not necessarily launch the GPS sensor and the trip
+  /// analysis.
+  ///
+  /// This is why DriveKit allows you to subscribe to trigger events that
+  /// indicates a trip has probably started.
+  ///
+  ///If this method is called with parameter to true and autostart is disable,
+  /// you will be able to listen for trip start trigger events, and the trip
+  /// analysis will not be started automatically.
+  Future<void> setMonitorPotentialTripStart(bool activate) async {
+    return _platform.setMonitorPotentialTripStart(activate);
+  }
 }
