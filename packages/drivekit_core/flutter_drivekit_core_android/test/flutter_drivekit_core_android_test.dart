@@ -100,23 +100,28 @@ void main() {
 
     test('enable logging', () async {
       //mock
-      when(androidCoreApi.enableLogging).thenAnswer((_) async {});
+      when(
+        () => androidCoreApi.enableLogging(
+          showInConsole: false,
+          androidLogPath: '/testPath',
+        ),
+      ).thenAnswer((_) async {});
 
       //test
       await DrivekitCorePlatform.instance
-          .enableLogging(androidLogPath: '/testPath', showInConsole: false);
+          .enableLogging(showInConsole: false, androidLogPath: '/testPath');
       verify(
         () => androidCoreApi.enableLogging(
-          androidLogPath: '/testPath',
           showInConsole: false,
+          androidLogPath: '/testPath',
         ),
       ).called(1);
       verifyNever(
         () => androidCoreApi.enableLogging(
-          androidLogPath: 'otherPath',
-          showInConsole: false,
+          // ignore: avoid_redundant_argument_values
+          androidLogPath: '/DriveKit',
         ),
-      ).called(1);
+      );
     });
 
     test('disable logging', () async {

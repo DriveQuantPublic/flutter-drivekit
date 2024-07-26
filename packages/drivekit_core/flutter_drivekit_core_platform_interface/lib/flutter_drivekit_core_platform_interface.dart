@@ -55,8 +55,8 @@ abstract class DrivekitCorePlatform extends PlatformInterface {
 
   /// Enable the DriveKit logs
   Future<void> enableLogging({
-    String androidLogPath = '/DriveKit',
     bool showInConsole = true,
+    String androidLogPath = '/DriveKit',
   });
 
   /// Disable the DriveKit logs

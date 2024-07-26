@@ -47,12 +47,12 @@ class DrivekitCoreAndroid extends DrivekitCorePlatform {
 
   @override
   Future<void> enableLogging({
-    String androidLogPath = '/DriveKit',
     bool showInConsole = true,
+    String androidLogPath = '/DriveKit',
   }) =>
       androidCoreApi.enableLogging(
-        androidLogPath: androidLogPath,
         showInConsole: showInConsole,
+        androidLogPath: androidLogPath,
       );
 
   @override

@@ -237,7 +237,7 @@ class AndroidCoreApi {
   }
 
   Future<void> enableLogging(
-      {String androidLogPath = '/DriveKit', bool showInConsole = true}) async {
+      {bool showInConsole = true, String androidLogPath = '/DriveKit'}) async {
     final String __pigeon_channelName =
         'dev.flutter.pigeon.pigeon_core_package.AndroidCoreApi.enableLogging$__pigeon_messageChannelSuffix';
     final BasicMessageChannel<Object?> __pigeon_channel =
@@ -247,7 +247,7 @@ class AndroidCoreApi {
       binaryMessenger: __pigeon_binaryMessenger,
     );
     final List<Object?>? __pigeon_replyList = await __pigeon_channel
-        .send(<Object?>[androidLogPath, showInConsole]) as List<Object?>?;
+        .send(<Object?>[showInConsole, androidLogPath]) as List<Object?>?;
     if (__pigeon_replyList == null) {
       throw _createConnectionError(__pigeon_channelName);
     } else if (__pigeon_replyList.length > 1) {

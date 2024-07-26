@@ -47,8 +47,8 @@ class DefaultDrivekitCore extends DrivekitCorePlatform {
 
   @override
   Future<void> enableLogging({
-    String androidLogPath = '/DriveKit',
     bool showInConsole = true,
+    String androidLogPath = '/DriveKit',
   }) {
     throw UnimplementedError('enableLogging() has not been implemented.');
   }

@@ -62,7 +62,7 @@ interface AndroidCoreApi {
   fun isTokenValid(): Boolean
   fun deleteAccount(instantDeletion: Boolean)
   fun getApiKey(): String?
-  fun enableLogging(androidLogPath: String, showInConsole: Boolean)
+  fun enableLogging(showInConsole: Boolean, androidLogPath: String)
   fun disableLogging(showInConsole: Boolean)
 
   companion object {
@@ -209,10 +209,10 @@ interface AndroidCoreApi {
         if (api != null) {
           channel.setMessageHandler { message, reply ->
             val args = message as List<Any?>
-            val androidLogPathArg = args[0] as String
-            val showInConsoleArg = args[1] as Boolean
+            val showInConsoleArg = args[0] as Boolean
+            val androidLogPathArg = args[1] as String
             val wrapped: List<Any?> = try {
-              api.enableLogging(androidLogPathArg, showInConsoleArg)
+              api.enableLogging(showInConsoleArg, androidLogPathArg)
               listOf(null)
             } catch (exception: Throwable) {
               wrapError(exception)
