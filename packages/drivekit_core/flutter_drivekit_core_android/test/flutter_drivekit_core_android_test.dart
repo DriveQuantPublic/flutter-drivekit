@@ -103,8 +103,20 @@ void main() {
       when(androidCoreApi.enableLogging).thenAnswer((_) async {});
 
       //test
-      await DrivekitCorePlatform.instance.enableLogging();
-      verify(() => androidCoreApi.enableLogging()).called(1);
+      await DrivekitCorePlatform.instance
+          .enableLogging(androidLogPath: '/testPath', showInConsole: false);
+      verify(
+        () => androidCoreApi.enableLogging(
+          androidLogPath: '/testPath',
+          showInConsole: false,
+        ),
+      ).called(1);
+      verifyNever(
+        () => androidCoreApi.enableLogging(
+          androidLogPath: 'otherPath',
+          showInConsole: false,
+        ),
+      ).called(1);
     });
 
     test('disable logging', () async {

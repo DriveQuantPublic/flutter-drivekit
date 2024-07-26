@@ -99,8 +99,12 @@ void main() {
       when(iosCoreApi.enableLogging).thenAnswer((_) async {});
 
       //test
-      await DrivekitCorePlatform.instance.enableLogging();
-      verify(() => iosCoreApi.enableLogging()).called(1);
+      // ignore: avoid_redundant_argument_values
+      await DrivekitCorePlatform.instance.enableLogging(showInConsole: true);
+      // ignore: avoid_redundant_argument_values
+      verify(() => iosCoreApi.enableLogging(showInConsole: true)).called(1);
+      verifyNever(() => iosCoreApi.enableLogging(showInConsole: false))
+          .called(1);
     });
 
     test('disable logging', () async {
