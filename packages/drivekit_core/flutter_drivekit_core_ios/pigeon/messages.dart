@@ -21,5 +21,6 @@ abstract class IOSCoreApi {
   bool isTokenValid();
   void deleteAccount({bool instantDeletion = false});
   String? getApiKey();
+  void enableLogging({bool showInConsole = true});
   void disableLogging({bool showInConsole = true});
 }

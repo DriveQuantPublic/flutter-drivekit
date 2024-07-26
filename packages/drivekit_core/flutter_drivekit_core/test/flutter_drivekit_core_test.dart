@@ -103,13 +103,20 @@ void main() {
     });
 
     group('logging', () {
+      test('enable logging', () async {
+        when(() => drivekitCorePlatform.enableLogging())
+            .thenAnswer((_) async {});
+
+        await driveKitCore.enableLogging();
+        verify(() => drivekitCorePlatform.enableLogging());
+      });
+
       test('disable logging', () async {
         when(() => drivekitCorePlatform.disableLogging())
             .thenAnswer((_) async {});
 
         await driveKitCore.disableLogging();
         verify(() => drivekitCorePlatform.disableLogging());
-      });
     });
   });
 }

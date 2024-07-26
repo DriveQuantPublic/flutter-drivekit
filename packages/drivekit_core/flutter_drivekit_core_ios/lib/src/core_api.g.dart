@@ -15,6 +15,7 @@ PlatformException _createConnectionError(String channelName) {
   );
 }
 
+
 class _PigeonCodec extends StandardMessageCodec {
   const _PigeonCodec();
 }
@@ -23,11 +24,9 @@ class IOSCoreApi {
   /// Constructor for [IOSCoreApi].  The [binaryMessenger] named argument is
   /// available for dependency injection.  If it is left null, the default
   /// BinaryMessenger will be used which routes to the host platform.
-  IOSCoreApi(
-      {BinaryMessenger? binaryMessenger, String messageChannelSuffix = ''})
+  IOSCoreApi({BinaryMessenger? binaryMessenger, String messageChannelSuffix = ''})
       : __pigeon_binaryMessenger = binaryMessenger,
-        __pigeon_messageChannelSuffix =
-            messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
+        __pigeon_messageChannelSuffix = messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
   final BinaryMessenger? __pigeon_binaryMessenger;
 
   static const MessageCodec<Object?> pigeonChannelCodec = _PigeonCodec();
@@ -35,10 +34,8 @@ class IOSCoreApi {
   final String __pigeon_messageChannelSuffix;
 
   Future<String> getPlatformName() async {
-    final String __pigeon_channelName =
-        'dev.flutter.pigeon.pigeon_core_package.IOSCoreApi.getPlatformName$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel =
-        BasicMessageChannel<Object?>(
+    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_core_package.IOSCoreApi.getPlatformName$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
@@ -64,10 +61,8 @@ class IOSCoreApi {
   }
 
   Future<void> setApiKey(String key) async {
-    final String __pigeon_channelName =
-        'dev.flutter.pigeon.pigeon_core_package.IOSCoreApi.setApiKey$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel =
-        BasicMessageChannel<Object?>(
+    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_core_package.IOSCoreApi.setApiKey$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
@@ -88,10 +83,8 @@ class IOSCoreApi {
   }
 
   Future<void> setUserId(String userId) async {
-    final String __pigeon_channelName =
-        'dev.flutter.pigeon.pigeon_core_package.IOSCoreApi.setUserId$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel =
-        BasicMessageChannel<Object?>(
+    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_core_package.IOSCoreApi.setUserId$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
@@ -112,10 +105,8 @@ class IOSCoreApi {
   }
 
   Future<String?> getUserId() async {
-    final String __pigeon_channelName =
-        'dev.flutter.pigeon.pigeon_core_package.IOSCoreApi.getUserId$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel =
-        BasicMessageChannel<Object?>(
+    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_core_package.IOSCoreApi.getUserId$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
@@ -136,10 +127,8 @@ class IOSCoreApi {
   }
 
   Future<void> reset() async {
-    final String __pigeon_channelName =
-        'dev.flutter.pigeon.pigeon_core_package.IOSCoreApi.reset$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel =
-        BasicMessageChannel<Object?>(
+    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_core_package.IOSCoreApi.reset$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
@@ -160,10 +149,8 @@ class IOSCoreApi {
   }
 
   Future<bool> isTokenValid() async {
-    final String __pigeon_channelName =
-        'dev.flutter.pigeon.pigeon_core_package.IOSCoreApi.isTokenValid$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel =
-        BasicMessageChannel<Object?>(
+    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_core_package.IOSCoreApi.isTokenValid$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
@@ -189,16 +176,14 @@ class IOSCoreApi {
   }
 
   Future<void> deleteAccount({bool instantDeletion = false}) async {
-    final String __pigeon_channelName =
-        'dev.flutter.pigeon.pigeon_core_package.IOSCoreApi.deleteAccount$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel =
-        BasicMessageChannel<Object?>(
+    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_core_package.IOSCoreApi.deleteAccount$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
     );
-    final List<Object?>? __pigeon_replyList = await __pigeon_channel
-        .send(<Object?>[instantDeletion]) as List<Object?>?;
+    final List<Object?>? __pigeon_replyList =
+        await __pigeon_channel.send(<Object?>[instantDeletion]) as List<Object?>?;
     if (__pigeon_replyList == null) {
       throw _createConnectionError(__pigeon_channelName);
     } else if (__pigeon_replyList.length > 1) {
@@ -213,10 +198,8 @@ class IOSCoreApi {
   }
 
   Future<String?> getApiKey() async {
-    final String __pigeon_channelName =
-        'dev.flutter.pigeon.pigeon_core_package.IOSCoreApi.getApiKey$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel =
-        BasicMessageChannel<Object?>(
+    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_core_package.IOSCoreApi.getApiKey$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
@@ -236,11 +219,31 @@ class IOSCoreApi {
     }
   }
 
+  Future<void> enableLogging({bool showInConsole = true}) async {
+    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_core_package.IOSCoreApi.enableLogging$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+      __pigeon_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: __pigeon_binaryMessenger,
+    );
+    final List<Object?>? __pigeon_replyList =
+        await __pigeon_channel.send(<Object?>[showInConsole]) as List<Object?>?;
+    if (__pigeon_replyList == null) {
+      throw _createConnectionError(__pigeon_channelName);
+    } else if (__pigeon_replyList.length > 1) {
+      throw PlatformException(
+        code: __pigeon_replyList[0]! as String,
+        message: __pigeon_replyList[1] as String?,
+        details: __pigeon_replyList[2],
+      );
+    } else {
+      return;
+    }
+  }
+
   Future<void> disableLogging({bool showInConsole = true}) async {
-    final String __pigeon_channelName =
-        'dev.flutter.pigeon.pigeon_core_package.IOSCoreApi.disableLogging$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel =
-        BasicMessageChannel<Object?>(
+    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_core_package.IOSCoreApi.disableLogging$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,

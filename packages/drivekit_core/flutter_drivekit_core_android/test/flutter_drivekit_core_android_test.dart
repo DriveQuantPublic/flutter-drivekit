@@ -98,6 +98,15 @@ void main() {
       verify(() => androidCoreApi.deleteAccount()).called(1);
     });
 
+    test('enable logging', () async {
+      //mock
+      when(androidCoreApi.enableLogging).thenAnswer((_) async {});
+
+      //test
+      await DrivekitCorePlatform.instance.enableLogging();
+      verify(() => androidCoreApi.enableLogging()).called(1);
+    });
+
     test('disable logging', () async {
       //mock
       when(androidCoreApi.disableLogging).thenAnswer((_) async {});
