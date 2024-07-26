@@ -133,6 +133,7 @@ void main() {
         carMass: 4,
         carGearboxIndex: 5,
         carConsumption: 6.5,
+        carAutoGearboxNumber: 13,
         engineDisplacement: 7,
         dqIndex: 'dq',
         sra: 'sra',
@@ -147,24 +148,24 @@ void main() {
 
       //test
       final pigeonVehicle = vehicle.toPigeonImplementation();
-      expect(pigeonVehicle.carTypeIndex, 0);
-      expect(pigeonVehicle.carEngineIndex, 2);
-      expect(pigeonVehicle.carPower, 3);
-      expect(pigeonVehicle.carMass, 4);
-      expect(pigeonVehicle.carGearboxIndex, 5);
-      expect(pigeonVehicle.carConsumption, 6.5);
-      expect(pigeonVehicle.carAutoGearboxNumber, 0);
-      expect(pigeonVehicle.engineDisplacement, 7);
-      expect(pigeonVehicle.carPassengers, 1);
-      expect(pigeonVehicle.dqIndex, 'dq');
-      expect(pigeonVehicle.sra, 'sra');
-      expect(pigeonVehicle.frontTireSize, '200/59/13');
-      expect(pigeonVehicle.rearTireSize, '215/35/26');
-      expect(pigeonVehicle.length, 8.5);
-      expect(pigeonVehicle.width, 9.8);
-      expect(pigeonVehicle.height, 10.45);
-      expect(pigeonVehicle.engineCylinderNb, 11);
-      expect(pigeonVehicle.driveWheels, 12);
+      expect(pigeonVehicle.carTypeIndex, vehicle.carTypeIndex);
+      expect(pigeonVehicle.carEngineIndex, vehicle.carEngineIndex);
+      expect(pigeonVehicle.carPower, vehicle.carPower);
+      expect(pigeonVehicle.carMass, vehicle.carMass);
+      expect(pigeonVehicle.carGearboxIndex, vehicle.carGearboxIndex);
+      expect(pigeonVehicle.carConsumption, vehicle.carConsumption);
+      expect(pigeonVehicle.carAutoGearboxNumber, vehicle.carAutoGearboxNumber);
+      expect(pigeonVehicle.engineDisplacement, vehicle.engineDisplacement);
+      expect(pigeonVehicle.carPassengers, vehicle.carPassengers);
+      expect(pigeonVehicle.dqIndex, vehicle.dqIndex);
+      expect(pigeonVehicle.sra, vehicle.sra);
+      expect(pigeonVehicle.frontTireSize, vehicle.frontTireSize);
+      expect(pigeonVehicle.rearTireSize, vehicle.rearTireSize);
+      expect(pigeonVehicle.length, vehicle.length);
+      expect(pigeonVehicle.width, vehicle.width);
+      expect(pigeonVehicle.height, vehicle.height);
+      expect(pigeonVehicle.engineCylinderNb, vehicle.engineCylinderNb);
+      expect(pigeonVehicle.driveWheels, vehicle.driveWheels);
     });
 
     test(
