@@ -68,23 +68,23 @@ class DrivekitCoreAndroid extends DrivekitCorePlatform
   }
 
   @override
-  void pigeonOnConnected() {
+  void onConnected() {
     for (final listener in _listeners) {
       listener.onConnected?.call();
     }
   }
 
   @override
-  void pigeonOnAccountDeleted(PigeonDeleteAccountStatus status) {}
+  void onAccountDeleted(PigeonDeleteAccountStatus status) {}
 
   @override
-  void pigeonOnAuthenticationError(PigeonRequestError errorType) {}
+  void onAuthenticationError(PigeonRequestError errorType) {}
 
   @override
-  void pigeonOnDisconnected() {}
+  void onDisconnected() {}
 
   @override
-  void pigeonUserIdUpdateStatus(
+  void userIdUpdateStatus(
     PigeonUpdateUserIdStatus status,
     String? userId,
   ) {}

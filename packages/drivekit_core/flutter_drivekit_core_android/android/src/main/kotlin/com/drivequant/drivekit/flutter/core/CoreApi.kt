@@ -308,10 +308,10 @@ class FlutterCoreApi(private val binaryMessenger: BinaryMessenger, private val m
       CoreApiPigeonCodec
     }
   }
-  fun pigeonOnAuthenticationError(errorTypeArg: PigeonRequestError, callback: (Result<Unit>) -> Unit)
+  fun onAuthenticationError(errorTypeArg: PigeonRequestError, callback: (Result<Unit>) -> Unit)
 {
     val separatedMessageChannelSuffix = if (messageChannelSuffix.isNotEmpty()) ".$messageChannelSuffix" else ""
-    val channelName = "dev.flutter.pigeon.pigeon_core_package.FlutterCoreApi.pigeonOnAuthenticationError$separatedMessageChannelSuffix"
+    val channelName = "dev.flutter.pigeon.pigeon_core_package.FlutterCoreApi.onAuthenticationError$separatedMessageChannelSuffix"
     val channel = BasicMessageChannel<Any?>(binaryMessenger, channelName, codec)
     channel.send(listOf(errorTypeArg)) {
       if (it is List<*>) {
@@ -325,10 +325,10 @@ class FlutterCoreApi(private val binaryMessenger: BinaryMessenger, private val m
       } 
     }
   }
-  fun pigeonOnAccountDeleted(statusArg: PigeonDeleteAccountStatus, callback: (Result<Unit>) -> Unit)
+  fun onAccountDeleted(statusArg: PigeonDeleteAccountStatus, callback: (Result<Unit>) -> Unit)
 {
     val separatedMessageChannelSuffix = if (messageChannelSuffix.isNotEmpty()) ".$messageChannelSuffix" else ""
-    val channelName = "dev.flutter.pigeon.pigeon_core_package.FlutterCoreApi.pigeonOnAccountDeleted$separatedMessageChannelSuffix"
+    val channelName = "dev.flutter.pigeon.pigeon_core_package.FlutterCoreApi.onAccountDeleted$separatedMessageChannelSuffix"
     val channel = BasicMessageChannel<Any?>(binaryMessenger, channelName, codec)
     channel.send(listOf(statusArg)) {
       if (it is List<*>) {
@@ -342,10 +342,10 @@ class FlutterCoreApi(private val binaryMessenger: BinaryMessenger, private val m
       } 
     }
   }
-  fun pigeonOnConnected(callback: (Result<Unit>) -> Unit)
+  fun onConnected(callback: (Result<Unit>) -> Unit)
 {
     val separatedMessageChannelSuffix = if (messageChannelSuffix.isNotEmpty()) ".$messageChannelSuffix" else ""
-    val channelName = "dev.flutter.pigeon.pigeon_core_package.FlutterCoreApi.pigeonOnConnected$separatedMessageChannelSuffix"
+    val channelName = "dev.flutter.pigeon.pigeon_core_package.FlutterCoreApi.onConnected$separatedMessageChannelSuffix"
     val channel = BasicMessageChannel<Any?>(binaryMessenger, channelName, codec)
     channel.send(null) {
       if (it is List<*>) {
@@ -359,10 +359,10 @@ class FlutterCoreApi(private val binaryMessenger: BinaryMessenger, private val m
       } 
     }
   }
-  fun pigeonOnDisconnected(callback: (Result<Unit>) -> Unit)
+  fun onDisconnected(callback: (Result<Unit>) -> Unit)
 {
     val separatedMessageChannelSuffix = if (messageChannelSuffix.isNotEmpty()) ".$messageChannelSuffix" else ""
-    val channelName = "dev.flutter.pigeon.pigeon_core_package.FlutterCoreApi.pigeonOnDisconnected$separatedMessageChannelSuffix"
+    val channelName = "dev.flutter.pigeon.pigeon_core_package.FlutterCoreApi.onDisconnected$separatedMessageChannelSuffix"
     val channel = BasicMessageChannel<Any?>(binaryMessenger, channelName, codec)
     channel.send(null) {
       if (it is List<*>) {
@@ -376,10 +376,10 @@ class FlutterCoreApi(private val binaryMessenger: BinaryMessenger, private val m
       } 
     }
   }
-  fun pigeonUserIdUpdateStatus(statusArg: PigeonUpdateUserIdStatus, userIdArg: String?, callback: (Result<Unit>) -> Unit)
+  fun userIdUpdateStatus(statusArg: PigeonUpdateUserIdStatus, userIdArg: String?, callback: (Result<Unit>) -> Unit)
 {
     val separatedMessageChannelSuffix = if (messageChannelSuffix.isNotEmpty()) ".$messageChannelSuffix" else ""
-    val channelName = "dev.flutter.pigeon.pigeon_core_package.FlutterCoreApi.pigeonUserIdUpdateStatus$separatedMessageChannelSuffix"
+    val channelName = "dev.flutter.pigeon.pigeon_core_package.FlutterCoreApi.userIdUpdateStatus$separatedMessageChannelSuffix"
     val channel = BasicMessageChannel<Any?>(binaryMessenger, channelName, codec)
     channel.send(listOf(statusArg, userIdArg)) {
       if (it is List<*>) {

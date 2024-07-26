@@ -61,27 +61,27 @@ class DrivekitCorePlugin :
         DriveKit.addDriveKitListener(
             object : DriveKitListener {
                 override fun onAccountDeleted(status: DeleteAccountStatus) {
-                    flutterApi?.pigeonOnAccountDeleted(status.toPigeon()) { echo ->
+                    flutterApi?.onAccountDeleted(status.toPigeon()) { echo ->
                         Result.success(echo)
                     }
                 }
 
                 override fun onAuthenticationError(errorType: RequestError) {
-                    flutterApi?.pigeonOnAuthenticationError(errorType.toPigeon()) { echo ->
+                    flutterApi?.onAuthenticationError(errorType.toPigeon()) { echo ->
                         Result.success(echo)
                     }
                 }
 
                 override fun onConnected() {
-                    flutterApi?.pigeonOnConnected { echo -> Result.success(echo) }
+                    flutterApi?.onConnected { echo -> Result.success(echo) }
                 }
 
                 override fun onDisconnected() {
-                    flutterApi?.pigeonOnDisconnected { echo -> Result.success(echo) }
+                    flutterApi?.onDisconnected { echo -> Result.success(echo) }
                 }
 
                 override fun userIdUpdateStatus(status: UpdateUserIdStatus, userId: String?) {
-                    flutterApi?.pigeonUserIdUpdateStatus(status.toPigeon(), userId) { echo ->
+                    flutterApi?.userIdUpdateStatus(status.toPigeon(), userId) { echo ->
                         Result.success(echo)
                     }
                 }

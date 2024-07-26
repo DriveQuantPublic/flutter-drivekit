@@ -30,14 +30,14 @@ abstract class AndroidCoreApi {
 
 @FlutterApi()
 abstract class FlutterCoreApi {
-  void pigeonOnAuthenticationError(PigeonRequestError errorType);
-  void pigeonOnAccountDeleted(PigeonDeleteAccountStatus status);
-  void pigeonOnConnected();
-  void pigeonOnDisconnected();
-  void pigeonUserIdUpdateStatus(
-      PigeonUpdateUserIdStatus status,
-      String? userId,
-      );
+  void onAuthenticationError(PigeonRequestError errorType);
+  void onAccountDeleted(PigeonDeleteAccountStatus status);
+  void onConnected();
+  void onDisconnected();
+  void userIdUpdateStatus(
+    PigeonUpdateUserIdStatus status,
+    String? userId,
+  );
 }
 
 enum PigeonDeleteAccountStatus {
