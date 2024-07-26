@@ -93,6 +93,7 @@ protocol IOSCoreApi {
   func isTokenValid() throws -> Bool
   func deleteAccount(instantDeletion: Bool) throws
   func getApiKey() throws -> String?
+  func disableLogging(showInConsole: Bool) throws
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
@@ -210,6 +211,21 @@ class IOSCoreApiSetup {
       }
     } else {
       getApiKeyChannel.setMessageHandler(nil)
+    }
+    let disableLoggingChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.pigeon_core_package.IOSCoreApi.disableLogging\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      disableLoggingChannel.setMessageHandler { message, reply in
+        let args = message as! [Any?]
+        let showInConsoleArg = args[0] as! Bool
+        do {
+          try api.disableLogging(showInConsole: showInConsoleArg)
+          reply(wrapResult(nil))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      disableLoggingChannel.setMessageHandler(nil)
     }
   }
 }

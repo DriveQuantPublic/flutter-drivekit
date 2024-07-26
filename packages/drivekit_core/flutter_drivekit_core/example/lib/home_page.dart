@@ -2,6 +2,7 @@ import 'package:drivekit_core_example/widgets/sliver_activate_crash_detection.da
 import 'package:drivekit_core_example/widgets/sliver_auto_start.dart';
 import 'package:drivekit_core_example/widgets/sliver_cancel_trip.dart';
 import 'package:drivekit_core_example/widgets/sliver_delete_account.dart';
+import 'package:drivekit_core_example/widgets/sliver_disable_logging.dart';
 import 'package:drivekit_core_example/widgets/sliver_get_api_key.dart';
 import 'package:drivekit_core_example/widgets/sliver_get_user_id.dart';
 import 'package:drivekit_core_example/widgets/sliver_is_token_valid.dart';
@@ -101,6 +102,11 @@ class HomePage extends StatelessWidget {
           SliverPadding(
             padding: EdgeInsets.symmetric(horizontal: 16),
             sliver: SliverIsTripRunning(),
+          ),
+          SliverGap(32),
+          SliverPadding(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            sliver: SliverDisableLogging(),
           ),
           SliverGap(32),
         ],
