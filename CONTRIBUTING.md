@@ -158,5 +158,5 @@ Developers can be tempted to commit without this pre-commit hook to have instant
 2. Run `melos pigeon` to generate the code
 3. Write a converter in the native code from the platform package to map PigeonType to the native SDK type
 4. Create a new Dart equivalent of this type in the public package (platform_interface). It should represents android and iOS types, be careful with the differences between the two platforms 
-5. Write an adapter between each of the the PigeonType to this type. This is where you managed the different behavior to unify the two platforms
+5. Write an adapter between each of the PigeonType to this type. This is where you managed the different behavior to unify the two platforms
 6. Write the function using this type (as you do habitually with primitive types)
