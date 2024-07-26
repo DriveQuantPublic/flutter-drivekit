@@ -100,10 +100,19 @@ void main() {
           .thenAnswer((_) async {});
 
       //test
+<<<<<<< HEAD
       await DrivekitCorePlatform.instance.enableLogging(showInConsole: false);
       verify(() => iosCoreApi.enableLogging(showInConsole: false)).called(1);
       // ignore: avoid_redundant_argument_values
       verifyNever(() => iosCoreApi.enableLogging(showInConsole: true));
+=======
+      // ignore: avoid_redundant_argument_values
+      await DrivekitCorePlatform.instance.enableLogging(showInConsole: true);
+      // ignore: avoid_redundant_argument_values
+      verify(() => iosCoreApi.enableLogging(showInConsole: true)).called(1);
+      verifyNever(() => iosCoreApi.enableLogging(showInConsole: false))
+          .called(1);
+>>>>>>> 89e46db (fix(core): update enableLogging tests)
     });
 
     test('disable logging', () async {
