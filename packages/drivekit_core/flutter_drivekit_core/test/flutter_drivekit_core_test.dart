@@ -122,7 +122,12 @@ void main() {
           ),
         ).called(1);
         verifyNever(
-          () => drivekitCorePlatform.enableLogging(),
+          () => drivekitCorePlatform.enableLogging(
+            // ignore: avoid_redundant_argument_values
+            androidLogPath: '/DriveKit',
+            // ignore: avoid_redundant_argument_values
+            showInConsole: true,
+          ),
         );
       });
 
