@@ -103,8 +103,7 @@ void main() {
       await DrivekitCorePlatform.instance.enableLogging(showInConsole: true);
       // ignore: avoid_redundant_argument_values
       verify(() => iosCoreApi.enableLogging(showInConsole: true)).called(1);
-      verifyNever(() => iosCoreApi.enableLogging(showInConsole: false))
-          .called(1);
+      verifyNever(() => iosCoreApi.enableLogging(showInConsole: false));
     });
 
     test('disable logging', () async {
