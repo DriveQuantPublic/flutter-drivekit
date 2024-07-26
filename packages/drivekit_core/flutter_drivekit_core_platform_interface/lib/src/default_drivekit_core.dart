@@ -44,4 +44,12 @@ class DefaultDrivekitCore extends DrivekitCorePlatform {
   Future<String?> getApiKey() {
     throw UnimplementedError('getApiKey() has not been implemented.');
   }
+
+  @override
+  Future<void> enableLogging({
+    String androidLogPath = '/DriveKit',
+    bool showInConsole = true,
+  }) {
+    throw UnimplementedError('enableLogging() has not been implemented.');
+  }
 }

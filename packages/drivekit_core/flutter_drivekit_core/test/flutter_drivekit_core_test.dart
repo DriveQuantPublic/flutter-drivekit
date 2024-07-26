@@ -101,5 +101,15 @@ void main() {
         verify(() => drivekitCorePlatform.deleteAccount());
       });
     });
+
+    group('logging', () {
+      test('enable logging', () async {
+        when(() => drivekitCorePlatform.enableLogging())
+            .thenAnswer((_) async {});
+
+        await driveKitCore.enableLogging();
+        verify(() => drivekitCorePlatform.enableLogging());
+      });
+    });
   });
 }

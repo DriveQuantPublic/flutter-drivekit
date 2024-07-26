@@ -43,4 +43,11 @@ class DrivekitCoreIOS extends DrivekitCorePlatform {
       iosCoreApi.deleteAccount(instantDeletion: instantDeletion);
   @override
   Future<String?> getApiKey() => iosCoreApi.getApiKey();
+
+  @override
+  Future<void> enableLogging({
+    String androidLogPath = '/DriveKit',
+    bool showInConsole = true,
+  }) =>
+      iosCoreApi.enableLogging(showInConsole: showInConsole);
 }

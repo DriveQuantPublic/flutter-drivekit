@@ -21,7 +21,8 @@ class _SliverGetUserIdState extends State<SliverGetUserId> {
               SnackBar(
                 backgroundColor: Theme.of(context).primaryColor,
                 content: Text(
-                    userId != null ? 'User ID: $userId' : 'No user ID set.',),
+                  userId != null ? 'User ID: $userId' : 'No user ID set.',
+                ),
               ),
             );
           }

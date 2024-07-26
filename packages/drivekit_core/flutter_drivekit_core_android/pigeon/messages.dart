@@ -25,4 +25,8 @@ abstract class AndroidCoreApi {
   bool isTokenValid();
   void deleteAccount({bool instantDeletion = false});
   String? getApiKey();
+  void enableLogging({
+    String androidLogPath = '/DriveKit',
+    bool showInConsole = true,
+  });
 }

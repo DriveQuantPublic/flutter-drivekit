@@ -42,4 +42,8 @@ class DrivekitCorePlugin :
     override fun deleteAccount(instantDeletion: Boolean) {
         DriveKit.deleteAccount(instantDeletion)
     }
+
+    override fun enableLogging(androidLogPath: String, showInConsole: Boolean) {
+        DriveKit.enableLogging(androidLogPath, showInConsole)
+    }
 }
