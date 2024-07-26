@@ -62,6 +62,7 @@ interface AndroidTripAnalysisApi {
   fun cancelTrip()
   fun isTripRunning(): Boolean
   fun setMonitorPotentialTripStart(activate: Boolean)
+  fun getMonitorPotentialTripStart(): Boolean
 
   companion object {
     /** The codec used by AndroidTripAnalysisApi. */
@@ -195,6 +196,21 @@ interface AndroidTripAnalysisApi {
             val wrapped: List<Any?> = try {
               api.setMonitorPotentialTripStart(activateArg)
               listOf(null)
+            } catch (exception: Throwable) {
+              wrapError(exception)
+            }
+            reply.reply(wrapped)
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.getMonitorPotentialTripStart$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { _, reply ->
+            val wrapped: List<Any?> = try {
+              listOf(api.getMonitorPotentialTripStart())
             } catch (exception: Throwable) {
               wrapError(exception)
             }

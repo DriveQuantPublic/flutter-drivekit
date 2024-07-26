@@ -93,6 +93,7 @@ protocol IOSTripAnalysisApi {
   func cancelTrip() throws
   func isTripRunning() throws -> Bool
   func setMonitorPotentialTripStart(activate: Bool) throws
+  func getMonitorPotentialTripStart() throws -> Bool
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
@@ -210,6 +211,19 @@ class IOSTripAnalysisApiSetup {
       }
     } else {
       setMonitorPotentialTripStartChannel.setMessageHandler(nil)
+    }
+    let getMonitorPotentialTripStartChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.pigeon_trip_analysis_package.IOSTripAnalysisApi.getMonitorPotentialTripStart\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      getMonitorPotentialTripStartChannel.setMessageHandler { _, reply in
+        do {
+          let result = try api.getMonitorPotentialTripStart()
+          reply(wrapResult(result))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      getMonitorPotentialTripStartChannel.setMessageHandler(nil)
     }
   }
 }

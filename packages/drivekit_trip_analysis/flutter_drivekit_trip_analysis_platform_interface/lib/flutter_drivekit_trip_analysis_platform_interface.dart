@@ -56,4 +56,7 @@ abstract class DrivekitTripAnalysisPlatform extends PlatformInterface {
   /// you will be able to listen for trip start trigger events, and the trip
   /// analysis will not be started automatically.
   Future<void> setMonitorPotentialTripStart(bool activate);
+
+  /// Returns true if the monitor potential trip is activated.
+  Future<bool> getMonitorPotentialTripStart();
 }

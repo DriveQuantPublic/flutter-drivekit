@@ -32,6 +32,7 @@ class DrivekitTripAnalysisPlugin :
     override fun startTrip() {
         DriveKitTripAnalysis.startTrip()
     }
+
     override fun stopTrip() {
         DriveKitTripAnalysis.stopTrip()
     }
@@ -45,4 +46,7 @@ class DrivekitTripAnalysisPlugin :
     override fun setMonitorPotentialTripStart(activate: Boolean) {
         DriveKitTripAnalysis.monitorPotentialTripStart = activate
     }
+
+    override fun getMonitorPotentialTripStart(): Boolean =
+        DriveKitTripAnalysis.monitorPotentialTripStart
 }

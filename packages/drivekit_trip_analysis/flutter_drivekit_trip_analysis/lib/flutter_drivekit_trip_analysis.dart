@@ -85,4 +85,9 @@ class DrivekitTripAnalysis {
   Future<void> setMonitorPotentialTripStart(bool activate) async {
     return _platform.setMonitorPotentialTripStart(activate);
   }
+
+  /// Returns true if the monitor potential trip start is activated
+  Future<bool> getMonitorPotentialTripStart() async {
+    return _platform.getMonitorPotentialTripStart();
+  }
 }

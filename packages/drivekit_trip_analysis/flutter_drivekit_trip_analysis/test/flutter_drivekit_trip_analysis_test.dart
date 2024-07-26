@@ -115,6 +115,18 @@ void main() {
                 drivekitTripAnalysisPlatform.setMonitorPotentialTripStart(true),
           );
         });
+
+        test('getMonitorPotentialTripStart calls platform implementatio',
+            () async {
+          const isActivated = false;
+          when(
+            () => drivekitTripAnalysisPlatform.getMonitorPotentialTripStart(),
+          ).thenAnswer((_) async => isActivated);
+
+          final actualIsActivated =
+              await driveKitTripAnalysis.getMonitorPotentialTripStart();
+          expect(actualIsActivated, equals(isActivated));
+        });
       });
     });
   });

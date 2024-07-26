@@ -43,4 +43,8 @@ public class DrivekitTripAnalysisPlugin: NSObject, FlutterPlugin, IOSTripAnalysi
     func setMonitorPotentialTripStart(activate: Bool) {
         DriveKitTripAnalysis.shared.monitorPotentialTripStart = activate
     }
+
+    func getMonitorPotentialTripStart() throws -> Bool {
+        return DriveKitTripAnalysis.shared.monitorPotentialTripStart
+    }
 }
