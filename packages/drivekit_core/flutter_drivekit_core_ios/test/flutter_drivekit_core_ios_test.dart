@@ -93,5 +93,14 @@ void main() {
       await DrivekitCorePlatform.instance.deleteAccount();
       verify(() => iosCoreApi.deleteAccount()).called(1);
     });
+
+    test('disable logging', () async {
+      //mock
+      when(iosCoreApi.disableLogging).thenAnswer((_) async {});
+
+      //test
+      await DrivekitCorePlatform.instance.disableLogging();
+      verify(() => iosCoreApi.disableLogging()).called(1);
+    });
   });
 }

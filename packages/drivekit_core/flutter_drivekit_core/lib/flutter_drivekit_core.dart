@@ -52,4 +52,9 @@ class DriveKitCore {
 
   /// Check which DriveKit API Key you have set in the SDK.
   Future<String?> getApiKey() => _platform.getApiKey();
+
+  /// You can disable the DriveKit logging by calling.
+  /// It is however recommended to keep this setting enabled.
+  Future<void> disableLogging({bool showInConsole = true}) =>
+      _platform.disableLogging(showInConsole: showInConsole);
 }

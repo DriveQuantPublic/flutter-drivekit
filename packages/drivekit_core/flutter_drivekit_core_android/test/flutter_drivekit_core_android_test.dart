@@ -97,5 +97,14 @@ void main() {
       await DrivekitCorePlatform.instance.deleteAccount();
       verify(() => androidCoreApi.deleteAccount()).called(1);
     });
+
+    test('disable logging', () async {
+      //mock
+      when(androidCoreApi.disableLogging).thenAnswer((_) async {});
+
+      //test
+      await DrivekitCorePlatform.instance.disableLogging();
+      verify(() => androidCoreApi.disableLogging()).called(1);
+    });
   });
 }

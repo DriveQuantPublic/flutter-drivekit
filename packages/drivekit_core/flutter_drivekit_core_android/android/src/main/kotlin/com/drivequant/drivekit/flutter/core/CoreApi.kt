@@ -62,6 +62,7 @@ interface AndroidCoreApi {
   fun isTokenValid(): Boolean
   fun deleteAccount(instantDeletion: Boolean)
   fun getApiKey(): String?
+  fun disableLogging(showInConsole: Boolean)
 
   companion object {
     /** The codec used by AndroidCoreApi. */
@@ -193,6 +194,24 @@ interface AndroidCoreApi {
           channel.setMessageHandler { _, reply ->
             val wrapped: List<Any?> = try {
               listOf(api.getApiKey())
+            } catch (exception: Throwable) {
+              wrapError(exception)
+            }
+            reply.reply(wrapped)
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_core_package.AndroidCoreApi.disableLogging$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { message, reply ->
+            val args = message as List<Any?>
+            val showInConsoleArg = args[0] as Boolean
+            val wrapped: List<Any?> = try {
+              api.disableLogging(showInConsoleArg)
+              listOf(null)
             } catch (exception: Throwable) {
               wrapError(exception)
             }

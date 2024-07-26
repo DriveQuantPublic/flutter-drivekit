@@ -43,4 +43,8 @@ public class DrivekitCorePlugin: NSObject, FlutterPlugin, IOSCoreApi {
     func deleteAccount(instantDeletion: Bool) throws {
         DriveKit.shared.deleteAccount(instantDeletion: instantDeletion)
     }
+
+    func disableLogging(showInConsole: Bool) throws {
+        DriveKit.shared.disableLogging(showInConsole: showInConsole)
+    }
 }

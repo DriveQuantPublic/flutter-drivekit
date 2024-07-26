@@ -25,4 +25,5 @@ abstract class AndroidCoreApi {
   bool isTokenValid();
   void deleteAccount({bool instantDeletion = false});
   String? getApiKey();
+  void disableLogging({bool showInConsole = true});
 }

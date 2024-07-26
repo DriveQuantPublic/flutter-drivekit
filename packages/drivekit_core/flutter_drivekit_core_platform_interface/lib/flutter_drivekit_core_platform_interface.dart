@@ -52,4 +52,7 @@ abstract class DrivekitCorePlatform extends PlatformInterface {
 
   /// Get the API key that has been set, or null
   Future<String?> getApiKey();
+
+  /// Disable the DriveKit logs
+  Future<void> disableLogging({bool showInConsole = true});
 }
