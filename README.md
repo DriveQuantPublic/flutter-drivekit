@@ -21,7 +21,7 @@ To know how to contribute and understand this project's architecture and tools, 
 First you need to install the Core module. 
 This module is mandatory and includes methods to configure your API key and to create a user.
 
-To install this module, follow step by step the method described in the [Core documentation](/packages/drivekit_core/flutter_drivekit_trip_analysis/README.md)
+To install this module, follow step by step the method described in the [Core documentation](/packages/drivekit_core/flutter_drivekit_core/README.md)
 
 ---
 
