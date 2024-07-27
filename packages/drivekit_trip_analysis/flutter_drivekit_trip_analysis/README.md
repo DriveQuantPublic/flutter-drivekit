@@ -146,7 +146,3 @@ To disable crash detection, call the method with parameter to `false`
 ```dart
 driveKitTripAnalysis.activateCrashDetection(false);
 ```
-
-> ℹ️
->
-> If no trip is running or if the trip has been sent to the server and is currently being analyzed, calling this method will have no effect.
