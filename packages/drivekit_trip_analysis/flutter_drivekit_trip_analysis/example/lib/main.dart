@@ -24,8 +24,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final driveKitTripAnalysis = DrivekitTripAnalysis();
-
     return Scaffold(
       appBar: AppBar(title: const Text('DrivekitTripAnalysis Example')),
       body: Center(
@@ -44,7 +42,7 @@ class _HomePageState extends State<HomePage> {
               onPressed: () async {
                 if (!context.mounted) return;
                 try {
-                  final result = await driveKitTripAnalysis.getPlatformName();
+                  final result = await DrivekitTripAnalysis.getPlatformName();
                   setState(() => _platformName = result);
                 } catch (error) {
                   if (!context.mounted) return;
