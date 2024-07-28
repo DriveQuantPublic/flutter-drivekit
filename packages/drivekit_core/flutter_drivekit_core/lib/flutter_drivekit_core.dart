@@ -1,5 +1,8 @@
 import 'package:flutter_drivekit_core_platform_interface/flutter_drivekit_core_platform_interface.dart';
 
+export 'package:flutter_drivekit_core_platform_interface/flutter_drivekit_core_platform_interface.dart'
+    show DriveKitListener;
+
 DrivekitCorePlatform get _platform => DrivekitCorePlatform.instance;
 
 /// The main class of the plugin.
