@@ -15,8 +15,6 @@ class _SliverSetUserIdState extends State<SliverSetUserId> {
       TextEditingController(text: '181bd3b3-a7fd-41cc-bcbe-322178e53974');
   @override
   Widget build(BuildContext context) {
-    final driveKitCore = DriveKitCore();
-
     return MultiSliver(
       children: [
         TextField(
@@ -30,7 +28,7 @@ class _SliverSetUserIdState extends State<SliverSetUserId> {
         SliverToBoxAdapter(
           child: ElevatedButton(
             onPressed: () {
-              driveKitCore.setUserId(_userIdController.text);
+              DriveKitCore.setUserId(_userIdController.text);
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   backgroundColor: Theme.of(context).primaryColor,

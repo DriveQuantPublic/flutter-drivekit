@@ -15,8 +15,6 @@ class _SliverPlatformNameState extends State<SliverPlatformName> {
 
   @override
   Widget build(BuildContext context) {
-    final driveKitCore = DriveKitCore();
-
     return MultiSliver(
       children: [
         if (_platformName != null)
@@ -32,7 +30,7 @@ class _SliverPlatformNameState extends State<SliverPlatformName> {
             onPressed: () async {
               if (!context.mounted) return;
               try {
-                final result = await driveKitCore.getPlatformName();
+                final result = await DriveKitCore.getPlatformName();
                 setState(() => _platformName = result);
               } catch (error) {
                 if (!context.mounted) return;

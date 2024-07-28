@@ -11,11 +11,10 @@ class SliverGetUserId extends StatefulWidget {
 class _SliverGetUserIdState extends State<SliverGetUserId> {
   @override
   Widget build(BuildContext context) {
-    final driveKitCore = DriveKitCore();
     return SliverToBoxAdapter(
       child: ElevatedButton(
         onPressed: () async {
-          final userId = await driveKitCore.getUserId();
+          final userId = await DriveKitCore.getUserId();
           if (context.mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(

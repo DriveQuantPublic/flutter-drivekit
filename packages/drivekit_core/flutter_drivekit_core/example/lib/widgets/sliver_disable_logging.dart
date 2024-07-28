@@ -11,12 +11,11 @@ class SliverDisableLogging extends StatefulWidget {
 class _SliverDisableLoggingState extends State<SliverDisableLogging> {
   @override
   Widget build(BuildContext context) {
-    final driveKitCore = DriveKitCore();
     return SliverToBoxAdapter(
       child: ElevatedButton(
         onPressed: () async {
           if (!context.mounted) return;
-          await driveKitCore.disableLogging();
+          await DriveKitCore.disableLogging();
         },
         child: const Text('Disable logging'),
       ),

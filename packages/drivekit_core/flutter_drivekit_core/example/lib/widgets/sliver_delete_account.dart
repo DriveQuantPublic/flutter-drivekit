@@ -15,8 +15,6 @@ class _SliverDeleteAccountState extends State<SliverDeleteAccount> {
 
   @override
   Widget build(BuildContext context) {
-    final driveKitCore = DriveKitCore();
-
     return MultiSliver(
       children: [
         SliverToBoxAdapter(
@@ -42,7 +40,7 @@ class _SliverDeleteAccountState extends State<SliverDeleteAccount> {
         SliverToBoxAdapter(
           child: ElevatedButton(
             onPressed: () async {
-              await driveKitCore.deleteAccount(
+              await DriveKitCore.deleteAccount(
                 instantDeletion: _instantDeletion,
               );
             },

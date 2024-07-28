@@ -11,12 +11,11 @@ class SliverReset extends StatefulWidget {
 class _SliverResetState extends State<SliverReset> {
   @override
   Widget build(BuildContext context) {
-    final driveKitCore = DriveKitCore();
     return SliverToBoxAdapter(
       child: ElevatedButton(
         onPressed: () async {
           if (!context.mounted) return;
-          await driveKitCore.reset();
+          await DriveKitCore.reset();
         },
         child: const Text('Reset'),
       ),
