@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter_drivekit_core_android/src/adapter.dart';
 import 'package:flutter_drivekit_core_android/src/core_api.g.dart';
 import 'package:flutter_drivekit_core_platform_interface/flutter_drivekit_core_platform_interface.dart';
 
@@ -75,17 +76,33 @@ class DrivekitCoreAndroid extends DrivekitCorePlatform
   }
 
   @override
-  void onAccountDeleted(PigeonDeleteAccountStatus status) {}
+  void onAccountDeleted(PigeonDeleteAccountStatus status) {
+    for (final listener in _listeners) {
+      listener.onAccountDeleted?.call(status.toModelImplementation());
+    }
+  }
 
   @override
-  void onAuthenticationError(PigeonRequestError errorType) {}
+  void onAuthenticationError(PigeonRequestError errorType) {
+    for (final listener in _listeners) {
+      listener.onAuthenticationError?.call(errorType.toModelImplementation());
+    }
+  }
 
   @override
-  void onDisconnected() {}
+  void onDisconnected() {
+    for (final listener in _listeners) {
+      listener.onDisconnected?.call();
+    }
+  }
 
   @override
   void userIdUpdateStatus(
     PigeonUpdateUserIdStatus status,
     String? userId,
-  ) {}
+  ) {
+    for (final listener in _listeners) {
+      listener.userIdUpdateStatus?.call(status.toModelImplementation(), userId);
+    }
+  }
 }
