@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter_drivekit_core_ios/src/adapter.dart';
 import 'package:flutter_drivekit_core_ios/src/core_api.g.dart';
 import 'package:flutter_drivekit_core_platform_interface/flutter_drivekit_core_platform_interface.dart';
 
@@ -60,12 +61,22 @@ class DrivekitCoreIOS extends DrivekitCorePlatform implements FlutterCoreApi {
       iosCoreApi.disableLogging(showInConsole: showInConsole);
 
   @override
-  void driveKitAccountDeletionCompleted(PigeonDeleteAccountStatus status) {}
+  void driveKitAccountDeletionCompleted(PigeonDeleteAccountStatus status) {
+    for (final listener in _listeners) {
+      listener.onAccountDeleted?.call(status.toModelImplementation());
+    }
+  }
 
   @override
   void driveKitBackgroundFetchStatusChanged(
     PigeonBackgroundFetchStatus status,
-  ) {}
+  ) {
+    for (final listener in _listeners) {
+      listener.onBackgroundFetchStatusChanged?.call(
+        status.toModelImplementation(),
+      );
+    }
+  }
 
   @override
   void driveKitDidConnect() {
@@ -75,16 +86,28 @@ class DrivekitCoreIOS extends DrivekitCorePlatform implements FlutterCoreApi {
   }
 
   @override
-  void driveKitDidDisconnect() {}
+  void driveKitDidDisconnect() {
+    for (final listener in _listeners) {
+      listener.onDisconnected?.call();
+    }
+  }
 
   @override
-  void driveKitDidReceiveAuthenticationError(PigeonRequestError error) {}
+  void driveKitDidReceiveAuthenticationError(PigeonRequestError error) {
+    for (final listener in _listeners) {
+      listener.onAuthenticationError?.call(error.toModelImplementation());
+    }
+  }
 
   @override
   void userIdUpdateStatusChanged(
     PigeonUpdateUserIdStatus status,
     String? userId,
-  ) {}
+  ) {
+    for (final listener in _listeners) {
+      listener.userIdUpdateStatus?.call(status.toModelImplementation(), userId);
+    }
+  }
 
   @override
   void addDriveKitListener(DriveKitListener listener) {
