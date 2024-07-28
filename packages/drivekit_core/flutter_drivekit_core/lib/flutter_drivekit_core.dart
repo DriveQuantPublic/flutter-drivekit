@@ -4,7 +4,7 @@ DrivekitCorePlatform get _platform => DrivekitCorePlatform.instance;
 
 /// The main class of the plugin.
 /// This class provides methods to interact with the DriveKit Core SDK.
-class DriveKitCore {
+abstract final class DriveKitCore {
   /// Returns the name of the current platform.
   static Future<String> getPlatformName() => _platform.getPlatformName();
 
