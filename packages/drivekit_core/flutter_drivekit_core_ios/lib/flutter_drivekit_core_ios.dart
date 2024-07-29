@@ -121,4 +121,7 @@ class DrivekitCoreIOS extends DrivekitCorePlatform implements FlutterCoreApi {
   void addDriveKitListener(DriveKitListener listener) {
     _listeners.add(listener);
   }
+
+  @override
+  Future<String?> getLogUriFile() => iosCoreApi.getLogUriFile();
 }

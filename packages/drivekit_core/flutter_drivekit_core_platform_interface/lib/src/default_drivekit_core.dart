@@ -67,4 +67,9 @@ class DefaultDrivekitCore extends DrivekitCorePlatform {
   void addDriveKitListener(DriveKitListener listener) {
     throw UnimplementedError('addDriveKitListener() has not been implemented.');
   }
+
+  @override
+  Future<String?> getLogUriFile() {
+    throw UnimplementedError('getLogUriFile() has not been implemented.');
+  }
 }

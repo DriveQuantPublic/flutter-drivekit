@@ -180,6 +180,7 @@ protocol IOSCoreApi {
   func getApiKey() throws -> String?
   func enableLogging(showInConsole: Bool) throws
   func disableLogging(showInConsole: Bool) throws
+  func getLogUriFile() throws -> String?
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
@@ -327,6 +328,19 @@ class IOSCoreApiSetup {
       }
     } else {
       disableLoggingChannel.setMessageHandler(nil)
+    }
+    let getLogUriFileChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.pigeon_core_package.IOSCoreApi.getLogUriFile\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      getLogUriFileChannel.setMessageHandler { _, reply in
+        do {
+          let result = try api.getLogUriFile()
+          reply(wrapResult(result))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      getLogUriFileChannel.setMessageHandler(nil)
     }
   }
 }

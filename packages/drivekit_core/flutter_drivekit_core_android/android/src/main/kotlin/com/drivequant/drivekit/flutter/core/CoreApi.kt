@@ -140,6 +140,7 @@ interface AndroidCoreApi {
   fun getApiKey(): String?
   fun enableLogging(showInConsole: Boolean, androidLogPath: String)
   fun disableLogging(showInConsole: Boolean)
+  fun getLogUriFile(): String?
 
   companion object {
     /** The codec used by AndroidCoreApi. */
@@ -308,6 +309,21 @@ interface AndroidCoreApi {
             val wrapped: List<Any?> = try {
               api.disableLogging(showInConsoleArg)
               listOf(null)
+            } catch (exception: Throwable) {
+              wrapError(exception)
+            }
+            reply.reply(wrapped)
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_core_package.AndroidCoreApi.getLogUriFile$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { _, reply ->
+            val wrapped: List<Any?> = try {
+              listOf(api.getLogUriFile())
             } catch (exception: Throwable) {
               wrapError(exception)
             }
