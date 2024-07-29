@@ -24,7 +24,7 @@ class _SliverActivateCrashDetectionState
           Switch(
             value: _activateCrashDetection,
             onChanged: (value) {
-              DrivekitTripAnalysis.activateCrashDetection(value);
+              DrivekitTripAnalysis.instance.activateCrashDetection(value);
               setState(() {
                 _activateCrashDetection = value;
               });

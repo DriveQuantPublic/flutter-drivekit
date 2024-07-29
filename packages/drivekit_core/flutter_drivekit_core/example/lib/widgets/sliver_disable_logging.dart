@@ -15,7 +15,7 @@ class _SliverDisableLoggingState extends State<SliverDisableLogging> {
       child: ElevatedButton(
         onPressed: () async {
           if (!context.mounted) return;
-          await DriveKitCore.disableLogging();
+          await DriveKitCore.instance.disableLogging();
         },
         child: const Text('Disable logging'),
       ),

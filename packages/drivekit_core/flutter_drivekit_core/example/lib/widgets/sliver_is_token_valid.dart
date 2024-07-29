@@ -14,7 +14,7 @@ class _SliverTokenValidityState extends State<SliverTokenValidity> {
     return SliverToBoxAdapter(
       child: ElevatedButton(
         onPressed: () async {
-          final isValid = await DriveKitCore.isTokenValid();
+          final isValid = await DriveKitCore.instance.isTokenValid();
           final alertMessage = isValid
               ? 'Token is valid : user is connected'
               : 'Token is not valid : user is not connected';

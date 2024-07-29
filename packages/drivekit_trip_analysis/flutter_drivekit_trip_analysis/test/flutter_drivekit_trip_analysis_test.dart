@@ -27,7 +27,8 @@ void main() {
           () => drivekitTripAnalysisPlatform.getPlatformName(),
         ).thenAnswer((_) async => platformName);
 
-        final actualPlatformName = await DrivekitTripAnalysis.getPlatformName();
+        final actualPlatformName =
+            await DrivekitTripAnalysis.instance.getPlatformName();
         expect(actualPlatformName, equals(platformName));
       });
     });
@@ -36,12 +37,12 @@ void main() {
         when(() => drivekitTripAnalysisPlatform.activateAutoStart(any()))
             .thenAnswer((_) async {});
 
-        await DrivekitTripAnalysis.activateAutoStart(true);
+        await DrivekitTripAnalysis.instance.activateAutoStart(true);
         verify(() => drivekitTripAnalysisPlatform.activateAutoStart(true));
         verifyNever(
           () => drivekitTripAnalysisPlatform.activateAutoStart(false),
         );
-        await DrivekitTripAnalysis.activateAutoStart(false);
+        await DrivekitTripAnalysis.instance.activateAutoStart(false);
         verify(() => drivekitTripAnalysisPlatform.activateAutoStart(false));
       });
     });
@@ -51,12 +52,12 @@ void main() {
         when(() => drivekitTripAnalysisPlatform.activateCrashDetection(any()))
             .thenAnswer((_) async {});
 
-        await DrivekitTripAnalysis.activateCrashDetection(true);
+        await DrivekitTripAnalysis.instance.activateCrashDetection(true);
         verify(() => drivekitTripAnalysisPlatform.activateCrashDetection(true));
         verifyNever(
           () => drivekitTripAnalysisPlatform.activateCrashDetection(false),
         );
-        await DrivekitTripAnalysis.activateCrashDetection(false);
+        await DrivekitTripAnalysis.instance.activateCrashDetection(false);
         verify(() => drivekitTripAnalysisPlatform.activateCrashDetection(false))
             .called(1);
       });
@@ -75,7 +76,7 @@ void main() {
         when(() => drivekitTripAnalysisPlatform.stopTrip())
             .thenAnswer((_) async {});
 
-        await DrivekitTripAnalysis.stopTrip();
+        await DrivekitTripAnalysis.instance.stopTrip();
         verify(() => drivekitTripAnalysisPlatform.stopTrip());
       });
 
@@ -83,7 +84,7 @@ void main() {
         when(() => drivekitTripAnalysisPlatform.cancelTrip())
             .thenAnswer((_) async {});
 
-        await DrivekitTripAnalysis.cancelTrip();
+        await DrivekitTripAnalysis.instance.cancelTrip();
         verify(() => drivekitTripAnalysisPlatform.cancelTrip());
       });
 
@@ -95,7 +96,7 @@ void main() {
           ).thenAnswer((_) async => isRunning);
 
           final actualIsRunningValue =
-              await DrivekitTripAnalysis.isTripRunning();
+              await DrivekitTripAnalysis.instance.isTripRunning();
           expect(actualIsRunningValue, equals(isRunning));
         });
       });
@@ -136,7 +137,7 @@ void main() {
         when(() => drivekitTripAnalysisPlatform.setVehicle(vehicle))
             .thenAnswer((_) async {});
 
-        await DrivekitTripAnalysis.setVehicle(vehicle);
+        await DrivekitTripAnalysis.instance.setVehicle(vehicle);
         verify(() => drivekitTripAnalysisPlatform.setVehicle(vehicle));
       });
     });

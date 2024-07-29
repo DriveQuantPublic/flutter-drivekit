@@ -55,6 +55,10 @@ private func wrapError(_ error: Any) -> [Any?] {
   ]
 }
 
+private func createConnectionError(withChannelName channelName: String) -> FlutterCoreError {
+  return FlutterCoreError(code: "channel-error", message: "Unable to establish connection on channel: '\(channelName)'.", details: "")
+}
+
 private func isNullish(_ value: Any?) -> Bool {
   return value is NSNull || value == nil
 }
@@ -63,10 +67,91 @@ private func nilOrValue<T>(_ value: Any?) -> T? {
   if value is NSNull { return nil }
   return value as! T?
 }
+
+enum PigeonDeleteAccountStatus: Int {
+  case success = 0
+  case failedToDelete = 1
+  case forbidden = 2
+}
+
+enum PigeonRequestError: Int {
+  case wrongUrl = 0
+  case noNetwork = 1
+  case unauthenticated = 2
+  case forbidden = 3
+  case serverError = 4
+  case clientError = 5
+  case limitReached = 6
+  case unknownError = 7
+}
+
+enum PigeonUpdateUserIdStatus: Int {
+  case updated = 0
+  case failedToUpdate = 1
+  case invalidUserId = 2
+  case alreadyUsed = 3
+  case savedForRepost = 4
+}
+
+enum PigeonBackgroundFetchStatus: Int {
+  case started = 0
+  case completed = 1
+}
 private class IOSCoreApiPigeonCodecReader: FlutterStandardReader {
+  override func readValue(ofType type: UInt8) -> Any? {
+    switch type {
+    case 129:
+      var enumResult: PigeonDeleteAccountStatus? = nil
+      let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
+      if let enumResultAsInt = enumResultAsInt {
+        enumResult = PigeonDeleteAccountStatus(rawValue: enumResultAsInt)
+      }
+      return enumResult
+    case 130:
+      var enumResult: PigeonRequestError? = nil
+      let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
+      if let enumResultAsInt = enumResultAsInt {
+        enumResult = PigeonRequestError(rawValue: enumResultAsInt)
+      }
+      return enumResult
+    case 131:
+      var enumResult: PigeonUpdateUserIdStatus? = nil
+      let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
+      if let enumResultAsInt = enumResultAsInt {
+        enumResult = PigeonUpdateUserIdStatus(rawValue: enumResultAsInt)
+      }
+      return enumResult
+    case 132:
+      var enumResult: PigeonBackgroundFetchStatus? = nil
+      let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
+      if let enumResultAsInt = enumResultAsInt {
+        enumResult = PigeonBackgroundFetchStatus(rawValue: enumResultAsInt)
+      }
+      return enumResult
+    default:
+      return super.readValue(ofType: type)
+    }
+  }
 }
 
 private class IOSCoreApiPigeonCodecWriter: FlutterStandardWriter {
+  override func writeValue(_ value: Any) {
+    if let value = value as? PigeonDeleteAccountStatus {
+      super.writeByte(129)
+      super.writeValue(value.rawValue)
+    } else if let value = value as? PigeonRequestError {
+      super.writeByte(130)
+      super.writeValue(value.rawValue)
+    } else if let value = value as? PigeonUpdateUserIdStatus {
+      super.writeByte(131)
+      super.writeValue(value.rawValue)
+    } else if let value = value as? PigeonBackgroundFetchStatus {
+      super.writeByte(132)
+      super.writeValue(value.rawValue)
+    } else {
+      super.writeValue(value)
+    }
+  }
 }
 
 private class IOSCoreApiPigeonCodecReaderWriter: FlutterStandardReaderWriter {
@@ -226,6 +311,134 @@ class IOSCoreApiSetup {
       }
     } else {
       disableLoggingChannel.setMessageHandler(nil)
+    }
+  }
+}
+/// Generated protocol from Pigeon that represents Flutter messages that can be called from Swift.
+protocol FlutterCoreApiProtocol {
+  func driveKitDidConnect(completion: @escaping (Result<Void, FlutterCoreError>) -> Void)
+  func driveKitDidDisconnect(completion: @escaping (Result<Void, FlutterCoreError>) -> Void)
+  func driveKitDidReceiveAuthenticationError(error errorArg: PigeonRequestError, completion: @escaping (Result<Void, FlutterCoreError>) -> Void)
+  func userIdUpdateStatusChanged(status statusArg: PigeonUpdateUserIdStatus, userId userIdArg: String?, completion: @escaping (Result<Void, FlutterCoreError>) -> Void)
+  func driveKitAccountDeletionCompleted(status statusArg: PigeonDeleteAccountStatus, completion: @escaping (Result<Void, FlutterCoreError>) -> Void)
+  func driveKitBackgroundFetchStatusChanged(status statusArg: PigeonBackgroundFetchStatus, completion: @escaping (Result<Void, FlutterCoreError>) -> Void)
+}
+class FlutterCoreApi: FlutterCoreApiProtocol {
+  private let binaryMessenger: FlutterBinaryMessenger
+  private let messageChannelSuffix: String
+  init(binaryMessenger: FlutterBinaryMessenger, messageChannelSuffix: String = "") {
+    self.binaryMessenger = binaryMessenger
+    self.messageChannelSuffix = messageChannelSuffix.count > 0 ? ".\(messageChannelSuffix)" : ""
+  }
+  var codec: IOSCoreApiPigeonCodec {
+    return IOSCoreApiPigeonCodec.shared
+  }
+  func driveKitDidConnect(completion: @escaping (Result<Void, FlutterCoreError>) -> Void) {
+    let channelName: String = "dev.flutter.pigeon.pigeon_core_package.FlutterCoreApi.driveKitDidConnect\(messageChannelSuffix)"
+    let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger, codec: codec)
+    channel.sendMessage(nil) { response in
+      guard let listResponse = response as? [Any?] else {
+        completion(.failure(createConnectionError(withChannelName: channelName)))
+        return
+      }
+      if listResponse.count > 1 {
+        let code: String = listResponse[0] as! String
+        let message: String? = nilOrValue(listResponse[1])
+        let details: String? = nilOrValue(listResponse[2])
+        completion(.failure(FlutterCoreError(code: code, message: message, details: details)))
+      } else {
+        completion(.success(Void()))
+      }
+    }
+  }
+  func driveKitDidDisconnect(completion: @escaping (Result<Void, FlutterCoreError>) -> Void) {
+    let channelName: String = "dev.flutter.pigeon.pigeon_core_package.FlutterCoreApi.driveKitDidDisconnect\(messageChannelSuffix)"
+    let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger, codec: codec)
+    channel.sendMessage(nil) { response in
+      guard let listResponse = response as? [Any?] else {
+        completion(.failure(createConnectionError(withChannelName: channelName)))
+        return
+      }
+      if listResponse.count > 1 {
+        let code: String = listResponse[0] as! String
+        let message: String? = nilOrValue(listResponse[1])
+        let details: String? = nilOrValue(listResponse[2])
+        completion(.failure(FlutterCoreError(code: code, message: message, details: details)))
+      } else {
+        completion(.success(Void()))
+      }
+    }
+  }
+  func driveKitDidReceiveAuthenticationError(error errorArg: PigeonRequestError, completion: @escaping (Result<Void, FlutterCoreError>) -> Void) {
+    let channelName: String = "dev.flutter.pigeon.pigeon_core_package.FlutterCoreApi.driveKitDidReceiveAuthenticationError\(messageChannelSuffix)"
+    let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger, codec: codec)
+    channel.sendMessage([errorArg] as [Any?]) { response in
+      guard let listResponse = response as? [Any?] else {
+        completion(.failure(createConnectionError(withChannelName: channelName)))
+        return
+      }
+      if listResponse.count > 1 {
+        let code: String = listResponse[0] as! String
+        let message: String? = nilOrValue(listResponse[1])
+        let details: String? = nilOrValue(listResponse[2])
+        completion(.failure(FlutterCoreError(code: code, message: message, details: details)))
+      } else {
+        completion(.success(Void()))
+      }
+    }
+  }
+  func userIdUpdateStatusChanged(status statusArg: PigeonUpdateUserIdStatus, userId userIdArg: String?, completion: @escaping (Result<Void, FlutterCoreError>) -> Void) {
+    let channelName: String = "dev.flutter.pigeon.pigeon_core_package.FlutterCoreApi.userIdUpdateStatusChanged\(messageChannelSuffix)"
+    let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger, codec: codec)
+    channel.sendMessage([statusArg, userIdArg] as [Any?]) { response in
+      guard let listResponse = response as? [Any?] else {
+        completion(.failure(createConnectionError(withChannelName: channelName)))
+        return
+      }
+      if listResponse.count > 1 {
+        let code: String = listResponse[0] as! String
+        let message: String? = nilOrValue(listResponse[1])
+        let details: String? = nilOrValue(listResponse[2])
+        completion(.failure(FlutterCoreError(code: code, message: message, details: details)))
+      } else {
+        completion(.success(Void()))
+      }
+    }
+  }
+  func driveKitAccountDeletionCompleted(status statusArg: PigeonDeleteAccountStatus, completion: @escaping (Result<Void, FlutterCoreError>) -> Void) {
+    let channelName: String = "dev.flutter.pigeon.pigeon_core_package.FlutterCoreApi.driveKitAccountDeletionCompleted\(messageChannelSuffix)"
+    let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger, codec: codec)
+    channel.sendMessage([statusArg] as [Any?]) { response in
+      guard let listResponse = response as? [Any?] else {
+        completion(.failure(createConnectionError(withChannelName: channelName)))
+        return
+      }
+      if listResponse.count > 1 {
+        let code: String = listResponse[0] as! String
+        let message: String? = nilOrValue(listResponse[1])
+        let details: String? = nilOrValue(listResponse[2])
+        completion(.failure(FlutterCoreError(code: code, message: message, details: details)))
+      } else {
+        completion(.success(Void()))
+      }
+    }
+  }
+  func driveKitBackgroundFetchStatusChanged(status statusArg: PigeonBackgroundFetchStatus, completion: @escaping (Result<Void, FlutterCoreError>) -> Void) {
+    let channelName: String = "dev.flutter.pigeon.pigeon_core_package.FlutterCoreApi.driveKitBackgroundFetchStatusChanged\(messageChannelSuffix)"
+    let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger, codec: codec)
+    channel.sendMessage([statusArg] as [Any?]) { response in
+      guard let listResponse = response as? [Any?] else {
+        completion(.failure(createConnectionError(withChannelName: channelName)))
+        return
+      }
+      if listResponse.count > 1 {
+        let code: String = listResponse[0] as! String
+        let message: String? = nilOrValue(listResponse[1])
+        let details: String? = nilOrValue(listResponse[2])
+        completion(.failure(FlutterCoreError(code: code, message: message, details: details)))
+      } else {
+        completion(.success(Void()))
+      }
     }
   }
 }

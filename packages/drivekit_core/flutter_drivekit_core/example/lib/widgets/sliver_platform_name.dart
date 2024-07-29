@@ -30,7 +30,7 @@ class _SliverPlatformNameState extends State<SliverPlatformName> {
             onPressed: () async {
               if (!context.mounted) return;
               try {
-                final result = await DriveKitCore.getPlatformName();
+                final result = await DriveKitCore.instance.getPlatformName();
                 setState(() => _platformName = result);
               } catch (error) {
                 if (!context.mounted) return;
