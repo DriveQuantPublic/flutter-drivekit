@@ -12,14 +12,12 @@ class SliverGetApiKey extends StatefulWidget {
 class _SliverGetApiKeyState extends State<SliverGetApiKey> {
   @override
   Widget build(BuildContext context) {
-    final driveKitCore = DriveKitCore();
-
     return MultiSliver(
       children: [
         SliverToBoxAdapter(
           child: ElevatedButton(
             onPressed: () async {
-              final apiKey = await driveKitCore.getApiKey();
+              final apiKey = await DriveKitCore.getApiKey();
               if (context.mounted) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(

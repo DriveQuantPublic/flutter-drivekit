@@ -15,9 +15,133 @@ PlatformException _createConnectionError(String channelName) {
   );
 }
 
+class PigeonVehicle {
+  PigeonVehicle({
+    this.carTypeIndex = 1,
+    this.carEngineIndex = 1,
+    this.carPower = 150,
+    this.carMass = 1400,
+    this.carGearboxIndex = 2,
+    this.carConsumption = 4.5,
+    this.carAutoGearboxNumber = 0,
+    this.engineDisplacement = 1200,
+    this.carPassengers = 1,
+    this.dqIndex,
+    this.sra,
+    this.frontTireSize,
+    this.rearTireSize,
+    this.length,
+    this.width,
+    this.height,
+    this.engineCylinderNb,
+    this.driveWheels,
+  });
+
+  int carTypeIndex;
+
+  int carEngineIndex;
+
+  double carPower;
+
+  double carMass;
+
+  int carGearboxIndex;
+
+  double carConsumption;
+
+  int carAutoGearboxNumber;
+
+  double engineDisplacement;
+
+  int carPassengers;
+
+  String? dqIndex;
+
+  String? sra;
+
+  String? frontTireSize;
+
+  String? rearTireSize;
+
+  double? length;
+
+  double? width;
+
+  double? height;
+
+  int? engineCylinderNb;
+
+  int? driveWheels;
+
+  Object encode() {
+    return <Object?>[
+      carTypeIndex,
+      carEngineIndex,
+      carPower,
+      carMass,
+      carGearboxIndex,
+      carConsumption,
+      carAutoGearboxNumber,
+      engineDisplacement,
+      carPassengers,
+      dqIndex,
+      sra,
+      frontTireSize,
+      rearTireSize,
+      length,
+      width,
+      height,
+      engineCylinderNb,
+      driveWheels,
+    ];
+  }
+
+  static PigeonVehicle decode(Object result) {
+    result as List<Object?>;
+    return PigeonVehicle(
+      carTypeIndex: result[0]! as int,
+      carEngineIndex: result[1]! as int,
+      carPower: result[2]! as double,
+      carMass: result[3]! as double,
+      carGearboxIndex: result[4]! as int,
+      carConsumption: result[5]! as double,
+      carAutoGearboxNumber: result[6]! as int,
+      engineDisplacement: result[7]! as double,
+      carPassengers: result[8]! as int,
+      dqIndex: result[9] as String?,
+      sra: result[10] as String?,
+      frontTireSize: result[11] as String?,
+      rearTireSize: result[12] as String?,
+      length: result[13] as double?,
+      width: result[14] as double?,
+      height: result[15] as double?,
+      engineCylinderNb: result[16] as int?,
+      driveWheels: result[17] as int?,
+    );
+  }
+}
 
 class _PigeonCodec extends StandardMessageCodec {
   const _PigeonCodec();
+  @override
+  void writeValue(WriteBuffer buffer, Object? value) {
+    if (value is PigeonVehicle) {
+      buffer.putUint8(129);
+      writeValue(buffer, value.encode());
+    } else {
+      super.writeValue(buffer, value);
+    }
+  }
+
+  @override
+  Object? readValueOfType(int type, ReadBuffer buffer) {
+    switch (type) {
+      case 129:
+        return PigeonVehicle.decode(readValue(buffer)!);
+      default:
+        return super.readValueOfType(type, buffer);
+    }
+  }
 }
 
 class AndroidTripAnalysisApi {
@@ -194,6 +318,30 @@ class AndroidTripAnalysisApi {
       );
     } else {
       return (__pigeon_replyList[0] as bool?)!;
+    }
+  }
+
+  Future<void> setVehicle(PigeonVehicle vehicle) async {
+    final String __pigeon_channelName =
+        'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.setVehicle$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel =
+        BasicMessageChannel<Object?>(
+      __pigeon_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: __pigeon_binaryMessenger,
+    );
+    final List<Object?>? __pigeon_replyList =
+        await __pigeon_channel.send(<Object?>[vehicle]) as List<Object?>?;
+    if (__pigeon_replyList == null) {
+      throw _createConnectionError(__pigeon_channelName);
+    } else if (__pigeon_replyList.length > 1) {
+      throw PlatformException(
+        code: __pigeon_replyList[0]! as String,
+        message: __pigeon_replyList[1] as String?,
+        details: __pigeon_replyList[2],
+      );
+    } else {
+      return;
     }
   }
 }

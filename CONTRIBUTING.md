@@ -150,3 +150,13 @@ It is recommended to use a pre-commit hook to format the code before committing.
 This script will format the files your are about to commit with the linter. So your commit will take a time to run this script.
 
 Developers can be tempted to commit without this pre-commit hook to have instant commit. You can do this only if you have a tool on your IDEs that format the code on save (dart, swift, lint).
+
+
+## Implement a function that use a custom type as parameter or return a custom type
+
+1. Write the exact equivalent of the SDK platform type in Pigeon config of the platform package `message.dart`
+2. Run `melos pigeon` to generate the code
+3. Write a converter in the native code from the platform package to map PigeonType to the native SDK type
+4. Create a new Dart equivalent of this type in the model of the platform interface package. It should represents android and iOS types, be careful with the differences between the two platforms 
+5. Write an adapter between each of the PigeonType to this type. This is where you managed the different behavior to unify the two platforms
+6. Write the function using this type (as you do habitually with primitive types)

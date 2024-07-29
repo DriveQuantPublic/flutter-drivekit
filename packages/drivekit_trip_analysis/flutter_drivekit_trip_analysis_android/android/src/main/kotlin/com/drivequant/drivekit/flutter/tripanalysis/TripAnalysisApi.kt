@@ -43,12 +43,95 @@ class FlutterTripAnalysisError (
   override val message: String? = null,
   val details: Any? = null
 ) : Throwable()
+
+/** Generated class from Pigeon that represents data sent in messages. */
+data class PigeonVehicle (
+  val carTypeIndex: Long,
+  val carEngineIndex: Long,
+  val carPower: Double,
+  val carMass: Double,
+  val carGearboxIndex: Long,
+  val carConsumption: Double,
+  val carAutoGearboxNumber: Long,
+  val engineDisplacement: Double,
+  val carPassengers: Long,
+  val dqIndex: String? = null,
+  val sra: String? = null,
+  val frontTireSize: String? = null,
+  val rearTireSize: String? = null,
+  val length: Double? = null,
+  val width: Double? = null,
+  val height: Double? = null,
+  val engineCylinderNb: Long? = null,
+  val driveWheels: Long? = null
+
+) {
+  companion object {
+    @Suppress("LocalVariableName")
+    fun fromList(__pigeon_list: List<Any?>): PigeonVehicle {
+      val carTypeIndex = __pigeon_list[0].let { num -> if (num is Int) num.toLong() else num as Long }
+      val carEngineIndex = __pigeon_list[1].let { num -> if (num is Int) num.toLong() else num as Long }
+      val carPower = __pigeon_list[2] as Double
+      val carMass = __pigeon_list[3] as Double
+      val carGearboxIndex = __pigeon_list[4].let { num -> if (num is Int) num.toLong() else num as Long }
+      val carConsumption = __pigeon_list[5] as Double
+      val carAutoGearboxNumber = __pigeon_list[6].let { num -> if (num is Int) num.toLong() else num as Long }
+      val engineDisplacement = __pigeon_list[7] as Double
+      val carPassengers = __pigeon_list[8].let { num -> if (num is Int) num.toLong() else num as Long }
+      val dqIndex = __pigeon_list[9] as String?
+      val sra = __pigeon_list[10] as String?
+      val frontTireSize = __pigeon_list[11] as String?
+      val rearTireSize = __pigeon_list[12] as String?
+      val length = __pigeon_list[13] as Double?
+      val width = __pigeon_list[14] as Double?
+      val height = __pigeon_list[15] as Double?
+      val engineCylinderNb = __pigeon_list[16].let { num -> if (num is Int) num.toLong() else num as Long? }
+      val driveWheels = __pigeon_list[17].let { num -> if (num is Int) num.toLong() else num as Long? }
+      return PigeonVehicle(carTypeIndex, carEngineIndex, carPower, carMass, carGearboxIndex, carConsumption, carAutoGearboxNumber, engineDisplacement, carPassengers, dqIndex, sra, frontTireSize, rearTireSize, length, width, height, engineCylinderNb, driveWheels)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      carTypeIndex,
+      carEngineIndex,
+      carPower,
+      carMass,
+      carGearboxIndex,
+      carConsumption,
+      carAutoGearboxNumber,
+      engineDisplacement,
+      carPassengers,
+      dqIndex,
+      sra,
+      frontTireSize,
+      rearTireSize,
+      length,
+      width,
+      height,
+      engineCylinderNb,
+      driveWheels,
+    )
+  }
+}
 private object TripAnalysisApiPigeonCodec : StandardMessageCodec() {
   override fun readValueOfType(type: Byte, buffer: ByteBuffer): Any? {
-    return     super.readValueOfType(type, buffer)
+    return when (type) {
+      129.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
+          PigeonVehicle.fromList(it)
+        }
+      }
+      else -> super.readValueOfType(type, buffer)
+    }
   }
   override fun writeValue(stream: ByteArrayOutputStream, value: Any?)   {
-    super.writeValue(stream, value)
+    when (value) {
+      is PigeonVehicle -> {
+        stream.write(129)
+        writeValue(stream, value.toList())
+      }
+      else -> super.writeValue(stream, value)
+    }
   }
 }
 
@@ -61,6 +144,7 @@ interface AndroidTripAnalysisApi {
   fun stopTrip()
   fun cancelTrip()
   fun isTripRunning(): Boolean
+  fun setVehicle(vehicle: PigeonVehicle)
 
   companion object {
     /** The codec used by AndroidTripAnalysisApi. */
@@ -176,6 +260,24 @@ interface AndroidTripAnalysisApi {
           channel.setMessageHandler { _, reply ->
             val wrapped: List<Any?> = try {
               listOf(api.isTripRunning())
+            } catch (exception: Throwable) {
+              wrapError(exception)
+            }
+            reply.reply(wrapped)
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.setVehicle$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { message, reply ->
+            val args = message as List<Any?>
+            val vehicleArg = args[0] as PigeonVehicle
+            val wrapped: List<Any?> = try {
+              api.setVehicle(vehicleArg)
+              listOf(null)
             } catch (exception: Throwable) {
               wrapError(exception)
             }

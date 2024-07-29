@@ -12,7 +12,6 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   group('DrivekitTripAnalysis', () {
-    final driveKitTripAnalysis = DrivekitTripAnalysis();
     late DrivekitTripAnalysisPlatform drivekitTripAnalysisPlatform;
 
     setUp(() {
@@ -28,7 +27,7 @@ void main() {
           () => drivekitTripAnalysisPlatform.getPlatformName(),
         ).thenAnswer((_) async => platformName);
 
-        final actualPlatformName = await driveKitTripAnalysis.getPlatformName();
+        final actualPlatformName = await DrivekitTripAnalysis.getPlatformName();
         expect(actualPlatformName, equals(platformName));
       });
     });
@@ -37,12 +36,12 @@ void main() {
         when(() => drivekitTripAnalysisPlatform.activateAutoStart(any()))
             .thenAnswer((_) async {});
 
-        await driveKitTripAnalysis.activateAutoStart(true);
+        await DrivekitTripAnalysis.activateAutoStart(true);
         verify(() => drivekitTripAnalysisPlatform.activateAutoStart(true));
         verifyNever(
           () => drivekitTripAnalysisPlatform.activateAutoStart(false),
         );
-        await driveKitTripAnalysis.activateAutoStart(false);
+        await DrivekitTripAnalysis.activateAutoStart(false);
         verify(() => drivekitTripAnalysisPlatform.activateAutoStart(false));
       });
     });
@@ -52,12 +51,12 @@ void main() {
         when(() => drivekitTripAnalysisPlatform.activateCrashDetection(any()))
             .thenAnswer((_) async {});
 
-        await driveKitTripAnalysis.activateCrashDetection(true);
+        await DrivekitTripAnalysis.activateCrashDetection(true);
         verify(() => drivekitTripAnalysisPlatform.activateCrashDetection(true));
         verifyNever(
           () => drivekitTripAnalysisPlatform.activateCrashDetection(false),
         );
-        await driveKitTripAnalysis.activateCrashDetection(false);
+        await DrivekitTripAnalysis.activateCrashDetection(false);
         verify(() => drivekitTripAnalysisPlatform.activateCrashDetection(false))
             .called(1);
       });
@@ -76,7 +75,7 @@ void main() {
         when(() => drivekitTripAnalysisPlatform.stopTrip())
             .thenAnswer((_) async {});
 
-        await driveKitTripAnalysis.stopTrip();
+        await DrivekitTripAnalysis.stopTrip();
         verify(() => drivekitTripAnalysisPlatform.stopTrip());
       });
 
@@ -84,7 +83,7 @@ void main() {
         when(() => drivekitTripAnalysisPlatform.cancelTrip())
             .thenAnswer((_) async {});
 
-        await driveKitTripAnalysis.cancelTrip();
+        await DrivekitTripAnalysis.cancelTrip();
         verify(() => drivekitTripAnalysisPlatform.cancelTrip());
       });
 
@@ -96,9 +95,21 @@ void main() {
           ).thenAnswer((_) async => isRunning);
 
           final actualIsRunningValue =
-              await driveKitTripAnalysis.isTripRunning();
+              await DrivekitTripAnalysis.isTripRunning();
           expect(actualIsRunningValue, equals(isRunning));
         });
+      });
+    });
+
+    group('setVehicle', () {
+      test('calls platform implementation', () async {
+        const vehicle = Vehicle();
+
+        when(() => drivekitTripAnalysisPlatform.setVehicle(vehicle))
+            .thenAnswer((_) async {});
+
+        await DrivekitTripAnalysis.setVehicle(vehicle);
+        verify(() => drivekitTripAnalysisPlatform.setVehicle(vehicle));
       });
     });
   });

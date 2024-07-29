@@ -11,11 +11,10 @@ class SliverIsTripRunning extends StatefulWidget {
 class _SliverIsTripRunningState extends State<SliverIsTripRunning> {
   @override
   Widget build(BuildContext context) {
-    final driveKitTripAnalysis = DrivekitTripAnalysis();
     return SliverToBoxAdapter(
       child: ElevatedButton(
         onPressed: () async {
-          final isTripRunning = await driveKitTripAnalysis.isTripRunning();
+          final isTripRunning = await DrivekitTripAnalysis.isTripRunning();
           final alertMessage =
               isTripRunning ? 'Trip is running' : 'Trip is not running';
           if (context.mounted) {

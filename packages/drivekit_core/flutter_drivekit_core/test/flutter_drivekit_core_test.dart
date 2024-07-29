@@ -10,7 +10,6 @@ class MockDrivekitCorePlatform extends Mock
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  final driveKitCore = DriveKitCore();
 
   group('DrivekitCore', () {
     late DrivekitCorePlatform drivekitCorePlatform;
@@ -28,7 +27,7 @@ void main() {
           () => drivekitCorePlatform.getPlatformName(),
         ).thenAnswer((_) async => platformName);
 
-        final actualPlatformName = await driveKitCore.getPlatformName();
+        final actualPlatformName = await DriveKitCore.getPlatformName();
         expect(actualPlatformName, equals(platformName));
       });
     });
@@ -38,7 +37,7 @@ void main() {
         when(() => drivekitCorePlatform.setApiKey(any()))
             .thenAnswer((_) async {});
 
-        await driveKitCore.setApiKey('api_key');
+        await DriveKitCore.setApiKey('api_key');
         verify(() => drivekitCorePlatform.setApiKey('api_key'));
       });
 
@@ -47,7 +46,7 @@ void main() {
         when(() => drivekitCorePlatform.getApiKey())
             .thenAnswer((_) async => mockedApiKey);
 
-        final actualApiKey = await driveKitCore.getApiKey();
+        final actualApiKey = await DriveKitCore.getApiKey();
         expect(actualApiKey, equals(mockedApiKey));
       });
     });
@@ -57,7 +56,7 @@ void main() {
         when(() => drivekitCorePlatform.setUserId(any()))
             .thenAnswer((_) async {});
 
-        await driveKitCore.setUserId('user_id');
+        await DriveKitCore.setUserId('user_id');
         verify(() => drivekitCorePlatform.setUserId('user_id'));
       });
 
@@ -66,7 +65,7 @@ void main() {
         when(() => drivekitCorePlatform.getUserId())
             .thenAnswer((_) async => mockedUserId);
 
-        final actualUserId = await driveKitCore.getUserId();
+        final actualUserId = await DriveKitCore.getUserId();
         expect(actualUserId, equals(mockedUserId));
       });
     });
@@ -75,7 +74,7 @@ void main() {
       test('calls reset on platform implementation', () async {
         when(() => drivekitCorePlatform.reset()).thenAnswer((_) async {});
 
-        await driveKitCore.reset();
+        await DriveKitCore.reset();
         verify(() => drivekitCorePlatform.reset());
       });
     });
@@ -87,7 +86,7 @@ void main() {
           () => drivekitCorePlatform.isTokenValid(),
         ).thenAnswer((_) async => tokenValidity);
 
-        final actualTokenValidity = await driveKitCore.isTokenValid();
+        final actualTokenValidity = await DriveKitCore.isTokenValid();
         expect(actualTokenValidity, equals(tokenValidity));
       });
     });
@@ -97,7 +96,7 @@ void main() {
         when(() => drivekitCorePlatform.deleteAccount())
             .thenAnswer((_) async {});
 
-        await driveKitCore.deleteAccount();
+        await DriveKitCore.deleteAccount();
         verify(() => drivekitCorePlatform.deleteAccount());
       });
     });
@@ -135,7 +134,7 @@ void main() {
         when(() => drivekitCorePlatform.disableLogging())
             .thenAnswer((_) async {});
 
-        await driveKitCore.disableLogging();
+        await DriveKitCore.disableLogging();
         verify(() => drivekitCorePlatform.disableLogging());
       });
     });

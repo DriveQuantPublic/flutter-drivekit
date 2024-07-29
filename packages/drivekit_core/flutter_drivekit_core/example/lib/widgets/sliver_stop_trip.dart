@@ -11,11 +11,10 @@ class SliverStopTrip extends StatefulWidget {
 class _SliverStopTripState extends State<SliverStopTrip> {
   @override
   Widget build(BuildContext context) {
-    final driveKitTripAnalysis = DrivekitTripAnalysis();
-    return SliverToBoxAdapter(
+    return const SliverToBoxAdapter(
       child: ElevatedButton(
-        onPressed: driveKitTripAnalysis.stopTrip,
-        child: const Text('Stop Trip'),
+        onPressed: DrivekitTripAnalysis.stopTrip,
+        child: Text('Stop Trip'),
       ),
     );
   }

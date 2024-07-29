@@ -4,9 +4,9 @@ DrivekitCorePlatform get _platform => DrivekitCorePlatform.instance;
 
 /// The main class of the plugin.
 /// This class provides methods to interact with the DriveKit Core SDK.
-class DriveKitCore {
+abstract final class DriveKitCore {
   /// Returns the name of the current platform.
-  Future<String> getPlatformName() => _platform.getPlatformName();
+  static Future<String> getPlatformName() => _platform.getPlatformName();
 
   /// Sets the DriveQuant API key.
   /// You should store the key in a secure place in your app, and then
@@ -14,7 +14,7 @@ class DriveKitCore {
   /// If you don't have an API key, please contact [DriveQuant](https://docs.drivequant.com/#contact-us).
   ///
   /// DriveKit SDK will not work until you set the API key and the userId.
-  Future<void> setApiKey(String key) async {
+  static Future<void> setApiKey(String key) async {
     await _platform.setApiKey(key);
   }
 
@@ -25,12 +25,12 @@ class DriveKitCore {
   /// relaunched, DriveKit will be reconfigured automatically
   ///
   /// DriveKit SDK will not work until you set the API key and the userId.
-  Future<void> setUserId(String userId) async {
+  static Future<void> setUserId(String userId) async {
     await _platform.setUserId(userId);
   }
 
   /// Get the id of the currently identified user, if exists.
-  Future<String?> getUserId() => _platform.getUserId();
+  static Future<String?> getUserId() => _platform.getUserId();
 
   /// Resets the DriveKit SDK.
   /// If you need to reset DriveKit configuration (user logout for example),
@@ -38,20 +38,20 @@ class DriveKitCore {
   ///
   /// All data saved locally will be erased and default configuration for every
   /// module will be restored.
-  Future<void> reset() async {
+  static Future<void> reset() async {
     await _platform.reset();
   }
 
   /// Check the validity of the generated token
   /// after connecting with API Key and User ID
-  Future<bool> isTokenValid() => _platform.isTokenValid();
+  static Future<bool> isTokenValid() => _platform.isTokenValid();
 
   /// Deletes a driver's account
-  Future<void> deleteAccount({bool instantDeletion = false}) =>
+  static Future<void> deleteAccount({bool instantDeletion = false}) =>
       _platform.deleteAccount(instantDeletion: instantDeletion);
 
   /// Check which DriveKit API Key you have set in the SDK.
-  Future<String?> getApiKey() => _platform.getApiKey();
+  static Future<String?> getApiKey() => _platform.getApiKey();
 
   /// DriveKit comes with a logging feature that is enabled by default.
   /// This feature allows you to quickly identify the cause of a problem.
@@ -69,6 +69,6 @@ class DriveKitCore {
 
   /// You can disable the DriveKit logging by calling.
   /// It is however recommended to keep this setting enabled.
-  Future<void> disableLogging({bool showInConsole = true}) =>
+  static Future<void> disableLogging({bool showInConsole = true}) =>
       _platform.disableLogging(showInConsole: showInConsole);
 }
