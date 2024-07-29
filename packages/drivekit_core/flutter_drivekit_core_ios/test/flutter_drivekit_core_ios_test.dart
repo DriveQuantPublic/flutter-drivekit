@@ -116,168 +116,190 @@ void main() {
       await DrivekitCorePlatform.instance.disableLogging();
       verify(() => iosCoreApi.disableLogging()).called(1);
     });
+    test('returns correct log file URI when platform implementation exists',
+        () async {
+      final logFileUri = LogFileUri(
+        platform: PlatformType.ios,
+        uri: Uri.parse('file://log.txt'),
+      );
+      when(() => iosCoreApi.getLogUriFile())
+          .thenAnswer((_) async => 'file://log.txt');
 
-    group('DriveKitListener', () {
-      test('can listen several listeners', () async {
-        var onConnectedCount = 0;
-        var onDisconnectedCount = 0;
-        var onAccountDeletedCount = 0;
-        var onAuthenticationErrorCount = 0;
-        var onBackgroundFetchStatusChangedCount = 0;
-        var userIdUpdateStatusCount = 0;
+      final actualLogFileUri =
+          await DrivekitCorePlatform.instance.getLogUriFile();
+      expect(actualLogFileUri?.platform, equals(logFileUri.platform));
+      expect(actualLogFileUri?.uri, equals(logFileUri.uri));
+    });
+
+    test('returns null when no log file URI is available', () async {
+      when(() => iosCoreApi.getLogUriFile()).thenAnswer((_) async => null);
+
+      final actualLogFileUri =
+          await DrivekitCorePlatform.instance.getLogUriFile();
+      expect(actualLogFileUri, isNull);
+    });
+  });
+  group('DriveKitListener', () {
+    test('can listen several listeners', () async {
+      var onConnectedCount = 0;
+      var onDisconnectedCount = 0;
+      var onAccountDeletedCount = 0;
+      var onAuthenticationErrorCount = 0;
+      var onBackgroundFetchStatusChangedCount = 0;
+      var userIdUpdateStatusCount = 0;
+      //test
+      DrivekitCorePlatform.instance.addDriveKitListener(
+        DriveKitListener(
+          onConnected: () {
+            onConnectedCount++;
+          },
+          onDisconnected: () {
+            onDisconnectedCount++;
+          },
+          onAccountDeleted: (status) {
+            onAccountDeletedCount++;
+          },
+          onAuthenticationError: (errorType) {
+            onAuthenticationErrorCount++;
+          },
+          onBackgroundFetchStatusChanged: (status) {
+            onBackgroundFetchStatusChangedCount++;
+          },
+          userIdUpdateStatus: (status, userId) {
+            userIdUpdateStatusCount++;
+          },
+        ),
+      );
+      flutterCoreApi.driveKitDidConnect();
+      expect(onConnectedCount, 1);
+      expect(onDisconnectedCount, 0);
+
+      flutterCoreApi.driveKitDidDisconnect();
+      expect(onDisconnectedCount, 1);
+
+      flutterCoreApi.driveKitAccountDeletionCompleted(
+        PigeonDeleteAccountStatus.success,
+      );
+      expect(onAccountDeletedCount, 1);
+
+      flutterCoreApi.driveKitDidReceiveAuthenticationError(
+        PigeonRequestError.noNetwork,
+      );
+      expect(onAuthenticationErrorCount, 1);
+
+      flutterCoreApi.driveKitBackgroundFetchStatusChanged(
+        PigeonBackgroundFetchStatus.completed,
+      );
+      expect(onBackgroundFetchStatusChangedCount, 1);
+
+      flutterCoreApi.userIdUpdateStatusChanged(
+        PigeonUpdateUserIdStatus.alreadyUsed,
+        null,
+      );
+      expect(userIdUpdateStatusCount, 1);
+
+      DrivekitCorePlatform.instance.addDriveKitListener(
+        DriveKitListener(
+          onConnected: () {
+            onConnectedCount++;
+          },
+          onDisconnected: () {
+            onDisconnectedCount++;
+          },
+          onAccountDeleted: (status) {
+            onAccountDeletedCount++;
+          },
+          onAuthenticationError: (errorType) {
+            onAuthenticationErrorCount++;
+          },
+          onBackgroundFetchStatusChanged: (status) {
+            onBackgroundFetchStatusChangedCount++;
+          },
+          userIdUpdateStatus: (status, userId) {
+            userIdUpdateStatusCount++;
+          },
+        ),
+      );
+      flutterCoreApi.driveKitDidConnect();
+      expect(onConnectedCount, 3);
+
+      flutterCoreApi.driveKitDidDisconnect();
+      expect(onDisconnectedCount, 3);
+
+      flutterCoreApi.driveKitAccountDeletionCompleted(
+        PigeonDeleteAccountStatus.success,
+      );
+      expect(onAccountDeletedCount, 3);
+
+      flutterCoreApi.driveKitDidReceiveAuthenticationError(
+        PigeonRequestError.noNetwork,
+      );
+      expect(onAuthenticationErrorCount, 3);
+
+      flutterCoreApi.userIdUpdateStatusChanged(
+        PigeonUpdateUserIdStatus.alreadyUsed,
+        null,
+      );
+      expect(userIdUpdateStatusCount, 3);
+
+      flutterCoreApi.driveKitBackgroundFetchStatusChanged(
+        PigeonBackgroundFetchStatus.completed,
+      );
+      expect(onBackgroundFetchStatusChangedCount, 3);
+    });
+
+    test(
+      'listener callbacks are transmitted with the right arguments',
+          () async {
+        final deleteAccountStatusList = <DeleteAccountStatus>[];
+        final requestErrorList = <RequestError>[];
+        final updateUserIdStatusList = <UpdateUserIdStatus>[];
+        final backgroundFetchStatusList = <BackgroundFetchStatus>[];
         //test
         DrivekitCorePlatform.instance.addDriveKitListener(
           DriveKitListener(
-            onConnected: () {
-              onConnectedCount++;
-            },
-            onDisconnected: () {
-              onDisconnectedCount++;
-            },
-            onAccountDeleted: (status) {
-              onAccountDeletedCount++;
-            },
-            onAuthenticationError: (errorType) {
-              onAuthenticationErrorCount++;
-            },
-            onBackgroundFetchStatusChanged: (status) {
-              onBackgroundFetchStatusChangedCount++;
-            },
+            onAccountDeleted: deleteAccountStatusList.add,
+            onAuthenticationError: requestErrorList.add,
             userIdUpdateStatus: (status, userId) {
-              userIdUpdateStatusCount++;
+              updateUserIdStatusList.add(status);
             },
+            onBackgroundFetchStatusChanged: backgroundFetchStatusList.add,
           ),
         );
-        flutterCoreApi.driveKitDidConnect();
-        expect(onConnectedCount, 1);
-        expect(onDisconnectedCount, 0);
-
-        flutterCoreApi.driveKitDidDisconnect();
-        expect(onDisconnectedCount, 1);
-
         flutterCoreApi.driveKitAccountDeletionCompleted(
           PigeonDeleteAccountStatus.success,
         );
-        expect(onAccountDeletedCount, 1);
+        expect(deleteAccountStatusList, [DeleteAccountStatus.success]);
+        expect(requestErrorList, <RequestError>[]);
+        expect(updateUserIdStatusList, <UpdateUserIdStatus>[]);
+        expect(backgroundFetchStatusList, <BackgroundFetchStatus>[]);
 
         flutterCoreApi.driveKitDidReceiveAuthenticationError(
           PigeonRequestError.noNetwork,
         );
-        expect(onAuthenticationErrorCount, 1);
-
-        flutterCoreApi.driveKitBackgroundFetchStatusChanged(
-          PigeonBackgroundFetchStatus.completed,
-        );
-        expect(onBackgroundFetchStatusChangedCount, 1);
+        expect(deleteAccountStatusList, [DeleteAccountStatus.success]);
+        expect(requestErrorList, [RequestError.noNetwork]);
+        expect(updateUserIdStatusList, <UpdateUserIdStatus>[]);
+        expect(backgroundFetchStatusList, <BackgroundFetchStatus>[]);
 
         flutterCoreApi.userIdUpdateStatusChanged(
           PigeonUpdateUserIdStatus.alreadyUsed,
           null,
         );
-        expect(userIdUpdateStatusCount, 1);
-
-        DrivekitCorePlatform.instance.addDriveKitListener(
-          DriveKitListener(
-            onConnected: () {
-              onConnectedCount++;
-            },
-            onDisconnected: () {
-              onDisconnectedCount++;
-            },
-            onAccountDeleted: (status) {
-              onAccountDeletedCount++;
-            },
-            onAuthenticationError: (errorType) {
-              onAuthenticationErrorCount++;
-            },
-            onBackgroundFetchStatusChanged: (status) {
-              onBackgroundFetchStatusChangedCount++;
-            },
-            userIdUpdateStatus: (status, userId) {
-              userIdUpdateStatusCount++;
-            },
-          ),
-        );
-        flutterCoreApi.driveKitDidConnect();
-        expect(onConnectedCount, 3);
-
-        flutterCoreApi.driveKitDidDisconnect();
-        expect(onDisconnectedCount, 3);
-
-        flutterCoreApi.driveKitAccountDeletionCompleted(
-          PigeonDeleteAccountStatus.success,
-        );
-        expect(onAccountDeletedCount, 3);
-
-        flutterCoreApi.driveKitDidReceiveAuthenticationError(
-          PigeonRequestError.noNetwork,
-        );
-        expect(onAuthenticationErrorCount, 3);
-
-        flutterCoreApi.userIdUpdateStatusChanged(
-          PigeonUpdateUserIdStatus.alreadyUsed,
-          null,
-        );
-        expect(userIdUpdateStatusCount, 3);
+        expect(deleteAccountStatusList, [DeleteAccountStatus.success]);
+        expect(requestErrorList, [RequestError.noNetwork]);
+        expect(updateUserIdStatusList, [UpdateUserIdStatus.alreadyUsed]);
+        expect(backgroundFetchStatusList, <BackgroundFetchStatus>[]);
 
         flutterCoreApi.driveKitBackgroundFetchStatusChanged(
           PigeonBackgroundFetchStatus.completed,
         );
-        expect(onBackgroundFetchStatusChangedCount, 3);
-      });
-
-      test(
-        'listener callbacks are transmitted with the right arguments',
-        () async {
-          final deleteAccountStatusList = <DeleteAccountStatus>[];
-          final requestErrorList = <RequestError>[];
-          final updateUserIdStatusList = <UpdateUserIdStatus>[];
-          final backgroundFetchStatusList = <BackgroundFetchStatus>[];
-          //test
-          DrivekitCorePlatform.instance.addDriveKitListener(
-            DriveKitListener(
-              onAccountDeleted: deleteAccountStatusList.add,
-              onAuthenticationError: requestErrorList.add,
-              userIdUpdateStatus: (status, userId) {
-                updateUserIdStatusList.add(status);
-              },
-              onBackgroundFetchStatusChanged: backgroundFetchStatusList.add,
-            ),
-          );
-          flutterCoreApi.driveKitAccountDeletionCompleted(
-            PigeonDeleteAccountStatus.success,
-          );
-          expect(deleteAccountStatusList, [DeleteAccountStatus.success]);
-          expect(requestErrorList, <RequestError>[]);
-          expect(updateUserIdStatusList, <UpdateUserIdStatus>[]);
-          expect(backgroundFetchStatusList, <BackgroundFetchStatus>[]);
-
-          flutterCoreApi.driveKitDidReceiveAuthenticationError(
-            PigeonRequestError.noNetwork,
-          );
-          expect(deleteAccountStatusList, [DeleteAccountStatus.success]);
-          expect(requestErrorList, [RequestError.noNetwork]);
-          expect(updateUserIdStatusList, <UpdateUserIdStatus>[]);
-          expect(backgroundFetchStatusList, <BackgroundFetchStatus>[]);
-
-          flutterCoreApi.userIdUpdateStatusChanged(
-            PigeonUpdateUserIdStatus.alreadyUsed,
-            null,
-          );
-          expect(deleteAccountStatusList, [DeleteAccountStatus.success]);
-          expect(requestErrorList, [RequestError.noNetwork]);
-          expect(updateUserIdStatusList, [UpdateUserIdStatus.alreadyUsed]);
-          expect(backgroundFetchStatusList, <BackgroundFetchStatus>[]);
-
-          flutterCoreApi.driveKitBackgroundFetchStatusChanged(
-            PigeonBackgroundFetchStatus.completed,
-          );
-          expect(deleteAccountStatusList, [DeleteAccountStatus.success]);
-          expect(requestErrorList, [RequestError.noNetwork]);
-          expect(updateUserIdStatusList, [UpdateUserIdStatus.alreadyUsed]);
-          expect(backgroundFetchStatusList, [BackgroundFetchStatus.completed]);
-        },
-      );
-    });
+        expect(deleteAccountStatusList, [DeleteAccountStatus.success]);
+        expect(requestErrorList, [RequestError.noNetwork]);
+        expect(updateUserIdStatusList, [UpdateUserIdStatus.alreadyUsed]);
+        expect(backgroundFetchStatusList, [BackgroundFetchStatus.completed]);
+      },
+    );
   });
+});
 }

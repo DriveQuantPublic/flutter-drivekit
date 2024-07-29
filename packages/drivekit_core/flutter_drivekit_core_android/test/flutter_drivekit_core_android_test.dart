@@ -136,135 +136,157 @@ void main() {
       verify(() => androidCoreApi.disableLogging()).called(1);
     });
 
-    group('DriveKitListener', () {
-      test('can listen several listeners', () async {
-        var onConnectedCount = 0;
-        var onDisconnectedCount = 0;
-        var onAccountDeletedCount = 0;
-        var onAuthenticationErrorCount = 0;
-        var onBackgroundFetchStatusChangedCount = 0;
-        var userIdUpdateStatusCount = 0;
+    test('returns correct log file URI when platform implementation exists',
+        () async {
+      final logFileUri = LogFileUri(
+        platform: PlatformType.android,
+        uri: Uri.parse('file://log.txt'),
+      );
+      when(() => androidCoreApi.getLogUriFile())
+          .thenAnswer((_) async => 'file://log.txt');
+
+      final actualLogFileUri =
+          await DrivekitCorePlatform.instance.getLogUriFile();
+      expect(actualLogFileUri?.platform, equals(logFileUri.platform));
+      expect(actualLogFileUri?.uri, equals(logFileUri.uri));
+    });
+
+    test('returns null when no log file URI is available', () async {
+      when(() => androidCoreApi.getLogUriFile()).thenAnswer((_) async => null);
+
+      final actualLogFileUri =
+          await DrivekitCorePlatform.instance.getLogUriFile();
+      expect(actualLogFileUri, isNull);
+    });
+  });
+  group('DriveKitListener', () {
+    test('can listen several listeners', () async {
+      var onConnectedCount = 0;
+      var onDisconnectedCount = 0;
+      var onAccountDeletedCount = 0;
+      var onAuthenticationErrorCount = 0;
+      var onBackgroundFetchStatusChangedCount = 0;
+      var userIdUpdateStatusCount = 0;
+      //test
+      DrivekitCorePlatform.instance.addDriveKitListener(
+        DriveKitListener(
+          onConnected: () {
+            onConnectedCount++;
+          },
+          onAccountDeleted: (status) {
+            onAccountDeletedCount++;
+          },
+          onAuthenticationError: (errorType) {
+            onAuthenticationErrorCount++;
+          },
+          onBackgroundFetchStatusChanged: (status) {
+            onBackgroundFetchStatusChangedCount++;
+          },
+          onDisconnected: () {
+            onDisconnectedCount++;
+          },
+          userIdUpdateStatus: (status, userId) {
+            userIdUpdateStatusCount++;
+          },
+        ),
+      );
+      flutterCoreApi.onConnected();
+      expect(onConnectedCount, 1);
+      expect(onDisconnectedCount, 0);
+
+      flutterCoreApi.onDisconnected();
+      expect(onDisconnectedCount, 1);
+
+      flutterCoreApi.onAccountDeleted(PigeonDeleteAccountStatus.success);
+      expect(onAccountDeletedCount, 1);
+
+      flutterCoreApi.onAuthenticationError(PigeonRequestError.noNetwork);
+      expect(onAuthenticationErrorCount, 1);
+
+      flutterCoreApi.userIdUpdateStatus(
+        PigeonUpdateUserIdStatus.alreadyUsed,
+        null,
+      );
+      expect(userIdUpdateStatusCount, 1);
+
+      DrivekitCorePlatform.instance.addDriveKitListener(
+        DriveKitListener(
+          onConnected: () {
+            onConnectedCount++;
+          },
+          onAccountDeleted: (status) {
+            onAccountDeletedCount++;
+          },
+          onAuthenticationError: (errorType) {
+            onAuthenticationErrorCount++;
+          },
+          onBackgroundFetchStatusChanged: (status) {
+            onBackgroundFetchStatusChangedCount++;
+          },
+          onDisconnected: () {
+            onDisconnectedCount++;
+          },
+          userIdUpdateStatus: (status, userId) {
+            userIdUpdateStatusCount++;
+          },
+        ),
+      );
+      flutterCoreApi.onConnected();
+      expect(onConnectedCount, 3);
+
+      flutterCoreApi.onDisconnected();
+      expect(onDisconnectedCount, 3);
+
+      flutterCoreApi.onAccountDeleted(PigeonDeleteAccountStatus.success);
+      expect(onAccountDeletedCount, 3);
+
+      flutterCoreApi.onAuthenticationError(PigeonRequestError.noNetwork);
+      expect(onAuthenticationErrorCount, 3);
+
+      flutterCoreApi.userIdUpdateStatus(
+        PigeonUpdateUserIdStatus.alreadyUsed,
+        null,
+      );
+      expect(userIdUpdateStatusCount, 3);
+
+      // onBackgroundFetchStatusChanged is not supported on Android
+      expect(onBackgroundFetchStatusChangedCount, 0);
+    });
+
+    test(
+      'listener callbacks are transmitted with the right arguments',
+          () async {
+        final deleteAccountStatusList = <DeleteAccountStatus>[];
+        final requestErrorList = <RequestError>[];
+        final updateUserIdStatusList = <UpdateUserIdStatus>[];
         //test
         DrivekitCorePlatform.instance.addDriveKitListener(
           DriveKitListener(
-            onConnected: () {
-              onConnectedCount++;
-            },
-            onAccountDeleted: (status) {
-              onAccountDeletedCount++;
-            },
-            onAuthenticationError: (errorType) {
-              onAuthenticationErrorCount++;
-            },
-            onBackgroundFetchStatusChanged: (status) {
-              onBackgroundFetchStatusChangedCount++;
-            },
-            onDisconnected: () {
-              onDisconnectedCount++;
-            },
+            onAccountDeleted: deleteAccountStatusList.add,
+            onAuthenticationError: requestErrorList.add,
             userIdUpdateStatus: (status, userId) {
-              userIdUpdateStatusCount++;
+              updateUserIdStatusList.add(status);
             },
           ),
         );
-        flutterCoreApi.onConnected();
-        expect(onConnectedCount, 1);
-        expect(onDisconnectedCount, 0);
-
-        flutterCoreApi.onDisconnected();
-        expect(onDisconnectedCount, 1);
-
         flutterCoreApi.onAccountDeleted(PigeonDeleteAccountStatus.success);
-        expect(onAccountDeletedCount, 1);
+        expect(deleteAccountStatusList, [DeleteAccountStatus.success]);
+        expect(requestErrorList, <RequestError>[]);
+        expect(updateUserIdStatusList, <UpdateUserIdStatus>[]);
 
         flutterCoreApi.onAuthenticationError(PigeonRequestError.noNetwork);
-        expect(onAuthenticationErrorCount, 1);
+        expect(deleteAccountStatusList, [DeleteAccountStatus.success]);
+        expect(requestErrorList, [RequestError.noNetwork]);
+        expect(updateUserIdStatusList, <UpdateUserIdStatus>[]);
 
         flutterCoreApi.userIdUpdateStatus(
           PigeonUpdateUserIdStatus.alreadyUsed,
           null,
         );
-        expect(userIdUpdateStatusCount, 1);
-
-        DrivekitCorePlatform.instance.addDriveKitListener(
-          DriveKitListener(
-            onConnected: () {
-              onConnectedCount++;
-            },
-            onAccountDeleted: (status) {
-              onAccountDeletedCount++;
-            },
-            onAuthenticationError: (errorType) {
-              onAuthenticationErrorCount++;
-            },
-            onBackgroundFetchStatusChanged: (status) {
-              onBackgroundFetchStatusChangedCount++;
-            },
-            onDisconnected: () {
-              onDisconnectedCount++;
-            },
-            userIdUpdateStatus: (status, userId) {
-              userIdUpdateStatusCount++;
-            },
-          ),
-        );
-        flutterCoreApi.onConnected();
-        expect(onConnectedCount, 3);
-
-        flutterCoreApi.onDisconnected();
-        expect(onDisconnectedCount, 3);
-
-        flutterCoreApi.onAccountDeleted(PigeonDeleteAccountStatus.success);
-        expect(onAccountDeletedCount, 3);
-
-        flutterCoreApi.onAuthenticationError(PigeonRequestError.noNetwork);
-        expect(onAuthenticationErrorCount, 3);
-
-        flutterCoreApi.userIdUpdateStatus(
-          PigeonUpdateUserIdStatus.alreadyUsed,
-          null,
-        );
-        expect(userIdUpdateStatusCount, 3);
-
-        // onBackgroundFetchStatusChanged is not supported on Android
-        expect(onBackgroundFetchStatusChangedCount, 0);
-      });
-
-      test(
-        'listener callbacks are transmitted with the right arguments',
-        () async {
-          final deleteAccountStatusList = <DeleteAccountStatus>[];
-          final requestErrorList = <RequestError>[];
-          final updateUserIdStatusList = <UpdateUserIdStatus>[];
-          //test
-          DrivekitCorePlatform.instance.addDriveKitListener(
-            DriveKitListener(
-              onAccountDeleted: deleteAccountStatusList.add,
-              onAuthenticationError: requestErrorList.add,
-              userIdUpdateStatus: (status, userId) {
-                updateUserIdStatusList.add(status);
-              },
-            ),
-          );
-          flutterCoreApi.onAccountDeleted(PigeonDeleteAccountStatus.success);
-          expect(deleteAccountStatusList, [DeleteAccountStatus.success]);
-          expect(requestErrorList, <RequestError>[]);
-          expect(updateUserIdStatusList, <UpdateUserIdStatus>[]);
-
-          flutterCoreApi.onAuthenticationError(PigeonRequestError.noNetwork);
-          expect(deleteAccountStatusList, [DeleteAccountStatus.success]);
-          expect(requestErrorList, [RequestError.noNetwork]);
-          expect(updateUserIdStatusList, <UpdateUserIdStatus>[]);
-
-          flutterCoreApi.userIdUpdateStatus(
-            PigeonUpdateUserIdStatus.alreadyUsed,
-            null,
-          );
-          expect(deleteAccountStatusList, [DeleteAccountStatus.success]);
-          expect(requestErrorList, [RequestError.noNetwork]);
-          expect(updateUserIdStatusList, [UpdateUserIdStatus.alreadyUsed]);
-        },
-      );
-    });
+        expect(deleteAccountStatusList, [DeleteAccountStatus.success]);
+        expect(requestErrorList, [RequestError.noNetwork]);
+        expect(updateUserIdStatusList, [UpdateUserIdStatus.alreadyUsed]);
+      },
+    );
   });
 }
