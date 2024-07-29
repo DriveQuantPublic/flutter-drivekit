@@ -131,89 +131,92 @@ void main() {
           .getMonitorPotentialTripStart();
       verify(() => iOSTripAnalysisApi.getMonitorPotentialTripStart()).called(1);
       expect(isActivated, false);
-    test('setVehicle calls iOS implementation', () async {
-      //mock
-      const mockVehicle = Vehicle();
-      when(() => iOSTripAnalysisApi.setVehicle(any())).thenAnswer((_) async {});
+      test('setVehicle calls iOS implementation', () async {
+        //mock
+        const mockVehicle = Vehicle();
+        when(() => iOSTripAnalysisApi.setVehicle(any()))
+            .thenAnswer((_) async {});
 
-      //test
-      await DrivekitTripAnalysisPlatform.instance.setVehicle(mockVehicle);
-      verify(
-        () => iOSTripAnalysisApi.setVehicle(any()),
-      ).called(1);
-    });
+        //test
+        await DrivekitTripAnalysisPlatform.instance.setVehicle(mockVehicle);
+        verify(
+          () => iOSTripAnalysisApi.setVehicle(any()),
+        ).called(1);
+      });
 
-    test('vehicle toPigeonImplementation includes all attributes', () {
-      //mock
-      const vehicle = Vehicle(
-        carTypeIndex: 0,
-        carEngineIndex: 2,
-        carPower: 3,
-        carMass: 4,
-        carGearboxIndex: 5,
-        carConsumption: 6.5,
-        carAutoGearboxNumber: 1,
-        engineDisplacement: 7,
-        carPassengers: 2,
-        dqIndex: 'dq',
-        sra: 'sra',
-        frontTireSize: '200/59/13',
-        rearTireSize: '215/35/26',
-        length: 8.5,
-        width: 9.8,
-        height: 10.45,
-        engineCylinderNb: 11,
-        driveWheels: 12,
-      );
+      test('vehicle toPigeonImplementation includes all attributes', () {
+        //mock
+        const vehicle = Vehicle(
+          carTypeIndex: 0,
+          carEngineIndex: 2,
+          carPower: 3,
+          carMass: 4,
+          carGearboxIndex: 5,
+          carConsumption: 6.5,
+          carAutoGearboxNumber: 1,
+          engineDisplacement: 7,
+          carPassengers: 2,
+          dqIndex: 'dq',
+          sra: 'sra',
+          frontTireSize: '200/59/13',
+          rearTireSize: '215/35/26',
+          length: 8.5,
+          width: 9.8,
+          height: 10.45,
+          engineCylinderNb: 11,
+          driveWheels: 12,
+        );
 
-      //test
-      final pigeonVehicle = vehicle.toPigeonImplementation();
-      expect(pigeonVehicle.carTypeIndex, vehicle.carTypeIndex);
-      expect(pigeonVehicle.carEngineIndex, vehicle.carEngineIndex);
-      expect(pigeonVehicle.carPower, vehicle.carPower);
-      expect(pigeonVehicle.carMass, vehicle.carMass);
-      expect(pigeonVehicle.carGearboxIndex, vehicle.carGearboxIndex);
-      expect(pigeonVehicle.carConsumption, vehicle.carConsumption);
-      expect(pigeonVehicle.carAutoGearboxNumber, vehicle.carAutoGearboxNumber);
-      expect(pigeonVehicle.engineDisplacement, vehicle.engineDisplacement);
-      expect(pigeonVehicle.carPassengers, vehicle.carPassengers);
-      expect(pigeonVehicle.dqIndex, vehicle.dqIndex);
-      expect(pigeonVehicle.sra, vehicle.sra);
-      expect(pigeonVehicle.frontTireSize, vehicle.frontTireSize);
-      expect(pigeonVehicle.rearTireSize, vehicle.rearTireSize);
-      expect(pigeonVehicle.length, vehicle.length);
-      expect(pigeonVehicle.width, vehicle.width);
-      expect(pigeonVehicle.height, vehicle.height);
-      expect(pigeonVehicle.engineCylinderNb, vehicle.engineCylinderNb);
-      expect(pigeonVehicle.driveWheels, vehicle.driveWheels);
-    });
+        //test
+        final pigeonVehicle = vehicle.toPigeonImplementation();
+        expect(pigeonVehicle.carTypeIndex, vehicle.carTypeIndex);
+        expect(pigeonVehicle.carEngineIndex, vehicle.carEngineIndex);
+        expect(pigeonVehicle.carPower, vehicle.carPower);
+        expect(pigeonVehicle.carMass, vehicle.carMass);
+        expect(pigeonVehicle.carGearboxIndex, vehicle.carGearboxIndex);
+        expect(pigeonVehicle.carConsumption, vehicle.carConsumption);
+        expect(
+            pigeonVehicle.carAutoGearboxNumber, vehicle.carAutoGearboxNumber);
+        expect(pigeonVehicle.engineDisplacement, vehicle.engineDisplacement);
+        expect(pigeonVehicle.carPassengers, vehicle.carPassengers);
+        expect(pigeonVehicle.dqIndex, vehicle.dqIndex);
+        expect(pigeonVehicle.sra, vehicle.sra);
+        expect(pigeonVehicle.frontTireSize, vehicle.frontTireSize);
+        expect(pigeonVehicle.rearTireSize, vehicle.rearTireSize);
+        expect(pigeonVehicle.length, vehicle.length);
+        expect(pigeonVehicle.width, vehicle.width);
+        expect(pigeonVehicle.height, vehicle.height);
+        expect(pigeonVehicle.engineCylinderNb, vehicle.engineCylinderNb);
+        expect(pigeonVehicle.driveWheels, vehicle.driveWheels);
+      });
 
-    test(
-        'null vehicle.toPigeonImplementation includes null attributes'
-        ' and includes default attributes value if not possible to be null',
-        () {
-      const vehicle = Vehicle();
+      test(
+          'null vehicle.toPigeonImplementation includes null attributes'
+          ' and includes default attributes value if not possible to be null',
+          () {
+        const vehicle = Vehicle();
 
-      //test
-      final pigeonVehicle = vehicle.toPigeonImplementation();
-      expect(pigeonVehicle.carTypeIndex, 1);
-      expect(pigeonVehicle.carEngineIndex, 1);
-      expect(pigeonVehicle.carPower, 150);
-      expect(pigeonVehicle.carMass, 1400);
-      expect(pigeonVehicle.carGearboxIndex, 2);
-      expect(pigeonVehicle.carConsumption, 4.5);
-      expect(pigeonVehicle.carAutoGearboxNumber, 0);
-      expect(pigeonVehicle.engineDisplacement, 1200);
-      expect(pigeonVehicle.carPassengers, 1);
-      expect(pigeonVehicle.dqIndex, isNull);
-      expect(pigeonVehicle.sra, isNull);
-      expect(pigeonVehicle.frontTireSize, isNull);
-      expect(pigeonVehicle.rearTireSize, isNull);
-      expect(pigeonVehicle.length, 4.5);
-      expect(pigeonVehicle.width, 1.8);
-      expect(pigeonVehicle.height, 1.45);
-      expect(pigeonVehicle.engineCylinderNb, 4);
-      expect(pigeonVehicle.driveWheels, 0);
+        //test
+        final pigeonVehicle = vehicle.toPigeonImplementation();
+        expect(pigeonVehicle.carTypeIndex, 1);
+        expect(pigeonVehicle.carEngineIndex, 1);
+        expect(pigeonVehicle.carPower, 150);
+        expect(pigeonVehicle.carMass, 1400);
+        expect(pigeonVehicle.carGearboxIndex, 2);
+        expect(pigeonVehicle.carConsumption, 4.5);
+        expect(pigeonVehicle.carAutoGearboxNumber, 0);
+        expect(pigeonVehicle.engineDisplacement, 1200);
+        expect(pigeonVehicle.carPassengers, 1);
+        expect(pigeonVehicle.dqIndex, isNull);
+        expect(pigeonVehicle.sra, isNull);
+        expect(pigeonVehicle.frontTireSize, isNull);
+        expect(pigeonVehicle.rearTireSize, isNull);
+        expect(pigeonVehicle.length, 4.5);
+        expect(pigeonVehicle.width, 1.8);
+        expect(pigeonVehicle.height, 1.45);
+        expect(pigeonVehicle.engineCylinderNb, 4);
+        expect(pigeonVehicle.driveWheels, 0);
+      });
     });
   });
 }
