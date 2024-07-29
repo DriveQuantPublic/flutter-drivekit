@@ -11,10 +11,10 @@ class SliverCancelTrip extends StatefulWidget {
 class _SliverCancelTripState extends State<SliverCancelTrip> {
   @override
   Widget build(BuildContext context) {
-    return const SliverToBoxAdapter(
+    return SliverToBoxAdapter(
       child: ElevatedButton(
-        onPressed: DrivekitTripAnalysis.cancelTrip,
-        child: Text('Cancel Trip'),
+        onPressed: DrivekitTripAnalysis.instance.cancelTrip,
+        child: const Text('Cancel Trip'),
       ),
     );
   }

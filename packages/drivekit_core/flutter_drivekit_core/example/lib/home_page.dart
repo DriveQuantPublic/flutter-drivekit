@@ -17,6 +17,7 @@ import 'package:drivekit_core_example/widgets/sliver_set_user_id.dart';
 import 'package:drivekit_core_example/widgets/sliver_start_trip.dart';
 import 'package:drivekit_core_example/widgets/sliver_stop_trip.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_drivekit_core/flutter_drivekit_core.dart';
 import 'package:gap/gap.dart';
 
 class HomePage extends StatelessWidget {
@@ -124,5 +125,84 @@ class HomePage extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class _InitializeListeners extends StatefulWidget {
+  const _InitializeListeners({required this.child});
+
+  final Widget child;
+
+  @override
+  State<_InitializeListeners> createState() => __InitializeListenersState();
+}
+
+class __InitializeListenersState extends State<_InitializeListeners> {
+  @override
+  void initState() {
+    super.initState();
+    DriveKitCore.instance.addDriveKitListener(
+      DriveKitListener(
+        onConnected: () {
+          if (context.mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('DriveKit connected'),
+              ),
+            );
+          }
+        },
+        onDisconnected: () {
+          if (context.mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('DriveKit disconnected'),
+              ),
+            );
+          }
+        },
+        userIdUpdateStatus: (status, userId) {
+          if (context.mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('User ID update status: $status'),
+              ),
+            );
+          }
+        },
+        onAuthenticationError: (errorType) {
+          if (context.mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Authentication error: $errorType'),
+              ),
+            );
+          }
+        },
+        onAccountDeleted: (status) {
+          if (context.mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Account deletion status: $status'),
+              ),
+            );
+          }
+        },
+        onBackgroundFetchStatusChanged: (status) {
+          if (context.mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Background fetch status: $status'),
+              ),
+            );
+          }
+        },
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return widget.child;
   }
 }

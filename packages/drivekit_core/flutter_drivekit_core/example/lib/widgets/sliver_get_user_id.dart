@@ -14,7 +14,7 @@ class _SliverGetUserIdState extends State<SliverGetUserId> {
     return SliverToBoxAdapter(
       child: ElevatedButton(
         onPressed: () async {
-          final userId = await DriveKitCore.getUserId();
+          final userId = await DriveKitCore.instance.getUserId();
           if (context.mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(

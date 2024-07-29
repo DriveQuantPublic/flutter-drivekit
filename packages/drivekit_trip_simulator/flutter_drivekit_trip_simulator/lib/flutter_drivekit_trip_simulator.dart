@@ -6,6 +6,12 @@ DrivekitTripSimulatorPlatform get _platform =>
 /// The main class of the plugin.
 /// This class provides methods to interact with the DriveKit TripSimulator SDK.
 class DriveKitTripSimulator {
+  const DriveKitTripSimulator._();
+
+  /// unique instance of the DrivekitTripSimulator
+  static DriveKitTripSimulator get instance => _instance;
+  static const DriveKitTripSimulator _instance = DriveKitTripSimulator._();
+
   /// Returns the name of the current platform.
   Future<String> getPlatformName() => _platform.getPlatformName();
 }

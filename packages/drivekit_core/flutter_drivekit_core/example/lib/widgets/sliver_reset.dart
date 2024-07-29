@@ -15,7 +15,7 @@ class _SliverResetState extends State<SliverReset> {
       child: ElevatedButton(
         onPressed: () async {
           if (!context.mounted) return;
-          await DriveKitCore.reset();
+          await DriveKitCore.instance.reset();
         },
         child: const Text('Reset'),
       ),
