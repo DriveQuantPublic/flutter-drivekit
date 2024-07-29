@@ -5,9 +5,9 @@ DrivekitTripAnalysisPlatform get _platform =>
 
 /// The main class of the plugin.
 /// This class provides methods to interact with the DriveKit Trip Analysis SDK.
-class DrivekitTripAnalysis {
+abstract final class DrivekitTripAnalysis {
   /// Returns the name of the current platform.
-  Future<String> getPlatformName() => _platform.getPlatformName();
+  static Future<String> getPlatformName() => _platform.getPlatformName();
 
   /// The automatic mode detects vehicle movements and triggers the trip
   /// analysis without driver intervention while the application is in
@@ -18,7 +18,7 @@ class DrivekitTripAnalysis {
   ///
   /// By default, automatic trip detection is disabled, but you can enable it by
   /// calling the following method with the enable parameter to true
-  Future<void> activateAutoStart(bool activate) async {
+  static Future<void> activateAutoStart(bool activate) async {
     await _platform.activateAutoStart(activate);
   }
 
@@ -31,12 +31,12 @@ class DrivekitTripAnalysis {
   ///
   /// You can activate the feature by calling the following method with the
   /// activate parameter to true
-  Future<void> activateCrashDetection(bool activate) async {
+  static Future<void> activateCrashDetection(bool activate) async {
     await _platform.activateCrashDetection(activate);
   }
 
   /// You can start a trip by calling startTrip method
-  Future<void> startTrip() async {
+  static Future<void> startTrip() async {
     await _platform.startTrip();
   }
 
@@ -44,7 +44,7 @@ class DrivekitTripAnalysis {
   /// immediately end the trip and it will be sent to DriveQuant's backend to be
   /// analyzed.
   /// If no trip is currently being analyzed, calling this method has no effect.
-  Future<void> stopTrip() async {
+  static Future<void> stopTrip() async {
     await _platform.stopTrip();
   }
 
@@ -52,13 +52,13 @@ class DrivekitTripAnalysis {
   /// immediately end the trip and it will not be analyzed by DriveQuant's
   /// backend.
   /// If no trip is currently being analyzed, calling this method has no effect.
-  Future<void> cancelTrip() async {
+  static Future<void> cancelTrip() async {
     await _platform.cancelTrip();
   }
 
   /// This method returns false if the SDK is in INACTIVE state,
   /// and no trip is currently running.
-  Future<bool> isTripRunning() async {
+  static Future<bool> isTripRunning() async {
     return _platform.isTripRunning();
   }
 }

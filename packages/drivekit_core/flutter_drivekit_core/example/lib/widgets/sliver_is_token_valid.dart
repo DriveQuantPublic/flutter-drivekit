@@ -11,11 +11,10 @@ class SliverTokenValidity extends StatefulWidget {
 class _SliverTokenValidityState extends State<SliverTokenValidity> {
   @override
   Widget build(BuildContext context) {
-    final driveKitCore = DriveKitCore();
     return SliverToBoxAdapter(
       child: ElevatedButton(
         onPressed: () async {
-          final isValid = await driveKitCore.isTokenValid();
+          final isValid = await DriveKitCore.isTokenValid();
           final alertMessage = isValid
               ? 'Token is valid : user is connected'
               : 'Token is not valid : user is not connected';

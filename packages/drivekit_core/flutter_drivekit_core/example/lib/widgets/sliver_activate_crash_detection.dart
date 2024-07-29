@@ -16,7 +16,6 @@ class _SliverActivateCrashDetectionState
 
   @override
   Widget build(BuildContext context) {
-    final driveKitTripAnalysis = DrivekitTripAnalysis();
     return SliverToBoxAdapter(
       child: Row(
         children: [
@@ -25,7 +24,7 @@ class _SliverActivateCrashDetectionState
           Switch(
             value: _activateCrashDetection,
             onChanged: (value) {
-              driveKitTripAnalysis.activateCrashDetection(value);
+              DrivekitTripAnalysis.activateCrashDetection(value);
               setState(() {
                 _activateCrashDetection = value;
               });

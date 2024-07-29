@@ -14,7 +14,6 @@ class _SliverAutoStartState extends State<SliverAutoStart> {
 
   @override
   Widget build(BuildContext context) {
-    final driveKitTripAnalysis = DrivekitTripAnalysis();
     return SliverToBoxAdapter(
       child: Row(
         children: [
@@ -23,7 +22,7 @@ class _SliverAutoStartState extends State<SliverAutoStart> {
           Switch(
             value: _autoStart,
             onChanged: (value) {
-              driveKitTripAnalysis.activateAutoStart(value);
+              DrivekitTripAnalysis.activateAutoStart(value);
               setState(() {
                 _autoStart = value;
               });
