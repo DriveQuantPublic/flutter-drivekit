@@ -64,6 +64,8 @@ abstract final class DriveKitCore {
   /// Adds a listener on DriveKit core.
   /// See [DriveKitListener] to know which callbacks are available
   static void addDriveKitListener(DriveKitListener listener) {
-    _platform.addDriveKitListener(listener);
+    _platform
+      ..initializePlatform()
+      ..addDriveKitListener(listener);
   }
 }
