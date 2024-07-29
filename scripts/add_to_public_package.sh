@@ -109,7 +109,7 @@ fi
 
 # Insert the last method at the end of Api class
 sed -i '' "/class $api_class_name/,/^}/ {/^}/i\\
-$final_return_type $method_name($method_arguments) => _platform.$method_name($method_arguments_call); 
+static $final_return_type $method_name($method_arguments) => _platform.$method_name($method_arguments_call);
 }" "$api_file"
 
 # Format the api.dart file
