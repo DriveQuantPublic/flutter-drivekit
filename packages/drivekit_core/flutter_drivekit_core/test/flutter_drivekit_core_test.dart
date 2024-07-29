@@ -4,12 +4,18 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
+import 'mocks/mocks.dart';
+
 class MockDrivekitCorePlatform extends Mock
     with MockPlatformInterfaceMixin
     implements DrivekitCorePlatform {}
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+
+  setUpAll(() {
+    registerFallbackValue(MockDriveKitListener());
+  });
 
   group('DrivekitCore', () {
     late DrivekitCorePlatform drivekitCorePlatform;
@@ -108,6 +114,18 @@ void main() {
 
         await DriveKitCore.disableLogging();
         verify(() => drivekitCorePlatform.disableLogging());
+      });
+    });
+
+    group('listener', () {
+      test('addListener', () async {
+        final listener = DriveKitListener(
+          onConnected: () {},
+        );
+        when(() => drivekitCorePlatform.addDriveKitListener(any()))
+            .thenAnswer((_) async {});
+        DriveKitCore.addDriveKitListener(listener);
+        verify(() => drivekitCorePlatform.addDriveKitListener(listener));
       });
     });
   });
