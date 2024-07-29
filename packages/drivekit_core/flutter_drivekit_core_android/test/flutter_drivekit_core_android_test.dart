@@ -119,6 +119,8 @@ void main() {
       verifyNever(
         () => androidCoreApi.enableLogging(
           // ignore: avoid_redundant_argument_values
+          showInConsole: true,
+          // ignore: avoid_redundant_argument_values
           androidLogPath: '/DriveKit',
         ),
       );

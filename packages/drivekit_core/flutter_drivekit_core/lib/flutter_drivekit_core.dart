@@ -59,12 +59,12 @@ abstract final class DriveKitCore {
   /// and is useful in the support phase.
   /// However, if you don't want to use it, it can be disabled.
   static Future<void> enableLogging({
-    String androidLogPath = '/DriveKit',
     bool showInConsole = true,
+    String androidLogPath = '/DriveKit',
   }) =>
       _platform.enableLogging(
-        androidLogPath: androidLogPath,
         showInConsole: showInConsole,
+        androidLogPath: androidLogPath,
       );
 
   /// You can disable the DriveKit logging by calling.

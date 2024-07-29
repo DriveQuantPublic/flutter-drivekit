@@ -15,9 +15,9 @@ class _SliverEnableLoggingState extends State<SliverEnableLogging> {
       child: ElevatedButton(
         onPressed: () async {
           await DriveKitCore.enableLogging(
-            androidLogPath: '/YouDriveKitFolder',
             // ignore: avoid_redundant_argument_values
             showInConsole: true,
+            androidLogPath: '/YouDriveKitFolder',
           );
         },
         child: const Text(

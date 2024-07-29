@@ -105,8 +105,8 @@ void main() {
       test('enable logging', () async {
         when(
           () => drivekitCorePlatform.enableLogging(
-            androidLogPath: '/testLogPath',
             showInConsole: false,
+            androidLogPath: '/testLogPath',
           ),
         ).thenAnswer((_) async {});
 
@@ -116,16 +116,16 @@ void main() {
         );
         verify(
           () => drivekitCorePlatform.enableLogging(
-            androidLogPath: '/testLogPath',
             showInConsole: false,
+            androidLogPath: '/testLogPath',
           ),
         ).called(1);
         verifyNever(
           () => drivekitCorePlatform.enableLogging(
             // ignore: avoid_redundant_argument_values
-            androidLogPath: '/DriveKit',
-            // ignore: avoid_redundant_argument_values
             showInConsole: true,
+            // ignore: avoid_redundant_argument_values
+            androidLogPath: '/DriveKit',
           ),
         );
       });
