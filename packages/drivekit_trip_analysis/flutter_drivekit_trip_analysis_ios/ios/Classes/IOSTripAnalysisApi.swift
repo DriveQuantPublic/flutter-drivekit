@@ -63,10 +63,113 @@ private func nilOrValue<T>(_ value: Any?) -> T? {
   if value is NSNull { return nil }
   return value as! T?
 }
+
+/// Generated class from Pigeon that represents data sent in messages.
+struct PigeonVehicle {
+  var carTypeIndex: Int64
+  var carEngineIndex: Int64
+  var carPower: Double
+  var carMass: Double
+  var carGearboxIndex: Int64
+  var carConsumption: Double
+  var carAutoGearboxNumber: Int64
+  var engineDisplacement: Double
+  var carPassengers: Int64
+  var dqIndex: String? = nil
+  var sra: String? = nil
+  var frontTireSize: String? = nil
+  var rearTireSize: String? = nil
+  var length: Double
+  var width: Double
+  var height: Double
+  var engineCylinderNb: Int64
+  var driveWheels: Int64
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ __pigeon_list: [Any?]) -> PigeonVehicle? {
+    let carTypeIndex = __pigeon_list[0] is Int64 ? __pigeon_list[0] as! Int64 : Int64(__pigeon_list[0] as! Int32)
+    let carEngineIndex = __pigeon_list[1] is Int64 ? __pigeon_list[1] as! Int64 : Int64(__pigeon_list[1] as! Int32)
+    let carPower = __pigeon_list[2] as! Double
+    let carMass = __pigeon_list[3] as! Double
+    let carGearboxIndex = __pigeon_list[4] is Int64 ? __pigeon_list[4] as! Int64 : Int64(__pigeon_list[4] as! Int32)
+    let carConsumption = __pigeon_list[5] as! Double
+    let carAutoGearboxNumber = __pigeon_list[6] is Int64 ? __pigeon_list[6] as! Int64 : Int64(__pigeon_list[6] as! Int32)
+    let engineDisplacement = __pigeon_list[7] as! Double
+    let carPassengers = __pigeon_list[8] is Int64 ? __pigeon_list[8] as! Int64 : Int64(__pigeon_list[8] as! Int32)
+    let dqIndex: String? = nilOrValue(__pigeon_list[9])
+    let sra: String? = nilOrValue(__pigeon_list[10])
+    let frontTireSize: String? = nilOrValue(__pigeon_list[11])
+    let rearTireSize: String? = nilOrValue(__pigeon_list[12])
+    let length = __pigeon_list[13] as! Double
+    let width = __pigeon_list[14] as! Double
+    let height = __pigeon_list[15] as! Double
+    let engineCylinderNb = __pigeon_list[16] is Int64 ? __pigeon_list[16] as! Int64 : Int64(__pigeon_list[16] as! Int32)
+    let driveWheels = __pigeon_list[17] is Int64 ? __pigeon_list[17] as! Int64 : Int64(__pigeon_list[17] as! Int32)
+
+    return PigeonVehicle(
+      carTypeIndex: carTypeIndex,
+      carEngineIndex: carEngineIndex,
+      carPower: carPower,
+      carMass: carMass,
+      carGearboxIndex: carGearboxIndex,
+      carConsumption: carConsumption,
+      carAutoGearboxNumber: carAutoGearboxNumber,
+      engineDisplacement: engineDisplacement,
+      carPassengers: carPassengers,
+      dqIndex: dqIndex,
+      sra: sra,
+      frontTireSize: frontTireSize,
+      rearTireSize: rearTireSize,
+      length: length,
+      width: width,
+      height: height,
+      engineCylinderNb: engineCylinderNb,
+      driveWheels: driveWheels
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      carTypeIndex,
+      carEngineIndex,
+      carPower,
+      carMass,
+      carGearboxIndex,
+      carConsumption,
+      carAutoGearboxNumber,
+      engineDisplacement,
+      carPassengers,
+      dqIndex,
+      sra,
+      frontTireSize,
+      rearTireSize,
+      length,
+      width,
+      height,
+      engineCylinderNb,
+      driveWheels,
+    ]
+  }
+}
 private class IOSTripAnalysisApiPigeonCodecReader: FlutterStandardReader {
+  override func readValue(ofType type: UInt8) -> Any? {
+    switch type {
+    case 129:
+      return PigeonVehicle.fromList(self.readValue() as! [Any?])
+    default:
+      return super.readValue(ofType: type)
+    }
+  }
 }
 
 private class IOSTripAnalysisApiPigeonCodecWriter: FlutterStandardWriter {
+  override func writeValue(_ value: Any) {
+    if let value = value as? PigeonVehicle {
+      super.writeByte(129)
+      super.writeValue(value.toList())
+    } else {
+      super.writeValue(value)
+    }
+  }
 }
 
 private class IOSTripAnalysisApiPigeonCodecReaderWriter: FlutterStandardReaderWriter {
@@ -94,6 +197,7 @@ protocol IOSTripAnalysisApi {
   func isTripRunning() throws -> Bool
   func setMonitorPotentialTripStart(activate: Bool) throws
   func getMonitorPotentialTripStart() throws -> Bool
+  func setVehicle(vehicle: PigeonVehicle) throws
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
@@ -224,6 +328,21 @@ class IOSTripAnalysisApiSetup {
       }
     } else {
       getMonitorPotentialTripStartChannel.setMessageHandler(nil)
+    }
+    let setVehicleChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.pigeon_trip_analysis_package.IOSTripAnalysisApi.setVehicle\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      setVehicleChannel.setMessageHandler { message, reply in
+        let args = message as! [Any?]
+        let vehicleArg = args[0] as! PigeonVehicle
+        do {
+          try api.setVehicle(vehicle: vehicleArg)
+          reply(wrapResult(nil))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      setVehicleChannel.setMessageHandler(nil)
     }
   }
 }

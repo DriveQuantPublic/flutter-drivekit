@@ -14,15 +14,13 @@ class _SliverGetMonitorPotentialTripStartState
     extends State<SliverGetMonitorPotentialTripStart> {
   @override
   Widget build(BuildContext context) {
-    final driveKitTripAnalysis = DrivekitTripAnalysis();
-
     return MultiSliver(
       children: [
         SliverToBoxAdapter(
           child: ElevatedButton(
             onPressed: () async {
               final monitorPotentialTripStart =
-                  await driveKitTripAnalysis.getMonitorPotentialTripStart();
+                  await DrivekitTripAnalysis.getMonitorPotentialTripStart();
               if (context.mounted) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(

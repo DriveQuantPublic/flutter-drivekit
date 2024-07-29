@@ -1,4 +1,5 @@
 import 'package:drivekit_core_example/widgets/sliver_activate_crash_detection.dart';
+import 'package:drivekit_core_example/widgets/sliver_add_vehicle.dart';
 import 'package:drivekit_core_example/widgets/sliver_auto_start.dart';
 import 'package:drivekit_core_example/widgets/sliver_cancel_trip.dart';
 import 'package:drivekit_core_example/widgets/sliver_delete_account.dart';
@@ -119,6 +120,11 @@ class HomePage extends StatelessWidget {
           SliverPadding(
             padding: EdgeInsets.symmetric(horizontal: 16),
             sliver: SliverGetMonitorPotentialTripStart(),
+          ),
+          SliverGap(32),
+          SliverPadding(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            sliver: SliverAddVehicle(),
           ),
           SliverGap(32),
         ],

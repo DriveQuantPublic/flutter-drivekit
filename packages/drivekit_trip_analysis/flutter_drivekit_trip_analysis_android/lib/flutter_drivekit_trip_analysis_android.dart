@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter_drivekit_trip_analysis_android/src/adapter.dart';
 import 'package:flutter_drivekit_trip_analysis_android/src/trip_analysis_api.g.dart';
 import 'package:flutter_drivekit_trip_analysis_platform_interface/flutter_drivekit_trip_analysis_platform_interface.dart';
 
@@ -52,4 +53,8 @@ class DrivekitTripAnalysisAndroid extends DrivekitTripAnalysisPlatform {
   @override
   Future<bool> getMonitorPotentialTripStart() =>
       androidTripAnalysisApi.getMonitorPotentialTripStart();
+
+  @override
+  Future<void> setVehicle(Vehicle vehicle) =>
+      androidTripAnalysisApi.setVehicle(vehicle.toPigeonImplementation());
 }

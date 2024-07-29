@@ -55,4 +55,9 @@ class DefaultDrivekitTripAnalysis extends DrivekitTripAnalysisPlatform {
       'getMonitorPotentialTripStart() has not been implemented.',
     );
   }
+
+  @override
+  Future<void> setVehicle(Vehicle vehicle) {
+    throw UnimplementedError('setVehicle() has not been implemented.');
+  }
 }

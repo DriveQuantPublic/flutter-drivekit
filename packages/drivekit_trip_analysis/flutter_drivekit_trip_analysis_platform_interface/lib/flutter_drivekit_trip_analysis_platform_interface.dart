@@ -1,5 +1,8 @@
 import 'package:flutter_drivekit_trip_analysis_platform_interface/src/default_drivekit_trip_analysis.dart';
+import 'package:flutter_drivekit_trip_analysis_platform_interface/src/model.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
+
+export 'package:flutter_drivekit_trip_analysis_platform_interface/src/model.dart';
 
 /// The interface that implementations of drivekit_trip_analysis must implement.
 ///
@@ -59,4 +62,7 @@ abstract class DrivekitTripAnalysisPlatform extends PlatformInterface {
 
   /// Returns true if the monitor potential trip is activated.
   Future<bool> getMonitorPotentialTripStart();
+
+  /// Set the user's vehicle.
+  Future<void> setVehicle(Vehicle vehicle);
 }

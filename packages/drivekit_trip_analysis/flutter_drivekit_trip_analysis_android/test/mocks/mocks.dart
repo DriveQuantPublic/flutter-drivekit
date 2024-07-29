@@ -3,3 +3,5 @@ import 'package:mocktail/mocktail.dart';
 
 class MockAndroidTripAnalysisApi extends Mock
     implements AndroidTripAnalysisApi {}
+
+class MockPigeonVehicle extends Mock implements PigeonVehicle {}

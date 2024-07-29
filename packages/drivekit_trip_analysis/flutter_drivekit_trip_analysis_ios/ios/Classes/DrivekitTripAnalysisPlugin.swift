@@ -46,5 +46,10 @@ public class DrivekitTripAnalysisPlugin: NSObject, FlutterPlugin, IOSTripAnalysi
 
     func getMonitorPotentialTripStart() throws -> Bool {
         return DriveKitTripAnalysis.shared.monitorPotentialTripStart
+        
+    func setVehicle(vehicle: PigeonVehicle) throws {
+        DriveKitTripAnalysis.shared.setVehicle(
+            vehicle: PigeonMapper.initTripVehicle(from: vehicle)
+        )
     }
 }

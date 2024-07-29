@@ -14,16 +14,197 @@ flutter pub add drivekit_core
 
 Now, you can import `'package:flutter_drivekit_core/flutter_drivekit_core.dart'` and use `DriveKitCore` in your Dart code.
 
+### Permissions
+
+Our recommandation is to use [permission_handler]([https://github.com/zoontek/react-native-permissions](https://pub.dev/packages/permission_handler)). You can find an implementation example in the [demo application inside this repository]([../demo/src/hooks/useCheckPermissions.js](https://github.com/DriveQuantPublic/flutter-drivekit/blob/main/packages/drivekit_core/flutter_drivekit_core/example/lib/widgets/sliver_permission_request.dart)).
+
+#### Bluetooth authorization
+
+Even if your app do not use Bluetooth, you **MUST** include usage description on iOS side. For more details, please take a look inside the [native documentation](https://docs.drivequant.com/get-started-drivekit/ios#project-configuration)
+
 ## Usage
 
-First, you need to initialize DriveKitCore with your `apiKey`, and give a unique `userId` to the user.
+To finish the module's initialization, you need to :
+
+1. Specify your API key;
+2. Identify the driver with a unique ID.
 
 ```dart
 final driveKitCore = DriveKitCore()
- driveKitCore.setApiKey(apiKey)
- driveKitCore.setUserId(userId)
+driveKitCore.setApiKey(apiKey)
+driveKitCore.setUserId(userId)
 ```
 
-We recommend to store the API Key in a secure place, and to choose a unique, universal and anonymous user ID (never email address or phone number). For example, you can generate a globally unique identifier ([GUID](https://www.guidgenerator.com/online-guid-generator.aspx)) for each of your users.
-
 Now, you can configure the Drivekit Core with the options you want, and use other Drivekit plugins to start analysing trips.
+
+## API
+
+| Method                                                          | Return Type                        | iOS | Android |
+| --------------------------------------------------------------- | ---------------------------------- | :-: | :-----: |
+| [getApiKey()](#getapikey)                                       | `Future<String?>`                  | ✅  |   ✅    |
+| [setApiKey()](#setapikey)                                       | `Future<void>`                     | ✅  |   ✅    |
+| [getUserId()](#getuserid)                                       | `Future<String?>`                  | ✅  |   ✅    |
+| [setUserId()](#setuserid)                                       | `Future<void>`                     | ✅  |   ✅    |
+| [deleteAccount()](#deleteaccount)                               | `Future<void>`                     | ✅  |   ✅    |
+| [reset()](#reset)                                               | `Future<void>`                     | ✅  |   ✅    |
+| [enableLogging()](#logging)                                     | `Future<void>`                     | ✅  |   ✅    |
+| [disableLogging()](#logging)                                    | `Future<void>`                     | ✅  |   ✅    |
+| [isTokenValid()](#istokenvalid)                                 | `Futur<bool>`                      | ✅  |   ✅    |
+
+### getApiKey
+
+```dart
+Future<String?> getApiKey()
+```
+
+This method can be useful to check which DriveKit API Key you have set in the SDK.
+
+```dart
+final apiKey = await driveKitCore.getApiKey();
+```
+
+### setApiKey
+
+```dart
+Future<void> setApiKey()
+```
+
+To use DriveKit modules, you have to obtain an API Key from DriveQuant. If you don't have an API key, please contact [DriveQuant](mailto:contact@drivequant.com).
+
+Once you've stored your API key in a secure way in your app, you can configure DriveKit by calling the following method:
+
+```dart
+driveKitCore.setApiKey('MyAPIKey');
+```
+
+### getUserId
+
+```dart
+Future<String?> getUserId()
+```
+
+This method can be useful to retrieve the current userId.
+
+```dart
+final userId = await driveKitCore.getUserId();
+```
+
+### setUserId
+
+```dart
+Future<void> setUserId()
+```
+
+Each driver must be identified with a unique identifier. Once you have this identifier, configure DriveKit by calling the following method:
+
+```dart
+driveKitCore.setUserId('MyUniqueUserId);
+```
+
+> ℹ️
+>
+> You can call these 2 configuration methods anywhere in the code. DriveKit will save the value locally. If the app is killed and relaunched, DriveKit will be reconfigured automatically.
+
+> ⚠️
+>
+> We recommend never using an email address or phone number to define the unique user ID. It is recommended that you set up a unique, universal and anonymous user ID. For example, you can generate a globally unique identifier (GUID) for each of your users.
+
+> ⚠️
+>
+> DriveKit SDK will not work until you set the API key and the userId.
+
+### deleteAccount
+
+```dart
+Future<void> deleteAccount({bool instantDeletion = false});
+```
+
+You can delete a driver's account in DriveKit. This action deletes all the data related to the account.
+
+The deletion can be done instantly or with delay.
+
+- In the first case, when the method is called, the account is instantly deleted.
+- In the second case, the driver has 30 days to log back into the application and reactivate his account.
+
+To delete a driver's account, use the following method:
+
+```dart
+await driveKitCore.deleteAccount(instantDeletion: true);
+```
+
+`instantDeletion` can have 2 values:
+
+- `false` : **Default value**, allows the user to recover the deleted account by logging-in again with the same credentials. Users have 30 days starting from the day when the account was deleted.
+- `true` : Allows to delete an account instantly. The account and all the related data will be immediately deleted and no rollback is possible.
+
+> ℹ️
+>
+> Your team needs to have the deletion feature activated to use this method. Please contact DriveQuant if you need it.
+
+### reset
+
+```dart
+Future<void> reset();
+```
+
+If you need to reset DriveKit configuration (user logout for example), you can call the following method:
+
+```dart
+await driveKitCore.reset();
+```
+
+### Logging
+
+```dart
+  Future<void> enableLogging({
+    String androidLogPath = '/DriveKit',
+    bool showInConsole = true,
+  });
+
+  Future<void> disableLogging({bool showInConsole = true});
+```
+
+| Option                    | Default Value | Description                                                               |
+| ------------------------- | ------------- | ------------------------------------------------------------------------- |
+| `bool showInConsole`      | `true`        | set to `false` if you don't want your logs to be displayed in the console |
+| `String androidLogPath`   | `'/DriveKit'` | **android only** - path where the log files will be saved                 |
+
+DriveKit comes with a logging feature that is enabled by default. This feature allows you to quickly identify the cause of a problem. We recommend leaving the log enabled as it does not consume memory space and is useful in the support phase. However, if you don't want to use it, it can be disabled.
+
+> ⚠️ **Android**
+>
+> If your device version is on Android 10 or below, you can directly find the log file in Android/data/<your-app-package-name>/files/<path-to-my-log-directory>
+
+> ℹ️ **iOS**
+>
+> Log will be written in app directory. One log file per month will be written with the name log-\<YEAR\>-\<MONTH\>.txt (example: `log-2019-8.txt`). All DriveKit modules log in this file.
+>
+> You can make files of your application (including DriveKit log files) available in the iOS Files app by adding these 2 keys to your project's Info.plist file: UIFileSharingEnabled and LSSupportsOpeningDocumentsInPlace, setting them both to true.
+
+> ⚠️ **iOS**
+>
+> To write log files on user smartphone, you must add the following entry in your info.plist file `UIFileSharingEnabled` and `LSSupportsOpeningDocumentsInPlace` set to true.
+
+Disable logging by calling:
+
+```dart
+await driveKitCore.disableLogging();
+```
+
+To enable logging, call the following method specifying the path of the log directory.
+
+```dart
+await driveKitCore.enableLogging(androidLogPath: '/YouDriveKitFolder', showInConsole: true);
+```
+
+### isTokenValid
+
+```dart
+Future<bool> isTokenValid();
+```
+
+Once you are connected to the SDK with your key and a user ID, you can check the validity of the generated token by calling:
+
+```dart
+final isValid = await driveKitCore.isTokenValid();
+```

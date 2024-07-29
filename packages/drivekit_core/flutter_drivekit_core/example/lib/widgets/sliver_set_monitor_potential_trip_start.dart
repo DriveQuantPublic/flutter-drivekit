@@ -16,7 +16,6 @@ class _SliverSetMonitorPotentialTripStartState
 
   @override
   Widget build(BuildContext context) {
-    final driveKitTripAnalysis = DrivekitTripAnalysis();
     return SliverToBoxAdapter(
       child: Row(
         children: [
@@ -25,7 +24,7 @@ class _SliverSetMonitorPotentialTripStartState
           Switch(
             value: _monitorPotentialTripStart,
             onChanged: (value) {
-              driveKitTripAnalysis.setMonitorPotentialTripStart(value);
+              DrivekitTripAnalysis.setMonitorPotentialTripStart(value);
               setState(() {
                 _monitorPotentialTripStart = value;
               });
