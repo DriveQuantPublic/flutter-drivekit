@@ -84,7 +84,7 @@ abstract final class DrivekitTripAnalysis {
   ///   height = 1.45,
   ///   engineCylinderNb = 4,
   ///   driveWheels = 0
-  Future<void> setVehicle(Vehicle vehicle) async {
+  static Future<void> setVehicle(Vehicle vehicle) async {
     await _platform.setVehicle(vehicle);
   }
 }

@@ -108,7 +108,7 @@ void main() {
         when(() => drivekitTripAnalysisPlatform.setVehicle(vehicle))
             .thenAnswer((_) async {});
 
-        await driveKitTripAnalysis.setVehicle(vehicle);
+        await DrivekitTripAnalysis.setVehicle(vehicle);
         verify(() => drivekitTripAnalysisPlatform.setVehicle(vehicle));
       });
     });
