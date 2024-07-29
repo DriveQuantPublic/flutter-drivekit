@@ -60,6 +60,10 @@ public class DrivekitCorePlugin: NSObject, FlutterPlugin, IOSCoreApi {
         DriveKit.shared.disableLogging(showInConsole: showInConsole)
     }
 
+    func getLogUriFile() throws -> String? {
+        return DriveKitLog.shared.getZippedLogFilesUrl()?.absoluteString
+    }
+
     private func configureDriveKitDelegate() {
             DriveKit.shared.addDriveKitDelegate(self)
     }

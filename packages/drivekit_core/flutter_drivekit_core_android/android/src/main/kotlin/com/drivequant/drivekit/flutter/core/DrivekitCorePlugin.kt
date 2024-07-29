@@ -2,6 +2,7 @@ package com.drivequant.drivekit.flutter.core
 
 import android.content.Context
 import com.drivequant.drivekit.core.DriveKit
+import com.drivequant.drivekit.core.DriveKitLog
 import com.drivequant.drivekit.core.driver.UpdateUserIdStatus
 import com.drivequant.drivekit.core.driver.deletion.DeleteAccountStatus
 import com.drivequant.drivekit.core.networking.DriveKitListener
@@ -94,4 +95,6 @@ class DrivekitCorePlugin :
             }
         )
     }
+
+    override fun getLogUriFile(): String? = context?.let { DriveKitLog.getLogUriFile(it).toString() }
 }

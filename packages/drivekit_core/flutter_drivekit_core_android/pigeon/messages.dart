@@ -30,6 +30,7 @@ abstract class AndroidCoreApi {
     String androidLogPath = '/DriveKit',
   });
   void disableLogging({bool showInConsole = true});
+  String? getLogUriFile();
 }
 
 @FlutterApi()

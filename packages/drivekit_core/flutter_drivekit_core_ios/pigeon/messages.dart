@@ -23,6 +23,7 @@ abstract class IOSCoreApi {
   String? getApiKey();
   void enableLogging({bool showInConsole = true});
   void disableLogging({bool showInConsole = true});
+  String? getLogUriFile();
 }
 
 @FlutterApi()

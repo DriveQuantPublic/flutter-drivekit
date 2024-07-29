@@ -90,4 +90,6 @@ class DriveKitCore {
   void addDriveKitListener(DriveKitListener listener) {
     _platform.addDriveKitListener(listener);
   }
+
+  Future<String?> getLogUriFile() => _platform.getLogUriFile();
 }

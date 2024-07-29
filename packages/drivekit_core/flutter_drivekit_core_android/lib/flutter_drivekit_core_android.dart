@@ -111,4 +111,7 @@ class DrivekitCoreAndroid extends DrivekitCorePlatform
       listener.userIdUpdateStatus?.call(status.toModelImplementation(), userId);
     }
   }
+
+  @override
+  Future<String?> getLogUriFile() => androidCoreApi.getLogUriFile();
 }
