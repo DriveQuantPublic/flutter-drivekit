@@ -63,5 +63,6 @@ abstract class DrivekitCorePlatform extends PlatformInterface {
   /// Disable the DriveKit logs
   Future<void> disableLogging({bool showInConsole = true});
 
+  /// Add a [DriveKitListener], which listens to the DriveKit SDK
   void addDriveKitListener(DriveKitListener listener);
 }
