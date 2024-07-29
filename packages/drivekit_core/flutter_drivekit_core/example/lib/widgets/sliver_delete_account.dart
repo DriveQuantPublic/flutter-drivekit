@@ -40,7 +40,7 @@ class _SliverDeleteAccountState extends State<SliverDeleteAccount> {
         SliverToBoxAdapter(
           child: ElevatedButton(
             onPressed: () async {
-              await DriveKitCore.deleteAccount(
+              await DriveKitCore.instance.deleteAccount(
                 instantDeletion: _instantDeletion,
               );
             },

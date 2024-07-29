@@ -28,7 +28,7 @@ class _SliverSetUserIdState extends State<SliverSetUserId> {
         SliverToBoxAdapter(
           child: ElevatedButton(
             onPressed: () {
-              DriveKitCore.setUserId(_userIdController.text);
+              DriveKitCore.instance.setUserId(_userIdController.text);
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   backgroundColor: Theme.of(context).primaryColor,

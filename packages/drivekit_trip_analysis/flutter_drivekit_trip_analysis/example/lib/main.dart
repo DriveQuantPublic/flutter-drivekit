@@ -42,7 +42,8 @@ class _HomePageState extends State<HomePage> {
               onPressed: () async {
                 if (!context.mounted) return;
                 try {
-                  final result = await DrivekitTripAnalysis.getPlatformName();
+                  final result =
+                      await DrivekitTripAnalysis.instance.getPlatformName();
                   setState(() => _platformName = result);
                 } catch (error) {
                   if (!context.mounted) return;

@@ -14,7 +14,7 @@ class _SliverAddVehicleState extends State<SliverAddVehicle> {
     return SliverToBoxAdapter(
       child: ElevatedButton(
         onPressed: () {
-          DrivekitTripAnalysis.setVehicle(
+          DrivekitTripAnalysis.instance.setVehicle(
             const Vehicle(
               carTypeIndex: 2,
               carEngineIndex: 2,

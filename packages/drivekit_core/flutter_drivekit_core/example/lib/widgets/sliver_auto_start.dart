@@ -22,7 +22,7 @@ class _SliverAutoStartState extends State<SliverAutoStart> {
           Switch(
             value: _autoStart,
             onChanged: (value) {
-              DrivekitTripAnalysis.activateAutoStart(value);
+              DrivekitTripAnalysis.instance.activateAutoStart(value);
               setState(() {
                 _autoStart = value;
               });
