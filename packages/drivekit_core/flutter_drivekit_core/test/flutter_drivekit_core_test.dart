@@ -108,6 +108,34 @@ void main() {
     });
 
     group('logging', () {
+      test('enable logging', () async {
+        when(
+          () => drivekitCorePlatform.enableLogging(
+            showInConsole: false,
+            androidLogPath: '/testLogPath',
+          ),
+        ).thenAnswer((_) async {});
+
+        await DriveKitCore.enableLogging(
+          androidLogPath: '/testLogPath',
+          showInConsole: false,
+        );
+        verify(
+          () => drivekitCorePlatform.enableLogging(
+            showInConsole: false,
+            androidLogPath: '/testLogPath',
+          ),
+        ).called(1);
+        verifyNever(
+          () => drivekitCorePlatform.enableLogging(
+            // ignore: avoid_redundant_argument_values
+            showInConsole: true,
+            // ignore: avoid_redundant_argument_values
+            androidLogPath: '/DriveKit',
+          ),
+        );
+      });
+
       test('disable logging', () async {
         when(() => drivekitCorePlatform.disableLogging())
             .thenAnswer((_) async {});

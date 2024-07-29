@@ -96,6 +96,18 @@ void main() {
       verify(() => iosCoreApi.deleteAccount()).called(1);
     });
 
+    test('enable logging', () async {
+      //mock
+      when(() => iosCoreApi.enableLogging(showInConsole: false))
+          .thenAnswer((_) async {});
+
+      //test
+      await DrivekitCorePlatform.instance.enableLogging(showInConsole: false);
+      verify(() => iosCoreApi.enableLogging(showInConsole: false)).called(1);
+      // ignore: avoid_redundant_argument_values
+      verifyNever(() => iosCoreApi.enableLogging(showInConsole: true));
+    });
+
     test('disable logging', () async {
       //mock
       when(iosCoreApi.disableLogging).thenAnswer((_) async {});
