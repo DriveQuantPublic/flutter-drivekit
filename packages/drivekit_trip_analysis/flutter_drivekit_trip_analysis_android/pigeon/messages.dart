@@ -1,6 +1,5 @@
 // ignore_for_file: one_member_abstracts
 
-import 'dart:ffi';
 import 'package:pigeon/pigeon.dart';
 
 @ConfigurePigeon(
@@ -783,10 +782,10 @@ class PigeonRoute {
   final List<double> gpsHeading;
   final List<double> screenLocked;
   final List<double> activityValue;
-  final List<Short> roll;
-  final List<Short> pitch;
-  final List<Short> yaw;
-  final List<Short> gyroscopeNormVar;
+  final List<int> roll;
+  final List<int> pitch;
+  final List<int> yaw;
+  final List<int> gyroscopeNormVar;
   final PigeonRoute? stoppingStateRoute;
 }
 
