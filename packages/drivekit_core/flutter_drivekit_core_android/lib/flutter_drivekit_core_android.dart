@@ -1,4 +1,4 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_drivekit_core_android/src/adapter.dart';
 import 'package:flutter_drivekit_core_android/src/core_api.g.dart';
 import 'package:flutter_drivekit_core_platform_interface/flutter_drivekit_core_platform_interface.dart';
@@ -14,7 +14,8 @@ class DrivekitCoreAndroid extends DrivekitCorePlatform
 
   /// Registers this class as the default instance of [DrivekitCorePlatform]
   static void registerWith() {
-    DrivekitCorePlatform.instance = DrivekitCoreAndroid();
+    final instance = DrivekitCoreAndroid();
+    DrivekitCorePlatform.instance = instance;
   }
 
   /// The instance of [AndroidCoreApi], a class that provides access to the
@@ -22,14 +23,9 @@ class DrivekitCoreAndroid extends DrivekitCorePlatform
   @visibleForTesting
   final AndroidCoreApi androidCoreApi;
 
-  // ensure the platform is initialized only once
-  bool _isInitialized = false;
-
   @override
   void initializePlatform() {
-    if (_isInitialized) return;
     FlutterCoreApi.setUp(this);
-    _isInitialized = true;
   }
 
   final List<DriveKitListener> _listeners = [];

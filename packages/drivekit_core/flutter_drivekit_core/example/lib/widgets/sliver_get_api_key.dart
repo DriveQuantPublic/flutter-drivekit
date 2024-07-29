@@ -17,7 +17,7 @@ class _SliverGetApiKeyState extends State<SliverGetApiKey> {
         SliverToBoxAdapter(
           child: ElevatedButton(
             onPressed: () async {
-              final apiKey = await DriveKitCore.getApiKey();
+              final apiKey = await DriveKitCore.instance.getApiKey();
               if (context.mounted) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(

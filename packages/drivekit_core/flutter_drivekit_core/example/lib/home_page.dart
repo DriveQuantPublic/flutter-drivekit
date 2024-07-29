@@ -137,7 +137,7 @@ class __InitializeListenersState extends State<_InitializeListeners> {
   @override
   void initState() {
     super.initState();
-    DriveKitCore.addDriveKitListener(
+    DriveKitCore.instance.addDriveKitListener(
       DriveKitListener(
         onConnected: () {
           if (context.mounted) {

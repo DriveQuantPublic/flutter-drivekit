@@ -27,7 +27,7 @@ class _SliverSetApiKeyState extends State<SliverSetApiKey> {
         SliverToBoxAdapter(
           child: ElevatedButton(
             onPressed: () {
-              DriveKitCore.setApiKey(_apiKeyController.text);
+              DriveKitCore.instance.setApiKey(_apiKeyController.text);
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   backgroundColor: Theme.of(context).primaryColor,
