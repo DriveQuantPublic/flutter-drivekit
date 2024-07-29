@@ -69,7 +69,7 @@ class DefaultDrivekitCore extends DrivekitCorePlatform {
   }
 
   @override
-  Future<LogFileUri?> getLogUriFile() {
+  Future<Uri?> getLogUriFile() {
     throw UnimplementedError('getLogUriFile() has not been implemented.');
   }
 }

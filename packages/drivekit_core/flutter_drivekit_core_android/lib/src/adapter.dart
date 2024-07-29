@@ -1,3 +1,4 @@
+
 import 'package:flutter_drivekit_core_android/src/core_api.g.dart';
 import 'package:flutter_drivekit_core_platform_interface/flutter_drivekit_core_platform_interface.dart';
 
@@ -47,15 +48,4 @@ extension PigeonUpdateUserIdStatusAdapter on PigeonUpdateUserIdStatus {
       PigeonUpdateUserIdStatus.updated => UpdateUserIdStatus.updated,
     };
   }
-}
-
-/// Converts a String to a [LogFileUri].
-LogFileUri? toLogFileUri(String? stringUri) {
-  if (stringUri == null) {
-    return null;
-  }
-  return LogFileUri(
-    platform: PlatformType.android,
-    uri: Uri.parse(stringUri),
-  );
 }

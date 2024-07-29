@@ -1,8 +1,6 @@
 // ignore_for_file: public_member_api_docs
 
 import 'package:flutter_drivekit_core_platform_interface/flutter_drivekit_core_platform_interface.dart';
-export 'package:flutter_drivekit_core_platform_interface/flutter_drivekit_core_platform_interface.dart'
-    show LogFileUri;
 
 export 'package:flutter_drivekit_core_platform_interface/flutter_drivekit_core_platform_interface.dart'
     show DriveKitListener;
@@ -94,5 +92,5 @@ class DriveKitCore {
   }
 
   /// You can retrieve the Uri log file by calling the following method.
-  static Future<LogFileUri?> getLogUriFile() => _platform.getLogUriFile();
+  static Future<Uri?> getLogUriFile() => _platform.getLogUriFile();
 }

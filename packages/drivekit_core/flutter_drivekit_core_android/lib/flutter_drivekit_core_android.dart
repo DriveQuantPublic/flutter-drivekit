@@ -115,8 +115,12 @@ class DrivekitCoreAndroid extends DrivekitCorePlatform
   }
 
   @override
-  Future<LogFileUri?> getLogUriFile() async {
+  Future<Uri?> getLogUriFile() async {
     final uriString = await androidCoreApi.getLogUriFile();
-    return toLogFileUri(uriString);
+    if (uriString == null) {
+      return null;
+    } else {
+      return Uri.parse(uriString);
+    }
   }
 }

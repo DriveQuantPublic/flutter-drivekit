@@ -22,8 +22,7 @@ class _SliverGetLogFileUriState extends State<SliverGetLogFileUri> {
               if (logFile == null) {
                 snackBarText = 'Log file Uri: null';
               } else {
-                snackBarText =
-                    '${logFile.platform} Log file Uri: ${logFile.uri}';
+                snackBarText = 'Log file Uri: $logFile';
               }
               if (context.mounted) {
                 ScaffoldMessenger.of(context).showSnackBar(

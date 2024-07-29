@@ -107,28 +107,3 @@ enum BackgroundFetchStatus {
   /// The background fetch has been completed.
   completed;
 }
-
-/// LogFileUri class
-class LogFileUri {
-  /// Creates a LogFileUri instance
-  const LogFileUri({
-    required this.platform,
-    required this.uri,
-  });
-
-  /// The platform where the log file is stored
-  final PlatformType platform;
-
-  /// The uri to locate the log file
-  final Uri uri;
-}
-
-/// To define the current platform use at execution time
-enum PlatformType {
-  /// Android platform
-  android,
-
-  /// iOS platform
-  ios,
-}
-
