@@ -145,6 +145,29 @@ void main() {
       });
     });
 
+    group('getLogUriFile', () {
+      test('returns correct log file URI when platform implementation exists',
+          () async {
+        final logFileUri = LogFileUri(
+          platform: PlatformType.android,
+          uri: Uri.parse('file://log.txt'),
+        );
+        when(() => drivekitCorePlatform.getLogUriFile())
+            .thenAnswer((_) async => logFileUri);
+
+        final actualLogFileUri = await DriveKitCore.getLogUriFile();
+        expect(actualLogFileUri, equals(logFileUri));
+      });
+
+      test('returns null when no log file URI is available', () async {
+        when(() => drivekitCorePlatform.getLogUriFile())
+            .thenAnswer((_) async => null);
+
+        final actualLogFileUri = await DriveKitCore.getLogUriFile();
+        expect(actualLogFileUri, isNull);
+      });
+    });
+
     group('listener', () {
       test('addListener', () async {
         final listener = DriveKitListener(
