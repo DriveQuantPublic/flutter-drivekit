@@ -79,7 +79,7 @@ class DrivekitTripAnalysis {
   /// This is why DriveKit allows you to subscribe to trigger events that
   /// indicates a trip has probably started.
   ///
-  ///If this method is called with parameter to true and autostart is disable,
+  /// If this method is called with parameter to true and autostart is disable,
   /// you will be able to listen for trip start trigger events, and the trip
   /// analysis will not be started automatically.
   Future<void> setMonitorPotentialTripStart(bool activate) async {
