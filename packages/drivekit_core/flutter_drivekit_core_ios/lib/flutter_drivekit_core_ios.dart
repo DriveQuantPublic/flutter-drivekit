@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter_drivekit_core_ios/src/adapter.dart';
 import 'package:flutter_drivekit_core_ios/src/core_api.g.dart';
 import 'package:flutter_drivekit_core_platform_interface/flutter_drivekit_core_platform_interface.dart';
 
@@ -123,8 +122,12 @@ class DrivekitCoreIOS extends DrivekitCorePlatform implements FlutterCoreApi {
   }
 
   @override
-  Future<LogFileUri?> getLogUriFile() async {
+  Future<Uri?> getLogUriFile() async {
     final uriString = await iosCoreApi.getLogUriFile();
-    return toLogFileUri(uriString);
+    if (uriString == null) {
+      return null;
+    } else {
+      return Uri.parse(uriString);
+    }
   }
 }
