@@ -58,7 +58,7 @@ abstract final class DriveKitCore {
   /// We recommend leaving the log enabled as it does not consume memory space
   /// and is useful in the support phase.
   /// However, if you don't want to use it, it can be disabled.
-  Future<void> enableLogging({
+  static Future<void> enableLogging({
     String androidLogPath = '/DriveKit',
     bool showInConsole = true,
   }) =>

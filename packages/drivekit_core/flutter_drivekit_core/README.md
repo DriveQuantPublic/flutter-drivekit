@@ -194,7 +194,7 @@ await driveKitCore.disableLogging();
 To enable logging, call the following method specifying the path of the log directory.
 
 ```dart
-await driveKitCore.enableLogging(androidLogPath: '/YouDriveKitFolder', showInConsole: true);
+await DriveKitCore.enableLogging(androidLogPath: '/YouDriveKitFolder', showInConsole: true);
 ```
 
 ### isTokenValid

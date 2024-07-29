@@ -110,7 +110,7 @@ void main() {
           ),
         ).thenAnswer((_) async {});
 
-        await driveKitCore.enableLogging(
+        await DriveKitCore.enableLogging(
           androidLogPath: '/testLogPath',
           showInConsole: false,
         );

@@ -11,11 +11,10 @@ class SliverEnableLogging extends StatefulWidget {
 class _SliverEnableLoggingState extends State<SliverEnableLogging> {
   @override
   Widget build(BuildContext context) {
-    final driveKitCore = DriveKitCore();
     return SliverToBoxAdapter(
       child: ElevatedButton(
         onPressed: () async {
-          await driveKitCore.enableLogging(
+          await DriveKitCore.enableLogging(
             androidLogPath: '/YouDriveKitFolder',
             // ignore: avoid_redundant_argument_values
             showInConsole: true,
