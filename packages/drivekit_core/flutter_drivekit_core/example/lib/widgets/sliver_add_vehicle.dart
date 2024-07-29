@@ -11,11 +11,10 @@ class SliverAddVehicle extends StatefulWidget {
 class _SliverAddVehicleState extends State<SliverAddVehicle> {
   @override
   Widget build(BuildContext context) {
-    final driveKitTripAnalysis = DrivekitTripAnalysis();
     return SliverToBoxAdapter(
       child: ElevatedButton(
         onPressed: () {
-          driveKitTripAnalysis.setVehicle(
+          DrivekitTripAnalysis.setVehicle(
             const Vehicle(
               carTypeIndex: 2,
               carEngineIndex: 2,
