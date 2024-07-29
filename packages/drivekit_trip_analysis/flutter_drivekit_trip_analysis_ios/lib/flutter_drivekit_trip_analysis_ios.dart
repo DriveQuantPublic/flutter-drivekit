@@ -46,6 +46,14 @@ class DrivekitTripAnalysisIOS extends DrivekitTripAnalysisPlatform {
   Future<bool> isTripRunning() => iosTripAnalysisApi.isTripRunning();
 
   @override
+  Future<void> setMonitorPotentialTripStart(bool activate) =>
+      iosTripAnalysisApi.setMonitorPotentialTripStart(activate);
+
+  @override
+  Future<bool> getMonitorPotentialTripStart() =>
+      iosTripAnalysisApi.getMonitorPotentialTripStart();
+
+  @override
   Future<void> setVehicle(Vehicle vehicle) =>
       iosTripAnalysisApi.setVehicle(vehicle.toPigeonImplementation());
 }

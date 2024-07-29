@@ -6,6 +6,7 @@ import 'package:drivekit_core_example/widgets/sliver_delete_account.dart';
 import 'package:drivekit_core_example/widgets/sliver_disable_logging.dart';
 import 'package:drivekit_core_example/widgets/sliver_enable_logging.dart';
 import 'package:drivekit_core_example/widgets/sliver_get_api_key.dart';
+import 'package:drivekit_core_example/widgets/sliver_get_monitor_potential_trip_start.dart';
 import 'package:drivekit_core_example/widgets/sliver_get_user_id.dart';
 import 'package:drivekit_core_example/widgets/sliver_is_token_valid.dart';
 import 'package:drivekit_core_example/widgets/sliver_is_trip_running.dart';
@@ -13,6 +14,7 @@ import 'package:drivekit_core_example/widgets/sliver_permission_request.dart';
 import 'package:drivekit_core_example/widgets/sliver_platform_name.dart';
 import 'package:drivekit_core_example/widgets/sliver_reset.dart';
 import 'package:drivekit_core_example/widgets/sliver_set_api_key.dart';
+import 'package:drivekit_core_example/widgets/sliver_set_monitor_potential_trip_start.dart';
 import 'package:drivekit_core_example/widgets/sliver_set_user_id.dart';
 import 'package:drivekit_core_example/widgets/sliver_start_trip.dart';
 import 'package:drivekit_core_example/widgets/sliver_stop_trip.dart';
@@ -115,6 +117,16 @@ class HomePage extends StatelessWidget {
           SliverPadding(
             padding: EdgeInsets.symmetric(horizontal: 16),
             sliver: SliverDisableLogging(),
+          ),
+          SliverGap(32),
+          SliverPadding(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            sliver: SliverSetMonitorPotentialTripStart(),
+          ),
+          SliverGap(10),
+          SliverPadding(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            sliver: SliverGetMonitorPotentialTripStart(),
           ),
           SliverGap(32),
           SliverPadding(

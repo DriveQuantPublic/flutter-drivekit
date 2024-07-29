@@ -100,6 +100,34 @@ void main() {
           expect(actualIsRunningValue, equals(isRunning));
         });
       });
+
+      group('monitorPotentialTripStart', () {
+        test('setMonitorPotentialTripStart calls platform implementation',
+            () async {
+          when(
+            () =>
+                drivekitTripAnalysisPlatform.setMonitorPotentialTripStart(true),
+          ).thenAnswer((_) async {});
+
+          await DrivekitTripAnalysis.setMonitorPotentialTripStart(true);
+          verify(
+            () =>
+                drivekitTripAnalysisPlatform.setMonitorPotentialTripStart(true),
+          );
+        });
+
+        test('getMonitorPotentialTripStart calls platform implementatio',
+            () async {
+          const isActivated = false;
+          when(
+            () => drivekitTripAnalysisPlatform.getMonitorPotentialTripStart(),
+          ).thenAnswer((_) async => isActivated);
+
+          final actualIsActivated =
+              await DrivekitTripAnalysis.getMonitorPotentialTripStart();
+          expect(actualIsActivated, equals(isActivated));
+        });
+      });
     });
 
     group('setVehicle', () {

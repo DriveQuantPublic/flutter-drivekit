@@ -37,6 +37,8 @@ Please refer to the [DriveKit Trip Analysis documentation](https://docs.drivequa
 | [cancelTrip()](#canceltrip)                                           | `Future<void>`                  | ✅  |   ✅    |
 | [isTripRunning()](#istriprunning)                                     | `Future<bool>`                  | ✅  |   ✅    |
 | [activateCrashDetection()](#activatecrashdetection)                   | `Future<void>`                  | ✅  |   ✅    |
+| [setMonitorPotentialTripStart()](#setmonitorpotentialtripstart)       | `Future<void>`                  | ✅  |   ✅    |
+| [getMonitorPotentialTripStart()](#getmonitorpotentialtripstart)       | `Future<bool>`                  | ✅  |   ✅    |
 
 ### activateAutoStart
 
@@ -145,4 +147,47 @@ To disable crash detection, call the method with parameter to `false`
 
 ```dart
 driveKitTripAnalysis.activateCrashDetection(false);
+```
+
+### setmonitorpotentialtripstart
+
+```dart
+Future<void> setMonitorPotentialTripStart(bool activate);
+```
+
+DriveKit's automatic start mode detects a trip and launches its recording immediately. This operating mode may not be appropriate for all use cases.
+
+Your application may require other information or business logic before enabling the trip recording. For example, it may be appropriate to check that:
+
+* A connected device is near to the smartphone.
+* The trip recording is acceptable in a given time slot.
+
+In this case, you may want to subscribe to the events that are indicative of the trip start but not necessarily launch the GPS sensor and the trip analysis.
+
+This is why DriveKit allows you to subscribe to trigger events that indicate that a trip has probably started.
+
+Learn more about the feature [on iOS](https://docs.drivequant.com/trip-analysis/ios/tripmanagement#access-the-trip-trigger-events) / [on Android](https://docs.drivequant.com/trip-analysis/android/trip-management#access-the-trip-trigger-events)
+
+By default, the configuration is disabled. Call the following method with parameter to `true` to enable it.
+
+```dart
+DrivekitTripAnalysis.setMonitorPotentialTripStart(true);
+```
+
+To disable the feature, call the method with parameter to `false`
+
+```dart
+DrivekitTripAnalysis.setMonitorPotentialTripStart(false);
+```
+
+### getmonitorpotentialtripstart
+
+```dart
+Future<bool> getMonitorPotentialTripStart();
+```
+
+Check if the feature is activated or not with the following command:
+
+```dart
+final monitorPotentialTripStart = await DrivekitTripAnalysis.getMonitorPotentialTripStart();
 ```

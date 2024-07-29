@@ -15,10 +15,10 @@ public class DrivekitCorePlugin: NSObject, FlutterPlugin, IOSCoreApi {
     }
 
     init(binaryMessenger: FlutterBinaryMessenger) {
-            super.init()
-            self.flutterAPI = FlutterCoreApi(binaryMessenger: binaryMessenger)
-            configureDriveKitDelegate()
-        }
+        super.init()
+        self.flutterAPI = FlutterCoreApi(binaryMessenger: binaryMessenger)
+        configureDriveKitDelegate()
+    }
 
     public func getPlatformName() throws -> String {
         return "iOS"
