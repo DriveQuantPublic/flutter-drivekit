@@ -111,26 +111,95 @@ void main() {
     group('DriveKitListener', () {
       test('can listen several listeners', () async {
         var onConnectedCount = 0;
+        var onDisconnectedCount = 0;
+        var onAccountDeletedCount = 0;
+        var onAuthenticationErrorCount = 0;
+        var onBackgroundFetchStatusChangedCount = 0;
+        var userIdUpdateStatusCount = 0;
         //test
         DrivekitCorePlatform.instance.addDriveKitListener(
           DriveKitListener(
             onConnected: () {
               onConnectedCount++;
             },
+            onAccountDeleted: (status) {
+              onAccountDeletedCount++;
+            },
+            onAuthenticationError: (errorType) {
+              onAuthenticationErrorCount++;
+            },
+            onBackgroundFetchStatusChanged: (status) {
+              onBackgroundFetchStatusChangedCount++;
+            },
+            onDisconnected: () {
+              onDisconnectedCount++;
+            },
+            userIdUpdateStatus: (status, userId) {
+              userIdUpdateStatusCount++;
+            },
           ),
         );
         flutterCoreApi.onConnected();
         expect(onConnectedCount, 1);
+        expect(onDisconnectedCount, 0);
+
+        flutterCoreApi.onDisconnected();
+        expect(onDisconnectedCount, 1);
+
+        flutterCoreApi.onAccountDeleted(PigeonDeleteAccountStatus.success);
+        expect(onAccountDeletedCount, 1);
+
+        flutterCoreApi.onAuthenticationError(PigeonRequestError.noNetwork);
+        expect(onAuthenticationErrorCount, 1);
+
+        flutterCoreApi.userIdUpdateStatus(
+          PigeonUpdateUserIdStatus.alreadyUsed,
+          null,
+        );
+        expect(userIdUpdateStatusCount, 1);
 
         DrivekitCorePlatform.instance.addDriveKitListener(
           DriveKitListener(
             onConnected: () {
               onConnectedCount++;
             },
+            onAccountDeleted: (status) {
+              onAccountDeletedCount++;
+            },
+            onAuthenticationError: (errorType) {
+              onAuthenticationErrorCount++;
+            },
+            onBackgroundFetchStatusChanged: (status) {
+              onBackgroundFetchStatusChangedCount++;
+            },
+            onDisconnected: () {
+              onDisconnectedCount++;
+            },
+            userIdUpdateStatus: (status, userId) {
+              userIdUpdateStatusCount++;
+            },
           ),
         );
         flutterCoreApi.onConnected();
         expect(onConnectedCount, 3);
+
+        flutterCoreApi.onDisconnected();
+        expect(onDisconnectedCount, 3);
+
+        flutterCoreApi.onAccountDeleted(PigeonDeleteAccountStatus.success);
+        expect(onAccountDeletedCount, 3);
+
+        flutterCoreApi.onAuthenticationError(PigeonRequestError.noNetwork);
+        expect(onAuthenticationErrorCount, 3);
+
+        flutterCoreApi.userIdUpdateStatus(
+          PigeonUpdateUserIdStatus.alreadyUsed,
+          null,
+        );
+        expect(userIdUpdateStatusCount, 3);
+
+        // onBackgroundFetchStatusChanged is not supported on Android
+        expect(onBackgroundFetchStatusChangedCount, 0);
       });
     });
   });
