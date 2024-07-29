@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_drivekit_core_android/src/adapter.dart';
 import 'package:flutter_drivekit_core_android/src/adapter.dart';
 import 'package:flutter_drivekit_core_android/src/core_api.g.dart';
 import 'package:flutter_drivekit_core_platform_interface/flutter_drivekit_core_platform_interface.dart';
@@ -113,5 +115,8 @@ class DrivekitCoreAndroid extends DrivekitCorePlatform
   }
 
   @override
-  Future<String?> getLogUriFile() => androidCoreApi.getLogUriFile();
+  Future<LogFileUri?> getLogUriFile() async {
+    final uriString = await androidCoreApi.getLogUriFile();
+    return toLogFileUri(uriString);
+  }
 }

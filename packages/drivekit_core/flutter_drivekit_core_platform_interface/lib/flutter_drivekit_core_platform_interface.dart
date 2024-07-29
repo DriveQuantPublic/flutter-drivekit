@@ -72,6 +72,6 @@ abstract class DrivekitCorePlatform extends PlatformInterface {
   /// Add a [DriveKitListener], which listens to the DriveKit SDK
   void addDriveKitListener(DriveKitListener listener);
 
-  // Get the log file uri
-  Future<String?> getLogUriFile();
+  /// Get the log file uri
+  Future<LogFileUri?> getLogUriFile();
 }

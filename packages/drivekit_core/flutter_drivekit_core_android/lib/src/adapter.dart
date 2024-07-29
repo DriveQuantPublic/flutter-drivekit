@@ -48,3 +48,14 @@ extension PigeonUpdateUserIdStatusAdapter on PigeonUpdateUserIdStatus {
     };
   }
 }
+
+/// Converts a String to a [LogFileUri].
+LogFileUri? toLogFileUri(String? stringUri) {
+  if (stringUri == null) {
+    return null;
+  }
+  return LogFileUri(
+    platform: PlatformType.android,
+    uri: Uri.parse(stringUri),
+  );
+}
