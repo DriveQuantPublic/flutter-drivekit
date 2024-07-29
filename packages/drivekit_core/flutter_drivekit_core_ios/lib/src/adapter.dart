@@ -61,3 +61,14 @@ extension PigeonBackgroundFetchStatusAdapter on PigeonBackgroundFetchStatus {
     };
   }
 }
+
+/// Converts a String to a [LogFileUri].
+LogFileUri? toLogFileUri(String? stringUri) {
+  if (stringUri == null) {
+    return null;
+  }
+  return LogFileUri(
+    platform: PlatformType.ios,
+    uri: Uri.parse(stringUri),
+  );
+}
