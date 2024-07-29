@@ -97,6 +97,7 @@ class Vehicle {
 
 /// PostGenericResponse class
 class PostGenericResponse {
+  /// Creates a PostGenericResponse instance
   const PostGenericResponse({
     required this.status,
     required this.itinId,
@@ -125,35 +126,85 @@ class PostGenericResponse {
     this.advancedEnergyEstimation,
   });
 
+  /// The status of the response
   final bool status;
+
+  /// The itinerary ID
   final String itinId;
+
+  /// The list of comments
   final List<Comment> comments;
+
+  /// The user ID
   final String? userId;
+
+  /// The account information
   final Account? account;
+
+  /// The itinerary statistics
   final ItineraryStatistics? itineraryStatistics;
+
+  /// The eco driving information
   final EcoDriving? ecoDriving;
+
+  /// The fuel estimation information
   final FuelEstimation? fuelEstimation;
+
+  /// The safety information
   final Safety? safety;
+
+  /// The advanced eco driving information
   final AdvancedEcoDriving? advancedEcoDriving;
+
+  /// The advanced fuel estimation information
   final AdvancedFuelEstimation? advancedFuelEstimation;
+
+  /// The advanced safety information
   final AdvancedSafety? advancedSafety;
+
+  /// The pollutants information
   final Pollutants? pollutants;
+
+  /// The tire wear information
   final TireWear? tireWear;
+
+  /// The brake wear information
   final BrakeWear? brakeWear;
+
+  /// The driver distraction information
   final List<DriverDistraction>? driverDistraction;
+
+  /// The itinerary data
   final ItineraryData? itineraryData;
+
+  /// The end date of the itinerary
   final DateTime? endDate;
+
+  /// The logbook information
   final Logbook? logbook;
+
+  /// The list of safety events
   final List<SafetyEvent>? safetyEvents;
+
+  /// The list of call events
   final List<CallEvent>? callEvents;
+
+  /// The list of speeding events
   final List<SpeedingEvents>? speedingEvents;
+
+  /// The speeding statistics
   final SpeedingStatistics? speedingStatistics;
+
+  /// The energy estimation information
   final EnergyEstimation? energyEstimation;
+
+  /// The list of advanced energy estimations
   final List<AdvancedEnergyEstimation>? advancedEnergyEstimation;
 }
 
 /// PostGeneric class
 class PostGeneric {
+  /// Creates a PostGeneric instance
   const PostGeneric({
     required this.route,
     required this.account,
@@ -165,91 +216,131 @@ class PostGeneric {
     this.logbook,
   });
 
+  /// The route information
   final Route route;
+
+  /// The account information
   final Account account;
+
+  /// The smartphone data
   final SmartphoneData smartphoneData;
+
+  /// The vehicle information
   final Vehicle vehicle;
+
+  /// The itinerary data
   final ItineraryData itineraryData;
+
+  /// The metadata
   final Map<String, String>? metaData;
+
+  /// The list of phone call requests
   final List<PhoneCallRequest>? phoneCalls;
+
+  /// The logbook information
   final PostLogbook? logbook;
 }
 
 /// Account class
 class Account {
+  /// Creates an Account instance
   const Account({
     required this.account,
     required this.userId,
     this.vehicleId,
   });
 
+  /// The account identifier
   final String account;
+
+  /// The user identifier
   final String userId;
+
+  /// The vehicle identifier
   final String? vehicleId;
 }
 
 /// AdvancedEcoDriving class
 class AdvancedEcoDriving {
+  /// Creates an AdvancedEcoDriving instance
   const AdvancedEcoDriving({
     required this.ecoDrivingContext,
   });
 
+  /// The list of eco driving contexts
   final List<EcoDrivingContext> ecoDrivingContext;
 }
 
 /// AdvancedFuelEstimation class
 class AdvancedFuelEstimation {
+  /// Creates an AdvancedFuelEstimation instance
   const AdvancedFuelEstimation({
     required this.fuelEstimationContext,
   });
 
+  /// The list of fuel estimation contexts
   final List<FuelEstimationContext> fuelEstimationContext;
 }
 
 /// AdvancedSafety class
 class AdvancedSafety {
+  /// Creates an AdvancedSafety instance
   const AdvancedSafety({
     required this.safetyContext,
   });
 
+  /// The list of safety contexts
   final List<SafetyContext> safetyContext;
 }
 
 /// BeaconData class
 class BeaconData {
+  /// Creates a BeaconData instance
   const BeaconData({
     required this.proximityUuid,
     required this.major,
     required this.minor,
   });
 
+  /// The proximity UUID
   final String proximityUuid;
+
+  /// The major value
   final int major;
+
+  /// The minor value
   final int minor;
 }
 
 /// BluetoothData class
 class BluetoothData {
+  /// Creates a BluetoothData instance
   const BluetoothData({
     required this.name,
     required this.macAddress,
   });
 
+  /// The name of the Bluetooth device
   final String name;
+
+  /// The MAC address of the Bluetooth device
   final String macAddress;
 }
 
 /// BluetoothDevicesList class
 class BluetoothDevicesList {
+  /// Creates a BluetoothDevicesList instance
   const BluetoothDevicesList({
     required this.bluetoothDevices,
   });
 
+  /// The list of Bluetooth devices
   final List<BluetoothData> bluetoothDevices;
 }
 
 /// BrakeWear class
 class BrakeWear {
+  /// Creates a BrakeWear instance
   const BrakeWear({
     required this.frontBrakeAutonomy,
     required this.frontBrakeDistance,
@@ -263,20 +354,40 @@ class BrakeWear {
     required this.rearBrakeWearRate,
   });
 
+  /// The front brake autonomy
   final int frontBrakeAutonomy;
+
+  /// The front brake distance
   final int frontBrakeDistance;
+
+  /// The front brake pad wear
   final int frontBrakePadWear;
+
+  /// The front brake total wear
   final int frontBrakeTotalWear;
+
+  /// The front brake wear rate
   final int frontBrakeWearRate;
+
+  /// The rear brake autonomy
   final int rearBrakeAutonomy;
+
+  /// The rear brake distance
   final int rearBrakeDistance;
+
+  /// The rear brake pad wear
   final int rearBrakePadWear;
+
+  /// The rear brake total wear
   final int rearBrakeTotalWear;
+
+  /// The rear brake wear rate
   final int rearBrakeWearRate;
 }
 
 /// Call class
 class Call {
+  /// Creates a Call instance
   const Call({
     required this.id,
     required this.start,
@@ -294,24 +405,52 @@ class Call {
     this.audioName,
   });
 
+  /// The ID
   final int id;
+
+  /// The start time
   final double start;
+
+  /// The end time
   final double end;
+
+  /// The duration in seconds
   final int durationS;
+
+  /// The duration
   final int duration;
+
+  /// The distance in meters
   final int distanceM;
+
+  /// The distance
   final int distance;
+
+  /// The status
   final String status;
+
+  /// The audio system
   final String audioSystem;
+
+  /// The audio input
   final String? audioInput;
+
+  /// The audio output
   final String? audioOutput;
+
+  /// The audio name
   final String? audioName;
+
+  /// The Bluetooth class
   final int bluetoothClass;
+
+  /// The forbidden status
   final bool forbidden;
 }
 
 /// CallEvent class
 class CallEvent {
+  /// Creates a CallEvent instance
   const CallEvent({
     required this.time,
     required this.latitude,
@@ -328,34 +467,64 @@ class CallEvent {
     required this.forbidden,
   });
 
+  /// The time
   final double time;
+
+  /// The latitude
   final double latitude;
+
+  /// The longitude
   final double longitude;
+
+  /// The velocity
   final double velocity;
+
+  /// The heading
   final double heading;
+
+  /// The elevation
   final double elevation;
+
+  /// The distance
   final double distance;
+
+  /// The type
   final int type;
+
+  /// The duration
   final int duration;
+
+  /// The audio system
   final String audioSystem;
+
+  /// The call type
   final String callType;
+
+  /// The index
   final int index;
+
+  /// The forbidden status
   final bool forbidden;
 }
 
 /// Comment class
 class Comment {
+  /// Creates a Comment instance
   const Comment({
     required this.errorCode,
     required this.comment,
   });
 
+  /// The error code
   final int errorCode;
+
+  /// The comment
   final String comment;
 }
 
-/// DKAdvancedEnergyEstimation class
+/// AdvancedEnergyEstimation class
 class AdvancedEnergyEstimation {
+  /// Creates an AdvancedEnergyEstimation instance
   const AdvancedEnergyEstimation({
     required this.energy,
     required this.energyConsumption,
@@ -366,17 +535,31 @@ class AdvancedEnergyEstimation {
     required this.contextId,
   });
 
+  /// The energy
   final double energy;
+
+  /// The energy consumption
   final double energyConsumption;
+
+  /// The optimized energy
   final double energyOpti;
+
+  /// The optimized energy consumption
   final double energyOptiConsumption;
+
+  /// The duration
   final double duration;
+
+  /// The distance
   final double distance;
+
+  /// The context ID
   final int contextId;
 }
 
-/// DKCrashInfo class
+/// CrashInfo class
 class CrashInfo {
+  /// Creates a CrashInfo instance
   const CrashInfo({
     required this.crashId,
     required this.date,
@@ -387,12 +570,25 @@ class CrashInfo {
     required this.crashStatus,
   });
 
+  /// The crash ID
   final String crashId;
+
+  /// The date
   final DateTime date;
+
+  /// The probability
   final int probability;
+
+  /// The latitude
   final double latitude;
+
+  /// The longitude
   final double longitude;
+
+  /// The velocity
   final double velocity;
+
+  /// The crash status
   final CrashStatus crashStatus;
 }
 
@@ -419,8 +615,10 @@ class EnergyEstimation {
   final double energyOptiConsumption;
 }
 
+/// ItineraryStatistics class
 class ItineraryStatistics {
-  ItineraryStatistics({
+  /// Creates an ItineraryStatistics instance
+  const ItineraryStatistics({
     required this.tripDuration,
     required this.drivingDuration,
     required this.idlingDuration,
@@ -435,22 +633,47 @@ class ItineraryStatistics {
     required this.transportationMode,
   });
 
+  /// The trip duration
   final double tripDuration;
+
+  /// The driving duration
   final double drivingDuration;
+
+  /// The idling duration
   final double idlingDuration;
+
+  /// The driving percentage
   final double drivingPercentage;
+
+  /// The idling percentage
   final double idlingPercentage;
+
+  /// The distance
   final double distance;
+
+  /// The mean speed
   final double speedMean;
+
+  /// The number of subdispositions
   final int subdispNb;
+
+  /// The meteo
   final int meteo;
+
+  /// The day status
   final bool day;
+
+  /// The week day status
   final bool weekDay;
+
+  /// The transportation mode
   final int transportationMode;
 }
 
+/// EcoDriving class
 class EcoDriving {
-  EcoDriving({
+  /// Creates an EcoDriving instance
+  const EcoDriving({
     required this.score,
     required this.scoreAccel,
     required this.scoreMain,
@@ -461,18 +684,35 @@ class EcoDriving {
     required this.energyClass,
   });
 
+  /// The score
   final double score;
+
+  /// The acceleration score
   final double scoreAccel;
+
+  /// The main score
   final double scoreMain;
+
+  /// The deceleration score
   final double scoreDecel;
+
+  /// The standard deviation of acceleration
   final double stdDevAccel;
+
+  /// The standard deviation of main driving
   final double stdDevMain;
+
+  /// The standard deviation of deceleration
   final double stdDevDecel;
+
+  /// The energy class
   final int energyClass;
 }
 
+/// FuelEstimation class
 class FuelEstimation {
-  FuelEstimation({
+  /// Creates a FuelEstimation instance
+  const FuelEstimation({
     required this.co2Mass,
     required this.co2Emission,
     required this.fuelVolume,
@@ -486,21 +726,44 @@ class FuelEstimation {
     required this.coldFuelVolume,
   });
 
+  /// The CO2 mass
   final double co2Mass;
+
+  /// The CO2 emission
   final double co2Emission;
+
+  /// The fuel volume
   final double fuelVolume;
+
+  /// The fuel consumption
   final double fuelConsumption;
+
+  /// The idle fuel volume
   final double idleFuelVolume;
+
+  /// The idle fuel percentage
   final double idleFuelPercentage;
+
+  /// The idle fuel consumption
   final double idleFuelConsumption;
+
+  /// The idle CO2 emission
   final double idleCo2Emission;
+
+  /// The idle CO2 mass
   final double idleCo2Mass;
+
+  /// The engine temperature status
   final bool engineTempStatus;
+
+  /// The cold fuel volume
   final double coldFuelVolume;
 }
 
+/// Safety class
 class Safety {
-  Safety({
+  /// Creates a Safety instance
+  const Safety({
     required this.nbAdh,
     required this.nbAccel,
     required this.nbDecel,
@@ -510,31 +773,55 @@ class Safety {
     required this.safetyScore,
   });
 
+  /// The number of adhesion events
   final int nbAdh;
+
+  /// The number of acceleration events
   final int nbAccel;
+
+  /// The number of deceleration events
   final int nbDecel;
+
+  /// The number of critical adhesion events
   final int nbAdhCrit;
+
+  /// The number of critical acceleration events
   final int nbAccelCrit;
+
+  /// The number of critical deceleration events
   final int nbDecelCrit;
+
+  /// The safety score
   final double safetyScore;
 }
 
+/// Pollutants class
 class Pollutants {
-  Pollutants({
+  /// Creates a Pollutants instance
+  const Pollutants({
     required this.co,
     required this.hc,
     required this.nox,
     required this.soot,
   });
 
+  /// The CO value
   final double co;
+
+  /// The HC value
   final double hc;
+
+  /// The NOx value
   final double nox;
+
+  /// The soot value
   final double soot;
 }
 
+/// TireWear class
 class TireWear {
-  TireWear({
+  /// Creates a TireWear instance
+  const TireWear({
     required this.frontTireAutonomy,
     required this.frontTireDistance,
     required this.frontTireTotalWear,
@@ -547,20 +834,41 @@ class TireWear {
     required this.rearTireWearRate,
   });
 
+  /// The front tire autonomy
   final int frontTireAutonomy;
+
+  /// The front tire distance
   final int frontTireDistance;
+
+  /// The front tire total wear
   final int frontTireTotalWear;
+
+  /// The front tire wear
   final int frontTireWear;
+
+  /// The front tire wear rate
   final int frontTireWearRate;
+
+  /// The rear tire autonomy
   final int rearTireAutonomy;
+
+  /// The rear tire distance
   final int rearTireDistance;
+
+  /// The rear tire total wear
   final int rearTireTotalWear;
+
+  /// The rear tire wear
   final int rearTireWear;
+
+  /// The rear tire wear rate
   final int rearTireWearRate;
 }
 
+/// DriverDistraction class
 class DriverDistraction {
-  DriverDistraction({
+  /// Creates a DriverDistraction instance
+  const DriverDistraction({
     required this.nbUnlock,
     required this.durationUnlock,
     required this.durationPercentUnlock,
@@ -572,19 +880,38 @@ class DriverDistraction {
     this.calls,
   });
 
+  /// The number of unlocks
   final int nbUnlock;
+
+  /// The duration of unlocks
   final double durationUnlock;
+
+  /// The percentage duration of unlocks
   final double durationPercentUnlock;
+
+  /// The distance of unlocks
   final double distanceUnlock;
+
+  /// The percentage distance of unlocks
   final double distancePercentUnlock;
+
+  /// The score
   final double score;
+
+  /// The unlock score
   final double? scoreUnlock;
+
+  /// The call score
   final double? scoreCall;
+
+  /// The list of calls
   final List<PigeonCall>? calls;
 }
 
+/// ItineraryData class
 class ItineraryData {
-  ItineraryData({
+  /// Creates an ItineraryData instance
+  const ItineraryData({
     this.startDate,
     this.endDate,
     this.departureCity,
@@ -593,26 +920,44 @@ class ItineraryData {
     this.arrivalAddress,
   });
 
+  /// The start date
   final String? startDate;
+
+  /// The end date
   final String? endDate;
+
+  /// The departure city
   final String? departureCity;
+
+  /// The arrival city
   final String? arrivalCity;
+
+  /// The departure address
   final String? departureAddress;
+
+  /// The arrival address
   final String? arrivalAddress;
 }
 
+/// Logbook class
 class Logbook {
-  Logbook({
+  /// Creates a Logbook instance
+  const Logbook({
     required this.status,
     this.updateDate,
   });
 
+  /// The status
   final int status;
+
+  /// The update date
   final String? updateDate;
 }
 
+/// SafetyEvent class
 class SafetyEvent {
-  SafetyEvent({
+  /// Creates a SafetyEvent instance
+  const SafetyEvent({
     required this.time,
     required this.longitude,
     required this.latitude,
@@ -625,20 +970,41 @@ class SafetyEvent {
     required this.value,
   });
 
+  /// The time
   final double time;
+
+  /// The longitude
   final double longitude;
+
+  /// The latitude
   final double latitude;
+
+  /// The velocity
   final double velocity;
+
+  /// The heading
   final double heading;
+
+  /// The elevation
   final double elevation;
+
+  /// The distance
   final double distance;
+
+  /// The type
   final int type;
+
+  /// The level
   final int level;
+
+  /// The value
   final double value;
 }
 
+/// SpeedingEvents class
 class SpeedingEvents {
-  SpeedingEvents({
+  /// Creates a SpeedingEvents instance
+  const SpeedingEvents({
     required this.time,
     required this.longitude,
     required this.latitude,
@@ -646,15 +1012,26 @@ class SpeedingEvents {
     required this.index,
   });
 
+  /// The time
   final double time;
+
+  /// The longitude
   final double longitude;
+
+  /// The latitude
   final double latitude;
+
+  /// The type
   final double type;
+
+  /// The index
   final int index;
 }
 
+/// SpeedingStatistics class
 class SpeedingStatistics {
-  SpeedingStatistics({
+  /// Creates a SpeedingStatistics instance
+  const SpeedingStatistics({
     required this.distance,
     required this.duration,
     required this.speedingDistance,
@@ -663,16 +1040,29 @@ class SpeedingStatistics {
     required this.speedLimitContexts,
   });
 
+  /// The distance
   final int distance;
+
+  /// The duration
   final int duration;
+
+  /// The speeding distance
   final int speedingDistance;
+
+  /// The speeding duration
   final int speedingDuration;
+
+  /// The score
   final double score;
+
+  /// The list of speed limit contexts
   final List<PigeonSpeedLimitContext> speedLimitContexts;
 }
 
+/// Route class
 class Route {
-  Route({
+  /// Creates a Route instance
+  const Route({
     required this.gpsDate,
     required this.gpsVelocity,
     required this.longitude,
@@ -688,23 +1078,50 @@ class Route {
     required this.gyroscopeNormVar,
   });
 
+  /// The list of GPS dates
   final List<double> gpsDate;
+
+  /// The list of GPS velocities
   final List<double> gpsVelocity;
+
+  /// The list of longitudes
   final List<double> longitude;
+
+  /// The list of latitudes
   final List<double> latitude;
+
+  /// The list of GPS elevations
   final List<double> gpsElevation;
+
+  /// The list of GPS accuracies
   final List<double> gpsAccuracy;
+
+  /// The list of GPS headings
   final List<double> gpsHeading;
+
+  /// The list of screen locked statuses
   final List<double> screenLocked;
+
+  /// The list of activity values
   final List<double> activityValue;
+
+  /// The list of roll values
   final List<int> roll;
+
+  /// The list of pitch values
   final List<int> pitch;
+
+  /// The list of yaw values
   final List<int> yaw;
+
+  /// The list of gyroscope norm variances
   final List<int> gyroscopeNormVar;
 }
 
+/// SmartphoneData class
 class SmartphoneData {
-  SmartphoneData({
+  /// Creates a SmartphoneData instance
+  const SmartphoneData({
     required this.gpsDate,
     required this.phoneDate,
     required this.startMode,
@@ -720,23 +1137,50 @@ class SmartphoneData {
     required this.localTripId,
   });
 
+  /// The GPS date
   final DateTime gpsDate;
+
+  /// The phone date
   final DateTime phoneDate;
+
+  /// The start mode
   final int startMode;
+
+  /// The battery percentage
   final int batteryPercent;
+
+  /// The trip cut status
   final bool tripCut;
+
+  /// The Bluetooth enabled status
   final bool bluetoothEnabled;
+
+  /// The phone model
   final String phoneModel;
+
+  /// The app build number
   final String appBuildNumber;
+
+  /// The app version
   final String appVersion;
+
+  /// The OS version
   final String osVersion;
+
+  /// The OS type
   final String osType;
+
+  /// The SDK version
   final String sdkVersion;
+
+  /// The local trip ID
   final String localTripId;
 }
 
+/// PhoneCallRequest class
 class PhoneCallRequest {
-  PhoneCallRequest({
+  /// Creates a PhoneCallRequest instance
+  const PhoneCallRequest({
     required this.start,
     required this.end,
     required this.status,
@@ -748,27 +1192,49 @@ class PhoneCallRequest {
     this.audioName,
   });
 
+  /// The start time
   final double start;
+
+  /// The end time
   final double end;
+
+  /// The status
   final String status;
+
+  /// The audio system
   final String audioSystem;
+
+  /// The audio input
   final String? audioInput;
+
+  /// The audio output
   final String? audioOutput;
+
+  /// The audio name
   final String? audioName;
+
+  /// The proximity
   final int proximity;
+
+  /// The Bluetooth class
   final int bluetoothClass;
 }
 
+/// PostLogbook class
 class PostLogbook {
-  PostLogbook({
+  /// Creates a PostLogbook instance
+  const PostLogbook({
     required this.status,
   });
 
+  /// The status
   final int status;
 }
 
+/// EcoDrivingContext class
 class EcoDrivingContext {
-  EcoDrivingContext({
+  /// Creates an EcoDrivingContext instance
+  const EcoDrivingContext({
     required this.contextId,
     required this.distance,
     required this.duration,
@@ -778,17 +1244,32 @@ class EcoDrivingContext {
     required this.scoreDecel,
   });
 
+  /// The context ID
   final int contextId;
+
+  /// The distance
   final double distance;
+
+  /// The duration
   final double duration;
+
+  /// The efficiency score
   final double efficiencyScore;
+
+  /// The acceleration score
   final double scoreAccel;
+
+  /// The main score
   final double scoreMain;
+
+  /// The deceleration score
   final double scoreDecel;
 }
 
+/// FuelEstimationContext class
 class FuelEstimationContext {
-  FuelEstimationContext({
+  /// Creates a FuelEstimationContext instance
+  const FuelEstimationContext({
     required this.contextId,
     required this.distance,
     required this.duration,
@@ -798,17 +1279,32 @@ class FuelEstimationContext {
     required this.fuelConsumption,
   });
 
+  /// The context ID
   final int contextId;
+
+  /// The distance
   final double distance;
+
+  /// The duration
   final double duration;
+
+  /// The CO2 mass
   final double co2Mass;
+
+  /// The CO2 emission
   final double co2Emission;
+
+  /// The fuel volume
   final double fuelVolume;
+
+  /// The fuel consumption
   final double fuelConsumption;
 }
 
+/// SafetyContext class
 class SafetyContext {
-  SafetyContext({
+  /// Creates a SafetyContext instance
+  const SafetyContext({
     required this.contextId,
     required this.distance,
     required this.duration,
@@ -821,25 +1317,50 @@ class SafetyContext {
     required this.safetyScore,
   });
 
+  /// The context ID
   final int contextId;
+
+  /// The distance
   final double distance;
+
+  /// The duration
   final double duration;
+
+  /// The number of adhesion events
   final int nbAdh;
+
+  /// The number of acceleration events
   final int nbAccel;
+
+  /// The number of deceleration events
   final int nbDecel;
+
+  /// The number of critical adhesion events
   final int nbAdhCrit;
+
+  /// The number of critical acceleration events
   final int nbAccelCrit;
+
+  /// The number of critical deceleration events
   final int nbDecelCrit;
+
+  /// The safety score
   final double safetyScore;
 }
 
+/// CrashStatus enum
 enum CrashStatus {
+  /// The crash is unconfirmed
   unconfirmed,
+
+  /// The crash is confirmed
   confirmed,
 }
 
+/// PigeonCall class
 class PigeonCall {
-  PigeonCall({
+  /// Creates a PigeonCall instance
+  const PigeonCall({
     required this.id,
     required this.start,
     required this.end,
@@ -856,24 +1377,53 @@ class PigeonCall {
     this.audioName,
   });
 
+  /// The ID
   final int id;
+
+  /// The start time
   final double start;
+
+  /// The end time
   final double end;
+
+  /// The duration in seconds
   final int durationS;
+
+  /// The duration
   final int duration;
+
+  /// The distance in meters
   final int distanceM;
+
+  /// The distance
   final int distance;
+
+  /// The status
   final String status;
+
+  /// The audio system
   final String audioSystem;
+
+  /// The audio input
   final String? audioInput;
+
+  /// The audio output
   final String? audioOutput;
+
+  /// The audio name
   final String? audioName;
+
+  /// The Bluetooth class
   final int bluetoothClass;
+
+  /// The forbidden status
   final bool forbidden;
 }
 
+/// PigeonSpeedLimitContext class
 class PigeonSpeedLimitContext {
-  PigeonSpeedLimitContext({
+  /// Creates a PigeonSpeedLimitContext instance
+  const PigeonSpeedLimitContext({
     required this.speedLimit,
     required this.distance,
     required this.duration,
@@ -882,10 +1432,21 @@ class PigeonSpeedLimitContext {
     required this.score,
   });
 
+  /// The speed limit
   final int speedLimit;
+
+  /// The distance
   final int distance;
+
+  /// The duration
   final int duration;
+
+  /// The speeding distance
   final int speedingDistance;
+
+  /// The speeding duration
   final int speedingDuration;
+
+  /// The score
   final double score;
 }
