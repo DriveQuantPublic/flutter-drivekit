@@ -9,11 +9,12 @@ import 'mocks/mocks.dart';
 void main() {
   group('DrivekitCoreAndroid', () {
     late AndroidCoreApi androidCoreApi;
+    late FlutterCoreApi flutterCoreApi;
 
     setUp(() {
       androidCoreApi = MockAndroidCoreApi();
-      DrivekitCorePlatform.instance =
-          DrivekitCoreAndroid(androidCoreApi: androidCoreApi);
+      flutterCoreApi = DrivekitCoreAndroid(androidCoreApi: androidCoreApi);
+      DrivekitCorePlatform.instance = flutterCoreApi as DrivekitCoreAndroid;
     });
 
     test('can be registered', () {
@@ -105,6 +106,32 @@ void main() {
       //test
       await DrivekitCorePlatform.instance.disableLogging();
       verify(() => androidCoreApi.disableLogging()).called(1);
+    });
+
+    group('DriveKitListener', () {
+      test('can listen several listeners', () async {
+        var onConnectedCount = 0;
+        //test
+        DrivekitCorePlatform.instance.addDriveKitListener(
+          DriveKitListener(
+            onConnected: () {
+              onConnectedCount++;
+            },
+          ),
+        );
+        flutterCoreApi.onConnected();
+        expect(onConnectedCount, 1);
+
+        DrivekitCorePlatform.instance.addDriveKitListener(
+          DriveKitListener(
+            onConnected: () {
+              onConnectedCount++;
+            },
+          ),
+        );
+        flutterCoreApi.onConnected();
+        expect(onConnectedCount, 3);
+      });
     });
   });
 }
