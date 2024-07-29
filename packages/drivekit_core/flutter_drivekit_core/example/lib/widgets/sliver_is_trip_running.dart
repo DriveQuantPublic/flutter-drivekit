@@ -14,7 +14,8 @@ class _SliverIsTripRunningState extends State<SliverIsTripRunning> {
     return SliverToBoxAdapter(
       child: ElevatedButton(
         onPressed: () async {
-          final isTripRunning = await DrivekitTripAnalysis.isTripRunning();
+          final isTripRunning =
+              await DrivekitTripAnalysis.instance.isTripRunning();
           final alertMessage =
               isTripRunning ? 'Trip is running' : 'Trip is not running';
           if (context.mounted) {
