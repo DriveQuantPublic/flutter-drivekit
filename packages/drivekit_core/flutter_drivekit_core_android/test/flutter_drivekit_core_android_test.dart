@@ -201,6 +201,42 @@ void main() {
         // onBackgroundFetchStatusChanged is not supported on Android
         expect(onBackgroundFetchStatusChangedCount, 0);
       });
+
+      test(
+        'listener callbacks are transmitted with the right arguments',
+        () async {
+          final deleteAccountStatusList = <DeleteAccountStatus>[];
+          final requestErrorList = <RequestError>[];
+          final updateUserIdStatusList = <UpdateUserIdStatus>[];
+          //test
+          DrivekitCorePlatform.instance.addDriveKitListener(
+            DriveKitListener(
+              onAccountDeleted: deleteAccountStatusList.add,
+              onAuthenticationError: requestErrorList.add,
+              userIdUpdateStatus: (status, userId) {
+                updateUserIdStatusList.add(status);
+              },
+            ),
+          );
+          flutterCoreApi.onAccountDeleted(PigeonDeleteAccountStatus.success);
+          expect(deleteAccountStatusList, [DeleteAccountStatus.success]);
+          expect(requestErrorList, <RequestError>[]);
+          expect(updateUserIdStatusList, <UpdateUserIdStatus>[]);
+
+          flutterCoreApi.onAuthenticationError(PigeonRequestError.noNetwork);
+          expect(deleteAccountStatusList, [DeleteAccountStatus.success]);
+          expect(requestErrorList, [RequestError.noNetwork]);
+          expect(updateUserIdStatusList, <UpdateUserIdStatus>[]);
+
+          flutterCoreApi.userIdUpdateStatus(
+            PigeonUpdateUserIdStatus.alreadyUsed,
+            null,
+          );
+          expect(deleteAccountStatusList, [DeleteAccountStatus.success]);
+          expect(requestErrorList, [RequestError.noNetwork]);
+          expect(updateUserIdStatusList, [UpdateUserIdStatus.alreadyUsed]);
+        },
+      );
     });
   });
 }
