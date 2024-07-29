@@ -66,6 +66,20 @@ class DriveKitCore {
   /// Check which DriveKit API Key you have set in the SDK.
   Future<String?> getApiKey() => _platform.getApiKey();
 
+  /// DriveKit comes with a logging feature that is enabled by default.
+  /// This feature allows you to quickly identify the cause of a problem.
+  /// We recommend leaving the log enabled as it does not consume memory space
+  /// and is useful in the support phase.
+  /// However, if you don't want to use it, it can be disabled.
+  static Future<void> enableLogging({
+    bool showInConsole = true,
+    String androidLogPath = '/DriveKit',
+  }) =>
+      _platform.enableLogging(
+        showInConsole: showInConsole,
+        androidLogPath: androidLogPath,
+      );
+
   /// You can disable the DriveKit logging by calling.
   /// It is however recommended to keep this setting enabled.
   Future<void> disableLogging({bool showInConsole = true}) =>

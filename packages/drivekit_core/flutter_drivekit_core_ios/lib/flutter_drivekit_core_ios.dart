@@ -56,6 +56,14 @@ class DrivekitCoreIOS extends DrivekitCorePlatform implements FlutterCoreApi {
       iosCoreApi.deleteAccount(instantDeletion: instantDeletion);
   @override
   Future<String?> getApiKey() => iosCoreApi.getApiKey();
+
+  @override
+  Future<void> enableLogging({
+    bool showInConsole = true,
+    String androidLogPath = '/DriveKit',
+  }) =>
+      iosCoreApi.enableLogging(showInConsole: showInConsole);
+
   @override
   Future<void> disableLogging({bool showInConsole = true}) =>
       iosCoreApi.disableLogging(showInConsole: showInConsole);

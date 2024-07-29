@@ -99,6 +99,34 @@ void main() {
       verify(() => androidCoreApi.deleteAccount()).called(1);
     });
 
+    test('enable logging', () async {
+      //mock
+      when(
+        () => androidCoreApi.enableLogging(
+          showInConsole: false,
+          androidLogPath: '/testPath',
+        ),
+      ).thenAnswer((_) async {});
+
+      //test
+      await DrivekitCorePlatform.instance
+          .enableLogging(showInConsole: false, androidLogPath: '/testPath');
+      verify(
+        () => androidCoreApi.enableLogging(
+          showInConsole: false,
+          androidLogPath: '/testPath',
+        ),
+      ).called(1);
+      verifyNever(
+        () => androidCoreApi.enableLogging(
+          // ignore: avoid_redundant_argument_values
+          showInConsole: true,
+          // ignore: avoid_redundant_argument_values
+          androidLogPath: '/DriveKit',
+        ),
+      );
+    });
+
     test('disable logging', () async {
       //mock
       when(androidCoreApi.disableLogging).thenAnswer((_) async {});

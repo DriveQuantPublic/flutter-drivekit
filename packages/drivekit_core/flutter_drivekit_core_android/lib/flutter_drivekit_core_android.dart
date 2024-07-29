@@ -56,6 +56,16 @@ class DrivekitCoreAndroid extends DrivekitCorePlatform
   Future<String?> getApiKey() => androidCoreApi.getApiKey();
 
   @override
+  Future<void> enableLogging({
+    bool showInConsole = true,
+    String androidLogPath = '/DriveKit',
+  }) =>
+      androidCoreApi.enableLogging(
+        showInConsole: showInConsole,
+        androidLogPath: androidLogPath,
+      );
+
+  @override
   Future<void> disableLogging({bool showInConsole = true}) =>
       androidCoreApi.disableLogging(showInConsole: showInConsole);
 
