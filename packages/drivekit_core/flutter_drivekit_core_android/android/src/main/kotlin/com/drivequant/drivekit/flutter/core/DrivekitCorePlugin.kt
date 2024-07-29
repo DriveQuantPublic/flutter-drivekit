@@ -22,11 +22,13 @@ class DrivekitCorePlugin :
     override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         AndroidCoreApi.setUp(flutterPluginBinding.binaryMessenger, this)
         context = flutterPluginBinding.applicationContext
+        flutterApi = FlutterCoreApi(flutterPluginBinding.binaryMessenger)
     }
 
     override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
         AndroidCoreApi.setUp(binding.binaryMessenger, null)
         context = null
+        flutterApi = null
     }
 
     override fun getPlatformName(): String = "android"
