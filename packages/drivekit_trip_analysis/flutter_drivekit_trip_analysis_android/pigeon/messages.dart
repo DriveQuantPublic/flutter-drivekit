@@ -143,7 +143,11 @@ class PigeonTripPoint {
 
 class PigeonDKCrashInfo {
   const PigeonDKCrashInfo({
-    required this.probability, required this.latitude, required this.longitude, required this.velocity, this.crashId,
+    required this.probability,
+    required this.latitude,
+    required this.longitude,
+    required this.velocity,
+    this.crashId,
     this.date,
     this.status,
   });

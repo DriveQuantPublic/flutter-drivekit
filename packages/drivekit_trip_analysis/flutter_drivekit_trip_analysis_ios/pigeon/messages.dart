@@ -150,7 +150,9 @@ class PigeonCall {
     required this.distance,
     required this.status,
     required this.audioSystem,
-    required this.bluetoothClass, required this.forbidden, this.audioInput,
+    required this.bluetoothClass,
+    required this.forbidden,
+    this.audioInput,
     this.audioOutput,
     this.audioName,
   });
