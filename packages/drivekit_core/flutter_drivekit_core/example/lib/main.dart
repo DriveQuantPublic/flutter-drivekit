@@ -20,44 +20,38 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  String? _platformName;
+  late final TextEditingController _apiKeyController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('DrivekitCore Example')),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            if (_platformName == null)
-              const SizedBox.shrink()
-            else
-              Text(
-                'Platform Name: $_platformName',
-                style: Theme.of(context).textTheme.headlineSmall,
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: TextField(
+              controller: _apiKeyController,
+              decoration: const InputDecoration(
+                labelText: 'API Key',
+                hintText: 'Enter your API Key',
               ),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () async {
-                if (!context.mounted) return;
-                try {
-                  final result = await DriveKitCore.instance.getPlatformName();
-                  setState(() => _platformName = result);
-                } catch (error) {
-                  if (!context.mounted) return;
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      backgroundColor: Theme.of(context).primaryColor,
-                      content: Text('$error'),
-                    ),
-                  );
-                }
-              },
-              child: const Text('Get Platform Name'),
             ),
-          ],
-        ),
+          ),
+          const SizedBox(height: 16),
+          ElevatedButton(
+            onPressed: () {
+              DriveKitCore.instance.setApiKey(_apiKeyController.text);
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  backgroundColor: Theme.of(context).primaryColor,
+                  content: Text('API Key: ${_apiKeyController.text}'),
+                ),
+              );
+            },
+            child: const Text('Set API Key'),
+          ),
+        ],
       ),
     );
   }
