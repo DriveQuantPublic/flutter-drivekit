@@ -120,6 +120,11 @@ class DrivekitCoreIOS extends DrivekitCorePlatform implements FlutterCoreApi {
   }
 
   @override
+  void removeDriveKitListener(DriveKitListener listener) {
+    _listeners.remove(listener);
+  }
+
+  @override
   Future<Uri?> getLogUriFile() async {
     final uriString = await iosCoreApi.getLogUriFile();
     if (uriString == null) {
