@@ -162,6 +162,15 @@ void main() {
         DriveKitCore.instance.addDriveKitListener(listener);
         verify(() => drivekitCorePlatform.addDriveKitListener(listener));
       });
+      test('removeListener', () async {
+        final listener = DriveKitListener(
+          onConnected: () {},
+        );
+        when(() => drivekitCorePlatform.removeDriveKitListener(any()))
+            .thenAnswer((_) async {});
+        DriveKitCore.instance.removeDriveKitListener(listener);
+        verify(() => drivekitCorePlatform.removeDriveKitListener(listener));
+      });
     });
   });
 }

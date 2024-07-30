@@ -274,6 +274,56 @@ void main() {
           expect(updateUserIdStatusList, [UpdateUserIdStatus.alreadyUsed]);
         },
       );
+
+      test('can remove a listener', () async {
+        var onConnectedCount = 0;
+        var onDisconnectedCount = 0;
+        var onAccountDeletedCount = 0;
+        var onAuthenticationErrorCount = 0;
+        var onBackgroundFetchStatusChangedCount = 0;
+        var userIdUpdateStatusCount = 0;
+
+        final listener = DriveKitListener(
+          onConnected: () {
+            onConnectedCount++;
+          },
+          onAccountDeleted: (status) {
+            onAccountDeletedCount++;
+          },
+          onAuthenticationError: (errorType) {
+            onAuthenticationErrorCount++;
+          },
+          onBackgroundFetchStatusChanged: (status) {
+            onBackgroundFetchStatusChangedCount++;
+          },
+          onDisconnected: () {
+            onDisconnectedCount++;
+          },
+          userIdUpdateStatus: (status, userId) {
+            userIdUpdateStatusCount++;
+          },
+        );
+        DrivekitCorePlatform.instance.addDriveKitListener(listener);
+        DrivekitCorePlatform.instance.removeDriveKitListener(listener);
+
+        flutterCoreApi
+          ..onConnected()
+          ..onDisconnected()
+          ..onAccountDeleted(PigeonDeleteAccountStatus.success)
+          ..onAuthenticationError(PigeonRequestError.noNetwork)
+          ..userIdUpdateStatus(
+            PigeonUpdateUserIdStatus.alreadyUsed,
+            null,
+          );
+
+        expect(onAuthenticationErrorCount, 0);
+        expect(onAccountDeletedCount, 0);
+        expect(onDisconnectedCount, 0);
+        expect(userIdUpdateStatusCount, 0);
+        expect(onConnectedCount, 0);
+        expect(onDisconnectedCount, 0);
+        expect(onBackgroundFetchStatusChangedCount, 0);
+      });
     });
   });
 }
