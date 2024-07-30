@@ -39,6 +39,8 @@ Please refer to the [DriveKit Trip Analysis documentation](https://docs.drivequa
 | [activateCrashDetection()](#activatecrashdetection)                   | `Future<void>`                  | ✅  |   ✅    |
 | [setMonitorPotentialTripStart()](#setmonitorpotentialtripstart)       | `Future<void>`                  | ✅  |   ✅    |
 | [getMonitorPotentialTripStart()](#getmonitorpotentialtripstart)       | `Future<bool>`                  | ✅  |   ✅    |
+| [setVehicle()](#setvehicle)                                           | `Future<bool>`                  | ✅  |   ✅    |
+
 
 ### activateAutoStart
 
@@ -149,7 +151,7 @@ To disable crash detection, call the method with parameter to `false`
 driveKitTripAnalysis.activateCrashDetection(false);
 ```
 
-### setmonitorpotentialtripstart
+### setMonitorPotentialTripStart
 
 ```dart
 Future<void> setMonitorPotentialTripStart(bool activate);
@@ -180,7 +182,7 @@ To disable the feature, call the method with parameter to `false`
 DrivekitTripAnalysis.setMonitorPotentialTripStart(false);
 ```
 
-### getmonitorpotentialtripstart
+### getMonitorPotentialTripStart
 
 ```dart
 Future<bool> getMonitorPotentialTripStart();
@@ -191,3 +193,66 @@ Check if the feature is activated or not with the following command:
 ```dart
 final monitorPotentialTripStart = await DrivekitTripAnalysis.getMonitorPotentialTripStart();
 ```
+
+### setVehicle
+
+```dart
+Future<void> setVehicle(Vehicle vehicle);
+```
+
+To obtain a more precise analysis on driving behaviour, it's recommended to configure the vehicle used by the driver. You can do this by calling the following method:
+
+```dart
+DrivekitTripAnalysis.instance.setVehicle(
+  const Vehicle(
+    carTypeIndex: 2,
+    carEngineIndex: 2,
+    carPower: 200,
+    carMass: 1500,
+    carGearboxIndex: 3,
+    carConsumption: 6.5,
+    carAutoGearboxNumber: 1,
+    engineDisplacement: 1500,
+    carPassengers: 2,
+    length: 4.7,
+    width: 1.9,
+    height: 1.5,
+    engineCylinderNb: 6,
+    driveWheels: 1,
+  ),
+);
+```
+
+A detailed description of vehicle parameter is available [here](https://docs.drivequant.com/trip-analysis/ios/references#tripvehicle).
+
+> ℹ️
+>
+> If no vehicle is configured a default vehicle will be configured with following parameters:
+>
+> carTypeIndex = 1
+>
+> carEngineIndex = 1
+>
+> carPower = 150
+>
+> carMass = 1400
+>
+> carGearboxIndex = 2
+>
+> carConsumption = 4.5
+>
+> engineDisplacement = 1200
+>
+> frontTireSize = "205/55/16"
+>
+> rearTireSize = "205/55/16"
+>
+> length = 4.5
+>
+> width = 1.8
+>
+> height = 1.45
+>
+> engineCylinderNb = 4
+>
+> driveWheels = 0
