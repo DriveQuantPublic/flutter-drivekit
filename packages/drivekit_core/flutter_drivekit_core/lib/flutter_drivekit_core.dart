@@ -93,6 +93,11 @@ class DriveKitCore {
     _platform.removeDriveKitListener(listener);
   }
 
+  /// Removes all listeners from DriveKit core.
+  void removeAllDriveKitListeners() {
+    _platform.removeAllDriveKitListeners();
+  }
+
   /// You can retrieve the Uri log file by calling the following method.
   static Future<Uri?> getLogUriFile() => _platform.getLogUriFile();
 }

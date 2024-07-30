@@ -72,6 +72,9 @@ abstract class DrivekitCorePlatform extends PlatformInterface {
   /// Remove a [DriveKitListener]
   void removeDriveKitListener(DriveKitListener listener);
 
+  /// Remove all [DriveKitListener]
+  void removeAllDriveKitListeners();
+
   /// Get the log file uri
   Future<Uri?> getLogUriFile();
 }
