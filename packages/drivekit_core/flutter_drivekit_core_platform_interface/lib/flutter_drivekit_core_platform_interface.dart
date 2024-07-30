@@ -1,5 +1,8 @@
 import 'package:flutter_drivekit_core_platform_interface/src/default_drivekit_core.dart';
+import 'package:flutter_drivekit_core_platform_interface/src/model.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
+
+export 'package:flutter_drivekit_core_platform_interface/src/model.dart';
 
 /// The interface that implementations of drivekit_core must implement.
 ///
