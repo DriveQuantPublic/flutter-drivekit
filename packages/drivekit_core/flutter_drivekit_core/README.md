@@ -45,12 +45,13 @@ Now, you can configure the Drivekit Core with the options you want, and use othe
 | [setApiKey()](#setapikey)                                       | `Future<void>`                     | ✅  |   ✅    |
 | [getUserId()](#getuserid)                                       | `Future<String?>`                  | ✅  |   ✅    |
 | [setUserId()](#setuserid)                                       | `Future<void>`                     | ✅  |   ✅    |
+| [addDriveKitListener()](#adddrivekitlistener)                   | `Future<void>`                     | ✅  |   ✅    |
 | [deleteAccount()](#deleteaccount)                               | `Future<void>`                     | ✅  |   ✅    |
-| [reset()](#reset)                                               | `Future<void>`                     | ✅  |   ✅    |
 | [enableLogging()](#logging)                                     | `Future<void>`                     | ✅  |   ✅    |
 | [disableLogging()](#logging)                                    | `Future<void>`                     | ✅  |   ✅    |
-| [isTokenValid()](#istokenvalid)                                 | `Futur<bool>`                      | ✅  |   ✅    |
 | [getLogUriFile()](#getlogurifile)                               | `Futur<Uri?>`                      | ✅  |   ✅    |
+| [isTokenValid()](#istokenvalid)                                 | `Futur<bool>`                      | ✅  |   ✅    |
+| [reset()](#reset)                                               | `Future<void>`                     | ✅  |   ✅    |
 
 ### getApiKey
 
@@ -114,6 +115,48 @@ driveKitCore.setUserId('MyUniqueUserId);
 >
 > DriveKit SDK will not work until you set the API key and the userId.
 
+### addDriveKitListener
+
+```dart
+void addDriveKitListener(DriveKitListener listener)
+```
+
+`DriveKitListener` is an interface that gives useful events about the user lifecycle. You can register to this listener by calling the following code:
+
+```dart
+    DriveKitCore.instance.addDriveKitListener(
+      DriveKitListener(
+        onConnected: () {
+          (…)
+        },
+        onDisconnected: () {
+          (…)
+        },
+        userIdUpdateStatus: (status, userId) {
+          (…)
+        },
+        onAuthenticationError: (errorType) {
+          (…)
+        },
+        onAccountDeleted: (status) {
+          (…)
+        },
+        onBackgroundFetchStatusChanged: (status) {
+          (…)
+        },
+      ),
+    );
+```
+
+| Method                         | Description                                                                             |
+|--------------------------------|-----------------------------------------------------------------------------------------|
+| onConnected                    | The user has been successfully logged.                                                  |
+| onDisconnected                 | The user has been disconnected (manual logout or the account is disabled/deleted).      |
+| userIdUpdateStatus             | The update userId request has been processed with a  `UpdateUserIdStatus` state value.  |
+| onAuthenticationError          |  The login has failed due to a `RequestError`.                                          |
+| onAccountDeleted               | The delete account request has been processed with a `DeleteAccountStatus` state value. |
+| onBackgroundFetchStatusChanged | The background fetch status has changed with a `BackgroundFetchStatus` state value.     |
+
 ### deleteAccount
 
 ```dart
@@ -141,18 +184,6 @@ await driveKitCore.deleteAccount(instantDeletion: true);
 > ℹ️
 >
 > Your team needs to have the deletion feature activated to use this method. Please contact DriveQuant if you need it.
-
-### reset
-
-```dart
-Future<void> reset();
-```
-
-If you need to reset DriveKit configuration (user logout for example), you can call the following method:
-
-```dart
-await driveKitCore.reset();
-```
 
 ### Logging
 
@@ -198,6 +229,18 @@ To enable logging, call the following method specifying the path of the log dire
 await DriveKitCore.enableLogging(showInConsole: true, androidLogPath: '/YouDriveKitFolder');
 ```
 
+### getLogUriFile
+
+```dart
+static Future<Uri?> getLogUriFile() => _platform.getLogUriFile();
+```
+
+You can retrieve the Uri log file by calling the following method:
+
+```dart
+final logFile = await DriveKitCore.getLogUriFile();
+```
+
 ### isTokenValid
 
 ```dart
@@ -210,14 +253,14 @@ Once you are connected to the SDK with your key and a user ID, you can check the
 final isValid = await driveKitCore.isTokenValid();
 ```
 
-### getUriLogFile
+### reset
 
 ```dart
-static Future<Uri?> getLogUriFile() => _platform.getLogUriFile();
+Future<void> reset();
 ```
 
-You can retrieve the Uri log file by calling the following method:
+If you need to reset DriveKit configuration (user logout for example), you can call the following method:
 
 ```dart
-final logFile = await DriveKitCore.getLogUriFile();
+await driveKitCore.reset();
 ```
