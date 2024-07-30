@@ -124,7 +124,7 @@ When submitting a pull request, make sure that all tests and the analyzer pass, 
 
 All the plugins have an example app in the `example` folder of their public package. It's useful to open the native projects with Android Studio and Xcode, and to increase the pub.dev score of the plugin.
 
-Nevertheless, only the DriveKit Core's example is meant to serve as a demonstration of how to use the DriveKit SDK, and demonstrates all plugins working together. Please follow the instructions in [the example's README](packages/drivekit_core/flutter_drivekit_core/example/README.md) to run it.
+Nevertheless, we also have a global example app to serve as a demonstration of how to use the DriveKit SDK, and demonstrates all plugins working together. Please follow the instructions in [the example's README](example/README.md) to run it.
 
 ## Linter
 
