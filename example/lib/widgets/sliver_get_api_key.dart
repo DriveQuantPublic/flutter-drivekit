@@ -2,14 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_drivekit_core/flutter_drivekit_core.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 
-class SliverGetApiKey extends StatefulWidget {
+class SliverGetApiKey extends StatelessWidget {
   const SliverGetApiKey({super.key});
 
-  @override
-  State<SliverGetApiKey> createState() => _SliverGetApiKeyState();
-}
-
-class _SliverGetApiKeyState extends State<SliverGetApiKey> {
   @override
   Widget build(BuildContext context) {
     return MultiSliver(

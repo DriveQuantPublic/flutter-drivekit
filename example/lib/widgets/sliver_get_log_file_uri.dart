@@ -2,14 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_drivekit_core/flutter_drivekit_core.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 
-class SliverGetLogFileUri extends StatefulWidget {
+class SliverGetLogFileUri extends StatelessWidget {
   const SliverGetLogFileUri({super.key});
 
-  @override
-  State<SliverGetLogFileUri> createState() => _SliverGetLogFileUriState();
-}
-
-class _SliverGetLogFileUriState extends State<SliverGetLogFileUri> {
   @override
   Widget build(BuildContext context) {
     return MultiSliver(

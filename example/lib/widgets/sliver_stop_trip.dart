@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_drivekit_trip_analysis/flutter_drivekit_trip_analysis.dart';
 
-class SliverStopTrip extends StatefulWidget {
+class SliverStopTrip extends StatelessWidget {
   const SliverStopTrip({super.key});
 
-  @override
-  State<SliverStopTrip> createState() => _SliverStopTripState();
-}
-
-class _SliverStopTripState extends State<SliverStopTrip> {
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(

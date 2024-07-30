@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_drivekit_core/flutter_drivekit_core.dart';
 
-class SliverReset extends StatefulWidget {
+class SliverReset extends StatelessWidget {
   const SliverReset({super.key});
 
-  @override
-  State<SliverReset> createState() => _SliverResetState();
-}
-
-class _SliverResetState extends State<SliverReset> {
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
