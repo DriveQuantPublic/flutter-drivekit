@@ -22,15 +22,6 @@ void main() {
       expect(DrivekitCorePlatform.instance, isA<DrivekitCoreAndroid>());
     });
 
-    test('getPlatformName returns correct name', () async {
-      //mock
-      when(androidCoreApi.getPlatformName).thenAnswer((_) async => 'Android');
-
-      //test
-      final name = await DrivekitCorePlatform.instance.getPlatformName();
-      expect(name, 'Android');
-    });
-
     test('setApiKey calls setApiKey method with correct key', () async {
       //mock
       when(() => androidCoreApi.setApiKey(any())).thenAnswer((_) async {});

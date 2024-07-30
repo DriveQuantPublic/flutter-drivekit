@@ -11,11 +11,6 @@ class DefaultDrivekitCore extends DrivekitCorePlatform {
   }
 
   @override
-  Future<String> getPlatformName() {
-    throw UnimplementedError('getPlatformName() has not been implemented.');
-  }
-
-  @override
   Future<void> setApiKey(String key) {
     throw UnimplementedError('setApiKey() has not been implemented.');
   }

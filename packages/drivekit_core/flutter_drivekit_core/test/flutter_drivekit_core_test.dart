@@ -25,19 +25,6 @@ void main() {
       DrivekitCorePlatform.instance = drivekitCorePlatform;
     });
 
-    group('getPlatformName', () {
-      test('returns correct name when platform implementation exists',
-          () async {
-        const platformName = '__test_platform__';
-        when(
-          () => drivekitCorePlatform.getPlatformName(),
-        ).thenAnswer((_) async => platformName);
-        final actualPlatformName =
-            await DriveKitCore.instance.getPlatformName();
-        expect(actualPlatformName, equals(platformName));
-      });
-    });
-
     group('apiKey', () {
       test('calls setApiKey on platform implementation', () async {
         when(() => drivekitCorePlatform.setApiKey(any()))

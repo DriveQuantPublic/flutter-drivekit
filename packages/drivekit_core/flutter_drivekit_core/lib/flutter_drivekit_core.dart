@@ -18,9 +18,6 @@ class DriveKitCore {
   static DriveKitCore get instance => _instance;
   static final DriveKitCore _instance = DriveKitCore._();
 
-  /// Returns the name of the current platform.
-  Future<String> getPlatformName() => _platform.getPlatformName();
-
   /// Sets the DriveQuant API key.
   /// You should store the key in a secure place in your app, and then
   /// call this method with the key to initiate the SDK.
