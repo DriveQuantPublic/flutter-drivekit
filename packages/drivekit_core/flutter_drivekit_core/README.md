@@ -50,6 +50,7 @@ Now, you can configure the Drivekit Core with the options you want, and use othe
 | [enableLogging()](#logging)                                     | `Future<void>`                     | ✅  |   ✅    |
 | [disableLogging()](#logging)                                    | `Future<void>`                     | ✅  |   ✅    |
 | [isTokenValid()](#istokenvalid)                                 | `Futur<bool>`                      | ✅  |   ✅    |
+| [getLogUriFile()](#getlogurifile)                               | `Futur<Uri?>`                      | ✅  |   ✅    |
 
 ### getApiKey
 
@@ -207,4 +208,16 @@ Once you are connected to the SDK with your key and a user ID, you can check the
 
 ```dart
 final isValid = await driveKitCore.isTokenValid();
+```
+
+### getUriLogFile
+
+```dart
+static Future<Uri?> getLogUriFile() => _platform.getLogUriFile();
+```
+
+You can retrieve the Uri log file by calling the following method:
+
+```dart
+final logFile = await DriveKitCore.getLogUriFile();
 ```
