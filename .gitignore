@@ -7,7 +7,6 @@
 .packages
 .pub/
 .dart_tool/
-pubspec_overrides.yaml
 flutter_export_environment.sh
 coverage/
 
@@ -28,9 +27,6 @@ xcuserdata/
 local.properties
 keystore.properties
 .gradle/
-gradlew
-gradlew.bat
-gradle-wrapper.jar
 .flutter-plugins-dependencies
 *.iml
 

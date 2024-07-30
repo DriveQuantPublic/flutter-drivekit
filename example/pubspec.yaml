@@ -9,12 +9,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_drivekit_core:
-    path: ../packages/drivekit_core/flutter_drivekit_core/
-  flutter_drivekit_trip_analysis:
-    path: ../packages/drivekit_trip_analysis/flutter_drivekit_trip_analysis/
-  flutter_drivekit_trip_simulator:
-    path: ../packages/drivekit_trip_simulator/flutter_drivekit_trip_simulator/
+  flutter_drivekit_core: ^0.0.1
+  flutter_drivekit_trip_analysis: ^0.0.1
+  flutter_drivekit_trip_simulator: ^0.0.1
   gap: ^3.0.1
   permission_handler: ^11.3.1
   sliver_tools: ^0.2.12
