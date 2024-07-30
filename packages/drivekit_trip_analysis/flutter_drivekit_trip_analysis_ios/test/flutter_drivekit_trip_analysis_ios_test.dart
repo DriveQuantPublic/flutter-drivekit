@@ -30,16 +30,6 @@ void main() {
       );
     });
 
-    test('getPlatformName returns correct name', () async {
-      //mocks
-      when(iOSTripAnalysisApi.getPlatformName).thenAnswer((_) async => 'iOS');
-
-      //test
-      final name =
-          await DrivekitTripAnalysisPlatform.instance.getPlatformName();
-      expect(name, 'iOS');
-    });
-
     test('activateAutoStart calls ios implementation with correct argument',
         () async {
       //mock

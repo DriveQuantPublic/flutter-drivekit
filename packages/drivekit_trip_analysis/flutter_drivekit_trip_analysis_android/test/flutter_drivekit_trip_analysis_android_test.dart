@@ -30,18 +30,6 @@ void main() {
         isA<DrivekitTripAnalysisAndroid>(),
       );
     });
-
-    test('getPlatformName returns correct name', () async {
-      //mocks
-      when(androidTripAnalysisApi.getPlatformName)
-          .thenAnswer((_) async => 'Android');
-
-      //tes
-      final name =
-          await DrivekitTripAnalysisPlatform.instance.getPlatformName();
-      expect(name, 'Android');
-    });
-
     test('activateAutoStart calls android implementation with correct argument',
         () async {
       //mock
