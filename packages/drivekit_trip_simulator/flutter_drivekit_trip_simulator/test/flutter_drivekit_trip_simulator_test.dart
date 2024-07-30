@@ -40,8 +40,8 @@ void main() {
           () => drivekitTripSimulatorPlatform.start(PresetTrip.shortTrip),
         ).thenAnswer((_) async {});
 
-        await driveKitTripSimulator.start(PresetTrip.shortTrip);
-        verify(() => driveKitTripSimulator.start(PresetTrip.shortTrip));
+        await DriveKitTripSimulator.start(PresetTrip.shortTrip);
+        verify(() => DriveKitTripSimulator.start(PresetTrip.shortTrip));
       });
     });
 
@@ -51,8 +51,8 @@ void main() {
           () => drivekitTripSimulatorPlatform.stop(),
         ).thenAnswer((_) async {});
 
-        await driveKitTripSimulator.stop();
-        verify(driveKitTripSimulator.stop);
+        await DriveKitTripSimulator.stop();
+        verify(DriveKitTripSimulator.stop);
       });
     });
   });
