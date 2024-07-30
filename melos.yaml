@@ -4,9 +4,9 @@ packages:
   - packages/drivekit_core/*
   - packages/drivekit_trip_analysis/*
   - packages/drivekit_trip_simulator/*
-  - packages/drivekit_core/flutter_drivekit_core/example
   - packages/drivekit_trip_analysis/flutter_drivekit_trip_analysis/example
   - packages/drivekit_trip_simulator/flutter_drivekit_trip_simulator/example
+  - example
 
 scripts:
 
