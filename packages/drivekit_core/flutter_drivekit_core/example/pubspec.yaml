@@ -13,6 +13,8 @@ dependencies:
     path: ../
   flutter_drivekit_trip_analysis:
     path: ../../../drivekit_trip_analysis/flutter_drivekit_trip_analysis
+  flutter_drivekit_trip_simulator:
+    path: ../../../drivekit_trip_simulator/flutter_drivekit_trip_simulator
   gap: ^3.0.1
   permission_handler: ^11.3.1
   sliver_tools: ^0.2.12

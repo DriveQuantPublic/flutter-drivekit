@@ -35,5 +35,29 @@ void main() {
           await DrivekitTripSimulatorPlatform.instance.getPlatformName();
       expect(name, 'Android');
     });
+
+    test('start trip simulation', () async {
+      //mock
+      when(() => androidTripSimulatorApi.start(PigeonPresetTrip.shortTrip))
+          .thenAnswer((_) async {});
+
+      //test
+      await DrivekitTripSimulatorPlatform.instance.start(PresetTrip.shortTrip);
+      verify(
+        () =>
+            DrivekitTripSimulatorPlatform.instance.start(PresetTrip.shortTrip),
+      ).called(1);
+    });
+
+    test('stop trip simulation', () async {
+      //mock
+      when(() => androidTripSimulatorApi.stop()).thenAnswer((_) async {});
+
+      //test
+      await DrivekitTripSimulatorPlatform.instance.stop();
+      verify(
+        () => DrivekitTripSimulatorPlatform.instance.stop(),
+      ).called(1);
+    });
   });
 }

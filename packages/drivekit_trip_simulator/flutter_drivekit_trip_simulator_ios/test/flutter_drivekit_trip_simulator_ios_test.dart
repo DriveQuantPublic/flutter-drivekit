@@ -33,5 +33,25 @@ void main() {
           await DrivekitTripSimulatorPlatform.instance.getPlatformName();
       expect(name, 'iOS');
     });
+
+    test('start trip simulation', () async {
+      //mock
+      when(() => iosTripSimulatorApi.start(PigeonPresetTrip.shortTrip))
+          .thenAnswer((_) async {});
+
+      //test
+      await DrivekitTripSimulatorPlatform.instance.start(PresetTrip.shortTrip);
+      verify(() => iosTripSimulatorApi.start(PigeonPresetTrip.shortTrip))
+          .called(1);
+    });
+
+    test('stop trip simulation', () async {
+      //mock
+      when(() => iosTripSimulatorApi.stop()).thenAnswer((_) async {});
+
+      //test
+      await DrivekitTripSimulatorPlatform.instance.stop();
+      verify(() => iosTripSimulatorApi.stop()).called(1);
+    });
   });
 }

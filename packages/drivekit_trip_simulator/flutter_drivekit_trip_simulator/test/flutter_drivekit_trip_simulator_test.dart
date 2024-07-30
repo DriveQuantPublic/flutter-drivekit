@@ -33,5 +33,27 @@ void main() {
         expect(actualPlatformName, equals(platformName));
       });
     });
+
+    group('start', () {
+      test('start trip simulation', () async {
+        when(
+          () => drivekitTripSimulatorPlatform.start(PresetTrip.shortTrip),
+        ).thenAnswer((_) async {});
+
+        await driveKitTripSimulator.start(PresetTrip.shortTrip);
+        verify(() => driveKitTripSimulator.start(PresetTrip.shortTrip));
+      });
+    });
+
+    group('stop', () {
+      test('stop trip simulation', () async {
+        when(
+          () => drivekitTripSimulatorPlatform.stop(),
+        ).thenAnswer((_) async {});
+
+        await driveKitTripSimulator.stop();
+        verify(driveKitTripSimulator.stop);
+      });
+    });
   });
 }

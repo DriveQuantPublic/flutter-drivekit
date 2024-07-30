@@ -15,8 +15,44 @@ PlatformException _createConnectionError(String channelName) {
   );
 }
 
+enum PigeonPresetTrip {
+  shortTrip,
+  mixedTrip,
+  cityTrip,
+  suburbanTrip,
+  highwayTrip,
+  trainTrip,
+  boatTrip,
+  busTrip,
+  tripWithCrashConfirmed10KmH,
+  tripWithCrashConfirmed20KmH,
+  tripWithCrashConfirmed30KmH,
+  tripWithCrashUnconfirmed0KmH,
+  tripWithCrashConfirmed30KmHStillDriving,
+}
+
 class _PigeonCodec extends StandardMessageCodec {
   const _PigeonCodec();
+  @override
+  void writeValue(WriteBuffer buffer, Object? value) {
+    if (value is PigeonPresetTrip) {
+      buffer.putUint8(129);
+      writeValue(buffer, value.index);
+    } else {
+      super.writeValue(buffer, value);
+    }
+  }
+
+  @override
+  Object? readValueOfType(int type, ReadBuffer buffer) {
+    switch (type) {
+      case 129:
+        final int? value = readValue(buffer) as int?;
+        return value == null ? null : PigeonPresetTrip.values[value];
+      default:
+        return super.readValueOfType(type, buffer);
+    }
+  }
 }
 
 class AndroidTripSimulatorApi {
@@ -60,6 +96,54 @@ class AndroidTripSimulatorApi {
       );
     } else {
       return (__pigeon_replyList[0] as String?)!;
+    }
+  }
+
+  Future<void> start(PigeonPresetTrip presetTrip) async {
+    final String __pigeon_channelName =
+        'dev.flutter.pigeon.pigeon_trip_simulator_package.AndroidTripSimulatorApi.start$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel =
+        BasicMessageChannel<Object?>(
+      __pigeon_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: __pigeon_binaryMessenger,
+    );
+    final List<Object?>? __pigeon_replyList =
+        await __pigeon_channel.send(<Object?>[presetTrip]) as List<Object?>?;
+    if (__pigeon_replyList == null) {
+      throw _createConnectionError(__pigeon_channelName);
+    } else if (__pigeon_replyList.length > 1) {
+      throw PlatformException(
+        code: __pigeon_replyList[0]! as String,
+        message: __pigeon_replyList[1] as String?,
+        details: __pigeon_replyList[2],
+      );
+    } else {
+      return;
+    }
+  }
+
+  Future<void> stop() async {
+    final String __pigeon_channelName =
+        'dev.flutter.pigeon.pigeon_trip_simulator_package.AndroidTripSimulatorApi.stop$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel =
+        BasicMessageChannel<Object?>(
+      __pigeon_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: __pigeon_binaryMessenger,
+    );
+    final List<Object?>? __pigeon_replyList =
+        await __pigeon_channel.send(null) as List<Object?>?;
+    if (__pigeon_replyList == null) {
+      throw _createConnectionError(__pigeon_channelName);
+    } else if (__pigeon_replyList.length > 1) {
+      throw PlatformException(
+        code: __pigeon_replyList[0]! as String,
+        message: __pigeon_replyList[1] as String?,
+        details: __pigeon_replyList[2],
+      );
+    } else {
+      return;
     }
   }
 }

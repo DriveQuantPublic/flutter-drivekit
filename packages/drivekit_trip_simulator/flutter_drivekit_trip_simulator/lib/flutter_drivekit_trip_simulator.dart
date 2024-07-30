@@ -8,4 +8,10 @@ DrivekitTripSimulatorPlatform get _platform =>
 class DriveKitTripSimulator {
   /// Returns the name of the current platform.
   Future<String> getPlatformName() => _platform.getPlatformName();
+
+  /// Starts trip simulation with a preset trip
+  Future<void> start(PresetTrip presetTrip) => _platform.start(presetTrip);
+
+  /// Stops trip simulation
+  Future<void> stop() => _platform.stop();
 }
