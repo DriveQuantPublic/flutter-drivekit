@@ -171,6 +171,12 @@ void main() {
         DriveKitCore.instance.removeDriveKitListener(listener);
         verify(() => drivekitCorePlatform.removeDriveKitListener(listener));
       });
+      test('removeAllListeners', () async {
+        when(() => drivekitCorePlatform.removeAllDriveKitListeners())
+            .thenAnswer((_) async {});
+        DriveKitCore.instance.removeAllDriveKitListeners();
+        verify(() => drivekitCorePlatform.removeAllDriveKitListeners());
+      });
     });
   });
 }

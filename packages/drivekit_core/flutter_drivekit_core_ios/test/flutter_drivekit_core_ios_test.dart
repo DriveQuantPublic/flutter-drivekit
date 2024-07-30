@@ -339,6 +339,58 @@ void main() {
         expect(onDisconnectedCount, 0);
         expect(onBackgroundFetchStatusChangedCount, 0);
       });
+
+      test('can remove all listeners at once', () async {
+        var onConnectedCount = 0;
+        var onDisconnectedCount = 0;
+        var onAccountDeletedCount = 0;
+        var onAuthenticationErrorCount = 0;
+        var onBackgroundFetchStatusChangedCount = 0;
+        var userIdUpdateStatusCount = 0;
+
+        final listener = DriveKitListener(
+          onConnected: () {
+            onConnectedCount++;
+          },
+          onAccountDeleted: (status) {
+            onAccountDeletedCount++;
+          },
+          onAuthenticationError: (errorType) {
+            onAuthenticationErrorCount++;
+          },
+          onBackgroundFetchStatusChanged: (status) {
+            onBackgroundFetchStatusChangedCount++;
+          },
+          onDisconnected: () {
+            onDisconnectedCount++;
+          },
+          userIdUpdateStatus: (status, userId) {
+            userIdUpdateStatusCount++;
+          },
+        );
+        DrivekitCorePlatform.instance.addDriveKitListener(listener);
+        DrivekitCorePlatform.instance.addDriveKitListener(listener);
+        flutterCoreApi.driveKitDidConnect();
+        DrivekitCorePlatform.instance.removeAllDriveKitListeners();
+
+        flutterCoreApi
+          ..driveKitDidConnect()
+          ..driveKitDidDisconnect()
+          ..driveKitAccountDeletionCompleted(PigeonDeleteAccountStatus.success)
+          ..driveKitDidReceiveAuthenticationError(PigeonRequestError.noNetwork)
+          ..userIdUpdateStatusChanged(
+            PigeonUpdateUserIdStatus.alreadyUsed,
+            null,
+          );
+
+        expect(onConnectedCount, 2);
+        expect(onDisconnectedCount, 0);
+        expect(onAuthenticationErrorCount, 0);
+        expect(onAccountDeletedCount, 0);
+        expect(onDisconnectedCount, 0);
+        expect(userIdUpdateStatusCount, 0);
+        expect(onBackgroundFetchStatusChangedCount, 0);
+      });
     });
   });
 }
