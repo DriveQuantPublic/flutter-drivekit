@@ -37,6 +37,10 @@ Please refer to the [DriveKit Trip Analysis documentation](https://docs.drivequa
 | [cancelTrip()](#canceltrip)                                           | `Future<void>`                  | ✅  |   ✅    |
 | [isTripRunning()](#istriprunning)                                     | `Future<bool>`                  | ✅  |   ✅    |
 | [activateCrashDetection()](#activatecrashdetection)                   | `Future<void>`                  | ✅  |   ✅    |
+| [setMonitorPotentialTripStart()](#setmonitorpotentialtripstart)       | `Future<void>`                  | ✅  |   ✅    |
+| [getMonitorPotentialTripStart()](#getmonitorpotentialtripstart)       | `Future<bool>`                  | ✅  |   ✅    |
+| [setVehicle()](#setvehicle)                                           | `Future<bool>`                  | ✅  |   ✅    |
+
 
 ### activateAutoStart
 
@@ -146,3 +150,109 @@ To disable crash detection, call the method with parameter to `false`
 ```dart
 driveKitTripAnalysis.activateCrashDetection(false);
 ```
+
+### setMonitorPotentialTripStart
+
+```dart
+Future<void> setMonitorPotentialTripStart(bool activate);
+```
+
+DriveKit's automatic start mode detects a trip and launches its recording immediately. This operating mode may not be appropriate for all use cases.
+
+Your application may require other information or business logic before enabling the trip recording. For example, it may be appropriate to check that:
+
+* A connected device is near to the smartphone.
+* The trip recording is acceptable in a given time slot.
+
+In this case, you may want to subscribe to the events that are indicative of the trip start but not necessarily launch the GPS sensor and the trip analysis.
+
+This is why DriveKit allows you to subscribe to trigger events that indicate that a trip has probably started.
+
+Learn more about the feature [on iOS](https://docs.drivequant.com/trip-analysis/ios/tripmanagement#access-the-trip-trigger-events) / [on Android](https://docs.drivequant.com/trip-analysis/android/trip-management#access-the-trip-trigger-events)
+
+By default, the configuration is disabled. Call the following method with parameter to `true` to enable it.
+
+```dart
+DrivekitTripAnalysis.setMonitorPotentialTripStart(true);
+```
+
+To disable the feature, call the method with parameter to `false`
+
+```dart
+DrivekitTripAnalysis.setMonitorPotentialTripStart(false);
+```
+
+### getMonitorPotentialTripStart
+
+```dart
+Future<bool> getMonitorPotentialTripStart();
+```
+
+Check if the feature is activated or not with the following command:
+
+```dart
+final monitorPotentialTripStart = await DrivekitTripAnalysis.getMonitorPotentialTripStart();
+```
+
+### setVehicle
+
+```dart
+Future<void> setVehicle(Vehicle vehicle);
+```
+
+To obtain a more precise analysis on driving behaviour, it's recommended to configure the vehicle used by the driver. You can do this by calling the following method:
+
+```dart
+DrivekitTripAnalysis.instance.setVehicle(
+  const Vehicle(
+    carTypeIndex: 2,
+    carEngineIndex: 2,
+    carPower: 200,
+    carMass: 1500,
+    carGearboxIndex: 3,
+    carConsumption: 6.5,
+    carAutoGearboxNumber: 1,
+    engineDisplacement: 1500,
+    carPassengers: 2,
+    length: 4.7,
+    width: 1.9,
+    height: 1.5,
+    engineCylinderNb: 6,
+    driveWheels: 1,
+  ),
+);
+```
+
+A detailed description of vehicle parameter is available [here](https://docs.drivequant.com/trip-analysis/ios/references#tripvehicle).
+
+> ℹ️
+>
+> If no vehicle is configured a default vehicle will be configured with following parameters:
+>
+> carTypeIndex = 1
+>
+> carEngineIndex = 1
+>
+> carPower = 150
+>
+> carMass = 1400
+>
+> carGearboxIndex = 2
+>
+> carConsumption = 4.5
+>
+> engineDisplacement = 1200
+>
+> frontTireSize = "205/55/16"
+>
+> rearTireSize = "205/55/16"
+>
+> length = 4.5
+>
+> width = 1.8
+>
+> height = 1.45
+>
+> engineCylinderNb = 4
+>
+> driveWheels = 0

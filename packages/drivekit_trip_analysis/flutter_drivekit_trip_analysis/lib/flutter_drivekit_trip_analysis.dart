@@ -8,9 +8,15 @@ DrivekitTripAnalysisPlatform get _platform =>
 
 /// The main class of the plugin.
 /// This class provides methods to interact with the DriveKit Trip Analysis SDK.
-abstract final class DrivekitTripAnalysis {
+class DrivekitTripAnalysis {
+  const DrivekitTripAnalysis._();
+
+  /// unique instance of the DrivekitTripAnalysis
+  static DrivekitTripAnalysis get instance => _instance;
+  static const DrivekitTripAnalysis _instance = DrivekitTripAnalysis._();
+
   /// Returns the name of the current platform.
-  static Future<String> getPlatformName() => _platform.getPlatformName();
+  Future<String> getPlatformName() => _platform.getPlatformName();
 
   /// The automatic mode detects vehicle movements and triggers the trip
   /// analysis without driver intervention while the application is in
@@ -21,7 +27,7 @@ abstract final class DrivekitTripAnalysis {
   ///
   /// By default, automatic trip detection is disabled, but you can enable it by
   /// calling the following method with the enable parameter to true
-  static Future<void> activateAutoStart(bool activate) async {
+  Future<void> activateAutoStart(bool activate) async {
     await _platform.activateAutoStart(activate);
   }
 
@@ -34,12 +40,12 @@ abstract final class DrivekitTripAnalysis {
   ///
   /// You can activate the feature by calling the following method with the
   /// activate parameter to true
-  static Future<void> activateCrashDetection(bool activate) async {
+  Future<void> activateCrashDetection(bool activate) async {
     await _platform.activateCrashDetection(activate);
   }
 
   /// You can start a trip by calling startTrip method
-  static Future<void> startTrip() async {
+  Future<void> startTrip() async {
     await _platform.startTrip();
   }
 
@@ -47,7 +53,7 @@ abstract final class DrivekitTripAnalysis {
   /// immediately end the trip and it will be sent to DriveQuant's backend to be
   /// analyzed.
   /// If no trip is currently being analyzed, calling this method has no effect.
-  static Future<void> stopTrip() async {
+  Future<void> stopTrip() async {
     await _platform.stopTrip();
   }
 
@@ -55,14 +61,43 @@ abstract final class DrivekitTripAnalysis {
   /// immediately end the trip and it will not be analyzed by DriveQuant's
   /// backend.
   /// If no trip is currently being analyzed, calling this method has no effect.
-  static Future<void> cancelTrip() async {
+  Future<void> cancelTrip() async {
     await _platform.cancelTrip();
   }
 
   /// This method returns false if the SDK is in INACTIVE state,
   /// and no trip is currently running.
-  static Future<bool> isTripRunning() async {
+  Future<bool> isTripRunning() async {
     return _platform.isTripRunning();
+  }
+
+  /// DriveKit's automatic start mode detects a trip and launches its recording
+  /// immediately. This operating mode may not be appropriate for all use cases.
+  /// Your application may require other information or business logic before
+  ///  enabling the trip recording. For example, it may be appropriate to check
+  /// that:
+  ///
+  /// A connected device is near to the smartphone.
+  ///
+  /// The trip recording is acceptable in a given time slot.
+  ///
+  /// In this case, you may want to subscribe to the events that are indicative
+  /// of the trip start but not necessarily launch the GPS sensor and the trip
+  /// analysis.
+  ///
+  /// This is why DriveKit allows you to subscribe to trigger events that
+  /// indicates a trip has probably started.
+  ///
+  /// If this method is called with parameter to true and autostart is disable,
+  /// you will be able to listen for trip start trigger events, and the trip
+  /// analysis will not be started automatically.
+  static Future<void> setMonitorPotentialTripStart(bool activate) async {
+    return _platform.setMonitorPotentialTripStart(activate);
+  }
+
+  /// Returns true if the monitor potential trip start is activated
+  static Future<bool> getMonitorPotentialTripStart() async {
+    return _platform.getMonitorPotentialTripStart();
   }
 
   /// To obtain a more precise analysis on driving behavior,
@@ -84,7 +119,7 @@ abstract final class DrivekitTripAnalysis {
   ///   height = 1.45,
   ///   engineCylinderNb = 4,
   ///   driveWheels = 0
-  static Future<void> setVehicle(Vehicle vehicle) async {
+  Future<void> setVehicle(Vehicle vehicle) async {
     await _platform.setVehicle(vehicle);
   }
 }

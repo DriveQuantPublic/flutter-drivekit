@@ -6,6 +6,11 @@ import 'package:flutter_drivekit_core_platform_interface/flutter_drivekit_core_p
 /// Used by default if no other implementation is registered.
 class DefaultDrivekitCore extends DrivekitCorePlatform {
   @override
+  void initializePlatform() {
+    throw UnimplementedError('initialize() has not been implemented.');
+  }
+
+  @override
   Future<String> getPlatformName() {
     throw UnimplementedError('getPlatformName() has not been implemented.');
   }
@@ -46,7 +51,25 @@ class DefaultDrivekitCore extends DrivekitCorePlatform {
   }
 
   @override
+  Future<void> enableLogging({
+    bool showInConsole = true,
+    String androidLogPath = '/DriveKit',
+  }) {
+    throw UnimplementedError('enableLogging() has not been implemented.');
+  }
+
+  @override
   Future<void> disableLogging({bool showInConsole = true}) {
     throw UnimplementedError('disableLogging() has not been implemented.');
+  }
+
+  @override
+  void addDriveKitListener(DriveKitListener listener) {
+    throw UnimplementedError('addDriveKitListener() has not been implemented.');
+  }
+
+  @override
+  Future<Uri?> getLogUriFile() {
+    throw UnimplementedError('getLogUriFile() has not been implemented.');
   }
 }

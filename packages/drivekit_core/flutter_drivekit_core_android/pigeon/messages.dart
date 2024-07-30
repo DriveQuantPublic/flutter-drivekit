@@ -25,5 +25,46 @@ abstract class AndroidCoreApi {
   bool isTokenValid();
   void deleteAccount({bool instantDeletion = false});
   String? getApiKey();
+  void enableLogging({
+    bool showInConsole = true,
+    String androidLogPath = '/DriveKit',
+  });
   void disableLogging({bool showInConsole = true});
+  String? getLogUriFile();
+}
+
+@FlutterApi()
+abstract class FlutterCoreApi {
+  void onAuthenticationError(PigeonRequestError errorType);
+  void onAccountDeleted(PigeonDeleteAccountStatus status);
+  void onConnected();
+  void onDisconnected();
+  void userIdUpdateStatus(
+    PigeonUpdateUserIdStatus status,
+    String? userId,
+  );
+}
+
+enum PigeonDeleteAccountStatus {
+  success,
+  failedToDelete,
+  forbidden;
+}
+
+enum PigeonRequestError {
+  noNetwork,
+  unauthenticated,
+  forbidden,
+  serverError,
+  clientError,
+  unknownError,
+  limitReached;
+}
+
+enum PigeonUpdateUserIdStatus {
+  updated,
+  failedToUpdate,
+  invalidUserId,
+  alreadyUsed,
+  savedForRepost;
 }

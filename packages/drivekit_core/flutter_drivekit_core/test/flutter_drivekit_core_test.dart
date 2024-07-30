@@ -4,12 +4,18 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
+import 'mocks/mocks.dart';
+
 class MockDrivekitCorePlatform extends Mock
     with MockPlatformInterfaceMixin
     implements DrivekitCorePlatform {}
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+
+  setUpAll(() {
+    registerFallbackValue(MockDriveKitListener());
+  });
 
   group('DrivekitCore', () {
     late DrivekitCorePlatform drivekitCorePlatform;
@@ -26,8 +32,8 @@ void main() {
         when(
           () => drivekitCorePlatform.getPlatformName(),
         ).thenAnswer((_) async => platformName);
-
-        final actualPlatformName = await DriveKitCore.getPlatformName();
+        final actualPlatformName =
+            await DriveKitCore.instance.getPlatformName();
         expect(actualPlatformName, equals(platformName));
       });
     });
@@ -37,7 +43,7 @@ void main() {
         when(() => drivekitCorePlatform.setApiKey(any()))
             .thenAnswer((_) async {});
 
-        await DriveKitCore.setApiKey('api_key');
+        await DriveKitCore.instance.setApiKey('api_key');
         verify(() => drivekitCorePlatform.setApiKey('api_key'));
       });
 
@@ -46,7 +52,7 @@ void main() {
         when(() => drivekitCorePlatform.getApiKey())
             .thenAnswer((_) async => mockedApiKey);
 
-        final actualApiKey = await DriveKitCore.getApiKey();
+        final actualApiKey = await DriveKitCore.instance.getApiKey();
         expect(actualApiKey, equals(mockedApiKey));
       });
     });
@@ -56,7 +62,7 @@ void main() {
         when(() => drivekitCorePlatform.setUserId(any()))
             .thenAnswer((_) async {});
 
-        await DriveKitCore.setUserId('user_id');
+        await DriveKitCore.instance.setUserId('user_id');
         verify(() => drivekitCorePlatform.setUserId('user_id'));
       });
 
@@ -65,7 +71,7 @@ void main() {
         when(() => drivekitCorePlatform.getUserId())
             .thenAnswer((_) async => mockedUserId);
 
-        final actualUserId = await DriveKitCore.getUserId();
+        final actualUserId = await DriveKitCore.instance.getUserId();
         expect(actualUserId, equals(mockedUserId));
       });
     });
@@ -74,7 +80,7 @@ void main() {
       test('calls reset on platform implementation', () async {
         when(() => drivekitCorePlatform.reset()).thenAnswer((_) async {});
 
-        await DriveKitCore.reset();
+        await DriveKitCore.instance.reset();
         verify(() => drivekitCorePlatform.reset());
       });
     });
@@ -86,7 +92,7 @@ void main() {
           () => drivekitCorePlatform.isTokenValid(),
         ).thenAnswer((_) async => tokenValidity);
 
-        final actualTokenValidity = await DriveKitCore.isTokenValid();
+        final actualTokenValidity = await DriveKitCore.instance.isTokenValid();
         expect(actualTokenValidity, equals(tokenValidity));
       });
     });
@@ -96,18 +102,78 @@ void main() {
         when(() => drivekitCorePlatform.deleteAccount())
             .thenAnswer((_) async {});
 
-        await DriveKitCore.deleteAccount();
+        await DriveKitCore.instance.deleteAccount();
         verify(() => drivekitCorePlatform.deleteAccount());
       });
     });
 
     group('logging', () {
+      test('enable logging', () async {
+        when(
+          () => drivekitCorePlatform.enableLogging(
+            showInConsole: false,
+            androidLogPath: '/testLogPath',
+          ),
+        ).thenAnswer((_) async {});
+
+        await DriveKitCore.enableLogging(
+          androidLogPath: '/testLogPath',
+          showInConsole: false,
+        );
+        verify(
+          () => drivekitCorePlatform.enableLogging(
+            showInConsole: false,
+            androidLogPath: '/testLogPath',
+          ),
+        ).called(1);
+        verifyNever(
+          () => drivekitCorePlatform.enableLogging(
+            // ignore: avoid_redundant_argument_values
+            showInConsole: true,
+            // ignore: avoid_redundant_argument_values
+            androidLogPath: '/DriveKit',
+          ),
+        );
+      });
+
       test('disable logging', () async {
         when(() => drivekitCorePlatform.disableLogging())
             .thenAnswer((_) async {});
 
-        await DriveKitCore.disableLogging();
+        await DriveKitCore.instance.disableLogging();
         verify(() => drivekitCorePlatform.disableLogging());
+      });
+    });
+
+    group('getLogUriFile', () {
+      test('returns correct log file URI when platform implementation exists',
+          () async {
+        final logFileUri = Uri.parse('file://log.txt');
+        when(() => drivekitCorePlatform.getLogUriFile())
+            .thenAnswer((_) async => logFileUri);
+
+        final actualLogFileUri = await DriveKitCore.getLogUriFile();
+        expect(actualLogFileUri, equals(logFileUri));
+      });
+
+      test('returns null when no log file URI is available', () async {
+        when(() => drivekitCorePlatform.getLogUriFile())
+            .thenAnswer((_) async => null);
+
+        final actualLogFileUri = await DriveKitCore.getLogUriFile();
+        expect(actualLogFileUri, isNull);
+      });
+    });
+
+    group('listener', () {
+      test('addListener', () async {
+        final listener = DriveKitListener(
+          onConnected: () {},
+        );
+        when(() => drivekitCorePlatform.addDriveKitListener(any()))
+            .thenAnswer((_) async {});
+        DriveKitCore.instance.addDriveKitListener(listener);
+        verify(() => drivekitCorePlatform.addDriveKitListener(listener));
       });
     });
   });

@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_drivekit_core/flutter_drivekit_core.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 
-class SliverGetApiKey extends StatefulWidget {
-  const SliverGetApiKey({super.key});
+class SliverGetLogFileUri extends StatefulWidget {
+  const SliverGetLogFileUri({super.key});
 
   @override
-  State<SliverGetApiKey> createState() => _SliverGetApiKeyState();
+  State<SliverGetLogFileUri> createState() => _SliverGetLogFileUriState();
 }
 
-class _SliverGetApiKeyState extends State<SliverGetApiKey> {
+class _SliverGetLogFileUriState extends State<SliverGetLogFileUri> {
   @override
   Widget build(BuildContext context) {
     return MultiSliver(
@@ -17,17 +17,23 @@ class _SliverGetApiKeyState extends State<SliverGetApiKey> {
         SliverToBoxAdapter(
           child: ElevatedButton(
             onPressed: () async {
-              final apiKey = await DriveKitCore.instance.getApiKey();
+              final logFile = await DriveKitCore.getLogUriFile();
+              String snackBarText;
+              if (logFile == null) {
+                snackBarText = 'Log file Uri: null';
+              } else {
+                snackBarText = 'Log file Uri: $logFile';
+              }
               if (context.mounted) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     backgroundColor: Theme.of(context).primaryColor,
-                    content: Text('API Key: $apiKey'),
+                    content: Text(snackBarText),
                   ),
                 );
               }
             },
-            child: const Text('Get API key'),
+            child: const Text('Get Log file uri'),
           ),
         ),
       ],

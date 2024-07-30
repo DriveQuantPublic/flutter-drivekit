@@ -47,6 +47,14 @@ class DrivekitTripAnalysisAndroid extends DrivekitTripAnalysisPlatform {
   Future<bool> isTripRunning() => androidTripAnalysisApi.isTripRunning();
 
   @override
+  Future<void> setMonitorPotentialTripStart(bool activate) =>
+      androidTripAnalysisApi.setMonitorPotentialTripStart(activate);
+
+  @override
+  Future<bool> getMonitorPotentialTripStart() =>
+      androidTripAnalysisApi.getMonitorPotentialTripStart();
+
+  @override
   Future<void> setVehicle(Vehicle vehicle) =>
       androidTripAnalysisApi.setVehicle(vehicle.toPigeonImplementation());
 }

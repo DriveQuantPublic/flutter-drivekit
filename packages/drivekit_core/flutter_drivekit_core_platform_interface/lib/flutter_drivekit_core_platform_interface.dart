@@ -1,5 +1,8 @@
 import 'package:flutter_drivekit_core_platform_interface/src/default_drivekit_core.dart';
+import 'package:flutter_drivekit_core_platform_interface/src/model.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
+
+export 'package:flutter_drivekit_core_platform_interface/src/model.dart';
 
 /// The interface that implementations of drivekit_core must implement.
 ///
@@ -28,6 +31,10 @@ abstract class DrivekitCorePlatform extends PlatformInterface {
     _instance = instance;
   }
 
+  /// Must be called when the app-facing package is initialized
+  /// Useful to start listening to method channels
+  void initializePlatform();
+
   /// Return the current platform name.
   Future<String> getPlatformName();
 
@@ -53,6 +60,18 @@ abstract class DrivekitCorePlatform extends PlatformInterface {
   /// Get the API key that has been set, or null
   Future<String?> getApiKey();
 
+  /// Enable the DriveKit logs
+  Future<void> enableLogging({
+    bool showInConsole = true,
+    String androidLogPath = '/DriveKit',
+  });
+
   /// Disable the DriveKit logs
   Future<void> disableLogging({bool showInConsole = true});
+
+  /// Add a [DriveKitListener], which listens to the DriveKit SDK
+  void addDriveKitListener(DriveKitListener listener);
+
+  /// Get the log file uri
+  Future<Uri?> getLogUriFile();
 }

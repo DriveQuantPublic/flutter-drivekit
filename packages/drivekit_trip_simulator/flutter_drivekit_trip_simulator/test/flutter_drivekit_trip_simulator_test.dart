@@ -10,7 +10,7 @@ class MockDrivekitTripSimulatorPlatform extends Mock
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  final driveKitTripSimulator = DriveKitTripSimulator();
+  final driveKitTripSimulator = DriveKitTripSimulator.instance;
 
   group('DrivekitTripSimulator', () {
     late DrivekitTripSimulatorPlatform drivekitTripSimulatorPlatform;

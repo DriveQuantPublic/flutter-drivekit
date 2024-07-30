@@ -109,6 +109,30 @@ void main() {
       expect(isRunning, false);
     });
 
+    test('setMonitorPotentialTripStart calls iOS implementation', () async {
+      //mock
+      when(() => iOSTripAnalysisApi.setMonitorPotentialTripStart(any()))
+          .thenAnswer((_) async {});
+
+      //test
+      await DrivekitTripAnalysisPlatform.instance
+          .setMonitorPotentialTripStart(true);
+      verify(() => iOSTripAnalysisApi.setMonitorPotentialTripStart(true))
+          .called(1);
+    });
+
+    test('getMonitorPotentialTripStart calls iOS implementation', () async {
+      //mock
+      when(iOSTripAnalysisApi.getMonitorPotentialTripStart)
+          .thenAnswer((_) async => false);
+
+      //test
+      final isActivated = await DrivekitTripAnalysisPlatform.instance
+          .getMonitorPotentialTripStart();
+      verify(() => iOSTripAnalysisApi.getMonitorPotentialTripStart()).called(1);
+      expect(isActivated, false);
+    });
+
     test('setVehicle calls iOS implementation', () async {
       //mock
       const mockVehicle = Vehicle();
