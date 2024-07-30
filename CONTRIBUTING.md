@@ -82,6 +82,14 @@ To add a new method to the communication between Flutter and the native code in 
 
 - Implement the method in the native code in the kotlin or swift plugin file, and call it from the Flutter code of the package.
 
+### Communication from native to flutter (listeners)
+
+In the Drivekit SDK, we use listeners to notify the app of events happening in the SDK.
+
+To implement listeners in the Flutter code, we register a native listener once in the native code, and then use Pigeon to send the events to the Flutter code. Those events are then dispatched to the listeners registered in the Flutter code. Here is a schema of the process:
+
+![native to flutter schema](doc/native_to_flutter_communication.png)
+
 ---
 
 ## Run tests
@@ -126,7 +134,7 @@ To ensure a consistent code style across the monorepo, avoid code smells and fac
 - SwiftLint for the iOS plugins
 - Dart's static analysis tool for the flutter code
 
-You can manually run `melos fix` to manually fix the code style of all the 
+You can manually run `melos fix` to manually fix the code style of all the
 packages for these 3 languages.
 
 ### Check on CI
@@ -151,12 +159,11 @@ This script will format the files your are about to commit with the linter. So y
 
 Developers can be tempted to commit without this pre-commit hook to have instant commit. You can do this only if you have a tool on your IDEs that format the code on save (dart, swift, lint).
 
-
 ## Implement a function that use a custom type as parameter or return a custom type
 
 1. Write the exact equivalent of the SDK platform type in Pigeon config of the platform package `message.dart`
 2. Run `melos pigeon` to generate the code
 3. Write a converter in the native code from the platform package to map PigeonType to the native SDK type
-4. Create a new Dart equivalent of this type in the model of the platform interface package. It should represents android and iOS types, be careful with the differences between the two platforms 
+4. Create a new Dart equivalent of this type in the model of the platform interface package. It should represents android and iOS types, be careful with the differences between the two platforms
 5. Write an adapter between each of the PigeonType to this type. This is where you managed the different behavior to unify the two platforms
 6. Write the function using this type (as you do habitually with primitive types)
