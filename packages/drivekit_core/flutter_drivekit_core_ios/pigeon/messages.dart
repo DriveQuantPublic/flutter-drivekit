@@ -36,6 +36,8 @@ abstract class FlutterCoreApi {
   );
   void driveKitAccountDeletionCompleted(PigeonDeleteAccountStatus status);
   void driveKitBackgroundFetchStatusChanged(PigeonBackgroundFetchStatus status);
+
+  void onDeviceConfigurationChanged(PigeonDeviceConfigurationEvent event);
 }
 
 enum PigeonDeleteAccountStatus {
@@ -66,4 +68,21 @@ enum PigeonUpdateUserIdStatus {
 enum PigeonBackgroundFetchStatus {
   started,
   completed;
+}
+
+enum PigeonDeviceConfigurationEvent {
+  locationSensorValid,
+  locationSensorInvalid,
+  bluetoothSensorValid,
+  bluetoothSensorInvalid,
+  locationPermissionValid,
+  locationPermissionInvalid,
+  activityPermissionValid,
+  activityPermissionInvalid,
+  notificationPermissionValid,
+  notificationPermissionInvalid,
+  bluetoothPermissionValid,
+  bluetoothPermissionInvalid,
+  lowPowerModeValid,
+  lowPowerModeInvalid,
 }

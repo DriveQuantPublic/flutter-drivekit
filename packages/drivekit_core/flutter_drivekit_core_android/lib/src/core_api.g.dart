@@ -49,6 +49,25 @@ enum PigeonUpdateUserIdStatus {
   savedForRepost,
 }
 
+enum PigeonDeviceConfigurationEvent {
+  locationSensorValid,
+  locationSensorInvalid,
+  bluetoothSensorValid,
+  bluetoothSensorInvalid,
+  locationPermissionValid,
+  locationPermissionInvalid,
+  activityPermissionValid,
+  activityPermissionInvalid,
+  notificationPermissionValid,
+  notificationPermissionInvalid,
+  nearbyDevicePermissionValid,
+  nearbyDevicePermissionInvalid,
+  autoResetPermissionValid,
+  autoResetPermissionInvalid,
+  appBatteryOptimisationValid,
+  appBatteryOptimisationInvalid,
+}
+
 
 class _PigeonCodec extends StandardMessageCodec {
   const _PigeonCodec();
@@ -62,6 +81,9 @@ class _PigeonCodec extends StandardMessageCodec {
       writeValue(buffer, value.index);
     } else     if (value is PigeonUpdateUserIdStatus) {
       buffer.putUint8(131);
+      writeValue(buffer, value.index);
+    } else     if (value is PigeonDeviceConfigurationEvent) {
+      buffer.putUint8(132);
       writeValue(buffer, value.index);
     } else {
       super.writeValue(buffer, value);
@@ -80,6 +102,9 @@ class _PigeonCodec extends StandardMessageCodec {
       case 131: 
         final int? value = readValue(buffer) as int?;
         return value == null ? null : PigeonUpdateUserIdStatus.values[value];
+      case 132: 
+        final int? value = readValue(buffer) as int?;
+        return value == null ? null : PigeonDeviceConfigurationEvent.values[value];
       default:
         return super.readValueOfType(type, buffer);
     }
@@ -338,6 +363,8 @@ abstract class FlutterCoreApi {
 
   void userIdUpdateStatus(PigeonUpdateUserIdStatus status, String? userId);
 
+  void onDeviceConfigurationChanged(PigeonDeviceConfigurationEvent event);
+
   static void setUp(FlutterCoreApi? api, {BinaryMessenger? binaryMessenger, String messageChannelSuffix = '',}) {
     messageChannelSuffix = messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
     {
@@ -445,6 +472,31 @@ abstract class FlutterCoreApi {
           final String? arg_userId = (args[1] as String?);
           try {
             api.userIdUpdateStatus(arg_status!, arg_userId);
+            return wrapResponse(empty: true);
+          } on PlatformException catch (e) {
+            return wrapResponse(error: e);
+          }          catch (e) {
+            return wrapResponse(error: PlatformException(code: 'error', message: e.toString()));
+          }
+        });
+      }
+    }
+    {
+      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+          'dev.flutter.pigeon.pigeon_core_package.FlutterCoreApi.onDeviceConfigurationChanged$messageChannelSuffix', pigeonChannelCodec,
+          binaryMessenger: binaryMessenger);
+      if (api == null) {
+        __pigeon_channel.setMessageHandler(null);
+      } else {
+        __pigeon_channel.setMessageHandler((Object? message) async {
+          assert(message != null,
+          'Argument for dev.flutter.pigeon.pigeon_core_package.FlutterCoreApi.onDeviceConfigurationChanged was null.');
+          final List<Object?> args = (message as List<Object?>?)!;
+          final PigeonDeviceConfigurationEvent? arg_event = (args[0] as PigeonDeviceConfigurationEvent?);
+          assert(arg_event != null,
+              'Argument for dev.flutter.pigeon.pigeon_core_package.FlutterCoreApi.onDeviceConfigurationChanged was null, expected non-null PigeonDeviceConfigurationEvent.');
+          try {
+            api.onDeviceConfigurationChanged(arg_event!);
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);

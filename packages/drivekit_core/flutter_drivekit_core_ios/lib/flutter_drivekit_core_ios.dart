@@ -31,7 +31,9 @@ class DrivekitCoreIOS extends DrivekitCorePlatform implements FlutterCoreApi {
     _isInitialized = true;
   }
 
-  final List<DriveKitListener> _listeners = [];
+  final List<DriveKitListener> _driveKitListeners = [];
+
+  final List<DKDeviceConfigurationListener> _deviceConfigurationListeners = [];
 
   @override
   Future<void> setApiKey(String key) => iosCoreApi.setApiKey(key);
@@ -67,7 +69,7 @@ class DrivekitCoreIOS extends DrivekitCorePlatform implements FlutterCoreApi {
 
   @override
   void driveKitAccountDeletionCompleted(PigeonDeleteAccountStatus status) {
-    for (final listener in _listeners) {
+    for (final listener in _driveKitListeners) {
       listener.onAccountDeleted?.call(status.toModelImplementation());
     }
   }
@@ -76,7 +78,7 @@ class DrivekitCoreIOS extends DrivekitCorePlatform implements FlutterCoreApi {
   void driveKitBackgroundFetchStatusChanged(
     PigeonBackgroundFetchStatus status,
   ) {
-    for (final listener in _listeners) {
+    for (final listener in _driveKitListeners) {
       listener.onBackgroundFetchStatusChanged?.call(
         status.toModelImplementation(),
       );
@@ -85,21 +87,21 @@ class DrivekitCoreIOS extends DrivekitCorePlatform implements FlutterCoreApi {
 
   @override
   void driveKitDidConnect() {
-    for (final listener in _listeners) {
+    for (final listener in _driveKitListeners) {
       listener.onConnected?.call();
     }
   }
 
   @override
   void driveKitDidDisconnect() {
-    for (final listener in _listeners) {
+    for (final listener in _driveKitListeners) {
       listener.onDisconnected?.call();
     }
   }
 
   @override
   void driveKitDidReceiveAuthenticationError(PigeonRequestError error) {
-    for (final listener in _listeners) {
+    for (final listener in _driveKitListeners) {
       listener.onAuthenticationError?.call(error.toModelImplementation());
     }
   }
@@ -109,24 +111,24 @@ class DrivekitCoreIOS extends DrivekitCorePlatform implements FlutterCoreApi {
     PigeonUpdateUserIdStatus status,
     String? userId,
   ) {
-    for (final listener in _listeners) {
+    for (final listener in _driveKitListeners) {
       listener.userIdUpdateStatus?.call(status.toModelImplementation(), userId);
     }
   }
 
   @override
   void addDriveKitListener(DriveKitListener listener) {
-    _listeners.add(listener);
+    _driveKitListeners.add(listener);
   }
 
   @override
   void removeDriveKitListener(DriveKitListener listener) {
-    _listeners.remove(listener);
+    _driveKitListeners.remove(listener);
   }
 
   @override
   void removeAllDriveKitListeners() {
-    _listeners.clear();
+    _driveKitListeners.clear();
   }
 
   @override
@@ -136,6 +138,19 @@ class DrivekitCoreIOS extends DrivekitCorePlatform implements FlutterCoreApi {
       return null;
     } else {
       return Uri.parse(uriString);
+    }
+  }
+
+  @override
+  void addDeviceConfigurationListener(DKDeviceConfigurationListener listener) {
+    _deviceConfigurationListeners.add(listener);
+  }
+
+  @override
+  void onDeviceConfigurationChanged(PigeonDeviceConfigurationEvent event) {
+    for (final listener in _deviceConfigurationListeners) {
+      listener.onDeviceConfigurationChanged
+          ?.call(event.toModelImplementation());
     }
   }
 }

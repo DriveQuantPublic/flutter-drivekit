@@ -77,4 +77,8 @@ abstract class DrivekitCorePlatform extends PlatformInterface {
 
   /// Get the log file uri
   Future<Uri?> getLogUriFile();
+
+  /// Add a [DKDeviceConfigurationListener], which listens to the device config
+  /// changes.
+  void addDeviceConfigurationListener(DKDeviceConfigurationListener listener);
 }

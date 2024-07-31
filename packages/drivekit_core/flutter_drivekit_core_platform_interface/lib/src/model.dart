@@ -37,6 +37,15 @@ class DriveKitListener {
   void Function(BackgroundFetchStatus status)? onBackgroundFetchStatusChanged;
 }
 
+/// Device Configuration Listener on DriveKit core.
+class DKDeviceConfigurationListener {
+  /// creates a [DKDeviceConfigurationListener]
+  DKDeviceConfigurationListener({this.onDeviceConfigurationChanged});
+
+  /// A device config. change has been detected
+  void Function(DKDeviceConfigurationEvent event)? onDeviceConfigurationChanged;
+}
+
 /// Describes the deletion status
 enum DeleteAccountStatus {
   /// Account deleted successfully.
@@ -106,4 +115,67 @@ enum BackgroundFetchStatus {
 
   /// The background fetch has been completed.
   completed;
+}
+
+/// Describes a device configuration event
+enum DKDeviceConfigurationEvent {
+  /// Location sensor is valid
+  locationSensorValid,
+
+  /// Location sensor is invalid
+  locationSensorInvalid,
+
+  /// Bluetooth sensor is valid
+  bluetoothSensorValid,
+
+  /// Bluetooth sensor is invalid
+  bluetoothSensorInvalid,
+
+  /// Location permission is valid
+  locationPermissionValid,
+
+  /// Location permission is invalid
+  locationPermissionInvalid,
+
+  /// Activity permission is valid
+  activityPermissionValid,
+
+  /// Activity permission is invalid
+  activityPermissionInvalid,
+
+  /// Notification permission is valid
+  notificationPermissionValid,
+
+  /// Notification permission is invalid
+  notificationPermissionInvalid,
+
+  /// Nearby device permission is valid (Android only)
+  nearbyDevicePermissionValid,
+
+  /// Nearby device permission is invalid (Android only)
+  nearbyDevicePermissionInvalid,
+
+  /// Auto Reset permission is valid (Android only)
+  autoResetPermissionValid,
+
+  /// Auto Reset permission is invalid (Android only)
+  autoResetPermissionInvalid,
+
+  /// App batttery optimisation is valid (Android only)
+  appBatteryOptimisationValid,
+
+  /// App batttery optimisation is invalid (Android only)
+  appBatteryOptimisationInvalid,
+
+  /// Bluetooth permission is valid (iOS only)
+  bluetoothPermissionValid,
+
+  /// Bluetooth permission is invalid (iOS only)
+  bluetoothPermissionInvalid,
+
+  /// Low power mode is valid (iOS only)
+  lowPowerModeValid,
+
+  /// Low power mode is invalid (iOS only)
+  lowPowerModeInvalid,
 }

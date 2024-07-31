@@ -70,3 +70,17 @@ extension PigeonBackgroundFetchStatus {
         }
     }
 }
+
+extension PigeonDeviceConfigurationEvent {
+    init(from event: DeviceConfigurationEvent) {
+        switch event {
+        case .locationPermissionValid:
+            self = .locationPermissionValid
+        case .locationPermissionInvalid:
+            self = .locationPermissionInvalid
+        //TODO the rest
+        @unknown default:
+            fatalError()
+        }
+    }
+}

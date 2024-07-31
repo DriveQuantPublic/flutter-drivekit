@@ -100,4 +100,10 @@ class DriveKitCore {
 
   /// You can retrieve the Uri log file by calling the following method.
   static Future<Uri?> getLogUriFile() => _platform.getLogUriFile();
+
+  /// Adds a device configuration listener.
+  /// See [DKDeviceConfigurationListener] to know which callbacks are available
+  void addDeviceConfigurationListener(DKDeviceConfigurationListener listener) {
+    _platform.addDeviceConfigurationListener(listener);
+  }
 }
