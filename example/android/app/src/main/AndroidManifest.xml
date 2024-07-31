@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.drivequant.drivekit.flutter.core.example">
+    package="com.drivequant.drivekit.flutter.example">
 
     <application
         android:label="example"
