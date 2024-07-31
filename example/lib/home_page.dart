@@ -32,7 +32,7 @@ class HomePage extends StatelessWidget {
         body: CustomScrollView(
           slivers: [
             SliverAppBar(
-              title: Text('DriveKit Core Example'),
+              title: Text('DriveKit Example'),
               pinned: true,
             ),
             SliverGap(32),
