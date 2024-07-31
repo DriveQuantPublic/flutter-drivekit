@@ -2,10 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>LSSupportsOpeningDocumentsInPlace</key>
-	<true/>
-	<key>UIFileSharingEnabled</key>
-	<true/>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
@@ -35,7 +31,7 @@
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>The application needs to use bluetooth in order to retrieve beacon battery level</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>To enable automatic trip detection and driving analysis without having to manipulate your phone, select the option &quot;Always allow&quot;. Good road...</string>
+	<string>To enable automatic trip detection and driving analysis without having to manipulate your phone, select the option "Always allow". Good road...</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>To automatically detect and analyze your trips, the application needs access to your position at all times.</string>
 	<key>NSMotionUsageDescription</key>
@@ -67,8 +63,9 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
-	<array>
-		<string>com.drivequant.diagnosis.app.refresh</string>
+    <array>
+    	<string>com.drivequant.diagnosis.app.refresh</string>
+    </array>
 	</array>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>DriveKit needs access to location to collect data.</string>
@@ -78,8 +75,5 @@
 	<string>DriveKit needs access to location to collect data.</string>
 	<key>UIBackgroundModes</key>
 	<array>
-		<string>fetch</string>
-		<string>location</string>
-	</array>
 </dict>
 </plist>

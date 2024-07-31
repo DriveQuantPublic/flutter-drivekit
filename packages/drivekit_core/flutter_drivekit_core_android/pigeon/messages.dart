@@ -17,7 +17,6 @@ import 'package:pigeon/pigeon.dart';
 )
 @HostApi()
 abstract class AndroidCoreApi {
-  String getPlatformName();
   void setApiKey(String key);
   void setUserId(String userId);
   String? getUserId();

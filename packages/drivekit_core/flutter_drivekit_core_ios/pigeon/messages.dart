@@ -13,7 +13,6 @@ import 'package:pigeon/pigeon.dart';
 )
 @HostApi()
 abstract class IOSCoreApi {
-  String getPlatformName();
   void setApiKey(String key);
   void setUserId(String userId);
   String? getUserId();
@@ -32,9 +31,9 @@ abstract class FlutterCoreApi {
   void driveKitDidDisconnect();
   void driveKitDidReceiveAuthenticationError(PigeonRequestError error);
   void userIdUpdateStatusChanged(
-      PigeonUpdateUserIdStatus status,
-      String? userId,
-      );
+    PigeonUpdateUserIdStatus status,
+    String? userId,
+  );
   void driveKitAccountDeletionCompleted(PigeonDeleteAccountStatus status);
   void driveKitBackgroundFetchStatusChanged(PigeonBackgroundFetchStatus status);
 }
@@ -45,7 +44,7 @@ enum PigeonDeleteAccountStatus {
   forbidden;
 }
 
-enum PigeonRequestError{
+enum PigeonRequestError {
   wrongUrl,
   noNetwork,
   unauthenticated,
@@ -56,7 +55,7 @@ enum PigeonRequestError{
   unknownError;
 }
 
-enum PigeonUpdateUserIdStatus{
+enum PigeonUpdateUserIdStatus {
   updated,
   failedToUpdate,
   invalidUserId,
@@ -64,7 +63,7 @@ enum PigeonUpdateUserIdStatus{
   savedForRepost;
 }
 
-enum PigeonBackgroundFetchStatus{
+enum PigeonBackgroundFetchStatus {
   started,
   completed;
 }

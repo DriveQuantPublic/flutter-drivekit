@@ -20,8 +20,6 @@ class DrivekitTripAnalysisPlugin :
         context = null
     }
 
-    override fun getPlatformName(): String = "android"
-
     override fun activateAutoStart(activate: Boolean) {
         DriveKitTripAnalysis.activateAutoStart(activate)
     }

@@ -34,9 +34,6 @@ class DrivekitCoreIOS extends DrivekitCorePlatform implements FlutterCoreApi {
   final List<DriveKitListener> _listeners = [];
 
   @override
-  Future<String> getPlatformName() => iosCoreApi.getPlatformName();
-
-  @override
   Future<void> setApiKey(String key) => iosCoreApi.setApiKey(key);
 
   @override
@@ -120,6 +117,16 @@ class DrivekitCoreIOS extends DrivekitCorePlatform implements FlutterCoreApi {
   @override
   void addDriveKitListener(DriveKitListener listener) {
     _listeners.add(listener);
+  }
+
+  @override
+  void removeDriveKitListener(DriveKitListener listener) {
+    _listeners.remove(listener);
+  }
+
+  @override
+  void removeAllDriveKitListeners() {
+    _listeners.clear();
   }
 
   @override

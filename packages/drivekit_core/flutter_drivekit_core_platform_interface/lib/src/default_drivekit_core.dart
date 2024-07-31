@@ -11,11 +11,6 @@ class DefaultDrivekitCore extends DrivekitCorePlatform {
   }
 
   @override
-  Future<String> getPlatformName() {
-    throw UnimplementedError('getPlatformName() has not been implemented.');
-  }
-
-  @override
   Future<void> setApiKey(String key) {
     throw UnimplementedError('setApiKey() has not been implemented.');
   }
@@ -66,6 +61,20 @@ class DefaultDrivekitCore extends DrivekitCorePlatform {
   @override
   void addDriveKitListener(DriveKitListener listener) {
     throw UnimplementedError('addDriveKitListener() has not been implemented.');
+  }
+
+  @override
+  void removeDriveKitListener(DriveKitListener listener) {
+    throw UnimplementedError(
+      'removeDriveKitListener() has not been implemented.',
+    );
+  }
+
+  @override
+  void removeAllDriveKitListeners() {
+    throw UnimplementedError(
+      'removeAllDriveKitListeners() has not been implemented.',
+    );
   }
 
   @override

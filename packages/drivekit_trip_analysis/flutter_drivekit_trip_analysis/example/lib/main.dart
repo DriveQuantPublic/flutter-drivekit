@@ -20,42 +20,25 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  String? _platformName;
+  bool _autoStart = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('DrivekitTripAnalysis Example')),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Row(
           children: [
-            if (_platformName == null)
-              const SizedBox.shrink()
-            else
-              Text(
-                'Platform Name: $_platformName',
-                style: Theme.of(context).textTheme.headlineSmall,
-              ),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () async {
-                if (!context.mounted) return;
-                try {
-                  final result =
-                      await DrivekitTripAnalysis.instance.getPlatformName();
-                  setState(() => _platformName = result);
-                } catch (error) {
-                  if (!context.mounted) return;
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      backgroundColor: Theme.of(context).primaryColor,
-                      content: Text('$error'),
-                    ),
-                  );
-                }
+            const Text('Auto Start'),
+            const Spacer(),
+            Switch(
+              value: _autoStart,
+              onChanged: (value) {
+                DrivekitTripAnalysis.instance.activateAutoStart(value);
+                setState(() {
+                  _autoStart = value;
+                });
               },
-              child: const Text('Get Platform Name'),
             ),
           ],
         ),

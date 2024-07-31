@@ -18,9 +18,6 @@ class DriveKitCore {
   static DriveKitCore get instance => _instance;
   static final DriveKitCore _instance = DriveKitCore._();
 
-  /// Returns the name of the current platform.
-  Future<String> getPlatformName() => _platform.getPlatformName();
-
   /// Sets the DriveQuant API key.
   /// You should store the key in a secure place in your app, and then
   /// call this method with the key to initiate the SDK.
@@ -89,6 +86,16 @@ class DriveKitCore {
   /// See [DriveKitListener] to know which callbacks are available
   void addDriveKitListener(DriveKitListener listener) {
     _platform.addDriveKitListener(listener);
+  }
+
+  /// Removes a listener from DriveKit core.
+  void removeDriveKitListener(DriveKitListener listener) {
+    _platform.removeDriveKitListener(listener);
+  }
+
+  /// Removes all listeners from DriveKit core.
+  void removeAllDriveKitListeners() {
+    _platform.removeAllDriveKitListeners();
   }
 
   /// You can retrieve the Uri log file by calling the following method.

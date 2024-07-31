@@ -25,26 +25,13 @@ void main() {
       DrivekitCorePlatform.instance = drivekitCorePlatform;
     });
 
-    group('getPlatformName', () {
-      test('returns correct name when platform implementation exists',
-          () async {
-        const platformName = '__test_platform__';
-        when(
-          () => drivekitCorePlatform.getPlatformName(),
-        ).thenAnswer((_) async => platformName);
-        final actualPlatformName =
-            await DriveKitCore.instance.getPlatformName();
-        expect(actualPlatformName, equals(platformName));
-      });
-    });
-
     group('apiKey', () {
       test('calls setApiKey on platform implementation', () async {
         when(() => drivekitCorePlatform.setApiKey(any()))
             .thenAnswer((_) async {});
 
         await DriveKitCore.instance.setApiKey('api_key');
-        verify(() => drivekitCorePlatform.setApiKey('api_key'));
+        verify(() => drivekitCorePlatform.setApiKey('api_key')).called(1);
       });
 
       test('calls getApiKey on platform implementation', () async {
@@ -63,7 +50,7 @@ void main() {
             .thenAnswer((_) async {});
 
         await DriveKitCore.instance.setUserId('user_id');
-        verify(() => drivekitCorePlatform.setUserId('user_id'));
+        verify(() => drivekitCorePlatform.setUserId('user_id')).called(1);
       });
 
       test('calls getUserId on platform implementation', () async {
@@ -103,7 +90,7 @@ void main() {
             .thenAnswer((_) async {});
 
         await DriveKitCore.instance.deleteAccount();
-        verify(() => drivekitCorePlatform.deleteAccount());
+        verify(() => drivekitCorePlatform.deleteAccount()).called(1);
       });
     });
 
@@ -141,7 +128,7 @@ void main() {
             .thenAnswer((_) async {});
 
         await DriveKitCore.instance.disableLogging();
-        verify(() => drivekitCorePlatform.disableLogging());
+        verify(() => drivekitCorePlatform.disableLogging()).called(1);
       });
     });
 
@@ -173,7 +160,25 @@ void main() {
         when(() => drivekitCorePlatform.addDriveKitListener(any()))
             .thenAnswer((_) async {});
         DriveKitCore.instance.addDriveKitListener(listener);
-        verify(() => drivekitCorePlatform.addDriveKitListener(listener));
+        verify(() => drivekitCorePlatform.addDriveKitListener(listener))
+            .called(1);
+      });
+      test('removeListener', () async {
+        final listener = DriveKitListener(
+          onConnected: () {},
+        );
+        when(() => drivekitCorePlatform.removeDriveKitListener(any()))
+            .thenAnswer((_) async {});
+        DriveKitCore.instance.removeDriveKitListener(listener);
+        verify(() => drivekitCorePlatform.removeDriveKitListener(listener))
+            .called(1);
+      });
+      test('removeAllListeners', () async {
+        when(() => drivekitCorePlatform.removeAllDriveKitListeners())
+            .thenAnswer((_) async {});
+        DriveKitCore.instance.removeAllDriveKitListeners();
+        verify(() => drivekitCorePlatform.removeAllDriveKitListeners())
+            .called(1);
       });
     });
   });

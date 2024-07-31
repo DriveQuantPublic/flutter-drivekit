@@ -32,8 +32,6 @@ class DrivekitCorePlugin :
         flutterApi = null
     }
 
-    override fun getPlatformName(): String = "android"
-
     override fun getApiKey() = DriveKit.getApiKey()
 
     override fun setApiKey(key: String) {
@@ -96,5 +94,6 @@ class DrivekitCorePlugin :
         )
     }
 
-    override fun getLogUriFile(): String? = context?.let { DriveKitLog.getLogUriFile(it).toString() }
+    override fun getLogUriFile(): String? =
+        context?.let { DriveKitLog.getLogUriFile(it).toString() }
 }
