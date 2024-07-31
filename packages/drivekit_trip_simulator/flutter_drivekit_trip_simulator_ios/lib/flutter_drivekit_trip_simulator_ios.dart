@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter_drivekit_trip_simulator_ios/src/adapter.dart';
 import 'package:flutter_drivekit_trip_simulator_ios/src/trip_simulator_api.g.dart';
 import 'package:flutter_drivekit_trip_simulator_platform_interface/flutter_drivekit_trip_simulator_platform_interface.dart';
 
@@ -23,4 +24,11 @@ class DrivekitTripSimulatorIOS extends DrivekitTripSimulatorPlatform {
 
   @override
   Future<String> getPlatformName() => iosTripSimulatorApi.getPlatformName();
+
+  @override
+  Future<void> start(PresetTrip presetTrip) =>
+      iosTripSimulatorApi.start(presetTrip.toPigeonImplementation());
+
+  @override
+  Future<void> stop() => iosTripSimulatorApi.stop();
 }

@@ -1,5 +1,8 @@
 import 'package:flutter_drivekit_trip_simulator_platform_interface/src/default_drivekit_trip_simulator.dart';
+import 'package:flutter_drivekit_trip_simulator_platform_interface/src/model.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
+
+export 'package:flutter_drivekit_trip_simulator_platform_interface/src/model.dart';
 
 /// The interface that implementations of drivekit_trip_simulator must
 /// implement.
@@ -34,4 +37,10 @@ abstract class DrivekitTripSimulatorPlatform extends PlatformInterface {
 
   /// Return the current platform name.
   Future<String> getPlatformName();
+
+  /// Starts trip simulation with a preset trip
+  Future<void> start(PresetTrip presetTrip);
+
+  /// Stops trip simulation
+  Future<void> stop();
 }

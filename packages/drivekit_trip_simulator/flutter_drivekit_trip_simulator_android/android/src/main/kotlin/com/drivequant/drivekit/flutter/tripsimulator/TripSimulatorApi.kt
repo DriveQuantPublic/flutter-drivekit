@@ -43,18 +43,55 @@ class FlutterCoreError (
   override val message: String? = null,
   val details: Any? = null
 ) : Throwable()
+
+enum class PigeonPresetTrip(val raw: Int) {
+  SHORT_TRIP(0),
+  MIXED_TRIP(1),
+  CITY_TRIP(2),
+  SUBURBAN_TRIP(3),
+  HIGHWAY_TRIP(4),
+  TRAIN_TRIP(5),
+  BOAT_TRIP(6),
+  BUS_TRIP(7),
+  TRIP_WITH_CRASH_CONFIRMED10KM_H(8),
+  TRIP_WITH_CRASH_CONFIRMED20KM_H(9),
+  TRIP_WITH_CRASH_CONFIRMED30KM_H(10),
+  TRIP_WITH_CRASH_UNCONFIRMED0KM_H(11),
+  TRIP_WITH_CRASH_CONFIRMED30KM_HSTILL_DRIVING(12);
+
+  companion object {
+    fun ofRaw(raw: Int): PigeonPresetTrip? {
+      return values().firstOrNull { it.raw == raw }
+    }
+  }
+}
 private object TripSimulatorApiPigeonCodec : StandardMessageCodec() {
   override fun readValueOfType(type: Byte, buffer: ByteBuffer): Any? {
-    return     super.readValueOfType(type, buffer)
+    return when (type) {
+      129.toByte() -> {
+        return (readValue(buffer) as Int?)?.let {
+          PigeonPresetTrip.ofRaw(it)
+        }
+      }
+      else -> super.readValueOfType(type, buffer)
+    }
   }
   override fun writeValue(stream: ByteArrayOutputStream, value: Any?)   {
-    super.writeValue(stream, value)
+    when (value) {
+      is PigeonPresetTrip -> {
+        stream.write(129)
+        writeValue(stream, value.raw)
+      }
+      else -> super.writeValue(stream, value)
+    }
   }
 }
 
 /** Generated interface from Pigeon that represents a handler of messages from Flutter. */
 interface AndroidTripSimulatorApi {
   fun getPlatformName(): String
+  fun start(presetTrip: PigeonPresetTrip)
+  fun stop()
 
   companion object {
     /** The codec used by AndroidTripSimulatorApi. */
@@ -71,6 +108,40 @@ interface AndroidTripSimulatorApi {
           channel.setMessageHandler { _, reply ->
             val wrapped: List<Any?> = try {
               listOf(api.getPlatformName())
+            } catch (exception: Throwable) {
+              wrapError(exception)
+            }
+            reply.reply(wrapped)
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_trip_simulator_package.AndroidTripSimulatorApi.start$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { message, reply ->
+            val args = message as List<Any?>
+            val presetTripArg = args[0] as PigeonPresetTrip
+            val wrapped: List<Any?> = try {
+              api.start(presetTripArg)
+              listOf(null)
+            } catch (exception: Throwable) {
+              wrapError(exception)
+            }
+            reply.reply(wrapped)
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_trip_simulator_package.AndroidTripSimulatorApi.stop$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { _, reply ->
+            val wrapped: List<Any?> = try {
+              api.stop()
+              listOf(null)
             } catch (exception: Throwable) {
               wrapError(exception)
             }

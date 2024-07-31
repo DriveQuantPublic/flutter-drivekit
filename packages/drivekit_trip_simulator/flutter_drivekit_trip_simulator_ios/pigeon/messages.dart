@@ -14,4 +14,22 @@ import 'package:pigeon/pigeon.dart';
 @HostApi()
 abstract class IOSTripSimulatorApi {
   String getPlatformName();
+  void start(PigeonPresetTrip presetTrip);
+  void stop();
+}
+
+enum PigeonPresetTrip {
+  shortTrip,
+  mixedTrip,
+  cityTrip,
+  suburbanTrip,
+  highwayTrip,
+  trainTrip,
+  boatTrip,
+  busTrip,
+  tripWithCrashConfirmed10KmH,
+  tripWithCrashConfirmed20KmH,
+  tripWithCrashConfirmed30KmH,
+  tripWithCrashUnconfirmed0KmH,
+  tripWithCrashConfirmed30KmHStillDriving
 }

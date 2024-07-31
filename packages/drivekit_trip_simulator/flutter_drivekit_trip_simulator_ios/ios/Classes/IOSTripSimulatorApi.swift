@@ -38,20 +38,20 @@ private func wrapError(_ error: Any) -> [Any?] {
     return [
       pigeonError.code,
       pigeonError.message,
-      pigeonError.details
+      pigeonError.details,
     ]
   }
   if let flutterError = error as? FlutterError {
     return [
       flutterError.code,
       flutterError.message,
-      flutterError.details
+      flutterError.details,
     ]
   }
   return [
     "\(error)",
     "\(type(of: error))",
-    "Stacktrace: \(Thread.callStackSymbols)"
+    "Stacktrace: \(Thread.callStackSymbols)",
   ]
 }
 
@@ -63,10 +63,47 @@ private func nilOrValue<T>(_ value: Any?) -> T? {
   if value is NSNull { return nil }
   return value as! T?
 }
+
+enum PigeonPresetTrip: Int {
+  case shortTrip = 0
+  case mixedTrip = 1
+  case cityTrip = 2
+  case suburbanTrip = 3
+  case highwayTrip = 4
+  case trainTrip = 5
+  case boatTrip = 6
+  case busTrip = 7
+  case tripWithCrashConfirmed10KmH = 8
+  case tripWithCrashConfirmed20KmH = 9
+  case tripWithCrashConfirmed30KmH = 10
+  case tripWithCrashUnconfirmed0KmH = 11
+  case tripWithCrashConfirmed30KmHStillDriving = 12
+}
 private class IOSTripSimulatorApiPigeonCodecReader: FlutterStandardReader {
+  override func readValue(ofType type: UInt8) -> Any? {
+    switch type {
+    case 129:
+      var enumResult: PigeonPresetTrip? = nil
+      let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
+      if let enumResultAsInt = enumResultAsInt {
+        enumResult = PigeonPresetTrip(rawValue: enumResultAsInt)
+      }
+      return enumResult
+    default:
+      return super.readValue(ofType: type)
+    }
+  }
 }
 
 private class IOSTripSimulatorApiPigeonCodecWriter: FlutterStandardWriter {
+  override func writeValue(_ value: Any) {
+    if let value = value as? PigeonPresetTrip {
+      super.writeByte(129)
+      super.writeValue(value.rawValue)
+    } else {
+      super.writeValue(value)
+    }
+  }
 }
 
 private class IOSTripSimulatorApiPigeonCodecReaderWriter: FlutterStandardReaderWriter {
@@ -86,6 +123,8 @@ class IOSTripSimulatorApiPigeonCodec: FlutterStandardMessageCodec, @unchecked Se
 /// Generated protocol from Pigeon that represents a handler of messages from Flutter.
 protocol IOSTripSimulatorApi {
   func getPlatformName() throws -> String
+  func start(presetTrip: PigeonPresetTrip) throws
+  func stop() throws
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
@@ -106,6 +145,34 @@ class IOSTripSimulatorApiSetup {
       }
     } else {
       getPlatformNameChannel.setMessageHandler(nil)
+    }
+    let startChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.pigeon_trip_simulator_package.IOSTripSimulatorApi.start\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      startChannel.setMessageHandler { message, reply in
+        let args = message as! [Any?]
+        let presetTripArg = args[0] as! PigeonPresetTrip
+        do {
+          try api.start(presetTrip: presetTripArg)
+          reply(wrapResult(nil))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      startChannel.setMessageHandler(nil)
+    }
+    let stopChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.pigeon_trip_simulator_package.IOSTripSimulatorApi.stop\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      stopChannel.setMessageHandler { _, reply in
+        do {
+          try api.stop()
+          reply(wrapResult(nil))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      stopChannel.setMessageHandler(nil)
     }
   }
 }

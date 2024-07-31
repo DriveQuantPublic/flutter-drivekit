@@ -15,19 +15,54 @@ PlatformException _createConnectionError(String channelName) {
   );
 }
 
+enum PigeonPresetTrip {
+  shortTrip,
+  mixedTrip,
+  cityTrip,
+  suburbanTrip,
+  highwayTrip,
+  trainTrip,
+  boatTrip,
+  busTrip,
+  tripWithCrashConfirmed10KmH,
+  tripWithCrashConfirmed20KmH,
+  tripWithCrashConfirmed30KmH,
+  tripWithCrashUnconfirmed0KmH,
+  tripWithCrashConfirmed30KmHStillDriving,
+}
+
+
 class _PigeonCodec extends StandardMessageCodec {
   const _PigeonCodec();
+  @override
+  void writeValue(WriteBuffer buffer, Object? value) {
+    if (value is PigeonPresetTrip) {
+      buffer.putUint8(129);
+      writeValue(buffer, value.index);
+    } else {
+      super.writeValue(buffer, value);
+    }
+  }
+
+  @override
+  Object? readValueOfType(int type, ReadBuffer buffer) {
+    switch (type) {
+      case 129: 
+        final int? value = readValue(buffer) as int?;
+        return value == null ? null : PigeonPresetTrip.values[value];
+      default:
+        return super.readValueOfType(type, buffer);
+    }
+  }
 }
 
 class IOSTripSimulatorApi {
   /// Constructor for [IOSTripSimulatorApi].  The [binaryMessenger] named argument is
   /// available for dependency injection.  If it is left null, the default
   /// BinaryMessenger will be used which routes to the host platform.
-  IOSTripSimulatorApi(
-      {BinaryMessenger? binaryMessenger, String messageChannelSuffix = ''})
+  IOSTripSimulatorApi({BinaryMessenger? binaryMessenger, String messageChannelSuffix = ''})
       : __pigeon_binaryMessenger = binaryMessenger,
-        __pigeon_messageChannelSuffix =
-            messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
+        __pigeon_messageChannelSuffix = messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
   final BinaryMessenger? __pigeon_binaryMessenger;
 
   static const MessageCodec<Object?> pigeonChannelCodec = _PigeonCodec();
@@ -35,10 +70,8 @@ class IOSTripSimulatorApi {
   final String __pigeon_messageChannelSuffix;
 
   Future<String> getPlatformName() async {
-    final String __pigeon_channelName =
-        'dev.flutter.pigeon.pigeon_trip_simulator_package.IOSTripSimulatorApi.getPlatformName$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel =
-        BasicMessageChannel<Object?>(
+    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_trip_simulator_package.IOSTripSimulatorApi.getPlatformName$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
@@ -60,6 +93,50 @@ class IOSTripSimulatorApi {
       );
     } else {
       return (__pigeon_replyList[0] as String?)!;
+    }
+  }
+
+  Future<void> start(PigeonPresetTrip presetTrip) async {
+    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_trip_simulator_package.IOSTripSimulatorApi.start$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+      __pigeon_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: __pigeon_binaryMessenger,
+    );
+    final List<Object?>? __pigeon_replyList =
+        await __pigeon_channel.send(<Object?>[presetTrip]) as List<Object?>?;
+    if (__pigeon_replyList == null) {
+      throw _createConnectionError(__pigeon_channelName);
+    } else if (__pigeon_replyList.length > 1) {
+      throw PlatformException(
+        code: __pigeon_replyList[0]! as String,
+        message: __pigeon_replyList[1] as String?,
+        details: __pigeon_replyList[2],
+      );
+    } else {
+      return;
+    }
+  }
+
+  Future<void> stop() async {
+    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_trip_simulator_package.IOSTripSimulatorApi.stop$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+      __pigeon_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: __pigeon_binaryMessenger,
+    );
+    final List<Object?>? __pigeon_replyList =
+        await __pigeon_channel.send(null) as List<Object?>?;
+    if (__pigeon_replyList == null) {
+      throw _createConnectionError(__pigeon_channelName);
+    } else if (__pigeon_replyList.length > 1) {
+      throw PlatformException(
+        code: __pigeon_replyList[0]! as String,
+        message: __pigeon_replyList[1] as String?,
+        details: __pigeon_replyList[2],
+      );
+    } else {
+      return;
     }
   }
 }

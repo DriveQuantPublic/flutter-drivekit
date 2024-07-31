@@ -1,5 +1,8 @@
 import 'package:flutter_drivekit_trip_simulator_platform_interface/flutter_drivekit_trip_simulator_platform_interface.dart';
 
+export 'package:flutter_drivekit_trip_simulator_platform_interface/flutter_drivekit_trip_simulator_platform_interface.dart'
+    show PresetTrip;
+
 DrivekitTripSimulatorPlatform get _platform =>
     DrivekitTripSimulatorPlatform.instance;
 
@@ -14,4 +17,11 @@ class DriveKitTripSimulator {
 
   /// Returns the name of the current platform.
   Future<String> getPlatformName() => _platform.getPlatformName();
+
+  /// Starts trip simulation with a preset trip
+  static Future<void> start(PresetTrip presetTrip) =>
+      _platform.start(presetTrip);
+
+  /// Stops trip simulation
+  static Future<void> stop() => _platform.stop();
 }

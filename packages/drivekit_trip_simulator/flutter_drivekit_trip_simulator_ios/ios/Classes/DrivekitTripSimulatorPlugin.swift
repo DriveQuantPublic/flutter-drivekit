@@ -15,4 +15,18 @@ public class DrivekitTripSimulatorPlugin: NSObject, FlutterPlugin, IOSTripSimula
     public func getPlatformName() throws -> String {
         return "iOS"
     }
+
+    func start(presetTrip: PigeonPresetTrip) throws {
+        let (tripToSimulate, crashTripToSimulate) = PigeonMapper.getPresetTrip(from: presetTrip)
+        if let tripToSimulate {
+            DriveKitTripSimulator.shared.start(tripToSimulate)
+        } else if let crashTripToSimulate {
+            DriveKitTripSimulator.shared.startCrashTrip(crashTripToSimulate)
+        }
+    }
+    
+    func stop() throws {
+        DriveKitTripSimulator.shared.stop()
+    }
+
 }

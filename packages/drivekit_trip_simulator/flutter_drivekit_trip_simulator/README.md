@@ -19,12 +19,59 @@ Now, you can import `'package:flutter_drivekit_trip_simulator/flutter_drivekit_t
 To use this plugin, you need to have an ApiKey from DriveQuant. If you don't have one, please [contact us](https://info.drivequant.com/contact/).
 Then, you need to install the flutter_drivekit_core plugin and follow the instructions to specify the ApiKey and the UserId.
 
-Now, you can configure the Drivekit Core with the options you want, and start using the Drivekit Trip Simulator plugin. For example, you can start trip analysis with the following code:
+Now, you can configure the Drivekit Core with the options you want, and start using the Drivekit Trip Simulator plugin. For example, you can start trip simulator with the following code:
 
 ```dart
-final driveKitTripSimulator = DriveKitTripSimulator();
-//TODO
+DriveKitTripSimulator.start(PresetTrip.shortTrip);
 ```
+
+| Method                    | Return Type    | iOS | Android |
+| ------------------------- | -------------- | :-: | :-----: |
+| [startTrip()](#starttrip) | `Future<void>` | ✅  |   ✅    |
+| [stopTrip()](#stoptrip)   | `Future<void>` | ✅  |   ✅    |
+
+### startTrip
+
+```dart
+static Future<void> start(PresetTrip presetTrip)
+```
+
+To simulate a trip, call the start method in TripSimulator with a appropriate configuration with the `PresetTrip` parameter.
+
+```dart
+DriveKitTripSimulator.start(PresetTrip.highwayTrip);
+```
+
+| PresetTrip                                  | Description
+| ------------------------------------------- | ---------------------- |
+| `shortTrip`                                 |  Trip too short that does not allow to rate the driver's behavior |
+| `mixedTrip`                                 |  A 15-minute mixed trip in urban and suburban areas |
+| `cityTrip`                                  |  A 20-minute city trip |
+| `suburbanTrip`                              |  A 30-minute trip performed in a suburban environment mostly |
+| `highwayTrip`                               |  A 55-minute highway trip |
+| `trainTrip`                                 |  Trip recorded in a train to test the alternative transportation modes detection |
+| `busTrip`                                   |  Trip recorded in a bus to test the alternative transportation modes detection |
+| `boatTrip`                                  |  Trip recorded in a boat to test the alternative transportation modes detection |
+| `tripWithCrashConfirmed30KmH`               |  A short trip with a collision at 30 km/h that occurs 137 seconds after the trip begins and that corresponds to a confirmed accident |
+| `tripWithCrashConfirmed20KmH`              | A short trip with a collision at 20 km/h that occurs 141 seconds after the trip begins and that corresponds to a confirmed accident |
+| `tripWithCrashConfirmed10KmH`             | A short trip with a collision at 10 km/h that occurs 146 seconds after the trip begins and that corresponds to a confirmed accident |
+| `tripWithCrashUnconfirmed0KmH`            | A short trip with a collision during a vehicle stop that occurs 159 seconds after the trip begins and that corresponds to an unconfirmed accident |
+| `tripWithCrashConfirmed30KmHStillDriving` | A trip to simulate an accident confirmed less than two minutes after the start of the trip, after which the driver continued driving. |
+
+
+
+### stopTrip
+
+```dart
+static Future<void> stop()
+```
+
+To stop the trip simulation, call the following method. The trip will be stopped instantly:
+
+```dart
+DriveKitTripSimulator.stop();
+```
+
 
 Please refer to the [DriveKit Trip Simulator documentation](https://docs.drivequant.com/trip-analysis/trip-simulator) for more information about the features we provide.
 
