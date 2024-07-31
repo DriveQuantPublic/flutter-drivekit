@@ -67,7 +67,9 @@ class DrivekitTripAnalysisIOS extends DrivekitTripAnalysisPlatform
 
   @override
   void beaconDetected() {
-    // TODO: implement beaconDetected
+    for (final listener in _listeners) {
+      listener.beaconDetected?.call();
+    }
   }
 
   @override
