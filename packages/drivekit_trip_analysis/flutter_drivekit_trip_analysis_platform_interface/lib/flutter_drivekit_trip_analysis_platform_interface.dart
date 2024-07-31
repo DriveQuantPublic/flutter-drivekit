@@ -68,4 +68,10 @@ abstract class DrivekitTripAnalysisPlatform extends PlatformInterface {
 
   /// Add a listener to receive events concerning trips.
   void addTripListener(TripListener listener);
+
+  /// Remove a trip listener
+  void removeTripListener(TripListener listener);
+
+  /// Remove all trip listeners
+  void removeAllTripListeners();
 }

@@ -126,4 +126,14 @@ class DrivekitTripAnalysis {
   void addTripListener(TripListener listener) {
     _platform.addTripListener(listener);
   }
+
+  /// Remove a trip listener
+  void removeTripListener(TripListener listener) {
+    _platform.removeTripListener(listener);
+  }
+
+  /// Remove all trip listeners
+  void removeAllTripListeners() {
+    _platform.removeAllTripListeners();
+  }
 }

@@ -67,6 +67,12 @@ class DrivekitTripAnalysisAndroid extends DrivekitTripAnalysisPlatform
   void addTripListener(TripListener listener) => _listeners.add(listener);
 
   @override
+  void removeTripListener(TripListener listener) => _listeners.remove(listener);
+
+  @override
+  void removeAllTripListeners() => _listeners.clear();
+
+  @override
   void beaconDetected() {
     for (final listener in _listeners) {
       listener.beaconDetected?.call();
