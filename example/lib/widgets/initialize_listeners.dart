@@ -177,6 +177,7 @@ class _InitializeListenersState extends State<InitializeListeners> {
   @override
   void dispose() {
     DriveKitCore.instance.removeDriveKitListener(_driveKitListener);
+    DrivekitTripAnalysis.instance.removeTripListener(_tripListener);
     super.dispose();
   }
 
