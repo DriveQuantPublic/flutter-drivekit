@@ -21,6 +21,8 @@ dependencies:
     sdk: flutter
   flutter_drivekit_trip_analysis_platform_interface: ^0.0.1
 
+  collection: any
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
