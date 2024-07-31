@@ -4,7 +4,7 @@ import DriveKitCoreModule
 
 extension FlutterError: Error {}
 
-public class DrivekitCorePlugin: NSObject, FlutterPlugin, IOSCoreApi {
+public class DrivekitCorePlugin: NSObject, FlutterPlugin, IOSCoreApi, DKDeviceConfigurationDelegate {
     var flutterAPI: FlutterCoreApi?
 
     public static func register(with registrar: FlutterPluginRegistrar) {
@@ -141,10 +141,10 @@ extension DrivekitCorePlugin: DriveKitDelegate {
         }
     }
 
-    public func driveKit(_ driveKit: DriveKitCoreModule.DriveKit, deviceConfigurationEvent event: DriveKitCoreModule.DeviceConfigurationEvent) {
+    public func driveKit(_ driveKit: DriveKitCoreModule.DriveKit, deviceConfigurationEvent event: DKDeviceConfigurationEvent) {
         let event = PigeonDeviceConfigurationEvent.init(from: event)
-        flutterAPI?.onDeviceConfigurationEvent(event: event) { result in
-                print("Device configuration event: \(event)")
+        flutterAPI?.onDeviceConfigurationChanged(event: event) { result in
+            print("Device configuration event: \(event)")
         }
     }
 }
