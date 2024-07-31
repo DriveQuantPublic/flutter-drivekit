@@ -1157,7 +1157,7 @@ class DriverDistraction {
   final double? scoreCall;
 
   /// The list of calls
-  final List<PigeonCall>? calls;
+  final List<Call>? calls;
 }
 
 /// ItineraryData class
@@ -1607,69 +1607,6 @@ enum CrashStatus {
 
   /// The crash is confirmed
   confirmed,
-}
-
-/// PigeonCall class
-class PigeonCall {
-  /// Creates a PigeonCall instance
-  const PigeonCall({
-    required this.id,
-    required this.start,
-    required this.end,
-    required this.durationS,
-    required this.duration,
-    required this.distanceM,
-    required this.distance,
-    required this.status,
-    required this.audioSystem,
-    required this.bluetoothClass,
-    required this.forbidden,
-    this.audioInput,
-    this.audioOutput,
-    this.audioName,
-  });
-
-  /// The ID
-  final int id;
-
-  /// The start time
-  final double start;
-
-  /// The end time
-  final double end;
-
-  /// The duration in seconds
-  final int durationS;
-
-  /// The duration
-  final int duration;
-
-  /// The distance in meters
-  final int distanceM;
-
-  /// The distance
-  final int distance;
-
-  /// The status
-  final String status;
-
-  /// The audio system
-  final String audioSystem;
-
-  /// The audio input
-  final String? audioInput;
-
-  /// The audio output
-  final String? audioOutput;
-
-  /// The audio name
-  final String? audioName;
-
-  /// The Bluetooth class
-  final int bluetoothClass;
-
-  /// The forbidden status
-  final bool forbidden;
 }
 
 /// PigeonSpeedLimitContext class
