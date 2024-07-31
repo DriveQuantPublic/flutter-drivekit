@@ -11,11 +11,11 @@ class InitializeListeners extends StatefulWidget {
 }
 
 class _InitializeListenersState extends State<InitializeListeners> {
-  late final DriveKitListener _listener;
+  late final DriveKitListener _driveKitListener;
   @override
   void initState() {
     super.initState();
-    _listener = DriveKitListener(
+    _driveKitListener = DriveKitListener(
       onConnected: () {
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -71,12 +71,12 @@ class _InitializeListenersState extends State<InitializeListeners> {
         }
       },
     );
-    DriveKitCore.instance.addDriveKitListener(_listener);
+    DriveKitCore.instance.addDriveKitListener(_driveKitListener);
   }
 
   @override
   void dispose() {
-    DriveKitCore.instance.removeDriveKitListener(_listener);
+    DriveKitCore.instance.removeDriveKitListener(_driveKitListener);
     super.dispose();
   }
 
