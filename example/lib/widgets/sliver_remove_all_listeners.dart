@@ -11,7 +11,7 @@ class SliverRemoveAllListeners extends StatelessWidget {
         onPressed: () {
           DriveKitCore.instance.removeAllDriveKitListeners();
         },
-        child: const Text('Remove all listeners'),
+        child: const Text('Remove all DriveKitListener'),
       ),
     );
   }
