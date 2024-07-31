@@ -4,12 +4,18 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
+import 'mocks/mocks.dart';
+
 class MockDrivekitTripAnalysisPlatform extends Mock
     with MockPlatformInterfaceMixin
     implements DrivekitTripAnalysisPlatform {}
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+
+  setUpAll(() {
+    registerFallbackValue(MockTripListener());
+  });
 
   group('DrivekitTripAnalysis', () {
     late DrivekitTripAnalysisPlatform drivekitTripAnalysisPlatform;
@@ -126,6 +132,34 @@ void main() {
 
         await DrivekitTripAnalysis.instance.setVehicle(vehicle);
         verify(() => drivekitTripAnalysisPlatform.setVehicle(vehicle));
+      });
+    });
+
+    group('listener', () {
+      test('addListener', () async {
+        final listener = TripListener(beaconDetected: () {});
+        when(() => drivekitTripAnalysisPlatform.addTripListener(any()))
+            .thenAnswer((_) async {});
+        DrivekitTripAnalysis.instance.addTripListener(listener);
+        verify(() => drivekitTripAnalysisPlatform.addTripListener(listener))
+            .called(1);
+      });
+      test('removeListener', () async {
+        final listener = TripListener(
+          beaconDetected: () {},
+        );
+        when(() => drivekitTripAnalysisPlatform.removeTripListener(any()))
+            .thenAnswer((_) async {});
+        DrivekitTripAnalysis.instance.removeTripListener(listener);
+        verify(() => drivekitTripAnalysisPlatform.removeTripListener(listener))
+            .called(1);
+      });
+      test('removeAllListeners', () async {
+        when(() => drivekitTripAnalysisPlatform.removeAllTripListeners())
+            .thenAnswer((_) async {});
+        DrivekitTripAnalysis.instance.removeAllTripListeners();
+        verify(() => drivekitTripAnalysisPlatform.removeAllTripListeners())
+            .called(1);
       });
     });
   });
