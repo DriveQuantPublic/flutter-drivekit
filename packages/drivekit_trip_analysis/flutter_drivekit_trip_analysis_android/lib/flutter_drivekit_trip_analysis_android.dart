@@ -23,6 +23,8 @@ class DrivekitTripAnalysisAndroid extends DrivekitTripAnalysisPlatform {
   @visibleForTesting
   final AndroidTripAnalysisApi androidTripAnalysisApi;
 
+  final List<TripListener> _listeners = [];
+
   @override
   Future<void> activateAutoStart(bool activate) =>
       androidTripAnalysisApi.activateAutoStart(activate);
@@ -54,4 +56,7 @@ class DrivekitTripAnalysisAndroid extends DrivekitTripAnalysisPlatform {
   @override
   Future<void> setVehicle(Vehicle vehicle) =>
       androidTripAnalysisApi.setVehicle(vehicle.toPigeonImplementation());
+
+  @override
+  void addTripListener(TripListener listener) => _listeners.add(listener);
 }

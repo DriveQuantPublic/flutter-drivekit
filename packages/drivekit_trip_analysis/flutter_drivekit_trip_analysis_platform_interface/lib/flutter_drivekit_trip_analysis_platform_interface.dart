@@ -62,4 +62,7 @@ abstract class DrivekitTripAnalysisPlatform extends PlatformInterface {
 
   /// Set the user's vehicle.
   Future<void> setVehicle(Vehicle vehicle);
+
+  /// Add a listener to receive events concerning trips.
+  void addTripListener(TripListener listener);
 }
