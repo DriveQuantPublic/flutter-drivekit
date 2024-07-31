@@ -95,6 +95,258 @@ class Vehicle {
   final int driveWheels;
 }
 
+/// Provides useful information and event about trips analyzed by DriveKit.
+/// Can be registered on the DriveKit SDK using the addTripListener method.
+class TripListener {
+  /// Creates a TripListener instance
+  const TripListener({
+    this.tripStarted,
+    this.tripPoint,
+    this.tripSavedForRepost,
+    this.tripFinished,
+    this.tripCancelled,
+    this.beaconDetected,
+    this.significantLocationChangeDetected,
+    this.sdkStateChanged,
+    this.crashDetected,
+    this.crashFeedbackSent,
+  });
+
+  /// Called each time a trip is started.
+  /// [StartMode] indicates which event starts the trip.
+  final void Function(StartMode startMode)? tripStarted;
+
+  /// Called when a trip is started and confirmed,
+  /// for each GPS point recorded by the SDK.
+  final void Function(TripPoint tripPoint)? tripPoint;
+
+  /// Called if at the end of the trip, the trip can be sent to DriveQuant's
+  /// server for the analysis.
+  ///
+  /// The trip is saved locally on the SDK and will be sent later.
+  final void Function()? tripSavedForRepost;
+
+  /// Called when a trip has been recorded by the SDK and sent to
+  /// DriveQuant's server to be analyzed.
+  ///
+  /// [PostGeneric] object contains raw data sent to DriveQuant's server,
+  /// [PostGenericResponse] object contains the trip analysis
+  /// made on DriveQuant's server.
+  final void Function(PostGeneric post, PostGenericResponse response)?
+      tripFinished;
+
+  /// Called when a trip is cancelled.
+  /// [CancelTrip] indicates which event cancels the trip.
+  final void Function(CancelTrip cancelTrip)? tripCancelled;
+
+  /// Called when a beacon sets in the SDK is detected.
+  final void Function()? beaconDetected;
+
+  /// iOS only.
+  ///
+  /// Called when a user significant location change is detected.
+  final void Function(State state)? significantLocationChangeDetected;
+
+  /// Called every time the state of the SDK changed
+  /// with the new state as parameter.
+  final void Function(State state)? sdkStateChanged;
+
+  /// Called when a crash event is detected.
+  /// Triggered if Crash Detection is enabled.
+  final void Function(DKCrashInfo crashInfo)? crashDetected;
+
+  /// Called when crash feedback is enabled and a confirmed crash is detected.
+  /// Triggered if Crash Detection is enabled.
+  final void Function(
+    DKCrashInfo crashInfo,
+    DKCrashFeedbackType feedbackType,
+    DKCrashFeedbackSeverity severity,
+  )? crashFeedbackSent;
+}
+
+/// Indicates how the trip is started.
+enum StartMode {
+  /// Automatic start when the SDK detects a change in user position
+  gps,
+
+  /// Automatic start due to the presence of a beacon
+  beacon,
+
+  /// Trip started manually by calling the method startTrip()
+  manual,
+
+  /// Automatic start when the SDK detects that you exit
+  /// the zone where your vehicle may be parked
+  geozone,
+
+  /// Automatic start by detecting a connection to a vehicle's Bluetooth system
+  bluetooth,
+
+  /// Automatic start by detecting a connection to a unknown vehicle's
+  /// Bluetooth system
+  unknownBluetooth,
+
+  /// Automatic start by detecting a bicycle activity
+  bicycleActivity,
+
+  /// Automatic start when the SDK detects that your smartphone has been
+  /// connected to an Android Auto or Automotive OS system
+  connectedCar;
+}
+
+/// CancelTrip indicates how the trip was cancelled.
+enum CancelTrip {
+  /// Trip cancelled by calling the method cancelTrip
+  user,
+
+  /// Trip cancelled because speed was too high (train, airplane)
+  highspeed,
+
+  /// Trip cancelled because speed was too slow to be in a vehicle
+  noSpeed,
+
+  /// Trip cancelled because the beacon was not detected while it was [required](https://docs.drivequant.com/trip-analysis/ios/beacon-usage#beacon-required)
+  noBeacon,
+
+  /// Trip cancelled because DriveKit was not configured
+  missingConfiguration,
+
+  /// Trip cancelled because no GPS data was recorded
+  noGpsData,
+
+  /// Trip cancelled because SDK configuration has been [reset](https://docs.drivequant.com/get-started-drivekit/ios/advanced-configurations#reset-the-module)
+  reset,
+
+  /// Trip cancelled because the beacon is near the smartphone but
+  /// there is no movement (zero or low speed)
+  beaconNoSpeed,
+
+  /// Trip cancelled because the Bluetooth device is connected to the
+  /// smartphone but there was no movement (zero or low speed)
+  bluetoothDeviceNoSpeed;
+}
+
+/// Contains data for each location registered by the SDK.
+class TripPoint {
+  /// Creates a TripPoint instance
+  const TripPoint({
+    required this.latitude,
+    required this.longitude,
+    required this.speed,
+    required this.accuracy,
+    required this.elevation,
+    required this.distance,
+    required this.heading,
+    required this.duration,
+  });
+
+  /// latitude
+  final double latitude;
+
+  /// longitude
+  final double longitude;
+
+  /// Speed in km/h
+  final double speed;
+
+  /// Accuracy of the GPS data in meter
+  final double accuracy;
+
+  /// Elevation in meter
+  final double elevation;
+
+  /// Distance since the beginning of the trip in meter
+  final double distance;
+
+  /// Heading
+  final double heading;
+
+  /// Duration since the beginning of the trip in second
+  final double duration;
+}
+
+/// Indicates the state of the DriveKit SDK.
+enum State {
+  /// No trip is running.
+  inactive,
+
+  /// The auto start mode detects a movement of the user and checks
+  /// if it's a trip in vehicle.
+  starting,
+
+  /// The trip has been confirmed by the speed of the movement.
+  running,
+
+  /// The SDK is in this state when a potential trip end is detected. If the
+  /// trip continues, the SDK goes back in RUNNING state.
+  /// The duration of the stopping state can be configured.
+  stopping,
+
+  /// The trip is finished and is being sent to DriveQuant's server.
+  /// When the SDK has the response from the server,
+  /// the state becomes INACTIVE waiting for the next trip.
+  sending;
+}
+
+/// Contains the information about a crash.
+class DKCrashInfo {
+  /// Creates a DKCrashInfo instance
+  const DKCrashInfo({
+    required this.probability,
+    required this.latitude,
+    required this.longitude,
+    required this.velocity,
+    this.crashId,
+    this.date,
+    this.status,
+  });
+
+  /// The crash ID
+  final String? crashId;
+
+  /// The date of the crash
+  final DateTime? date;
+
+  /// The status of the crash
+  final CrashStatus? status;
+
+  /// The probability of the crash
+  final int probability;
+
+  /// The latitude of the crash
+  final double latitude;
+
+  /// The longitude of the crash
+  final double longitude;
+
+  /// The velocity of the crash in km/h
+  final double velocity;
+}
+
+/// Indicates the status of a crash feedback.
+enum DKCrashFeedbackType {
+  /// The crash didn't happen
+  noCrash,
+
+  /// The crash is confirmed
+  crashConfirmed,
+
+  /// The crash is not confirmed
+  noFeedback;
+}
+
+/// Indicates the severity of a crash feedback.
+enum DKCrashFeedbackSeverity {
+  /// no severity
+  none,
+
+  /// The crash is minor
+  minor,
+
+  /// The crash is critical
+  critical;
+}
+
 /// PostGenericResponse class
 class PostGenericResponse {
   /// Creates a PostGenericResponse instance
@@ -1056,7 +1308,7 @@ class SpeedingStatistics {
   final double score;
 
   /// The list of speed limit contexts
-  final List<PigeonSpeedLimitContext> speedLimitContexts;
+  final List<SpeedLimitContext> speedLimitContexts;
 }
 
 /// Route class
@@ -1421,9 +1673,9 @@ class PigeonCall {
 }
 
 /// PigeonSpeedLimitContext class
-class PigeonSpeedLimitContext {
+class SpeedLimitContext {
   /// Creates a PigeonSpeedLimitContext instance
-  const PigeonSpeedLimitContext({
+  const SpeedLimitContext({
     required this.speedLimit,
     required this.distance,
     required this.duration,
