@@ -109,7 +109,9 @@ class DrivekitTripAnalysisIOS extends DrivekitTripAnalysisPlatform
 
   @override
   void tripFinished(
-      PigeonPostGeneric post, PigeonPostGenericResponse response) {
+    PigeonPostGeneric post,
+    PigeonPostGenericResponse response,
+  ) {
     // TODO: implement tripFinished
   }
 
