@@ -17,23 +17,23 @@ class TripNotificationInitializer : Initializer<TripNotification> {
 
         val notification = buildNotification(
             title = resources.getIdentifier(ResourceId.TITLE, STRING, appName, LogStatusWhenNotFound.ERROR).let { id ->
-                if (id != 0) resources.getString(id) else "DriveKit"
+                getWithDefaultValueIfNotFound(id, { resources.getString(id) }, "DriveKit")
             },
             content = resources.getIdentifier(ResourceId.CONTENT, STRING, appName, LogStatusWhenNotFound.ERROR).let { id ->
-                if (id != 0) resources.getString(id) else "DriveKit is running"
+                getWithDefaultValueIfNotFound(id, { resources.getString(id) }, "DriveKit is running")
             },
             iconDrawableId = resources.getIdentifier(ResourceId.ICON, DRAWABLE, appName, LogStatusWhenNotFound.ERROR),
             cancelIconDrawableId = resources.getIdentifier(ResourceId.CANCEL_ICON, DRAWABLE, appName, LogStatusWhenNotFound.WARNING).let {
-                if (it != 0) it else null
+                getWithDefaultValueIfNotFound(it, { it }, null)
             },
             notificationId = resources.getIdentifier(ResourceId.NOTIF_ID, INTEGER, appName, LogStatusWhenNotFound.WARNING).let {
-                if (it != 0) resources.getInteger(it) else null
+                getWithDefaultValueIfNotFound(it, { resources.getInteger(it) }, null)
             },
             enableCancelValue = resources.getIdentifier(ResourceId.ENABLE_CANCEL, BOOL, appName, LogStatusWhenNotFound.WARNING).let { id ->
-                if (id != 0) resources.getBoolean(id) else false
+                getWithDefaultValueIfNotFound(id, { resources.getBoolean(id) }, false)
             },
             cancelText = resources.getIdentifier(ResourceId.CANCEL_CONTENT, STRING, appName, LogStatusWhenNotFound.WARNING).let { id ->
-                if (id != 0) resources.getString(id) else null
+                getWithDefaultValueIfNotFound(id, { resources.getString(id) }, null)
             },
             context = context
         )
@@ -41,6 +41,8 @@ class TripNotificationInitializer : Initializer<TripNotification> {
         DriveKitTripAnalysis.tripNotification = notification
         return notification
     }
+
+    private fun <T> getWithDefaultValueIfNotFound(id: Int, provider: () -> T, defaultValue: T) = if (id != 0) provider() else defaultValue
 
     private fun buildNotification(
         title: String,
