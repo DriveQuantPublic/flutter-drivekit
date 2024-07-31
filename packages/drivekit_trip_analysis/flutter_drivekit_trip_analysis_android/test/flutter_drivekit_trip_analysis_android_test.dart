@@ -16,12 +16,15 @@ void main() {
 
   group('DrivekitTripAnalysisAndroid', () {
     late AndroidTripAnalysisApi androidTripAnalysisApi;
+    late FlutterTripAnalysisApi flutterTripAnalysisApi;
 
     setUp(() {
       androidTripAnalysisApi = MockAndroidTripAnalysisApi();
-      DrivekitTripAnalysisPlatform.instance = DrivekitTripAnalysisAndroid(
+      flutterTripAnalysisApi = DrivekitTripAnalysisAndroid(
         androidTripAnalysisApi: androidTripAnalysisApi,
       );
+      DrivekitTripAnalysisPlatform.instance =
+          flutterTripAnalysisApi as DrivekitTripAnalysisAndroid;
     });
     test('can be registered', () {
       DrivekitTripAnalysisAndroid.registerWith();
@@ -205,6 +208,271 @@ void main() {
       expect(pigeonVehicle.height, 1.45);
       expect(pigeonVehicle.engineCylinderNb, 4);
       expect(pigeonVehicle.driveWheels, 0);
+    });
+
+    group('TripListener', () {
+      test('can listen several listeners', () async {
+        var beaconDetectedCount = 0;
+        var crashDetectedCount = 0;
+        var crashFeedbackSentCount = 0;
+        var sdkStateChangedCount = 0;
+        var significantLocationChangeDetectedCount = 0;
+        var tripCancelledCount = 0;
+        var tripFinishedCount = 0;
+        var tripPointCount = 0;
+        var tripSavedForRepostCount = 0;
+        var tripStartedCount = 0;
+        //test
+        DrivekitTripAnalysisPlatform.instance.addTripListener(
+          TripListener(
+            beaconDetected: () => beaconDetectedCount++,
+            crashDetected: (crashInfo) => crashDetectedCount++,
+            crashFeedbackSent: (crashInfo, feedbackType, severity) =>
+                crashFeedbackSentCount++,
+            sdkStateChanged: (state) => sdkStateChangedCount++,
+            significantLocationChangeDetected: (state) =>
+                significantLocationChangeDetectedCount++,
+            tripCancelled: (cancelTrip) => tripCancelledCount++,
+            tripFinished: (post, response) => tripFinishedCount++,
+            tripPoint: (tripPoint) => tripPointCount++,
+            tripSavedForRepost: () => tripSavedForRepostCount++,
+            tripStarted: (startMode) => tripStartedCount++,
+          ),
+        );
+        flutterTripAnalysisApi.beaconDetected();
+        expect(beaconDetectedCount, 1);
+        expect(crashDetectedCount, 0);
+
+        flutterTripAnalysisApi.crashDetected(mockPigeonDkCrashInfo);
+        expect(crashDetectedCount, 1);
+
+        flutterTripAnalysisApi.crashFeedbackSent(
+          mockPigeonDkCrashInfo,
+          PigeonDKCrashFeedbackType.crashConfirmed,
+          PigeonDKCrashFeedbackSeverity.minor,
+        );
+        expect(crashFeedbackSentCount, 1);
+
+        flutterTripAnalysisApi.sdkStateChanged(PigeonState.inactive);
+        expect(sdkStateChangedCount, 1);
+
+        flutterTripAnalysisApi.tripCancelled(PigeonCancelTrip.beaconNoSpeed);
+        expect(tripCancelledCount, 1);
+
+        flutterTripAnalysisApi.tripFinished(mockPigeonPost, mockPigeonResponse);
+        expect(tripFinishedCount, 1);
+
+        flutterTripAnalysisApi.tripPoint(mockPigeonTripPoint);
+        expect(tripPointCount, 1);
+
+        flutterTripAnalysisApi.tripSavedForRepost();
+        expect(tripSavedForRepostCount, 1);
+
+        flutterTripAnalysisApi.tripStarted(PigeonStartMode.bicycleActivity);
+        expect(tripStartedCount, 1);
+
+        DrivekitTripAnalysisPlatform.instance.addTripListener(
+          TripListener(
+            beaconDetected: () => beaconDetectedCount++,
+            crashDetected: (crashInfo) => crashDetectedCount++,
+            crashFeedbackSent: (crashInfo, feedbackType, severity) =>
+                crashFeedbackSentCount++,
+            sdkStateChanged: (state) => sdkStateChangedCount++,
+            significantLocationChangeDetected: (state) =>
+                significantLocationChangeDetectedCount++,
+            tripCancelled: (cancelTrip) => tripCancelledCount++,
+            tripFinished: (post, response) => tripFinishedCount++,
+            tripPoint: (tripPoint) => tripPointCount++,
+            tripSavedForRepost: () => tripSavedForRepostCount++,
+            tripStarted: (startMode) => tripStartedCount++,
+          ),
+        );
+        flutterTripAnalysisApi.beaconDetected();
+        expect(beaconDetectedCount, 3);
+
+        flutterTripAnalysisApi.crashDetected(mockPigeonDkCrashInfo);
+        expect(crashDetectedCount, 3);
+
+        flutterTripAnalysisApi.crashFeedbackSent(
+          mockPigeonDkCrashInfo,
+          PigeonDKCrashFeedbackType.crashConfirmed,
+          PigeonDKCrashFeedbackSeverity.minor,
+        );
+        expect(crashFeedbackSentCount, 3);
+
+        flutterTripAnalysisApi.sdkStateChanged(PigeonState.inactive);
+        expect(sdkStateChangedCount, 3);
+
+        flutterTripAnalysisApi.tripCancelled(PigeonCancelTrip.beaconNoSpeed);
+        expect(tripCancelledCount, 3);
+
+        flutterTripAnalysisApi.tripFinished(mockPigeonPost, mockPigeonResponse);
+        expect(tripFinishedCount, 3);
+
+        flutterTripAnalysisApi.tripPoint(mockPigeonTripPoint);
+        expect(tripPointCount, 3);
+
+        flutterTripAnalysisApi.tripSavedForRepost();
+        expect(tripSavedForRepostCount, 3);
+
+        flutterTripAnalysisApi.tripStarted(PigeonStartMode.bicycleActivity);
+        expect(tripStartedCount, 3);
+
+        // significantLocationChangeDetected is not supported on Android
+        expect(significantLocationChangeDetectedCount, 0);
+      });
+
+      test(
+        'a trip listener callback is transmitted with the right arguments',
+        () async {
+          final crashDetectedList = <DKCrashInfo>[];
+          //test
+          DrivekitTripAnalysisPlatform.instance.addTripListener(
+            TripListener(
+              crashDetected: crashDetectedList.add,
+            ),
+          );
+          flutterTripAnalysisApi.crashDetected(mockPigeonDkCrashInfo);
+          expect(crashDetectedList, hasLength(1));
+          expect(
+            crashDetectedList.first.crashId,
+            mockPigeonDkCrashInfo.crashId,
+          );
+          expect(
+            crashDetectedList.first.latitude,
+            mockPigeonDkCrashInfo.latitude,
+          );
+          expect(
+            crashDetectedList.first.longitude,
+            mockPigeonDkCrashInfo.longitude,
+          );
+          expect(
+            crashDetectedList.first.probability,
+            mockPigeonDkCrashInfo.probability,
+          );
+          expect(
+            crashDetectedList.first.velocity,
+            mockPigeonDkCrashInfo.velocity,
+          );
+          expect(crashDetectedList.first.date, mockPigeonDkCrashInfo.date);
+          expect(crashDetectedList.first.status, mockPigeonDkCrashInfo.status);
+        },
+      );
+
+      test('can remove a listener', () async {
+        var beaconDetectedCount = 0;
+        var crashDetectedCount = 0;
+        var crashFeedbackSentCount = 0;
+        var sdkStateChangedCount = 0;
+        var significantLocationChangeDetectedCount = 0;
+        var tripCancelledCount = 0;
+        var tripFinishedCount = 0;
+        var tripPointCount = 0;
+        var tripSavedForRepostCount = 0;
+        var tripStartedCount = 0;
+
+        final listener = TripListener(
+          beaconDetected: () => beaconDetectedCount++,
+          crashDetected: (crashInfo) => crashDetectedCount++,
+          crashFeedbackSent: (crashInfo, feedbackType, severity) =>
+              crashFeedbackSentCount++,
+          sdkStateChanged: (state) => sdkStateChangedCount++,
+          significantLocationChangeDetected: (state) =>
+              significantLocationChangeDetectedCount++,
+          tripCancelled: (cancelTrip) => tripCancelledCount++,
+          tripFinished: (post, response) => tripFinishedCount++,
+          tripPoint: (tripPoint) => tripPointCount++,
+          tripSavedForRepost: () => tripSavedForRepostCount++,
+          tripStarted: (startMode) => tripStartedCount++,
+        );
+        //test
+        DrivekitTripAnalysisPlatform.instance.addTripListener(listener);
+        DrivekitTripAnalysisPlatform.instance.removeTripListener(listener);
+
+        flutterTripAnalysisApi
+          ..beaconDetected()
+          ..crashDetected(mockPigeonDkCrashInfo)
+          ..crashFeedbackSent(
+            mockPigeonDkCrashInfo,
+            PigeonDKCrashFeedbackType.crashConfirmed,
+            PigeonDKCrashFeedbackSeverity.minor,
+          )
+          ..sdkStateChanged(PigeonState.inactive)
+          ..tripCancelled(PigeonCancelTrip.beaconNoSpeed)
+          ..tripFinished(mockPigeonPost, mockPigeonResponse)
+          ..tripPoint(mockPigeonTripPoint)
+          ..tripSavedForRepost()
+          ..tripStarted(PigeonStartMode.bicycleActivity);
+
+        expect(beaconDetectedCount, 0);
+        expect(crashDetectedCount, 0);
+        expect(crashFeedbackSentCount, 0);
+        expect(sdkStateChangedCount, 0);
+        expect(significantLocationChangeDetectedCount, 0);
+        expect(tripCancelledCount, 0);
+        expect(tripFinishedCount, 0);
+        expect(tripPointCount, 0);
+        expect(tripSavedForRepostCount, 0);
+        expect(tripStartedCount, 0);
+      });
+
+      test('can remove all listeners at once', () async {
+        var beaconDetectedCount = 0;
+        var crashDetectedCount = 0;
+        var crashFeedbackSentCount = 0;
+        var sdkStateChangedCount = 0;
+        var significantLocationChangeDetectedCount = 0;
+        var tripCancelledCount = 0;
+        var tripFinishedCount = 0;
+        var tripPointCount = 0;
+        var tripSavedForRepostCount = 0;
+        var tripStartedCount = 0;
+
+        final listener = TripListener(
+          beaconDetected: () => beaconDetectedCount++,
+          crashDetected: (crashInfo) => crashDetectedCount++,
+          crashFeedbackSent: (crashInfo, feedbackType, severity) =>
+              crashFeedbackSentCount++,
+          sdkStateChanged: (state) => sdkStateChangedCount++,
+          significantLocationChangeDetected: (state) =>
+              significantLocationChangeDetectedCount++,
+          tripCancelled: (cancelTrip) => tripCancelledCount++,
+          tripFinished: (post, response) => tripFinishedCount++,
+          tripPoint: (tripPoint) => tripPointCount++,
+          tripSavedForRepost: () => tripSavedForRepostCount++,
+          tripStarted: (startMode) => tripStartedCount++,
+        );
+        DrivekitTripAnalysisPlatform.instance.addTripListener(listener);
+        DrivekitTripAnalysisPlatform.instance.addTripListener(listener);
+        flutterTripAnalysisApi.beaconDetected();
+        DrivekitTripAnalysisPlatform.instance.removeAllTripListeners();
+
+        flutterTripAnalysisApi
+          ..beaconDetected()
+          ..crashDetected(mockPigeonDkCrashInfo)
+          ..crashFeedbackSent(
+            mockPigeonDkCrashInfo,
+            PigeonDKCrashFeedbackType.crashConfirmed,
+            PigeonDKCrashFeedbackSeverity.minor,
+          )
+          ..sdkStateChanged(PigeonState.inactive)
+          ..tripCancelled(PigeonCancelTrip.beaconNoSpeed)
+          ..tripFinished(mockPigeonPost, mockPigeonResponse)
+          ..tripPoint(mockPigeonTripPoint)
+          ..tripSavedForRepost()
+          ..tripStarted(PigeonStartMode.bicycleActivity);
+
+        expect(beaconDetectedCount, 2);
+        expect(crashDetectedCount, 0);
+        expect(crashFeedbackSentCount, 0);
+        expect(sdkStateChangedCount, 0);
+        expect(significantLocationChangeDetectedCount, 0);
+        expect(tripCancelledCount, 0);
+        expect(tripFinishedCount, 0);
+        expect(tripPointCount, 0);
+        expect(tripSavedForRepostCount, 0);
+        expect(tripStartedCount, 0);
+      });
     });
   });
 }
