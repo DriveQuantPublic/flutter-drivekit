@@ -1,0 +1,41 @@
+#!/bin/bash
+
+./scripts/add_to_public_package.sh \
+./packages/drivekit_driver_data/flutter_drivekit_driver_data_platform_interface/lib/flutter_drivekit_driver_data_platform_interface.dart \
+./packages/drivekit_driver_data/flutter_drivekit_driver_data/lib/flutter_drivekit_driver_data.dart \
+DrivekitTripSimulatorPlatform \
+DriveKitTripSimulator
+
+./scripts/add_to_default_implem.sh \
+./packages/drivekit_driver_data/flutter_drivekit_driver_data_platform_interface/lib/flutter_drivekit_driver_data_platform_interface.dart \
+./packages/drivekit_driver_data/flutter_drivekit_driver_data_platform_interface/lib/src/default_drivekit_driver_data.dart \
+DrivekitTripSimulatorPlatform \
+DefaultDrivekitTripSimulator
+
+./scripts/add_to_pigeon.sh \
+./packages/drivekit_driver_data/flutter_drivekit_driver_data_platform_interface/lib/flutter_drivekit_driver_data_platform_interface.dart \
+./packages/drivekit_driver_data/flutter_drivekit_driver_data_android/pigeon/messages.dart \
+DrivekitTripSimulatorPlatform \
+AndroidTripSimulatorApi
+
+./scripts/add_to_pigeon.sh \
+./packages/drivekit_driver_data/flutter_drivekit_driver_data_platform_interface/lib/flutter_drivekit_driver_data_platform_interface.dart \
+./packages/drivekit_driver_data/flutter_drivekit_driver_data_ios/pigeon/messages.dart \
+DrivekitTripSimulatorPlatform \
+IOSTripSimulatorApi
+
+melos pigeon
+
+./scripts/add_to_platform_dart_file.sh \
+./packages/drivekit_driver_data/flutter_drivekit_driver_data_platform_interface/lib/flutter_drivekit_driver_data_platform_interface.dart \
+./packages/drivekit_driver_data/flutter_drivekit_driver_data_android/lib/flutter_drivekit_driver_data_android.dart \
+DrivekitTripSimulatorPlatform \
+DrivekitTripSimulatorAndroid \
+androidTripSimulatorApi
+
+./scripts/add_to_platform_dart_file.sh \
+./packages/drivekit_driver_data/flutter_drivekit_driver_data_platform_interface/lib/flutter_drivekit_driver_data_platform_interface.dart \
+./packages/drivekit_driver_data/flutter_drivekit_driver_data_ios/lib/flutter_drivekit_driver_data_ios.dart \
+DrivekitTripSimulatorPlatform \
+DrivekitTripSimulatorIOS \
+iosTripSimulatorApi
