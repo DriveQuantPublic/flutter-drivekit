@@ -13,13 +13,23 @@ class TripNotificationInitializer : Initializer<TripNotification> {
         val appName = context.applicationContext.packageName
 
         val notification = buildNotification(
-            title = "A notification initialized from app startup",
-            content = "app startup",
-            iconDrawableId = resources.getIdentifier("ic_notif", DRAWABLE, appName),
-            cancelIconDrawableId = resources.getIdentifier("ic_cancel", DRAWABLE, appName),
-            notificationId = 1,
-            enableCancelValue = true,
-            cancelText = "cancel text",
+            title = resources.getIdentifier("drivekit_notif_title", STRING, appName).let { id ->
+                if (id != 0) resources.getString(id) else "DriveKit"
+            },
+            content = resources.getIdentifier("drivekit_notif_content", STRING, appName).let { id ->
+                if (id != 0) resources.getString(id) else "DriveKit is running"
+            },
+            iconDrawableId = resources.getIdentifier("drivekit_notif_icon", DRAWABLE, appName),
+            cancelIconDrawableId = resources.getIdentifier("drivekit_cancelnotif_icon", DRAWABLE, appName),
+            notificationId = resources.getIdentifier("drivekit_notif_defaultIntId", INTEGER, appName).let {
+                if (it != 0) resources.getInteger(it) else null
+            },
+            enableCancelValue = resources.getIdentifier("drivekit_notif_enablecancel", BOOL, appName).let { id ->
+                if (id != 0) resources.getBoolean(id) else false
+            },
+            cancelText = resources.getIdentifier("drivekit_notif_cancel", STRING, appName).let { id ->
+                if (id != 0) resources.getString(id) else "Cancel"
+            },
             context = context
         )
 
@@ -59,3 +69,6 @@ class TripNotificationInitializer : Initializer<TripNotification> {
 }
 
 private const val DRAWABLE = "drawable"
+private const val STRING = "string"
+private const val BOOL = "bool"
+private const val INTEGER = "integer"
