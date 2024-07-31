@@ -121,7 +121,12 @@ class DrivekitTripAnalysisAndroid extends DrivekitTripAnalysisPlatform
     PigeonPostGeneric post,
     PigeonPostGenericResponse response,
   ) {
-    // TODO: implement tripFinished
+    for (final listener in _listeners) {
+      listener.tripFinished?.call(
+        post.toModelImplementation(),
+        response.toModelImplementation(),
+      );
+    }
   }
 
   @override
