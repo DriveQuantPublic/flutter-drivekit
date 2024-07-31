@@ -11,13 +11,6 @@ dependencies:
     sdk: flutter
   flutter_drivekit_core:
     path: ../
-  flutter_drivekit_trip_analysis:
-    path: ../../../drivekit_trip_analysis/flutter_drivekit_trip_analysis
-  gap: ^3.0.1
-  permission_handler: ^11.3.1
-  sliver_tools: ^0.2.12
-
-  
 
 dev_dependencies:
   flutter_test:

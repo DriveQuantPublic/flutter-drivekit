@@ -1,6 +1,7 @@
 name: flutter_drivekit
 
 packages:
+  - example
   - packages/drivekit_core/*
   - packages/drivekit_trip_analysis/*
   - packages/drivekit_trip_simulator/*

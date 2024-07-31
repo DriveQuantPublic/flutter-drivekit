@@ -32,9 +32,6 @@ class DrivekitCoreAndroid extends DrivekitCorePlatform
   final List<DriveKitListener> _listeners = [];
 
   @override
-  Future<String> getPlatformName() => androidCoreApi.getPlatformName();
-
-  @override
   Future<void> setApiKey(String key) => androidCoreApi.setApiKey(key);
 
   @override

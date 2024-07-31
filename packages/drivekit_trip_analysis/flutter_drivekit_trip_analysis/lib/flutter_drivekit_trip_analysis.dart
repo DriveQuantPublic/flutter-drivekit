@@ -15,9 +15,6 @@ class DrivekitTripAnalysis {
   static DrivekitTripAnalysis get instance => _instance;
   static const DrivekitTripAnalysis _instance = DrivekitTripAnalysis._();
 
-  /// Returns the name of the current platform.
-  Future<String> getPlatformName() => _platform.getPlatformName();
-
   /// The automatic mode detects vehicle movements and triggers the trip
   /// analysis without driver intervention while the application is in
   /// background. The analysis is stopped automatically at the end of the trip.

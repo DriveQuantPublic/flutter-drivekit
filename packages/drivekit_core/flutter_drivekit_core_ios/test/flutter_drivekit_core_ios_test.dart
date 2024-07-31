@@ -22,15 +22,6 @@ void main() {
       expect(DrivekitCorePlatform.instance, isA<DrivekitCoreIOS>());
     });
 
-    test('getPlatformName returns correct name', () async {
-      //mocks
-      when(iosCoreApi.getPlatformName).thenAnswer((_) async => 'iOS');
-
-      //test
-      final name = await DrivekitCorePlatform.instance.getPlatformName();
-      expect(name, 'iOS');
-    });
-
     test('setApiKey calls setApiKey method with correct key', () async {
       //mock
       when(() => iosCoreApi.setApiKey(any())).thenAnswer((_) async {});

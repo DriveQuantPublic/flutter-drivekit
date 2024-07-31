@@ -24,9 +24,6 @@ class DrivekitTripAnalysisAndroid extends DrivekitTripAnalysisPlatform {
   final AndroidTripAnalysisApi androidTripAnalysisApi;
 
   @override
-  Future<String> getPlatformName() => androidTripAnalysisApi.getPlatformName();
-
-  @override
   Future<void> activateAutoStart(bool activate) =>
       androidTripAnalysisApi.activateAutoStart(activate);
 

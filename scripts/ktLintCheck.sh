@@ -3,7 +3,7 @@
 # melos analyzeNative
 
 # Constant for the path to the gradlew script
-PROJECT_PATH="packages/drivekit_core/flutter_drivekit_core/example/android"
+PROJECT_PATH="example/android"
 GRADLEW_PATH="$PROJECT_PATH/gradlew"
 
 # Check if the gradlew script exists at the specified path

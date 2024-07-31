@@ -34,9 +34,6 @@ class DrivekitCoreIOS extends DrivekitCorePlatform implements FlutterCoreApi {
   final List<DriveKitListener> _listeners = [];
 
   @override
-  Future<String> getPlatformName() => iosCoreApi.getPlatformName();
-
-  @override
   Future<void> setApiKey(String key) => iosCoreApi.setApiKey(key);
 
   @override

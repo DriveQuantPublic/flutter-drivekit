@@ -19,19 +19,6 @@ void main() {
       DrivekitTripAnalysisPlatform.instance = drivekitTripAnalysisPlatform;
     });
 
-    group('getPlatformName', () {
-      test('returns correct name when platform implementation exists',
-          () async {
-        const platformName = '__test_platform__';
-        when(
-          () => drivekitTripAnalysisPlatform.getPlatformName(),
-        ).thenAnswer((_) async => platformName);
-
-        final actualPlatformName =
-            await DrivekitTripAnalysis.instance.getPlatformName();
-        expect(actualPlatformName, equals(platformName));
-      });
-    });
     group('activateAutoStart', () {
       test('calls platform implementation', () async {
         when(() => drivekitTripAnalysisPlatform.activateAutoStart(any()))

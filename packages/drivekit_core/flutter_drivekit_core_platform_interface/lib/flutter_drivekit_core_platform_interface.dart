@@ -35,9 +35,6 @@ abstract class DrivekitCorePlatform extends PlatformInterface {
   /// Useful to start listening to method channels
   void initializePlatform();
 
-  /// Return the current platform name.
-  Future<String> getPlatformName();
-
   /// Set the API key.
   Future<void> setApiKey(String key);
 

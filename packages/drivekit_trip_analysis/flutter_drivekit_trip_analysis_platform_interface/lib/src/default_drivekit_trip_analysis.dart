@@ -6,11 +6,6 @@ import 'package:flutter_drivekit_trip_analysis_platform_interface/flutter_drivek
 /// Used by default if no other implementation is registered.
 class DefaultDrivekitTripAnalysis extends DrivekitTripAnalysisPlatform {
   @override
-  Future<String> getPlatformName() {
-    throw UnimplementedError('getPlatformName() has not been implemented.');
-  }
-
-  @override
   Future<void> activateAutoStart(bool activate) {
     throw UnimplementedError('activateAutoStart() has not been implemented.');
   }
