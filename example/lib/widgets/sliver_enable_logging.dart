@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_drivekit_core/flutter_drivekit_core.dart';
 
-class SliverEnableLogging extends StatefulWidget {
+class SliverEnableLogging extends StatelessWidget {
   const SliverEnableLogging({super.key});
 
-  @override
-  State<SliverEnableLogging> createState() => _SliverEnableLoggingState();
-}
-
-class _SliverEnableLoggingState extends State<SliverEnableLogging> {
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(

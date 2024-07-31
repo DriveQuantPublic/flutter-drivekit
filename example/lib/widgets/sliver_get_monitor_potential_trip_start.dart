@@ -2,16 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_drivekit_trip_analysis/flutter_drivekit_trip_analysis.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 
-class SliverGetMonitorPotentialTripStart extends StatefulWidget {
+class SliverGetMonitorPotentialTripStart extends StatelessWidget {
   const SliverGetMonitorPotentialTripStart({super.key});
 
-  @override
-  State<SliverGetMonitorPotentialTripStart> createState() =>
-      _SliverGetMonitorPotentialTripStartState();
-}
-
-class _SliverGetMonitorPotentialTripStartState
-    extends State<SliverGetMonitorPotentialTripStart> {
   @override
   Widget build(BuildContext context) {
     return MultiSliver(

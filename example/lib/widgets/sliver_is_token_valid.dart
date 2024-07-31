@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_drivekit_core/flutter_drivekit_core.dart';
 
-class SliverTokenValidity extends StatefulWidget {
+class SliverTokenValidity extends StatelessWidget {
   const SliverTokenValidity({super.key});
 
-  @override
-  State<SliverTokenValidity> createState() => _SliverTokenValidityState();
-}
-
-class _SliverTokenValidityState extends State<SliverTokenValidity> {
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(

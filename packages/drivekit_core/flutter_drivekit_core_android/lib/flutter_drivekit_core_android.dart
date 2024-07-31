@@ -73,6 +73,16 @@ class DrivekitCoreAndroid extends DrivekitCorePlatform
   }
 
   @override
+  void removeDriveKitListener(DriveKitListener listener) {
+    _listeners.remove(listener);
+  }
+
+  @override
+  void removeAllDriveKitListeners() {
+    _listeners.clear();
+  }
+
+  @override
   void onConnected() {
     for (final listener in _listeners) {
       listener.onConnected?.call();

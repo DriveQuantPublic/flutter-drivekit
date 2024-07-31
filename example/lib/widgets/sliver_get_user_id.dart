@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_drivekit_core/flutter_drivekit_core.dart';
 
-class SliverGetUserId extends StatefulWidget {
+class SliverGetUserId extends StatelessWidget {
   const SliverGetUserId({super.key});
 
-  @override
-  State<SliverGetUserId> createState() => _SliverGetUserIdState();
-}
-
-class _SliverGetUserIdState extends State<SliverGetUserId> {
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
