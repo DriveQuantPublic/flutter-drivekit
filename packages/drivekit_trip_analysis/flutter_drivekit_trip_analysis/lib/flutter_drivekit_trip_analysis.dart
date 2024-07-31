@@ -1,7 +1,7 @@
 import 'package:flutter_drivekit_trip_analysis_platform_interface/flutter_drivekit_trip_analysis_platform_interface.dart';
 
 export 'package:flutter_drivekit_trip_analysis_platform_interface/flutter_drivekit_trip_analysis_platform_interface.dart'
-    show Vehicle;
+    show TripListener, Vehicle;
 
 DrivekitTripAnalysisPlatform get _platform =>
     DrivekitTripAnalysisPlatform.instance;
