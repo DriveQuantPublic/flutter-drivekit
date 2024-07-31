@@ -9,11 +9,13 @@ DrivekitTripAnalysisPlatform get _platform =>
 /// The main class of the plugin.
 /// This class provides methods to interact with the DriveKit Trip Analysis SDK.
 class DrivekitTripAnalysis {
-  const DrivekitTripAnalysis._();
+  DrivekitTripAnalysis._() {
+    _platform.initializePlatform();
+  }
 
   /// unique instance of the DrivekitTripAnalysis
   static DrivekitTripAnalysis get instance => _instance;
-  static const DrivekitTripAnalysis _instance = DrivekitTripAnalysis._();
+  static final DrivekitTripAnalysis _instance = DrivekitTripAnalysis._();
 
   /// The automatic mode detects vehicle movements and triggers the trip
   /// analysis without driver intervention while the application is in
