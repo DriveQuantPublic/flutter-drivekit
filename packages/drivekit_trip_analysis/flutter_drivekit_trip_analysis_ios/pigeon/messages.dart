@@ -24,6 +24,24 @@ abstract class IOSTripAnalysisApi {
   void setVehicle(PigeonVehicle vehicle);
 }
 
+@FlutterApi()
+abstract class TripListener {
+  void tripStarted(PigeonStartMode startMode);
+  void tripPoint(PigeonTripPoint tripPoint);
+  void tripSavedForRepost();
+  void tripFinished(PigeonPostGeneric post, PigeonPostGenericResponse response);
+  void tripCancelled(PigeonCancelTrip cancelTrip);
+  void beaconDetected();
+  void significantLocationChangeDetected(PigeonState state);
+  void sdkStateChanged(PigeonState state);
+  void crashDetected(PigeonDKCrashInfo crashInfo);
+  void crashFeedbackSent(
+    PigeonDKCrashInfo crashInfo,
+    PigeonDKCrashFeedbackType feedbackType,
+    PigeonDKCrashFeedbackSeverity severity,
+  );
+}
+
 class PigeonVehicle {
   const PigeonVehicle({
     this.carTypeIndex = 1,
@@ -83,7 +101,6 @@ class PigeonAdvancedSafety {
 }
 
 class PigeonBeaconData {
-
   PigeonBeaconData({
     required this.proximityUuid,
     required this.major,
@@ -95,7 +112,6 @@ class PigeonBeaconData {
 }
 
 class PigeonBluetoothData {
-
   PigeonBluetoothData({
     required this.name,
     required this.macAddress,
@@ -105,7 +121,6 @@ class PigeonBluetoothData {
 }
 
 class PigeonBluetoothDevicesList {
-
   PigeonBluetoothDevicesList({
     required this.bluetoothDevices,
   });
@@ -113,7 +128,6 @@ class PigeonBluetoothDevicesList {
 }
 
 class PigeonBrakeWear {
-
   PigeonBrakeWear({
     required this.frontBrakeAutonomy,
     required this.frontBrakeDistance,
@@ -139,7 +153,6 @@ class PigeonBrakeWear {
 }
 
 class PigeonCall {
-
   PigeonCall({
     required this.id,
     required this.start,
@@ -173,7 +186,6 @@ class PigeonCall {
 }
 
 class PigeonCallEvent {
-
   PigeonCallEvent({
     required this.time,
     required this.latitude,
@@ -218,7 +230,6 @@ enum PigeonCancelTrip {
 }
 
 class PigeonComment {
-
   PigeonComment({
     required this.errorCode,
     required this.comment,
@@ -240,7 +251,6 @@ enum PigeonCrashFeedbackType {
 }
 
 class PigeonDKAdvancedEnergyEstimation {
-
   PigeonDKAdvancedEnergyEstimation({
     required this.energy,
     required this.energyConsumption,
@@ -265,7 +275,6 @@ enum PigeonDKCrashAlert {
   soundAndVibration,
 }
 
-
 enum PigeonDKCrashFeedbackSeverity {
   none,
   minor,
@@ -279,7 +288,6 @@ enum PigeonDKCrashFeedbackType {
 }
 
 class PigeonDKCrashInfo {
-
   PigeonDKCrashInfo({
     required this.crashId,
     required this.date,
@@ -304,7 +312,6 @@ enum PigeonDKCrashStatus {
 }
 
 class PigeonDKEnergyEstimation {
-
   PigeonDKEnergyEstimation({
     required this.energy,
     required this.energyConsumption,
@@ -318,7 +325,6 @@ class PigeonDKEnergyEstimation {
 }
 
 class PigeonDKWorkingHours {
-
   PigeonDKWorkingHours({
     required this.enabled,
     required this.insideHours,
@@ -332,7 +338,6 @@ class PigeonDKWorkingHours {
 }
 
 class PigeonDKWorkingHoursDayConfiguration {
-
   PigeonDKWorkingHoursDayConfiguration({
     required this.day,
     required this.entireDayOff,
@@ -368,7 +373,6 @@ enum PigeonDKWorkingHoursUpdateStatus {
 }
 
 class PigeonDriverDistraction {
-
   PigeonDriverDistraction({
     required this.nbUnlock,
     required this.durationUnlock,
@@ -392,7 +396,6 @@ class PigeonDriverDistraction {
 }
 
 class PigeonEcoDriving {
-
   PigeonEcoDriving({
     required this.score,
     required this.scoreAccel,
@@ -412,8 +415,8 @@ class PigeonEcoDriving {
   double stdDevDecel;
   int energyClass;
 }
-class PigeonEcoDrivingContext {
 
+class PigeonEcoDrivingContext {
   PigeonEcoDrivingContext({
     required this.contextId,
     required this.distance,
@@ -433,7 +436,6 @@ class PigeonEcoDrivingContext {
 }
 
 class PigeonFuelEstimation {
-
   PigeonFuelEstimation({
     required this.co2Mass,
     required this.co2Emission,
@@ -461,7 +463,6 @@ class PigeonFuelEstimation {
 }
 
 class PigeonFuelEstimationContext {
-
   PigeonFuelEstimationContext({
     required this.co2Emission,
     required this.co2Mass,
@@ -481,7 +482,6 @@ class PigeonFuelEstimationContext {
 }
 
 class PigeonItineraryData {
-
   PigeonItineraryData({
     this.startDate,
     this.endDate,
@@ -499,7 +499,6 @@ class PigeonItineraryData {
 }
 
 class PigeonItineraryStatistics {
-
   PigeonItineraryStatistics({
     required this.tripDuration,
     required this.drivingDuration,
@@ -529,7 +528,6 @@ class PigeonItineraryStatistics {
 }
 
 class PigeonLogbook {
-
   PigeonLogbook({
     required this.status,
     this.updateDate,
@@ -545,7 +543,6 @@ enum PigeonLogbookType {
 }
 
 class PigeonPollutants {
-
   PigeonPollutants({
     required this.co,
     required this.hc,
@@ -559,7 +556,6 @@ class PigeonPollutants {
 }
 
 class PigeonPostGeneric {
-
   PigeonPostGeneric({
     this.route,
     this.itineraryData,
@@ -573,10 +569,10 @@ class PigeonPostGeneric {
 }
 
 class PigeonPostGenericResponse {
-
   PigeonPostGenericResponse({
     required this.status,
-    required this.endDate, this.itinId,
+    required this.endDate,
+    this.itinId,
     this.userId,
     this.comments,
     this.itineraryData,
@@ -628,7 +624,6 @@ class PigeonPostGenericResponse {
 }
 
 class PigeonRoute {
-
   PigeonRoute({
     required this.gpsDate,
     required this.gpsVelocity,
@@ -660,7 +655,6 @@ class PigeonRoute {
 }
 
 class PigeonSafety {
-
   PigeonSafety({
     required this.nbAdh,
     required this.nbAccel,
@@ -680,7 +674,6 @@ class PigeonSafety {
 }
 
 class PigeonSafetyContext {
-
   PigeonSafetyContext({
     required this.contextId,
     required this.distance,
@@ -706,7 +699,6 @@ class PigeonSafetyContext {
 }
 
 class PigeonSafetyEvent {
-
   PigeonSafetyEvent({
     required this.time,
     required this.longitude,
@@ -732,7 +724,6 @@ class PigeonSafetyEvent {
 }
 
 class PigeonSpeedLimitContext {
-
   PigeonSpeedLimitContext({
     required this.speedLimit,
     required this.distance,
@@ -750,7 +741,6 @@ class PigeonSpeedLimitContext {
 }
 
 class PigeonSpeedingEvent {
-
   PigeonSpeedingEvent({
     required this.time,
     required this.longitude,
@@ -766,7 +756,6 @@ class PigeonSpeedingEvent {
 }
 
 class PigeonSpeedingStatistics {
-
   PigeonSpeedingStatistics({
     required this.distance,
     required this.duration,
@@ -801,7 +790,6 @@ enum PigeonState {
 }
 
 class PigeonTireWear {
-
   PigeonTireWear({
     required this.frontTireAutonomy,
     required this.frontTireDistance,
@@ -827,7 +815,6 @@ class PigeonTireWear {
 }
 
 class PigeonTripAdviceData {
-
   PigeonTripAdviceData({
     this.title,
     this.message,
@@ -843,7 +830,6 @@ class PigeonTripAdviceData {
 }
 
 class PigeonTripPoint {
-
   PigeonTripPoint({
     required this.latitude,
     required this.longitude,
@@ -897,7 +883,6 @@ enum PigeonTripResponseInfo {
 }
 
 class PigeonTripResponseStatus {
-
   PigeonTripResponseStatus({
     required this.status,
     required this.hasSafetyAndEcoDrivingScore,
