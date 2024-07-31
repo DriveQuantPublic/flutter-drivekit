@@ -24,7 +24,7 @@ public class DrivekitTripSimulatorPlugin: NSObject, FlutterPlugin, IOSTripSimula
             DriveKitTripSimulator.shared.startCrashTrip(crashTripToSimulate)
         }
     }
-    
+
     func stop() throws {
         DriveKitTripSimulator.shared.stop()
     }
