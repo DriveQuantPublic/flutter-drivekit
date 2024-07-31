@@ -28,6 +28,24 @@ abstract class AndroidTripAnalysisApi {
   void setVehicle(PigeonVehicle vehicle);
 }
 
+@FlutterApi()
+abstract class TripListener {
+  void tripStarted(PigeonStartMode startMode);
+  void tripPoint(PigeonTripPoint tripPoint);
+  void tripSavedForRepost();
+  void tripFinished(PigeonPostGeneric post, PigeonPostGenericResponse response);
+  void tripCancelled(PigeonCancelTrip cancelTrip);
+  void beaconDetected();
+  void significantLocationChangeDetected(PigeonState state);
+  void sdkStateChanged(PigeonState state);
+  void crashDetected(PigeonDKCrashInfo crashInfo);
+  void crashFeedbackSent(
+    PigeonDKCrashInfo crashInfo,
+    PigeonCrashFeedbackType feedbackType,
+    PigeonCrashFeedbackSeverity severity,
+  );
+}
+
 class PigeonVehicle {
   const PigeonVehicle({
     this.carTypeIndex = 1,
@@ -94,7 +112,7 @@ enum PigeonStartMode {
   connectedCar;
 }
 
-enum PigeonCrashFeedbackType{
+enum PigeonCrashFeedbackType {
   noCrash,
   crashConfirmed,
   noFeedback;
@@ -114,7 +132,7 @@ enum PigeonState {
   sending;
 }
 
-enum PigeonCrashStatus{
+enum PigeonCrashStatus {
   confirmed,
   unconfirmed;
 }
@@ -743,7 +761,9 @@ class PigeonPhoneCallRequest {
     required this.end,
     required this.status,
     required this.audioSystem,
-    required this.proximity, required this.bluetoothClass, this.audioInput,
+    required this.proximity,
+    required this.bluetoothClass,
+    this.audioInput,
     this.audioOutput,
     this.audioName,
   });
@@ -807,7 +827,8 @@ class PigeonSmartphoneData {
     required this.osVersion,
     required this.osType,
     required this.sdkVersion,
-    required this.localTripId, this.beacon,
+    required this.localTripId,
+    this.beacon,
     this.bluetoothDeviceData,
     this.connectedCarData,
   });
