@@ -3,14 +3,9 @@ import 'package:flutter_drivekit_trip_simulator/flutter_drivekit_trip_simulator.
 import 'package:gap/gap.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 
-class SliverTripSimulation extends StatefulWidget {
+class SliverTripSimulation extends StatelessWidget {
   const SliverTripSimulation({super.key});
 
-  @override
-  State<SliverTripSimulation> createState() => _SliverTripSimulationState();
-}
-
-class _SliverTripSimulationState extends State<SliverTripSimulation> {
   @override
   Widget build(BuildContext context) {
     return MultiSliver(
