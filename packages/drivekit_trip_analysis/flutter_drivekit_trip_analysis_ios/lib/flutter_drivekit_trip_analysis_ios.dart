@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_drivekit_trip_analysis_ios/src/adapter.dart';
+import 'package:flutter_drivekit_trip_analysis_ios/src/modelAdapter.dart';
 import 'package:flutter_drivekit_trip_analysis_ios/src/trip_analysis_api.g.dart';
 import 'package:flutter_drivekit_trip_analysis_platform_interface/flutter_drivekit_trip_analysis_platform_interface.dart';
 
@@ -80,7 +81,9 @@ class DrivekitTripAnalysisIOS extends DrivekitTripAnalysisPlatform
 
   @override
   void crashDetected(PigeonDKCrashInfo crashInfo) {
-    // TODO: implement crashDetected
+    for (final listener in _listeners) {
+      listener.crashDetected?.call(crashInfo.toModelImplementation());
+    }
   }
 
   @override
@@ -89,22 +92,27 @@ class DrivekitTripAnalysisIOS extends DrivekitTripAnalysisPlatform
     PigeonDKCrashFeedbackType feedbackType,
     PigeonDKCrashFeedbackSeverity severity,
   ) {
-    // TODO: implement crashFeedbackSent
+    for (final listener in _listeners) {
+      listener.crashFeedbackSent?.call(
+        crashInfo.toModelImplementation(),
+        feedbackType.toModelImplementation(),
+        severity.toModelImplementation(),
+      );
+    }
   }
 
   @override
   void sdkStateChanged(PigeonState state) {
-    // TODO: implement sdkStateChanged
-  }
-
-  @override
-  void significantLocationChangeDetected(PigeonState state) {
-    // TODO: implement significantLocationChangeDetected
+    for (final listener in _listeners) {
+      listener.sdkStateChanged?.call(state.toModelImplementation());
+    }
   }
 
   @override
   void tripCancelled(PigeonCancelTrip cancelTrip) {
-    // TODO: implement tripCancelled
+    for (final listener in _listeners) {
+      listener.tripCancelled?.call(cancelTrip.toModelImplementation());
+    }
   }
 
   @override
@@ -117,16 +125,22 @@ class DrivekitTripAnalysisIOS extends DrivekitTripAnalysisPlatform
 
   @override
   void tripPoint(PigeonTripPoint tripPoint) {
-    // TODO: implement tripPoint
+    for (final listener in _listeners) {
+      listener.tripPoint?.call(tripPoint.toModelImplementation());
+    }
   }
 
   @override
   void tripSavedForRepost() {
-    // TODO: implement tripSavedForRepost
+    for (final listener in _listeners) {
+      listener.tripSavedForRepost?.call();
+    }
   }
 
   @override
   void tripStarted(PigeonStartMode startMode) {
-    // TODO: implement tripStarted
+    for (final listener in _listeners) {
+      listener.tripStarted?.call(startMode.toModelImplementation());
+    }
   }
 }
