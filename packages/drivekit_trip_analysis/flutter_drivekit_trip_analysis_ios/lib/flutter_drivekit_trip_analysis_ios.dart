@@ -22,6 +22,8 @@ class DrivekitTripAnalysisIOS extends DrivekitTripAnalysisPlatform {
   @visibleForTesting
   final IOSTripAnalysisApi iosTripAnalysisApi;
 
+  final List<TripListener> _listeners = [];
+
   @override
   Future<void> activateAutoStart(bool activate) =>
       iosTripAnalysisApi.activateAutoStart(activate);
@@ -53,4 +55,7 @@ class DrivekitTripAnalysisIOS extends DrivekitTripAnalysisPlatform {
   @override
   Future<void> setVehicle(Vehicle vehicle) =>
       iosTripAnalysisApi.setVehicle(vehicle.toPigeonImplementation());
+
+  @override
+  void addTripListener(TripListener listener) => _listeners.add(listener);
 }

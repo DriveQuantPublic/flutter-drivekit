@@ -55,4 +55,9 @@ class DefaultDrivekitTripAnalysis extends DrivekitTripAnalysisPlatform {
   Future<void> setVehicle(Vehicle vehicle) {
     throw UnimplementedError('setVehicle() has not been implemented.');
   }
+
+  @override
+  Future<void> addTripListener(TripListener listener) {
+    throw UnimplementedError('setTripParameters() has not been implemented.');
+  }
 }

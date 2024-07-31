@@ -119,4 +119,9 @@ class DrivekitTripAnalysis {
   Future<void> setVehicle(Vehicle vehicle) async {
     await _platform.setVehicle(vehicle);
   }
+
+  /// Add a listener to be notified of trip events
+  void addTripListener(TripListener listener) {
+    _platform.addTripListener(listener);
+  }
 }
