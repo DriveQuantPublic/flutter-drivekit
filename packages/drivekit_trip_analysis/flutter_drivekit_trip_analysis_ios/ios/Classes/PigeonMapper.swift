@@ -5,12 +5,12 @@ class PigeonMapper {
         let tripVehicle = TripVehicle()
         tripVehicle.carTypeIndex = Int(pigeonVehicle.carTypeIndex)
         tripVehicle.carEngineIndex = Int(pigeonVehicle.carEngineIndex)
-        tripVehicle.carPower = pigeonVehicle.carPower
-        tripVehicle.carMass = pigeonVehicle.carMass
+        tripVehicle.carPower = Double(pigeonVehicle.carPower)
+        tripVehicle.carMass = Double(pigeonVehicle.carMass)
         tripVehicle.carGearboxIndex = Int(pigeonVehicle.carGearboxIndex)
         tripVehicle.carConsumption = pigeonVehicle.carConsumption
         tripVehicle.carAutoGearboxNumber = Int(pigeonVehicle.carAutoGearboxNumber)
-        tripVehicle.engineDisplacement = pigeonVehicle.engineDisplacement
+        tripVehicle.engineDisplacement = Double(pigeonVehicle.engineDisplacement)
         tripVehicle.carPassengers = Int(pigeonVehicle.carPassengers)
         tripVehicle.dqIndex = pigeonVehicle.dqIndex
         tripVehicle.sra = pigeonVehicle.sra

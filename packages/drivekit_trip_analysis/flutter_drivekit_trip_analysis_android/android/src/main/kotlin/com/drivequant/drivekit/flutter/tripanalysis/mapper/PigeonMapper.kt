@@ -8,12 +8,12 @@ object PigeonMapper {
     fun fromPigeonVehicle(pigeonVehicle: PigeonVehicle): TripVehicle = TripVehicle(
         carTypeIndex = pigeonVehicle.carTypeIndex.toInt(),
         carEngineIndex = pigeonVehicle.carEngineIndex.toInt(),
-        carPower = pigeonVehicle.carPower,
-        carMass = pigeonVehicle.carMass,
+        carPower = pigeonVehicle.carPower.toDouble(),
+        carMass = pigeonVehicle.carMass.toDouble(),
         carGearboxIndex = pigeonVehicle.carGearboxIndex.toInt(),
         carConsumption = pigeonVehicle.carConsumption,
         carAutoGearboxNumber = pigeonVehicle.carAutoGearboxNumber.toInt(),
-        engineDisplacement = pigeonVehicle.engineDisplacement,
+        engineDisplacement = pigeonVehicle.engineDisplacement.toDouble(),
         carPassengers = pigeonVehicle.carPassengers.toInt(),
         dqIndex = pigeonVehicle.dqIndex,
         sra = pigeonVehicle.sra,
@@ -22,7 +22,7 @@ object PigeonMapper {
         length = pigeonVehicle.length,
         width = pigeonVehicle.width,
         height = pigeonVehicle.height,
-        engineCylinderNb = pigeonVehicle.engineCylinderNb?.toInt(),
-        driveWheels = pigeonVehicle.driveWheels?.toInt()
+        engineCylinderNb = pigeonVehicle.engineCylinderNb.toInt(),
+        driveWheels = pigeonVehicle.driveWheels.toInt()
     )
 }
