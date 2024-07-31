@@ -1,4 +1,4 @@
-package com.drivequant.drivekit.flutter.core.example
+package com.drivequant.drivekit.flutter.example
 
 import io.flutter.embedding.android.FlutterActivity
 
