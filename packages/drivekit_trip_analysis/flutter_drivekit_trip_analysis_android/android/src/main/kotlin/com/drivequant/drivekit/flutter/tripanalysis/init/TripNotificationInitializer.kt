@@ -16,23 +16,23 @@ class TripNotificationInitializer : Initializer<TripNotification> {
         val appName = context.applicationContext.packageName
 
         val notification = buildNotification(
-            title = resources.getIdentifier("drivekit_notif_title", STRING, appName, LogStatusWhenNotFound.ERROR).let { id ->
+            title = resources.getIdentifier(ResourceId.TITLE, STRING, appName, LogStatusWhenNotFound.ERROR).let { id ->
                 if (id != 0) resources.getString(id) else "DriveKit"
             },
-            content = resources.getIdentifier("drivekit_notif_content", STRING, appName, LogStatusWhenNotFound.ERROR).let { id ->
+            content = resources.getIdentifier(ResourceId.CONTENT, STRING, appName, LogStatusWhenNotFound.ERROR).let { id ->
                 if (id != 0) resources.getString(id) else "DriveKit is running"
             },
-            iconDrawableId = resources.getIdentifier("drivekit_notif_icon", DRAWABLE, appName, LogStatusWhenNotFound.ERROR),
-            cancelIconDrawableId = resources.getIdentifier("drivekit_cancelnotif_icon", DRAWABLE, appName, LogStatusWhenNotFound.WARNING).let {
+            iconDrawableId = resources.getIdentifier(ResourceId.ICON, DRAWABLE, appName, LogStatusWhenNotFound.ERROR),
+            cancelIconDrawableId = resources.getIdentifier(ResourceId.CANCEL_ICON, DRAWABLE, appName, LogStatusWhenNotFound.WARNING).let {
                 if (it != 0) it else null
             },
-            notificationId = resources.getIdentifier("drivekit_notif_defaultIntId", INTEGER, appName, LogStatusWhenNotFound.WARNING).let {
+            notificationId = resources.getIdentifier(ResourceId.NOTIF_ID, INTEGER, appName, LogStatusWhenNotFound.WARNING).let {
                 if (it != 0) resources.getInteger(it) else null
             },
-            enableCancelValue = resources.getIdentifier("drivekit_notif_enablecancel", BOOL, appName, LogStatusWhenNotFound.WARNING).let { id ->
+            enableCancelValue = resources.getIdentifier(ResourceId.ENABLE_CANCEL, BOOL, appName, LogStatusWhenNotFound.WARNING).let { id ->
                 if (id != 0) resources.getBoolean(id) else false
             },
-            cancelText = resources.getIdentifier("drivekit_notif_cancel", STRING, appName, LogStatusWhenNotFound.WARNING).let { id ->
+            cancelText = resources.getIdentifier(ResourceId.CANCEL_CONTENT, STRING, appName, LogStatusWhenNotFound.WARNING).let { id ->
                 if (id != 0) resources.getString(id) else null
             },
             context = context
@@ -89,6 +89,16 @@ class TripNotificationInitializer : Initializer<TripNotification> {
             return it
         }
     }
+}
+
+private object ResourceId {
+    const val TITLE = "drivekit_notif_title"
+    const val CONTENT = "drivekit_notif_content"
+    const val ICON = "drivekit_notif_icon"
+    const val CANCEL_ICON = "drivekit_cancelnotif_icon"
+    const val NOTIF_ID = "drivekit_notif_defaultIntId"
+    const val ENABLE_CANCEL = "drivekit_notif_enablecancel"
+    const val CANCEL_CONTENT = "drivekit_notif_cancel"
 }
 
 private const val DRAWABLE = "drawable"
