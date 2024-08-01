@@ -14,6 +14,7 @@ class _SliverPermissionRequestState extends State<SliverPermissionRequest> {
   PermissionStatus locationWhenInUseStatus = PermissionStatus.denied;
   PermissionStatus backgroundLocationStatus = PermissionStatus.denied;
   PermissionStatus ignoreBatteryOptimizationsStatus = PermissionStatus.denied;
+  PermissionStatus activityRecognitionStatus = PermissionStatus.denied;
 
   @override
   void initState() {
@@ -31,6 +32,11 @@ class _SliverPermissionRequestState extends State<SliverPermissionRequest> {
     Permission.ignoreBatteryOptimizations.status.then((status) {
       setState(() {
         ignoreBatteryOptimizationsStatus = status;
+      });
+    });
+    Permission.activityRecognition.status.then((status) {
+      setState(() {
+        activityRecognitionStatus = status;
       });
     });
   }
@@ -58,6 +64,15 @@ class _SliverPermissionRequestState extends State<SliverPermissionRequest> {
             ),
             const Gap(16),
             Text(
+              'Activity recognition status : '
+              '${switch (activityRecognitionStatus) {
+                PermissionStatus.granted => '✅',
+                PermissionStatus.permanentlyDenied => 'permanently denied',
+                _ => '❌',
+              }}',
+            ),
+            const Gap(16),
+            Text(
               'Ignore battery optimizations status : '
               '${switch (ignoreBatteryOptimizationsStatus) {
                 PermissionStatus.granted => '✅',
@@ -73,9 +88,10 @@ class _SliverPermissionRequestState extends State<SliverPermissionRequest> {
                   child: switch ((
                     locationWhenInUseStatus,
                     backgroundLocationStatus,
+                    activityRecognitionStatus,
                     ignoreBatteryOptimizationsStatus,
                   )) {
-                    (_, PermissionStatus.permanentlyDenied, _) =>
+                    (_, PermissionStatus.permanentlyDenied, _, _) =>
                       ElevatedButton(
                         onPressed: openSettings,
                         child: const Text('open settings'),
@@ -83,7 +99,8 @@ class _SliverPermissionRequestState extends State<SliverPermissionRequest> {
                     (
                       PermissionStatus.granted,
                       PermissionStatus.granted,
-                      PermissionStatus.granted
+                      PermissionStatus.granted,
+                      PermissionStatus.granted,
                     ) =>
                       const ElevatedButton(
                         onPressed: null,
@@ -91,14 +108,31 @@ class _SliverPermissionRequestState extends State<SliverPermissionRequest> {
                           'well done! 🎉',
                         ),
                       ),
-                    (PermissionStatus.granted, PermissionStatus.granted, _) =>
+                    (
+                      PermissionStatus.granted,
+                      PermissionStatus.granted,
+                      PermissionStatus.granted,
+                      _
+                    ) =>
                       ElevatedButton(
                         onPressed: requestBatteryPermission,
                         child: const Text(
                           'ask for ignore battery permission',
                         ),
                       ),
-                    (PermissionStatus.granted, _, _) => ElevatedButton(
+                    (
+                      PermissionStatus.granted,
+                      PermissionStatus.granted,
+                      _,
+                      _
+                    ) =>
+                      ElevatedButton(
+                        onPressed: requestActivityRecognitionPermission,
+                        child: const Text(
+                          'ask for activity recognition permission',
+                        ),
+                      ),
+                    (PermissionStatus.granted, _, _, _) => ElevatedButton(
                         onPressed: requestBackgroundPermission,
                         child: const Text(
                           'ask for background location permission',
@@ -141,6 +175,13 @@ class _SliverPermissionRequestState extends State<SliverPermissionRequest> {
     final status = await Permission.ignoreBatteryOptimizations.request();
     setState(() {
       ignoreBatteryOptimizationsStatus = status;
+    });
+  }
+
+  Future<void> requestActivityRecognitionPermission() async {
+    final status = await Permission.activityRecognition.request();
+    setState(() {
+      activityRecognitionStatus = status;
     });
   }
 
