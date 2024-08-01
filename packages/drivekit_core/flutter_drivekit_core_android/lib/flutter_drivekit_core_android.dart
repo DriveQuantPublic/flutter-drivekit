@@ -138,6 +138,13 @@ class DrivekitCoreAndroid extends DrivekitCorePlatform
   }
 
   @override
+  void removeDeviceConfigurationListener(
+    DKDeviceConfigurationListener listener,
+  ) {
+    _deviceConfigurationListeners.remove(listener);
+  }
+
+  @override
   void onDeviceConfigurationChanged(PigeonDeviceConfigurationEvent event) {
     for (final listener in _deviceConfigurationListeners) {
       listener.onDeviceConfigurationChanged

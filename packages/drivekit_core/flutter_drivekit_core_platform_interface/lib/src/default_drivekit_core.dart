@@ -88,4 +88,13 @@ class DefaultDrivekitCore extends DrivekitCorePlatform {
       'addDeviceConfigurationListener() has not been implemented.',
     );
   }
+
+  @override
+  void removeDeviceConfigurationListener(
+    DKDeviceConfigurationListener listener,
+  ) {
+    throw UnimplementedError(
+      'removeDeviceConfigurationListener() has not been implemented.',
+    );
+  }
 }

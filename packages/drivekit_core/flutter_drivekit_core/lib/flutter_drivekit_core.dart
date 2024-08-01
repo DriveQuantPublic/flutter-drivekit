@@ -106,4 +106,11 @@ class DriveKitCore {
   void addDeviceConfigurationListener(DKDeviceConfigurationListener listener) {
     _platform.addDeviceConfigurationListener(listener);
   }
+
+  /// Removes a device configuration listener
+  void removeDeviceConfigurationListener(
+    DKDeviceConfigurationListener listener,
+  ) {
+    _platform.removeDeviceConfigurationListener(listener);
+  }
 }
