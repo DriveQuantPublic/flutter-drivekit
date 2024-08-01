@@ -18,11 +18,11 @@ flutter:
         dartPluginClass: DrivekitTripAnalysisAndroid
 
 dependencies:
+  collection: any
   flutter:
     sdk: flutter
   flutter_drivekit_trip_analysis_platform_interface: ^0.0.2
 
-  collection: any
 dev_dependencies:
   flutter_test:
     sdk: flutter
