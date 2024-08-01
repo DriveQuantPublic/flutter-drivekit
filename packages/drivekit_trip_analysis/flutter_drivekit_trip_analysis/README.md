@@ -27,6 +27,40 @@ tripAnalysis.activateAutoStart(true);
 
 Please refer to the [DriveKit Trip Analysis documentation](https://docs.drivequant.com/trip-analysis/introduction) for more information about the features we provide.
 
+## Manual initialization
+
+If you have disabled the DriveKit auto-initialization:
+
+- On Android project, call `initialize` method of `DriveKitTripAnalysis` class inside your `MainApplication` class.
+
+```kotlin
+// MainApplication.kt
+
+// …
+override fun onCreate() {
+    super.onCreate()
+    DriveKit.initialize()
+
+    val tripNotification: TripNotification = ...
+    DriveKitTripAnalysis.initialize(tripNotification)
+
+    // Initialize every other DriveKit modules you use:
+    // DriveKitDriverData.initialize()
+    // etc.
+}
+```
+
+- On iOS project, call `initialize` method inside your `AppDelegate`.
+
+```swift
+func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    DriveKit.shared.initialize()
+    DriveKitTripAnalysis.shared.initialize(appLaunchOptions: launchOptions)
+    (…)
+}
+```
+
+
 ## API
 
 | Method                                                                | Return Type                     | iOS | Android |
