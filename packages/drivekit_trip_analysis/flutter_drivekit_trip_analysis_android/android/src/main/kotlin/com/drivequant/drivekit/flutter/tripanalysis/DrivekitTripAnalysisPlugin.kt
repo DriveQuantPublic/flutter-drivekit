@@ -2,6 +2,7 @@ package com.drivequant.drivekit.flutter.tripanalysis
 
 import android.content.Context
 import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper
+import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeonStartMode
 import com.drivequant.drivekit.tripanalysis.DriveKitTripAnalysis
 import com.drivequant.drivekit.tripanalysis.TripListener
 import com.drivequant.drivekit.tripanalysis.entity.PostGeneric
@@ -86,7 +87,9 @@ class DrivekitTripAnalysisPlugin :
                 }
 
                 override fun tripStarted(startMode: StartMode) {
-                    // TODO implement this method by calling flutter API converting any parameter to pigeonModel
+                    flutterApi?.tripStarted(toPigeonStartMode(startMode)) { echo ->
+                        Result.success(echo)
+                    }
                 }
 
                 override fun beaconDetected() {
