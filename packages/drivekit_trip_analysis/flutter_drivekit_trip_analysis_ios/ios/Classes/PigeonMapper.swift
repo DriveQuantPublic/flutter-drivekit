@@ -38,12 +38,8 @@ extension PigeonStartMode {
             self = .geozone
         case .bluetooth:
             self = .bluetooth
-        case .unknownBluetooth:
+        case .bluetooth_unknown:
             self = .unknownBluetooth
-        case .bicycleActivity:
-            self = .bicycleActivity
-        case .connectedCar:
-            self = .connectedCar
 
         @unknown default:
             fatalError()

@@ -102,8 +102,6 @@ extension PigeonStartModeAdapter on PigeonStartMode {
       PigeonStartMode.geozone => StartMode.geozone,
       PigeonStartMode.bluetooth => StartMode.bluetooth,
       PigeonStartMode.unknownBluetooth => StartMode.unknownBluetooth,
-      PigeonStartMode.bicycleActivity => StartMode.bicycleActivity,
-      PigeonStartMode.connectedCar => StartMode.connectedCar,
     };
   }
 }

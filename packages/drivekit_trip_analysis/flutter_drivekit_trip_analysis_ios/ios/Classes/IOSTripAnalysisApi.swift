@@ -75,8 +75,6 @@ enum PigeonStartMode: Int {
   case geozone = 3
   case bluetooth = 4
   case unknownBluetooth = 5
-  case bicycleActivity = 6
-  case connectedCar = 7
 }
 
 enum PigeonCancelTrip: Int {
