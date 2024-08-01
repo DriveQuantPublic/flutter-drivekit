@@ -81,6 +81,7 @@ class DrivekitTripAnalysisAndroid extends DrivekitTripAnalysisPlatform
 
   @override
   void crashDetected(PigeonDKCrashInfo crashInfo) {
+    // ignore: flutter_style_todos
     // TODO: implement crashDetected
   }
 
@@ -90,16 +91,19 @@ class DrivekitTripAnalysisAndroid extends DrivekitTripAnalysisPlatform
     PigeonDKCrashFeedbackType feedbackType,
     PigeonDKCrashFeedbackSeverity severity,
   ) {
+    // ignore: flutter_style_todos
     // TODO: implement crashFeedbackSent
   }
 
   @override
   void sdkStateChanged(PigeonState state) {
+    // ignore: flutter_style_todos
     // TODO: implement sdkStateChanged
   }
 
   @override
   void tripCancelled(PigeonCancelTrip cancelTrip) {
+    // ignore: flutter_style_todos
     // TODO: implement tripCancelled
   }
 
@@ -108,21 +112,25 @@ class DrivekitTripAnalysisAndroid extends DrivekitTripAnalysisPlatform
     PigeonPostGeneric post,
     PigeonPostGenericResponse response,
   ) {
+    // ignore: flutter_style_todos
     // TODO: implement tripFinished
   }
 
   @override
   void tripPoint(PigeonTripPoint tripPoint) {
+    // ignore: flutter_style_todos
     // TODO: implement tripPoint
   }
 
   @override
   void tripSavedForRepost() {
+    // ignore: flutter_style_todos
     // TODO: implement tripSavedForRepost
   }
 
   @override
   void tripStarted(PigeonStartMode startMode) {
+    // ignore: flutter_style_todos
     // TODO: implement tripStarted
   }
 }
