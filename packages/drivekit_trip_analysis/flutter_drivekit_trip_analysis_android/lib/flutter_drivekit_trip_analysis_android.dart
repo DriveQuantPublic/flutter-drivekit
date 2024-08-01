@@ -86,9 +86,10 @@ class DrivekitTripAnalysisAndroid extends DrivekitTripAnalysisPlatform
 
   @override
   void crashFeedbackSent(
-      PigeonDKCrashInfo crashInfo,
-      PigeonDKCrashFeedbackType feedbackType,
-      PigeonDKCrashFeedbackSeverity severity) {
+    PigeonDKCrashInfo crashInfo,
+    PigeonDKCrashFeedbackType feedbackType,
+    PigeonDKCrashFeedbackSeverity severity,
+  ) {
     // TODO: implement crashFeedbackSent
   }
 
@@ -104,7 +105,9 @@ class DrivekitTripAnalysisAndroid extends DrivekitTripAnalysisPlatform
 
   @override
   void tripFinished(
-      PigeonPostGeneric post, PigeonPostGenericResponse response) {
+    PigeonPostGeneric post,
+    PigeonPostGenericResponse response,
+  ) {
     // TODO: implement tripFinished
   }
 
