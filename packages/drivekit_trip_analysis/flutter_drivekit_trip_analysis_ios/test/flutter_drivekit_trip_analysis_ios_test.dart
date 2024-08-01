@@ -360,8 +360,14 @@ void main() {
             crashDetectedList.first.velocity,
             mockPigeonDkCrashInfo.velocity,
           );
-          expect(crashDetectedList.first.date, mockPigeonDkCrashInfo.date);
-          expect(crashDetectedList.first.status, mockPigeonDkCrashInfo.status);
+          expect(
+            crashDetectedList.first.date?.millisecondsSinceEpoch,
+            mockPigeonDkCrashInfo.date,
+          );
+          expect(
+            crashDetectedList.first.status?.name,
+            mockPigeonDkCrashInfo.status?.name,
+          );
         },
       );
 
