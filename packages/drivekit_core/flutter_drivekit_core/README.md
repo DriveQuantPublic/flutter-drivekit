@@ -72,6 +72,8 @@ Now, you can configure the Drivekit Core with the options you want, and use othe
 | [getUserId()](#getuserid)                                       | `Future<String?>`                  | ✅  |   ✅    |
 | [setUserId()](#setuserid)                                       | `Future<void>`                     | ✅  |   ✅    |
 | [addDriveKitListener()](#adddrivekitlistener)                   | `Future<void>`                     | ✅  |   ✅    |
+| [removeDriveKitListener()](#removedrivekitlistener)             | `Future<void>`                     | ✅  |   ✅    |
+| [removeAllDriveKitListener()](#removealldrivekitlisteners)      | `Future<void>`                     | ✅  |   ✅    |
 | [deleteAccount()](#deleteaccount)                               | `Future<void>`                     | ✅  |   ✅    |
 | [enableLogging()](#logging)                                     | `Future<void>`                     | ✅  |   ✅    |
 | [disableLogging()](#logging)                                    | `Future<void>`                     | ✅  |   ✅    |
@@ -183,6 +185,31 @@ void addDriveKitListener(DriveKitListener listener)
 | onAccountDeleted               | The delete account request has been processed with a `DeleteAccountStatus` state value. |
 | onBackgroundFetchStatusChanged | The background fetch status has changed with a `BackgroundFetchStatus` state value.     |
 
+
+### removeDriveKitListener
+
+```dart
+void removeDriveKitListener(DriveKitListener listener)
+```
+
+You can remove a specific `DriveKitListener` by calling the following method:
+
+```dart
+DriveKitCore.instance.removeDriveKitListener(listener);
+```
+
+### removeAllDriveKitListeners
+
+```dart
+void removeAllDriveKitListeners()
+```
+
+You can remove all `DriveKitListener` by calling the following method:
+
+```dart
+DriveKitCore.instance.removeAllDriveKitListeners();
+```
+
 ### deleteAccount
 
 ```dart
@@ -210,6 +237,14 @@ await driveKitCore.deleteAccount(instantDeletion: true);
 > ℹ️
 >
 > Your team needs to have the deletion feature activated to use this method. Please contact DriveQuant if you need it.
+
+> ℹ️
+>
+> To be able to check whenever the account deletion is complete, you have to use the `DriveKitListener` interface.
+
+> ⚠️
+>
+> You should restore the DriveKit API key in the `onAccountDeleted()` callback only when the status value is SUCCESS.
 
 ### Logging
 
