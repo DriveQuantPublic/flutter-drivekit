@@ -65,21 +65,24 @@ Now, you can configure the Drivekit Core with the options you want, and use othe
 
 ## API
 
-| Method                                                          | Return Type                        | iOS | Android |
-| --------------------------------------------------------------- | ---------------------------------- | :-: | :-----: |
-| [getApiKey()](#getapikey)                                       | `Future<String?>`                  | ✅  |   ✅    |
-| [setApiKey()](#setapikey)                                       | `Future<void>`                     | ✅  |   ✅    |
-| [getUserId()](#getuserid)                                       | `Future<String?>`                  | ✅  |   ✅    |
-| [setUserId()](#setuserid)                                       | `Future<void>`                     | ✅  |   ✅    |
-| [addDriveKitListener()](#adddrivekitlistener)                   | `Future<void>`                     | ✅  |   ✅    |
-| [removeDriveKitListener()](#removedrivekitlistener)             | `Future<void>`                     | ✅  |   ✅    |
-| [removeAllDriveKitListener()](#removealldrivekitlisteners)      | `Future<void>`                     | ✅  |   ✅    |
-| [deleteAccount()](#deleteaccount)                               | `Future<void>`                     | ✅  |   ✅    |
-| [enableLogging()](#logging)                                     | `Future<void>`                     | ✅  |   ✅    |
-| [disableLogging()](#logging)                                    | `Future<void>`                     | ✅  |   ✅    |
-| [getLogUriFile()](#getlogurifile)                               | `Futur<Uri?>`                      | ✅  |   ✅    |
-| [isTokenValid()](#istokenvalid)                                 | `Futur<bool>`                      | ✅  |   ✅    |
-| [reset()](#reset)                                               | `Future<void>`                     | ✅  |   ✅    |
+| Method                                                                            | Return Type       | iOS | Android |
+| --------------------------------------------------------------------------------- | ----------------- | :-: | :-----: |
+| [getApiKey()](#getapikey)                                                         | `Future<String?>` | ✅  |   ✅    |
+| [setApiKey()](#setapikey)                                                         | `Future<void>`    | ✅  |   ✅    |
+| [getUserId()](#getuserid)                                                         | `Future<String?>` | ✅  |   ✅    |
+| [setUserId()](#setuserid)                                                         | `Future<void>`    | ✅  |   ✅    |
+| [addDriveKitListener()](#adddrivekitlistener)                                     | `Future<void>`    | ✅  |   ✅    |
+| [removeDriveKitListener()](#removedrivekitlistener)                               | `Future<void>`    | ✅  |   ✅    |
+| [removeAllDriveKitListener()](#removealldrivekitlisteners)                        | `Future<void>`    | ✅  |   ✅    |
+| [addDeviceConfigurationListener()](#adddeviceconfigurationlistener)               | `Future<void>`    | ✅  |   ✅    |
+| [removeDeviceConfigurationListener()](#removedeviceconfigurationlistener)         | `Future<void>`    | ✅  |   ✅    |
+| [removeAllDeviceConfigurationListeners()](#removealldeviceconfigurationlisteners) | `Future<void>`    | ✅  |   ✅    |
+| [deleteAccount()](#deleteaccount)                                                 | `Future<void>`    | ✅  |   ✅    |
+| [enableLogging()](#logging)                                                       | `Future<void>`    | ✅  |   ✅    |
+| [disableLogging()](#logging)                                                      | `Future<void>`    | ✅  |   ✅    |
+| [getLogUriFile()](#getlogurifile)                                                 | `Futur<Uri?>`     | ✅  |   ✅    |
+| [isTokenValid()](#istokenvalid)                                                   | `Futur<bool>`     | ✅  |   ✅    |
+| [reset()](#reset)                                                                 | `Future<void>`    | ✅  |   ✅    |
 
 ### getApiKey
 
@@ -208,6 +211,67 @@ You can remove all `DriveKitListener` by calling the following method:
 
 ```dart
 DriveKitCore.instance.removeAllDriveKitListeners();
+```
+
+### addDeviceConfigurationListener
+
+`DKDeviceConfigurationListener` is the interface used to get callbacks when device configuration changes are detected. To add a listener and get informed for device configuration events, you can call the following method:
+
+```dart
+    DriveKitCore.instance.addDeviceConfigurationListener(
+      DKDeviceConfigurationListener(
+        onDeviceConfigurationChanged: (event) => {
+          // …
+        },
+      ),
+    );
+```
+
+| Method                         | Description                                                            |
+| ------------------------------ | ---------------------------------------------------------------------- |
+| locationPermissionValid        | Location permission status changed and is granted.                     |
+| locationPermissionValid        | Location permission status changed and is revoked.                     |
+| activityPermissionValid        | Activity permission status changed and is granted.                     |
+| activityPermissionValid        | Activity permission status changed and is revoked.                     |
+| notificationPermissionValid    | Notification permission status changed and is granted.                 |
+| notificationPermissionInValid  | Notification permission status changed and is revoked.                 |
+| appBatteryOptimisationValid    | Android only. App battery optimisation setting changed and is valid.   |
+| appBatteryOptimisationInvalid  | Android only. App battery optimisation setting changed and is invalid. |
+| lowPowerModeValid              | iOS only. Low power mode setting changed and is valid.                 |
+| lowPowerModeInvalid            | iOS only. Low power mode setting changed and is invalid.               |
+| autoResetPermissionValid       | Android only. Auto reset setting status changed and is granted.        |
+| autoResetPermissionInValid     | Android only. Auto reset setting status changed and is revoked.        |
+| nearbyDevicesPermissionValid   | Android only. Nearby devices permission status changed and is granted. |
+| nearbyDevicesPermissionInValid | Android only. Nearby devices permission status changed and is revoked. |
+| bluetoothPermissionValid       | iOS only. Bluetooth permission status changed and is granted.          |
+| bluetoothPermissionInValid     | iOS only. Bluetooth permission status changed and is revoked.          |
+| locationSensorValid            | Location sensor status changed and is turned ON.                       |
+| locationSensorInValid          | Location sensor status changed and is turned OFF.                      |
+| bluetoothSensorValid           | Bluetooth sensor status changed and is turned ON.                      |
+| bluetoothSensorInValid         | Bluetooth sensor status changed and is turned OFF.                     |
+
+### removeDeviceConfigurationListener
+
+```dart
+void removeDeviceConfigurationListener(DKDeviceConfigurationListener listener)
+```
+
+You can remove a specific `DKDeviceConfigurationListener` by calling the following method:
+
+```dart
+DriveKitCore.instance.removeDeviceConfigurationListener(listener);
+```
+
+### removeAllDeviceConfigurationListeners
+
+```dart
+void removeAllDeviceConfigurationListeners()
+```
+
+You can remove all `DKDeviceConfigurationListener` by calling the following method:
+
+```dart
+DriveKitCore.instance.removeAllDeviceConfigurationListeners();
 ```
 
 ### deleteAccount
