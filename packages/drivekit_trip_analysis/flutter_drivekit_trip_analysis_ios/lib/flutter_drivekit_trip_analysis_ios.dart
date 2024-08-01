@@ -148,4 +148,12 @@ class DrivekitTripAnalysisIOS extends DrivekitTripAnalysisPlatform
       listener.tripStarted?.call(startMode.toModelImplementation());
     }
   }
+
+  @override
+  void significantLocationChangeDetected(PigeonState state) {
+    for (final listener in _listeners) {
+      listener.significantLocationChangeDetected
+          ?.call(state.toModelImplementation());
+    }
+  }
 }
