@@ -35,19 +35,19 @@ If you have disabled the DriveKit auto-initialization:
 
 ```kotlin
 // MainApplication.kt
-    // …
 
-    override fun onCreate() {
-        super.onCreate()
-        DriveKit.initialize()
+// …
+override fun onCreate() {
+    super.onCreate()
+    DriveKit.initialize()
 
-        val tripNotification: TripNotification = ...
-        DriveKitTripAnalysis.initialize(tripNotification)
+    val tripNotification: TripNotification = ...
+    DriveKitTripAnalysis.initialize(tripNotification)
 
-        // Initialize every other DriveKit modules you use:
-        // DriveKitDriverData.initialize()
-        // etc.
-    }
+    // Initialize every other DriveKit modules you use:
+    // DriveKitDriverData.initialize()
+    // etc.
+}
 ```
 
 - On iOS project, call `initialize` method inside your `AppDelegate`.
