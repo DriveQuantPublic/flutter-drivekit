@@ -61,7 +61,7 @@ public class DrivekitTripAnalysisPlugin: NSObject, FlutterPlugin, IOSTripAnalysi
 
     private func configureDriveTripDelegate() {
         DriveKitTripAnalysis.shared.addTripListener(self)
-        }
+    }
 }
 
 extension DrivekitTripAnalysisPlugin: TripListener {
@@ -94,7 +94,14 @@ extension DrivekitTripAnalysisPlugin: TripListener {
     }
 
     public func tripSavedForRepost() {
-        // TODO implement this method by calling flutter API converting any parameter to pigeonModel
+        self.flutterAPI?.tripSavedForRepost() {result in
+            switch result {
+            case .success:
+                print("tripSavedForRepost event sent with success.")
+            case .failure(let error):
+                print("Error when sending tripSavedForRepost event: \(error.localizedDescription)")
+            }
+        }
     }
 
     public func tripPoint(tripPoint: DriveKitTripAnalysisModule.TripPoint) {
@@ -102,7 +109,14 @@ extension DrivekitTripAnalysisPlugin: TripListener {
     }
 
     public func beaconDetected() {
-        // TODO implement this method by calling flutter API converting any parameter to pigeonModel
+        self.flutterAPI?.tripSavedForRepost() {result in
+            switch result {
+            case .success:
+                print("beaconDetected event sent with success.")
+            case .failure(let error):
+                print("Error when sending beaconDetected event: \(error.localizedDescription)")
+            }
+        }
     }
 
     public func significantLocationChangeDetected(location: CLLocation) {
@@ -110,11 +124,27 @@ extension DrivekitTripAnalysisPlugin: TripListener {
     }
 
     public func sdkStateChanged(state: DriveKitTripAnalysisModule.State) {
-        // TODO implement this method by calling flutter API converting any parameter to pigeonModel
+        let stateValue = PigeonState.init(from: state)
+        self.flutterAPI?.sdkStateChanged(state: stateValue) {result in
+            switch result {
+            case .success:
+                print("sdkStateChanged event sent with success.")
+            case .failure(let error):
+                print("Error when sending sdkStateChanged event: \(error.localizedDescription)")
+            }
+        }
     }
 
     public func potentialTripStart(startMode: DriveKitTripAnalysisModule.StartMode) {
-        // TODO implement this method by calling flutter API converting any parameter to pigeonModel
+        let pigeonStartMode = PigeonStartMode.init(from: startMode)
+        self.flutterAPI?.potentialTripStart(startMode: pigeonStartMode) {result in
+            switch result {
+            case .success:
+                    print("potentialTripStart event sent with success.")
+                case .failure(let error):
+                    print("Error when sending potentialTripStart event: \(error.localizedDescription)")
+            }
+        }
     }
 
     public func crashDetected(crashInfo: DriveKitTripAnalysisModule.DKCrashInfo) {

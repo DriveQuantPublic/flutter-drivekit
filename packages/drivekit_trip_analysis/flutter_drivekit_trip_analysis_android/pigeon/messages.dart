@@ -34,6 +34,7 @@ abstract class FlutterTripAnalysisApi {
   void tripSavedForRepost();
   void tripFinished(PigeonPostGeneric post, PigeonPostGenericResponse response);
   void tripCancelled(PigeonCancelTrip cancelTrip);
+  void potentialTripStart(PigeonStartMode startMode);
   void beaconDetected();
   void sdkStateChanged(PigeonState state);
   void crashDetected(PigeonDKCrashInfo crashInfo);

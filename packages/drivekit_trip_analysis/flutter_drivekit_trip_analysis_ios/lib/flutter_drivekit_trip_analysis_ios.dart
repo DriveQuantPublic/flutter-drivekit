@@ -156,4 +156,11 @@ class DrivekitTripAnalysisIOS extends DrivekitTripAnalysisPlatform
           ?.call(state.toModelImplementation());
     }
   }
+
+  @override
+  void potentialTripStart(PigeonStartMode startMode) {
+    for (final listener in _listeners) {
+      listener.potentialTripStart?.call(startMode.toModelImplementation());
+    }
+  }
 }

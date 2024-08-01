@@ -105,6 +105,7 @@ class TripListener {
     this.tripSavedForRepost,
     this.tripFinished,
     this.tripCancelled,
+    this.potentialTripStart,
     this.beaconDetected,
     this.significantLocationChangeDetected,
     this.sdkStateChanged,
@@ -138,6 +139,10 @@ class TripListener {
   /// Called when a trip is cancelled.
   /// [CancelTrip] indicates which event cancels the trip.
   final void Function(CancelTrip cancelTrip)? tripCancelled;
+
+  /// Called each time a potential trip is started.
+  /// [StartMode] indicates which event starts the potential trip.
+  final void Function(StartMode startMode)? potentialTripStart;
 
   /// Called when a beacon sets in the SDK is detected.
   final void Function()? beaconDetected;

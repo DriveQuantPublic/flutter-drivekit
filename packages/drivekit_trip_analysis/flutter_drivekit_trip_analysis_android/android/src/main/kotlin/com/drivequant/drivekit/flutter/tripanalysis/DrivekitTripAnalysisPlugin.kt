@@ -83,7 +83,9 @@ class DrivekitTripAnalysisPlugin :
                 }
 
                 override fun tripSavedForRepost() {
-                    // TODO implement this method by calling flutter API converting any parameter to pigeonModel
+                    flutterApi?.tripSavedForRepost { echo ->
+                        Result.success(echo)
+                    }
                 }
 
                 override fun tripStarted(startMode: StartMode) {
@@ -93,7 +95,9 @@ class DrivekitTripAnalysisPlugin :
                 }
 
                 override fun beaconDetected() {
-                    // TODO implement this method by calling flutter API converting any parameter to pigeonModel
+                    flutterApi?.beaconDetected { echo ->
+                        Result.success(echo)
+                    }
                 }
 
                 override fun crashDetected(crashInfo: DKCrashInfo) {
@@ -109,7 +113,9 @@ class DrivekitTripAnalysisPlugin :
                 }
 
                 override fun potentialTripStart(startMode: StartMode) {
-                    // TODO implement this method by calling flutter API converting any parameter to pigeonModel
+                    flutterApi?.potentialTripStart(toPigeonStartMode(startMode)) { echo ->
+                        Result.success(echo)
+                    }
                 }
 
                 override fun sdkStateChanged(state: State) {
