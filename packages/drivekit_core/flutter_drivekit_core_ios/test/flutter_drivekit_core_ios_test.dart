@@ -392,5 +392,79 @@ void main() {
         expect(onBackgroundFetchStatusChangedCount, 0);
       });
     });
+
+    group('DKDeviceConfigurationListener', () {
+      test('can listen several listeners', () async {
+        var onDeviceConfigurationChangedCount = 0;
+
+        //test
+        DrivekitCorePlatform.instance.addDeviceConfigurationListener(
+          DKDeviceConfigurationListener(
+            onDeviceConfigurationChanged: (event) {
+              onDeviceConfigurationChangedCount++;
+            },
+          ),
+        );
+        flutterCoreApi.onDeviceConfigurationChanged(
+          PigeonDeviceConfigurationEvent.activityPermissionValid,
+        );
+        expect(onDeviceConfigurationChangedCount, 1);
+
+        DrivekitCorePlatform.instance.addDeviceConfigurationListener(
+          DKDeviceConfigurationListener(
+            onDeviceConfigurationChanged: (event) {
+              onDeviceConfigurationChangedCount++;
+            },
+          ),
+        );
+        flutterCoreApi.onDeviceConfigurationChanged(
+          PigeonDeviceConfigurationEvent.activityPermissionValid,
+        );
+        expect(onDeviceConfigurationChangedCount, 3);
+      });
+
+      test('can remove a listener', () async {
+        var onDeviceConfigurationChangedCount = 0;
+
+        final listener = DKDeviceConfigurationListener(
+          onDeviceConfigurationChanged: (event) {
+            onDeviceConfigurationChangedCount++;
+          },
+        );
+
+        DrivekitCorePlatform.instance.addDeviceConfigurationListener(listener);
+        DrivekitCorePlatform.instance
+            .removeDeviceConfigurationListener(listener);
+
+        flutterCoreApi.onDeviceConfigurationChanged(
+          PigeonDeviceConfigurationEvent.activityPermissionValid,
+        );
+
+        expect(onDeviceConfigurationChangedCount, 0);
+      });
+
+      test('can remove all listeners at once', () async {
+        var onDeviceConfigurationChangedCount = 0;
+
+        final listener = DKDeviceConfigurationListener(
+          onDeviceConfigurationChanged: (event) {
+            onDeviceConfigurationChangedCount++;
+          },
+        );
+
+        DrivekitCorePlatform.instance.addDeviceConfigurationListener(listener);
+        DrivekitCorePlatform.instance.addDeviceConfigurationListener(listener);
+        flutterCoreApi.onDeviceConfigurationChanged(
+          PigeonDeviceConfigurationEvent.activityPermissionValid,
+        );
+        DrivekitCorePlatform.instance.removeAllDeviceConfigurationListeners();
+
+        flutterCoreApi.onDeviceConfigurationChanged(
+          PigeonDeviceConfigurationEvent.activityPermissionValid,
+        );
+
+        expect(onDeviceConfigurationChangedCount, 2);
+      });
+    });
   });
 }
