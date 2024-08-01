@@ -86,7 +86,8 @@ enum PigeonCancelTrip: Int {
   case noGpsData = 5
   case reset = 6
   case beaconNoSpeed = 7
-  case bluetoothDeviceNoSpeed = 8
+  case noBluetoothDevice = 8
+  case bluetoothDeviceNoSpeed = 9
 }
 
 enum PigeonState: Int {
