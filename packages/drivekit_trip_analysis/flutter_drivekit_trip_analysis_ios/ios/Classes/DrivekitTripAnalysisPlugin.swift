@@ -66,7 +66,15 @@ public class DrivekitTripAnalysisPlugin: NSObject, FlutterPlugin, IOSTripAnalysi
 
 extension DrivekitTripAnalysisPlugin: TripListener {
     public func tripStarted(startMode: DriveKitTripAnalysisModule.StartMode) {
-        // TODO implement this method by calling flutter API converting any parameter to pigeonModel
+        let pigeonStartMode = PigeonStartMode.init(from: startMode)
+        self.flutterAPI?.tripStarted(startMode: pigeonStartMode) {result in
+            switch result {
+            case .success:
+                print("Trip did start.")
+            case .failure(let error):
+                print("Error on trip start: \(error.localizedDescription)")
+            }
+        }
     }
 
     public func tripFinished(post: DriveKitTripAnalysisModule.PostGeneric, response: DriveKitTripAnalysisModule.PostGenericResponse) {
