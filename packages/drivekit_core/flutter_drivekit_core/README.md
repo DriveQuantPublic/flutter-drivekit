@@ -22,6 +22,32 @@ Our recommandation is to use [permission_handler]([https://github.com/zoontek/re
 
 Even if your app do not use Bluetooth, you **MUST** include usage description on iOS side. For more details, please take a look inside the [native documentation](https://docs.drivequant.com/get-started-drivekit/ios#project-configuration)
 
+## Manual initialization
+
+If you have disabled the DriveKit auto-initialization:
+
+- On Android project, call `initialize` method inside your `MainApplication` class.
+
+```kotlin
+// MainApplication.kt
+    // …
+
+    override fun onCreate() {
+        super.onCreate()
+        DriveKit.initialize(this)
+        // …
+    }
+```
+
+- On iOS project, call `initialize` method inside your `AppDelegate`.
+
+```swift
+func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    DriveKit.shared.initialize()
+    (…)
+}
+```
+
 ## Usage
 
 To finish the module's initialization, you need to :
