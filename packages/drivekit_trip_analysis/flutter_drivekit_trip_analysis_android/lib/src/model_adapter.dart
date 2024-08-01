@@ -29,7 +29,8 @@ extension PigeonCrashStatusAdapter on PigeonCrashStatus {
   }
 }
 
-/// Adapts the [PigeonDKCrashFeedbackType] class to the [DKCrashFeedbackType] class.
+/// Adapts the [PigeonDKCrashFeedbackType] class to the [DKCrashFeedbackType]
+/// class.
 extension PigeonDKCrashFeedbackTypeAdapter on PigeonDKCrashFeedbackType {
   /// Converts a [PigeonDKCrashFeedbackType] to a [DKCrashFeedbackType].
   DKCrashFeedbackType toModelImplementation() {
@@ -42,7 +43,8 @@ extension PigeonDKCrashFeedbackTypeAdapter on PigeonDKCrashFeedbackType {
   }
 }
 
-/// Adapts the [PigeonDKCrashFeedbackSeverity] class to the [DKCrashFeedbackSeverity] class.
+/// Adapts the [PigeonDKCrashFeedbackSeverity] class to the
+/// [DKCrashFeedbackSeverity] class.
 extension PigeonDKCrashFeedbackSeverityAdapter
     on PigeonDKCrashFeedbackSeverity {
   /// Converts a [PigeonDKCrashFeedbackSeverity] to a [DKCrashFeedbackSeverity].
@@ -134,10 +136,11 @@ extension PigeonCommentAdapter on PigeonComment {
   }
 }
 
-/// Adapts the [PigeonAdvancedEnergyEstimation] class to the corresponding class in the model.
+/// Adapts the [PigeonAdvancedEnergyEstimation] class to the corresponding class
+/// in the model.
 extension PigeonAdvancedEnergyEstimationAdapter
     on PigeonAdvancedEnergyEstimation {
-  /// Converts a [PigeonAdvancedEnergyEstimation] to a corresponding model class.
+  /// Converts a [PigeonAdvancedEnergyEstimation] to a corresponding model class
   AdvancedEnergyEstimation toModelImplementation() {
     return AdvancedEnergyEstimation(
       energy: energy,
@@ -151,7 +154,8 @@ extension PigeonAdvancedEnergyEstimationAdapter
   }
 }
 
-/// Adapts the [PigeonEnergyEstimation] class to the corresponding class in the model.
+/// Adapts the [PigeonEnergyEstimation] class to the corresponding class in the
+/// model.
 extension PigeonEnergyEstimationAdapter on PigeonEnergyEstimation {
   /// Converts a [PigeonEnergyEstimation] to a corresponding model class.
   EnergyEstimation toModelImplementation() {
@@ -164,7 +168,8 @@ extension PigeonEnergyEstimationAdapter on PigeonEnergyEstimation {
   }
 }
 
-/// Adapts the [PigeonItineraryStatistics] class to the corresponding class in the model.
+/// Adapts the [PigeonItineraryStatistics] class to the corresponding class in
+/// the model.
 extension PigeonItineraryStatisticsAdapter on PigeonItineraryStatistics {
   /// Converts a [PigeonItineraryStatistics] to a corresponding model class.
   ItineraryStatistics toModelImplementation() {
@@ -239,7 +244,7 @@ extension PigeonTireWearAdapter on PigeonTireWear {
   }
 }
 
-/// Adapts the [PigeonSafetyEvent] class to the corresponding class in the model.
+/// Adapts the [PigeonSafetyEvent] class to the corresponding class in the model
 extension PigeonSafetyEventAdapter on PigeonSafetyEvent {
   /// Converts a [PigeonSafetyEvent] to a corresponding model class.
   SafetyEvent toModelImplementation() {
@@ -258,7 +263,8 @@ extension PigeonSafetyEventAdapter on PigeonSafetyEvent {
   }
 }
 
-/// Adapts the [PigeonSpeedingEvents] class to the corresponding class in the model.
+/// Adapts the [PigeonSpeedingEvents] class to the corresponding class in the
+/// model.
 extension PigeonSpeedingEventsAdapter on PigeonSpeedingEvents {
   /// Converts a [PigeonSpeedingEvents] to a corresponding model class.
   SpeedingEvents toModelImplementation() {
@@ -272,7 +278,7 @@ extension PigeonSpeedingEventsAdapter on PigeonSpeedingEvents {
   }
 }
 
-/// Adapts the [PigeonPostLogbook] class to the corresponding class in the model.
+/// Adapts the [PigeonPostLogbook] class to the corresponding class in the model
 extension PigeonPostLogbookAdapter on PigeonPostLogbook {
   /// Converts a [PigeonPostLogbook] to a corresponding model class.
   PostLogbook toModelImplementation() {
@@ -282,7 +288,8 @@ extension PigeonPostLogbookAdapter on PigeonPostLogbook {
   }
 }
 
-/// Adapts the [PigeonEcoDrivingContext] class to the corresponding class in the model.
+/// Adapts the [PigeonEcoDrivingContext] class to the corresponding class in the
+/// model.
 extension PigeonEcoDrivingContextAdapter on PigeonEcoDrivingContext {
   /// Converts a [PigeonEcoDrivingContext] to a corresponding model class.
   EcoDrivingContext toModelImplementation() {
@@ -298,7 +305,8 @@ extension PigeonEcoDrivingContextAdapter on PigeonEcoDrivingContext {
   }
 }
 
-/// Adapts the [PigeonFuelEstimationContext] class to the corresponding class in the model.
+/// Adapts the [PigeonFuelEstimationContext] class to the corresponding class
+/// in the model.
 extension PigeonFuelEstimationContextAdapter on PigeonFuelEstimationContext {
   /// Converts a [PigeonFuelEstimationContext] to a corresponding model class.
   FuelEstimationContext toModelImplementation() {
@@ -314,7 +322,8 @@ extension PigeonFuelEstimationContextAdapter on PigeonFuelEstimationContext {
   }
 }
 
-/// Adapts the [PigeonSafetyContext] class to the corresponding class in the model.
+/// Adapts the [PigeonSafetyContext] class to the corresponding class
+/// in the model.
 extension PigeonSafetyContextAdapter on PigeonSafetyContext {
   /// Converts a [PigeonSafetyContext] to a corresponding model class.
   SafetyContext toModelImplementation() {
@@ -333,7 +342,8 @@ extension PigeonSafetyContextAdapter on PigeonSafetyContext {
   }
 }
 
-/// Adapts the [PigeonSpeedLimitContext] class to the corresponding class in the model.
+/// Adapts the [PigeonSpeedLimitContext] class to the corresponding class
+/// in the model.
 extension PigeonSpeedLimitContextAdapter on PigeonSpeedLimitContext {
   /// Converts a [PigeonSpeedLimitContext] to a corresponding model class.
   SpeedLimitContext toModelImplementation() {
@@ -360,7 +370,8 @@ extension PigeonAccountAdapter on PigeonAccount {
   }
 }
 
-/// Adapts the [PigeonSmartphoneData] class to the corresponding class in the model.
+/// Adapts the [PigeonSmartphoneData] class to the corresponding class
+/// in the model.
 extension PigeonSmartphoneDataAdapter on PigeonSmartphoneData {
   /// Converts a [PigeonSmartphoneData] to a corresponding model class.
   SmartphoneData toModelImplementation() {
@@ -382,7 +393,8 @@ extension PigeonSmartphoneDataAdapter on PigeonSmartphoneData {
   }
 }
 
-/// Adapts the [PigeonPhoneCallRequest] class to the corresponding class in the model.
+/// Adapts the [PigeonPhoneCallRequest] class to the corresponding class
+/// in the model.
 extension PigeonPhoneCallRequestAdapter on PigeonPhoneCallRequest {
   /// Converts a [PigeonPhoneCallRequest] to a corresponding model class.
   PhoneCallRequest toModelImplementation() {
@@ -436,7 +448,8 @@ extension PigeonEcoDrivingAdapter on PigeonEcoDriving {
   }
 }
 
-/// Adapts the [PigeonFuelEstimation] class to the corresponding class in the model.
+/// Adapts the [PigeonFuelEstimation] class to the corresponding class in the
+/// model.
 extension PigeonFuelEstimationAdapter on PigeonFuelEstimation {
   /// Converts a [PigeonFuelEstimation] to a corresponding model class.
   FuelEstimation toModelImplementation() {
@@ -472,7 +485,8 @@ extension PigeonSafetyAdapter on PigeonSafety {
   }
 }
 
-/// Adapts the [PigeonItineraryData] class to the corresponding class in the model.
+/// Adapts the [PigeonItineraryData] class to the corresponding class in the
+/// model.
 extension PigeonItineraryDataAdapter on PigeonItineraryData {
   /// Converts a [PigeonItineraryData] to a corresponding model class.
   ItineraryData toModelImplementation() {
@@ -498,7 +512,8 @@ extension PigeonLogbookAdapter on PigeonLogbook {
   }
 }
 
-/// Adapts the [PigeonSpeedingStatistics] class to the corresponding class in the model.
+/// Adapts the [PigeonSpeedingStatistics] class to the corresponding class
+/// in the model.
 extension PigeonSpeedingStatisticsAdapter on PigeonSpeedingStatistics {
   /// Converts a [PigeonSpeedingStatistics] to a corresponding model class.
   SpeedingStatistics toModelImplementation() {
@@ -516,7 +531,8 @@ extension PigeonSpeedingStatisticsAdapter on PigeonSpeedingStatistics {
   }
 }
 
-/// Adapts the [PigeonAdvancedSafety] class to the corresponding class in the model.
+/// Adapts the [PigeonAdvancedSafety] class to the corresponding class
+/// in the model.
 extension PigeonAdvancedSafetyAdapter on PigeonAdvancedSafety {
   /// Converts a [PigeonAdvancedSafety] to a corresponding model class.
   AdvancedSafety toModelImplementation() {
@@ -529,7 +545,8 @@ extension PigeonAdvancedSafetyAdapter on PigeonAdvancedSafety {
   }
 }
 
-/// Adapts the [PigeonAdvancedEcoDriving] class to the corresponding class in the model.
+/// Adapts the [PigeonAdvancedEcoDriving] class to the corresponding class
+/// in the model.
 extension PigeonAdvancedEcoDrivingAdapter on PigeonAdvancedEcoDriving {
   /// Converts a [PigeonAdvancedEcoDriving] to a corresponding model class.
   AdvancedEcoDriving toModelImplementation() {
@@ -542,7 +559,8 @@ extension PigeonAdvancedEcoDrivingAdapter on PigeonAdvancedEcoDriving {
   }
 }
 
-/// Adapts the [PigeonAdvancedFuelEstimation] class to the corresponding class in the model.
+/// Adapts the [PigeonAdvancedFuelEstimation] class to the corresponding class
+/// in the model.
 extension PigeonAdvancedFuelEstimationAdapter on PigeonAdvancedFuelEstimation {
   /// Converts a [PigeonAdvancedFuelEstimation] to a corresponding model class.
   AdvancedFuelEstimation toModelImplementation() {
@@ -577,7 +595,8 @@ extension PigeonRouteAdapter on PigeonRoute {
   }
 }
 
-/// Adapts the [PigeonPostGenericResponse] class to the corresponding class in the model.
+/// Adapts the [PigeonPostGenericResponse] class to the corresponding class
+/// in the model.
 extension PigeonPostGenericResponseAdapter on PigeonPostGenericResponse {
   /// Converts a [PigeonPostGenericResponse] to a corresponding model class.
   PostGenericResponse toModelImplementation() {
@@ -694,7 +713,8 @@ Map<String, String>? convertMetadata(Map<String?, String?>? input) {
   return result;
 }
 
-/// Adapts the [PigeonDriverDistraction] class to the corresponding class in the model.
+/// Adapts the [PigeonDriverDistraction] class to the corresponding class
+/// in the model.
 extension PigeonDriverDistractionAdapter on PigeonDriverDistraction {
   /// Converts a [PigeonDriverDistraction] to a corresponding model class.
   DriverDistraction toModelImplementation() {
