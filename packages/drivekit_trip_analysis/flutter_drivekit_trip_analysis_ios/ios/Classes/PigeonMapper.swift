@@ -75,3 +75,22 @@ extension PigeonCancelTrip {
         }
     }
 }
+
+extension PigeonState {
+    init(from state: State) {
+        switch state {
+            case .inactive:
+                self = .inactive
+            case .starting:
+                self = .starting
+            case .running:
+                self = .running
+            case .stopping:
+                self = .stopping
+            case .sending:
+                self = .sending
+            @unknown default:
+                fatalError()
+        }
+    }
+}

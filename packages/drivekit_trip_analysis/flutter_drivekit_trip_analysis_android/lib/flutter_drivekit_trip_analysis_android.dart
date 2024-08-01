@@ -149,4 +149,11 @@ class DrivekitTripAnalysisAndroid extends DrivekitTripAnalysisPlatform
       listener.tripStarted?.call(startMode.toModelImplementation());
     }
   }
+
+  @override
+  void potentialTripStart(PigeonStartMode startMode) {
+    for (final listener in _listeners) {
+      listener.potentialTripStart?.call(startMode.toModelImplementation());
+    }
+  }
 }
