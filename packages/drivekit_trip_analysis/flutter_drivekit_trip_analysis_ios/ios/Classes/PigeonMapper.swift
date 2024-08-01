@@ -24,3 +24,29 @@ class PigeonMapper {
         return tripVehicle
     }
 }
+
+extension PigeonStartMode {
+    init(from startMode: StartMode) {
+        switch startMode {
+        case .gps:
+            self = .gps
+        case .beacon:
+            self = .beacon
+        case .manual:
+            self = .manual
+        case .geozone:
+            self = .geozone
+        case .bluetooth:
+            self = .bluetooth
+        case .unknownBluetooth:
+            self = .unknownBluetooth
+        case .bicycleActivity:
+            self = .bicycleActivity
+        case .connectedCar:
+            self = .connectedCar
+
+        @unknown default:
+            fatalError()
+        }
+    }
+}
