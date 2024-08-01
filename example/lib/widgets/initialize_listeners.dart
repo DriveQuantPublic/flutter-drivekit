@@ -176,8 +176,9 @@ class _InitializeListenersState extends State<InitializeListeners> {
       onDeviceConfigurationChanged: (event) {
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Device Configuration change detected: $event.'),
+            SnackBar(
+              content:
+                  Text('Device Configuration change detected: ${event.name}'),
             ),
           );
         }

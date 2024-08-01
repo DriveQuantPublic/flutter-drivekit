@@ -3,7 +3,7 @@
 import 'package:flutter_drivekit_core_platform_interface/flutter_drivekit_core_platform_interface.dart';
 
 export 'package:flutter_drivekit_core_platform_interface/flutter_drivekit_core_platform_interface.dart'
-    show DriveKitListener;
+    show DKDeviceConfigurationListener, DriveKitListener;
 
 DrivekitCorePlatform get _platform => DrivekitCorePlatform.instance;
 
