@@ -2,7 +2,7 @@
 # This script is configured to be launched from root
 # used by pre-commit hook
 
-PROJECT_NAMES=("drivekit_core" "drivekit_trip_analysis" "drivekit_trip_simulator")
+PROJECT_NAMES=("drivekit_core" "drivekit_trip_analysis" "drivekit_trip_simulator" "drivekit_driver_data")
 
 for PROJECT_NAME in "${PROJECT_NAMES[@]}"; do
   PROJECT_ROOT="packages/${PROJECT_NAME}/flutter_${PROJECT_NAME}_ios/ios"
