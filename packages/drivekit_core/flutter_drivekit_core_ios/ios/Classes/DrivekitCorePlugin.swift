@@ -143,7 +143,7 @@ extension DrivekitCorePlugin: DriveKitDelegate {
 
     public func driveKit(_ driveKit: DriveKitCoreModule.DriveKit, deviceConfigurationEvent event: DKDeviceConfigurationEvent) {
         let event = PigeonDeviceConfigurationEvent.init(from: event)
-        flutterAPI?.onDeviceConfigurationChanged(event: event) { result in
+        flutterAPI?.onDeviceConfigurationChanged(event: event) { _ in
             print("Device configuration event: \(event)")
         }
     }
