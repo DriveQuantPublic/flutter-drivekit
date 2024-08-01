@@ -9,7 +9,7 @@ class SliverRemoveAllDeviceConfigurationListeners extends StatelessWidget {
     return SliverToBoxAdapter(
       child: ElevatedButton(
         onPressed: () {
-          DriveKitCore.instance.removeALlDeviceConfigurationListeners();
+          DriveKitCore.instance.removeAllDeviceConfigurationListeners();
         },
         child: const Text('Remove all DKDeviceConfigurationListener'),
       ),
