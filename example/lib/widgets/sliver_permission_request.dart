@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -31,12 +32,20 @@ class _SliverPermissionRequestState extends State<SliverPermissionRequest> {
     });
     Permission.ignoreBatteryOptimizations.status.then((status) {
       setState(() {
-        ignoreBatteryOptimizationsStatus = status;
+        if (Platform.isAndroid) {
+          ignoreBatteryOptimizationsStatus = status;
+        } else {
+          ignoreBatteryOptimizationsStatus = PermissionStatus.granted;
+        }
       });
     });
     Permission.activityRecognition.status.then((status) {
       setState(() {
-        activityRecognitionStatus = status;
+        if (Platform.isAndroid) {
+          activityRecognitionStatus = status;
+        } else {
+          activityRecognitionStatus = PermissionStatus.granted;
+        }
       });
     });
   }
