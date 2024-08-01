@@ -12,7 +12,7 @@ CLASS_NAME=$1
 # Define file paths
 MESSAGES_FILE="packages/drivekit_trip_analysis/flutter_drivekit_trip_analysis_android/pigeon/messages.dart"
 MODEL_FILE="packages/drivekit_trip_analysis/flutter_drivekit_trip_analysis_android/pigeon/model.dart"
-MODEL_ADAPTER_FILE="packages/drivekit_trip_analysis/flutter_drivekit_trip_analysis_android/lib/src/modelAdapter.dart"
+MODEL_ADAPTER_FILE="packages/drivekit_trip_analysis/flutter_drivekit_trip_analysis_android/lib/src/model_adapter.dart"
 
 # Extract class definition from messages file
 CLASS_DEFINITION=$(sed -n "/class $CLASS_NAME/,/^}/p" $MESSAGES_FILE)
@@ -47,7 +47,7 @@ done)
 EOF
 )
 
-# Append mapper function to modelAdapter file
+# Append mapper function to model_adapter file
 echo "$MAPPER_FUNCTION" >> $MODEL_ADAPTER_FILE
 
 echo "Mapper function for $CLASS_NAME has been added to $MODEL_ADAPTER_FILE"
