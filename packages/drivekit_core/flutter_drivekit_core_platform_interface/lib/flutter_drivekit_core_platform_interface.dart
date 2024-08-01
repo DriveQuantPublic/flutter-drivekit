@@ -86,4 +86,7 @@ abstract class DrivekitCorePlatform extends PlatformInterface {
   void removeDeviceConfigurationListener(
     DKDeviceConfigurationListener listener,
   );
+
+  /// Remove all [DKDeviceConfigurationListener]
+  void removeAllDeviceConfigurationListeners();
 }

@@ -160,4 +160,9 @@ class DrivekitCoreIOS extends DrivekitCorePlatform implements FlutterCoreApi {
           ?.call(event.toModelImplementation());
     }
   }
+
+  @override
+  void removeAllDeviceConfigurationListeners() {
+    _deviceConfigurationListeners.clear();
+  }
 }

@@ -113,4 +113,9 @@ class DriveKitCore {
   ) {
     _platform.removeDeviceConfigurationListener(listener);
   }
+
+  /// Removes all listeners from DriveKit core.
+  void removeALlDeviceConfigurationListeners() {
+    _platform.removeAllDeviceConfigurationListeners();
+  }
 }
