@@ -1,15 +1,24 @@
 import Flutter
 import UIKit
 import DriveKitTripAnalysisModule
+import CoreLocation
 
 extension FlutterError: Error {}
 
 public class DrivekitTripAnalysisPlugin: NSObject, FlutterPlugin, IOSTripAnalysisApi {
+    var flutterAPI: FlutterTripAnalysisApi?
+
     public static func register(with registrar: FlutterPluginRegistrar) {
         let messenger: FlutterBinaryMessenger = registrar.messenger()
-        let api: IOSTripAnalysisApi & NSObjectProtocol = DrivekitTripAnalysisPlugin.init()
+        let api: IOSTripAnalysisApi & NSObjectProtocol = DrivekitTripAnalysisPlugin.init(binaryMessenger: messenger )
 
         IOSTripAnalysisApiSetup.setUp(binaryMessenger: messenger, api: api)
+    }
+
+    init(binaryMessenger: FlutterBinaryMessenger) {
+        super.init()
+        self.flutterAPI = FlutterTripAnalysisApi(binaryMessenger: binaryMessenger)
+        configureDriveTripDelegate()
     }
 
     public func activateAutoStart(activate: Bool) throws {
@@ -49,4 +58,57 @@ public class DrivekitTripAnalysisPlugin: NSObject, FlutterPlugin, IOSTripAnalysi
             vehicle: PigeonMapper.initTripVehicle(from: vehicle)
         )
     }
+
+    private func configureDriveTripDelegate() {
+        DriveKitTripAnalysis.shared.addTripListener(self)
+        }
+}
+
+extension DrivekitTripAnalysisPlugin: TripListener {
+    public func tripStarted(startMode: DriveKitTripAnalysisModule.StartMode) {
+        // TODO implement this method by calling flutter API converting any parameter to pigeonModel
+    }
+
+    public func tripFinished(post: DriveKitTripAnalysisModule.PostGeneric, response: DriveKitTripAnalysisModule.PostGenericResponse) {
+        // TODO implement this method by calling flutter API converting any parameter to pigeonModel
+    }
+
+    public func tripCancelled(cancelTrip: DriveKitTripAnalysisModule.CancelTrip) {
+        // TODO implement this method by calling flutter API converting any parameter to pigeonModel
+    }
+
+    public func tripSavedForRepost() {
+        // TODO implement this method by calling flutter API converting any parameter to pigeonModel
+    }
+
+    public func tripPoint(tripPoint: DriveKitTripAnalysisModule.TripPoint) {
+        // TODO implement this method by calling flutter API converting any parameter to pigeonModel
+    }
+
+    public func beaconDetected() {
+        // TODO implement this method by calling flutter API converting any parameter to pigeonModel
+    }
+
+    public func significantLocationChangeDetected(location: CLLocation) {
+        // TODO implement this method by calling flutter API converting any parameter to pigeonModel
+    }
+
+    public func sdkStateChanged(state: DriveKitTripAnalysisModule.State) {
+        // TODO implement this method by calling flutter API converting any parameter to pigeonModel
+    }
+
+    public func potentialTripStart(startMode: DriveKitTripAnalysisModule.StartMode) {
+        // TODO implement this method by calling flutter API converting any parameter to pigeonModel
+    }
+
+    public func crashDetected(crashInfo: DriveKitTripAnalysisModule.DKCrashInfo) {
+        // TODO implement this method by calling flutter API converting any parameter to pigeonModel
+    }
+
+    public func crashFeedbackSent(
+        crashInfo: DriveKitTripAnalysisModule.DKCrashInfo, feedbackType: DriveKitTripAnalysisModule.DKCrashFeedbackType, severity: DriveKitTripAnalysisModule.DKCrashFeedbackSeverity
+    ) {
+        // TODO implement this method by calling flutter API converting any parameter to pigeonModel
+    }
+
 }
