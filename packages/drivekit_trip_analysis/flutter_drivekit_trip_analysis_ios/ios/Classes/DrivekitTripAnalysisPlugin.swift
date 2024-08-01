@@ -82,7 +82,15 @@ extension DrivekitTripAnalysisPlugin: TripListener {
     }
 
     public func tripCancelled(cancelTrip: DriveKitTripAnalysisModule.CancelTrip) {
-        // TODO implement this method by calling flutter API converting any parameter to pigeonModel
+        let pigeonValue = PigeonCancelTrip.init(from: cancelTrip)
+        self.flutterAPI?.tripCancelled(cancelTrip: pigeonValue) {result in
+            switch result {
+            case .success:
+                print("Trip cancelled.")
+            case .failure(let error):
+                print("Error on trip cancelled: \(error.localizedDescription)")
+            }
+        }
     }
 
     public func tripSavedForRepost() {

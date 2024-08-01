@@ -46,3 +46,32 @@ extension PigeonStartMode {
         }
     }
 }
+
+extension PigeonCancelTrip {
+    init(from cancelTrip: CancelTrip) {
+        switch cancelTrip {
+        case .user:
+            self = .user
+        case .highspeed:
+            self = .highspeed
+        case .noSpeed:
+            self = .noSpeed
+        case .noBeacon:
+            self = .noBeacon
+        case .missingConfiguration:
+            self = .missingConfiguration
+        case .noGPSData:
+            self = .noGpsData
+        case .reset:
+            self = .reset
+        case .beaconNoSpeed:
+            self = .beaconNoSpeed
+        case .bluetoothDeviceNoSpeed:
+            self = .bluetoothDeviceNoSpeed
+        case .noBluetoothDevice:
+            self = .noBluetoothDevice
+        @unknown default:
+            fatalError()
+        }
+    }
+}

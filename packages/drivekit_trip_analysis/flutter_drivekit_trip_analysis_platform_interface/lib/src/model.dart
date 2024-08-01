@@ -221,6 +221,9 @@ enum CancelTrip {
   /// there is no movement (zero or low speed)
   beaconNoSpeed,
 
+  /// Trip cancelled because the Bluetooth device is missing
+  noBluetoothDevice,
+
   /// Trip cancelled because the Bluetooth device is connected to the
   /// smartphone but there was no movement (zero or low speed)
   bluetoothDeviceNoSpeed;
