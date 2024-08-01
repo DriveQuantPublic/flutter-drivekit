@@ -113,10 +113,6 @@ enum PigeonStartMode {
   bluetooth,
 
   unknownBluetooth,
-
-  bicycleActivity,
-
-  connectedCar;
 }
 
 enum PigeonCancelTrip {
