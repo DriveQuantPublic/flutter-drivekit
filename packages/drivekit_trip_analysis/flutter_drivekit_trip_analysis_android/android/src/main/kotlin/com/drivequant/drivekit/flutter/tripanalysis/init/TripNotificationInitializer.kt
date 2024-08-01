@@ -70,7 +70,7 @@ class TripNotificationInitializer : Initializer<TripNotification> {
     }
 
     override fun dependencies(): List<Class<out Initializer<*>>> {
-        // No dependencies on other libraries.
+        return listOf(DriveKitInitializer::class.java)
         return emptyList()
     }
 
