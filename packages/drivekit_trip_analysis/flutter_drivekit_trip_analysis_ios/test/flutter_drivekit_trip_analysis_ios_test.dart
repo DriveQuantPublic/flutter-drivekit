@@ -269,7 +269,7 @@ void main() {
         flutterTripAnalysisApi.tripSavedForRepost();
         expect(tripSavedForRepostCount, 1);
 
-        flutterTripAnalysisApi.tripStarted(PigeonStartMode.bicycleActivity);
+        flutterTripAnalysisApi.tripStarted(PigeonStartMode.bluetooth);
         expect(tripStartedCount, 1);
 
         flutterTripAnalysisApi
@@ -320,7 +320,7 @@ void main() {
         flutterTripAnalysisApi.tripSavedForRepost();
         expect(tripSavedForRepostCount, 3);
 
-        flutterTripAnalysisApi.tripStarted(PigeonStartMode.bicycleActivity);
+        flutterTripAnalysisApi.tripStarted(PigeonStartMode.bluetooth);
         expect(tripStartedCount, 3);
 
         flutterTripAnalysisApi
@@ -360,8 +360,14 @@ void main() {
             crashDetectedList.first.velocity,
             mockPigeonDkCrashInfo.velocity,
           );
-          expect(crashDetectedList.first.date, mockPigeonDkCrashInfo.date);
-          expect(crashDetectedList.first.status, mockPigeonDkCrashInfo.status);
+          expect(
+            crashDetectedList.first.date?.millisecondsSinceEpoch,
+            mockPigeonDkCrashInfo.date,
+          );
+          expect(
+            crashDetectedList.first.status?.name,
+            mockPigeonDkCrashInfo.status?.name,
+          );
         },
       );
 
@@ -408,7 +414,7 @@ void main() {
           ..tripFinished(mockPigeonPost, mockPigeonResponse)
           ..tripPoint(mockPigeonTripPoint)
           ..tripSavedForRepost()
-          ..tripStarted(PigeonStartMode.bicycleActivity);
+          ..tripStarted(PigeonStartMode.bluetooth);
 
         expect(beaconDetectedCount, 0);
         expect(crashDetectedCount, 0);
@@ -466,7 +472,7 @@ void main() {
           ..tripFinished(mockPigeonPost, mockPigeonResponse)
           ..tripPoint(mockPigeonTripPoint)
           ..tripSavedForRepost()
-          ..tripStarted(PigeonStartMode.bicycleActivity);
+          ..tripStarted(PigeonStartMode.bluetooth);
 
         expect(beaconDetectedCount, 2);
         expect(crashDetectedCount, 0);

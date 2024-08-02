@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_drivekit_trip_analysis_android/src/adapter.dart';
+import 'package:flutter_drivekit_trip_analysis_android/src/model_adapter.dart';
 import 'package:flutter_drivekit_trip_analysis_android/src/trip_analysis_api.g.dart';
 import 'package:flutter_drivekit_trip_analysis_platform_interface/flutter_drivekit_trip_analysis_platform_interface.dart';
 
@@ -81,8 +82,9 @@ class DrivekitTripAnalysisAndroid extends DrivekitTripAnalysisPlatform
 
   @override
   void crashDetected(PigeonDKCrashInfo crashInfo) {
-    // ignore: flutter_style_todos
-    // TODO: implement crashDetected
+    for (final listener in _listeners) {
+      listener.crashDetected?.call(crashInfo.toModelImplementation());
+    }
   }
 
   @override
@@ -91,20 +93,27 @@ class DrivekitTripAnalysisAndroid extends DrivekitTripAnalysisPlatform
     PigeonDKCrashFeedbackType feedbackType,
     PigeonDKCrashFeedbackSeverity severity,
   ) {
-    // ignore: flutter_style_todos
-    // TODO: implement crashFeedbackSent
+    for (final listener in _listeners) {
+      listener.crashFeedbackSent?.call(
+        crashInfo.toModelImplementation(),
+        feedbackType.toModelImplementation(),
+        severity.toModelImplementation(),
+      );
+    }
   }
 
   @override
   void sdkStateChanged(PigeonState state) {
-    // ignore: flutter_style_todos
-    // TODO: implement sdkStateChanged
+    for (final listener in _listeners) {
+      listener.sdkStateChanged?.call(state.toModelImplementation());
+    }
   }
 
   @override
   void tripCancelled(PigeonCancelTrip cancelTrip) {
-    // ignore: flutter_style_todos
-    // TODO: implement tripCancelled
+    for (final listener in _listeners) {
+      listener.tripCancelled?.call(cancelTrip.toModelImplementation());
+    }
   }
 
   @override
@@ -112,25 +121,39 @@ class DrivekitTripAnalysisAndroid extends DrivekitTripAnalysisPlatform
     PigeonPostGeneric post,
     PigeonPostGenericResponse response,
   ) {
-    // ignore: flutter_style_todos
-    // TODO: implement tripFinished
+    for (final listener in _listeners) {
+      listener.tripFinished?.call(
+        post.toModelImplementation(),
+        response.toModelImplementation(),
+      );
+    }
   }
 
   @override
   void tripPoint(PigeonTripPoint tripPoint) {
-    // ignore: flutter_style_todos
-    // TODO: implement tripPoint
+    for (final listener in _listeners) {
+      listener.tripPoint?.call(tripPoint.toModelImplementation());
+    }
   }
 
   @override
   void tripSavedForRepost() {
-    // ignore: flutter_style_todos
-    // TODO: implement tripSavedForRepost
+    for (final listener in _listeners) {
+      listener.tripSavedForRepost?.call();
+    }
   }
 
   @override
   void tripStarted(PigeonStartMode startMode) {
-    // ignore: flutter_style_todos
-    // TODO: implement tripStarted
+    for (final listener in _listeners) {
+      listener.tripStarted?.call(startMode.toModelImplementation());
+    }
+  }
+
+  @override
+  void potentialTripStart(PigeonStartMode startMode) {
+    for (final listener in _listeners) {
+      listener.potentialTripStart?.call(startMode.toModelImplementation());
+    }
   }
 }

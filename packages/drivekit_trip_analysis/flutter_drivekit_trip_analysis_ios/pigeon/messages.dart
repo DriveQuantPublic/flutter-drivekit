@@ -31,6 +31,7 @@ abstract class FlutterTripAnalysisApi {
   void tripSavedForRepost();
   void tripFinished(PigeonPostGeneric post, PigeonPostGenericResponse response);
   void tripCancelled(PigeonCancelTrip cancelTrip);
+  void potentialTripStart(PigeonStartMode startMode);
   void beaconDetected();
   void significantLocationChangeDetected(PigeonState state);
   void sdkStateChanged(PigeonState state);
@@ -113,10 +114,6 @@ enum PigeonStartMode {
   bluetooth,
 
   unknownBluetooth,
-
-  bicycleActivity,
-
-  connectedCar;
 }
 
 enum PigeonCancelTrip {
@@ -135,6 +132,8 @@ enum PigeonCancelTrip {
   reset,
 
   beaconNoSpeed,
+
+  noBluetoothDevice,
 
   bluetoothDeviceNoSpeed;
 }

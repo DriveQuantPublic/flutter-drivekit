@@ -105,6 +105,7 @@ class TripListener {
     this.tripSavedForRepost,
     this.tripFinished,
     this.tripCancelled,
+    this.potentialTripStart,
     this.beaconDetected,
     this.significantLocationChangeDetected,
     this.sdkStateChanged,
@@ -138,6 +139,10 @@ class TripListener {
   /// Called when a trip is cancelled.
   /// [CancelTrip] indicates which event cancels the trip.
   final void Function(CancelTrip cancelTrip)? tripCancelled;
+
+  /// Called each time a potential trip is started.
+  /// [StartMode] indicates which event starts the potential trip.
+  final void Function(StartMode startMode)? potentialTripStart;
 
   /// Called when a beacon sets in the SDK is detected.
   final void Function()? beaconDetected;
@@ -220,6 +225,9 @@ enum CancelTrip {
   /// Trip cancelled because the beacon is near the smartphone but
   /// there is no movement (zero or low speed)
   beaconNoSpeed,
+
+  /// Trip cancelled because the Bluetooth device is missing
+  noBluetoothDevice,
 
   /// Trip cancelled because the Bluetooth device is connected to the
   /// smartphone but there was no movement (zero or low speed)
@@ -1157,7 +1165,7 @@ class DriverDistraction {
   final double? scoreCall;
 
   /// The list of calls
-  final List<PigeonCall>? calls;
+  final List<Call>? calls;
 }
 
 /// ItineraryData class
@@ -1607,69 +1615,6 @@ enum CrashStatus {
 
   /// The crash is confirmed
   confirmed,
-}
-
-/// PigeonCall class
-class PigeonCall {
-  /// Creates a PigeonCall instance
-  const PigeonCall({
-    required this.id,
-    required this.start,
-    required this.end,
-    required this.durationS,
-    required this.duration,
-    required this.distanceM,
-    required this.distance,
-    required this.status,
-    required this.audioSystem,
-    required this.bluetoothClass,
-    required this.forbidden,
-    this.audioInput,
-    this.audioOutput,
-    this.audioName,
-  });
-
-  /// The ID
-  final int id;
-
-  /// The start time
-  final double start;
-
-  /// The end time
-  final double end;
-
-  /// The duration in seconds
-  final int durationS;
-
-  /// The duration
-  final int duration;
-
-  /// The distance in meters
-  final int distanceM;
-
-  /// The distance
-  final int distance;
-
-  /// The status
-  final String status;
-
-  /// The audio system
-  final String audioSystem;
-
-  /// The audio input
-  final String? audioInput;
-
-  /// The audio output
-  final String? audioOutput;
-
-  /// The audio name
-  final String? audioName;
-
-  /// The Bluetooth class
-  final int bluetoothClass;
-
-  /// The forbidden status
-  final bool forbidden;
 }
 
 /// PigeonSpeedLimitContext class
