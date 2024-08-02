@@ -70,6 +70,9 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 | [stopTrip()](#stoptrip)                                               | `Future<void>`                  | ✅  |   ✅    |
 | [cancelTrip()](#canceltrip)                                           | `Future<void>`                  | ✅  |   ✅    |
 | [isTripRunning()](#istriprunning)                                     | `Future<bool>`                  | ✅  |   ✅    |
+| [addTripListener()](#addtriplistener)                                 | `Future<void>`                  | ✅  |   ✅    |
+| [removeTripListener()](#removetriplistener)                           | `Future<void>`                  | ✅  |   ✅    |
+| [removeAllTripListeners()](#removealltriplisteners)                   | `Future<void>`                  | ✅  |   ✅    |
 | [activateCrashDetection()](#activatecrashdetection)                   | `Future<void>`                  | ✅  |   ✅    |
 | [setMonitorPotentialTripStart()](#setmonitorpotentialtripstart)       | `Future<void>`                  | ✅  |   ✅    |
 | [getMonitorPotentialTripStart()](#getmonitorpotentialtripstart)       | `Future<bool>`                  | ✅  |   ✅    |
@@ -162,6 +165,50 @@ This method returns false if the SDK is in `INACTIVE` state, and no trip is curr
 ```dart
 final isTripRunning = await driveKitTripAnalysis.isTripRunning();
 ```
+
+### addTripListener
+
+The `TripListener` interface provides useful information and event about trips analyzed by DriveKit.
+
+For example, you can be informed when a trip analysis has started, finished, cancelled, when a crash is detected, etc. by using the method:
+
+```dart
+void addTripListener(TripListener listener);
+```
+
+`TripListener` interface includes several methods to implement:
+
+ | Method                            | Description                                                                                                                                                                                                                                               |
+|-----------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| tripStarted                       | Called each time a trip is started. `StartMode` indicates which event starts the trip.                                                                                                                                                                    |
+| tripPoint                         | Called when a trip is started and confirmed, for each GPS point recorded by the SDK.                                                                                                                                                                      |
+| tripSavedForRepost                | Called if at the end of the trip, the trip can be sent to DriveQuant's server for the analysis. The trip is saved locally on the SDK and will be sent later.                                                                                              |
+| tripFinished                      | Called when a trip has been recorded by the SDK and sent to DriveQuant's server to be analyzed.  `PostGeneric` object contains raw data sent to DriveQuant's server, `PostGenericResponse` object contains the trip analysis made on DriveQuant's server. |
+| tripCancelled                     | Called when a trip is cancelled. `CancelTrip` indicates which event cancels the trip.                                                                                                                                                                     |
+| potentialTripStart                | Called each time a potential trip is started. `StartMode` indicates which event starts the potential trip.                                                                                                                                                |
+| beaconDetected                    | Called when a beacon sets in the SDK is detected.                                                                                                                                                                                                         |
+| significantLocationChangeDetected | iOS only. Called when a user significant location change is detected.                                                                                                                                                                                     |
+| sdkStateChanged                   | Called every time the state of the SDK changed, with the new `State` as parameter                                                                                                                                                                         |
+| crashDetected                     | Called when a crash event is detected. Triggered only if Crash Detection is enabled.                                                                                                                                                                      |
+| crashFeedbackSent                 | Called when crash feedback is enabled and a confirmed crash is detected. Triggered only if Crash Detection is enabled and feedback configured.                                                                                                            |
+
+Read more on every possible values on the native documentation : [Android](https://docs.drivequant.com/trip-analysis/android/triplistener) / [iOS](https://docs.drivequant.com/trip-analysis/ios/triplistener)
+
+### removeTripListener
+
+You can remove a specific `TripListener` using the following method:
+
+```dart
+void removeTripListener(TripListener listener);
+```
+
+### removeAllTripListeners
+
+You can remove all registered `TripListener` using the following method:
+```dart
+void removeAllTripListeners();
+```
+
 
 ### activateCrashDetection
 
