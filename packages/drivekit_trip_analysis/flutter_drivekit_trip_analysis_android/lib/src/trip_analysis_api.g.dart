@@ -121,6 +121,7 @@ class PigeonVehicle {
   }
 }
 
+
 class _PigeonCodec extends StandardMessageCodec {
   const _PigeonCodec();
   @override
@@ -136,7 +137,7 @@ class _PigeonCodec extends StandardMessageCodec {
   @override
   Object? readValueOfType(int type, ReadBuffer buffer) {
     switch (type) {
-      case 129:
+      case 129: 
         return PigeonVehicle.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);
@@ -148,11 +149,9 @@ class AndroidTripAnalysisApi {
   /// Constructor for [AndroidTripAnalysisApi].  The [binaryMessenger] named argument is
   /// available for dependency injection.  If it is left null, the default
   /// BinaryMessenger will be used which routes to the host platform.
-  AndroidTripAnalysisApi(
-      {BinaryMessenger? binaryMessenger, String messageChannelSuffix = ''})
+  AndroidTripAnalysisApi({BinaryMessenger? binaryMessenger, String messageChannelSuffix = ''})
       : __pigeon_binaryMessenger = binaryMessenger,
-        __pigeon_messageChannelSuffix =
-            messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
+        __pigeon_messageChannelSuffix = messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
   final BinaryMessenger? __pigeon_binaryMessenger;
 
   static const MessageCodec<Object?> pigeonChannelCodec = _PigeonCodec();
@@ -160,10 +159,8 @@ class AndroidTripAnalysisApi {
   final String __pigeon_messageChannelSuffix;
 
   Future<void> activateAutoStart(bool activate) async {
-    final String __pigeon_channelName =
-        'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.activateAutoStart$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel =
-        BasicMessageChannel<Object?>(
+    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.activateAutoStart$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
@@ -184,10 +181,8 @@ class AndroidTripAnalysisApi {
   }
 
   Future<void> activateCrashDetection(bool activate) async {
-    final String __pigeon_channelName =
-        'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.activateCrashDetection$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel =
-        BasicMessageChannel<Object?>(
+    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.activateCrashDetection$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
@@ -208,10 +203,8 @@ class AndroidTripAnalysisApi {
   }
 
   Future<void> startTrip() async {
-    final String __pigeon_channelName =
-        'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.startTrip$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel =
-        BasicMessageChannel<Object?>(
+    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.startTrip$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
@@ -232,10 +225,8 @@ class AndroidTripAnalysisApi {
   }
 
   Future<void> stopTrip() async {
-    final String __pigeon_channelName =
-        'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.stopTrip$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel =
-        BasicMessageChannel<Object?>(
+    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.stopTrip$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
@@ -256,10 +247,8 @@ class AndroidTripAnalysisApi {
   }
 
   Future<void> cancelTrip() async {
-    final String __pigeon_channelName =
-        'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.cancelTrip$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel =
-        BasicMessageChannel<Object?>(
+    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.cancelTrip$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
@@ -280,10 +269,8 @@ class AndroidTripAnalysisApi {
   }
 
   Future<bool> isTripRunning() async {
-    final String __pigeon_channelName =
-        'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.isTripRunning$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel =
-        BasicMessageChannel<Object?>(
+    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.isTripRunning$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
@@ -309,10 +296,8 @@ class AndroidTripAnalysisApi {
   }
 
   Future<void> setMonitorPotentialTripStart(bool activate) async {
-    final String __pigeon_channelName =
-        'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.setMonitorPotentialTripStart$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel =
-        BasicMessageChannel<Object?>(
+    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.setMonitorPotentialTripStart$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
@@ -333,10 +318,8 @@ class AndroidTripAnalysisApi {
   }
 
   Future<bool> getMonitorPotentialTripStart() async {
-    final String __pigeon_channelName =
-        'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.getMonitorPotentialTripStart$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel =
-        BasicMessageChannel<Object?>(
+    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.getMonitorPotentialTripStart$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
@@ -362,10 +345,8 @@ class AndroidTripAnalysisApi {
   }
 
   Future<void> setVehicle(PigeonVehicle vehicle) async {
-    final String __pigeon_channelName =
-        'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.setVehicle$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel =
-        BasicMessageChannel<Object?>(
+    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.setVehicle$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
