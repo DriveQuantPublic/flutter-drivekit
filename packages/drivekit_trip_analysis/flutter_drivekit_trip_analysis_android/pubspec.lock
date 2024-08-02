@@ -148,7 +148,7 @@ packages:
       path: "../flutter_drivekit_trip_analysis_platform_interface"
       relative: true
     source: path
-    version: "0.0.2"
+    version: "0.0.3"
   flutter_test:
     dependency: "direct dev"
     description: flutter

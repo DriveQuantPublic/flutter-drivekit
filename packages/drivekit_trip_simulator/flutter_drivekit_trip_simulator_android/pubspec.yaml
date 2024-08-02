@@ -1,6 +1,6 @@
 name: flutter_drivekit_trip_simulator_android
 description: Android implementation of the flutter_drivekit_trip_simulator plugin
-version: 0.0.2
+version: 0.0.3
 homepage: https://www.drivequant.com/
 repository: https://github.com/DriveQuantPublic/flutter-drivekit/tree/main/packages/drivekit_trip_simulator/flutter_drivekit_trip_simulator_android
 
@@ -20,7 +20,7 @@ flutter:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_drivekit_trip_simulator_platform_interface: ^0.0.2
+  flutter_drivekit_trip_simulator_platform_interface: ^0.0.3
 
 dev_dependencies:
   flutter_test:

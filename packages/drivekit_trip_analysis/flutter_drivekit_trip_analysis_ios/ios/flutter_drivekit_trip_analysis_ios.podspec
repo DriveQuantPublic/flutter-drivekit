@@ -3,14 +3,14 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'flutter_drivekit_trip_analysis_ios'
-  s.version          = '0.0.2'
+  s.version          = '0.0.3'
   s.summary          = 'An iOS implementation of the drivekit_trip_analysis plugin.'
   s.description      = <<-DESC
   An iOS implementation of the drivekit_trip_analysis plugin.
                        DESC
-  s.homepage         = 'http://example.com'
-  s.license          = { :type => 'BSD', :file => '../LICENSE' }
-  s.author           = { 'Your Company' => 'email@example.com' }
+  s.homepage         = 'https://docs.drivequant.com'
+  s.license          = { :type => 'Apache-2.0', :file => '../LICENSE' }
+  s.author           = { 'DriveQuant' => 'developer@drivequant.com' }
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
