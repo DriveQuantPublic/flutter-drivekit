@@ -3,7 +3,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'flutter_drivekit_trip_analysis_ios'
-  s.version          = '0.0.3'
+  s.version          = '0.0.4'
   s.summary          = 'An iOS implementation of the drivekit_trip_analysis plugin.'
   s.description      = <<-DESC
   An iOS implementation of the drivekit_trip_analysis plugin.
@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
-  s.dependency 'DriveKitTripAnalysis', '2.3.0'
+  s.dependency 'DriveKitTripAnalysis', '2.4.0'
   s.platform = :ios, '12.0'
 
   # Flutter.framework does not contain a i386 slice.

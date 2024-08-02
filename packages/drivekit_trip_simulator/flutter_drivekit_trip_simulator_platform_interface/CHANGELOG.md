@@ -1,3 +1,7 @@
+# 0.0.4
+
+    - forth version of Drivekit flutter SDK
+
 # 0.0.3
 
     - third version of Drivekit flutter SDK
