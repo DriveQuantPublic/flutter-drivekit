@@ -1,4 +1,4 @@
-# Drivekit Core Example
+# DriveKit Flutter sample application
 
 This is a Flutter project that demonstrates how to use the DriveKit SDK.
 To use it, you must have a valid API key from DriveQuant.
