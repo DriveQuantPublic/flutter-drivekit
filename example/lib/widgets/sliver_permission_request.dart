@@ -16,6 +16,7 @@ class _SliverPermissionRequestState extends State<SliverPermissionRequest> {
   PermissionStatus backgroundLocationStatus = PermissionStatus.denied;
   PermissionStatus ignoreBatteryOptimizationsStatus = PermissionStatus.denied;
   PermissionStatus activityRecognitionStatus = PermissionStatus.denied;
+  PermissionStatus notificationStatus = PermissionStatus.denied;
 
   @override
   void initState() {
@@ -46,6 +47,11 @@ class _SliverPermissionRequestState extends State<SliverPermissionRequest> {
         } else {
           activityRecognitionStatus = PermissionStatus.granted;
         }
+      });
+    });
+    Permission.notification.status.then((status) {
+      setState(() {
+        notificationStatus = status;
       });
     });
   }
@@ -82,6 +88,15 @@ class _SliverPermissionRequestState extends State<SliverPermissionRequest> {
             ),
             const Gap(16),
             Text(
+              'Notification permission status : '
+              '${switch (notificationStatus) {
+                PermissionStatus.granted => '✅',
+                PermissionStatus.permanentlyDenied => 'denied',
+                _ => '❌',
+              }}',
+            ),
+            const Gap(16),
+            Text(
               'Ignore battery optimizations status : '
               '${switch (ignoreBatteryOptimizationsStatus) {
                 PermissionStatus.granted => '✅',
@@ -98,14 +113,19 @@ class _SliverPermissionRequestState extends State<SliverPermissionRequest> {
                     locationWhenInUseStatus,
                     backgroundLocationStatus,
                     activityRecognitionStatus,
+                    notificationStatus,
                     ignoreBatteryOptimizationsStatus,
                   )) {
-                    (_, PermissionStatus.permanentlyDenied, _, _) =>
+                    // Background location is permanently denied
+                    (_, PermissionStatus.permanentlyDenied, _, _, _) =>
                       ElevatedButton(
                         onPressed: openSettings,
-                        child: const Text('open settings'),
+                        child: const Text('Open settings'),
                       ),
+
+                    // All OK, display well done message
                     (
+                      PermissionStatus.granted,
                       PermissionStatus.granted,
                       PermissionStatus.granted,
                       PermissionStatus.granted,
@@ -114,10 +134,14 @@ class _SliverPermissionRequestState extends State<SliverPermissionRequest> {
                       const ElevatedButton(
                         onPressed: null,
                         child: Text(
-                          'well done! 🎉',
+                          'Well done! 🎉',
                         ),
                       ),
+
+                    // All OK except ignore battery optimisation,
+                    // so ask for battery optimisation setting
                     (
+                      PermissionStatus.granted,
                       PermissionStatus.granted,
                       PermissionStatus.granted,
                       PermissionStatus.granted,
@@ -126,31 +150,62 @@ class _SliverPermissionRequestState extends State<SliverPermissionRequest> {
                       ElevatedButton(
                         onPressed: requestBatteryPermission,
                         child: const Text(
-                          'ask for ignore battery permission',
+                          'Ask for ignore battery permission',
                         ),
                       ),
+
+                    // Missing notification and ignore battery
+                    // optimisation so ask for notification.
+                    (
+                      PermissionStatus.granted,
+                      PermissionStatus.granted,
+                      PermissionStatus.granted,
+                      _,
+                      _,
+                    ) =>
+                      ElevatedButton(
+                        onPressed: requestNotificationPermission,
+                        child: const Text(
+                          'Ask for notification permission',
+                        ),
+                      ),
+
+                    // Missing activity, notification, and ignore battery
+                    // optimisation so ask for activity recognition.
                     (
                       PermissionStatus.granted,
                       PermissionStatus.granted,
                       _,
-                      _
+                      _,
+                      _,
                     ) =>
                       ElevatedButton(
                         onPressed: requestActivityRecognitionPermission,
                         child: const Text(
-                          'ask for activity recognition permission',
+                          'Ask for activity recognition permission',
                         ),
                       ),
-                    (PermissionStatus.granted, _, _, _) => ElevatedButton(
+
+                    // Missing background location, activity, notification,
+                    // and ignore battery optimisation
+                    // so ask for background location permission.
+                    (
+                      PermissionStatus.granted,
+                      _,
+                      _,
+                      _,
+                      _,
+                    ) =>
+                      ElevatedButton(
                         onPressed: requestBackgroundPermission,
                         child: const Text(
-                          'ask for background location permission',
+                          'Ask for background location permission',
                         ),
                       ),
                     _ => ElevatedButton(
                         onPressed: requestLocationWhenInUsePermission,
                         child: const Text(
-                          'ask for location when in use permission',
+                          'Ask for location when in use permission',
                         ),
                       ),
                   },
@@ -198,6 +253,13 @@ class _SliverPermissionRequestState extends State<SliverPermissionRequest> {
     final status = await Permission.locationWhenInUse.request();
     setState(() {
       locationWhenInUseStatus = status;
+    });
+  }
+
+  Future<void> requestNotificationPermission() async {
+    final status = await Permission.notification.request();
+    setState(() {
+      notificationStatus = status;
     });
   }
 }
