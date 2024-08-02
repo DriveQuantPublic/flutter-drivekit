@@ -188,9 +188,23 @@ extension PigeonPostGenericResponse {
         if let ecoDriving = postGenericResponse.ecoDriving {
             self.ecoDriving = PigeonEcoDriving(from: ecoDriving)
         }
-        
+        if let fuelEstimation = postGenericResponse.fuelEstimation {
+            self.fuelEstimation = PigeonFuelEstimation(from: fuelEstimation)
+        }
+        if let safety = postGenericResponse.safety {
+            self.safety = PigeonSafety(from: safety)
+        }
+        if let advancedEcoDriving = postGenericResponse.advancedEcoDriving {
+            self.advancedEcoDriving = PigeonAdvancedEcoDriving(from: advancedEcoDriving)
+        }
+        if let advancedFuelEstimation = postGenericResponse.advancedFuelEstimation {
+            self.advancedFuelEstimation = PigeonAdvancedFuelEstimation(from: advancedFuelEstimation)
+        }
+        if let advancedSafety = postGenericResponse.advancedSafety {
+            self.advancedSafety = PigeonAdvancedSafety(from: advancedSafety)
+        }
         // TODO: complete implementation for
-        // fuelEstimation, safety, advancedEcoDriving, advancedFuelEstimation, advancedSafety, pollutants, tireWear, brakeWear, driverDistraction, itineraryData, endDate, logbook,
+        // pollutants, tireWear, brakeWear, driverDistraction, itineraryData, endDate, logbook,
         // safetyEvents, callEvents, speedingEvents, speedingStatistics, energyEstimation, advancedEnergyEstimation
 
     }
@@ -225,5 +239,106 @@ extension PigeonEcoDriving {
             stdDevDecel: ecoDriving.stdDevDecel,
             energyClass: Int64(ecoDriving.energyClass)
         )
+    }
+}
+
+extension PigeonFuelEstimation {
+    init (from fuelEstimation: FuelEstimation) {
+        self.init(
+            co2Mass: fuelEstimation.co2Mass,
+            co2Emission: fuelEstimation.co2Emission,
+            fuelVolume: fuelEstimation.fuelVolume,
+            fuelConsumption: fuelEstimation.fuelConsumption,
+            idleFuelVolume: fuelEstimation.idleFuelVolume,
+            idleFuelPercentage: fuelEstimation.idleFuelPercentage,
+            idleFuelConsumption: fuelEstimation.idleFuelConsumption,
+            idleCo2Emission: fuelEstimation.idleCo2Emission,
+            idleCo2Mass: fuelEstimation.idleCo2Mass,
+            engineTempStatus: fuelEstimation.engineTempStatus,
+            coldFuelVolume: fuelEstimation.coldFuelVolume
+        )
+    }
+}
+
+extension PigeonSafety {
+    init(from safety: Safety) {
+        self.init(
+            nbAdh: Int64(safety.nbAdh),
+            nbAccel: Int64(safety.nbAccel),
+            nbDecel: Int64(safety.nbDecel),
+            nbAdhCrit: Int64(safety.nbAdhCrit),
+            nbAccelCrit: Int64(safety.nbAccelCrit),
+            nbDecelCrit: Int64(safety.nbDecelCrit),
+            safetyScore: safety.safetyScore
+        )
+    }
+}
+
+extension PigeonAdvancedEcoDriving {
+    init(from advancedEcoDriving: AdvancedEcoDriving) {
+        var contextArray: [PigeonEcoDrivingContext?] = []
+        if let ecoDrivingContext = advancedEcoDriving.ecoDrivingContext {
+            for context in ecoDrivingContext {
+                contextArray.append(
+                    PigeonEcoDrivingContext(
+                        contextId: Int64(context.contextId),
+                        distance: context.distance,
+                        duration: context.duration,
+                        efficiencyScore: context.efficiencyScore,
+                        scoreAccel: context.scoreAccel,
+                        scoreMain: context.scoreMain,
+                        scoreDecel: context.scoreDecel
+                    ))
+            }
+        }
+        self.init(ecoDrivingContext: contextArray)
+    }
+}
+
+extension PigeonAdvancedFuelEstimation {
+    init(from advancedFuelEstimation: AdvancedFuelEstimation) {
+        var contextArray: [PigeonFuelEstimationContext?] = []
+        if let fuelEstimationContext = advancedFuelEstimation.fuelEstimationContext {
+            for context in fuelEstimationContext {
+                contextArray.append(
+                    PigeonFuelEstimationContext(
+                        contextId: Int64(context.contextId),
+                        distance: context.distance,
+                        duration: context.duration,
+                        co2Mass: context.co2Mass,
+                        co2Emission: context.co2Emission,
+                        fuelVolume: context.fuelVolume,
+                        fuelConsumption: context.fuelConsumption
+                    )
+                )
+            }
+        }
+
+        self.init(fuelEstimationContext: contextArray)
+    }
+}
+
+extension PigeonAdvancedSafety {
+    init(from advancedSafety: AdvancedSafety) {
+        var contextArray: [PigeonSafetyContext?] = []
+        if let safetyContext = advancedSafety.safetyContext {
+            for context in safetyContext {
+                contextArray.append(
+                    PigeonSafetyContext(
+                        contextId: Int64(context.contextId),
+                        distance: context.distance,
+                        duration: context.duration,
+                        nbAdh: Int64(context.nbAdh),
+                        nbAccel: Int64(context.nbAccel),
+                        nbDecel: Int64(context.nbDecel),
+                        nbAdhCrit: Int64(context.nbAdhCrit),
+                        nbAccelCrit: Int64(context.nbAccelCrit),
+                        nbDecelCrit: Int64(context.nbDecelCrit),
+                        safetyScore: context.safetyScore
+                    )
+                )
+            }
+        }
+        self.init(safetyContext: contextArray)
     }
 }
