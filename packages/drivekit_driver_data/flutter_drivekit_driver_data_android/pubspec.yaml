@@ -1,6 +1,7 @@
 name: flutter_drivekit_driver_data_android
 description: Android implementation of the flutter_drivekit_driver_data plugin
-version: 0.0.1
+version: 0.0.3
+publish_to: none
 homepage: https://www.drivequant.com/
 repository: https://github.com/DriveQuantPublic/flutter-drivekit/tree/main/packages/drivekit_driver_data/flutter_drivekit_driver_data_android
 
@@ -20,7 +21,7 @@ flutter:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_drivekit_driver_data_platform_interface: ^0.0.1
+  flutter_drivekit_driver_data_platform_interface: ^0.0.3
 
 dev_dependencies:
   flutter_test:

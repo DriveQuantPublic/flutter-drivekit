@@ -60,21 +60,21 @@ packages:
       path: "../flutter_drivekit_driver_data_android"
       relative: true
     source: path
-    version: "0.0.1"
+    version: "0.0.3"
   flutter_drivekit_driver_data_ios:
     dependency: "direct main"
     description:
       path: "../flutter_drivekit_driver_data_ios"
       relative: true
     source: path
-    version: "0.0.1"
+    version: "0.0.3"
   flutter_drivekit_driver_data_platform_interface:
     dependency: "direct main"
     description:
       path: "../flutter_drivekit_driver_data_platform_interface"
       relative: true
     source: path
-    version: "0.0.1"
+    version: "0.0.3"
   flutter_test:
     dependency: "direct dev"
     description: flutter
