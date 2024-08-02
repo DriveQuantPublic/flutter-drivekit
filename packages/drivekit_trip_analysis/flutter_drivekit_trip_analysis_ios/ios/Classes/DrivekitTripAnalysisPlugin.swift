@@ -78,6 +78,9 @@ extension DrivekitTripAnalysisPlugin: TripListener {
     }
 
     public func tripFinished(post: DriveKitTripAnalysisModule.PostGeneric, response: DriveKitTripAnalysisModule.PostGenericResponse) {
+        let pigeonPostValue = PigeonPostGeneric.init(from: post)
+        let pigeonResponseValue = PigeonPostGenericResponse.init(from: response)
+
         // TODO implement this method by calling flutter API converting any parameter to pigeonModel
     }
 

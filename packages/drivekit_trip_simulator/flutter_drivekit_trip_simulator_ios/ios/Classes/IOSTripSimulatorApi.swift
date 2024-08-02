@@ -38,20 +38,20 @@ private func wrapError(_ error: Any) -> [Any?] {
     return [
       pigeonError.code,
       pigeonError.message,
-      pigeonError.details
+      pigeonError.details,
     ]
   }
   if let flutterError = error as? FlutterError {
     return [
       flutterError.code,
       flutterError.message,
-      flutterError.details
+      flutterError.details,
     ]
   }
   return [
     "\(error)",
     "\(type(of: error))",
-    "Stacktrace: \(Thread.callStackSymbols)"
+    "Stacktrace: \(Thread.callStackSymbols)",
   ]
 }
 
@@ -83,7 +83,7 @@ private class IOSTripSimulatorApiPigeonCodecReader: FlutterStandardReader {
   override func readValue(ofType type: UInt8) -> Any? {
     switch type {
     case 129:
-      var enumResult: PigeonPresetTrip?
+      var enumResult: PigeonPresetTrip? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonPresetTrip(rawValue: enumResultAsInt)

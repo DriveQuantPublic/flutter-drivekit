@@ -94,3 +94,136 @@ extension PigeonState {
         }
     }
 }
+
+extension PigeonPostGeneric {
+    init(from post: PostGeneric) {
+        if let route = post.route {
+            self.route = PigeonRoute.init(from: route)
+        }
+        if let itineraryData = post.itineraryData {
+            self.itineraryData = PigeonItineraryData.init(from: itineraryData)
+        }
+        if let metaData = post.metaData {
+            self.metaData = metaData
+        }
+        if let vehicle = post.vehicle {
+            self.vehicle = PigeonVehicle(from: vehicle)
+        }
+    }
+}
+
+extension PigeonRoute {
+    init(from route: Route) {
+        self.init(
+            gpsDate: route.gpsDate,
+            gpsVelocity: route.gpsVelocity,
+            longitude: route.longitude,
+            latitude: route.latitude,
+            gpsElevation: route.gpsElevation,
+            gpsAccuracy: route.gpsAccuracy,
+            gpsHeading: route.gpsHeading,
+            screenLocked: route.screenLocked,
+            activityValue: route.activityValue,
+            roll: route.roll.map({ Int64($0) }),
+            pitch: route.pitch.map({ Int64($0) }),
+            yaw: route.yaw.map({ Int64($0) }),
+            gyroscopeNormVar: route.gyroscopeNormVar.map({ Int64($0) })
+        )
+    }
+}
+
+extension PigeonItineraryData {
+    init(from itineraryData: ItineraryData) {
+        self.init(
+            startDate: itineraryData.startDate,
+            endDate: itineraryData.endDate,
+            departureCity: itineraryData.departureCity,
+            arrivalCity: itineraryData.arrivalCity,
+            departureAddress: itineraryData.departureAddress,
+            arrivalAddress: itineraryData.arrivalAddress
+        )
+    }
+}
+
+extension PigeonVehicle {
+    init (from vehicle: TripVehicle) {
+        self.init(
+            carTypeIndex: Int64(vehicle.carTypeIndex),
+            carEngineIndex: Int64(vehicle.carEngineIndex),
+            carPower: Int64(vehicle.carPower),
+            carMass: Int64(vehicle.carMass),
+            carGearboxIndex: Int64(vehicle.carGearboxIndex),
+            carConsumption: vehicle.carConsumption,
+            carAutoGearboxNumber: Int64(vehicle.carAutoGearboxNumber),
+            engineDisplacement: Int64(vehicle.engineDisplacement),
+            carPassengers: Int64(vehicle.carPassengers),
+            length: vehicle.length,
+            width: vehicle.width,
+            height: vehicle.height,
+            engineCylinderNb: Int64(vehicle.engineCylinderNb),
+            driveWheels: Int64(vehicle.driveWheels)
+        )
+    }
+}
+
+extension PigeonPostGenericResponse {
+    init (from postGenericResponse: PostGenericResponse) {
+        self.status = postGenericResponse.status
+        if let itinId = postGenericResponse.itinId {
+            self.itinId = itinId
+        }
+        if let comments = postGenericResponse.comments {
+            self.comments = comments.map({
+                PigeonComment(errorCode: Int64($0.errorCode), comment: $0.comment)
+            })
+        } else {
+            self.comments = []
+        }
+        if let userId = postGenericResponse.userId {
+            self.userId = userId
+        }
+        if let itineraryStatistics = postGenericResponse.itineraryStatistics {
+            self.itineraryStatistics = PigeonItineraryStatistics(from: itineraryStatistics)
+        }
+        if let ecoDriving = postGenericResponse.ecoDriving {
+            self.ecoDriving = PigeonEcoDriving(from: ecoDriving)
+        }
+        
+        // TODO: complete implementation for
+        // fuelEstimation, safety, advancedEcoDriving, advancedFuelEstimation, advancedSafety, pollutants, tireWear, brakeWear, driverDistraction, itineraryData, endDate, logbook,
+        // safetyEvents, callEvents, speedingEvents, speedingStatistics, energyEstimation, advancedEnergyEstimation
+
+    }
+}
+
+extension PigeonItineraryStatistics {
+    init (from itineraryStatistics: ItineraryStatistics) {
+        self.tripDuration = itineraryStatistics.tripDuration
+        self.drivingDuration = itineraryStatistics.drivingDuration
+        self.idlingDuration = itineraryStatistics.idlingDuration
+        self.drivingPercentage = itineraryStatistics.drivingPercentage
+        self.idlingPercentage = itineraryStatistics.idlingPercentage
+        self.distance = itineraryStatistics.distance
+        self.speedMean = itineraryStatistics.speedMean
+        self.subdispNb = Int64(itineraryStatistics.subdispNb)
+        self.meteo = Int64(itineraryStatistics.meteo)
+        self.day = itineraryStatistics.day
+        self.weekDay = itineraryStatistics.weekDay
+        self.transportationMode = Int64(itineraryStatistics.transportationMode)
+    }
+}
+
+extension PigeonEcoDriving {
+    init (from ecoDriving: EcoDriving) {
+        self.init(
+            score: ecoDriving.score,
+            scoreAccel: ecoDriving.scoreAccel,
+            scoreMain: ecoDriving.scoreMain,
+            scoreDecel: ecoDriving.scoreDecel,
+            stdDevAccel: ecoDriving.stdDevAccel,
+            stdDevMain: ecoDriving.stdDevMain,
+            stdDevDecel: ecoDriving.stdDevDecel,
+            energyClass: Int64(ecoDriving.energyClass)
+        )
+    }
+}

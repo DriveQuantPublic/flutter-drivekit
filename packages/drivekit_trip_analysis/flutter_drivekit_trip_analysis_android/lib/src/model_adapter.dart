@@ -278,16 +278,6 @@ extension PigeonSpeedingEventsAdapter on PigeonSpeedingEvents {
   }
 }
 
-/// Adapts the [PigeonPostLogbook] class to the corresponding class in the model
-extension PigeonPostLogbookAdapter on PigeonPostLogbook {
-  /// Converts a [PigeonPostLogbook] to a corresponding model class.
-  PostLogbook toModelImplementation() {
-    return PostLogbook(
-      status: status,
-    );
-  }
-}
-
 /// Adapts the [PigeonEcoDrivingContext] class to the corresponding class in the
 /// model.
 extension PigeonEcoDrivingContextAdapter on PigeonEcoDrivingContext {
@@ -354,60 +344,6 @@ extension PigeonSpeedLimitContextAdapter on PigeonSpeedLimitContext {
       speedingDistance: speedingDistance,
       speedingDuration: speedingDuration,
       score: score,
-    );
-  }
-}
-
-/// Adapts the [PigeonAccount] class to the corresponding class in the model.
-extension PigeonAccountAdapter on PigeonAccount {
-  /// Converts a [PigeonAccount] to a corresponding model class.
-  Account toModelImplementation() {
-    return Account(
-      account: account,
-      userId: userId,
-      vehicleId: vehicleId,
-    );
-  }
-}
-
-/// Adapts the [PigeonSmartphoneData] class to the corresponding class
-/// in the model.
-extension PigeonSmartphoneDataAdapter on PigeonSmartphoneData {
-  /// Converts a [PigeonSmartphoneData] to a corresponding model class.
-  SmartphoneData toModelImplementation() {
-    return SmartphoneData(
-      gpsDate: DateTime.fromMillisecondsSinceEpoch(gpsDate),
-      phoneDate: DateTime.fromMillisecondsSinceEpoch(phoneDate),
-      startMode: startMode,
-      batteryPercent: batteryPercent,
-      tripCut: tripCut,
-      bluetoothEnabled: bluetoothEnabled,
-      phoneModel: phoneModel,
-      appBuildNumber: appBuildNumber,
-      appVersion: appVersion,
-      osVersion: osVersion,
-      osType: osType,
-      sdkVersion: sdkVersion,
-      localTripId: localTripId,
-    );
-  }
-}
-
-/// Adapts the [PigeonPhoneCallRequest] class to the corresponding class
-/// in the model.
-extension PigeonPhoneCallRequestAdapter on PigeonPhoneCallRequest {
-  /// Converts a [PigeonPhoneCallRequest] to a corresponding model class.
-  PhoneCallRequest toModelImplementation() {
-    return PhoneCallRequest(
-      start: start,
-      end: end,
-      status: status,
-      audioSystem: audioSystem,
-      audioInput: audioInput,
-      audioOutput: audioOutput,
-      audioName: audioName,
-      proximity: proximity,
-      bluetoothClass: bluetoothClass,
     );
   }
 }
@@ -608,7 +544,6 @@ extension PigeonPostGenericResponseAdapter on PigeonPostGenericResponse {
           .map((e) => e.toModelImplementation())
           .toList(),
       userId: userId,
-      account: account?.toModelImplementation(),
       itineraryStatistics: itineraryStatistics?.toModelImplementation(),
       ecoDriving: ecoDriving?.toModelImplementation(),
       fuelEstimation: fuelEstimation?.toModelImplementation(),
@@ -682,17 +617,10 @@ extension PigeonPostGenericAdapter on PigeonPostGeneric {
   /// Converts a [PigeonPostGeneric] to a [PostGeneric].
   PostGeneric toModelImplementation() {
     return PostGeneric(
-      route: route.toModelImplementation(),
-      account: account.toModelImplementation(),
-      smartphoneData: smartphoneData.toModelImplementation(),
-      vehicle: vehicle.toModelImplementation(),
-      itineraryData: itineraryData.toModelImplementation(),
+      route: route?.toModelImplementation(),
+      vehicle: vehicle?.toModelImplementation(),
+      itineraryData: itineraryData?.toModelImplementation(),
       metaData: convertMetadata(metaData),
-      phoneCalls: phoneCalls
-          ?.whereNotNull()
-          .map((e) => e.toModelImplementation())
-          .toList(),
-      logbook: logbook?.toModelImplementation(),
     );
   }
 }
