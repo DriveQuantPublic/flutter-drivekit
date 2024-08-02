@@ -148,7 +148,7 @@ packages:
       path: "../flutter_drivekit_driver_data_platform_interface"
       relative: true
     source: path
-    version: "0.0.3"
+    version: "0.0.4"
   flutter_test:
     dependency: "direct dev"
     description: flutter
