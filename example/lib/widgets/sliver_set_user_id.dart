@@ -11,8 +11,7 @@ class SliverSetUserId extends StatefulWidget {
 }
 
 class _SliverSetUserIdState extends State<SliverSetUserId> {
-  final TextEditingController _userIdController =
-      TextEditingController(text: '181bd3b3-a7fd-41cc-bcbe-322178e53974');
+  final TextEditingController _userIdController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return MultiSliver(
