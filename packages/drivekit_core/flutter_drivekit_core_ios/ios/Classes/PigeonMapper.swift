@@ -86,38 +86,38 @@ extension PigeonDeviceConfigurationEvent {
                 } else {
                     self = .locationSensorInvalid
                 }
-            case .activityPermission:
+        case .activityPermission:
                 if event.isValid {
                     self = .activityPermissionValid
                 } else {
                     self = .activityPermissionInvalid
                 }
-            case .bluetoothPermission:
+        case .bluetoothPermission:
                 if event.isValid {
                     self = .bluetoothPermissionValid
                 } else {
                     self = .bluetoothPermissionInvalid
                 }
-            case .notificationPermission:
+        case .notificationPermission:
                 if event.isValid {
                     self = .notificationPermissionValid
                 } else {
                     self = .notificationPermissionInvalid
                 }
-            case .bluetoothSensor:
+        case .bluetoothSensor:
                 if event.isValid {
                     self = .bluetoothSensorValid
                 } else {
                     self = .bluetoothSensorInvalid
                 }
-            case .lowPowerMode:
+        case .lowPowerMode:
                 if event.isValid {
                     self = .lowPowerModeValid
                 } else {
                     self = .lowPowerModeInvalid
                 }
-            @unknown default:
-            fatalError()
+        @unknown default:
+                fatalError()
         }
     }
 }
