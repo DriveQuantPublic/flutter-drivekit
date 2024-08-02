@@ -13,6 +13,7 @@ import 'package:drivekit_example/widgets/sliver_get_user_id.dart';
 import 'package:drivekit_example/widgets/sliver_is_token_valid.dart';
 import 'package:drivekit_example/widgets/sliver_is_trip_running.dart';
 import 'package:drivekit_example/widgets/sliver_permission_request.dart';
+import 'package:drivekit_example/widgets/sliver_remove_all_device_configuration_listeners.dart';
 import 'package:drivekit_example/widgets/sliver_remove_all_drivekit_listeners.dart';
 import 'package:drivekit_example/widgets/sliver_remove_all_trip_listeners.dart';
 import 'package:drivekit_example/widgets/sliver_reset.dart';
@@ -140,14 +141,19 @@ class HomePage extends StatelessWidget {
             SliverGap(32),
             SliverPadding(
               padding: EdgeInsets.symmetric(horizontal: 16),
-              sliver: SliverRemoveAllDriveKitListeners(),
+              sliver: SliverTripSimulation(),
             ),
             SliverGap(32),
             SliverPadding(
               padding: EdgeInsets.symmetric(horizontal: 16),
-              sliver: SliverTripSimulation(),
+              sliver: SliverRemoveAllDriveKitListeners(),
             ),
-            SliverGap(32),
+            SliverGap(10),
+            SliverPadding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              sliver: SliverRemoveAllDeviceConfigurationListeners(),
+            ),
+            SliverGap(10),
             SliverPadding(
               padding: EdgeInsets.symmetric(horizontal: 16),
               sliver: SliverRemoveAllTripListeners(),

@@ -97,6 +97,23 @@ enum PigeonBackgroundFetchStatus: Int {
   case started = 0
   case completed = 1
 }
+
+enum PigeonDeviceConfigurationEvent: Int {
+  case locationSensorValid = 0
+  case locationSensorInvalid = 1
+  case bluetoothSensorValid = 2
+  case bluetoothSensorInvalid = 3
+  case locationPermissionValid = 4
+  case locationPermissionInvalid = 5
+  case activityPermissionValid = 6
+  case activityPermissionInvalid = 7
+  case notificationPermissionValid = 8
+  case notificationPermissionInvalid = 9
+  case bluetoothPermissionValid = 10
+  case bluetoothPermissionInvalid = 11
+  case lowPowerModeValid = 12
+  case lowPowerModeInvalid = 13
+}
 private class IOSCoreApiPigeonCodecReader: FlutterStandardReader {
   override func readValue(ofType type: UInt8) -> Any? {
     switch type {
@@ -128,6 +145,13 @@ private class IOSCoreApiPigeonCodecReader: FlutterStandardReader {
         enumResult = PigeonBackgroundFetchStatus(rawValue: enumResultAsInt)
       }
       return enumResult
+    case 133:
+      var enumResult: PigeonDeviceConfigurationEvent? = nil
+      let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
+      if let enumResultAsInt = enumResultAsInt {
+        enumResult = PigeonDeviceConfigurationEvent(rawValue: enumResultAsInt)
+      }
+      return enumResult
     default:
       return super.readValue(ofType: type)
     }
@@ -147,6 +171,9 @@ private class IOSCoreApiPigeonCodecWriter: FlutterStandardWriter {
       super.writeValue(value.rawValue)
     } else if let value = value as? PigeonBackgroundFetchStatus {
       super.writeByte(132)
+      super.writeValue(value.rawValue)
+    } else if let value = value as? PigeonDeviceConfigurationEvent {
+      super.writeByte(133)
       super.writeValue(value.rawValue)
     } else {
       super.writeValue(value)
@@ -338,6 +365,7 @@ protocol FlutterCoreApiProtocol {
   func userIdUpdateStatusChanged(status statusArg: PigeonUpdateUserIdStatus, userId userIdArg: String?, completion: @escaping (Result<Void, FlutterCoreError>) -> Void)
   func driveKitAccountDeletionCompleted(status statusArg: PigeonDeleteAccountStatus, completion: @escaping (Result<Void, FlutterCoreError>) -> Void)
   func driveKitBackgroundFetchStatusChanged(status statusArg: PigeonBackgroundFetchStatus, completion: @escaping (Result<Void, FlutterCoreError>) -> Void)
+  func onDeviceConfigurationChanged(event eventArg: PigeonDeviceConfigurationEvent, completion: @escaping (Result<Void, FlutterCoreError>) -> Void)
 }
 class FlutterCoreApi: FlutterCoreApiProtocol {
   private let binaryMessenger: FlutterBinaryMessenger
@@ -443,6 +471,24 @@ class FlutterCoreApi: FlutterCoreApiProtocol {
     let channelName: String = "dev.flutter.pigeon.pigeon_core_package.FlutterCoreApi.driveKitBackgroundFetchStatusChanged\(messageChannelSuffix)"
     let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger, codec: codec)
     channel.sendMessage([statusArg] as [Any?]) { response in
+      guard let listResponse = response as? [Any?] else {
+        completion(.failure(createConnectionError(withChannelName: channelName)))
+        return
+      }
+      if listResponse.count > 1 {
+        let code: String = listResponse[0] as! String
+        let message: String? = nilOrValue(listResponse[1])
+        let details: String? = nilOrValue(listResponse[2])
+        completion(.failure(FlutterCoreError(code: code, message: message, details: details)))
+      } else {
+        completion(.success(Void()))
+      }
+    }
+  }
+  func onDeviceConfigurationChanged(event eventArg: PigeonDeviceConfigurationEvent, completion: @escaping (Result<Void, FlutterCoreError>) -> Void) {
+    let channelName: String = "dev.flutter.pigeon.pigeon_core_package.FlutterCoreApi.onDeviceConfigurationChanged\(messageChannelSuffix)"
+    let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger, codec: codec)
+    channel.sendMessage([eventArg] as [Any?]) { response in
       guard let listResponse = response as? [Any?] else {
         completion(.failure(createConnectionError(withChannelName: channelName)))
         return

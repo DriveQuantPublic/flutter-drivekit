@@ -4,7 +4,7 @@ import DriveKitCoreModule
 
 extension FlutterError: Error {}
 
-public class DrivekitCorePlugin: NSObject, FlutterPlugin, IOSCoreApi {
+public class DrivekitCorePlugin: NSObject, FlutterPlugin, IOSCoreApi, DKDeviceConfigurationDelegate {
     var flutterAPI: FlutterCoreApi?
 
     public static func register(with registrar: FlutterPluginRegistrar) {
@@ -18,6 +18,7 @@ public class DrivekitCorePlugin: NSObject, FlutterPlugin, IOSCoreApi {
         super.init()
         self.flutterAPI = FlutterCoreApi(binaryMessenger: binaryMessenger)
         configureDriveKitDelegate()
+        configureDeviceConfigurationDelegate()
     }
 
     public func getApiKey() throws -> String? {
@@ -62,6 +63,10 @@ public class DrivekitCorePlugin: NSObject, FlutterPlugin, IOSCoreApi {
 
     private func configureDriveKitDelegate() {
             DriveKit.shared.addDriveKitDelegate(self)
+    }
+
+    private func configureDeviceConfigurationDelegate() {
+            DriveKit.shared.addDeviceConfigurationDelegate(self)
     }
 }
 
@@ -133,6 +138,13 @@ extension DrivekitCorePlugin: DriveKitDelegate {
             case .failure(let error):
                 print("Error changing background fetch status in DriveKit: \(error.localizedDescription)")
             }
+        }
+    }
+
+    public func driveKit(_ driveKit: DriveKitCoreModule.DriveKit, deviceConfigurationEvent event: DKDeviceConfigurationEvent) {
+        let event = PigeonDeviceConfigurationEvent.init(from: event)
+        flutterAPI?.onDeviceConfigurationChanged(event: event) { _ in
+            print("Device configuration event: \(event)")
         }
     }
 }

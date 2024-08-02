@@ -13,6 +13,7 @@ class InitializeListeners extends StatefulWidget {
 
 class _InitializeListenersState extends State<InitializeListeners> {
   late final DriveKitListener _driveKitListener;
+  late final DKDeviceConfigurationListener _deviceConfigurationListener;
   late final TripListener _tripListener;
 
   @override
@@ -170,13 +171,31 @@ class _InitializeListenersState extends State<InitializeListeners> {
         }
       },
     );
+
+    _deviceConfigurationListener = DKDeviceConfigurationListener(
+      onDeviceConfigurationChanged: (event) {
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content:
+                  Text('Device Configuration change detected: ${event.name}'),
+            ),
+          );
+        }
+      },
+    );
+
     DriveKitCore.instance.addDriveKitListener(_driveKitListener);
+    DriveKitCore.instance
+        .addDeviceConfigurationListener(_deviceConfigurationListener);
     DrivekitTripAnalysis.instance.addTripListener(_tripListener);
   }
 
   @override
   void dispose() {
     DriveKitCore.instance.removeDriveKitListener(_driveKitListener);
+    DriveKitCore.instance
+        .removeDeviceConfigurationListener(_deviceConfigurationListener);
     DrivekitTripAnalysis.instance.removeTripListener(_tripListener);
     super.dispose();
   }

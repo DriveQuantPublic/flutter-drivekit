@@ -29,7 +29,9 @@ class DrivekitCoreAndroid extends DrivekitCorePlatform
     FlutterCoreApi.setUp(this);
   }
 
-  final List<DriveKitListener> _listeners = [];
+  final List<DriveKitListener> _driveKitListeners = [];
+
+  final List<DKDeviceConfigurationListener> _deviceConfigurationListeners = [];
 
   @override
   Future<void> setApiKey(String key) => androidCoreApi.setApiKey(key);
@@ -69,43 +71,43 @@ class DrivekitCoreAndroid extends DrivekitCorePlatform
 
   @override
   void addDriveKitListener(DriveKitListener listener) {
-    _listeners.add(listener);
+    _driveKitListeners.add(listener);
   }
 
   @override
   void removeDriveKitListener(DriveKitListener listener) {
-    _listeners.remove(listener);
+    _driveKitListeners.remove(listener);
   }
 
   @override
   void removeAllDriveKitListeners() {
-    _listeners.clear();
+    _driveKitListeners.clear();
   }
 
   @override
   void onConnected() {
-    for (final listener in _listeners) {
+    for (final listener in _driveKitListeners) {
       listener.onConnected?.call();
     }
   }
 
   @override
   void onAccountDeleted(PigeonDeleteAccountStatus status) {
-    for (final listener in _listeners) {
+    for (final listener in _driveKitListeners) {
       listener.onAccountDeleted?.call(status.toModelImplementation());
     }
   }
 
   @override
   void onAuthenticationError(PigeonRequestError errorType) {
-    for (final listener in _listeners) {
+    for (final listener in _driveKitListeners) {
       listener.onAuthenticationError?.call(errorType.toModelImplementation());
     }
   }
 
   @override
   void onDisconnected() {
-    for (final listener in _listeners) {
+    for (final listener in _driveKitListeners) {
       listener.onDisconnected?.call();
     }
   }
@@ -115,7 +117,7 @@ class DrivekitCoreAndroid extends DrivekitCorePlatform
     PigeonUpdateUserIdStatus status,
     String? userId,
   ) {
-    for (final listener in _listeners) {
+    for (final listener in _driveKitListeners) {
       listener.userIdUpdateStatus?.call(status.toModelImplementation(), userId);
     }
   }
@@ -127,6 +129,31 @@ class DrivekitCoreAndroid extends DrivekitCorePlatform
       return null;
     } else {
       return Uri.parse(uriString);
+    }
+  }
+
+  @override
+  void addDeviceConfigurationListener(DKDeviceConfigurationListener listener) {
+    _deviceConfigurationListeners.add(listener);
+  }
+
+  @override
+  void removeDeviceConfigurationListener(
+    DKDeviceConfigurationListener listener,
+  ) {
+    _deviceConfigurationListeners.remove(listener);
+  }
+
+  @override
+  void removeAllDeviceConfigurationListeners() {
+    _deviceConfigurationListeners.clear();
+  }
+
+  @override
+  void onDeviceConfigurationChanged(PigeonDeviceConfigurationEvent event) {
+    for (final listener in _deviceConfigurationListeners) {
+      listener.onDeviceConfigurationChanged
+          ?.call(event.toModelImplementation());
     }
   }
 }

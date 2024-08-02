@@ -3,7 +3,7 @@
 import 'package:flutter_drivekit_core_platform_interface/flutter_drivekit_core_platform_interface.dart';
 
 export 'package:flutter_drivekit_core_platform_interface/flutter_drivekit_core_platform_interface.dart'
-    show DriveKitListener;
+    show DKDeviceConfigurationListener, DriveKitListener;
 
 DrivekitCorePlatform get _platform => DrivekitCorePlatform.instance;
 
@@ -100,4 +100,22 @@ class DriveKitCore {
 
   /// You can retrieve the Uri log file by calling the following method.
   static Future<Uri?> getLogUriFile() => _platform.getLogUriFile();
+
+  /// Adds a device configuration listener.
+  /// See [DKDeviceConfigurationListener] to know which callbacks are available
+  void addDeviceConfigurationListener(DKDeviceConfigurationListener listener) {
+    _platform.addDeviceConfigurationListener(listener);
+  }
+
+  /// Removes a device configuration listener
+  void removeDeviceConfigurationListener(
+    DKDeviceConfigurationListener listener,
+  ) {
+    _platform.removeDeviceConfigurationListener(listener);
+  }
+
+  /// Removes all listeners from DriveKit core.
+  void removeAllDeviceConfigurationListeners() {
+    _platform.removeAllDeviceConfigurationListeners();
+  }
 }
