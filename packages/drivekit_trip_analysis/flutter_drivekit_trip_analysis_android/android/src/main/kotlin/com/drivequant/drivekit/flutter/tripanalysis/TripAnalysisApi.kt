@@ -294,7 +294,7 @@ data class PigeonPostGenericResponse (
   val pollutants: PigeonPollutants? = null,
   val tireWear: PigeonTireWear? = null,
   val brakeWear: PigeonBrakeWear? = null,
-  val driverDistraction: List<PigeonDriverDistraction?>? = null,
+  val driverDistraction: PigeonDriverDistraction? = null,
   val itineraryData: PigeonItineraryData? = null,
   val endDate: Long? = null,
   val logbook: PigeonLogbook? = null,
@@ -323,7 +323,7 @@ data class PigeonPostGenericResponse (
       val pollutants = __pigeon_list[11] as PigeonPollutants?
       val tireWear = __pigeon_list[12] as PigeonTireWear?
       val brakeWear = __pigeon_list[13] as PigeonBrakeWear?
-      val driverDistraction = __pigeon_list[14] as List<PigeonDriverDistraction?>?
+      val driverDistraction = __pigeon_list[14] as PigeonDriverDistraction?
       val itineraryData = __pigeon_list[15] as PigeonItineraryData?
       val endDate = __pigeon_list[16].let { num -> if (num is Int) num.toLong() else num as Long? }
       val logbook = __pigeon_list[17] as PigeonLogbook?

@@ -308,7 +308,7 @@ struct PigeonPostGenericResponse {
   var pollutants: PigeonPollutants? = nil
   var tireWear: PigeonTireWear? = nil
   var brakeWear: PigeonBrakeWear? = nil
-  var driverDistraction: [PigeonDriverDistraction?]? = nil
+  var driverDistraction: PigeonDriverDistraction? = nil
   var itineraryData: PigeonItineraryData? = nil
   var endDate: Int64? = nil
   var logbook: PigeonLogbook? = nil
@@ -335,7 +335,7 @@ struct PigeonPostGenericResponse {
     let pollutants: PigeonPollutants? = nilOrValue(__pigeon_list[11])
     let tireWear: PigeonTireWear? = nilOrValue(__pigeon_list[12])
     let brakeWear: PigeonBrakeWear? = nilOrValue(__pigeon_list[13])
-    let driverDistraction: [PigeonDriverDistraction?]? = nilOrValue(__pigeon_list[14])
+    let driverDistraction: PigeonDriverDistraction? = nilOrValue(__pigeon_list[14])
     let itineraryData: PigeonItineraryData? = nilOrValue(__pigeon_list[15])
     let endDate: Int64? = isNullish(__pigeon_list[16]) ? nil : (__pigeon_list[16] is Int64? ? __pigeon_list[16] as! Int64? : Int64(__pigeon_list[16] as! Int32))
     let logbook: PigeonLogbook? = nilOrValue(__pigeon_list[17])

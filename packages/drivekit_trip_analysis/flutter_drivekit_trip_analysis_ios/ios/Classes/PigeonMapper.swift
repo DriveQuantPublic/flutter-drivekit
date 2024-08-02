@@ -203,10 +203,21 @@ extension PigeonPostGenericResponse {
         if let advancedSafety = postGenericResponse.advancedSafety {
             self.advancedSafety = PigeonAdvancedSafety(from: advancedSafety)
         }
-        // TODO: complete implementation for
-        // pollutants, tireWear, brakeWear, driverDistraction, itineraryData, endDate, logbook,
+        if let pollutants = postGenericResponse.pollutants {
+            self.pollutants = PigeonPollutants(from: pollutants)
+        }
+        if let tireWear = postGenericResponse.tireWear {
+            self.tireWear = PigeonTireWear(from: tireWear)
+        }
+        if let brakeWear = postGenericResponse.brakeWear {
+            self.brakeWear = PigeonBrakeWear(from: brakeWear)
+        }
+        if let driverDistraction = postGenericResponse.driverDistraction {
+            self.driverDistraction = PigeonDriverDistraction(from: driverDistraction)
+        }
+        // TODO complete implementation for
+        // itineraryData, endDate, logbook,
         // safetyEvents, callEvents, speedingEvents, speedingStatistics, energyEstimation, advancedEnergyEstimation
-
     }
 }
 
@@ -340,5 +351,63 @@ extension PigeonAdvancedSafety {
             }
         }
         self.init(safetyContext: contextArray)
+    }
+}
+
+extension PigeonPollutants {
+    init(from polluants: Pollutants) {
+        self.init(
+            co: polluants.co,
+            hc: polluants.hc,
+            nox: polluants.nox,
+            soot: polluants.soot
+        )
+    }
+}
+
+extension PigeonTireWear {
+    init(from tireWear: TireWear) {
+        self.init(
+            frontTireAutonomy: Int64(tireWear.frontTireAutonomy),
+            frontTireDistance: Int64(tireWear.frontTireDistance),
+            frontTireTotalWear: Int64(tireWear.frontTireTotalWear),
+            frontTireWear: Int64(tireWear.frontTireWear),
+            frontTireWearRate: Int64(tireWear.frontTireWearRate),
+            rearTireAutonomy: Int64(tireWear.rearTireAutonomy),
+            rearTireDistance: Int64(tireWear.rearTireDistance),
+            rearTireTotalWear: Int64(tireWear.rearTireTotalWear),
+            rearTireWear: Int64(tireWear.rearTireWear),
+            rearTireWearRate: Int64(tireWear.rearTireWearRate)
+        )
+    }
+}
+
+extension PigeonBrakeWear {
+    init(from brakeWear: BrakeWear) {
+        self.init(
+            frontBrakeAutonomy: Int64(brakeWear.frontBrakeAutonomy),
+            frontBrakeDistance: Int64(brakeWear.frontBrakeDistance),
+            frontBrakePadWear: Int64(brakeWear.frontBrakePadWear),
+            frontBrakeTotalWear: Int64(brakeWear.frontBrakeTotalWear),
+            frontBrakeWearRate: Int64(brakeWear.frontBrakeWearRate),
+            rearBrakeAutonomy: Int64(brakeWear.rearBrakeAutonomy),
+            rearBrakeDistance: Int64(brakeWear.rearBrakeDistance),
+            rearBrakePadWear: Int64(brakeWear.rearBrakePadWear),
+            rearBrakeTotalWear: Int64(brakeWear.rearBrakeTotalWear),
+            rearBrakeWearRate: Int64(brakeWear.rearBrakeWearRate)
+        )
+    }
+}
+
+extension PigeonDriverDistraction {
+    init(from driverDistraction: DriverDistraction) {
+        self.init(
+            nbUnlock: Int64(driverDistraction.nbUnlock),
+            durationUnlock: driverDistraction.durationUnlock,
+            durationPercentUnlock: driverDistraction.durationPercentUnlock,
+            distanceUnlock: driverDistraction.distanceUnlock,
+            distancePercentUnlock: driverDistraction.distancePercentUnlock,
+            score: driverDistraction.score
+        )
     }
 }

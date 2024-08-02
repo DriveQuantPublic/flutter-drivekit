@@ -277,7 +277,7 @@ class PigeonPostGenericResponse {
 
   final PigeonBrakeWear? brakeWear;
 
-  final List<PigeonDriverDistraction?>? driverDistraction;
+  final PigeonDriverDistraction? driverDistraction;
 
   final PigeonItineraryData? itineraryData;
 

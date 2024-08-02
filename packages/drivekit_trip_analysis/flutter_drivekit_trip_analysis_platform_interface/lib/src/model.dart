@@ -432,7 +432,7 @@ class PostGenericResponse {
   final BrakeWear? brakeWear;
 
   /// The driver distraction information
-  final List<DriverDistraction>? driverDistraction;
+  final DriverDistraction? driverDistraction;
 
   /// The itinerary data
   final ItineraryData? itineraryData;

@@ -81,7 +81,16 @@ extension DrivekitTripAnalysisPlugin: TripListener {
         let pigeonPostValue = PigeonPostGeneric.init(from: post)
         let pigeonResponseValue = PigeonPostGenericResponse.init(from: response)
 
-        // TODO implement this method by calling flutter API converting any parameter to pigeonModel
+        self.flutterAPI?.tripFinished(
+            post: pigeonPostValue,
+            response: pigeonResponseValue) { result in
+                switch result {
+                case .success:
+                    print("tripFinished event sent with success.")
+                case .failure(let error):
+                    print("Error when sending tripFinished event: \(error.localizedDescription)")
+                }
+            }
     }
 
     public func tripCancelled(cancelTrip: DriveKitTripAnalysisModule.CancelTrip) {

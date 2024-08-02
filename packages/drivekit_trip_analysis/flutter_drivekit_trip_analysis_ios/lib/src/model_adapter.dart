@@ -553,10 +553,7 @@ extension PigeonPostGenericResponseAdapter on PigeonPostGenericResponse {
       pollutants: pollutants?.toModelImplementation(),
       tireWear: tireWear?.toModelImplementation(),
       brakeWear: brakeWear?.toModelImplementation(),
-      driverDistraction: driverDistraction
-          ?.whereNotNull()
-          .map((e) => e.toModelImplementation())
-          .toList(),
+      driverDistraction: driverDistraction?.toModelImplementation(),
       itineraryData: itineraryData?.toModelImplementation(),
       endDate: endDate != null
           ? DateTime.fromMillisecondsSinceEpoch(endDate!)

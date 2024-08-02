@@ -342,7 +342,7 @@ class PigeonPostGenericResponse {
 
   PigeonBrakeWear? brakeWear;
 
-  List<PigeonDriverDistraction?>? driverDistraction;
+  PigeonDriverDistraction? driverDistraction;
 
   PigeonItineraryData? itineraryData;
 
@@ -408,7 +408,7 @@ class PigeonPostGenericResponse {
       pollutants: result[11] as PigeonPollutants?,
       tireWear: result[12] as PigeonTireWear?,
       brakeWear: result[13] as PigeonBrakeWear?,
-      driverDistraction: (result[14] as List<Object?>?)?.cast<PigeonDriverDistraction?>(),
+      driverDistraction: result[14] as PigeonDriverDistraction?,
       itineraryData: result[15] as PigeonItineraryData?,
       endDate: result[16] as int?,
       logbook: result[17] as PigeonLogbook?,
