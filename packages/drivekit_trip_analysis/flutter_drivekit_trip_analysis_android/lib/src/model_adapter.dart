@@ -87,6 +87,7 @@ extension PigeonCancelTripAdapter on PigeonCancelTrip {
       PigeonCancelTrip.beaconNoSpeed => CancelTrip.beaconNoSpeed,
       PigeonCancelTrip.bluetoothDeviceNoSpeed =>
         CancelTrip.bluetoothDeviceNoSpeed,
+      PigeonCancelTrip.noBluetoothDevice => CancelTrip.noBluetoothDevice,
     };
   }
 }

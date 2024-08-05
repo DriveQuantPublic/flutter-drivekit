@@ -73,7 +73,8 @@ enum class PigeonCancelTrip(val raw: Int) {
   NO_GPS_DATA(5),
   RESET(6),
   BEACON_NO_SPEED(7),
-  BLUETOOTH_DEVICE_NO_SPEED(8);
+  NO_BLUETOOTH_DEVICE(8),
+  BLUETOOTH_DEVICE_NO_SPEED(9);
 
   companion object {
     fun ofRaw(raw: Int): PigeonCancelTrip? {

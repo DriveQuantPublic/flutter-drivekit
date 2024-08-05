@@ -1,9 +1,11 @@
 // PigeonMapper object with the mapping function
 package com.drivequant.drivekit.flutter.tripanalysis.mapper
 
+import com.drivequant.drivekit.flutter.tripanalysis.PigeonCancelTrip
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonStartMode
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonVehicle
 import com.drivequant.drivekit.tripanalysis.entity.TripVehicle
+import com.drivequant.drivekit.tripanalysis.service.recorder.CancelTrip
 import com.drivequant.drivekit.tripanalysis.service.recorder.StartMode
 
 object PigeonMapper {
@@ -37,5 +39,18 @@ object PigeonMapper {
         StartMode.UNKNOWN_BLUETOOTH -> PigeonStartMode.UNKNOWN_BLUETOOTH
         StartMode.BICYCLE_ACTIVITY -> PigeonStartMode.BICYCLE_ACTIVITY
         StartMode.CONNECTED_CAR -> PigeonStartMode.CONNECTED_CAR
+    }
+
+    fun toPigeonCancelTrip(cancelTrip: CancelTrip): PigeonCancelTrip = when (cancelTrip) {
+        CancelTrip.USER -> PigeonCancelTrip.USER
+        CancelTrip.HIGHSPEED -> PigeonCancelTrip.HIGHSPEED
+        CancelTrip.NO_SPEED -> PigeonCancelTrip.NO_SPEED
+        CancelTrip.NO_BEACON -> PigeonCancelTrip.NO_BEACON
+        CancelTrip.NO_BLUETOOTH_DEVICE -> PigeonCancelTrip.NO_BLUETOOTH_DEVICE
+        CancelTrip.MISSING_CONFIGURATION -> PigeonCancelTrip.MISSING_CONFIGURATION
+        CancelTrip.NO_GPS_DATA -> PigeonCancelTrip.NO_GPS_DATA
+        CancelTrip.RESET -> PigeonCancelTrip.RESET
+        CancelTrip.BEACON_NO_SPEED -> PigeonCancelTrip.BEACON_NO_SPEED
+        CancelTrip.BLUETOOTH_DEVICE_NO_SPEED -> PigeonCancelTrip.BLUETOOTH_DEVICE_NO_SPEED
     }
 }

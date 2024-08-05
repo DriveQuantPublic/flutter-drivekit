@@ -2,6 +2,7 @@ package com.drivequant.drivekit.flutter.tripanalysis
 
 import android.content.Context
 import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper
+import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeonCancelTrip
 import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeonStartMode
 import com.drivequant.drivekit.tripanalysis.DriveKitTripAnalysis
 import com.drivequant.drivekit.tripanalysis.TripListener
@@ -75,7 +76,9 @@ class DrivekitTripAnalysisPlugin :
         DriveKitTripAnalysis.addTripListener(
             object : TripListener {
                 override fun tripCancelled(cancelTrip: CancelTrip) {
-                    // TODO implement this method by calling flutter API converting any parameter to pigeonModel
+                    flutterApi?.tripCancelled(toPigeonCancelTrip(cancelTrip)) { echo ->
+                        Result.success(echo)
+                    }
                 }
 
                 override fun tripFinished(post: PostGeneric, response: PostGenericResponse) {

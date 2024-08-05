@@ -139,6 +139,8 @@ enum PigeonCancelTrip {
 
   beaconNoSpeed,
 
+  noBluetoothDevice,
+
   bluetoothDeviceNoSpeed;
 }
 

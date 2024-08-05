@@ -45,6 +45,7 @@ enum PigeonCancelTrip {
   noGpsData,
   reset,
   beaconNoSpeed,
+  noBluetoothDevice,
   bluetoothDeviceNoSpeed,
 }
 
