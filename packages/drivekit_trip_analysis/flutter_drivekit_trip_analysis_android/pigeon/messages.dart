@@ -196,7 +196,7 @@ class PigeonDKCrashInfo {
 
   final String? crashId;
 
-  final int? date;
+  final String? date;
 
   final PigeonCrashStatus? status;
 
@@ -285,7 +285,7 @@ class PigeonPostGenericResponse {
 
   final PigeonItineraryData? itineraryData;
 
-  final int? endDate;
+  final String? endDate;
 
   final PigeonLogbook? logbook;
 
@@ -293,7 +293,7 @@ class PigeonPostGenericResponse {
 
   final List<PigeonCallEvent?>? callEvents;
 
-  final List<PigeonSpeedingEvents?>? speedingEvents;
+  final List<PigeonSpeedingEvent?>? speedingEvents;
 
   final PigeonSpeedingStatistics? speedingStatistics;
 
@@ -552,7 +552,7 @@ class PigeonCrashInfo {
 
   final String crashId;
 
-  final int date;
+  final String date;
 
   final int probability;
 
@@ -869,8 +869,8 @@ class PigeonSafetyEvent {
   final double value;
 }
 
-class PigeonSpeedingEvents {
-  const PigeonSpeedingEvents({
+class PigeonSpeedingEvent {
+  const PigeonSpeedingEvent({
     required this.time,
     required this.longitude,
     required this.latitude,

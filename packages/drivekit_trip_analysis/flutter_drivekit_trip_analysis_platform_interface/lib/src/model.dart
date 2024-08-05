@@ -313,7 +313,7 @@ class DKCrashInfo {
   final String? crashId;
 
   /// The date of the crash
-  final DateTime? date;
+  final String? date;
 
   /// The status of the crash
   final CrashStatus? status;
@@ -438,7 +438,7 @@ class PostGenericResponse {
   final ItineraryData? itineraryData;
 
   /// The end date of the itinerary
-  final DateTime? endDate;
+  final String? endDate;
 
   /// The logbook information
   final Logbook? logbook;
@@ -818,7 +818,7 @@ class CrashInfo {
   final String crashId;
 
   /// The date
-  final DateTime date;
+  final String date;
 
   /// The probability
   final int probability;

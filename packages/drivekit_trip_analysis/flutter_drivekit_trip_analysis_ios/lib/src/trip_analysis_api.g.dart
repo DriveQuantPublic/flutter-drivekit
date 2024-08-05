@@ -247,7 +247,7 @@ class PigeonDKCrashInfo {
 
   String? crashId;
 
-  int? date;
+  String? date;
 
   PigeonCrashStatus? status;
 
@@ -275,7 +275,7 @@ class PigeonDKCrashInfo {
     result as List<Object?>;
     return PigeonDKCrashInfo(
       crashId: result[0] as String?,
-      date: result[1] as int?,
+      date: result[1] as String?,
       status: result[2] as PigeonCrashStatus?,
       probability: result[3]! as int,
       latitude: result[4]! as double,
@@ -345,7 +345,7 @@ class PigeonPostGenericResponse {
 
   PigeonItineraryData? itineraryData;
 
-  int? endDate;
+  String? endDate;
 
   PigeonLogbook? logbook;
 
@@ -353,7 +353,7 @@ class PigeonPostGenericResponse {
 
   List<PigeonCallEvent?>? callEvents;
 
-  List<PigeonSpeedingEvents?>? speedingEvents;
+  List<PigeonSpeedingEvent?>? speedingEvents;
 
   PigeonSpeedingStatistics? speedingStatistics;
 
@@ -409,11 +409,11 @@ class PigeonPostGenericResponse {
       brakeWear: result[13] as PigeonBrakeWear?,
       driverDistraction: result[14] as PigeonDriverDistraction?,
       itineraryData: result[15] as PigeonItineraryData?,
-      endDate: result[16] as int?,
+      endDate: result[16] as String?,
       logbook: result[17] as PigeonLogbook?,
       safetyEvents: (result[18] as List<Object?>?)?.cast<PigeonSafetyEvent?>(),
       callEvents: (result[19] as List<Object?>?)?.cast<PigeonCallEvent?>(),
-      speedingEvents: (result[20] as List<Object?>?)?.cast<PigeonSpeedingEvents?>(),
+      speedingEvents: (result[20] as List<Object?>?)?.cast<PigeonSpeedingEvent?>(),
       speedingStatistics: result[21] as PigeonSpeedingStatistics?,
       energyEstimation: result[22] as PigeonEnergyEstimation?,
       advancedEnergyEstimation: (result[23] as List<Object?>?)?.cast<PigeonAdvancedEnergyEstimation?>(),
@@ -1421,8 +1421,8 @@ class PigeonSafetyEvent {
   }
 }
 
-class PigeonSpeedingEvents {
-  PigeonSpeedingEvents({
+class PigeonSpeedingEvent {
+  PigeonSpeedingEvent({
     required this.time,
     required this.longitude,
     required this.latitude,
@@ -1450,9 +1450,9 @@ class PigeonSpeedingEvents {
     ];
   }
 
-  static PigeonSpeedingEvents decode(Object result) {
+  static PigeonSpeedingEvent decode(Object result) {
     result as List<Object?>;
-    return PigeonSpeedingEvents(
+    return PigeonSpeedingEvent(
       time: result[0]! as double,
       longitude: result[1]! as double,
       latitude: result[2]! as double,
@@ -1880,7 +1880,7 @@ class _PigeonCodec extends StandardMessageCodec {
     } else     if (value is PigeonSafetyEvent) {
       buffer.putUint8(152);
       writeValue(buffer, value.encode());
-    } else     if (value is PigeonSpeedingEvents) {
+    } else     if (value is PigeonSpeedingEvent) {
       buffer.putUint8(153);
       writeValue(buffer, value.encode());
     } else     if (value is PigeonSpeedingStatistics) {
@@ -1976,7 +1976,7 @@ class _PigeonCodec extends StandardMessageCodec {
       case 152: 
         return PigeonSafetyEvent.decode(readValue(buffer)!);
       case 153: 
-        return PigeonSpeedingEvents.decode(readValue(buffer)!);
+        return PigeonSpeedingEvent.decode(readValue(buffer)!);
       case 154: 
         return PigeonSpeedingStatistics.decode(readValue(buffer)!);
       case 155: 

@@ -252,7 +252,7 @@ struct PigeonTripPoint {
 /// Generated class from Pigeon that represents data sent in messages.
 struct PigeonDKCrashInfo {
   var crashId: String? = nil
-  var date: Int64? = nil
+  var date: String? = nil
   var status: PigeonCrashStatus? = nil
   var probability: Int64
   var latitude: Double
@@ -262,7 +262,7 @@ struct PigeonDKCrashInfo {
   // swift-format-ignore: AlwaysUseLowerCamelCase
   static func fromList(_ __pigeon_list: [Any?]) -> PigeonDKCrashInfo? {
     let crashId: String? = nilOrValue(__pigeon_list[0])
-    let date: Int64? = isNullish(__pigeon_list[1]) ? nil : (__pigeon_list[1] is Int64? ? __pigeon_list[1] as! Int64? : Int64(__pigeon_list[1] as! Int32))
+    let date: String? = nilOrValue(__pigeon_list[1])
     let status: PigeonCrashStatus? = nilOrValue(__pigeon_list[2])
     let probability = __pigeon_list[3] is Int64 ? __pigeon_list[3] as! Int64 : Int64(__pigeon_list[3] as! Int32)
     let latitude = __pigeon_list[4] as! Double
@@ -310,11 +310,11 @@ struct PigeonPostGenericResponse {
   var brakeWear: PigeonBrakeWear? = nil
   var driverDistraction: PigeonDriverDistraction? = nil
   var itineraryData: PigeonItineraryData? = nil
-  var endDate: Int64? = nil
+  var endDate: String? = nil
   var logbook: PigeonLogbook? = nil
   var safetyEvents: [PigeonSafetyEvent?]? = nil
   var callEvents: [PigeonCallEvent?]? = nil
-  var speedingEvents: [PigeonSpeedingEvents?]? = nil
+  var speedingEvents: [PigeonSpeedingEvent?]? = nil
   var speedingStatistics: PigeonSpeedingStatistics? = nil
   var energyEstimation: PigeonEnergyEstimation? = nil
   var advancedEnergyEstimation: [PigeonAdvancedEnergyEstimation?]? = nil
@@ -337,11 +337,11 @@ struct PigeonPostGenericResponse {
     let brakeWear: PigeonBrakeWear? = nilOrValue(__pigeon_list[13])
     let driverDistraction: PigeonDriverDistraction? = nilOrValue(__pigeon_list[14])
     let itineraryData: PigeonItineraryData? = nilOrValue(__pigeon_list[15])
-    let endDate: Int64? = isNullish(__pigeon_list[16]) ? nil : (__pigeon_list[16] is Int64? ? __pigeon_list[16] as! Int64? : Int64(__pigeon_list[16] as! Int32))
+    let endDate: String? = nilOrValue(__pigeon_list[16])
     let logbook: PigeonLogbook? = nilOrValue(__pigeon_list[17])
     let safetyEvents: [PigeonSafetyEvent?]? = nilOrValue(__pigeon_list[18])
     let callEvents: [PigeonCallEvent?]? = nilOrValue(__pigeon_list[19])
-    let speedingEvents: [PigeonSpeedingEvents?]? = nilOrValue(__pigeon_list[20])
+    let speedingEvents: [PigeonSpeedingEvent?]? = nilOrValue(__pigeon_list[20])
     let speedingStatistics: PigeonSpeedingStatistics? = nilOrValue(__pigeon_list[21])
     let energyEstimation: PigeonEnergyEstimation? = nilOrValue(__pigeon_list[22])
     let advancedEnergyEstimation: [PigeonAdvancedEnergyEstimation?]? = nilOrValue(__pigeon_list[23])
@@ -1248,7 +1248,7 @@ struct PigeonSafetyEvent {
 }
 
 /// Generated class from Pigeon that represents data sent in messages.
-struct PigeonSpeedingEvents {
+struct PigeonSpeedingEvent {
   var time: Double
   var longitude: Double
   var latitude: Double
@@ -1256,14 +1256,14 @@ struct PigeonSpeedingEvents {
   var index: Int64
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
-  static func fromList(_ __pigeon_list: [Any?]) -> PigeonSpeedingEvents? {
+  static func fromList(_ __pigeon_list: [Any?]) -> PigeonSpeedingEvent? {
     let time = __pigeon_list[0] as! Double
     let longitude = __pigeon_list[1] as! Double
     let latitude = __pigeon_list[2] as! Double
     let type = __pigeon_list[3] as! Double
     let index = __pigeon_list[4] is Int64 ? __pigeon_list[4] as! Int64 : Int64(__pigeon_list[4] as! Int32)
 
-    return PigeonSpeedingEvents(
+    return PigeonSpeedingEvent(
       time: time,
       longitude: longitude,
       latitude: latitude,
@@ -1619,7 +1619,7 @@ private class IOSTripAnalysisApiPigeonCodecReader: FlutterStandardReader {
     case 152:
       return PigeonSafetyEvent.fromList(self.readValue() as! [Any?])
     case 153:
-      return PigeonSpeedingEvents.fromList(self.readValue() as! [Any?])
+      return PigeonSpeedingEvent.fromList(self.readValue() as! [Any?])
     case 154:
       return PigeonSpeedingStatistics.fromList(self.readValue() as! [Any?])
     case 155:
@@ -1754,7 +1754,7 @@ private class IOSTripAnalysisApiPigeonCodecWriter: FlutterStandardWriter {
     } else if let value = value as? PigeonSafetyEvent {
       super.writeByte(152)
       super.writeValue(value.toList())
-    } else if let value = value as? PigeonSpeedingEvents {
+    } else if let value = value as? PigeonSpeedingEvent {
       super.writeByte(153)
       super.writeValue(value.toList())
     } else if let value = value as? PigeonSpeedingStatistics {

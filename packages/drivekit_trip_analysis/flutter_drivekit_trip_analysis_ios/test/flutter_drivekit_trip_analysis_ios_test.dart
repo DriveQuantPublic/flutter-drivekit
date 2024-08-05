@@ -361,7 +361,7 @@ void main() {
             mockPigeonDkCrashInfo.velocity,
           );
           expect(
-            crashDetectedList.first.date?.millisecondsSinceEpoch,
+            crashDetectedList.first.date,
             mockPigeonDkCrashInfo.date,
           );
           expect(

@@ -11,7 +11,7 @@ final mockPigeonDkCrashInfo = PigeonDKCrashInfo(
   longitude: 0,
   probability: 0,
   velocity: 9,
-  date: 2,
+  date: '',
   status: PigeonCrashStatus.confirmed,
 );
 

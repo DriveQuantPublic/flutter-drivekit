@@ -215,9 +215,39 @@ extension PigeonPostGenericResponse {
         if let driverDistraction = postGenericResponse.driverDistraction {
             self.driverDistraction = PigeonDriverDistraction(from: driverDistraction)
         }
-        // TODO complete implementation for
-        // itineraryData, endDate, logbook,
-        // safetyEvents, callEvents, speedingEvents, speedingStatistics, energyEstimation, advancedEnergyEstimation
+        if let itineraryData = postGenericResponse.itineraryData {
+            self.itineraryData = PigeonItineraryData(from: itineraryData)
+        }
+        self.endDate = postGenericResponse.endDate
+        if let logbook = postGenericResponse.logbook {
+            self.logbook = PigeonLogbook(from: logbook)
+        }
+        if let safetyEvents = postGenericResponse.safetyEvents {
+            self.safetyEvents = safetyEvents.map({
+                PigeonSafetyEvent(from: $0)
+            })
+        }
+        if let callEvents = postGenericResponse.callEvents {
+            self.callEvents = callEvents.map({
+                PigeonCallEvent(from: $0)
+            })
+        }
+        if let speedingEvents = postGenericResponse.speedingEvents {
+            self.speedingEvents = speedingEvents.map({
+                PigeonSpeedingEvent(from: $0)
+            })
+        }
+        if let speedingStatistics = postGenericResponse.speedingStatistics {
+            self.speedingStatistics = PigeonSpeedingStatistics(from: speedingStatistics)
+        }
+        if let energyEstimation = postGenericResponse.energyEstimation {
+            self.energyEstimation = PigeonEnergyEstimation(from: energyEstimation)
+        }
+        if let advancedEnergyEstimation = postGenericResponse.advancedEnergyEstimation {
+            self.advancedEnergyEstimation = advancedEnergyEstimation.map({
+                PigeonAdvancedEnergyEstimation(from: $0)
+            })
+        }
     }
 }
 
@@ -408,6 +438,117 @@ extension PigeonDriverDistraction {
             distanceUnlock: driverDistraction.distanceUnlock,
             distancePercentUnlock: driverDistraction.distancePercentUnlock,
             score: driverDistraction.score
+        )
+    }
+}
+
+extension PigeonLogbook {
+    init(from logbook: Logbook) {
+        self.init(
+            status: Int64(logbook.status),
+            updateDate: logbook.updateDate
+        )
+    }
+}
+
+extension PigeonSafetyEvent {
+    init(from safetyEvent: SafetyEvent) {
+        self.init(
+            time: safetyEvent.time,
+            longitude: safetyEvent.longitude,
+            latitude: safetyEvent.latitude,
+            velocity: safetyEvent.velocity,
+            heading: safetyEvent.heading,
+            elevation: safetyEvent.elevation,
+            distance: safetyEvent.distance,
+            type: Int64(safetyEvent.type),
+            level: Int64(safetyEvent.level),
+            value: safetyEvent.value
+        )
+    }
+}
+
+extension PigeonCallEvent {
+    init(from callEvent: CallEvent) {
+        self.init(
+            time: callEvent.time,
+            latitude: callEvent.latitude,
+            longitude: callEvent.longitude,
+            velocity: callEvent.velocity,
+            heading: callEvent.heading,
+            elevation: callEvent.elevation,
+            distance: callEvent.distance,
+            type: Int64(callEvent.type),
+            duration: Int64(callEvent.duration),
+            audioSystem: callEvent.audioSystem,
+            callType: callEvent.callType,
+            index: Int64(callEvent.index),
+            forbidden: callEvent.forbidden
+        )
+    }
+}
+
+extension PigeonSpeedingEvent {
+    init(from speedingEvent: SpeedingEvent) {
+        self.init(
+            time: speedingEvent.time,
+            longitude: speedingEvent.longitude,
+            latitude: speedingEvent.latitude,
+            type: speedingEvent.type,
+            index: Int64(speedingEvent.index)
+        )
+    }
+}
+
+extension PigeonSpeedingStatistics {
+    init(from speedingStatistics: SpeedingStatistics) {
+        self.init(
+            distance: Int64(speedingStatistics.distance),
+            duration: Int64(speedingStatistics.duration),
+            speedingDistance: Int64(speedingStatistics.speedingDistance),
+            speedingDuration: Int64(speedingStatistics.speedingDuration),
+            score: speedingStatistics.score,
+            speedLimitContexts: speedingStatistics.speedLimitContexts.map({
+                PigeonSpeedLimitContext(from: $0)
+            })
+        )
+    }
+}
+
+extension PigeonSpeedLimitContext {
+    init(from speedLimitContext: SpeedLimitContext) {
+        self.init(
+            speedLimit: Int64(speedLimitContext.speedLimit),
+            distance: Int64(speedLimitContext.distance),
+            duration: Int64(speedLimitContext.duration),
+            speedingDistance: Int64(speedLimitContext.speedingDistance),
+            speedingDuration: Int64(speedLimitContext.speedingDuration),
+            score: speedLimitContext.score
+        )
+    }
+}
+
+extension PigeonEnergyEstimation {
+    init(from energyEstimation: DKEnergyEstimation) {
+        self.init(
+            energy: energyEstimation.energy,
+            energyConsumption: energyEstimation.energyConsumption,
+            energyOpti: energyEstimation.energyOpti,
+            energyOptiConsumption: energyEstimation.energyOptiConsumption
+        )
+    }
+}
+
+extension PigeonAdvancedEnergyEstimation {
+    init(from advancedEnergyEstimation: DKAdvancedEnergyEstimation) {
+        self.init(
+            energy: advancedEnergyEstimation.energy,
+            energyConsumption: advancedEnergyEstimation.energyConsumption,
+            energyOpti: advancedEnergyEstimation.energyOpti,
+            energyOptiConsumption: advancedEnergyEstimation.energyOptiConsumption,
+            duration: advancedEnergyEstimation.duration,
+            distance: advancedEnergyEstimation.distance,
+            contextId: Int64(advancedEnergyEstimation.contextId)
         )
     }
 }
