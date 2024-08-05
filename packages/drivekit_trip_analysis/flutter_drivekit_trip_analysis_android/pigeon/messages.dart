@@ -539,32 +539,6 @@ class PigeonAdvancedEnergyEstimation {
   final int contextId;
 }
 
-class PigeonCrashInfo {
-  const PigeonCrashInfo({
-    required this.crashId,
-    required this.date,
-    required this.probability,
-    required this.latitude,
-    required this.longitude,
-    required this.velocity,
-    required this.crashStatus,
-  });
-
-  final String crashId;
-
-  final String date;
-
-  final int probability;
-
-  final double latitude;
-
-  final double longitude;
-
-  final double velocity;
-
-  final PigeonCrashStatus crashStatus;
-}
-
 class PigeonEnergyEstimation {
   const PigeonEnergyEstimation({
     required this.energy,

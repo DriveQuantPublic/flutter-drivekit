@@ -677,3 +677,12 @@ extension PigeonCallAdapter on PigeonCall {
     );
   }
 }
+
+/// Adapts the [PigeonLocation] class to the corresponding class
+/// in the model.
+extension PigeonLocationAdapter on PigeonLocation {
+  /// Converts a [PigeonLocation] to a corresponding model class.
+  Location toModelImplementation() {
+    return Location(longitude: longitude, latitude: latitude);
+  }
+}

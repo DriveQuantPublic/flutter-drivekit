@@ -1,3 +1,5 @@
+import DriveKitCoreModule
+import CoreLocation
 import DriveKitTripAnalysisModule
 
 class PigeonMapper {
@@ -549,6 +551,41 @@ extension PigeonAdvancedEnergyEstimation {
             duration: advancedEnergyEstimation.duration,
             distance: advancedEnergyEstimation.distance,
             contextId: Int64(advancedEnergyEstimation.contextId)
+        )
+    }
+}
+
+extension PigeonDKCrashInfo {
+    init(from crashInfo: DKCrashInfo) {
+        self.init(
+            crashId: crashInfo.crashId,
+            date: DateUtils.convertDateToString(date: crashInfo.date),
+            status: PigeonCrashStatus(from: crashInfo.crashStatus),
+            probability: Int64(crashInfo.probability),
+            latitude: crashInfo.latitude,
+            longitude: crashInfo.longitude,
+            velocity: crashInfo.velocity)
+    }
+}
+
+extension PigeonCrashStatus {
+    init(from status: DKCrashStatus) {
+        switch status {
+            case .unconfirmed:
+                self = .unconfirmed
+            case .confirmed:
+                self = .confirmed
+            @unknown default:
+                fatalError()
+        }
+    }
+}
+
+extension PigeonLocation {
+    init(from location: CLLocation) {
+        self.init(
+            longitude: location.coordinate.longitude,
+            latitude: location.coordinate.latitude
         )
     }
 }

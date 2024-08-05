@@ -1567,6 +1567,29 @@ struct PigeonSpeedLimitContext {
     ]
   }
 }
+
+/// Generated class from Pigeon that represents data sent in messages.
+struct PigeonLocation {
+  var longitude: Double
+  var latitude: Double
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ __pigeon_list: [Any?]) -> PigeonLocation? {
+    let longitude = __pigeon_list[0] as! Double
+    let latitude = __pigeon_list[1] as! Double
+
+    return PigeonLocation(
+      longitude: longitude,
+      latitude: latitude
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      longitude,
+      latitude,
+    ]
+  }
+}
 private class IOSTripAnalysisApiPigeonCodecReader: FlutterStandardReader {
   override func readValue(ofType type: UInt8) -> Any? {
     switch type {
@@ -1633,41 +1656,43 @@ private class IOSTripAnalysisApiPigeonCodecReader: FlutterStandardReader {
     case 159:
       return PigeonSpeedLimitContext.fromList(self.readValue() as! [Any?])
     case 160:
+      return PigeonLocation.fromList(self.readValue() as! [Any?])
+    case 161:
       var enumResult: PigeonStartMode? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonStartMode(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 161:
+    case 162:
       var enumResult: PigeonCancelTrip? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonCancelTrip(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 162:
+    case 163:
       var enumResult: PigeonState? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonState(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 163:
+    case 164:
       var enumResult: PigeonDKCrashFeedbackType? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonDKCrashFeedbackType(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 164:
+    case 165:
       var enumResult: PigeonDKCrashFeedbackSeverity? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonDKCrashFeedbackSeverity(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 165:
+    case 166:
       var enumResult: PigeonCrashStatus? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
@@ -1775,23 +1800,26 @@ private class IOSTripAnalysisApiPigeonCodecWriter: FlutterStandardWriter {
     } else if let value = value as? PigeonSpeedLimitContext {
       super.writeByte(159)
       super.writeValue(value.toList())
-    } else if let value = value as? PigeonStartMode {
+    } else if let value = value as? PigeonLocation {
       super.writeByte(160)
-      super.writeValue(value.rawValue)
-    } else if let value = value as? PigeonCancelTrip {
+      super.writeValue(value.toList())
+    } else if let value = value as? PigeonStartMode {
       super.writeByte(161)
       super.writeValue(value.rawValue)
-    } else if let value = value as? PigeonState {
+    } else if let value = value as? PigeonCancelTrip {
       super.writeByte(162)
       super.writeValue(value.rawValue)
-    } else if let value = value as? PigeonDKCrashFeedbackType {
+    } else if let value = value as? PigeonState {
       super.writeByte(163)
       super.writeValue(value.rawValue)
-    } else if let value = value as? PigeonDKCrashFeedbackSeverity {
+    } else if let value = value as? PigeonDKCrashFeedbackType {
       super.writeByte(164)
       super.writeValue(value.rawValue)
-    } else if let value = value as? PigeonCrashStatus {
+    } else if let value = value as? PigeonDKCrashFeedbackSeverity {
       super.writeByte(165)
+      super.writeValue(value.rawValue)
+    } else if let value = value as? PigeonCrashStatus {
+      super.writeByte(166)
       super.writeValue(value.rawValue)
     } else {
       super.writeValue(value)
@@ -1968,7 +1996,7 @@ protocol FlutterTripAnalysisApiProtocol {
   func tripCancelled(cancelTrip cancelTripArg: PigeonCancelTrip, completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void)
   func potentialTripStart(startMode startModeArg: PigeonStartMode, completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void)
   func beaconDetected(completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void)
-  func significantLocationChangeDetected(state stateArg: PigeonState, completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void)
+  func significantLocationChangeDetected(location locationArg: PigeonLocation, completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void)
   func sdkStateChanged(state stateArg: PigeonState, completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void)
   func crashDetected(crashInfo crashInfoArg: PigeonDKCrashInfo, completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void)
   func crashFeedbackSent(crashInfo crashInfoArg: PigeonDKCrashInfo, feedbackType feedbackTypeArg: PigeonDKCrashFeedbackType, severity severityArg: PigeonDKCrashFeedbackSeverity, completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void)
@@ -2109,10 +2137,10 @@ class FlutterTripAnalysisApi: FlutterTripAnalysisApiProtocol {
       }
     }
   }
-  func significantLocationChangeDetected(state stateArg: PigeonState, completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void) {
+  func significantLocationChangeDetected(location locationArg: PigeonLocation, completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void) {
     let channelName: String = "dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.significantLocationChangeDetected\(messageChannelSuffix)"
     let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger, codec: codec)
-    channel.sendMessage([stateArg] as [Any?]) { response in
+    channel.sendMessage([locationArg] as [Any?]) { response in
       guard let listResponse = response as? [Any?] else {
         completion(.failure(createConnectionError(withChannelName: channelName)))
         return

@@ -150,7 +150,7 @@ class TripListener {
   /// iOS only.
   ///
   /// Called when a user significant location change is detected.
-  final void Function(State state)? significantLocationChangeDetected;
+  final void Function(Location location)? significantLocationChangeDetected;
 
   /// Called every time the state of the SDK changed
   /// with the new state as parameter.
@@ -1488,9 +1488,9 @@ enum CrashStatus {
   confirmed,
 }
 
-/// PigeonSpeedLimitContext class
+/// SpeedLimitContext class
 class SpeedLimitContext {
-  /// Creates a PigeonSpeedLimitContext instance
+  /// Creates a SpeedLimitContext instance
   const SpeedLimitContext({
     required this.speedLimit,
     required this.distance,
@@ -1517,4 +1517,16 @@ class SpeedLimitContext {
 
   /// The score
   final double score;
+}
+
+/// Location class
+class Location {
+  /// Creates a Location instance
+  Location({required this.longitude, required this.latitude});
+
+  /// The location longitude
+  final double longitude;
+
+  /// The location latitude
+  final double latitude;
 }

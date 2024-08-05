@@ -132,7 +132,15 @@ extension DrivekitTripAnalysisPlugin: TripListener {
     }
 
     public func significantLocationChangeDetected(location: CLLocation) {
-        // TODO implement this method by calling flutter API converting any parameter to pigeonModel
+        let locationValue = PigeonLocation(from: location)
+        self.flutterAPI?.significantLocationChangeDetected(location: locationValue) {result in
+            switch result {
+            case .success:
+                print("significantLocationChangeDetected event sent with success.")
+            case .failure(let error):
+                print("Error when sending significantLocationChangeDetected event: \(error.localizedDescription)")
+            }
+        }
     }
 
     public func sdkStateChanged(state: DriveKitTripAnalysisModule.State) {
@@ -160,7 +168,15 @@ extension DrivekitTripAnalysisPlugin: TripListener {
     }
 
     public func crashDetected(crashInfo: DriveKitTripAnalysisModule.DKCrashInfo) {
-        // TODO implement this method by calling flutter API converting any parameter to pigeonModel
+        let pigeonCrashInfo = PigeonDKCrashInfo(from: crashInfo)
+        self.flutterAPI?.crashDetected(crashInfo: pigeonCrashInfo) {result in
+            switch result {
+            case .success:
+                    print("crashDetected event sent with success.")
+                case .failure(let error):
+                    print("Error when sending crashDetected event: \(error.localizedDescription)")
+            }
+        }
     }
 
     public func crashFeedbackSent(

@@ -272,8 +272,9 @@ void main() {
         flutterTripAnalysisApi.tripStarted(PigeonStartMode.bluetooth);
         expect(tripStartedCount, 1);
 
-        flutterTripAnalysisApi
-            .significantLocationChangeDetected(PigeonState.running);
+        flutterTripAnalysisApi.significantLocationChangeDetected(
+          PigeonLocation(longitude: 40, latitude: 2),
+        );
         expect(significantLocationChangeDetectedCount, 1);
 
         DrivekitTripAnalysisPlatform.instance.addTripListener(
@@ -323,8 +324,9 @@ void main() {
         flutterTripAnalysisApi.tripStarted(PigeonStartMode.bluetooth);
         expect(tripStartedCount, 3);
 
-        flutterTripAnalysisApi
-            .significantLocationChangeDetected(PigeonState.running);
+        flutterTripAnalysisApi.significantLocationChangeDetected(
+          PigeonLocation(longitude: 40, latitude: 2),
+        );
         expect(significantLocationChangeDetectedCount, 3);
       });
 

@@ -33,7 +33,7 @@ abstract class FlutterTripAnalysisApi {
   void tripCancelled(PigeonCancelTrip cancelTrip);
   void potentialTripStart(PigeonStartMode startMode);
   void beaconDetected();
-  void significantLocationChangeDetected(PigeonState state);
+  void significantLocationChangeDetected(PigeonLocation location);
   void sdkStateChanged(PigeonState state);
   void crashDetected(PigeonDKCrashInfo crashInfo);
   void crashFeedbackSent(
@@ -533,32 +533,6 @@ class PigeonAdvancedEnergyEstimation {
   final double distance;
 
   final int contextId;
-}
-
-class PigeonCrashInfo {
-  const PigeonCrashInfo({
-    required this.crashId,
-    required this.date,
-    required this.probability,
-    required this.latitude,
-    required this.longitude,
-    required this.velocity,
-    required this.crashStatus,
-  });
-
-  final String crashId;
-
-  final String date;
-
-  final int probability;
-
-  final double latitude;
-
-  final double longitude;
-
-  final double velocity;
-
-  final PigeonCrashStatus crashStatus;
 }
 
 class PigeonEnergyEstimation {
@@ -1113,4 +1087,15 @@ class PigeonSpeedLimitContext {
   final int speedingDuration;
 
   final double score;
+}
+
+class PigeonLocation {
+  const PigeonLocation({
+    required this.longitude,
+    required this.latitude,
+  });
+
+  final double longitude;
+
+  final double latitude;
 }
