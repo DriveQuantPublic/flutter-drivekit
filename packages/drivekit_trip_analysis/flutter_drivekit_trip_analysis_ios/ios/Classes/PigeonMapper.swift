@@ -100,10 +100,10 @@ extension PigeonState {
 extension PigeonPostGeneric {
     init(from post: PostGeneric) {
         if let route = post.route {
-            self.route = PigeonRoute.init(from: route)
+            self.route = PigeonRoute(from: route)
         }
         if let itineraryData = post.itineraryData {
-            self.itineraryData = PigeonItineraryData.init(from: itineraryData)
+            self.itineraryData = PigeonItineraryData(from: itineraryData)
         }
         if let metaData = post.metaData {
             self.metaData = metaData
@@ -586,6 +586,51 @@ extension PigeonLocation {
         self.init(
             longitude: location.coordinate.longitude,
             latitude: location.coordinate.latitude
+        )
+    }
+}
+
+extension PigeonDKCrashFeedbackType {
+    init(from type: DKCrashFeedbackType) {
+        switch type {
+            case .noCrash:
+                self = .noCrash
+            case .confirmed:
+                self = .crashConfirmed
+            case .noFeedback:
+                self = .noFeedback
+            @unknown default:
+                fatalError()
+        }
+    }
+}
+
+extension PigeonDKCrashFeedbackSeverity {
+    init(from severity: DKCrashFeedbackSeverity) {
+        switch severity {
+            case .none:
+                self = .none
+            case .minor:
+                self = .minor
+            case .critical:
+                self = .critical
+            @unknown default:
+                fatalError()
+        }
+    }
+}
+
+extension PigeonTripPoint {
+    init(from tripPoint: TripPoint) {
+        self.init(
+            latitude: tripPoint.latitude,
+            longitude: tripPoint.longitude,
+            speed: tripPoint.speed,
+            accuracy: tripPoint.accuracy,
+            elevation: tripPoint.elevation,
+            distance: tripPoint.distance,
+            heading: tripPoint.heading,
+            duration: tripPoint.duration
         )
     }
 }
