@@ -247,7 +247,7 @@ class PigeonDKCrashInfo {
 
   String? crashId;
 
-  int? date;
+  String? date;
 
   PigeonCrashStatus? status;
 
@@ -275,7 +275,7 @@ class PigeonDKCrashInfo {
     result as List<Object?>;
     return PigeonDKCrashInfo(
       crashId: result[0] as String?,
-      date: result[1] as int?,
+      date: result[1] as String?,
       status: result[2] as PigeonCrashStatus?,
       probability: result[3]! as int,
       latitude: result[4]! as double,
@@ -345,7 +345,7 @@ class PigeonPostGenericResponse {
 
   PigeonItineraryData? itineraryData;
 
-  int? endDate;
+  String? endDate;
 
   PigeonLogbook? logbook;
 
@@ -353,7 +353,7 @@ class PigeonPostGenericResponse {
 
   List<PigeonCallEvent?>? callEvents;
 
-  List<PigeonSpeedingEvents?>? speedingEvents;
+  List<PigeonSpeedingEvent?>? speedingEvents;
 
   PigeonSpeedingStatistics? speedingStatistics;
 
@@ -409,11 +409,11 @@ class PigeonPostGenericResponse {
       brakeWear: result[13] as PigeonBrakeWear?,
       driverDistraction: result[14] as PigeonDriverDistraction?,
       itineraryData: result[15] as PigeonItineraryData?,
-      endDate: result[16] as int?,
+      endDate: result[16] as String?,
       logbook: result[17] as PigeonLogbook?,
       safetyEvents: (result[18] as List<Object?>?)?.cast<PigeonSafetyEvent?>(),
       callEvents: (result[19] as List<Object?>?)?.cast<PigeonCallEvent?>(),
-      speedingEvents: (result[20] as List<Object?>?)?.cast<PigeonSpeedingEvents?>(),
+      speedingEvents: (result[20] as List<Object?>?)?.cast<PigeonSpeedingEvent?>(),
       speedingStatistics: result[21] as PigeonSpeedingStatistics?,
       energyEstimation: result[22] as PigeonEnergyEstimation?,
       advancedEnergyEstimation: (result[23] as List<Object?>?)?.cast<PigeonAdvancedEnergyEstimation?>(),
@@ -1421,8 +1421,8 @@ class PigeonSafetyEvent {
   }
 }
 
-class PigeonSpeedingEvents {
-  PigeonSpeedingEvents({
+class PigeonSpeedingEvent {
+  PigeonSpeedingEvent({
     required this.time,
     required this.longitude,
     required this.latitude,
@@ -1450,9 +1450,9 @@ class PigeonSpeedingEvents {
     ];
   }
 
-  static PigeonSpeedingEvents decode(Object result) {
+  static PigeonSpeedingEvent decode(Object result) {
     result as List<Object?>;
-    return PigeonSpeedingEvents(
+    return PigeonSpeedingEvent(
       time: result[0]! as double,
       longitude: result[1]! as double,
       latitude: result[2]! as double,
@@ -1803,6 +1803,32 @@ class PigeonSpeedLimitContext {
   }
 }
 
+class PigeonLocation {
+  PigeonLocation({
+    required this.longitude,
+    required this.latitude,
+  });
+
+  double longitude;
+
+  double latitude;
+
+  Object encode() {
+    return <Object?>[
+      longitude,
+      latitude,
+    ];
+  }
+
+  static PigeonLocation decode(Object result) {
+    result as List<Object?>;
+    return PigeonLocation(
+      longitude: result[0]! as double,
+      latitude: result[1]! as double,
+    );
+  }
+}
+
 
 class _PigeonCodec extends StandardMessageCodec {
   const _PigeonCodec();
@@ -1880,7 +1906,7 @@ class _PigeonCodec extends StandardMessageCodec {
     } else     if (value is PigeonSafetyEvent) {
       buffer.putUint8(152);
       writeValue(buffer, value.encode());
-    } else     if (value is PigeonSpeedingEvents) {
+    } else     if (value is PigeonSpeedingEvent) {
       buffer.putUint8(153);
       writeValue(buffer, value.encode());
     } else     if (value is PigeonSpeedingStatistics) {
@@ -1901,23 +1927,26 @@ class _PigeonCodec extends StandardMessageCodec {
     } else     if (value is PigeonSpeedLimitContext) {
       buffer.putUint8(159);
       writeValue(buffer, value.encode());
-    } else     if (value is PigeonStartMode) {
+    } else     if (value is PigeonLocation) {
       buffer.putUint8(160);
-      writeValue(buffer, value.index);
-    } else     if (value is PigeonCancelTrip) {
+      writeValue(buffer, value.encode());
+    } else     if (value is PigeonStartMode) {
       buffer.putUint8(161);
       writeValue(buffer, value.index);
-    } else     if (value is PigeonState) {
+    } else     if (value is PigeonCancelTrip) {
       buffer.putUint8(162);
       writeValue(buffer, value.index);
-    } else     if (value is PigeonDKCrashFeedbackType) {
+    } else     if (value is PigeonState) {
       buffer.putUint8(163);
       writeValue(buffer, value.index);
-    } else     if (value is PigeonDKCrashFeedbackSeverity) {
+    } else     if (value is PigeonDKCrashFeedbackType) {
       buffer.putUint8(164);
       writeValue(buffer, value.index);
-    } else     if (value is PigeonCrashStatus) {
+    } else     if (value is PigeonDKCrashFeedbackSeverity) {
       buffer.putUint8(165);
+      writeValue(buffer, value.index);
+    } else     if (value is PigeonCrashStatus) {
+      buffer.putUint8(166);
       writeValue(buffer, value.index);
     } else {
       super.writeValue(buffer, value);
@@ -1976,7 +2005,7 @@ class _PigeonCodec extends StandardMessageCodec {
       case 152: 
         return PigeonSafetyEvent.decode(readValue(buffer)!);
       case 153: 
-        return PigeonSpeedingEvents.decode(readValue(buffer)!);
+        return PigeonSpeedingEvent.decode(readValue(buffer)!);
       case 154: 
         return PigeonSpeedingStatistics.decode(readValue(buffer)!);
       case 155: 
@@ -1990,21 +2019,23 @@ class _PigeonCodec extends StandardMessageCodec {
       case 159: 
         return PigeonSpeedLimitContext.decode(readValue(buffer)!);
       case 160: 
-        final int? value = readValue(buffer) as int?;
-        return value == null ? null : PigeonStartMode.values[value];
+        return PigeonLocation.decode(readValue(buffer)!);
       case 161: 
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : PigeonCancelTrip.values[value];
+        return value == null ? null : PigeonStartMode.values[value];
       case 162: 
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : PigeonState.values[value];
+        return value == null ? null : PigeonCancelTrip.values[value];
       case 163: 
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : PigeonDKCrashFeedbackType.values[value];
+        return value == null ? null : PigeonState.values[value];
       case 164: 
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : PigeonDKCrashFeedbackSeverity.values[value];
+        return value == null ? null : PigeonDKCrashFeedbackType.values[value];
       case 165: 
+        final int? value = readValue(buffer) as int?;
+        return value == null ? null : PigeonDKCrashFeedbackSeverity.values[value];
+      case 166: 
         final int? value = readValue(buffer) as int?;
         return value == null ? null : PigeonCrashStatus.values[value];
       default:
@@ -2252,7 +2283,7 @@ abstract class FlutterTripAnalysisApi {
 
   void beaconDetected();
 
-  void significantLocationChangeDetected(PigeonState state);
+  void significantLocationChangeDetected(PigeonLocation location);
 
   void sdkStateChanged(PigeonState state);
 
@@ -2439,11 +2470,11 @@ abstract class FlutterTripAnalysisApi {
           assert(message != null,
           'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.significantLocationChangeDetected was null.');
           final List<Object?> args = (message as List<Object?>?)!;
-          final PigeonState? arg_state = (args[0] as PigeonState?);
-          assert(arg_state != null,
-              'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.significantLocationChangeDetected was null, expected non-null PigeonState.');
+          final PigeonLocation? arg_location = (args[0] as PigeonLocation?);
+          assert(arg_location != null,
+              'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.significantLocationChangeDetected was null, expected non-null PigeonLocation.');
           try {
-            api.significantLocationChangeDetected(arg_state!);
+            api.significantLocationChangeDetected(arg_location!);
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);

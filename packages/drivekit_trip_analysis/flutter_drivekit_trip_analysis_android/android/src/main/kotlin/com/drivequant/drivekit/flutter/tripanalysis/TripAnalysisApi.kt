@@ -73,7 +73,8 @@ enum class PigeonCancelTrip(val raw: Int) {
   NO_GPS_DATA(5),
   RESET(6),
   BEACON_NO_SPEED(7),
-  BLUETOOTH_DEVICE_NO_SPEED(8);
+  NO_BLUETOOTH_DEVICE(8),
+  BLUETOOTH_DEVICE_NO_SPEED(9);
 
   companion object {
     fun ofRaw(raw: Int): PigeonCancelTrip? {
@@ -244,7 +245,7 @@ data class PigeonTripPoint (
 /** Generated class from Pigeon that represents data sent in messages. */
 data class PigeonDKCrashInfo (
   val crashId: String? = null,
-  val date: Long? = null,
+  val date: String? = null,
   val status: PigeonCrashStatus? = null,
   val probability: Long,
   val latitude: Double,
@@ -256,7 +257,7 @@ data class PigeonDKCrashInfo (
     @Suppress("LocalVariableName")
     fun fromList(__pigeon_list: List<Any?>): PigeonDKCrashInfo {
       val crashId = __pigeon_list[0] as String?
-      val date = __pigeon_list[1].let { num -> if (num is Int) num.toLong() else num as Long? }
+      val date = __pigeon_list[1] as String?
       val status = __pigeon_list[2] as PigeonCrashStatus?
       val probability = __pigeon_list[3].let { num -> if (num is Int) num.toLong() else num as Long }
       val latitude = __pigeon_list[4] as Double
@@ -296,11 +297,11 @@ data class PigeonPostGenericResponse (
   val brakeWear: PigeonBrakeWear? = null,
   val driverDistraction: PigeonDriverDistraction? = null,
   val itineraryData: PigeonItineraryData? = null,
-  val endDate: Long? = null,
+  val endDate: String? = null,
   val logbook: PigeonLogbook? = null,
   val safetyEvents: List<PigeonSafetyEvent?>? = null,
   val callEvents: List<PigeonCallEvent?>? = null,
-  val speedingEvents: List<PigeonSpeedingEvents?>? = null,
+  val speedingEvents: List<PigeonSpeedingEvent?>? = null,
   val speedingStatistics: PigeonSpeedingStatistics? = null,
   val energyEstimation: PigeonEnergyEstimation? = null,
   val advancedEnergyEstimation: List<PigeonAdvancedEnergyEstimation?>? = null
@@ -325,11 +326,11 @@ data class PigeonPostGenericResponse (
       val brakeWear = __pigeon_list[13] as PigeonBrakeWear?
       val driverDistraction = __pigeon_list[14] as PigeonDriverDistraction?
       val itineraryData = __pigeon_list[15] as PigeonItineraryData?
-      val endDate = __pigeon_list[16].let { num -> if (num is Int) num.toLong() else num as Long? }
+      val endDate = __pigeon_list[16] as String?
       val logbook = __pigeon_list[17] as PigeonLogbook?
       val safetyEvents = __pigeon_list[18] as List<PigeonSafetyEvent?>?
       val callEvents = __pigeon_list[19] as List<PigeonCallEvent?>?
-      val speedingEvents = __pigeon_list[20] as List<PigeonSpeedingEvents?>?
+      val speedingEvents = __pigeon_list[20] as List<PigeonSpeedingEvent?>?
       val speedingStatistics = __pigeon_list[21] as PigeonSpeedingStatistics?
       val energyEstimation = __pigeon_list[22] as PigeonEnergyEstimation?
       val advancedEnergyEstimation = __pigeon_list[23] as List<PigeonAdvancedEnergyEstimation?>?
@@ -1095,7 +1096,7 @@ data class PigeonSafetyEvent (
 }
 
 /** Generated class from Pigeon that represents data sent in messages. */
-data class PigeonSpeedingEvents (
+data class PigeonSpeedingEvent (
   val time: Double,
   val longitude: Double,
   val latitude: Double,
@@ -1105,13 +1106,13 @@ data class PigeonSpeedingEvents (
 ) {
   companion object {
     @Suppress("LocalVariableName")
-    fun fromList(__pigeon_list: List<Any?>): PigeonSpeedingEvents {
+    fun fromList(__pigeon_list: List<Any?>): PigeonSpeedingEvent {
       val time = __pigeon_list[0] as Double
       val longitude = __pigeon_list[1] as Double
       val latitude = __pigeon_list[2] as Double
       val type = __pigeon_list[3] as Double
       val index = __pigeon_list[4].let { num -> if (num is Int) num.toLong() else num as Long }
-      return PigeonSpeedingEvents(time, longitude, latitude, type, index)
+      return PigeonSpeedingEvent(time, longitude, latitude, type, index)
     }
   }
   fun toList(): List<Any?> {
@@ -1492,7 +1493,7 @@ private object TripAnalysisApiPigeonCodec : StandardMessageCodec() {
       }
       153.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          PigeonSpeedingEvents.fromList(it)
+          PigeonSpeedingEvent.fromList(it)
         }
       }
       154.toByte() -> {
@@ -1656,7 +1657,7 @@ private object TripAnalysisApiPigeonCodec : StandardMessageCodec() {
         stream.write(152)
         writeValue(stream, value.toList())
       }
-      is PigeonSpeedingEvents -> {
+      is PigeonSpeedingEvent -> {
         stream.write(153)
         writeValue(stream, value.toList())
       }

@@ -8,7 +8,7 @@ extension PigeonDKCrashInfoAdapter on PigeonDKCrashInfo {
   DKCrashInfo toModelImplementation() {
     return DKCrashInfo(
       crashId: crashId,
-      date: date != null ? DateTime.fromMillisecondsSinceEpoch(date!) : null,
+      date: date,
       status: status?.toModelImplementation(),
       probability: probability,
       latitude: latitude,
@@ -87,6 +87,7 @@ extension PigeonCancelTripAdapter on PigeonCancelTrip {
       PigeonCancelTrip.beaconNoSpeed => CancelTrip.beaconNoSpeed,
       PigeonCancelTrip.bluetoothDeviceNoSpeed =>
         CancelTrip.bluetoothDeviceNoSpeed,
+      PigeonCancelTrip.noBluetoothDevice => CancelTrip.noBluetoothDevice,
     };
   }
 }
@@ -263,10 +264,10 @@ extension PigeonSafetyEventAdapter on PigeonSafetyEvent {
   }
 }
 
-/// Adapts the [PigeonSpeedingEvents] class to the corresponding class in the
+/// Adapts the [PigeonSpeedingEvent] class to the corresponding class in the
 /// model.
-extension PigeonSpeedingEventsAdapter on PigeonSpeedingEvents {
-  /// Converts a [PigeonSpeedingEvents] to a corresponding model class.
+extension PigeonSpeedingEventAdapter on PigeonSpeedingEvent {
+  /// Converts a [PigeonSpeedingEvent] to a corresponding model class.
   SpeedingEvents toModelImplementation() {
     return SpeedingEvents(
       time: time,
@@ -556,9 +557,7 @@ extension PigeonPostGenericResponseAdapter on PigeonPostGenericResponse {
       brakeWear: brakeWear?.toModelImplementation(),
       driverDistraction: driverDistraction?.toModelImplementation(),
       itineraryData: itineraryData?.toModelImplementation(),
-      endDate: endDate != null
-          ? DateTime.fromMillisecondsSinceEpoch(endDate!)
-          : null,
+      endDate: endDate,
       logbook: logbook?.toModelImplementation(),
       safetyEvents: safetyEvents
           ?.whereNotNull()

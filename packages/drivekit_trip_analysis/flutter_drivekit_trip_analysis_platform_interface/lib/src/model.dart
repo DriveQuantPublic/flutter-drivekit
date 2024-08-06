@@ -150,7 +150,7 @@ class TripListener {
   /// iOS only.
   ///
   /// Called when a user significant location change is detected.
-  final void Function(State state)? significantLocationChangeDetected;
+  final void Function(Location location)? significantLocationChangeDetected;
 
   /// Called every time the state of the SDK changed
   /// with the new state as parameter.
@@ -313,7 +313,7 @@ class DKCrashInfo {
   final String? crashId;
 
   /// The date of the crash
-  final DateTime? date;
+  final String? date;
 
   /// The status of the crash
   final CrashStatus? status;
@@ -438,7 +438,7 @@ class PostGenericResponse {
   final ItineraryData? itineraryData;
 
   /// The end date of the itinerary
-  final DateTime? endDate;
+  final String? endDate;
 
   /// The logbook information
   final Logbook? logbook;
@@ -818,7 +818,7 @@ class CrashInfo {
   final String crashId;
 
   /// The date
-  final DateTime date;
+  final String date;
 
   /// The probability
   final int probability;
@@ -1488,9 +1488,9 @@ enum CrashStatus {
   confirmed,
 }
 
-/// PigeonSpeedLimitContext class
+/// SpeedLimitContext class
 class SpeedLimitContext {
-  /// Creates a PigeonSpeedLimitContext instance
+  /// Creates a SpeedLimitContext instance
   const SpeedLimitContext({
     required this.speedLimit,
     required this.distance,
@@ -1517,4 +1517,16 @@ class SpeedLimitContext {
 
   /// The score
   final double score;
+}
+
+/// Location class
+class Location {
+  /// Creates a Location instance
+  Location({required this.longitude, required this.latitude});
+
+  /// The location longitude
+  final double longitude;
+
+  /// The location latitude
+  final double latitude;
 }

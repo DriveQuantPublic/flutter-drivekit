@@ -252,7 +252,7 @@ struct PigeonTripPoint {
 /// Generated class from Pigeon that represents data sent in messages.
 struct PigeonDKCrashInfo {
   var crashId: String? = nil
-  var date: Int64? = nil
+  var date: String? = nil
   var status: PigeonCrashStatus? = nil
   var probability: Int64
   var latitude: Double
@@ -262,7 +262,7 @@ struct PigeonDKCrashInfo {
   // swift-format-ignore: AlwaysUseLowerCamelCase
   static func fromList(_ __pigeon_list: [Any?]) -> PigeonDKCrashInfo? {
     let crashId: String? = nilOrValue(__pigeon_list[0])
-    let date: Int64? = isNullish(__pigeon_list[1]) ? nil : (__pigeon_list[1] is Int64? ? __pigeon_list[1] as! Int64? : Int64(__pigeon_list[1] as! Int32))
+    let date: String? = nilOrValue(__pigeon_list[1])
     let status: PigeonCrashStatus? = nilOrValue(__pigeon_list[2])
     let probability = __pigeon_list[3] is Int64 ? __pigeon_list[3] as! Int64 : Int64(__pigeon_list[3] as! Int32)
     let latitude = __pigeon_list[4] as! Double
@@ -310,11 +310,11 @@ struct PigeonPostGenericResponse {
   var brakeWear: PigeonBrakeWear? = nil
   var driverDistraction: PigeonDriverDistraction? = nil
   var itineraryData: PigeonItineraryData? = nil
-  var endDate: Int64? = nil
+  var endDate: String? = nil
   var logbook: PigeonLogbook? = nil
   var safetyEvents: [PigeonSafetyEvent?]? = nil
   var callEvents: [PigeonCallEvent?]? = nil
-  var speedingEvents: [PigeonSpeedingEvents?]? = nil
+  var speedingEvents: [PigeonSpeedingEvent?]? = nil
   var speedingStatistics: PigeonSpeedingStatistics? = nil
   var energyEstimation: PigeonEnergyEstimation? = nil
   var advancedEnergyEstimation: [PigeonAdvancedEnergyEstimation?]? = nil
@@ -337,11 +337,11 @@ struct PigeonPostGenericResponse {
     let brakeWear: PigeonBrakeWear? = nilOrValue(__pigeon_list[13])
     let driverDistraction: PigeonDriverDistraction? = nilOrValue(__pigeon_list[14])
     let itineraryData: PigeonItineraryData? = nilOrValue(__pigeon_list[15])
-    let endDate: Int64? = isNullish(__pigeon_list[16]) ? nil : (__pigeon_list[16] is Int64? ? __pigeon_list[16] as! Int64? : Int64(__pigeon_list[16] as! Int32))
+    let endDate: String? = nilOrValue(__pigeon_list[16])
     let logbook: PigeonLogbook? = nilOrValue(__pigeon_list[17])
     let safetyEvents: [PigeonSafetyEvent?]? = nilOrValue(__pigeon_list[18])
     let callEvents: [PigeonCallEvent?]? = nilOrValue(__pigeon_list[19])
-    let speedingEvents: [PigeonSpeedingEvents?]? = nilOrValue(__pigeon_list[20])
+    let speedingEvents: [PigeonSpeedingEvent?]? = nilOrValue(__pigeon_list[20])
     let speedingStatistics: PigeonSpeedingStatistics? = nilOrValue(__pigeon_list[21])
     let energyEstimation: PigeonEnergyEstimation? = nilOrValue(__pigeon_list[22])
     let advancedEnergyEstimation: [PigeonAdvancedEnergyEstimation?]? = nilOrValue(__pigeon_list[23])
@@ -1248,7 +1248,7 @@ struct PigeonSafetyEvent {
 }
 
 /// Generated class from Pigeon that represents data sent in messages.
-struct PigeonSpeedingEvents {
+struct PigeonSpeedingEvent {
   var time: Double
   var longitude: Double
   var latitude: Double
@@ -1256,14 +1256,14 @@ struct PigeonSpeedingEvents {
   var index: Int64
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
-  static func fromList(_ __pigeon_list: [Any?]) -> PigeonSpeedingEvents? {
+  static func fromList(_ __pigeon_list: [Any?]) -> PigeonSpeedingEvent? {
     let time = __pigeon_list[0] as! Double
     let longitude = __pigeon_list[1] as! Double
     let latitude = __pigeon_list[2] as! Double
     let type = __pigeon_list[3] as! Double
     let index = __pigeon_list[4] is Int64 ? __pigeon_list[4] as! Int64 : Int64(__pigeon_list[4] as! Int32)
 
-    return PigeonSpeedingEvents(
+    return PigeonSpeedingEvent(
       time: time,
       longitude: longitude,
       latitude: latitude,
@@ -1567,6 +1567,29 @@ struct PigeonSpeedLimitContext {
     ]
   }
 }
+
+/// Generated class from Pigeon that represents data sent in messages.
+struct PigeonLocation {
+  var longitude: Double
+  var latitude: Double
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ __pigeon_list: [Any?]) -> PigeonLocation? {
+    let longitude = __pigeon_list[0] as! Double
+    let latitude = __pigeon_list[1] as! Double
+
+    return PigeonLocation(
+      longitude: longitude,
+      latitude: latitude
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      longitude,
+      latitude,
+    ]
+  }
+}
 private class IOSTripAnalysisApiPigeonCodecReader: FlutterStandardReader {
   override func readValue(ofType type: UInt8) -> Any? {
     switch type {
@@ -1619,7 +1642,7 @@ private class IOSTripAnalysisApiPigeonCodecReader: FlutterStandardReader {
     case 152:
       return PigeonSafetyEvent.fromList(self.readValue() as! [Any?])
     case 153:
-      return PigeonSpeedingEvents.fromList(self.readValue() as! [Any?])
+      return PigeonSpeedingEvent.fromList(self.readValue() as! [Any?])
     case 154:
       return PigeonSpeedingStatistics.fromList(self.readValue() as! [Any?])
     case 155:
@@ -1633,41 +1656,43 @@ private class IOSTripAnalysisApiPigeonCodecReader: FlutterStandardReader {
     case 159:
       return PigeonSpeedLimitContext.fromList(self.readValue() as! [Any?])
     case 160:
+      return PigeonLocation.fromList(self.readValue() as! [Any?])
+    case 161:
       var enumResult: PigeonStartMode? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonStartMode(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 161:
+    case 162:
       var enumResult: PigeonCancelTrip? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonCancelTrip(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 162:
+    case 163:
       var enumResult: PigeonState? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonState(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 163:
+    case 164:
       var enumResult: PigeonDKCrashFeedbackType? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonDKCrashFeedbackType(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 164:
+    case 165:
       var enumResult: PigeonDKCrashFeedbackSeverity? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonDKCrashFeedbackSeverity(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 165:
+    case 166:
       var enumResult: PigeonCrashStatus? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
@@ -1754,7 +1779,7 @@ private class IOSTripAnalysisApiPigeonCodecWriter: FlutterStandardWriter {
     } else if let value = value as? PigeonSafetyEvent {
       super.writeByte(152)
       super.writeValue(value.toList())
-    } else if let value = value as? PigeonSpeedingEvents {
+    } else if let value = value as? PigeonSpeedingEvent {
       super.writeByte(153)
       super.writeValue(value.toList())
     } else if let value = value as? PigeonSpeedingStatistics {
@@ -1775,23 +1800,26 @@ private class IOSTripAnalysisApiPigeonCodecWriter: FlutterStandardWriter {
     } else if let value = value as? PigeonSpeedLimitContext {
       super.writeByte(159)
       super.writeValue(value.toList())
-    } else if let value = value as? PigeonStartMode {
+    } else if let value = value as? PigeonLocation {
       super.writeByte(160)
-      super.writeValue(value.rawValue)
-    } else if let value = value as? PigeonCancelTrip {
+      super.writeValue(value.toList())
+    } else if let value = value as? PigeonStartMode {
       super.writeByte(161)
       super.writeValue(value.rawValue)
-    } else if let value = value as? PigeonState {
+    } else if let value = value as? PigeonCancelTrip {
       super.writeByte(162)
       super.writeValue(value.rawValue)
-    } else if let value = value as? PigeonDKCrashFeedbackType {
+    } else if let value = value as? PigeonState {
       super.writeByte(163)
       super.writeValue(value.rawValue)
-    } else if let value = value as? PigeonDKCrashFeedbackSeverity {
+    } else if let value = value as? PigeonDKCrashFeedbackType {
       super.writeByte(164)
       super.writeValue(value.rawValue)
-    } else if let value = value as? PigeonCrashStatus {
+    } else if let value = value as? PigeonDKCrashFeedbackSeverity {
       super.writeByte(165)
+      super.writeValue(value.rawValue)
+    } else if let value = value as? PigeonCrashStatus {
+      super.writeByte(166)
       super.writeValue(value.rawValue)
     } else {
       super.writeValue(value)
@@ -1968,7 +1996,7 @@ protocol FlutterTripAnalysisApiProtocol {
   func tripCancelled(cancelTrip cancelTripArg: PigeonCancelTrip, completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void)
   func potentialTripStart(startMode startModeArg: PigeonStartMode, completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void)
   func beaconDetected(completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void)
-  func significantLocationChangeDetected(state stateArg: PigeonState, completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void)
+  func significantLocationChangeDetected(location locationArg: PigeonLocation, completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void)
   func sdkStateChanged(state stateArg: PigeonState, completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void)
   func crashDetected(crashInfo crashInfoArg: PigeonDKCrashInfo, completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void)
   func crashFeedbackSent(crashInfo crashInfoArg: PigeonDKCrashInfo, feedbackType feedbackTypeArg: PigeonDKCrashFeedbackType, severity severityArg: PigeonDKCrashFeedbackSeverity, completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void)
@@ -2109,10 +2137,10 @@ class FlutterTripAnalysisApi: FlutterTripAnalysisApiProtocol {
       }
     }
   }
-  func significantLocationChangeDetected(state stateArg: PigeonState, completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void) {
+  func significantLocationChangeDetected(location locationArg: PigeonLocation, completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void) {
     let channelName: String = "dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.significantLocationChangeDetected\(messageChannelSuffix)"
     let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger, codec: codec)
-    channel.sendMessage([stateArg] as [Any?]) { response in
+    channel.sendMessage([locationArg] as [Any?]) { response in
       guard let listResponse = response as? [Any?] else {
         completion(.failure(createConnectionError(withChannelName: channelName)))
         return

@@ -150,10 +150,10 @@ class DrivekitTripAnalysisIOS extends DrivekitTripAnalysisPlatform
   }
 
   @override
-  void significantLocationChangeDetected(PigeonState state) {
+  void significantLocationChangeDetected(PigeonLocation location) {
     for (final listener in _listeners) {
       listener.significantLocationChangeDetected
-          ?.call(state.toModelImplementation());
+          ?.call(location.toModelImplementation());
     }
   }
 

@@ -139,6 +139,8 @@ enum PigeonCancelTrip {
 
   beaconNoSpeed,
 
+  noBluetoothDevice,
+
   bluetoothDeviceNoSpeed;
 }
 
@@ -196,7 +198,7 @@ class PigeonDKCrashInfo {
 
   final String? crashId;
 
-  final int? date;
+  final String? date;
 
   final PigeonCrashStatus? status;
 
@@ -285,7 +287,7 @@ class PigeonPostGenericResponse {
 
   final PigeonItineraryData? itineraryData;
 
-  final int? endDate;
+  final String? endDate;
 
   final PigeonLogbook? logbook;
 
@@ -293,7 +295,7 @@ class PigeonPostGenericResponse {
 
   final List<PigeonCallEvent?>? callEvents;
 
-  final List<PigeonSpeedingEvents?>? speedingEvents;
+  final List<PigeonSpeedingEvent?>? speedingEvents;
 
   final PigeonSpeedingStatistics? speedingStatistics;
 
@@ -537,32 +539,6 @@ class PigeonAdvancedEnergyEstimation {
   final double distance;
 
   final int contextId;
-}
-
-class PigeonCrashInfo {
-  const PigeonCrashInfo({
-    required this.crashId,
-    required this.date,
-    required this.probability,
-    required this.latitude,
-    required this.longitude,
-    required this.velocity,
-    required this.crashStatus,
-  });
-
-  final String crashId;
-
-  final int date;
-
-  final int probability;
-
-  final double latitude;
-
-  final double longitude;
-
-  final double velocity;
-
-  final PigeonCrashStatus crashStatus;
 }
 
 class PigeonEnergyEstimation {
@@ -869,8 +845,8 @@ class PigeonSafetyEvent {
   final double value;
 }
 
-class PigeonSpeedingEvents {
-  const PigeonSpeedingEvents({
+class PigeonSpeedingEvent {
+  const PigeonSpeedingEvent({
     required this.time,
     required this.longitude,
     required this.latitude,
