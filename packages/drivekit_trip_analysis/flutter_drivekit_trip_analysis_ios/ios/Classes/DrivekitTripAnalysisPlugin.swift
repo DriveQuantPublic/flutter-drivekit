@@ -78,7 +78,19 @@ extension DrivekitTripAnalysisPlugin: TripListener {
     }
 
     public func tripFinished(post: DriveKitTripAnalysisModule.PostGeneric, response: DriveKitTripAnalysisModule.PostGenericResponse) {
-        // TODO implement this method by calling flutter API converting any parameter to pigeonModel
+        let pigeonPostValue = PigeonPostGeneric.init(from: post)
+        let pigeonResponseValue = PigeonPostGenericResponse.init(from: response)
+
+        self.flutterAPI?.tripFinished(
+            post: pigeonPostValue,
+            response: pigeonResponseValue) { result in
+                switch result {
+                case .success:
+                    print("tripFinished event sent with success.")
+                case .failure(let error):
+                    print("Error when sending tripFinished event: \(error.localizedDescription)")
+                }
+            }
     }
 
     public func tripCancelled(cancelTrip: DriveKitTripAnalysisModule.CancelTrip) {
@@ -105,7 +117,15 @@ extension DrivekitTripAnalysisPlugin: TripListener {
     }
 
     public func tripPoint(tripPoint: DriveKitTripAnalysisModule.TripPoint) {
-        // TODO implement this method by calling flutter API converting any parameter to pigeonModel
+        let tripPointValue = PigeonTripPoint.init(from: tripPoint)
+        self.flutterAPI?.tripPoint(tripPoint: tripPointValue) {result in
+            switch result {
+            case .success:
+                    print("tripPoint event sent with success.")
+                case .failure(let error):
+                    print("Error when sending tripPoint event: \(error.localizedDescription)")
+            }
+        }
     }
 
     public func beaconDetected() {
@@ -120,7 +140,15 @@ extension DrivekitTripAnalysisPlugin: TripListener {
     }
 
     public func significantLocationChangeDetected(location: CLLocation) {
-        // TODO implement this method by calling flutter API converting any parameter to pigeonModel
+        let locationValue = PigeonLocation(from: location)
+        self.flutterAPI?.significantLocationChangeDetected(location: locationValue) {result in
+            switch result {
+            case .success:
+                print("significantLocationChangeDetected event sent with success.")
+            case .failure(let error):
+                print("Error when sending significantLocationChangeDetected event: \(error.localizedDescription)")
+            }
+        }
     }
 
     public func sdkStateChanged(state: DriveKitTripAnalysisModule.State) {
@@ -148,13 +176,34 @@ extension DrivekitTripAnalysisPlugin: TripListener {
     }
 
     public func crashDetected(crashInfo: DriveKitTripAnalysisModule.DKCrashInfo) {
-        // TODO implement this method by calling flutter API converting any parameter to pigeonModel
+        let pigeonCrashInfo = PigeonDKCrashInfo(from: crashInfo)
+        self.flutterAPI?.crashDetected(crashInfo: pigeonCrashInfo) {result in
+            switch result {
+            case .success:
+                    print("crashDetected event sent with success.")
+                case .failure(let error):
+                    print("Error when sending crashDetected event: \(error.localizedDescription)")
+            }
+        }
     }
 
     public func crashFeedbackSent(
         crashInfo: DriveKitTripAnalysisModule.DKCrashInfo, feedbackType: DriveKitTripAnalysisModule.DKCrashFeedbackType, severity: DriveKitTripAnalysisModule.DKCrashFeedbackSeverity
     ) {
-        // TODO implement this method by calling flutter API converting any parameter to pigeonModel
+        let pigeonCrashInfo = PigeonDKCrashInfo(from: crashInfo)
+        let pigeonCrashFeedbackType = PigeonDKCrashFeedbackType.init(from: feedbackType)
+        let pigeonCrashFeedbackSeverity = PigeonDKCrashFeedbackSeverity.init(from: severity)
+        self.flutterAPI?.crashFeedbackSent(
+            crashInfo: pigeonCrashInfo,
+            feedbackType: pigeonCrashFeedbackType,
+            severity: pigeonCrashFeedbackSeverity
+        ) { result in
+            switch result {
+            case .success:
+                    print("crashFeedbackSent event sent with success.")
+                case .failure(let error):
+                    print("Error when sending crashFeedbackSent event: \(error.localizedDescription)")
+            }
+        }
     }
-
 }

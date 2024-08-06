@@ -42,6 +42,8 @@ abstract class FlutterCoreApi {
     PigeonUpdateUserIdStatus status,
     String? userId,
   );
+
+  void onDeviceConfigurationChanged(PigeonDeviceConfigurationEvent event);
 }
 
 enum PigeonDeleteAccountStatus {
@@ -66,4 +68,23 @@ enum PigeonUpdateUserIdStatus {
   invalidUserId,
   alreadyUsed,
   savedForRepost;
+}
+
+enum PigeonDeviceConfigurationEvent {
+  locationSensorValid,
+  locationSensorInvalid,
+  bluetoothSensorValid,
+  bluetoothSensorInvalid,
+  locationPermissionValid,
+  locationPermissionInvalid,
+  activityPermissionValid,
+  activityPermissionInvalid,
+  notificationPermissionValid,
+  notificationPermissionInvalid,
+  nearbyDevicePermissionValid,
+  nearbyDevicePermissionInvalid,
+  autoResetPermissionValid,
+  autoResetPermissionInvalid,
+  appBatteryOptimisationValid,
+  appBatteryOptimisationInvalid,
 }

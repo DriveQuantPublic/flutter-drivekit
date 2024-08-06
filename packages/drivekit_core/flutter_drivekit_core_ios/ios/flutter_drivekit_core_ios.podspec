@@ -3,18 +3,18 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'flutter_drivekit_core_ios'
-  s.version          = '0.0.1'
+  s.version          = '0.0.4'
   s.summary          = 'An iOS implementation of the drivekit_core plugin.'
   s.description      = <<-DESC
   An iOS implementation of the drivekit_core plugin.
                        DESC
-  s.homepage         = 'http://example.com'
-  s.license          = { :type => 'BSD', :file => '../LICENSE' }
-  s.author           = { 'Your Company' => 'email@example.com' }
+  s.homepage         = 'https://docs.drivequant.com'
+  s.license          = { :type => 'Apache-2.0', :file => '../LICENSE' }
+  s.author           = { 'DriveQuant' => 'developer@drivequant.com' }
   s.source           = { :path => '.' }  
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
-  s.dependency 'DriveKitCore', '2.3.0'
+  s.dependency 'DriveKitCore', '2.4.0'
   s.platform = :ios, '12.0'
 
   # Flutter.framework does not contain a i386 slice.

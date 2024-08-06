@@ -1,9 +1,11 @@
 package com.drivequant.drivekit.flutter.core.mapper
 
+import com.drivequant.drivekit.core.deviceconfiguration.DKDeviceConfigurationEvent
 import com.drivequant.drivekit.core.driver.UpdateUserIdStatus
 import com.drivequant.drivekit.core.driver.deletion.DeleteAccountStatus
 import com.drivequant.drivekit.core.networking.RequestError
 import com.drivequant.drivekit.flutter.core.PigeonDeleteAccountStatus
+import com.drivequant.drivekit.flutter.core.PigeonDeviceConfigurationEvent
 import com.drivequant.drivekit.flutter.core.PigeonRequestError
 import com.drivequant.drivekit.flutter.core.PigeonUpdateUserIdStatus
 
@@ -31,5 +33,64 @@ internal object PigeonMapper {
         DeleteAccountStatus.SUCCESS -> PigeonDeleteAccountStatus.SUCCESS
         DeleteAccountStatus.FAILED_TO_DELETE -> PigeonDeleteAccountStatus.FAILED_TO_DELETE
         DeleteAccountStatus.FORBIDDEN -> PigeonDeleteAccountStatus.FORBIDDEN
+    }
+
+    fun DKDeviceConfigurationEvent.toPigeon(): PigeonDeviceConfigurationEvent = when (this) {
+        is DKDeviceConfigurationEvent.ActivityPermission -> {
+            if (this.isValid) {
+                PigeonDeviceConfigurationEvent.ACTIVITY_PERMISSION_VALID
+            } else {
+                PigeonDeviceConfigurationEvent.ACTIVITY_PERMISSION_INVALID
+            }
+        }
+        is DKDeviceConfigurationEvent.AppBatteryOptimisation -> {
+            if (this.isValid) {
+                PigeonDeviceConfigurationEvent.APP_BATTERY_OPTIMISATION_VALID
+            } else {
+                PigeonDeviceConfigurationEvent.APP_BATTERY_OPTIMISATION_INVALID
+            }
+        }
+        is DKDeviceConfigurationEvent.AutoResetPermission -> {
+            if (this.isValid) {
+                PigeonDeviceConfigurationEvent.AUTO_RESET_PERMISSION_VALID
+            } else {
+                PigeonDeviceConfigurationEvent.AUTO_RESET_PERMISSION_INVALID
+            }
+        }
+        is DKDeviceConfigurationEvent.BluetoothSensor -> {
+            if (this.isValid) {
+                PigeonDeviceConfigurationEvent.BLUETOOTH_SENSOR_VALID
+            } else {
+                PigeonDeviceConfigurationEvent.BLUETOOTH_SENSOR_INVALID
+            }
+        }
+        is DKDeviceConfigurationEvent.LocationPermission -> {
+            if (this.isValid) {
+                PigeonDeviceConfigurationEvent.LOCATION_PERMISSION_VALID
+            } else {
+                PigeonDeviceConfigurationEvent.LOCATION_PERMISSION_INVALID
+            }
+        }
+        is DKDeviceConfigurationEvent.LocationSensor -> {
+            if (this.isValid) {
+                PigeonDeviceConfigurationEvent.LOCATION_SENSOR_VALID
+            } else {
+                PigeonDeviceConfigurationEvent.LOCATION_SENSOR_INVALID
+            }
+        }
+        is DKDeviceConfigurationEvent.NearbyDevicesPermission -> {
+            if (this.isValid) {
+                PigeonDeviceConfigurationEvent.NEARBY_DEVICE_PERMISSION_VALID
+            } else {
+                PigeonDeviceConfigurationEvent.NEARBY_DEVICE_PERMISSION_INVALID
+            }
+        }
+        is DKDeviceConfigurationEvent.NotificationPermission -> {
+            if (this.isValid) {
+                PigeonDeviceConfigurationEvent.NOTIFICATION_PERMISSION_VALID
+            } else {
+                PigeonDeviceConfigurationEvent.NOTIFICATION_PERMISSION_INVALID
+            }
+        }
     }
 }

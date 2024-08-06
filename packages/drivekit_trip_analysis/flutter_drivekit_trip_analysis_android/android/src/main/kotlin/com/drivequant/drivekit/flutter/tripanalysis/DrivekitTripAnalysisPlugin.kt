@@ -2,7 +2,15 @@ package com.drivequant.drivekit.flutter.tripanalysis
 
 import android.content.Context
 import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper
+import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeonCancelTrip
+import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeonDKCrashFeedbackSeverity
+import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeonDKCrashFeedbackType
+import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeonDKCrashInfo
+import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeonPostGeneric
+import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeonPostGenericResponse
 import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeonStartMode
+import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeonState
+import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeonTripPoint
 import com.drivequant.drivekit.tripanalysis.DriveKitTripAnalysis
 import com.drivequant.drivekit.tripanalysis.TripListener
 import com.drivequant.drivekit.tripanalysis.entity.PostGeneric
@@ -75,11 +83,18 @@ class DrivekitTripAnalysisPlugin :
         DriveKitTripAnalysis.addTripListener(
             object : TripListener {
                 override fun tripCancelled(cancelTrip: CancelTrip) {
-                    // TODO implement this method by calling flutter API converting any parameter to pigeonModel
+                    flutterApi?.tripCancelled(toPigeonCancelTrip(cancelTrip)) { echo ->
+                        Result.success(echo)
+                    }
                 }
 
                 override fun tripFinished(post: PostGeneric, response: PostGenericResponse) {
-                    // TODO implement this method by calling flutter API converting any parameter to pigeonModel
+                    flutterApi?.tripFinished(
+                        postArg = toPigeonPostGeneric(post),
+                        responseArg = toPigeonPostGenericResponse(response)
+                    ) { echo ->
+                        Result.success(echo)
+                    }
                 }
 
                 override fun tripSavedForRepost() {
@@ -101,7 +116,9 @@ class DrivekitTripAnalysisPlugin :
                 }
 
                 override fun crashDetected(crashInfo: DKCrashInfo) {
-                    // TODO implement this method by calling flutter API converting any parameter to pigeonModel
+                    flutterApi?.crashDetected(toPigeonDKCrashInfo(crashInfo)) { echo ->
+                        Result.success(echo)
+                    }
                 }
 
                 override fun crashFeedbackSent(
@@ -109,7 +126,13 @@ class DrivekitTripAnalysisPlugin :
                     feedbackType: CrashFeedbackType,
                     severity: CrashFeedbackSeverity
                 ) {
-                    // TODO implement this method by calling flutter API converting any parameter to pigeonModel
+                    flutterApi?.crashFeedbackSent(
+                        toPigeonDKCrashInfo(crashInfo),
+                        toPigeonDKCrashFeedbackType(feedbackType),
+                        toPigeonDKCrashFeedbackSeverity(severity)
+                    ) { echo ->
+                        Result.success(echo)
+                    }
                 }
 
                 override fun potentialTripStart(startMode: StartMode) {
@@ -119,11 +142,15 @@ class DrivekitTripAnalysisPlugin :
                 }
 
                 override fun sdkStateChanged(state: State) {
-                    // TODO implement this method by calling flutter API converting any parameter to pigeonModel
+                    flutterApi?.sdkStateChanged(toPigeonState(state)) { echo ->
+                        Result.success(echo)
+                    }
                 }
 
                 override fun tripPoint(tripPoint: TripPoint) {
-                    // TODO implement this method by calling flutter API converting any parameter to pigeonModel
+                    flutterApi?.tripPoint(toPigeonTripPoint(tripPoint)) { echo ->
+                        Result.success(echo)
+                    }
                 }
             }
         )

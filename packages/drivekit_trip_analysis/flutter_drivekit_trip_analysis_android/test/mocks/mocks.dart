@@ -12,23 +12,8 @@ final mockPigeonDkCrashInfo = PigeonDKCrashInfo(
   longitude: 0,
   probability: 0,
   velocity: 9,
-  date: 2,
+  date: '',
   status: PigeonCrashStatus.confirmed,
-);
-final mockPigeonSmartphoneData = PigeonSmartphoneData(
-  gpsDate: 0,
-  phoneDate: 1,
-  startMode: 0,
-  batteryPercent: 0,
-  tripCut: true,
-  bluetoothEnabled: true,
-  phoneModel: '',
-  appBuildNumber: '',
-  appVersion: '',
-  osVersion: '',
-  osType: '',
-  sdkVersion: '',
-  localTripId: '',
 );
 
 final mockPigeonRoute = PigeonRoute(
@@ -52,9 +37,7 @@ final mockPigeonItineraryData = PigeonItineraryData();
 final mockPigeonVehicle = PigeonVehicle();
 
 final mockPigeonPost = PigeonPostGeneric(
-  account: PigeonAccount(userId: 'userId', vehicleId: 'vehicleId', account: ''),
   route: mockPigeonRoute,
-  smartphoneData: mockPigeonSmartphoneData,
   vehicle: mockPigeonVehicle,
   itineraryData: mockPigeonItineraryData,
 );

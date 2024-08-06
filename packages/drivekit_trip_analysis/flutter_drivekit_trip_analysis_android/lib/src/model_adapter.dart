@@ -8,7 +8,7 @@ extension PigeonDKCrashInfoAdapter on PigeonDKCrashInfo {
   DKCrashInfo toModelImplementation() {
     return DKCrashInfo(
       crashId: crashId,
-      date: date != null ? DateTime.fromMillisecondsSinceEpoch(date!) : null,
+      date: date,
       status: status?.toModelImplementation(),
       probability: probability,
       latitude: latitude,
@@ -87,6 +87,7 @@ extension PigeonCancelTripAdapter on PigeonCancelTrip {
       PigeonCancelTrip.beaconNoSpeed => CancelTrip.beaconNoSpeed,
       PigeonCancelTrip.bluetoothDeviceNoSpeed =>
         CancelTrip.bluetoothDeviceNoSpeed,
+      PigeonCancelTrip.noBluetoothDevice => CancelTrip.noBluetoothDevice,
     };
   }
 }
@@ -263,10 +264,10 @@ extension PigeonSafetyEventAdapter on PigeonSafetyEvent {
   }
 }
 
-/// Adapts the [PigeonSpeedingEvents] class to the corresponding class in the
+/// Adapts the [PigeonSpeedingEvent] class to the corresponding class in the
 /// model.
-extension PigeonSpeedingEventsAdapter on PigeonSpeedingEvents {
-  /// Converts a [PigeonSpeedingEvents] to a corresponding model class.
+extension PigeonSpeedingEventAdapter on PigeonSpeedingEvent {
+  /// Converts a [PigeonSpeedingEvent] to a corresponding model class.
   SpeedingEvents toModelImplementation() {
     return SpeedingEvents(
       time: time,
@@ -274,16 +275,6 @@ extension PigeonSpeedingEventsAdapter on PigeonSpeedingEvents {
       latitude: latitude,
       type: type,
       index: index,
-    );
-  }
-}
-
-/// Adapts the [PigeonPostLogbook] class to the corresponding class in the model
-extension PigeonPostLogbookAdapter on PigeonPostLogbook {
-  /// Converts a [PigeonPostLogbook] to a corresponding model class.
-  PostLogbook toModelImplementation() {
-    return PostLogbook(
-      status: status,
     );
   }
 }
@@ -354,60 +345,6 @@ extension PigeonSpeedLimitContextAdapter on PigeonSpeedLimitContext {
       speedingDistance: speedingDistance,
       speedingDuration: speedingDuration,
       score: score,
-    );
-  }
-}
-
-/// Adapts the [PigeonAccount] class to the corresponding class in the model.
-extension PigeonAccountAdapter on PigeonAccount {
-  /// Converts a [PigeonAccount] to a corresponding model class.
-  Account toModelImplementation() {
-    return Account(
-      account: account,
-      userId: userId,
-      vehicleId: vehicleId,
-    );
-  }
-}
-
-/// Adapts the [PigeonSmartphoneData] class to the corresponding class
-/// in the model.
-extension PigeonSmartphoneDataAdapter on PigeonSmartphoneData {
-  /// Converts a [PigeonSmartphoneData] to a corresponding model class.
-  SmartphoneData toModelImplementation() {
-    return SmartphoneData(
-      gpsDate: DateTime.fromMillisecondsSinceEpoch(gpsDate),
-      phoneDate: DateTime.fromMillisecondsSinceEpoch(phoneDate),
-      startMode: startMode,
-      batteryPercent: batteryPercent,
-      tripCut: tripCut,
-      bluetoothEnabled: bluetoothEnabled,
-      phoneModel: phoneModel,
-      appBuildNumber: appBuildNumber,
-      appVersion: appVersion,
-      osVersion: osVersion,
-      osType: osType,
-      sdkVersion: sdkVersion,
-      localTripId: localTripId,
-    );
-  }
-}
-
-/// Adapts the [PigeonPhoneCallRequest] class to the corresponding class
-/// in the model.
-extension PigeonPhoneCallRequestAdapter on PigeonPhoneCallRequest {
-  /// Converts a [PigeonPhoneCallRequest] to a corresponding model class.
-  PhoneCallRequest toModelImplementation() {
-    return PhoneCallRequest(
-      start: start,
-      end: end,
-      status: status,
-      audioSystem: audioSystem,
-      audioInput: audioInput,
-      audioOutput: audioOutput,
-      audioName: audioName,
-      proximity: proximity,
-      bluetoothClass: bluetoothClass,
     );
   }
 }
@@ -608,7 +545,6 @@ extension PigeonPostGenericResponseAdapter on PigeonPostGenericResponse {
           .map((e) => e.toModelImplementation())
           .toList(),
       userId: userId,
-      account: account?.toModelImplementation(),
       itineraryStatistics: itineraryStatistics?.toModelImplementation(),
       ecoDriving: ecoDriving?.toModelImplementation(),
       fuelEstimation: fuelEstimation?.toModelImplementation(),
@@ -619,14 +555,9 @@ extension PigeonPostGenericResponseAdapter on PigeonPostGenericResponse {
       pollutants: pollutants?.toModelImplementation(),
       tireWear: tireWear?.toModelImplementation(),
       brakeWear: brakeWear?.toModelImplementation(),
-      driverDistraction: driverDistraction
-          ?.whereNotNull()
-          .map((e) => e.toModelImplementation())
-          .toList(),
+      driverDistraction: driverDistraction?.toModelImplementation(),
       itineraryData: itineraryData?.toModelImplementation(),
-      endDate: endDate != null
-          ? DateTime.fromMillisecondsSinceEpoch(endDate!)
-          : null,
+      endDate: endDate,
       logbook: logbook?.toModelImplementation(),
       safetyEvents: safetyEvents
           ?.whereNotNull()
@@ -682,17 +613,10 @@ extension PigeonPostGenericAdapter on PigeonPostGeneric {
   /// Converts a [PigeonPostGeneric] to a [PostGeneric].
   PostGeneric toModelImplementation() {
     return PostGeneric(
-      route: route.toModelImplementation(),
-      account: account.toModelImplementation(),
-      smartphoneData: smartphoneData.toModelImplementation(),
-      vehicle: vehicle.toModelImplementation(),
-      itineraryData: itineraryData.toModelImplementation(),
+      route: route?.toModelImplementation(),
+      vehicle: vehicle?.toModelImplementation(),
+      itineraryData: itineraryData?.toModelImplementation(),
       metaData: convertMetadata(metaData),
-      phoneCalls: phoneCalls
-          ?.whereNotNull()
-          .map((e) => e.toModelImplementation())
-          .toList(),
-      logbook: logbook?.toModelImplementation(),
     );
   }
 }

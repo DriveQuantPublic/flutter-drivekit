@@ -150,7 +150,7 @@ class TripListener {
   /// iOS only.
   ///
   /// Called when a user significant location change is detected.
-  final void Function(State state)? significantLocationChangeDetected;
+  final void Function(Location location)? significantLocationChangeDetected;
 
   /// Called every time the state of the SDK changed
   /// with the new state as parameter.
@@ -313,7 +313,7 @@ class DKCrashInfo {
   final String? crashId;
 
   /// The date of the crash
-  final DateTime? date;
+  final String? date;
 
   /// The status of the crash
   final CrashStatus? status;
@@ -390,7 +390,7 @@ class PostGenericResponse {
   final bool status;
 
   /// The itinerary ID
-  final String itinId;
+  final String? itinId;
 
   /// The list of comments
   final List<Comment> comments;
@@ -432,13 +432,13 @@ class PostGenericResponse {
   final BrakeWear? brakeWear;
 
   /// The driver distraction information
-  final List<DriverDistraction>? driverDistraction;
+  final DriverDistraction? driverDistraction;
 
   /// The itinerary data
   final ItineraryData? itineraryData;
 
   /// The end date of the itinerary
-  final DateTime? endDate;
+  final String? endDate;
 
   /// The logbook information
   final Logbook? logbook;
@@ -466,39 +466,23 @@ class PostGenericResponse {
 class PostGeneric {
   /// Creates a PostGeneric instance
   const PostGeneric({
-    required this.route,
-    required this.account,
-    required this.smartphoneData,
-    required this.vehicle,
-    required this.itineraryData,
+    this.route,
+    this.vehicle,
+    this.itineraryData,
     this.metaData,
-    this.phoneCalls,
-    this.logbook,
   });
 
   /// The route information
-  final Route route;
-
-  /// The account information
-  final Account account;
-
-  /// The smartphone data
-  final SmartphoneData smartphoneData;
+  final Route? route;
 
   /// The vehicle information
-  final Vehicle vehicle;
+  final Vehicle? vehicle;
 
   /// The itinerary data
-  final ItineraryData itineraryData;
+  final ItineraryData? itineraryData;
 
   /// The metadata
   final Map<String, String>? metaData;
-
-  /// The list of phone call requests
-  final List<PhoneCallRequest>? phoneCalls;
-
-  /// The logbook information
-  final PostLogbook? logbook;
 }
 
 /// Account class
@@ -834,7 +818,7 @@ class CrashInfo {
   final String crashId;
 
   /// The date
-  final DateTime date;
+  final String date;
 
   /// The probability
   final int probability;
@@ -1378,119 +1362,6 @@ class Route {
   final List<int> gyroscopeNormVar;
 }
 
-/// SmartphoneData class
-class SmartphoneData {
-  /// Creates a SmartphoneData instance
-  const SmartphoneData({
-    required this.gpsDate,
-    required this.phoneDate,
-    required this.startMode,
-    required this.batteryPercent,
-    required this.tripCut,
-    required this.bluetoothEnabled,
-    required this.phoneModel,
-    required this.appBuildNumber,
-    required this.appVersion,
-    required this.osVersion,
-    required this.osType,
-    required this.sdkVersion,
-    required this.localTripId,
-  });
-
-  /// The GPS date
-  final DateTime gpsDate;
-
-  /// The phone date
-  final DateTime phoneDate;
-
-  /// The start mode
-  final int startMode;
-
-  /// The battery percentage
-  final int batteryPercent;
-
-  /// The trip cut status
-  final bool tripCut;
-
-  /// The Bluetooth enabled status
-  final bool bluetoothEnabled;
-
-  /// The phone model
-  final String phoneModel;
-
-  /// The app build number
-  final String appBuildNumber;
-
-  /// The app version
-  final String appVersion;
-
-  /// The OS version
-  final String osVersion;
-
-  /// The OS type
-  final String osType;
-
-  /// The SDK version
-  final String sdkVersion;
-
-  /// The local trip ID
-  final String localTripId;
-}
-
-/// PhoneCallRequest class
-class PhoneCallRequest {
-  /// Creates a PhoneCallRequest instance
-  const PhoneCallRequest({
-    required this.start,
-    required this.end,
-    required this.status,
-    required this.audioSystem,
-    required this.proximity,
-    required this.bluetoothClass,
-    this.audioInput,
-    this.audioOutput,
-    this.audioName,
-  });
-
-  /// The start time
-  final double start;
-
-  /// The end time
-  final double end;
-
-  /// The status
-  final String status;
-
-  /// The audio system
-  final String audioSystem;
-
-  /// The audio input
-  final String? audioInput;
-
-  /// The audio output
-  final String? audioOutput;
-
-  /// The audio name
-  final String? audioName;
-
-  /// The proximity
-  final int proximity;
-
-  /// The Bluetooth class
-  final int bluetoothClass;
-}
-
-/// PostLogbook class
-class PostLogbook {
-  /// Creates a PostLogbook instance
-  const PostLogbook({
-    required this.status,
-  });
-
-  /// The status
-  final int status;
-}
-
 /// EcoDrivingContext class
 class EcoDrivingContext {
   /// Creates an EcoDrivingContext instance
@@ -1617,9 +1488,9 @@ enum CrashStatus {
   confirmed,
 }
 
-/// PigeonSpeedLimitContext class
+/// SpeedLimitContext class
 class SpeedLimitContext {
-  /// Creates a PigeonSpeedLimitContext instance
+  /// Creates a SpeedLimitContext instance
   const SpeedLimitContext({
     required this.speedLimit,
     required this.distance,
@@ -1646,4 +1517,16 @@ class SpeedLimitContext {
 
   /// The score
   final double score;
+}
+
+/// Location class
+class Location {
+  /// Creates a Location instance
+  Location({required this.longitude, required this.latitude});
+
+  /// The location longitude
+  final double longitude;
+
+  /// The location latitude
+  final double latitude;
 }

@@ -2,8 +2,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.drivequant.drivekit.flutter.example">
 
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
     <application
-        android:label="example"
+        android:label="DriveKit Flutter Demo"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         tools:replace="android:label">    

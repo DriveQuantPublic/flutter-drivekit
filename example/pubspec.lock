@@ -60,84 +60,84 @@ packages:
       path: "../packages/drivekit_core/flutter_drivekit_core"
       relative: true
     source: path
-    version: "0.0.1"
+    version: "0.0.4"
   flutter_drivekit_core_android:
     dependency: "direct overridden"
     description:
       path: "../packages/drivekit_core/flutter_drivekit_core_android"
       relative: true
     source: path
-    version: "0.0.1"
+    version: "0.0.4"
   flutter_drivekit_core_ios:
     dependency: "direct overridden"
     description:
       path: "../packages/drivekit_core/flutter_drivekit_core_ios"
       relative: true
     source: path
-    version: "0.0.1"
+    version: "0.0.4"
   flutter_drivekit_core_platform_interface:
     dependency: "direct overridden"
     description:
       path: "../packages/drivekit_core/flutter_drivekit_core_platform_interface"
       relative: true
     source: path
-    version: "0.0.1"
+    version: "0.0.4"
   flutter_drivekit_trip_analysis:
     dependency: "direct main"
     description:
       path: "../packages/drivekit_trip_analysis/flutter_drivekit_trip_analysis"
       relative: true
     source: path
-    version: "0.0.1"
+    version: "0.0.4"
   flutter_drivekit_trip_analysis_android:
     dependency: "direct overridden"
     description:
       path: "../packages/drivekit_trip_analysis/flutter_drivekit_trip_analysis_android"
       relative: true
     source: path
-    version: "0.0.1"
+    version: "0.0.4"
   flutter_drivekit_trip_analysis_ios:
     dependency: "direct overridden"
     description:
       path: "../packages/drivekit_trip_analysis/flutter_drivekit_trip_analysis_ios"
       relative: true
     source: path
-    version: "0.0.1"
+    version: "0.0.4"
   flutter_drivekit_trip_analysis_platform_interface:
     dependency: "direct overridden"
     description:
       path: "../packages/drivekit_trip_analysis/flutter_drivekit_trip_analysis_platform_interface"
       relative: true
     source: path
-    version: "0.0.1"
+    version: "0.0.4"
   flutter_drivekit_trip_simulator:
     dependency: "direct main"
     description:
       path: "../packages/drivekit_trip_simulator/flutter_drivekit_trip_simulator"
       relative: true
     source: path
-    version: "0.0.1"
+    version: "0.0.4"
   flutter_drivekit_trip_simulator_android:
     dependency: "direct overridden"
     description:
       path: "../packages/drivekit_trip_simulator/flutter_drivekit_trip_simulator_android"
       relative: true
     source: path
-    version: "0.0.1"
+    version: "0.0.4"
   flutter_drivekit_trip_simulator_ios:
     dependency: "direct overridden"
     description:
       path: "../packages/drivekit_trip_simulator/flutter_drivekit_trip_simulator_ios"
       relative: true
     source: path
-    version: "0.0.1"
+    version: "0.0.4"
   flutter_drivekit_trip_simulator_platform_interface:
     dependency: "direct overridden"
     description:
       path: "../packages/drivekit_trip_simulator/flutter_drivekit_trip_simulator_platform_interface"
       relative: true
     source: path
-    version: "0.0.1"
+    version: "0.0.4"
   flutter_test:
     dependency: "direct dev"
     description: flutter

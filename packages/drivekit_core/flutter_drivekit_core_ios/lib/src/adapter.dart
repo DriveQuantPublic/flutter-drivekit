@@ -61,3 +61,43 @@ extension PigeonBackgroundFetchStatusAdapter on PigeonBackgroundFetchStatus {
     };
   }
 }
+
+/// Adapts the [PigeonDeviceConfigurationEvent] class
+/// to the [DKDeviceConfigurationEvent] class.
+extension PigeonDeviceConfigurationEventAdapter
+    on PigeonDeviceConfigurationEvent {
+  /// Converts a [PigeonDeviceConfigurationEvent] to
+  /// a [DKDeviceConfigurationEvent].
+  DKDeviceConfigurationEvent toModelImplementation() {
+    return switch (this) {
+      PigeonDeviceConfigurationEvent.locationSensorValid =>
+        DKDeviceConfigurationEvent.locationSensorValid,
+      PigeonDeviceConfigurationEvent.locationSensorInvalid =>
+        DKDeviceConfigurationEvent.locationSensorInvalid,
+      PigeonDeviceConfigurationEvent.bluetoothSensorValid =>
+        DKDeviceConfigurationEvent.bluetoothSensorValid,
+      PigeonDeviceConfigurationEvent.bluetoothSensorInvalid =>
+        DKDeviceConfigurationEvent.bluetoothSensorInvalid,
+      PigeonDeviceConfigurationEvent.locationPermissionValid =>
+        DKDeviceConfigurationEvent.locationPermissionValid,
+      PigeonDeviceConfigurationEvent.locationPermissionInvalid =>
+        DKDeviceConfigurationEvent.locationPermissionInvalid,
+      PigeonDeviceConfigurationEvent.activityPermissionValid =>
+        DKDeviceConfigurationEvent.activityPermissionValid,
+      PigeonDeviceConfigurationEvent.activityPermissionInvalid =>
+        DKDeviceConfigurationEvent.activityPermissionInvalid,
+      PigeonDeviceConfigurationEvent.notificationPermissionValid =>
+        DKDeviceConfigurationEvent.notificationPermissionValid,
+      PigeonDeviceConfigurationEvent.notificationPermissionInvalid =>
+        DKDeviceConfigurationEvent.notificationPermissionInvalid,
+      PigeonDeviceConfigurationEvent.bluetoothPermissionValid =>
+        DKDeviceConfigurationEvent.bluetoothPermissionValid,
+      PigeonDeviceConfigurationEvent.bluetoothPermissionInvalid =>
+        DKDeviceConfigurationEvent.bluetoothPermissionInvalid,
+      PigeonDeviceConfigurationEvent.lowPowerModeValid =>
+        DKDeviceConfigurationEvent.lowPowerModeValid,
+      PigeonDeviceConfigurationEvent.lowPowerModeInvalid =>
+        DKDeviceConfigurationEvent.lowPowerModeValid,
+    };
+  }
+}

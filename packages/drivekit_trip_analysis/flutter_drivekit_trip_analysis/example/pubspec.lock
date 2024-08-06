@@ -60,28 +60,28 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "0.0.1"
+    version: "0.0.4"
   flutter_drivekit_trip_analysis_android:
     dependency: "direct overridden"
     description:
       path: "../../flutter_drivekit_trip_analysis_android"
       relative: true
     source: path
-    version: "0.0.1"
+    version: "0.0.4"
   flutter_drivekit_trip_analysis_ios:
     dependency: "direct overridden"
     description:
       path: "../../flutter_drivekit_trip_analysis_ios"
       relative: true
     source: path
-    version: "0.0.1"
+    version: "0.0.4"
   flutter_drivekit_trip_analysis_platform_interface:
     dependency: "direct overridden"
     description:
       path: "../../flutter_drivekit_trip_analysis_platform_interface"
       relative: true
     source: path
-    version: "0.0.1"
+    version: "0.0.4"
   flutter_test:
     dependency: "direct dev"
     description: flutter

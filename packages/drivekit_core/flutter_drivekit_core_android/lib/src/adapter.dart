@@ -48,3 +48,47 @@ extension PigeonUpdateUserIdStatusAdapter on PigeonUpdateUserIdStatus {
     };
   }
 }
+
+/// Adapts the [PigeonDeviceConfigurationEvent] class
+/// to the [DKDeviceConfigurationEvent] class.
+extension PigeonDeviceConfigurationEventAdapter
+    on PigeonDeviceConfigurationEvent {
+  /// Converts a [PigeonDeviceConfigurationEvent] to a
+  /// [DKDeviceConfigurationEvent].
+  DKDeviceConfigurationEvent toModelImplementation() {
+    return switch (this) {
+      PigeonDeviceConfigurationEvent.locationSensorValid =>
+        DKDeviceConfigurationEvent.locationSensorValid,
+      PigeonDeviceConfigurationEvent.locationSensorInvalid =>
+        DKDeviceConfigurationEvent.locationSensorInvalid,
+      PigeonDeviceConfigurationEvent.bluetoothSensorValid =>
+        DKDeviceConfigurationEvent.bluetoothSensorValid,
+      PigeonDeviceConfigurationEvent.bluetoothSensorInvalid =>
+        DKDeviceConfigurationEvent.bluetoothSensorInvalid,
+      PigeonDeviceConfigurationEvent.locationPermissionValid =>
+        DKDeviceConfigurationEvent.locationPermissionValid,
+      PigeonDeviceConfigurationEvent.locationPermissionInvalid =>
+        DKDeviceConfigurationEvent.locationPermissionInvalid,
+      PigeonDeviceConfigurationEvent.activityPermissionValid =>
+        DKDeviceConfigurationEvent.activityPermissionValid,
+      PigeonDeviceConfigurationEvent.activityPermissionInvalid =>
+        DKDeviceConfigurationEvent.activityPermissionInvalid,
+      PigeonDeviceConfigurationEvent.notificationPermissionValid =>
+        DKDeviceConfigurationEvent.notificationPermissionValid,
+      PigeonDeviceConfigurationEvent.notificationPermissionInvalid =>
+        DKDeviceConfigurationEvent.notificationPermissionInvalid,
+      PigeonDeviceConfigurationEvent.nearbyDevicePermissionValid =>
+        DKDeviceConfigurationEvent.nearbyDevicePermissionValid,
+      PigeonDeviceConfigurationEvent.nearbyDevicePermissionInvalid =>
+        DKDeviceConfigurationEvent.nearbyDevicePermissionValid,
+      PigeonDeviceConfigurationEvent.autoResetPermissionValid =>
+        DKDeviceConfigurationEvent.autoResetPermissionValid,
+      PigeonDeviceConfigurationEvent.autoResetPermissionInvalid =>
+        DKDeviceConfigurationEvent.autoResetPermissionInvalid,
+      PigeonDeviceConfigurationEvent.appBatteryOptimisationValid =>
+        DKDeviceConfigurationEvent.appBatteryOptimisationValid,
+      PigeonDeviceConfigurationEvent.appBatteryOptimisationInvalid =>
+        DKDeviceConfigurationEvent.appBatteryOptimisationValid,
+    };
+  }
+}

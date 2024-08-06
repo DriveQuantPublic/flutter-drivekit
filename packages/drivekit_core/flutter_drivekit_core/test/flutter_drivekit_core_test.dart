@@ -15,6 +15,7 @@ void main() {
 
   setUpAll(() {
     registerFallbackValue(MockDriveKitListener());
+    registerFallbackValue(MockDKDeviceConfigurationListener());
   });
 
   group('DrivekitCore', () {
@@ -152,7 +153,7 @@ void main() {
       });
     });
 
-    group('listener', () {
+    group('DriveKitListener', () {
       test('addListener', () async {
         final listener = DriveKitListener(
           onConnected: () {},
@@ -179,6 +180,46 @@ void main() {
         DriveKitCore.instance.removeAllDriveKitListeners();
         verify(() => drivekitCorePlatform.removeAllDriveKitListeners())
             .called(1);
+      });
+    });
+
+    group('DKDeviceConfigurationListener', () {
+      test('addDeviceConfigurationListener', () async {
+        final listener = DKDeviceConfigurationListener(
+          onDeviceConfigurationChanged: (event) => {},
+        );
+        when(() => drivekitCorePlatform.addDeviceConfigurationListener(any()))
+            .thenAnswer((_) async {});
+        DriveKitCore.instance.addDeviceConfigurationListener(listener);
+        verify(
+          () => drivekitCorePlatform.addDeviceConfigurationListener(
+            listener,
+          ),
+        ).called(1);
+      });
+      test('removeDeviceConfigurationListener', () async {
+        final listener = DKDeviceConfigurationListener(
+          onDeviceConfigurationChanged: (event) => {},
+        );
+        when(
+          () => drivekitCorePlatform.removeDeviceConfigurationListener(
+            any(),
+          ),
+        ).thenAnswer((_) async {});
+        DriveKitCore.instance.removeDeviceConfigurationListener(listener);
+        verify(
+          () => drivekitCorePlatform.removeDeviceConfigurationListener(
+            listener,
+          ),
+        ).called(1);
+      });
+      test('removeAllDeviceConfigurationListeners', () async {
+        when(() => drivekitCorePlatform.removeAllDeviceConfigurationListeners())
+            .thenAnswer((_) async {});
+        DriveKitCore.instance.removeAllDeviceConfigurationListeners();
+        verify(
+          () => drivekitCorePlatform.removeAllDeviceConfigurationListeners(),
+        ).called(1);
       });
     });
   });

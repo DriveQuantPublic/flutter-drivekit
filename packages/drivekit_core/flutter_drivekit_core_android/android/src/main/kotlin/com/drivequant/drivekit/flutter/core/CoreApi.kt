@@ -88,6 +88,31 @@ enum class PigeonUpdateUserIdStatus(val raw: Int) {
     }
   }
 }
+
+enum class PigeonDeviceConfigurationEvent(val raw: Int) {
+  LOCATION_SENSOR_VALID(0),
+  LOCATION_SENSOR_INVALID(1),
+  BLUETOOTH_SENSOR_VALID(2),
+  BLUETOOTH_SENSOR_INVALID(3),
+  LOCATION_PERMISSION_VALID(4),
+  LOCATION_PERMISSION_INVALID(5),
+  ACTIVITY_PERMISSION_VALID(6),
+  ACTIVITY_PERMISSION_INVALID(7),
+  NOTIFICATION_PERMISSION_VALID(8),
+  NOTIFICATION_PERMISSION_INVALID(9),
+  NEARBY_DEVICE_PERMISSION_VALID(10),
+  NEARBY_DEVICE_PERMISSION_INVALID(11),
+  AUTO_RESET_PERMISSION_VALID(12),
+  AUTO_RESET_PERMISSION_INVALID(13),
+  APP_BATTERY_OPTIMISATION_VALID(14),
+  APP_BATTERY_OPTIMISATION_INVALID(15);
+
+  companion object {
+    fun ofRaw(raw: Int): PigeonDeviceConfigurationEvent? {
+      return values().firstOrNull { it.raw == raw }
+    }
+  }
+}
 private object CoreApiPigeonCodec : StandardMessageCodec() {
   override fun readValueOfType(type: Byte, buffer: ByteBuffer): Any? {
     return when (type) {
@@ -106,6 +131,11 @@ private object CoreApiPigeonCodec : StandardMessageCodec() {
           PigeonUpdateUserIdStatus.ofRaw(it)
         }
       }
+      132.toByte() -> {
+        return (readValue(buffer) as Int?)?.let {
+          PigeonDeviceConfigurationEvent.ofRaw(it)
+        }
+      }
       else -> super.readValueOfType(type, buffer)
     }
   }
@@ -121,6 +151,10 @@ private object CoreApiPigeonCodec : StandardMessageCodec() {
       }
       is PigeonUpdateUserIdStatus -> {
         stream.write(131)
+        writeValue(stream, value.raw)
+      }
+      is PigeonDeviceConfigurationEvent -> {
+        stream.write(132)
         writeValue(stream, value.raw)
       }
       else -> super.writeValue(stream, value)
@@ -402,6 +436,23 @@ class FlutterCoreApi(private val binaryMessenger: BinaryMessenger, private val m
     val channelName = "dev.flutter.pigeon.pigeon_core_package.FlutterCoreApi.userIdUpdateStatus$separatedMessageChannelSuffix"
     val channel = BasicMessageChannel<Any?>(binaryMessenger, channelName, codec)
     channel.send(listOf(statusArg, userIdArg)) {
+      if (it is List<*>) {
+        if (it.size > 1) {
+          callback(Result.failure(FlutterCoreError(it[0] as String, it[1] as String, it[2] as String?)))
+        } else {
+          callback(Result.success(Unit))
+        }
+      } else {
+        callback(Result.failure(createConnectionError(channelName)))
+      } 
+    }
+  }
+  fun onDeviceConfigurationChanged(eventArg: PigeonDeviceConfigurationEvent, callback: (Result<Unit>) -> Unit)
+{
+    val separatedMessageChannelSuffix = if (messageChannelSuffix.isNotEmpty()) ".$messageChannelSuffix" else ""
+    val channelName = "dev.flutter.pigeon.pigeon_core_package.FlutterCoreApi.onDeviceConfigurationChanged$separatedMessageChannelSuffix"
+    val channel = BasicMessageChannel<Any?>(binaryMessenger, channelName, codec)
+    channel.send(listOf(eventArg)) {
       if (it is List<*>) {
         if (it.size > 1) {
           callback(Result.failure(FlutterCoreError(it[0] as String, it[1] as String, it[2] as String?)))

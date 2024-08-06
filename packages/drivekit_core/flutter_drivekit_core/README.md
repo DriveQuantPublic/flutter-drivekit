@@ -22,6 +22,32 @@ Our recommandation is to use [permission_handler]([https://github.com/zoontek/re
 
 Even if your app do not use Bluetooth, you **MUST** include usage description on iOS side. For more details, please take a look inside the [native documentation](https://docs.drivequant.com/get-started-drivekit/ios#project-configuration)
 
+## Manual initialization
+
+If you have disabled the DriveKit auto-initialization:
+
+- On Android project, call `initialize` method inside your `MainApplication` class.
+
+```kotlin
+// MainApplication.kt
+    // …
+
+    override fun onCreate() {
+        super.onCreate()
+        DriveKit.initialize(this)
+        // …
+    }
+```
+
+- On iOS project, call `initialize` method inside your `AppDelegate`.
+
+```swift
+func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    DriveKit.shared.initialize()
+    (…)
+}
+```
+
 ## Usage
 
 To finish the module's initialization, you need to :
@@ -39,19 +65,24 @@ Now, you can configure the Drivekit Core with the options you want, and use othe
 
 ## API
 
-| Method                                                          | Return Type                        | iOS | Android |
-| --------------------------------------------------------------- | ---------------------------------- | :-: | :-----: |
-| [getApiKey()](#getapikey)                                       | `Future<String?>`                  | ✅  |   ✅    |
-| [setApiKey()](#setapikey)                                       | `Future<void>`                     | ✅  |   ✅    |
-| [getUserId()](#getuserid)                                       | `Future<String?>`                  | ✅  |   ✅    |
-| [setUserId()](#setuserid)                                       | `Future<void>`                     | ✅  |   ✅    |
-| [addDriveKitListener()](#adddrivekitlistener)                   | `Future<void>`                     | ✅  |   ✅    |
-| [deleteAccount()](#deleteaccount)                               | `Future<void>`                     | ✅  |   ✅    |
-| [enableLogging()](#logging)                                     | `Future<void>`                     | ✅  |   ✅    |
-| [disableLogging()](#logging)                                    | `Future<void>`                     | ✅  |   ✅    |
-| [getLogUriFile()](#getlogurifile)                               | `Futur<Uri?>`                      | ✅  |   ✅    |
-| [isTokenValid()](#istokenvalid)                                 | `Futur<bool>`                      | ✅  |   ✅    |
-| [reset()](#reset)                                               | `Future<void>`                     | ✅  |   ✅    |
+| Method                                                                            | Return Type       | iOS | Android |
+| --------------------------------------------------------------------------------- | ----------------- | :-: | :-----: |
+| [getApiKey()](#getapikey)                                                         | `Future<String?>` | ✅  |   ✅    |
+| [setApiKey()](#setapikey)                                                         | `Future<void>`    | ✅  |   ✅    |
+| [getUserId()](#getuserid)                                                         | `Future<String?>` | ✅  |   ✅    |
+| [setUserId()](#setuserid)                                                         | `Future<void>`    | ✅  |   ✅    |
+| [addDriveKitListener()](#adddrivekitlistener)                                     | `Future<void>`    | ✅  |   ✅    |
+| [removeDriveKitListener()](#removedrivekitlistener)                               | `Future<void>`    | ✅  |   ✅    |
+| [removeAllDriveKitListener()](#removealldrivekitlisteners)                        | `Future<void>`    | ✅  |   ✅    |
+| [addDeviceConfigurationListener()](#adddeviceconfigurationlistener)               | `Future<void>`    | ✅  |   ✅    |
+| [removeDeviceConfigurationListener()](#removedeviceconfigurationlistener)         | `Future<void>`    | ✅  |   ✅    |
+| [removeAllDeviceConfigurationListeners()](#removealldeviceconfigurationlisteners) | `Future<void>`    | ✅  |   ✅    |
+| [deleteAccount()](#deleteaccount)                                                 | `Future<void>`    | ✅  |   ✅    |
+| [enableLogging()](#logging)                                                       | `Future<void>`    | ✅  |   ✅    |
+| [disableLogging()](#logging)                                                      | `Future<void>`    | ✅  |   ✅    |
+| [getLogUriFile()](#getlogurifile)                                                 | `Futur<Uri?>`     | ✅  |   ✅    |
+| [isTokenValid()](#istokenvalid)                                                   | `Futur<bool>`     | ✅  |   ✅    |
+| [reset()](#reset)                                                                 | `Future<void>`    | ✅  |   ✅    |
 
 ### getApiKey
 
@@ -157,6 +188,92 @@ void addDriveKitListener(DriveKitListener listener)
 | onAccountDeleted               | The delete account request has been processed with a `DeleteAccountStatus` state value. |
 | onBackgroundFetchStatusChanged | The background fetch status has changed with a `BackgroundFetchStatus` state value.     |
 
+
+### removeDriveKitListener
+
+```dart
+void removeDriveKitListener(DriveKitListener listener)
+```
+
+You can remove a specific `DriveKitListener` by calling the following method:
+
+```dart
+DriveKitCore.instance.removeDriveKitListener(listener);
+```
+
+### removeAllDriveKitListeners
+
+```dart
+void removeAllDriveKitListeners()
+```
+
+You can remove all `DriveKitListener` by calling the following method:
+
+```dart
+DriveKitCore.instance.removeAllDriveKitListeners();
+```
+
+### addDeviceConfigurationListener
+
+`DKDeviceConfigurationListener` is the interface used to get callbacks when device configuration changes are detected. To add a listener and get informed for device configuration events, you can call the following method:
+
+```dart
+    DriveKitCore.instance.addDeviceConfigurationListener(
+      DKDeviceConfigurationListener(
+        onDeviceConfigurationChanged: (event) => {
+          // …
+        },
+      ),
+    );
+```
+
+| Method                         | Description                                                            |
+| ------------------------------ | ---------------------------------------------------------------------- |
+| locationPermissionValid        | Location permission status changed and is granted.                     |
+| locationPermissionValid        | Location permission status changed and is revoked.                     |
+| activityPermissionValid        | Activity permission status changed and is granted.                     |
+| activityPermissionValid        | Activity permission status changed and is revoked.                     |
+| notificationPermissionValid    | Notification permission status changed and is granted.                 |
+| notificationPermissionInValid  | Notification permission status changed and is revoked.                 |
+| appBatteryOptimisationValid    | Android only. App battery optimisation setting changed and is valid.   |
+| appBatteryOptimisationInvalid  | Android only. App battery optimisation setting changed and is invalid. |
+| lowPowerModeValid              | iOS only. Low power mode setting changed and is valid.                 |
+| lowPowerModeInvalid            | iOS only. Low power mode setting changed and is invalid.               |
+| autoResetPermissionValid       | Android only. Auto reset setting status changed and is granted.        |
+| autoResetPermissionInValid     | Android only. Auto reset setting status changed and is revoked.        |
+| nearbyDevicesPermissionValid   | Android only. Nearby devices permission status changed and is granted. |
+| nearbyDevicesPermissionInValid | Android only. Nearby devices permission status changed and is revoked. |
+| bluetoothPermissionValid       | iOS only. Bluetooth permission status changed and is granted.          |
+| bluetoothPermissionInValid     | iOS only. Bluetooth permission status changed and is revoked.          |
+| locationSensorValid            | Location sensor status changed and is turned ON.                       |
+| locationSensorInValid          | Location sensor status changed and is turned OFF.                      |
+| bluetoothSensorValid           | Bluetooth sensor status changed and is turned ON.                      |
+| bluetoothSensorInValid         | Bluetooth sensor status changed and is turned OFF.                     |
+
+### removeDeviceConfigurationListener
+
+```dart
+void removeDeviceConfigurationListener(DKDeviceConfigurationListener listener)
+```
+
+You can remove a specific `DKDeviceConfigurationListener` by calling the following method:
+
+```dart
+DriveKitCore.instance.removeDeviceConfigurationListener(listener);
+```
+
+### removeAllDeviceConfigurationListeners
+
+```dart
+void removeAllDeviceConfigurationListeners()
+```
+
+You can remove all `DKDeviceConfigurationListener` by calling the following method:
+
+```dart
+DriveKitCore.instance.removeAllDeviceConfigurationListeners();
+```
+
 ### deleteAccount
 
 ```dart
@@ -184,6 +301,14 @@ await driveKitCore.deleteAccount(instantDeletion: true);
 > ℹ️
 >
 > Your team needs to have the deletion feature activated to use this method. Please contact DriveQuant if you need it.
+
+> ℹ️
+>
+> To be able to check whenever the account deletion is complete, you have to use the `DriveKitListener` interface.
+
+> ⚠️
+>
+> You should restore the DriveKit API key in the `onAccountDeleted()` callback only when the status value is SUCCESS.
 
 ### Logging
 

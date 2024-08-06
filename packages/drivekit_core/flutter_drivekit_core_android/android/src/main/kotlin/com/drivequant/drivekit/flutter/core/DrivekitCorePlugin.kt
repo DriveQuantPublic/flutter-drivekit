@@ -3,6 +3,8 @@ package com.drivequant.drivekit.flutter.core
 import android.content.Context
 import com.drivequant.drivekit.core.DriveKit
 import com.drivequant.drivekit.core.DriveKitLog
+import com.drivequant.drivekit.core.deviceconfiguration.DKDeviceConfigurationEvent
+import com.drivequant.drivekit.core.deviceconfiguration.DKDeviceConfigurationListener
 import com.drivequant.drivekit.core.driver.UpdateUserIdStatus
 import com.drivequant.drivekit.core.driver.deletion.DeleteAccountStatus
 import com.drivequant.drivekit.core.networking.DriveKitListener
@@ -18,6 +20,7 @@ class DrivekitCorePlugin :
 
     init {
         configureDriveKitListener()
+        configureDeviceConfigurationListener()
     }
 
     override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
@@ -92,6 +95,16 @@ class DrivekitCorePlugin :
                 }
             }
         )
+    }
+
+    private fun configureDeviceConfigurationListener() {
+        DriveKit.addDeviceConfigurationListener(object : DKDeviceConfigurationListener {
+            override fun onDeviceConfigurationChanged(event: DKDeviceConfigurationEvent) {
+                flutterApi?.onDeviceConfigurationChanged(event.toPigeon()) { echo ->
+                    Result.success(echo)
+                }
+            }
+        })
     }
 
     override fun getLogUriFile(): String? =

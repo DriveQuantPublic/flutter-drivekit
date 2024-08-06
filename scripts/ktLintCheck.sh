@@ -16,6 +16,7 @@ fi
 cd "$PROJECT_PATH" || exit
 ./gradlew :flutter_drivekit_trip_analysis_android:lintKotlin
 ./gradlew :flutter_drivekit_trip_simulator_android:lintKotlin
+./gradlew :flutter_drivekit_driver_data_android:lintKotlin
 ./gradlew :flutter_drivekit_core_android:lintKotlin
 
 # Check if the gradle command was successful

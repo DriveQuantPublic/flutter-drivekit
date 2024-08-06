@@ -70,3 +70,54 @@ extension PigeonBackgroundFetchStatus {
         }
     }
 }
+
+extension PigeonDeviceConfigurationEvent {
+    init(from event: DKDeviceConfigurationEvent) {
+        switch event.type {
+        case .locationPermission:
+                if event.isValid {
+                    self = .locationPermissionValid
+                } else {
+                    self = .locationPermissionInvalid
+                }
+        case .locationSensor:
+                if event.isValid {
+                    self = .locationSensorValid
+                } else {
+                    self = .locationSensorInvalid
+                }
+        case .activityPermission:
+                if event.isValid {
+                    self = .activityPermissionValid
+                } else {
+                    self = .activityPermissionInvalid
+                }
+        case .bluetoothPermission:
+                if event.isValid {
+                    self = .bluetoothPermissionValid
+                } else {
+                    self = .bluetoothPermissionInvalid
+                }
+        case .notificationPermission:
+                if event.isValid {
+                    self = .notificationPermissionValid
+                } else {
+                    self = .notificationPermissionInvalid
+                }
+        case .bluetoothSensor:
+                if event.isValid {
+                    self = .bluetoothSensorValid
+                } else {
+                    self = .bluetoothSensorInvalid
+                }
+        case .lowPowerMode:
+                if event.isValid {
+                    self = .lowPowerModeValid
+                } else {
+                    self = .lowPowerModeInvalid
+                }
+        @unknown default:
+                fatalError()
+        }
+    }
+}

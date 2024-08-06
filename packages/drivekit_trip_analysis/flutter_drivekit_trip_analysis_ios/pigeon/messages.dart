@@ -33,7 +33,7 @@ abstract class FlutterTripAnalysisApi {
   void tripCancelled(PigeonCancelTrip cancelTrip);
   void potentialTripStart(PigeonStartMode startMode);
   void beaconDetected();
-  void significantLocationChangeDetected(PigeonState state);
+  void significantLocationChangeDetected(PigeonLocation location);
   void sdkStateChanged(PigeonState state);
   void crashDetected(PigeonDKCrashInfo crashInfo);
   void crashFeedbackSent(
@@ -192,7 +192,7 @@ class PigeonDKCrashInfo {
 
   final String? crashId;
 
-  final int? date;
+  final String? date;
 
   final PigeonCrashStatus? status;
 
@@ -227,7 +227,6 @@ class PigeonPostGenericResponse {
     required this.itinId,
     required this.comments,
     this.userId,
-    this.account,
     this.itineraryStatistics,
     this.ecoDriving,
     this.fuelEstimation,
@@ -252,13 +251,11 @@ class PigeonPostGenericResponse {
 
   final bool status;
 
-  final String itinId;
+  final String? itinId;
 
   final List<PigeonComment?> comments;
 
   final String? userId;
-
-  final PigeonAccount? account;
 
   final PigeonItineraryStatistics? itineraryStatistics;
 
@@ -280,11 +277,11 @@ class PigeonPostGenericResponse {
 
   final PigeonBrakeWear? brakeWear;
 
-  final List<PigeonDriverDistraction?>? driverDistraction;
+  final PigeonDriverDistraction? driverDistraction;
 
   final PigeonItineraryData? itineraryData;
 
-  final int? endDate;
+  final String? endDate;
 
   final PigeonLogbook? logbook;
 
@@ -292,7 +289,7 @@ class PigeonPostGenericResponse {
 
   final List<PigeonCallEvent?>? callEvents;
 
-  final List<PigeonSpeedingEvents?>? speedingEvents;
+  final List<PigeonSpeedingEvent?>? speedingEvents;
 
   final PigeonSpeedingStatistics? speedingStatistics;
 
@@ -304,44 +301,18 @@ class PigeonPostGenericResponse {
 class PigeonPostGeneric {
   const PigeonPostGeneric({
     required this.route,
-    required this.account,
-    required this.smartphoneData,
     required this.vehicle,
     required this.itineraryData,
     this.metaData,
-    this.phoneCalls,
-    this.logbook,
   });
 
-  final PigeonRoute route;
+  final PigeonRoute? route;
 
-  final PigeonAccount account;
+  final PigeonVehicle? vehicle;
 
-  final PigeonSmartphoneData smartphoneData;
-
-  final PigeonVehicle vehicle;
-
-  final PigeonItineraryData itineraryData;
+  final PigeonItineraryData? itineraryData;
 
   final Map<String?, String?>? metaData;
-
-  final List<PigeonPhoneCallRequest?>? phoneCalls;
-
-  final PigeonPostLogbook? logbook;
-}
-
-class PigeonAccount {
-  const PigeonAccount({
-    required this.account,
-    required this.userId,
-    this.vehicleId,
-  });
-
-  final String account;
-
-  final String userId;
-
-  final String? vehicleId;
 }
 
 class PigeonAdvancedEcoDriving {
@@ -562,32 +533,6 @@ class PigeonAdvancedEnergyEstimation {
   final double distance;
 
   final int contextId;
-}
-
-class PigeonCrashInfo {
-  const PigeonCrashInfo({
-    required this.crashId,
-    required this.date,
-    required this.probability,
-    required this.latitude,
-    required this.longitude,
-    required this.velocity,
-    required this.crashStatus,
-  });
-
-  final String crashId;
-
-  final int date;
-
-  final int probability;
-
-  final double latitude;
-
-  final double longitude;
-
-  final double velocity;
-
-  final PigeonCrashStatus crashStatus;
 }
 
 class PigeonEnergyEstimation {
@@ -894,8 +839,8 @@ class PigeonSafetyEvent {
   final double value;
 }
 
-class PigeonSpeedingEvents {
-  const PigeonSpeedingEvents({
+class PigeonSpeedingEvent {
+  const PigeonSpeedingEvent({
     required this.time,
     required this.longitude,
     required this.latitude,
@@ -979,90 +924,6 @@ class PigeonRoute {
   final List<int?> yaw;
 
   final List<int?> gyroscopeNormVar;
-}
-
-class PigeonSmartphoneData {
-  const PigeonSmartphoneData({
-    required this.gpsDate,
-    required this.phoneDate,
-    required this.startMode,
-    required this.batteryPercent,
-    required this.tripCut,
-    required this.bluetoothEnabled,
-    required this.phoneModel,
-    required this.appBuildNumber,
-    required this.appVersion,
-    required this.osVersion,
-    required this.osType,
-    required this.sdkVersion,
-    required this.localTripId,
-  });
-
-  final int gpsDate;
-
-  final int phoneDate;
-
-  final int startMode;
-
-  final int batteryPercent;
-
-  final bool tripCut;
-
-  final bool bluetoothEnabled;
-
-  final String phoneModel;
-
-  final String appBuildNumber;
-
-  final String appVersion;
-
-  final String osVersion;
-
-  final String osType;
-
-  final String sdkVersion;
-
-  final String localTripId;
-}
-
-class PigeonPhoneCallRequest {
-  const PigeonPhoneCallRequest({
-    required this.start,
-    required this.end,
-    required this.status,
-    required this.audioSystem,
-    required this.proximity,
-    required this.bluetoothClass,
-    this.audioInput,
-    this.audioOutput,
-    this.audioName,
-  });
-
-  final double start;
-
-  final double end;
-
-  final String status;
-
-  final String audioSystem;
-
-  final String? audioInput;
-
-  final String? audioOutput;
-
-  final String? audioName;
-
-  final int proximity;
-
-  final int bluetoothClass;
-}
-
-class PigeonPostLogbook {
-  const PigeonPostLogbook({
-    required this.status,
-  });
-
-  final int status;
 }
 
 class PigeonEcoDrivingContext {
@@ -1226,4 +1087,15 @@ class PigeonSpeedLimitContext {
   final int speedingDuration;
 
   final double score;
+}
+
+class PigeonLocation {
+  const PigeonLocation({
+    required this.longitude,
+    required this.latitude,
+  });
+
+  final double longitude;
+
+  final double latitude;
 }
