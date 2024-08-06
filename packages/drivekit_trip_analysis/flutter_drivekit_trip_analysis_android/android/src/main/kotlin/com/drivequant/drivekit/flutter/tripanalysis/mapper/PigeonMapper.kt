@@ -1,6 +1,7 @@
 // PigeonMapper object with the mapping function
 package com.drivequant.drivekit.flutter.tripanalysis.mapper
 
+import com.drivequant.drivekit.databaseutils.entity.Trip
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonCancelTrip
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonCrashStatus
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonDKCrashFeedbackSeverity
@@ -8,7 +9,9 @@ import com.drivequant.drivekit.flutter.tripanalysis.PigeonDKCrashFeedbackType
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonDKCrashInfo
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonStartMode
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonState
+import com.drivequant.drivekit.flutter.tripanalysis.PigeonTripPoint
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonVehicle
+import com.drivequant.drivekit.tripanalysis.entity.TripPoint
 import com.drivequant.drivekit.tripanalysis.entity.TripVehicle
 import com.drivequant.drivekit.tripanalysis.model.crashdetection.DKCrashInfo
 import com.drivequant.drivekit.tripanalysis.service.crashdetection.CrashStatus
@@ -105,4 +108,15 @@ object PigeonMapper {
         CrashFeedbackSeverity.MINOR -> PigeonDKCrashFeedbackSeverity.MINOR
         CrashFeedbackSeverity.CRITICAL -> PigeonDKCrashFeedbackSeverity.CRITICAL
     }
+
+    fun toPigeonTripPoint(tripPoint: TripPoint): PigeonTripPoint = PigeonTripPoint(
+        accuracy = tripPoint.accuracy,
+        distance = tripPoint.distance,
+        duration = tripPoint.duration,
+        elevation = tripPoint.elevation,
+        heading = tripPoint.heading,
+        latitude = tripPoint.latitude,
+        longitude = tripPoint.longitude,
+        speed = tripPoint.speed
+    )
 }

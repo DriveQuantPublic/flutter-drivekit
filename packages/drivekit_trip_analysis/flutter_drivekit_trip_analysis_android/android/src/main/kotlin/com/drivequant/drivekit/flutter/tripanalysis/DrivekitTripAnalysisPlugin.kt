@@ -8,6 +8,7 @@ import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeon
 import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeonDKCrashInfo
 import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeonStartMode
 import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeonState
+import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeonTripPoint
 import com.drivequant.drivekit.tripanalysis.DriveKitTripAnalysis
 import com.drivequant.drivekit.tripanalysis.TripListener
 import com.drivequant.drivekit.tripanalysis.entity.PostGeneric
@@ -140,7 +141,9 @@ class DrivekitTripAnalysisPlugin :
                 }
 
                 override fun tripPoint(tripPoint: TripPoint) {
-                    // TODO implement this method by calling flutter API converting any parameter to pigeonModel
+                    flutterApi?.tripPoint(toPigeonTripPoint(tripPoint)) { echo ->
+                        Result.success(echo)
+                    }
                 }
             }
         )
