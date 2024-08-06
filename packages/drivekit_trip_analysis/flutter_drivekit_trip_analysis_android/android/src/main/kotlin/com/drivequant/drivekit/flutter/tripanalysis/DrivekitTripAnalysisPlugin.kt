@@ -6,6 +6,8 @@ import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeon
 import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeonDKCrashFeedbackSeverity
 import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeonDKCrashFeedbackType
 import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeonDKCrashInfo
+import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeonPostGeneric
+import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeonPostGenericResponse
 import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeonStartMode
 import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeonState
 import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeonTripPoint
@@ -87,7 +89,12 @@ class DrivekitTripAnalysisPlugin :
                 }
 
                 override fun tripFinished(post: PostGeneric, response: PostGenericResponse) {
-                    // TODO implement this method by calling flutter API converting any parameter to pigeonModel
+                    flutterApi?.tripFinished(
+                        postArg = toPigeonPostGeneric(post),
+                        responseArg = toPigeonPostGenericResponse(response)
+                    ) { echo ->
+                        Result.success(echo)
+                    }
                 }
 
                 override fun tripSavedForRepost() {
