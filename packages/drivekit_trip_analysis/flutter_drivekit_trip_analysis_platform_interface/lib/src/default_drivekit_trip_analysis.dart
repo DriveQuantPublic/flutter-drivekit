@@ -77,4 +77,13 @@ class DefaultDrivekitTripAnalysis extends DrivekitTripAnalysisPlatform {
       'removeAllTripListeners() has not been implemented.',
     );
   }
+
+  @override
+  Future<TripResponseStatus?> getTripResponseStatus(
+    PostGenericResponse tripResponse,
+  ) {
+    throw UnimplementedError(
+      'getTripResponseStatus() has not been implemented.',
+    );
+  }
 }

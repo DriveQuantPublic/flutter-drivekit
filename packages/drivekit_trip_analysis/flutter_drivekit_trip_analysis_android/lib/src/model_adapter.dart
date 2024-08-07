@@ -137,8 +137,8 @@ extension PigeonCommentAdapter on PigeonComment {
   }
 }
 
-/// Adapts the [PigeonAdvancedEnergyEstimation] class to the corresponding class
-/// in the model.
+/// Adapts the [PigeonAdvancedEnergyEstimation] class to the corresponding
+/// class in the model.
 extension PigeonAdvancedEnergyEstimationAdapter
     on PigeonAdvancedEnergyEstimation {
   /// Converts a [PigeonAdvancedEnergyEstimation] to a corresponding model class
@@ -155,8 +155,8 @@ extension PigeonAdvancedEnergyEstimationAdapter
   }
 }
 
-/// Adapts the [PigeonEnergyEstimation] class to the corresponding class in the
-/// model.
+/// Adapts the [PigeonEnergyEstimation] class to the corresponding class
+/// in the model.
 extension PigeonEnergyEstimationAdapter on PigeonEnergyEstimation {
   /// Converts a [PigeonEnergyEstimation] to a corresponding model class.
   EnergyEstimation toModelImplementation() {
@@ -169,8 +169,8 @@ extension PigeonEnergyEstimationAdapter on PigeonEnergyEstimation {
   }
 }
 
-/// Adapts the [PigeonItineraryStatistics] class to the corresponding class in
-/// the model.
+/// Adapts the [PigeonItineraryStatistics] class to the corresponding class
+/// in the model.
 extension PigeonItineraryStatisticsAdapter on PigeonItineraryStatistics {
   /// Converts a [PigeonItineraryStatistics] to a corresponding model class.
   ItineraryStatistics toModelImplementation() {
@@ -279,8 +279,8 @@ extension PigeonSpeedingEventAdapter on PigeonSpeedingEvent {
   }
 }
 
-/// Adapts the [PigeonEcoDrivingContext] class to the corresponding class in the
-/// model.
+/// Adapts the [PigeonEcoDrivingContext] class to the corresponding class
+/// in the model.
 extension PigeonEcoDrivingContextAdapter on PigeonEcoDrivingContext {
   /// Converts a [PigeonEcoDrivingContext] to a corresponding model class.
   EcoDrivingContext toModelImplementation() {
@@ -313,8 +313,8 @@ extension PigeonFuelEstimationContextAdapter on PigeonFuelEstimationContext {
   }
 }
 
-/// Adapts the [PigeonSafetyContext] class to the corresponding class
-/// in the model.
+/// Adapts the [PigeonSafetyContext] class to the corresponding class in the
+/// model.
 extension PigeonSafetyContextAdapter on PigeonSafetyContext {
   /// Converts a [PigeonSafetyContext] to a corresponding model class.
   SafetyContext toModelImplementation() {
@@ -333,8 +333,8 @@ extension PigeonSafetyContextAdapter on PigeonSafetyContext {
   }
 }
 
-/// Adapts the [PigeonSpeedLimitContext] class to the corresponding class
-/// in the model.
+/// Adapts the [PigeonSpeedLimitContext] class to the corresponding class in
+/// the model.
 extension PigeonSpeedLimitContextAdapter on PigeonSpeedLimitContext {
   /// Converts a [PigeonSpeedLimitContext] to a corresponding model class.
   SpeedLimitContext toModelImplementation() {
@@ -468,8 +468,8 @@ extension PigeonSpeedingStatisticsAdapter on PigeonSpeedingStatistics {
   }
 }
 
-/// Adapts the [PigeonAdvancedSafety] class to the corresponding class
-/// in the model.
+/// Adapts the [PigeonAdvancedSafety] class to the corresponding class in the
+/// model.
 extension PigeonAdvancedSafetyAdapter on PigeonAdvancedSafety {
   /// Converts a [PigeonAdvancedSafety] to a corresponding model class.
   AdvancedSafety toModelImplementation() {
@@ -482,8 +482,8 @@ extension PigeonAdvancedSafetyAdapter on PigeonAdvancedSafety {
   }
 }
 
-/// Adapts the [PigeonAdvancedEcoDriving] class to the corresponding class
-/// in the model.
+/// Adapts the [PigeonAdvancedEcoDriving] class to the corresponding class in
+/// the model.
 extension PigeonAdvancedEcoDrivingAdapter on PigeonAdvancedEcoDriving {
   /// Converts a [PigeonAdvancedEcoDriving] to a corresponding model class.
   AdvancedEcoDriving toModelImplementation() {
@@ -677,5 +677,109 @@ extension PigeonCallAdapter on PigeonCall {
       bluetoothClass: bluetoothClass,
       forbidden: forbidden,
     );
+  }
+}
+
+/// Adapts the [PigeonTripResponseStatus] class to the corresponding class
+extension PigeonTripResponseStatusAdapter on PigeonTripResponseStatus {
+  /// Converts a [PigeonTripResponseStatus] to a corresponding model class.
+  TripResponseStatus toModelImplementation() {
+    return TripResponseStatus(
+      status: status.toModelImplementation(),
+      hasSafetyAndEcoDrivingScore: hasSafetyAndEcoDrivingScore,
+      info: info.whereNotNull().map((e) => e.toModelImplementation()).toList(),
+      error: error?.toModelImplementation(),
+    );
+  }
+}
+
+/// Adapts the [PigeonTripResponseInfo] class to the corresponding class
+extension PigeonTripResponseInfoAdapter on PigeonTripResponseInfo {
+  /// Converts a [PigeonTripResponseInfo] to a corresponding model class.
+  TripResponseInfo toModelImplementation() {
+    switch (this) {
+      case PigeonTripResponseInfo.engineSpeedNotAvailable:
+        return TripResponseInfo.engineSpeedNotAvailable;
+      case PigeonTripResponseInfo.engineSpeedIsNull:
+        return TripResponseInfo.engineSpeedIsNull;
+      case PigeonTripResponseInfo.noVehicleCharacteristics:
+        return TripResponseInfo.noVehicleCharacteristics;
+      case PigeonTripResponseInfo.dataLoss:
+        return TripResponseInfo.dataLoss;
+      case PigeonTripResponseInfo.distanceTooShort:
+        return TripResponseInfo.distanceTooShort;
+      case PigeonTripResponseInfo.invalidVehicleCharacteristics:
+        return TripResponseInfo.invalidVehicleCharacteristics;
+      case PigeonTripResponseInfo.invalidVehicleId:
+        return TripResponseInfo.invalidVehicleId;
+    }
+  }
+}
+
+/// Adapts the [PigeonTripResponseStatusType] enum to the corresponding enum
+extension PigeonTripResponseStatusTypeAdapter on PigeonTripResponseStatusType {
+  /// Converts a [PigeonTripResponseStatusType] to a corresponding model enum.
+  TripResponseStatusType toModelImplementation() {
+    switch (this) {
+      case PigeonTripResponseStatusType.tripValid:
+        return TripResponseStatusType.tripValid;
+      case PigeonTripResponseStatusType.tripError:
+        return TripResponseStatusType.tripError;
+    }
+  }
+}
+
+/// Adapts the [PigeonTripResponseError] enum to the corresponding enum
+extension PigeonTripResponseErrorAdapter on PigeonTripResponseError {
+  /// Converts a [PigeonTripResponseError] to a corresponding model enum.
+  TripResponseError toModelImplementation() {
+    switch (this) {
+      case PigeonTripResponseError.accountLimitReached:
+        return TripResponseError.accountLimitReached;
+      case PigeonTripResponseError.dataError:
+        return TripResponseError.dataError;
+      case PigeonTripResponseError.noAccountSet:
+        return TripResponseError.noAccountSet;
+      case PigeonTripResponseError.noRouteObjectFound:
+        return TripResponseError.noRouteObjectFound;
+      case PigeonTripResponseError.invalidRouteDefinition:
+        return TripResponseError.invalidRouteDefinition;
+      case PigeonTripResponseError.noVelocityData:
+        return TripResponseError.noVelocityData;
+      case PigeonTripResponseError.invalidSamplingPeriod:
+        return TripResponseError.invalidSamplingPeriod;
+      case PigeonTripResponseError.invalidCustomerId:
+        return TripResponseError.invalidCustomerId;
+      case PigeonTripResponseError.noDateFound:
+        return TripResponseError.noDateFound;
+      case PigeonTripResponseError.maxDailyRequestNumberReached:
+        return TripResponseError.maxDailyRequestNumberReached;
+      case PigeonTripResponseError.invalidRouteVectors:
+        return TripResponseError.invalidRouteVectors;
+      case PigeonTripResponseError.missingBeacon:
+        return TripResponseError.missingBeacon;
+      case PigeonTripResponseError.invalidBeacon:
+        return TripResponseError.invalidBeacon;
+      case PigeonTripResponseError.duplicateTrip:
+        return TripResponseError.duplicateTrip;
+      case PigeonTripResponseError.insufficientGpsData:
+        return TripResponseError.insufficientGpsData;
+      case PigeonTripResponseError.userDisabled:
+        return TripResponseError.userDisabled;
+      case PigeonTripResponseError.invalidUser:
+        return TripResponseError.invalidUser;
+      case PigeonTripResponseError.invalidGpsData:
+        return TripResponseError.invalidGpsData;
+      case PigeonTripResponseError.invalidTrip:
+        return TripResponseError.invalidTrip;
+    }
+  }
+}
+
+/// Adapts the [PigeonTripResponseInfoItem] class to the corresponding enum
+extension PigeonTripResponseInfoItemAdapter on PigeonTripResponseInfoItem {
+  /// Converts a [PigeonTripResponseInfoItem] to a corresponding model class.
+  TripResponseInfo toModelImplementation() {
+    return info.toModelImplementation();
   }
 }

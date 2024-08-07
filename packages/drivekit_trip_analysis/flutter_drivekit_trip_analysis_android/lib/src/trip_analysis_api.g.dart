@@ -74,6 +74,43 @@ enum PigeonCrashStatus {
   confirmed,
 }
 
+enum PigeonTripResponseStatusType {
+  tripValid,
+  tripError,
+}
+
+enum PigeonTripResponseInfo {
+  engineSpeedNotAvailable,
+  engineSpeedIsNull,
+  noVehicleCharacteristics,
+  dataLoss,
+  distanceTooShort,
+  invalidVehicleCharacteristics,
+  invalidVehicleId,
+}
+
+enum PigeonTripResponseError {
+  noAccountSet,
+  noRouteObjectFound,
+  invalidRouteDefinition,
+  noVelocityData,
+  invalidSamplingPeriod,
+  invalidCustomerId,
+  noDateFound,
+  maxDailyRequestNumberReached,
+  dataError,
+  invalidRouteVectors,
+  missingBeacon,
+  invalidBeacon,
+  duplicateTrip,
+  insufficientGpsData,
+  userDisabled,
+  invalidUser,
+  invalidGpsData,
+  invalidTrip,
+  accountLimitReached,
+}
+
 class PigeonVehicle {
   PigeonVehicle({
     this.carTypeIndex = 1,
@@ -1805,6 +1842,63 @@ class PigeonSpeedLimitContext {
   }
 }
 
+class PigeonTripResponseStatus {
+  PigeonTripResponseStatus({
+    required this.status,
+    required this.hasSafetyAndEcoDrivingScore,
+    required this.info,
+    this.error,
+  });
+
+  PigeonTripResponseStatusType status;
+
+  bool hasSafetyAndEcoDrivingScore;
+
+  List<PigeonTripResponseInfoItem?> info;
+
+  PigeonTripResponseError? error;
+
+  Object encode() {
+    return <Object?>[
+      status,
+      hasSafetyAndEcoDrivingScore,
+      info,
+      error,
+    ];
+  }
+
+  static PigeonTripResponseStatus decode(Object result) {
+    result as List<Object?>;
+    return PigeonTripResponseStatus(
+      status: result[0]! as PigeonTripResponseStatusType,
+      hasSafetyAndEcoDrivingScore: result[1]! as bool,
+      info: (result[2] as List<Object?>?)!.cast<PigeonTripResponseInfoItem?>(),
+      error: result[3] as PigeonTripResponseError?,
+    );
+  }
+}
+
+class PigeonTripResponseInfoItem {
+  PigeonTripResponseInfoItem({
+    required this.info,
+  });
+
+  PigeonTripResponseInfo info;
+
+  Object encode() {
+    return <Object?>[
+      info,
+    ];
+  }
+
+  static PigeonTripResponseInfoItem decode(Object result) {
+    result as List<Object?>;
+    return PigeonTripResponseInfoItem(
+      info: result[0]! as PigeonTripResponseInfo,
+    );
+  }
+}
+
 
 class _PigeonCodec extends StandardMessageCodec {
   const _PigeonCodec();
@@ -1903,23 +1997,38 @@ class _PigeonCodec extends StandardMessageCodec {
     } else     if (value is PigeonSpeedLimitContext) {
       buffer.putUint8(159);
       writeValue(buffer, value.encode());
-    } else     if (value is PigeonStartMode) {
+    } else     if (value is PigeonTripResponseStatus) {
       buffer.putUint8(160);
-      writeValue(buffer, value.index);
-    } else     if (value is PigeonCancelTrip) {
+      writeValue(buffer, value.encode());
+    } else     if (value is PigeonTripResponseInfoItem) {
       buffer.putUint8(161);
-      writeValue(buffer, value.index);
-    } else     if (value is PigeonState) {
+      writeValue(buffer, value.encode());
+    } else     if (value is PigeonStartMode) {
       buffer.putUint8(162);
       writeValue(buffer, value.index);
-    } else     if (value is PigeonDKCrashFeedbackType) {
+    } else     if (value is PigeonCancelTrip) {
       buffer.putUint8(163);
       writeValue(buffer, value.index);
-    } else     if (value is PigeonDKCrashFeedbackSeverity) {
+    } else     if (value is PigeonState) {
       buffer.putUint8(164);
       writeValue(buffer, value.index);
-    } else     if (value is PigeonCrashStatus) {
+    } else     if (value is PigeonDKCrashFeedbackType) {
       buffer.putUint8(165);
+      writeValue(buffer, value.index);
+    } else     if (value is PigeonDKCrashFeedbackSeverity) {
+      buffer.putUint8(166);
+      writeValue(buffer, value.index);
+    } else     if (value is PigeonCrashStatus) {
+      buffer.putUint8(167);
+      writeValue(buffer, value.index);
+    } else     if (value is PigeonTripResponseStatusType) {
+      buffer.putUint8(168);
+      writeValue(buffer, value.index);
+    } else     if (value is PigeonTripResponseInfo) {
+      buffer.putUint8(169);
+      writeValue(buffer, value.index);
+    } else     if (value is PigeonTripResponseError) {
+      buffer.putUint8(170);
       writeValue(buffer, value.index);
     } else {
       super.writeValue(buffer, value);
@@ -1992,23 +2101,36 @@ class _PigeonCodec extends StandardMessageCodec {
       case 159: 
         return PigeonSpeedLimitContext.decode(readValue(buffer)!);
       case 160: 
-        final int? value = readValue(buffer) as int?;
-        return value == null ? null : PigeonStartMode.values[value];
+        return PigeonTripResponseStatus.decode(readValue(buffer)!);
       case 161: 
-        final int? value = readValue(buffer) as int?;
-        return value == null ? null : PigeonCancelTrip.values[value];
+        return PigeonTripResponseInfoItem.decode(readValue(buffer)!);
       case 162: 
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : PigeonState.values[value];
+        return value == null ? null : PigeonStartMode.values[value];
       case 163: 
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : PigeonDKCrashFeedbackType.values[value];
+        return value == null ? null : PigeonCancelTrip.values[value];
       case 164: 
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : PigeonDKCrashFeedbackSeverity.values[value];
+        return value == null ? null : PigeonState.values[value];
       case 165: 
         final int? value = readValue(buffer) as int?;
+        return value == null ? null : PigeonDKCrashFeedbackType.values[value];
+      case 166: 
+        final int? value = readValue(buffer) as int?;
+        return value == null ? null : PigeonDKCrashFeedbackSeverity.values[value];
+      case 167: 
+        final int? value = readValue(buffer) as int?;
         return value == null ? null : PigeonCrashStatus.values[value];
+      case 168: 
+        final int? value = readValue(buffer) as int?;
+        return value == null ? null : PigeonTripResponseStatusType.values[value];
+      case 169: 
+        final int? value = readValue(buffer) as int?;
+        return value == null ? null : PigeonTripResponseInfo.values[value];
+      case 170: 
+        final int? value = readValue(buffer) as int?;
+        return value == null ? null : PigeonTripResponseError.values[value];
       default:
         return super.readValueOfType(type, buffer);
     }
@@ -2233,6 +2355,28 @@ class AndroidTripAnalysisApi {
       );
     } else {
       return;
+    }
+  }
+
+  Future<PigeonTripResponseStatus?> getTripResponseStatus(PigeonPostGenericResponse tripResponse) async {
+    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.getTripResponseStatus$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+      __pigeon_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: __pigeon_binaryMessenger,
+    );
+    final List<Object?>? __pigeon_replyList =
+        await __pigeon_channel.send(<Object?>[tripResponse]) as List<Object?>?;
+    if (__pigeon_replyList == null) {
+      throw _createConnectionError(__pigeon_channelName);
+    } else if (__pigeon_replyList.length > 1) {
+      throw PlatformException(
+        code: __pigeon_replyList[0]! as String,
+        message: __pigeon_replyList[1] as String?,
+        details: __pigeon_replyList[2],
+      );
+    } else {
+      return (__pigeon_replyList[0] as PigeonTripResponseStatus?);
     }
   }
 }

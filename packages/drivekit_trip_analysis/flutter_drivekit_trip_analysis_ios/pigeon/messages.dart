@@ -22,6 +22,9 @@ abstract class IOSTripAnalysisApi {
   void setMonitorPotentialTripStart(bool activate);
   bool getMonitorPotentialTripStart();
   void setVehicle(PigeonVehicle vehicle);
+  PigeonTripResponseStatus? getTripResponseStatus(
+    PigeonPostGenericResponse tripResponse,
+  );
 }
 
 @FlutterApi()
@@ -1098,4 +1101,60 @@ class PigeonLocation {
   final double longitude;
 
   final double latitude;
+}
+
+class PigeonTripResponseStatus {
+  PigeonTripResponseStatus({
+    required this.status,
+    required this.hasSafetyAndEcoDrivingScore,
+    required this.info,
+    required this.error,
+  });
+  final PigeonTripResponseStatusType status;
+  final bool hasSafetyAndEcoDrivingScore;
+  final List<PigeonTripResponseInfoItem?> info;
+  final PigeonTripResponseError? error;
+}
+
+enum PigeonTripResponseStatusType {
+  tripValid,
+  tripError,
+}
+
+class PigeonTripResponseInfoItem {
+  PigeonTripResponseInfoItem({required this.info});
+
+  final PigeonTripResponseInfo info;
+}
+
+enum PigeonTripResponseInfo {
+  engineSpeedNotAvailable,
+  engineSpeedIsNull,
+  noVehicleCharacteristics,
+  dataLoss,
+  distanceTooShort,
+  invalidVehicleCharacteristics,
+  invalidVehicleId,
+}
+
+enum PigeonTripResponseError {
+  noAccountSet,
+  noRouteObjectFound,
+  invalidRouteDefinition,
+  noVelocityData,
+  invalidSamplingPeriod,
+  invalidCustomerId,
+  noDateFound,
+  maxDailyRequestNumberReached,
+  dataError,
+  invalidRouteVectors,
+  missingBeacon,
+  invalidBeacon,
+  duplicateTrip,
+  insufficientGpsData,
+  userDisabled,
+  invalidUser,
+  invalidGpsData,
+  invalidTrip,
+  accountLimitReached,
 }

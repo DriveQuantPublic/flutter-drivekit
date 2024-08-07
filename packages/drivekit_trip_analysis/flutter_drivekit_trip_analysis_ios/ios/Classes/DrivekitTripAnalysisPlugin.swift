@@ -62,6 +62,12 @@ public class DrivekitTripAnalysisPlugin: NSObject, FlutterPlugin, IOSTripAnalysi
     private func configureDriveTripDelegate() {
         DriveKitTripAnalysis.shared.addTripListener(self)
     }
+
+    func getTripResponseStatus(tripResponse: PigeonPostGenericResponse) throws -> PigeonTripResponseStatus? {
+        // TODO: to be implemented
+        return nil
+    }
+
 }
 
 extension DrivekitTripAnalysisPlugin: TripListener {
