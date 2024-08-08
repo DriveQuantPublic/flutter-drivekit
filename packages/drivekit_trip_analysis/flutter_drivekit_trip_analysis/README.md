@@ -77,6 +77,7 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 | [setMonitorPotentialTripStart()](#setmonitorpotentialtripstart)       | `Future<void>`                  | ✅  |   ✅    |
 | [getMonitorPotentialTripStart()](#getmonitorpotentialtripstart)       | `Future<bool>`                  | ✅  |   ✅    |
 | [setVehicle()](#setvehicle)                                           | `Future<bool>`                  | ✅  |   ✅    |
+| [getTripResponseStatus()](#getTripResponseStatus)                                           | `Future<TripResponseStatus>`                  | ✅  |   ✅    |
 
 
 ### activateAutoStart
@@ -337,3 +338,23 @@ A detailed description of vehicle parameter is available [here](https://docs.dri
 > engineCylinderNb = 4
 >
 > driveWheels = 0
+
+### getTripResponseStatus
+
+Once the DriveQuant servers has analyzed a trip, the `tripFinished()` [callback of TripListener](#addtriplistener) is triggered with the data in the `PostGenericResponse` object.
+
+It can be useful to check the trip response status in order to check for example if the trip is valid or not with detailed information.
+
+To do this, call the following method:
+
+```dart
+  Future<TripResponseStatus?> getTripResponseStatus(
+    PostGenericResponse tripResponse,
+  )
+```
+
+The TripResponseStatus model is described in the References part.
+
+
+A detailed description of TripResponseStatus model is available [here](https://docs.drivequant.com/trip-analysis/ios/references#tripresponsestatus).
+
