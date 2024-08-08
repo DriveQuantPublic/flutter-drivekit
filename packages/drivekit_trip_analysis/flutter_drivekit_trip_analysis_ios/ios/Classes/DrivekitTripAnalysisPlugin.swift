@@ -64,8 +64,7 @@ public class DrivekitTripAnalysisPlugin: NSObject, FlutterPlugin, IOSTripAnalysi
     }
 
     func getTripResponseStatus(tripResponse: PigeonPostGenericResponse) throws -> PigeonTripResponseStatus? {
-        // TODO: to be implemented
-        return nil
+        return tripResponse.getStatus()
     }
 
 }
