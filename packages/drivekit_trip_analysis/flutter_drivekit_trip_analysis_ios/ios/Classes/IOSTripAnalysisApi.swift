@@ -115,6 +115,43 @@ enum PigeonCrashStatus: Int {
   case confirmed = 1
 }
 
+enum PigeonTripResponseStatusType: Int {
+  case tripValid = 0
+  case tripError = 1
+}
+
+enum PigeonTripResponseInfo: Int {
+  case engineSpeedNotAvailable = 0
+  case engineSpeedIsNull = 1
+  case noVehicleCharacteristics = 2
+  case dataLoss = 3
+  case distanceTooShort = 4
+  case invalidVehicleCharacteristics = 5
+  case invalidVehicleId = 6
+}
+
+enum PigeonTripResponseError: Int {
+  case noAccountSet = 0
+  case noRouteObjectFound = 1
+  case invalidRouteDefinition = 2
+  case noVelocityData = 3
+  case invalidSamplingPeriod = 4
+  case invalidCustomerId = 5
+  case noDateFound = 6
+  case maxDailyRequestNumberReached = 7
+  case dataError = 8
+  case invalidRouteVectors = 9
+  case missingBeacon = 10
+  case invalidBeacon = 11
+  case duplicateTrip = 12
+  case insufficientGpsData = 13
+  case userDisabled = 14
+  case invalidUser = 15
+  case invalidGpsData = 16
+  case invalidTrip = 17
+  case accountLimitReached = 18
+}
+
 /// Generated class from Pigeon that represents data sent in messages.
 struct PigeonVehicle {
   var carTypeIndex: Int64
@@ -1590,6 +1627,56 @@ struct PigeonLocation {
     ]
   }
 }
+
+/// Generated class from Pigeon that represents data sent in messages.
+struct PigeonTripResponseStatus {
+  var status: PigeonTripResponseStatusType
+  var hasSafetyAndEcoDrivingScore: Bool
+  var info: [PigeonTripResponseInfoItem?]
+  var error: PigeonTripResponseError? = nil
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ __pigeon_list: [Any?]) -> PigeonTripResponseStatus? {
+    let status = __pigeon_list[0] as! PigeonTripResponseStatusType
+    let hasSafetyAndEcoDrivingScore = __pigeon_list[1] as! Bool
+    let info = __pigeon_list[2] as! [PigeonTripResponseInfoItem?]
+    let error: PigeonTripResponseError? = nilOrValue(__pigeon_list[3])
+
+    return PigeonTripResponseStatus(
+      status: status,
+      hasSafetyAndEcoDrivingScore: hasSafetyAndEcoDrivingScore,
+      info: info,
+      error: error
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      status,
+      hasSafetyAndEcoDrivingScore,
+      info,
+      error,
+    ]
+  }
+}
+
+/// Generated class from Pigeon that represents data sent in messages.
+struct PigeonTripResponseInfoItem {
+  var info: PigeonTripResponseInfo
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ __pigeon_list: [Any?]) -> PigeonTripResponseInfoItem? {
+    let info = __pigeon_list[0] as! PigeonTripResponseInfo
+
+    return PigeonTripResponseInfoItem(
+      info: info
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      info
+    ]
+  }
+}
 private class IOSTripAnalysisApiPigeonCodecReader: FlutterStandardReader {
   override func readValue(ofType type: UInt8) -> Any? {
     switch type {
@@ -1658,45 +1745,70 @@ private class IOSTripAnalysisApiPigeonCodecReader: FlutterStandardReader {
     case 160:
       return PigeonLocation.fromList(self.readValue() as! [Any?])
     case 161:
+      return PigeonTripResponseStatus.fromList(self.readValue() as! [Any?])
+    case 162:
+      return PigeonTripResponseInfoItem.fromList(self.readValue() as! [Any?])
+    case 163:
       var enumResult: PigeonStartMode? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonStartMode(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 162:
+    case 164:
       var enumResult: PigeonCancelTrip? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonCancelTrip(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 163:
+    case 165:
       var enumResult: PigeonState? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonState(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 164:
+    case 166:
       var enumResult: PigeonDKCrashFeedbackType? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonDKCrashFeedbackType(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 165:
+    case 167:
       var enumResult: PigeonDKCrashFeedbackSeverity? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonDKCrashFeedbackSeverity(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 166:
+    case 168:
       var enumResult: PigeonCrashStatus? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonCrashStatus(rawValue: enumResultAsInt)
+      }
+      return enumResult
+    case 169:
+      var enumResult: PigeonTripResponseStatusType? = nil
+      let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
+      if let enumResultAsInt = enumResultAsInt {
+        enumResult = PigeonTripResponseStatusType(rawValue: enumResultAsInt)
+      }
+      return enumResult
+    case 170:
+      var enumResult: PigeonTripResponseInfo? = nil
+      let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
+      if let enumResultAsInt = enumResultAsInt {
+        enumResult = PigeonTripResponseInfo(rawValue: enumResultAsInt)
+      }
+      return enumResult
+    case 171:
+      var enumResult: PigeonTripResponseError? = nil
+      let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
+      if let enumResultAsInt = enumResultAsInt {
+        enumResult = PigeonTripResponseError(rawValue: enumResultAsInt)
       }
       return enumResult
     default:
@@ -1803,23 +1915,38 @@ private class IOSTripAnalysisApiPigeonCodecWriter: FlutterStandardWriter {
     } else if let value = value as? PigeonLocation {
       super.writeByte(160)
       super.writeValue(value.toList())
-    } else if let value = value as? PigeonStartMode {
+    } else if let value = value as? PigeonTripResponseStatus {
       super.writeByte(161)
-      super.writeValue(value.rawValue)
-    } else if let value = value as? PigeonCancelTrip {
+      super.writeValue(value.toList())
+    } else if let value = value as? PigeonTripResponseInfoItem {
       super.writeByte(162)
-      super.writeValue(value.rawValue)
-    } else if let value = value as? PigeonState {
+      super.writeValue(value.toList())
+    } else if let value = value as? PigeonStartMode {
       super.writeByte(163)
       super.writeValue(value.rawValue)
-    } else if let value = value as? PigeonDKCrashFeedbackType {
+    } else if let value = value as? PigeonCancelTrip {
       super.writeByte(164)
       super.writeValue(value.rawValue)
-    } else if let value = value as? PigeonDKCrashFeedbackSeverity {
+    } else if let value = value as? PigeonState {
       super.writeByte(165)
       super.writeValue(value.rawValue)
-    } else if let value = value as? PigeonCrashStatus {
+    } else if let value = value as? PigeonDKCrashFeedbackType {
       super.writeByte(166)
+      super.writeValue(value.rawValue)
+    } else if let value = value as? PigeonDKCrashFeedbackSeverity {
+      super.writeByte(167)
+      super.writeValue(value.rawValue)
+    } else if let value = value as? PigeonCrashStatus {
+      super.writeByte(168)
+      super.writeValue(value.rawValue)
+    } else if let value = value as? PigeonTripResponseStatusType {
+      super.writeByte(169)
+      super.writeValue(value.rawValue)
+    } else if let value = value as? PigeonTripResponseInfo {
+      super.writeByte(170)
+      super.writeValue(value.rawValue)
+    } else if let value = value as? PigeonTripResponseError {
+      super.writeByte(171)
       super.writeValue(value.rawValue)
     } else {
       super.writeValue(value)
@@ -1852,6 +1979,7 @@ protocol IOSTripAnalysisApi {
   func setMonitorPotentialTripStart(activate: Bool) throws
   func getMonitorPotentialTripStart() throws -> Bool
   func setVehicle(vehicle: PigeonVehicle) throws
+  func getTripResponseStatus(tripResponse: PigeonPostGenericResponse) throws -> PigeonTripResponseStatus?
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
@@ -1984,6 +2112,21 @@ class IOSTripAnalysisApiSetup {
       }
     } else {
       setVehicleChannel.setMessageHandler(nil)
+    }
+    let getTripResponseStatusChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.pigeon_trip_analysis_package.IOSTripAnalysisApi.getTripResponseStatus\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      getTripResponseStatusChannel.setMessageHandler { message, reply in
+        let args = message as! [Any?]
+        let tripResponseArg = args[0] as! PigeonPostGenericResponse
+        do {
+          let result = try api.getTripResponseStatus(tripResponse: tripResponseArg)
+          reply(wrapResult(result))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      getTripResponseStatusChannel.setMessageHandler(nil)
     }
   }
 }

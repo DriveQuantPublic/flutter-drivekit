@@ -162,5 +162,29 @@ void main() {
             .called(1);
       });
     });
+
+    group('getTripResponseStatus', () {
+      test('Indicates if the analyzed trip is valid or not', () async {
+        final tripResponseStatus = TripResponseStatus(
+          status: TripResponseStatusType.tripError,
+          hasSafetyAndEcoDrivingScore: false,
+          info: [],
+          error: TripResponseError.noAccountSet,
+        );
+        const postGenericResponse = PostGenericResponse(
+          status: false,
+          itinId: null,
+          comments: [Comment(errorCode: 10, comment: 'no account set')],
+        );
+        when(
+          () => drivekitTripAnalysisPlatform
+              .getTripResponseStatus(postGenericResponse),
+        ).thenAnswer((_) async => tripResponseStatus);
+
+        final actualTripResponseStatus = await DrivekitTripAnalysis.instance
+            .getTripResponseStatus(postGenericResponse);
+        expect(actualTripResponseStatus, equals(tripResponseStatus));
+      });
+    });
   });
 }

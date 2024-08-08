@@ -686,3 +686,107 @@ extension PigeonLocationAdapter on PigeonLocation {
     return Location(longitude: longitude, latitude: latitude);
   }
 }
+
+/// Adapts the [PigeonTripResponseStatus] class to the corresponding class
+extension PigeonTripResponseStatusAdapter on PigeonTripResponseStatus {
+  /// Converts a [PigeonTripResponseStatus] to a corresponding model class.
+  TripResponseStatus toModelImplementation() {
+    return TripResponseStatus(
+      status: status.toModelImplementation(),
+      hasSafetyAndEcoDrivingScore: hasSafetyAndEcoDrivingScore,
+      info: info.whereNotNull().map((e) => e.toModelImplementation()).toList(),
+      error: error?.toModelImplementation(),
+    );
+  }
+}
+
+/// Adapts the [PigeonTripResponseInfo] class to the corresponding class
+extension PigeonTripResponseInfoAdapter on PigeonTripResponseInfo {
+  /// Converts a [PigeonTripResponseInfo] to a corresponding model class.
+  TripResponseInfo toModelImplementation() {
+    switch (this) {
+      case PigeonTripResponseInfo.engineSpeedNotAvailable:
+        return TripResponseInfo.engineSpeedNotAvailable;
+      case PigeonTripResponseInfo.engineSpeedIsNull:
+        return TripResponseInfo.engineSpeedIsNull;
+      case PigeonTripResponseInfo.noVehicleCharacteristics:
+        return TripResponseInfo.noVehicleCharacteristics;
+      case PigeonTripResponseInfo.dataLoss:
+        return TripResponseInfo.dataLoss;
+      case PigeonTripResponseInfo.distanceTooShort:
+        return TripResponseInfo.distanceTooShort;
+      case PigeonTripResponseInfo.invalidVehicleCharacteristics:
+        return TripResponseInfo.invalidVehicleCharacteristics;
+      case PigeonTripResponseInfo.invalidVehicleId:
+        return TripResponseInfo.invalidVehicleId;
+    }
+  }
+}
+
+/// Adapts the [PigeonTripResponseStatusType] enum to the corresponding enum
+extension PigeonTripResponseStatusTypeAdapter on PigeonTripResponseStatusType {
+  /// Converts a [PigeonTripResponseStatusType] to a corresponding model enum.
+  TripResponseStatusType toModelImplementation() {
+    switch (this) {
+      case PigeonTripResponseStatusType.tripValid:
+        return TripResponseStatusType.tripValid;
+      case PigeonTripResponseStatusType.tripError:
+        return TripResponseStatusType.tripError;
+    }
+  }
+}
+
+/// Adapts the [PigeonTripResponseError] enum to the corresponding enum
+extension PigeonTripResponseErrorAdapter on PigeonTripResponseError {
+  /// Converts a [PigeonTripResponseError] to a corresponding model enum.
+  TripResponseError toModelImplementation() {
+    switch (this) {
+      case PigeonTripResponseError.accountLimitReached:
+        return TripResponseError.accountLimitReached;
+      case PigeonTripResponseError.dataError:
+        return TripResponseError.dataError;
+      case PigeonTripResponseError.noAccountSet:
+        return TripResponseError.noAccountSet;
+      case PigeonTripResponseError.noRouteObjectFound:
+        return TripResponseError.noRouteObjectFound;
+      case PigeonTripResponseError.invalidRouteDefinition:
+        return TripResponseError.invalidRouteDefinition;
+      case PigeonTripResponseError.noVelocityData:
+        return TripResponseError.noVelocityData;
+      case PigeonTripResponseError.invalidSamplingPeriod:
+        return TripResponseError.invalidSamplingPeriod;
+      case PigeonTripResponseError.invalidCustomerId:
+        return TripResponseError.invalidCustomerId;
+      case PigeonTripResponseError.noDateFound:
+        return TripResponseError.noDateFound;
+      case PigeonTripResponseError.maxDailyRequestNumberReached:
+        return TripResponseError.maxDailyRequestNumberReached;
+      case PigeonTripResponseError.invalidRouteVectors:
+        return TripResponseError.invalidRouteVectors;
+      case PigeonTripResponseError.missingBeacon:
+        return TripResponseError.missingBeacon;
+      case PigeonTripResponseError.invalidBeacon:
+        return TripResponseError.invalidBeacon;
+      case PigeonTripResponseError.duplicateTrip:
+        return TripResponseError.duplicateTrip;
+      case PigeonTripResponseError.insufficientGpsData:
+        return TripResponseError.insufficientGpsData;
+      case PigeonTripResponseError.userDisabled:
+        return TripResponseError.userDisabled;
+      case PigeonTripResponseError.invalidUser:
+        return TripResponseError.invalidUser;
+      case PigeonTripResponseError.invalidGpsData:
+        return TripResponseError.invalidGpsData;
+      case PigeonTripResponseError.invalidTrip:
+        return TripResponseError.invalidTrip;
+    }
+  }
+}
+
+/// Adapts the [PigeonTripResponseInfoItem] class to the corresponding enum
+extension PigeonTripResponseInfoItemAdapter on PigeonTripResponseInfoItem {
+  /// Converts a [PigeonTripResponseInfoItem] to a corresponding model class.
+  TripResponseInfo toModelImplementation() {
+    return info.toModelImplementation();
+  }
+}

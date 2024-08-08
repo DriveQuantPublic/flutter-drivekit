@@ -634,3 +634,125 @@ extension PigeonTripPoint {
         )
     }
 }
+
+extension PigeonTripResponseInfo {
+    init(from tripResponseInfo: TripResponseInfo) {
+        switch tripResponseInfo {
+            case .engineSpeedNotAvailable:
+                self = .engineSpeedNotAvailable
+            case .engineSpeedIsNull:
+                self = .engineSpeedIsNull
+            case .noVehicleCharacteristics:
+                self = .noVehicleCharacteristics
+            case .dataLoss:
+                self = .dataLoss
+            case .distanceTooShort:
+                self = .distanceTooShort
+            case .invalidVehicleCharacteristics:
+                self = .invalidVehicleCharacteristics
+            case .invalidVehicleId:
+                self = .invalidVehicleId
+            @unknown default:
+                fatalError()
+        }
+    }
+}
+
+extension PigeonTripResponseError {
+    init(from tripResponseError: TripResponseError) {
+        switch tripResponseError {
+            case .noAccountSet:
+                self = .noAccountSet
+            case .noRouteObjectFound:
+                self = .noRouteObjectFound
+            case .invalidRouteDefinition:
+                self = .invalidRouteDefinition
+            case .noVelocityData:
+                self = .noVelocityData
+            case .invalidSamplingPeriod:
+                self = .invalidSamplingPeriod
+            case .invalidCustomerId:
+                self = .invalidCustomerId
+            case .noDateFound:
+                self = .noDateFound
+            case .maxDailyRequestNumberReached:
+                self = .maxDailyRequestNumberReached
+            case .dataError:
+                self = .dataError
+            case .invalidRouteVectors:
+                self = .invalidRouteVectors
+            case .missingBeacon:
+                self = .missingBeacon
+            case .invalidBeacon:
+                self = .invalidBeacon
+            case .duplicateTrip:
+                self = .duplicateTrip
+            case .insufficientGpsData:
+                self = .insufficientGpsData
+            case .userDisabled:
+                self = .userDisabled
+            case .invalidUser:
+                self = .invalidUser
+            case .invalidGpsData:
+                self = .invalidGpsData
+            case .invalidTrip:
+                self = .invalidTrip
+            case .accountLimitReached:
+                self = .accountLimitReached
+            @unknown default:
+                fatalError()
+        }
+    }
+}
+
+extension PigeonPostGenericResponse {
+    func getStatus() -> PigeonTripResponseStatus {
+        if self.isValid() {
+            let info: [PigeonTripResponseInfoItem] = self.comments.compactMap {pigeonComment in
+                if let pigeonComment,
+                   let tripResponseInfo = TripResponseInfo(rawValue: Int(pigeonComment.errorCode)) {
+                    return PigeonTripResponseInfoItem(
+                        info: PigeonTripResponseInfo(from: tripResponseInfo)
+                    )
+                } else {
+                    return nil
+                }
+            }
+            return PigeonTripResponseStatus(
+                status: .tripValid,
+                hasSafetyAndEcoDrivingScore: self.hasSafetyAndEcoDrivingScore(),
+                info: info
+            )
+        } else {
+            let error: PigeonTripResponseError? = self.comments.compactMap {pigeonComment in
+                if let pigeonComment,
+                   let tripResponseError = TripResponseError(rawValue: Int(pigeonComment.errorCode)) {
+                    return PigeonTripResponseError(from: tripResponseError)
+                } else {
+                    return nil
+                }
+            }.first
+            return PigeonTripResponseStatus(
+                status: .tripError,
+                hasSafetyAndEcoDrivingScore: false,
+                info: [],
+                error: error
+            )
+        }
+    }
+    
+    private func isValid() -> Bool {
+        if let itineraryStatistics = self.itineraryStatistics, itineraryStatistics.distance > 0, self.itinId != nil, self.comments.contains(where: { $0?.errorCode == 0 }) == true {
+            return true
+        }
+        return false
+    }
+    
+    private func hasSafetyAndEcoDrivingScore() -> Bool {
+        var isScored = false
+        if let ecoDriving = self.ecoDriving, let safety = self.safety {
+            isScored = ecoDriving.score <= 10 && safety.safetyScore <= 10
+        }
+        return isScored
+    }
+}

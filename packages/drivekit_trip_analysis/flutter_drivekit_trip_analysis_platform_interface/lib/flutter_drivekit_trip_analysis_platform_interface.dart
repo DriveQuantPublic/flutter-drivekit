@@ -74,4 +74,9 @@ abstract class DrivekitTripAnalysisPlatform extends PlatformInterface {
 
   /// Remove all trip listeners
   void removeAllTripListeners();
+
+  /// Indicates if the analyzed trip is valid or not
+  Future<TripResponseStatus?> getTripResponseStatus(
+    PostGenericResponse tripResponse,
+  );
 }
