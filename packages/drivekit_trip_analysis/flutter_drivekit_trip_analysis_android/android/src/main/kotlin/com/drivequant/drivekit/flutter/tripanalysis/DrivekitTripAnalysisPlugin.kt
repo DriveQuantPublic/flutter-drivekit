@@ -79,9 +79,9 @@ class DrivekitTripAnalysisPlugin :
         DriveKitTripAnalysis.setVehicle(PigeonMapper.fromPigeonVehicle(vehicle))
     }
 
-    override fun getTripResponseStatus(tripResponse: PigeonPostGenericResponse): PigeonTripResponseStatus? {
-        TODO("Not yet implemented")
-        return null
+    override fun getTripResponseStatus(tripResponse: PigeonPostGenericResponse): PigeonTripResponseStatus {
+        val result = DriveKitTripAnalysis.getTripResponseStatus(PigeonMapper.fromPigeonPostGenericResponse(tripResponse))
+        return PigeonMapper.toPigeonTripResponseStatus(result)
     }
 
     private fun configureTripListener() {

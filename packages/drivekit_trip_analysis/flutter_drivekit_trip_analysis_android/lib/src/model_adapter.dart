@@ -772,6 +772,8 @@ extension PigeonTripResponseErrorAdapter on PigeonTripResponseError {
         return TripResponseError.invalidGpsData;
       case PigeonTripResponseError.invalidTrip:
         return TripResponseError.invalidTrip;
+      case PigeonTripResponseError.unknownError:
+        return TripResponseError.unknownError;
     }
   }
 }

@@ -1152,4 +1152,5 @@ enum PigeonTripResponseError {
   invalidGpsData,
   invalidTrip,
   accountLimitReached,
+  unknownError
 }

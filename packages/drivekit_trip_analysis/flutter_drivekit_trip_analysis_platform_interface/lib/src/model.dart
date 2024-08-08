@@ -1662,4 +1662,7 @@ enum TripResponseError {
 
   /// The maximum number of user account reached for the customer
   accountLimitReached,
+
+  /// The error is not yet handled by the DriveKit SDK.
+  unknownError,
 }

@@ -178,7 +178,8 @@ enum class PigeonTripResponseError(val raw: Int) {
   INVALID_USER(15),
   INVALID_GPS_DATA(16),
   INVALID_TRIP(17),
-  ACCOUNT_LIMIT_REACHED(18);
+  ACCOUNT_LIMIT_REACHED(18),
+  UNKNOWN_ERROR(19);
 
   companion object {
     fun ofRaw(raw: Int): PigeonTripResponseError? {

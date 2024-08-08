@@ -109,6 +109,7 @@ enum PigeonTripResponseError {
   invalidGpsData,
   invalidTrip,
   accountLimitReached,
+  unknownError,
 }
 
 class PigeonVehicle {
