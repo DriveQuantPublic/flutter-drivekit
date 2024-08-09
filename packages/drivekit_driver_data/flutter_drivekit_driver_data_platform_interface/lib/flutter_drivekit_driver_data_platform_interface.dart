@@ -1,5 +1,8 @@
 import 'package:flutter_drivekit_driver_data_platform_interface/src/default_drivekit_driver_data.dart';
+import 'package:flutter_drivekit_driver_data_platform_interface/src/model.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
+
+export 'package:flutter_drivekit_driver_data_platform_interface/src/model.dart';
 
 /// The interface that implementations of drivekit_driver_data must
 /// implement.
@@ -33,4 +36,10 @@ abstract class DrivekitDriverDataPlatform extends PlatformInterface {
 
   /// Return the current platform name.
   Future<String> getPlatformName();
+
+  /// Delete a trip
+  Future<bool> deleteTrip(String itinId);
+
+  /// Get trips ordered by date
+  Future<GetTripsResponse> getTripsOrderByDateAsc();
 }

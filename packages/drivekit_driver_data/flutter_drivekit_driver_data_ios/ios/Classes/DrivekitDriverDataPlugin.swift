@@ -15,4 +15,21 @@ public class DrivekitDriverDataPlugin: NSObject, FlutterPlugin, IOSDriverDataApi
     public func getPlatformName() throws -> String {
         return "iOS"
     }
+
+    func deleteTrip(itinId: String) throws -> Bool {
+        var result: Bool = false
+        let group = DispatchGroup()
+        group.enter()
+        DriveKitDriverData.shared.deleteTrip(itinId: itinId) { status in
+            result = status
+            group.leave()
+        }
+        return result
+    }
+
+    func getTripsOrderByDateAsc() throws -> PigeonGetTripsResponse {
+        // TODO: to be implemented
+        return PigeonGetTripsResponse(status: .failedToSyncTripsCacheOnly, trips: [])
+    }
+
 }

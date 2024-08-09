@@ -82,6 +82,34 @@ packages:
       relative: true
     source: path
     version: "0.0.4"
+  flutter_drivekit_driver_data:
+    dependency: "direct main"
+    description:
+      path: "../packages/drivekit_driver_data/flutter_drivekit_driver_data"
+      relative: true
+    source: path
+    version: "0.0.4"
+  flutter_drivekit_driver_data_android:
+    dependency: "direct overridden"
+    description:
+      path: "../packages/drivekit_driver_data/flutter_drivekit_driver_data_android"
+      relative: true
+    source: path
+    version: "0.0.4"
+  flutter_drivekit_driver_data_ios:
+    dependency: "direct overridden"
+    description:
+      path: "../packages/drivekit_driver_data/flutter_drivekit_driver_data_ios"
+      relative: true
+    source: path
+    version: "0.0.4"
+  flutter_drivekit_driver_data_platform_interface:
+    dependency: "direct overridden"
+    description:
+      path: "../packages/drivekit_driver_data/flutter_drivekit_driver_data_platform_interface"
+      relative: true
+    source: path
+    version: "0.0.4"
   flutter_drivekit_trip_analysis:
     dependency: "direct main"
     description:

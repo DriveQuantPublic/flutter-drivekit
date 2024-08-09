@@ -32,5 +32,15 @@ void main() {
       final name = await DrivekitDriverDataPlatform.instance.getPlatformName();
       expect(name, 'iOS');
     });
+
+    test('Delete a trip', () async {
+      //mocks
+      when(() => iosDriverDataApi.deleteTrip(''))
+          .thenAnswer((_) async => false);
+
+      //test
+      final name = await DrivekitDriverDataPlatform.instance.deleteTrip('');
+      expect(name, false);
+    });
   });
 }
