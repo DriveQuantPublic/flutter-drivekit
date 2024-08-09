@@ -86,6 +86,7 @@ class IOSDriverDataApiPigeonCodec: FlutterStandardMessageCodec, @unchecked Senda
 /// Generated protocol from Pigeon that represents a handler of messages from Flutter.
 protocol IOSDriverDataApi {
   func getPlatformName() throws -> String
+  func deleteTrip(itinId: String) throws -> Bool
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
@@ -106,6 +107,21 @@ class IOSDriverDataApiSetup {
       }
     } else {
       getPlatformNameChannel.setMessageHandler(nil)
+    }
+    let deleteTripChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.pigeon_driver_data_package.IOSDriverDataApi.deleteTrip\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      deleteTripChannel.setMessageHandler { message, reply in
+        let args = message as! [Any?]
+        let itinIdArg = args[0] as! String
+        do {
+          let result = try api.deleteTrip(itinId: itinIdArg)
+          reply(wrapResult(result))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      deleteTripChannel.setMessageHandler(nil)
     }
   }
 }

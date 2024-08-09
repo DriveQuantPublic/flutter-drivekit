@@ -9,4 +9,9 @@ class DefaultDrivekitDriverData extends DrivekitDriverDataPlatform {
   Future<String> getPlatformName() {
     throw UnimplementedError('getPlatformName() has not been implemented.');
   }
+
+  @override
+  Future<bool> deleteTrip(String itinId) {
+    throw UnimplementedError('deleteTrip() has not been implemented.');
+  }
 }

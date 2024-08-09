@@ -1,6 +1,8 @@
 package com.drivequant.drivekit.flutter.driverdata
 
 import android.content.Context
+import com.drivequant.drivekit.driverdata.DriveKitDriverData
+import com.drivequant.drivekit.driverdata.trip.TripDeleteQueryListener
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 
 class DrivekitDriverDataPlugin :
@@ -19,4 +21,16 @@ class DrivekitDriverDataPlugin :
     }
 
     override fun getPlatformName(): String = "android"
+
+    override fun deleteTrip(itinId: String): Boolean {
+        DriveKitDriverData.deleteTrip(
+            itinId,
+            object : TripDeleteQueryListener {
+                override fun onResponse(status: Boolean) {
+                    // to be implemented
+                }
+            }
+        )
+        return false
+    }
 }

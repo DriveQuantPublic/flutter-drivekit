@@ -32,5 +32,17 @@ void main() {
         expect(actualPlatformName, equals(platformName));
       });
     });
+
+    group('deleteTrip', () {
+      test('Delete a trip', () async {
+        const result = false;
+        when(
+          () => drivekitDriverDataPlatform.deleteTrip(any()),
+        ).thenAnswer((_) async => result);
+
+        final actualDeletionResult = await driveKitDriverData.deleteTrip(any());
+        expect(actualDeletionResult, equals(result));
+      });
+    });
   });
 }

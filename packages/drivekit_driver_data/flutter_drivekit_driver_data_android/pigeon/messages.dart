@@ -18,4 +18,5 @@ import 'package:pigeon/pigeon.dart';
 @HostApi()
 abstract class AndroidDriverDataApi {
   String getPlatformName();
+  bool deleteTrip(String itinId);
 }

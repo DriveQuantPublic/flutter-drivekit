@@ -24,4 +24,7 @@ class DrivekitDriverDataAndroid extends DrivekitDriverDataPlatform {
 
   @override
   Future<String> getPlatformName() => androidDriverDataApi.getPlatformName();
+  @override
+  Future<bool> deleteTrip(String itinId) =>
+      androidDriverDataApi.deleteTrip(itinId);
 }

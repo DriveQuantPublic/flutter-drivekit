@@ -55,6 +55,7 @@ private object DriverDataApiPigeonCodec : StandardMessageCodec() {
 /** Generated interface from Pigeon that represents a handler of messages from Flutter. */
 interface AndroidDriverDataApi {
   fun getPlatformName(): String
+  fun deleteTrip(itinId: String): Boolean
 
   companion object {
     /** The codec used by AndroidDriverDataApi. */
@@ -71,6 +72,23 @@ interface AndroidDriverDataApi {
           channel.setMessageHandler { _, reply ->
             val wrapped: List<Any?> = try {
               listOf(api.getPlatformName())
+            } catch (exception: Throwable) {
+              wrapError(exception)
+            }
+            reply.reply(wrapped)
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_driver_data_package.AndroidDriverDataApi.deleteTrip$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { message, reply ->
+            val args = message as List<Any?>
+            val itinIdArg = args[0] as String
+            val wrapped: List<Any?> = try {
+              listOf(api.deleteTrip(itinIdArg))
             } catch (exception: Throwable) {
               wrapError(exception)
             }

@@ -13,4 +13,7 @@ class DriveKitDriverData {
 
   /// Returns the name of the current platform.
   Future<String> getPlatformName() => _platform.getPlatformName();
+
+  /// Delete a trip
+  Future<bool> deleteTrip(String itinId) => _platform.deleteTrip(itinId);
 }

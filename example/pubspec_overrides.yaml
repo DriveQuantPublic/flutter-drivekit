@@ -1,4 +1,4 @@
-# melos_managed_dependency_overrides: flutter_drivekit_core,flutter_drivekit_core_android,flutter_drivekit_core_ios,flutter_drivekit_core_platform_interface,flutter_drivekit_trip_analysis,flutter_drivekit_trip_analysis_android,flutter_drivekit_trip_analysis_ios,flutter_drivekit_trip_analysis_platform_interface,flutter_drivekit_trip_simulator,flutter_drivekit_trip_simulator_android,flutter_drivekit_trip_simulator_ios,flutter_drivekit_trip_simulator_platform_interface
+# melos_managed_dependency_overrides: flutter_drivekit_core,flutter_drivekit_core_android,flutter_drivekit_core_ios,flutter_drivekit_core_platform_interface,flutter_drivekit_trip_analysis,flutter_drivekit_trip_analysis_android,flutter_drivekit_trip_analysis_ios,flutter_drivekit_trip_analysis_platform_interface,flutter_drivekit_trip_simulator,flutter_drivekit_trip_simulator_android,flutter_drivekit_trip_simulator_ios,flutter_drivekit_trip_simulator_platform_interface,flutter_drivekit_driver_data,flutter_drivekit_driver_data_android,flutter_drivekit_driver_data_ios,flutter_drivekit_driver_data_platform_interface
 dependency_overrides:
   flutter_drivekit_core:
     path: ../packages/drivekit_core/flutter_drivekit_core
@@ -8,6 +8,14 @@ dependency_overrides:
     path: ../packages/drivekit_core/flutter_drivekit_core_ios
   flutter_drivekit_core_platform_interface:
     path: ../packages/drivekit_core/flutter_drivekit_core_platform_interface
+  flutter_drivekit_driver_data:
+    path: ../packages/drivekit_driver_data/flutter_drivekit_driver_data
+  flutter_drivekit_driver_data_android:
+    path: ../packages/drivekit_driver_data/flutter_drivekit_driver_data_android
+  flutter_drivekit_driver_data_ios:
+    path: ../packages/drivekit_driver_data/flutter_drivekit_driver_data_ios
+  flutter_drivekit_driver_data_platform_interface:
+    path: ../packages/drivekit_driver_data/flutter_drivekit_driver_data_platform_interface
   flutter_drivekit_trip_analysis:
     path: ../packages/drivekit_trip_analysis/flutter_drivekit_trip_analysis
   flutter_drivekit_trip_analysis_android:
