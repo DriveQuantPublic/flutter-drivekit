@@ -363,7 +363,6 @@ class PostGenericResponse {
     required this.itinId,
     required this.comments,
     this.userId,
-    this.account,
     this.itineraryStatistics,
     this.ecoDriving,
     this.fuelEstimation,
@@ -397,9 +396,6 @@ class PostGenericResponse {
 
   /// The user ID
   final String? userId;
-
-  /// The account information
-  final Account? account;
 
   /// The itinerary statistics
   final ItineraryStatistics? itineraryStatistics;

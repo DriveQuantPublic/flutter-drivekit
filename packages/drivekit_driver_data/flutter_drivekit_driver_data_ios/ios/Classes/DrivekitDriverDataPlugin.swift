@@ -26,4 +26,10 @@ public class DrivekitDriverDataPlugin: NSObject, FlutterPlugin, IOSDriverDataApi
         }
         return result
     }
+
+    func getTripsOrderByDateAsc() throws -> PigeonGetTripsResponse {
+        // TODO: to be implemented
+        return PigeonGetTripsResponse(status: .failedToSyncTripsCacheOnly, trips: [])
+    }
+
 }

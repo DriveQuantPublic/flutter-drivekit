@@ -27,10 +27,14 @@ class DrivekitDriverDataPlugin :
             itinId,
             object : TripDeleteQueryListener {
                 override fun onResponse(status: Boolean) {
-                    // to be implemented
+                    TODO("Not yet implemented")
                 }
             }
         )
         return false
+    }
+
+    override fun getTripsOrderByDateAsc(): PigeonGetTripsResponse {
+        TODO("Not yet implemented")
     }
 }

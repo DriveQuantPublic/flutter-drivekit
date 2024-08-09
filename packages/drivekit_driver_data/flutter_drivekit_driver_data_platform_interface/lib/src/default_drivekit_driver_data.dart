@@ -14,4 +14,11 @@ class DefaultDrivekitDriverData extends DrivekitDriverDataPlatform {
   Future<bool> deleteTrip(String itinId) {
     throw UnimplementedError('deleteTrip() has not been implemented.');
   }
+
+  @override
+  Future<GetTripsResponse> getTripsOrderByDateAsc() {
+    throw UnimplementedError(
+      'getTripsOrderByDateAsc() has not been implemented.',
+    );
+  }
 }

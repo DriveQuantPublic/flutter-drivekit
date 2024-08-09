@@ -27,4 +27,10 @@ class DrivekitDriverDataAndroid extends DrivekitDriverDataPlatform {
   @override
   Future<bool> deleteTrip(String itinId) =>
       androidDriverDataApi.deleteTrip(itinId);
+
+  @override
+  Future<GetTripsResponse> getTripsOrderByDateAsc() {
+    // TODO: implement getTripsOrderByDateAsc
+    throw UnimplementedError();
+  }
 }

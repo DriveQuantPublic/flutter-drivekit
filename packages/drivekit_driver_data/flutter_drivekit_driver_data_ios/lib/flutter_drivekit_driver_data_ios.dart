@@ -25,4 +25,10 @@ class DrivekitDriverDataIOS extends DrivekitDriverDataPlatform {
   Future<String> getPlatformName() => iosDriverDataApi.getPlatformName();
   @override
   Future<bool> deleteTrip(String itinId) => iosDriverDataApi.deleteTrip(itinId);
+
+  @override
+  Future<GetTripsResponse> getTripsOrderByDateAsc() {
+    // TODO: implement getTripsOrderByDateAsc
+    throw UnimplementedError();
+  }
 }
