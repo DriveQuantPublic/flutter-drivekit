@@ -42,6 +42,9 @@ enum PigeonTripSyncStatus {
   /// only trips previously synchronized are returned
   failedToSyncTripsCacheOnly,
 
+  /// Safety Events synchronization failed
+  failedToSyncSafetyEvents,
+
   /// A synchronization is in progress, only trips previously
   /// synchronized are returned until the synchronization is finished
   syncAlreadyInProgress
@@ -74,8 +77,6 @@ class PigeonTrip {
     required this.itineraryData,
     required this.logbook,
     required this.safetyEvents,
-    required this.callEvents,
-    required this.speedingEvents,
     required this.speedingStatistics,
     required this.energyEstimation,
     required this.advancedEnergyEstimation,
@@ -152,12 +153,6 @@ class PigeonTrip {
 
   /// The list of safety events
   final List<PigeonSafetyEvent?>? safetyEvents;
-
-  /// The list of call events
-  final List<PigeonCallEvent?>? callEvents;
-
-  /// The list of speeding events
-  final List<PigeonSpeedingEvent?>? speedingEvents;
 
   /// The speeding statistics
   final PigeonSpeedingStatistics? speedingStatistics;

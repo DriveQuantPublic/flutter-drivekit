@@ -22,6 +22,9 @@ enum TripSyncStatus {
   /// only trips previously synchronized are returned
   failedToSyncTripsCacheOnly,
 
+  /// Safety Events synchronization failed
+  failedToSyncSafetyEvents,
+
   /// A synchronization is in progress, only trips previously
   /// synchronized are returned until the synchronization is finished
   syncAlreadyInProgress
@@ -54,8 +57,6 @@ class Trip {
     required this.itineraryData,
     required this.logbook,
     required this.safetyEvents,
-    required this.callEvents,
-    required this.speedingEvents,
     required this.speedingStatistics,
     required this.energyEstimation,
     required this.advancedEnergyEstimation,
@@ -132,12 +133,6 @@ class Trip {
 
   /// The list of safety events
   final List<SafetyEvent>? safetyEvents;
-
-  /// The list of call events
-  final List<CallEvent>? callEvents;
-
-  /// The list of speeding events
-  final List<SpeedingEvents>? speedingEvents;
 
   /// The speeding statistics
   final SpeedingStatistics? speedingStatistics;

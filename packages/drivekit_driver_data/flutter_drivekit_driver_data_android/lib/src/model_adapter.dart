@@ -67,28 +67,6 @@ extension PigeonItineraryStatisticsAdapter on PigeonItineraryStatistics {
   }
 }
 
-/// Adapts the [PigeonCallEvent] class to the corresponding class in the model.
-extension PigeonCallEventAdapter on PigeonCallEvent {
-  /// Converts a [PigeonCallEvent] to a corresponding model class.
-  CallEvent toModelImplementation() {
-    return CallEvent(
-      time: time,
-      latitude: latitude,
-      longitude: longitude,
-      velocity: velocity,
-      heading: heading,
-      elevation: elevation,
-      distance: distance,
-      type: type,
-      duration: duration,
-      audioSystem: audioSystem,
-      callType: callType,
-      index: index,
-      forbidden: forbidden,
-    );
-  }
-}
-
 /// Adapts the [PigeonPollutants] class to the corresponding class in the model.
 extension PigeonPollutantsAdapter on PigeonPollutants {
   /// Converts a [PigeonPollutants] to a corresponding model class.
@@ -136,21 +114,6 @@ extension PigeonSafetyEventAdapter on PigeonSafetyEvent {
       type: type,
       level: level,
       value: value,
-    );
-  }
-}
-
-/// Adapts the [PigeonSpeedingEvent] class to the corresponding class in the
-/// model.
-extension PigeonSpeedingEventAdapter on PigeonSpeedingEvent {
-  /// Converts a [PigeonSpeedingEvent] to a corresponding model class.
-  SpeedingEvents toModelImplementation() {
-    return SpeedingEvents(
-      time: time,
-      longitude: longitude,
-      latitude: latitude,
-      type: type,
-      index: index,
     );
   }
 }
@@ -415,14 +378,6 @@ extension PigeonTripAdapter on PigeonTrip {
           ?.whereNotNull()
           .map((e) => e.toModelImplementation())
           .toList(),
-      callEvents: callEvents
-          ?.whereNotNull()
-          .map((e) => e.toModelImplementation())
-          .toList(),
-      speedingEvents: speedingEvents
-          ?.whereNotNull()
-          .map((e) => e.toModelImplementation())
-          .toList(),
       speedingStatistics: speedingStatistics?.toModelImplementation(),
       energyEstimation: energyEstimation?.toModelImplementation(),
       advancedEnergyEstimation: advancedEnergyEstimation
@@ -514,6 +469,8 @@ extension PigeonTripSyncStatusAdapter on PigeonTripSyncStatus {
         return TripSyncStatus.failedToSyncTripsCacheOnly;
       case PigeonTripSyncStatus.syncAlreadyInProgress:
         return TripSyncStatus.syncAlreadyInProgress;
+      case PigeonTripSyncStatus.failedToSyncSafetyEvents:
+        return TripSyncStatus.failedToSyncSafetyEvents;
     }
   }
 }

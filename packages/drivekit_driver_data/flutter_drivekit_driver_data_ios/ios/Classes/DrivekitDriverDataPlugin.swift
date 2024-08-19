@@ -28,8 +28,18 @@ public class DrivekitDriverDataPlugin: NSObject, FlutterPlugin, IOSDriverDataApi
     }
 
     func getTripsOrderByDateAsc() throws -> PigeonGetTripsResponse {
-        // TODO: to be implemented
-        return PigeonGetTripsResponse(status: .failedToSyncTripsCacheOnly, trips: [])
+        var pigeonResponse: PigeonGetTripsResponse?
+        let group = DispatchGroup()
+        group.enter()
+        DriveKitDriverData.shared.getTripsOrderByDateAsc { status, trips in
+            pigeonResponse = PigeonGetTripsResponse(from: status, trips: trips)
+            group.leave()
+        }
+        guard let pigeonResponse else {
+            // TODO: handle error in a better way
+            fatalError()
+        }
+        return pigeonResponse
     }
 
 }
