@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_drivekit_driver_data_ios/src/driver_data_api.g.dart';
+import 'package:flutter_drivekit_driver_data_ios/src/model_adapter.dart';
 import 'package:flutter_drivekit_driver_data_platform_interface/flutter_drivekit_driver_data_platform_interface.dart';
 
 /// The iOS implementation of [DrivekitDriverDataPlatform].
@@ -23,12 +24,13 @@ class DrivekitDriverDataIOS extends DrivekitDriverDataPlatform {
 
   @override
   Future<String> getPlatformName() => iosDriverDataApi.getPlatformName();
+
   @override
   Future<bool> deleteTrip(String itinId) => iosDriverDataApi.deleteTrip(itinId);
 
   @override
-  Future<GetTripsResponse> getTripsOrderByDateAsc() {
-    // TODO: implement getTripsOrderByDateAsc
-    throw UnimplementedError();
+  Future<GetTripsResponse?> getTripsOrderByDateAsc() async {
+    final trips = await iosDriverDataApi.getTripsOrderByDateAsc();
+    return trips.toModelImplementation();
   }
 }

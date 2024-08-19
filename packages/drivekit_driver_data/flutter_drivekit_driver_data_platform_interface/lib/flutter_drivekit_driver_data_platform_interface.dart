@@ -41,5 +41,5 @@ abstract class DrivekitDriverDataPlatform extends PlatformInterface {
   Future<bool> deleteTrip(String itinId);
 
   /// Get trips ordered by date
-  Future<GetTripsResponse> getTripsOrderByDateAsc();
+  Future<GetTripsResponse?> getTripsOrderByDateAsc();
 }

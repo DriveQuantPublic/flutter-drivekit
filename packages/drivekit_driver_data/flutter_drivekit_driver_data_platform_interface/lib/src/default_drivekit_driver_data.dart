@@ -16,7 +16,7 @@ class DefaultDrivekitDriverData extends DrivekitDriverDataPlatform {
   }
 
   @override
-  Future<GetTripsResponse> getTripsOrderByDateAsc() {
+  Future<GetTripsResponse?> getTripsOrderByDateAsc() {
     throw UnimplementedError(
       'getTripsOrderByDateAsc() has not been implemented.',
     );
