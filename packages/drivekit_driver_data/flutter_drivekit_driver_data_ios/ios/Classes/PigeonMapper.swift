@@ -75,7 +75,7 @@ extension PigeonTrip {
             self.brakeWear = PigeonBrakeWear(from: brakeWear)
         }
         if let driverDistraction = trip.driverDistraction {
-            self.driverDistraction = PigeonDriverDistraction(from: driverDistraction)
+            self.driverDistraction = PigeonDriverDistraction(from: driverDistraction, calls: trip.calls?.allObjects as? [Call] ?? [])
         }
         self.itineraryData = PigeonItineraryData(
             startDate: (trip.startDate != nil) ? DateUtils.convertDateToString(date: trip.startDate!) : nil,
@@ -88,6 +88,7 @@ extension PigeonTrip {
         if let logbook = trip.logbook {
             self.logbook = PigeonLogbook(from: logbook)
         }
+        
         if let safetyEvents = trip.safetyEvents?.allObjects as? [SafetyEvents] {
             self.safetyEvents = safetyEvents.map({
                 PigeonSafetyEvent(from: $0)
@@ -284,18 +285,38 @@ extension PigeonBrakeWear {
 }
 
 extension PigeonDriverDistraction {
-    init(from driverDistraction: DriverDistraction) {
+    init(from driverDistraction: DriverDistraction, calls: [Call]) {
         self.init(
             nbUnlock: Int64(driverDistraction.nbUnlock),
             durationUnlock: driverDistraction.durationUnlock,
             durationPercentUnlock: driverDistraction.durationPercentUnlock,
             distanceUnlock: driverDistraction.distanceUnlock,
             distancePercentUnlock: driverDistraction.distancePercentUnlock,
-            score: driverDistraction.score
+            score: driverDistraction.score,
+            scoreUnlock: driverDistraction.scoreUnlockNumber?.doubleValue,
+            scoreCall: driverDistraction.scoreCallNumber?.doubleValue,
+            calls: calls.map{ PigeonCall(from: $0) }
         )
     }
 }
 
+extension PigeonCall {
+    init(from call: Call) {
+        self.init(
+            id: Int64(call.id),
+            start: call.start,
+            end: call.end,
+            durationS: Int64(call.duration),
+            duration: Int64(call.durationPercent),
+            distanceM: Int64(call.distance),
+            distance: Int64(call.distancePercent),
+            status: call.typeValue ?? "",
+            audioSystem: call.audioSystemValue ?? "",
+            audioInput: call.audioInput, audioOutput: call.audioOutput, audioName: call.audioName, bluetoothClass: Int64(call.bluetoothClass),
+            forbidden: call.isForbidden
+        )
+    }
+}
 extension PigeonLogbook {
     init(from logbook: Logbook) {
         self.init(
