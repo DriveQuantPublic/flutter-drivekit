@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.res.Resources
 import android.util.Log
 import androidx.startup.Initializer
+import com.drivequant.drivekit.core.autoinit.DriveKitInitializer
 import com.drivequant.drivekit.tripanalysis.DriveKitTripAnalysis
 import com.drivequant.drivekit.tripanalysis.entity.TripNotification
 
