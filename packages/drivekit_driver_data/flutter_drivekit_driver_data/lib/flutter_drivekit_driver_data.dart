@@ -1,5 +1,8 @@
 import 'package:flutter_drivekit_driver_data_platform_interface/flutter_drivekit_driver_data_platform_interface.dart';
 
+export 'package:flutter_drivekit_driver_data_platform_interface/flutter_drivekit_driver_data_platform_interface.dart'
+    show TripSyncStatus;
+
 DrivekitDriverDataPlatform get _platform => DrivekitDriverDataPlatform.instance;
 
 /// The main class of the plugin.

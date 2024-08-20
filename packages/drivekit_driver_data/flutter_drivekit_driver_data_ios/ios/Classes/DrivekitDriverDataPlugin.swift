@@ -24,6 +24,7 @@ public class DrivekitDriverDataPlugin: NSObject, FlutterPlugin, IOSDriverDataApi
             result = status
             group.leave()
         }
+        group.wait()
         return result
     }
 
@@ -35,6 +36,7 @@ public class DrivekitDriverDataPlugin: NSObject, FlutterPlugin, IOSDriverDataApi
             pigeonResponse = PigeonGetTripsResponse(from: status, trips: trips)
             group.leave()
         }
+        group.wait()
         guard let pigeonResponse else {
             // TODO: handle error in a better way
             fatalError()
