@@ -45,12 +45,12 @@ extension PigeonEnergyEstimationAdapter on PigeonEnergyEstimation {
   }
 }
 
-/// Adapts the [PigeonItineraryStatistics] class to the corresponding class in
+/// Adapts the [PigeonTripStatistics] class to the corresponding class in
 /// the model.
-extension PigeonItineraryStatisticsAdapter on PigeonItineraryStatistics {
-  /// Converts a [PigeonItineraryStatistics] to a corresponding model class.
-  ItineraryStatistics toModelImplementation() {
-    return ItineraryStatistics(
+extension PigeonTripStatisticsAdapter on PigeonTripStatistics {
+  /// Converts a [PigeonTripStatistics] to a corresponding model class.
+  TripStatistics toModelImplementation() {
+    return TripStatistics(
       tripDuration: tripDuration,
       drivingDuration: drivingDuration,
       idlingDuration: idlingDuration,
@@ -62,7 +62,6 @@ extension PigeonItineraryStatisticsAdapter on PigeonItineraryStatistics {
       meteo: meteo,
       day: day,
       weekDay: weekDay,
-      transportationMode: transportationMode,
     );
   }
 }
@@ -299,10 +298,6 @@ extension PigeonSpeedingStatisticsAdapter on PigeonSpeedingStatistics {
       speedingDistance: speedingDistance,
       speedingDuration: speedingDuration,
       score: score,
-      speedLimitContexts: speedLimitContexts
-          .whereNotNull()
-          .map((PigeonSpeedLimitContext e) => e.toModelImplementation())
-          .toList(),
     );
   }
 }
@@ -360,7 +355,7 @@ extension PigeonTripAdapter on PigeonTrip {
           .whereNotNull()
           .map((e) => e.toModelImplementation())
           .toList(),
-      itineraryStatistics: itineraryStatistics?.toModelImplementation(),
+      tripStatistics: tripStatistics?.toModelImplementation(),
       ecoDriving: ecoDriving?.toModelImplementation(),
       fuelEstimation: fuelEstimation?.toModelImplementation(),
       safety: safety?.toModelImplementation(),
@@ -393,6 +388,12 @@ extension PigeonTripAdapter on PigeonTrip {
       metaData: convertMetadata(metaData),
       transportationMode: transportationMode,
       unscored: unscored,
+      calls:
+          calls?.whereNotNull().map((e) => e.toModelImplementation()).toList(),
+      speedLimitContexts: speedLimitContexts
+          ?.whereNotNull()
+          .map((PigeonSpeedLimitContext e) => e.toModelImplementation())
+          .toList(),
     );
   }
 }
@@ -427,8 +428,6 @@ extension PigeonDriverDistractionAdapter on PigeonDriverDistraction {
       score: score,
       scoreUnlock: scoreUnlock,
       scoreCall: scoreCall,
-      calls:
-          calls?.whereNotNull().map((e) => e.toModelImplementation()).toList(),
     );
   }
 }
@@ -488,11 +487,11 @@ extension PigeonGetTripsResponseAdapter on PigeonGetTripsResponse {
   }
 }
 
-/// Adapts the [PigeonTripAdvicesData] class to the corresponding model class
-extension PigeonTripAdvicesDataAdapter on PigeonTripAdvicesData {
-  /// Converts a [PigeonTripAdvicesData] to a corresponding model class.
-  TripAdvicesData toModelImplementation() {
-    return TripAdvicesData(
+/// Adapts the [PigeonTripAdviceData] class to the corresponding model class
+extension PigeonTripAdviceDataAdapter on PigeonTripAdviceData {
+  /// Converts a [PigeonTripAdviceData] to a corresponding model class.
+  TripAdviceData toModelImplementation() {
+    return TripAdviceData(
       id: id,
       title: title,
       message: message,

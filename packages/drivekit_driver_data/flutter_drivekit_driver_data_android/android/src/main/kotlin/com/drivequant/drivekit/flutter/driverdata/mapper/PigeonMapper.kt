@@ -1,0 +1,445 @@
+package com.drivequant.drivekit.flutter.driverdata.mapper
+
+import com.drivequant.drivekit.databaseutils.entity.AdvancedEnergyEstimation
+import com.drivequant.drivekit.databaseutils.entity.BrakeWear
+import com.drivequant.drivekit.databaseutils.entity.Call
+import com.drivequant.drivekit.databaseutils.entity.DeclaredTransportationMode
+import com.drivequant.drivekit.databaseutils.entity.DriverDistraction
+import com.drivequant.drivekit.databaseutils.entity.EcoDriving
+import com.drivequant.drivekit.databaseutils.entity.EcoDrivingContext
+import com.drivequant.drivekit.databaseutils.entity.EnergyEstimation
+import com.drivequant.drivekit.databaseutils.entity.EvaluationData
+import com.drivequant.drivekit.databaseutils.entity.FuelEstimation
+import com.drivequant.drivekit.databaseutils.entity.FuelEstimationDrivingContext
+import com.drivequant.drivekit.databaseutils.entity.Logbook
+import com.drivequant.drivekit.databaseutils.entity.ManeuverData
+import com.drivequant.drivekit.databaseutils.entity.Pollutants
+import com.drivequant.drivekit.databaseutils.entity.Safety
+import com.drivequant.drivekit.databaseutils.entity.SafetyContext
+import com.drivequant.drivekit.databaseutils.entity.SafetyEvent
+import com.drivequant.drivekit.databaseutils.entity.SpeedLimitContext
+import com.drivequant.drivekit.databaseutils.entity.SpeedingStatistics
+import com.drivequant.drivekit.databaseutils.entity.TireWear
+import com.drivequant.drivekit.databaseutils.entity.Trip
+import com.drivequant.drivekit.databaseutils.entity.TripAdvice
+import com.drivequant.drivekit.databaseutils.entity.TripStatistics
+import com.drivequant.drivekit.flutter.driverdata.PigeonAdvancedEcoDriving
+import com.drivequant.drivekit.flutter.driverdata.PigeonAdvancedEnergyEstimation
+import com.drivequant.drivekit.flutter.driverdata.PigeonAdvancedFuelEstimation
+import com.drivequant.drivekit.flutter.driverdata.PigeonAdvancedSafety
+import com.drivequant.drivekit.flutter.driverdata.PigeonBrakeWear
+import com.drivequant.drivekit.flutter.driverdata.PigeonCall
+import com.drivequant.drivekit.flutter.driverdata.PigeonDeclaredTransportationMode
+import com.drivequant.drivekit.flutter.driverdata.PigeonDriverDistraction
+import com.drivequant.drivekit.flutter.driverdata.PigeonEcoDriving
+import com.drivequant.drivekit.flutter.driverdata.PigeonEcoDrivingContext
+import com.drivequant.drivekit.flutter.driverdata.PigeonEnergyEstimation
+import com.drivequant.drivekit.flutter.driverdata.PigeonEvaluationData
+import com.drivequant.drivekit.flutter.driverdata.PigeonFuelEstimation
+import com.drivequant.drivekit.flutter.driverdata.PigeonFuelEstimationContext
+import com.drivequant.drivekit.flutter.driverdata.PigeonItineraryData
+import com.drivequant.drivekit.flutter.driverdata.PigeonLogbook
+import com.drivequant.drivekit.flutter.driverdata.PigeonManeuverData
+import com.drivequant.drivekit.flutter.driverdata.PigeonPollutants
+import com.drivequant.drivekit.flutter.driverdata.PigeonSafety
+import com.drivequant.drivekit.flutter.driverdata.PigeonSafetyContext
+import com.drivequant.drivekit.flutter.driverdata.PigeonSafetyEvent
+import com.drivequant.drivekit.flutter.driverdata.PigeonSpeedLimitContext
+import com.drivequant.drivekit.flutter.driverdata.PigeonSpeedingStatistics
+import com.drivequant.drivekit.flutter.driverdata.PigeonTireWear
+import com.drivequant.drivekit.flutter.driverdata.PigeonTrip
+import com.drivequant.drivekit.flutter.driverdata.PigeonTripAdviceData
+import com.drivequant.drivekit.flutter.driverdata.PigeonTripAdviceEvaluation
+import com.drivequant.drivekit.flutter.driverdata.PigeonTripStatistics
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
+
+object PigeonMapper {
+    fun toPigeonTrip(trip: Trip): PigeonTrip {
+        val backendDateFormat: DateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.getDefault())
+
+        val tripStatistics: PigeonTripStatistics? = trip.tripStatistics?.let {
+            this.toPigeonTripStatistics(it)
+        }
+        val ecoDriving: PigeonEcoDriving? = trip.ecoDriving?.let {
+            this.toPigeonEcoDriving(it)
+        }
+        val fuelEstimation: PigeonFuelEstimation? = trip.fuelEstimation?.let {
+            this.toPigeonFuelEstimation(it)
+        }
+        val safety: PigeonSafety? = trip.safety?.let {
+            this.toPigeonSafety(it)
+        }
+        val advancedEcoDriving = PigeonAdvancedEcoDriving(
+            trip.ecoDrivingContexts.map { toPigeonEcoDrivingContext(it) }
+        )
+        val advancedFuelEstimation = PigeonAdvancedFuelEstimation(
+            trip.fuelEstimationDrivingContexts.map {
+                toPigeonFuelEstimationContext(it)
+            }
+        )
+        val advancedSafety = PigeonAdvancedSafety(
+            trip.safetyContexts.map {
+                toPigeonSafetyContext(it)
+            }
+        )
+        val pollutants: PigeonPollutants? = trip.pollutants?.let {
+            this.toPigeonPollutants(it)
+        }
+        val tireWear: PigeonTireWear? = trip.tireWear?.let {
+            this.toPigeonTireWear(it)
+        }
+        val brakeWear: PigeonBrakeWear? = trip.brakeWear?.let {
+            this.toPigeonBrakeWear(it)
+        }
+        val driverDistraction: PigeonDriverDistraction? = trip.driverDistraction?.let {
+            this.toPigeonDriverDistraction(it)
+        }
+        val itineraryData = PigeonItineraryData(
+            startDate = trip.startDate?.let {
+                backendDateFormat.format(it)
+            },
+            endDate = backendDateFormat.format(trip.endDate),
+            departureAddress = trip.departureAddress,
+            arrivalAddress = trip.arrivalAddress,
+            departureCity = trip.departureCity,
+            arrivalCity = trip.arrivalCity
+        )
+        val logbook: PigeonLogbook? = trip.logbook?.let {
+            this.toPigeonLogbook(it)
+        }
+        val safetyEvents: List<PigeonSafetyEvent?>? = trip.safetyEvents?.let { it ->
+            it.map {
+                this.toPigeonSafetyEvent(it)
+            }
+        }
+        val speedingStatistics: PigeonSpeedingStatistics? = trip.speedingStatistics?.let {
+            this.toPigeonSpeedingStatistics(it)
+        }
+        val energyEstimation: PigeonEnergyEstimation? = trip.energyEstimation?.let {
+            this.toPigeonEnergyEstimation(it)
+        }
+        val advancedEnergyEstimation: List<PigeonAdvancedEnergyEstimation?>? = trip.advancedEnergyEstimations?.let { estimations ->
+            estimations.map {
+                this.toPigeonAdvancedEnergyEstimation(it)
+            }
+        }
+        val tripAdvicesData: List<PigeonTripAdviceData> = trip.tripAdvices.map {
+            this.toPigeonTripAdviceData(it)
+        }
+        val maneuverData: PigeonManeuverData? = trip.maneuverData?.let {
+            this.toPigeonManeuverData(it)
+        }
+        val evaluationData: PigeonEvaluationData? = trip.evaluationData?.let {
+            this.toPigeonEvaluationData(it)
+        }
+        val declaredTransportationMode: PigeonDeclaredTransportationMode? = trip.declaredTransportationMode?.let {
+            this.toPigeonDeclaredTransportationMode(it)
+        }
+        return PigeonTrip(
+            itinId = trip.itinId,
+            startDate = trip.startDate?.let {
+                backendDateFormat.format(it)
+            },
+            endDate = backendDateFormat.format(trip.endDate),
+            departureCity = trip.departureCity,
+            arrivalCity = trip.arrivalCity,
+            departureAddress = trip.departureAddress,
+            arrivalAddress = trip.arrivalAddress,
+            vehicleId = trip.vehicleId,
+            comments = emptyList(),
+            tripStatistics = tripStatistics,
+            ecoDriving = ecoDriving,
+            fuelEstimation = fuelEstimation,
+            safety = safety,
+            advancedEcoDriving = advancedEcoDriving,
+            advancedFuelEstimation = advancedFuelEstimation,
+            advancedSafety = advancedSafety,
+            pollutants = pollutants,
+            tireWear = tireWear,
+            brakeWear = brakeWear,
+            driverDistraction = driverDistraction,
+            itineraryData = itineraryData,
+            logbook = logbook,
+            safetyEvents = safetyEvents,
+            speedingStatistics = speedingStatistics,
+            energyEstimation = energyEstimation,
+            transportationMode = trip.transportationMode.value.toLong(),
+            unscored = trip.unscored,
+            advancedEnergyEstimation = advancedEnergyEstimation,
+            calls = trip.calls?.map {
+                this.toPigeonCall(it)
+            },
+            speedLimitContexts = trip.speedLimitContexts?.map {
+                this.toPigeonSpeedLimitContext(it)
+            },
+            tripAdvicesData = tripAdvicesData,
+            maneuverData = maneuverData,
+            evaluationData = evaluationData,
+            declaredTransportationMode = declaredTransportationMode
+        )
+    }
+
+    private fun toPigeonTripStatistics(tripStatistics: TripStatistics): PigeonTripStatistics = PigeonTripStatistics(
+        drivingDuration = tripStatistics.drivingDuration,
+        idlingDuration = tripStatistics.idlingDuration,
+        drivingPercentage = tripStatistics.drivingPercentage,
+        idlingPercentage = tripStatistics.idlingPercentage,
+        distance = tripStatistics.distance,
+        speedMean = tripStatistics.speedMean,
+        subdispNb = tripStatistics.subdispNb.toLong(),
+        meteo = tripStatistics.meteo.toLong(),
+        day = tripStatistics.day,
+        weekDay = tripStatistics.weekday,
+        tripDuration = tripStatistics.duration
+    )
+
+    private fun toPigeonEcoDriving(ecoDriving: EcoDriving): PigeonEcoDriving = PigeonEcoDriving(
+        score = ecoDriving.score,
+        scoreAccel = ecoDriving.scoreAccel,
+        scoreMain = ecoDriving.scoreMain,
+        scoreDecel = ecoDriving.scoreDecel,
+        stdDevAccel = ecoDriving.stdDevAccel,
+        stdDevMain = ecoDriving.stdDevMain,
+        stdDevDecel = ecoDriving.stdDevDecel,
+        energyClass = ecoDriving.energyClass.toLong()
+    )
+
+    private fun toPigeonFuelEstimation(fuelEstimation: FuelEstimation): PigeonFuelEstimation = PigeonFuelEstimation(
+        co2Mass = fuelEstimation.co2Mass,
+        co2Emission = fuelEstimation.co2Emission,
+        fuelVolume = fuelEstimation.fuelVolume,
+        fuelConsumption = fuelEstimation.fuelConsumption,
+        idleFuelVolume = fuelEstimation.idleFuelVolume,
+        idleFuelPercentage = fuelEstimation.idleFuelPercentage,
+        idleFuelConsumption = fuelEstimation.idleFuelConsumption,
+        idleCo2Emission = fuelEstimation.idleCo2Emission,
+        idleCo2Mass = fuelEstimation.idleCo2Mass,
+        engineTempStatus = fuelEstimation.engineTempStatus,
+        coldFuelVolume = fuelEstimation.coldFuelVolume
+    )
+
+    private fun toPigeonSafety(safety: Safety): PigeonSafety = PigeonSafety(
+        nbAdh = safety.nbAdh.toLong(),
+        nbAccel = safety.nbAccel.toLong(),
+        nbDecel = safety.nbDecel.toLong(),
+        nbAdhCrit = safety.nbAdhCrit.toLong(),
+        nbAccelCrit = safety.nbAccelCrit.toLong(),
+        nbDecelCrit = safety.nbDecelCrit.toLong(),
+        safetyScore = safety.safetyScore
+    )
+
+    private fun toPigeonEcoDrivingContext(ecoDrivingContext: EcoDrivingContext): PigeonEcoDrivingContext = PigeonEcoDrivingContext(
+        contextId = ecoDrivingContext.contextId.toLong(),
+        distance = ecoDrivingContext.distance,
+        duration = ecoDrivingContext.duration,
+        efficiencyScore = ecoDrivingContext.efficiencyScore,
+        scoreAccel = ecoDrivingContext.scoreAccel,
+        scoreMain = ecoDrivingContext.scoreMain,
+        scoreDecel = ecoDrivingContext.scoreDecel
+    )
+
+    private fun toPigeonFuelEstimationContext(fuelEstimationContext: FuelEstimationDrivingContext): PigeonFuelEstimationContext = PigeonFuelEstimationContext(
+        contextId = fuelEstimationContext.contextId.toLong(),
+        distance = fuelEstimationContext.distance,
+        duration = fuelEstimationContext.duration,
+        co2Mass = fuelEstimationContext.co2Mass,
+        co2Emission = fuelEstimationContext.co2Emission,
+        fuelVolume = fuelEstimationContext.fuelVolume,
+        fuelConsumption = fuelEstimationContext.fuelConsumption
+    )
+
+    private fun toPigeonSafetyContext(safetyContext: SafetyContext): PigeonSafetyContext = PigeonSafetyContext(
+        contextId = safetyContext.contextId.toLong(),
+        distance = safetyContext.distance,
+        duration = safetyContext.duration,
+        nbAdh = safetyContext.nbAdh.toLong(),
+        nbAccel = safetyContext.nbAccel.toLong(),
+        nbDecel = safetyContext.nbDecel.toLong(),
+        nbAdhCrit = safetyContext.nbAdhCrit.toLong(),
+        nbAccelCrit = safetyContext.nbAccelCrit.toLong(),
+        nbDecelCrit = safetyContext.nbDecelCrit.toLong(),
+        safetyScore = safetyContext.safetyScore
+    )
+
+    private fun toPigeonPollutants(pollutants: Pollutants): PigeonPollutants = PigeonPollutants(
+        co = pollutants.co,
+        hc = pollutants.hc,
+        nox = pollutants.nox,
+        soot = pollutants.soot
+    )
+
+    private fun toPigeonTireWear(tireWear: TireWear): PigeonTireWear = PigeonTireWear(
+        frontTireAutonomy = tireWear.frontTireAutonomy.toLong(),
+        frontTireDistance = tireWear.frontTireDistance.toLong(),
+        frontTireTotalWear = tireWear.frontTireTotalWear.toLong(),
+        frontTireWear = tireWear.frontTireWear.toLong(),
+        frontTireWearRate = tireWear.frontTireWearRate.toLong(),
+        rearTireAutonomy = tireWear.rearTireAutonomy.toLong(),
+        rearTireDistance = tireWear.rearTireDistance.toLong(),
+        rearTireTotalWear = tireWear.rearTireTotalWear.toLong(),
+        rearTireWear = tireWear.rearTireWear.toLong(),
+        rearTireWearRate = tireWear.rearTireWearRate.toLong()
+    )
+
+    private fun toPigeonBrakeWear(brakeWear: BrakeWear): PigeonBrakeWear = PigeonBrakeWear(
+        frontBrakeAutonomy = brakeWear.frontBrakeAutonomy.toLong(),
+        frontBrakeDistance = brakeWear.frontBrakeDistance.toLong(),
+        frontBrakePadWear = brakeWear.frontBrakePadWear.toLong(),
+        frontBrakeTotalWear = brakeWear.frontBrakeTotalWear.toLong(),
+        frontBrakeWearRate = brakeWear.frontBrakeWearRate.toLong(),
+        rearBrakeAutonomy = brakeWear.rearBrakeAutonomy.toLong(),
+        rearBrakeDistance = brakeWear.rearBrakeDistance.toLong(),
+        rearBrakePadWear = brakeWear.rearBrakePadWear.toLong(),
+        rearBrakeTotalWear = brakeWear.rearBrakeTotalWear.toLong(),
+        rearBrakeWearRate = brakeWear.rearBrakeWearRate.toLong()
+    )
+
+    private fun toPigeonDriverDistraction(driverDistraction: DriverDistraction): PigeonDriverDistraction = PigeonDriverDistraction(
+        nbUnlock = driverDistraction.nbUnlock.toLong(),
+        durationUnlock = driverDistraction.durationUnlock,
+        durationPercentUnlock = driverDistraction.durationPercentUnlock,
+        distanceUnlock = driverDistraction.distanceUnlock,
+        distancePercentUnlock = driverDistraction.distancePercentUnlock,
+        score = driverDistraction.score,
+        scoreUnlock = driverDistraction.scoreUnlock,
+        scoreCall = driverDistraction.scoreCall
+    )
+
+    private fun toPigeonCall(call: Call): PigeonCall = PigeonCall(
+        id = call.uniqueId,
+        start = call.start,
+        end = call.end,
+        durationS = call.duration.toLong(),
+        duration = call.durationPercent.toLong(),
+        distanceM = call.distance.toLong(),
+        distance = call.distancePercent.toLong(),
+        status = call.type.toString(),
+        audioSystem = call.audioSystem.toString(),
+        audioInput = call.audioInput,
+        audioOutput = call.audioOutput,
+        audioName = call.audioName,
+        bluetoothClass = call.bluetoothClass.toLong(),
+        forbidden = call.isForbidden
+    )
+
+    private fun toPigeonLogbook(logbook: Logbook): PigeonLogbook {
+        val backendDateFormat: DateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.getDefault())
+        val updateDate = logbook.updateDate?.let {
+            backendDateFormat.format(it)
+        }
+
+        return PigeonLogbook(
+            status = logbook.status.toLong(),
+            updateDate = updateDate
+        )
+    }
+
+    private fun toPigeonSafetyEvent(safetyEvent: SafetyEvent): PigeonSafetyEvent = PigeonSafetyEvent(
+        time = safetyEvent.time,
+        longitude = safetyEvent.longitude,
+        latitude = safetyEvent.latitude,
+        velocity = safetyEvent.velocity,
+        heading = safetyEvent.heading,
+        elevation = safetyEvent.elevation,
+        distance = safetyEvent.distance,
+        type = safetyEvent.type.toLong(),
+        level = safetyEvent.level.toLong(),
+        value = safetyEvent.value
+    )
+
+    private fun toPigeonSpeedingStatistics(speedingStatistics: SpeedingStatistics): PigeonSpeedingStatistics = PigeonSpeedingStatistics(
+        distance = speedingStatistics.distance.toLong(),
+        duration = speedingStatistics.duration.toLong(),
+        speedingDistance = speedingStatistics.speedingDistance.toLong(),
+        speedingDuration = speedingStatistics.speedingDuration.toLong(),
+        score = speedingStatistics.score
+    )
+
+    private fun toPigeonSpeedLimitContext(speedLimitContext: SpeedLimitContext): PigeonSpeedLimitContext = PigeonSpeedLimitContext(
+        speedLimit = speedLimitContext.speedLimit.toLong(),
+        distance = speedLimitContext.distance.toLong(),
+        duration = speedLimitContext.duration.toLong(),
+        speedingDistance = speedLimitContext.speedingDistance.toLong(),
+        speedingDuration = speedLimitContext.speedingDuration.toLong(),
+        score = speedLimitContext.score
+    )
+
+    private fun toPigeonEnergyEstimation(energyEstimation: EnergyEstimation): PigeonEnergyEstimation = PigeonEnergyEstimation(
+        energy = energyEstimation.energy,
+        energyConsumption = energyEstimation.energyConsumption,
+        energyOpti = energyEstimation.energyOpti,
+        energyOptiConsumption = energyEstimation.energyOptiConsumption
+    )
+
+    private fun toPigeonAdvancedEnergyEstimation(advancedEnergyEstimation: AdvancedEnergyEstimation): PigeonAdvancedEnergyEstimation = PigeonAdvancedEnergyEstimation(
+        energy = advancedEnergyEstimation.energy,
+        energyConsumption = advancedEnergyEstimation.energyConsumption,
+        energyOpti = advancedEnergyEstimation.energyOpti,
+        energyOptiConsumption = advancedEnergyEstimation.energyOptiConsumption,
+        duration = advancedEnergyEstimation.duration,
+        distance = advancedEnergyEstimation.distance,
+        contextId = advancedEnergyEstimation.contextId.toLong()
+    )
+
+    private fun toPigeonTripAdviceData(tripAdvice: TripAdvice): PigeonTripAdviceData = PigeonTripAdviceData(
+        id = tripAdvice.id,
+        title = tripAdvice.title,
+        messageId = tripAdvice.messageId,
+        message = tripAdvice.message,
+        theme = tripAdvice.theme,
+        adviceEvaluation = PigeonTripAdviceEvaluation(
+            evaluation = tripAdvice.evaluation.toLong(),
+            comment = tripAdvice.comment,
+            feedback = tripAdvice.feedback.toLong()
+        )
+    )
+
+    private fun toPigeonManeuverData(maneuverData: ManeuverData): PigeonManeuverData? {
+        if ((maneuverData.nbStraightReverseDrivings == null) ||
+            (maneuverData.nbCurveReverseDrivings == null) ||
+            (maneuverData.nbTurns == null) ||
+            (maneuverData.nbHillStarts == null) ||
+            (maneuverData.nbRoundAbouts == null) ||
+            (maneuverData.nbEmergencyStops == null) ||
+            (maneuverData.nbAngledParkings == null) ||
+            (maneuverData.nbParallelParkings == null) ||
+            (maneuverData.nbBayParkings == null)
+        ) {
+            return null
+        }
+        return PigeonManeuverData(
+            nbStraightReverseDrivings = maneuverData.nbStraightReverseDrivings!!.toLong(),
+            nbCurveReverseDrivings = maneuverData.nbCurveReverseDrivings!!.toLong(),
+            nbTurns = maneuverData.nbTurns!!.toLong(),
+            nbHillStarts = maneuverData.nbHillStarts!!.toLong(),
+            nbRoundAbouts = maneuverData.nbRoundAbouts!!.toLong(),
+            nbEmergencyStops = maneuverData.nbEmergencyStops!!.toLong(),
+            nbAngledParkings = maneuverData.nbAngledParkings!!.toLong(),
+            nbParallelParkings = maneuverData.nbParallelParkings!!.toLong(),
+            nbBayParkings = maneuverData.nbBayParkings!!.toLong()
+        )
+    }
+
+    private fun toPigeonEvaluationData(evaluationData: EvaluationData): PigeonEvaluationData? {
+        evaluationData.evaluation?.let {
+            return PigeonEvaluationData(
+                comment = evaluationData.comment,
+                evaluation = it.toLong()
+            )
+        }
+        return null
+    }
+
+    private fun toPigeonDeclaredTransportationMode(declaredTransportationMode: DeclaredTransportationMode): PigeonDeclaredTransportationMode? {
+        declaredTransportationMode.transportationMode?.let {
+            return PigeonDeclaredTransportationMode(
+                transportationMode = it.value.toLong(),
+                comment = declaredTransportationMode.comment,
+                passenger = declaredTransportationMode.passenger
+            )
+        }
+        return null
+    }
+}

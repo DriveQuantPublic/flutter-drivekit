@@ -66,7 +66,7 @@ class PigeonTrip {
     required this.arrivalAddress,
     required this.vehicleId,
     required this.comments,
-    required this.itineraryStatistics,
+    required this.tripStatistics,
     required this.ecoDriving,
     required this.fuelEstimation,
     required this.safety,
@@ -90,6 +90,8 @@ class PigeonTrip {
     required this.transportationMode,
     required this.declaredTransportationMode,
     required this.unscored,
+    required this.calls,
+    required this.speedLimitContexts,
   });
 
   /// Creates a PigeonTrip instance
@@ -121,8 +123,8 @@ class PigeonTrip {
   /// The list of comments
   final List<PigeonComment?> comments;
 
-  /// The itinerary statistics
-  final PigeonItineraryStatistics? itineraryStatistics;
+  /// The trip statistics
+  final PigeonTripStatistics? tripStatistics;
 
   /// The eco driving information
   final PigeonEcoDriving? ecoDriving;
@@ -173,7 +175,7 @@ class PigeonTrip {
   final List<PigeonAdvancedEnergyEstimation?>? advancedEnergyEstimation;
 
   /// Trip advices
-  final List<PigeonTripAdvicesData?>? tripAdvicesData;
+  final List<PigeonTripAdviceData?>? tripAdvicesData;
 
   /// Trip maneuver data
   final PigeonManeuverData? maneuverData;
@@ -192,10 +194,16 @@ class PigeonTrip {
 
   /// The trip is scored or not
   final bool unscored;
+
+  /// The trip calls
+  final List<PigeonCall?>? calls;
+
+  /// The speed limit contexts
+  final List<PigeonSpeedLimitContext?>? speedLimitContexts;
 }
 
-class PigeonTripAdvicesData {
-  PigeonTripAdvicesData({
+class PigeonTripAdviceData {
+  PigeonTripAdviceData({
     required this.id,
     required this.title,
     required this.message,
@@ -266,7 +274,7 @@ class PigeonDeclaredTransportationMode {
 
   final int transportationMode;
   final String? comment;
-  final bool passenger;
+  final bool? passenger;
 }
 
 /// AdvancedEcoDriving class
@@ -507,8 +515,8 @@ class PigeonEnergyEstimation {
   final double energyOptiConsumption;
 }
 
-class PigeonItineraryStatistics {
-  const PigeonItineraryStatistics({
+class PigeonTripStatistics {
+  const PigeonTripStatistics({
     required this.tripDuration,
     required this.drivingDuration,
     required this.idlingDuration,
@@ -520,7 +528,6 @@ class PigeonItineraryStatistics {
     required this.meteo,
     required this.day,
     required this.weekDay,
-    required this.transportationMode,
   });
 
   final double tripDuration;
@@ -544,8 +551,6 @@ class PigeonItineraryStatistics {
   final bool day;
 
   final bool weekDay;
-
-  final int transportationMode;
 }
 
 class PigeonEcoDriving {
@@ -703,7 +708,6 @@ class PigeonDriverDistraction {
     required this.score,
     this.scoreUnlock,
     this.scoreCall,
-    this.calls,
   });
 
   final int nbUnlock;
@@ -721,8 +725,6 @@ class PigeonDriverDistraction {
   final double? scoreUnlock;
 
   final double? scoreCall;
-
-  final List<PigeonCall?>? calls;
 }
 
 class PigeonItineraryData {
@@ -801,7 +803,6 @@ class PigeonSpeedingStatistics {
     required this.speedingDistance,
     required this.speedingDuration,
     required this.score,
-    required this.speedLimitContexts,
   });
 
   final int distance;
@@ -813,8 +814,6 @@ class PigeonSpeedingStatistics {
   final int speedingDuration;
 
   final double score;
-
-  final List<PigeonSpeedLimitContext?> speedLimitContexts;
 }
 
 class PigeonRoute {

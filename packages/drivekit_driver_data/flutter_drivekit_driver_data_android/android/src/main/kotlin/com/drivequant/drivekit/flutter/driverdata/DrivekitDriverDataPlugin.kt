@@ -1,9 +1,16 @@
 package com.drivequant.drivekit.flutter.driverdata
 
 import android.content.Context
+import com.drivequant.drivekit.databaseutils.entity.Trip
 import com.drivequant.drivekit.driverdata.DriveKitDriverData
 import com.drivequant.drivekit.driverdata.trip.TripDeleteQueryListener
+import com.drivequant.drivekit.driverdata.trip.TripsQueryListener
+import com.drivequant.drivekit.driverdata.trip.TripsSyncStatus
+import com.drivequant.drivekit.flutter.driverdata.mapper.PigeonMapper
 import io.flutter.embedding.engine.plugins.FlutterPlugin
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
+import kotlinx.coroutines.runBlocking
 
 class DrivekitDriverDataPlugin :
     FlutterPlugin,
@@ -22,19 +29,34 @@ class DrivekitDriverDataPlugin :
 
     override fun getPlatformName(): String = "android"
 
-    override fun deleteTrip(itinId: String): Boolean {
-        DriveKitDriverData.deleteTrip(
-            itinId,
-            object : TripDeleteQueryListener {
-                override fun onResponse(status: Boolean) {
-                    TODO("Not yet implemented")
+    override fun deleteTrip(itinId: String): Boolean = runBlocking {
+        suspendCoroutine {
+            DriveKitDriverData.deleteTrip(
+                itinId,
+                object : TripDeleteQueryListener {
+                    override fun onResponse(status: Boolean) {
+                        it.resume(status)
+                    }
                 }
-            }
-        )
-        return false
+            )
+        }
     }
 
     override fun getTripsOrderByDateAsc(): PigeonGetTripsResponse {
         TODO("Not yet implemented")
+        return runBlocking {
+            suspendCoroutine {
+                DriveKitDriverData.getTripsOrderByDateAsc(object : TripsQueryListener {
+                    override fun onResponse(status: TripsSyncStatus, trips: List<Trip>) {
+                        it.resume(
+                            PigeonGetTripsResponse(
+                                status = PigeonTripSyncStatus.NO_ERROR,
+                                trips = trips.map { PigeonMapper.toPigeonTrip(it) }
+                            )
+                        )
+                    }
+                })
+            }
+        }
     }
 }

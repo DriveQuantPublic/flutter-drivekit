@@ -77,7 +77,7 @@ class PigeonTrip {
     this.arrivalAddress,
     this.vehicleId,
     required this.comments,
-    this.itineraryStatistics,
+    this.tripStatistics,
     this.ecoDriving,
     this.fuelEstimation,
     this.safety,
@@ -101,6 +101,8 @@ class PigeonTrip {
     required this.transportationMode,
     this.declaredTransportationMode,
     required this.unscored,
+    this.calls,
+    this.speedLimitContexts,
   });
 
   /// The itinerary ID
@@ -131,7 +133,7 @@ class PigeonTrip {
   List<PigeonComment?> comments;
 
   /// The itinerary statistics
-  PigeonItineraryStatistics? itineraryStatistics;
+  PigeonTripStatistics? tripStatistics;
 
   /// The eco driving information
   PigeonEcoDriving? ecoDriving;
@@ -182,7 +184,7 @@ class PigeonTrip {
   List<PigeonAdvancedEnergyEstimation?>? advancedEnergyEstimation;
 
   /// Trip advices
-  List<PigeonTripAdvicesData?>? tripAdvicesData;
+  List<PigeonTripAdviceData?>? tripAdvicesData;
 
   /// Trip maneuver data
   PigeonManeuverData? maneuverData;
@@ -202,6 +204,12 @@ class PigeonTrip {
   /// The trip is scored or not
   bool unscored;
 
+  /// The trip calls
+  List<PigeonCall?>? calls;
+
+  /// The speed limit contexts
+  List<PigeonSpeedLimitContext?>? speedLimitContexts;
+
   Object encode() {
     return <Object?>[
       itinId,
@@ -213,7 +221,7 @@ class PigeonTrip {
       arrivalAddress,
       vehicleId,
       comments,
-      itineraryStatistics,
+      tripStatistics,
       ecoDriving,
       fuelEstimation,
       safety,
@@ -237,6 +245,8 @@ class PigeonTrip {
       transportationMode,
       declaredTransportationMode,
       unscored,
+      calls,
+      speedLimitContexts,
     ];
   }
 
@@ -252,7 +262,7 @@ class PigeonTrip {
       arrivalAddress: result[6] as String?,
       vehicleId: result[7] as String?,
       comments: (result[8] as List<Object?>?)!.cast<PigeonComment?>(),
-      itineraryStatistics: result[9] as PigeonItineraryStatistics?,
+      tripStatistics: result[9] as PigeonTripStatistics?,
       ecoDriving: result[10] as PigeonEcoDriving?,
       fuelEstimation: result[11] as PigeonFuelEstimation?,
       safety: result[12] as PigeonSafety?,
@@ -269,19 +279,21 @@ class PigeonTrip {
       speedingStatistics: result[23] as PigeonSpeedingStatistics?,
       energyEstimation: result[24] as PigeonEnergyEstimation?,
       advancedEnergyEstimation: (result[25] as List<Object?>?)?.cast<PigeonAdvancedEnergyEstimation?>(),
-      tripAdvicesData: (result[26] as List<Object?>?)?.cast<PigeonTripAdvicesData?>(),
+      tripAdvicesData: (result[26] as List<Object?>?)?.cast<PigeonTripAdviceData?>(),
       maneuverData: result[27] as PigeonManeuverData?,
       evaluationData: result[28] as PigeonEvaluationData?,
       metaData: (result[29] as Map<Object?, Object?>?)?.cast<String?, String?>(),
       transportationMode: result[30]! as int,
       declaredTransportationMode: result[31] as PigeonDeclaredTransportationMode?,
       unscored: result[32]! as bool,
+      calls: (result[33] as List<Object?>?)?.cast<PigeonCall?>(),
+      speedLimitContexts: (result[34] as List<Object?>?)?.cast<PigeonSpeedLimitContext?>(),
     );
   }
 }
 
-class PigeonTripAdvicesData {
-  PigeonTripAdvicesData({
+class PigeonTripAdviceData {
+  PigeonTripAdviceData({
     this.id,
     this.title,
     this.message,
@@ -313,9 +325,9 @@ class PigeonTripAdvicesData {
     ];
   }
 
-  static PigeonTripAdvicesData decode(Object result) {
+  static PigeonTripAdviceData decode(Object result) {
     result as List<Object?>;
-    return PigeonTripAdvicesData(
+    return PigeonTripAdviceData(
       id: result[0] as String?,
       title: result[1] as String?,
       message: result[2] as String?,
@@ -448,14 +460,14 @@ class PigeonDeclaredTransportationMode {
   PigeonDeclaredTransportationMode({
     required this.transportationMode,
     this.comment,
-    required this.passenger,
+    this.passenger,
   });
 
   int transportationMode;
 
   String? comment;
 
-  bool passenger;
+  bool? passenger;
 
   Object encode() {
     return <Object?>[
@@ -470,7 +482,7 @@ class PigeonDeclaredTransportationMode {
     return PigeonDeclaredTransportationMode(
       transportationMode: result[0]! as int,
       comment: result[1] as String?,
-      passenger: result[2]! as bool,
+      passenger: result[2] as bool?,
     );
   }
 }
@@ -804,8 +816,8 @@ class PigeonEnergyEstimation {
   }
 }
 
-class PigeonItineraryStatistics {
-  PigeonItineraryStatistics({
+class PigeonTripStatistics {
+  PigeonTripStatistics({
     required this.tripDuration,
     required this.drivingDuration,
     required this.idlingDuration,
@@ -817,7 +829,6 @@ class PigeonItineraryStatistics {
     required this.meteo,
     required this.day,
     required this.weekDay,
-    required this.transportationMode,
   });
 
   double tripDuration;
@@ -842,8 +853,6 @@ class PigeonItineraryStatistics {
 
   bool weekDay;
 
-  int transportationMode;
-
   Object encode() {
     return <Object?>[
       tripDuration,
@@ -857,13 +866,12 @@ class PigeonItineraryStatistics {
       meteo,
       day,
       weekDay,
-      transportationMode,
     ];
   }
 
-  static PigeonItineraryStatistics decode(Object result) {
+  static PigeonTripStatistics decode(Object result) {
     result as List<Object?>;
-    return PigeonItineraryStatistics(
+    return PigeonTripStatistics(
       tripDuration: result[0]! as double,
       drivingDuration: result[1]! as double,
       idlingDuration: result[2]! as double,
@@ -875,7 +883,6 @@ class PigeonItineraryStatistics {
       meteo: result[8]! as int,
       day: result[9]! as bool,
       weekDay: result[10]! as bool,
-      transportationMode: result[11]! as int,
     );
   }
 }
@@ -1170,7 +1177,6 @@ class PigeonDriverDistraction {
     required this.score,
     this.scoreUnlock,
     this.scoreCall,
-    this.calls,
   });
 
   int nbUnlock;
@@ -1189,8 +1195,6 @@ class PigeonDriverDistraction {
 
   double? scoreCall;
 
-  List<PigeonCall?>? calls;
-
   Object encode() {
     return <Object?>[
       nbUnlock,
@@ -1201,7 +1205,6 @@ class PigeonDriverDistraction {
       score,
       scoreUnlock,
       scoreCall,
-      calls,
     ];
   }
 
@@ -1216,7 +1219,6 @@ class PigeonDriverDistraction {
       score: result[5]! as double,
       scoreUnlock: result[6] as double?,
       scoreCall: result[7] as double?,
-      calls: (result[8] as List<Object?>?)?.cast<PigeonCall?>(),
     );
   }
 }
@@ -1366,7 +1368,6 @@ class PigeonSpeedingStatistics {
     required this.speedingDistance,
     required this.speedingDuration,
     required this.score,
-    required this.speedLimitContexts,
   });
 
   int distance;
@@ -1379,8 +1380,6 @@ class PigeonSpeedingStatistics {
 
   double score;
 
-  List<PigeonSpeedLimitContext?> speedLimitContexts;
-
   Object encode() {
     return <Object?>[
       distance,
@@ -1388,7 +1387,6 @@ class PigeonSpeedingStatistics {
       speedingDistance,
       speedingDuration,
       score,
-      speedLimitContexts,
     ];
   }
 
@@ -1400,7 +1398,6 @@ class PigeonSpeedingStatistics {
       speedingDistance: result[2]! as int,
       speedingDuration: result[3]! as int,
       score: result[4]! as double,
-      speedLimitContexts: (result[5] as List<Object?>?)!.cast<PigeonSpeedLimitContext?>(),
     );
   }
 }
@@ -1630,7 +1627,7 @@ class _PigeonCodec extends StandardMessageCodec {
     } else     if (value is PigeonTrip) {
       buffer.putUint8(130);
       writeValue(buffer, value.encode());
-    } else     if (value is PigeonTripAdvicesData) {
+    } else     if (value is PigeonTripAdviceData) {
       buffer.putUint8(131);
       writeValue(buffer, value.encode());
     } else     if (value is PigeonTripAdviceEvaluation) {
@@ -1669,7 +1666,7 @@ class _PigeonCodec extends StandardMessageCodec {
     } else     if (value is PigeonEnergyEstimation) {
       buffer.putUint8(143);
       writeValue(buffer, value.encode());
-    } else     if (value is PigeonItineraryStatistics) {
+    } else     if (value is PigeonTripStatistics) {
       buffer.putUint8(144);
       writeValue(buffer, value.encode());
     } else     if (value is PigeonEcoDriving) {
@@ -1733,7 +1730,7 @@ class _PigeonCodec extends StandardMessageCodec {
       case 130: 
         return PigeonTrip.decode(readValue(buffer)!);
       case 131: 
-        return PigeonTripAdvicesData.decode(readValue(buffer)!);
+        return PigeonTripAdviceData.decode(readValue(buffer)!);
       case 132: 
         return PigeonTripAdviceEvaluation.decode(readValue(buffer)!);
       case 133: 
@@ -1759,7 +1756,7 @@ class _PigeonCodec extends StandardMessageCodec {
       case 143: 
         return PigeonEnergyEstimation.decode(readValue(buffer)!);
       case 144: 
-        return PigeonItineraryStatistics.decode(readValue(buffer)!);
+        return PigeonTripStatistics.decode(readValue(buffer)!);
       case 145: 
         return PigeonEcoDriving.decode(readValue(buffer)!);
       case 146: 

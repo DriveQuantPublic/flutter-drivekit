@@ -43,7 +43,7 @@ class Trip {
     required this.arrivalAddress,
     required this.vehicleId,
     required this.comments,
-    required this.itineraryStatistics,
+    required this.tripStatistics,
     required this.ecoDriving,
     required this.fuelEstimation,
     required this.safety,
@@ -63,6 +63,8 @@ class Trip {
     required this.metaData,
     required this.transportationMode,
     required this.unscored,
+    required this.calls,
+    required this.speedLimitContexts,
   });
 
   /// The itinerary ID
@@ -93,7 +95,7 @@ class Trip {
   final List<Comment> comments;
 
   /// The itinerary statistics
-  final ItineraryStatistics? itineraryStatistics;
+  final TripStatistics? tripStatistics;
 
   /// The eco driving information
   final EcoDriving? ecoDriving;
@@ -151,12 +153,18 @@ class Trip {
 
   /// The trip is scored or not
   final bool unscored;
+
+  /// The list of calls
+  final List<Call>? calls;
+
+  /// The list of speed limit contexts
+  final List<SpeedLimitContext>? speedLimitContexts;
 }
 
-/// TripAdvicesData class
-class TripAdvicesData {
-  /// Creates a TripAdvicesData instance
-  TripAdvicesData({
+/// TripAdviceData class
+class TripAdviceData {
+  /// Creates a TripAdviceData instance
+  TripAdviceData({
     required this.id,
     required this.title,
     required this.message,
@@ -274,7 +282,7 @@ class DeclaredTransportationMode {
   final String? comment;
 
   /// The declared seat: passenger or driver
-  final bool passenger;
+  final bool? passenger;
 }
 
 /// AdvancedEcoDriving class
@@ -632,10 +640,10 @@ class EnergyEstimation {
   final double energyOptiConsumption;
 }
 
-/// ItineraryStatistics class
-class ItineraryStatistics {
-  /// Creates an ItineraryStatistics instance
-  const ItineraryStatistics({
+/// TripStatistics class
+class TripStatistics {
+  /// Creates an TripStatistics instance
+  const TripStatistics({
     required this.tripDuration,
     required this.drivingDuration,
     required this.idlingDuration,
@@ -647,7 +655,6 @@ class ItineraryStatistics {
     required this.meteo,
     required this.day,
     required this.weekDay,
-    required this.transportationMode,
   });
 
   /// The trip duration
@@ -682,9 +689,6 @@ class ItineraryStatistics {
 
   /// The week day status
   final bool weekDay;
-
-  /// The transportation mode
-  final int transportationMode;
 }
 
 /// EcoDriving class
@@ -894,7 +898,6 @@ class DriverDistraction {
     required this.score,
     this.scoreUnlock,
     this.scoreCall,
-    this.calls,
   });
 
   /// The number of unlocks
@@ -920,9 +923,6 @@ class DriverDistraction {
 
   /// The call score
   final double? scoreCall;
-
-  /// The list of calls
-  final List<Call>? calls;
 }
 
 /// ItineraryData class
@@ -1054,7 +1054,6 @@ class SpeedingStatistics {
     required this.speedingDistance,
     required this.speedingDuration,
     required this.score,
-    required this.speedLimitContexts,
   });
 
   /// The distance
@@ -1071,9 +1070,6 @@ class SpeedingStatistics {
 
   /// The score
   final double score;
-
-  /// The list of speed limit contexts
-  final List<SpeedLimitContext> speedLimitContexts;
 }
 
 /// Route class

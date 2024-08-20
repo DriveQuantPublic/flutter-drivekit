@@ -136,8 +136,8 @@ data class PigeonTrip (
   val vehicleId: String? = null,
   /** The list of comments */
   val comments: List<PigeonComment?>,
-  /** The itinerary statistics */
-  val itineraryStatistics: PigeonItineraryStatistics? = null,
+  /** The trip statistics */
+  val tripStatistics: PigeonTripStatistics? = null,
   /** The eco driving information */
   val ecoDriving: PigeonEcoDriving? = null,
   /** The fuel estimation information */
@@ -171,7 +171,7 @@ data class PigeonTrip (
   /** The list of advanced energy estimations */
   val advancedEnergyEstimation: List<PigeonAdvancedEnergyEstimation?>? = null,
   /** Trip advices */
-  val tripAdvicesData: List<PigeonTripAdvicesData?>? = null,
+  val tripAdvicesData: List<PigeonTripAdviceData?>? = null,
   /** Trip maneuver data */
   val maneuverData: PigeonManeuverData? = null,
   /** Trip evaluation data */
@@ -183,7 +183,11 @@ data class PigeonTrip (
   /** The declared transportation mode */
   val declaredTransportationMode: PigeonDeclaredTransportationMode? = null,
   /** The trip is scored or not */
-  val unscored: Boolean
+  val unscored: Boolean,
+  /** The trip calls */
+  val calls: List<PigeonCall?>? = null,
+  /** The speed limit contexts */
+  val speedLimitContexts: List<PigeonSpeedLimitContext?>? = null
 
 ) {
   companion object {
@@ -198,7 +202,7 @@ data class PigeonTrip (
       val arrivalAddress = __pigeon_list[6] as String?
       val vehicleId = __pigeon_list[7] as String?
       val comments = __pigeon_list[8] as List<PigeonComment?>
-      val itineraryStatistics = __pigeon_list[9] as PigeonItineraryStatistics?
+      val tripStatistics = __pigeon_list[9] as PigeonTripStatistics?
       val ecoDriving = __pigeon_list[10] as PigeonEcoDriving?
       val fuelEstimation = __pigeon_list[11] as PigeonFuelEstimation?
       val safety = __pigeon_list[12] as PigeonSafety?
@@ -215,14 +219,16 @@ data class PigeonTrip (
       val speedingStatistics = __pigeon_list[23] as PigeonSpeedingStatistics?
       val energyEstimation = __pigeon_list[24] as PigeonEnergyEstimation?
       val advancedEnergyEstimation = __pigeon_list[25] as List<PigeonAdvancedEnergyEstimation?>?
-      val tripAdvicesData = __pigeon_list[26] as List<PigeonTripAdvicesData?>?
+      val tripAdvicesData = __pigeon_list[26] as List<PigeonTripAdviceData?>?
       val maneuverData = __pigeon_list[27] as PigeonManeuverData?
       val evaluationData = __pigeon_list[28] as PigeonEvaluationData?
       val metaData = __pigeon_list[29] as Map<String?, String?>?
       val transportationMode = __pigeon_list[30].let { num -> if (num is Int) num.toLong() else num as Long }
       val declaredTransportationMode = __pigeon_list[31] as PigeonDeclaredTransportationMode?
       val unscored = __pigeon_list[32] as Boolean
-      return PigeonTrip(itinId, startDate, endDate, departureCity, arrivalCity, departureAddress, arrivalAddress, vehicleId, comments, itineraryStatistics, ecoDriving, fuelEstimation, safety, advancedEcoDriving, advancedFuelEstimation, advancedSafety, pollutants, tireWear, brakeWear, driverDistraction, itineraryData, logbook, safetyEvents, speedingStatistics, energyEstimation, advancedEnergyEstimation, tripAdvicesData, maneuverData, evaluationData, metaData, transportationMode, declaredTransportationMode, unscored)
+      val calls = __pigeon_list[33] as List<PigeonCall?>?
+      val speedLimitContexts = __pigeon_list[34] as List<PigeonSpeedLimitContext?>?
+      return PigeonTrip(itinId, startDate, endDate, departureCity, arrivalCity, departureAddress, arrivalAddress, vehicleId, comments, tripStatistics, ecoDriving, fuelEstimation, safety, advancedEcoDriving, advancedFuelEstimation, advancedSafety, pollutants, tireWear, brakeWear, driverDistraction, itineraryData, logbook, safetyEvents, speedingStatistics, energyEstimation, advancedEnergyEstimation, tripAdvicesData, maneuverData, evaluationData, metaData, transportationMode, declaredTransportationMode, unscored, calls, speedLimitContexts)
     }
   }
   fun toList(): List<Any?> {
@@ -236,7 +242,7 @@ data class PigeonTrip (
       arrivalAddress,
       vehicleId,
       comments,
-      itineraryStatistics,
+      tripStatistics,
       ecoDriving,
       fuelEstimation,
       safety,
@@ -260,12 +266,14 @@ data class PigeonTrip (
       transportationMode,
       declaredTransportationMode,
       unscored,
+      calls,
+      speedLimitContexts,
     )
   }
 }
 
 /** Generated class from Pigeon that represents data sent in messages. */
-data class PigeonTripAdvicesData (
+data class PigeonTripAdviceData (
   val id: String? = null,
   val title: String? = null,
   val message: String? = null,
@@ -276,14 +284,14 @@ data class PigeonTripAdvicesData (
 ) {
   companion object {
     @Suppress("LocalVariableName")
-    fun fromList(__pigeon_list: List<Any?>): PigeonTripAdvicesData {
+    fun fromList(__pigeon_list: List<Any?>): PigeonTripAdviceData {
       val id = __pigeon_list[0] as String?
       val title = __pigeon_list[1] as String?
       val message = __pigeon_list[2] as String?
       val messageId = __pigeon_list[3] as String?
       val theme = __pigeon_list[4] as String?
       val adviceEvaluation = __pigeon_list[5] as PigeonTripAdviceEvaluation?
-      return PigeonTripAdvicesData(id, title, message, messageId, theme, adviceEvaluation)
+      return PigeonTripAdviceData(id, title, message, messageId, theme, adviceEvaluation)
     }
   }
   fun toList(): List<Any?> {
@@ -392,7 +400,7 @@ data class PigeonEvaluationData (
 data class PigeonDeclaredTransportationMode (
   val transportationMode: Long,
   val comment: String? = null,
-  val passenger: Boolean
+  val passenger: Boolean? = null
 
 ) {
   companion object {
@@ -400,7 +408,7 @@ data class PigeonDeclaredTransportationMode (
     fun fromList(__pigeon_list: List<Any?>): PigeonDeclaredTransportationMode {
       val transportationMode = __pigeon_list[0].let { num -> if (num is Int) num.toLong() else num as Long }
       val comment = __pigeon_list[1] as String?
-      val passenger = __pigeon_list[2] as Boolean
+      val passenger = __pigeon_list[2] as Boolean?
       return PigeonDeclaredTransportationMode(transportationMode, comment, passenger)
     }
   }
@@ -666,7 +674,7 @@ data class PigeonEnergyEstimation (
 }
 
 /** Generated class from Pigeon that represents data sent in messages. */
-data class PigeonItineraryStatistics (
+data class PigeonTripStatistics (
   val tripDuration: Double,
   val drivingDuration: Double,
   val idlingDuration: Double,
@@ -677,13 +685,12 @@ data class PigeonItineraryStatistics (
   val subdispNb: Long,
   val meteo: Long,
   val day: Boolean,
-  val weekDay: Boolean,
-  val transportationMode: Long
+  val weekDay: Boolean
 
 ) {
   companion object {
     @Suppress("LocalVariableName")
-    fun fromList(__pigeon_list: List<Any?>): PigeonItineraryStatistics {
+    fun fromList(__pigeon_list: List<Any?>): PigeonTripStatistics {
       val tripDuration = __pigeon_list[0] as Double
       val drivingDuration = __pigeon_list[1] as Double
       val idlingDuration = __pigeon_list[2] as Double
@@ -695,8 +702,7 @@ data class PigeonItineraryStatistics (
       val meteo = __pigeon_list[8].let { num -> if (num is Int) num.toLong() else num as Long }
       val day = __pigeon_list[9] as Boolean
       val weekDay = __pigeon_list[10] as Boolean
-      val transportationMode = __pigeon_list[11].let { num -> if (num is Int) num.toLong() else num as Long }
-      return PigeonItineraryStatistics(tripDuration, drivingDuration, idlingDuration, drivingPercentage, idlingPercentage, distance, speedMean, subdispNb, meteo, day, weekDay, transportationMode)
+      return PigeonTripStatistics(tripDuration, drivingDuration, idlingDuration, drivingPercentage, idlingPercentage, distance, speedMean, subdispNb, meteo, day, weekDay)
     }
   }
   fun toList(): List<Any?> {
@@ -712,7 +718,6 @@ data class PigeonItineraryStatistics (
       meteo,
       day,
       weekDay,
-      transportationMode,
     )
   }
 }
@@ -926,8 +931,7 @@ data class PigeonDriverDistraction (
   val distancePercentUnlock: Double,
   val score: Double,
   val scoreUnlock: Double? = null,
-  val scoreCall: Double? = null,
-  val calls: List<PigeonCall?>? = null
+  val scoreCall: Double? = null
 
 ) {
   companion object {
@@ -941,8 +945,7 @@ data class PigeonDriverDistraction (
       val score = __pigeon_list[5] as Double
       val scoreUnlock = __pigeon_list[6] as Double?
       val scoreCall = __pigeon_list[7] as Double?
-      val calls = __pigeon_list[8] as List<PigeonCall?>?
-      return PigeonDriverDistraction(nbUnlock, durationUnlock, durationPercentUnlock, distanceUnlock, distancePercentUnlock, score, scoreUnlock, scoreCall, calls)
+      return PigeonDriverDistraction(nbUnlock, durationUnlock, durationPercentUnlock, distanceUnlock, distancePercentUnlock, score, scoreUnlock, scoreCall)
     }
   }
   fun toList(): List<Any?> {
@@ -955,7 +958,6 @@ data class PigeonDriverDistraction (
       score,
       scoreUnlock,
       scoreCall,
-      calls,
     )
   }
 }
@@ -1068,8 +1070,7 @@ data class PigeonSpeedingStatistics (
   val duration: Long,
   val speedingDistance: Long,
   val speedingDuration: Long,
-  val score: Double,
-  val speedLimitContexts: List<PigeonSpeedLimitContext?>
+  val score: Double
 
 ) {
   companion object {
@@ -1080,8 +1081,7 @@ data class PigeonSpeedingStatistics (
       val speedingDistance = __pigeon_list[2].let { num -> if (num is Int) num.toLong() else num as Long }
       val speedingDuration = __pigeon_list[3].let { num -> if (num is Int) num.toLong() else num as Long }
       val score = __pigeon_list[4] as Double
-      val speedLimitContexts = __pigeon_list[5] as List<PigeonSpeedLimitContext?>
-      return PigeonSpeedingStatistics(distance, duration, speedingDistance, speedingDuration, score, speedLimitContexts)
+      return PigeonSpeedingStatistics(distance, duration, speedingDistance, speedingDuration, score)
     }
   }
   fun toList(): List<Any?> {
@@ -1091,7 +1091,6 @@ data class PigeonSpeedingStatistics (
       speedingDistance,
       speedingDuration,
       score,
-      speedLimitContexts,
     )
   }
 }
@@ -1264,7 +1263,7 @@ private object DriverDataApiPigeonCodec : StandardMessageCodec() {
       }
       131.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          PigeonTripAdvicesData.fromList(it)
+          PigeonTripAdviceData.fromList(it)
         }
       }
       132.toByte() -> {
@@ -1329,7 +1328,7 @@ private object DriverDataApiPigeonCodec : StandardMessageCodec() {
       }
       144.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          PigeonItineraryStatistics.fromList(it)
+          PigeonTripStatistics.fromList(it)
         }
       }
       145.toByte() -> {
@@ -1425,7 +1424,7 @@ private object DriverDataApiPigeonCodec : StandardMessageCodec() {
         stream.write(130)
         writeValue(stream, value.toList())
       }
-      is PigeonTripAdvicesData -> {
+      is PigeonTripAdviceData -> {
         stream.write(131)
         writeValue(stream, value.toList())
       }
@@ -1477,7 +1476,7 @@ private object DriverDataApiPigeonCodec : StandardMessageCodec() {
         stream.write(143)
         writeValue(stream, value.toList())
       }
-      is PigeonItineraryStatistics -> {
+      is PigeonTripStatistics -> {
         stream.write(144)
         writeValue(stream, value.toList())
       }

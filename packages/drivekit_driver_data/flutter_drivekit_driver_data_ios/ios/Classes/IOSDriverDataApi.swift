@@ -135,7 +135,7 @@ struct PigeonTrip {
   /// The list of comments
   var comments: [PigeonComment?]
   /// The itinerary statistics
-  var itineraryStatistics: PigeonItineraryStatistics? = nil
+  var tripStatistics: PigeonTripStatistics? = nil
   /// The eco driving information
   var ecoDriving: PigeonEcoDriving? = nil
   /// The fuel estimation information
@@ -169,7 +169,7 @@ struct PigeonTrip {
   /// The list of advanced energy estimations
   var advancedEnergyEstimation: [PigeonAdvancedEnergyEstimation?]? = nil
   /// Trip advices
-  var tripAdvicesData: [PigeonTripAdvicesData?]? = nil
+  var tripAdvicesData: [PigeonTripAdviceData?]? = nil
   /// Trip maneuver data
   var maneuverData: PigeonManeuverData? = nil
   /// Trip evaluation data
@@ -182,6 +182,10 @@ struct PigeonTrip {
   var declaredTransportationMode: PigeonDeclaredTransportationMode? = nil
   /// The trip is scored or not
   var unscored: Bool
+  /// The trip calls
+  var calls: [PigeonCall?]? = nil
+  /// The speed limit contexts
+  var speedLimitContexts: [PigeonSpeedLimitContext?]? = nil
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
   static func fromList(_ __pigeon_list: [Any?]) -> PigeonTrip? {
@@ -194,7 +198,7 @@ struct PigeonTrip {
     let arrivalAddress: String? = nilOrValue(__pigeon_list[6])
     let vehicleId: String? = nilOrValue(__pigeon_list[7])
     let comments = __pigeon_list[8] as! [PigeonComment?]
-    let itineraryStatistics: PigeonItineraryStatistics? = nilOrValue(__pigeon_list[9])
+    let tripStatistics: PigeonTripStatistics? = nilOrValue(__pigeon_list[9])
     let ecoDriving: PigeonEcoDriving? = nilOrValue(__pigeon_list[10])
     let fuelEstimation: PigeonFuelEstimation? = nilOrValue(__pigeon_list[11])
     let safety: PigeonSafety? = nilOrValue(__pigeon_list[12])
@@ -211,13 +215,15 @@ struct PigeonTrip {
     let speedingStatistics: PigeonSpeedingStatistics? = nilOrValue(__pigeon_list[23])
     let energyEstimation: PigeonEnergyEstimation? = nilOrValue(__pigeon_list[24])
     let advancedEnergyEstimation: [PigeonAdvancedEnergyEstimation?]? = nilOrValue(__pigeon_list[25])
-    let tripAdvicesData: [PigeonTripAdvicesData?]? = nilOrValue(__pigeon_list[26])
+    let tripAdvicesData: [PigeonTripAdviceData?]? = nilOrValue(__pigeon_list[26])
     let maneuverData: PigeonManeuverData? = nilOrValue(__pigeon_list[27])
     let evaluationData: PigeonEvaluationData? = nilOrValue(__pigeon_list[28])
     let metaData: [String?: String?]? = nilOrValue(__pigeon_list[29])
     let transportationMode = __pigeon_list[30] is Int64 ? __pigeon_list[30] as! Int64 : Int64(__pigeon_list[30] as! Int32)
     let declaredTransportationMode: PigeonDeclaredTransportationMode? = nilOrValue(__pigeon_list[31])
     let unscored = __pigeon_list[32] as! Bool
+    let calls: [PigeonCall?]? = nilOrValue(__pigeon_list[33])
+    let speedLimitContexts: [PigeonSpeedLimitContext?]? = nilOrValue(__pigeon_list[34])
 
     return PigeonTrip(
       itinId: itinId,
@@ -229,7 +235,7 @@ struct PigeonTrip {
       arrivalAddress: arrivalAddress,
       vehicleId: vehicleId,
       comments: comments,
-      itineraryStatistics: itineraryStatistics,
+      tripStatistics: tripStatistics,
       ecoDriving: ecoDriving,
       fuelEstimation: fuelEstimation,
       safety: safety,
@@ -252,7 +258,9 @@ struct PigeonTrip {
       metaData: metaData,
       transportationMode: transportationMode,
       declaredTransportationMode: declaredTransportationMode,
-      unscored: unscored
+      unscored: unscored,
+      calls: calls,
+      speedLimitContexts: speedLimitContexts
     )
   }
   func toList() -> [Any?] {
@@ -266,7 +274,7 @@ struct PigeonTrip {
       arrivalAddress,
       vehicleId,
       comments,
-      itineraryStatistics,
+      tripStatistics,
       ecoDriving,
       fuelEstimation,
       safety,
@@ -290,12 +298,14 @@ struct PigeonTrip {
       transportationMode,
       declaredTransportationMode,
       unscored,
+      calls,
+      speedLimitContexts,
     ]
   }
 }
 
 /// Generated class from Pigeon that represents data sent in messages.
-struct PigeonTripAdvicesData {
+struct PigeonTripAdviceData {
   var id: String? = nil
   var title: String? = nil
   var message: String? = nil
@@ -304,7 +314,7 @@ struct PigeonTripAdvicesData {
   var adviceEvaluation: PigeonTripAdviceEvaluation? = nil
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
-  static func fromList(_ __pigeon_list: [Any?]) -> PigeonTripAdvicesData? {
+  static func fromList(_ __pigeon_list: [Any?]) -> PigeonTripAdviceData? {
     let id: String? = nilOrValue(__pigeon_list[0])
     let title: String? = nilOrValue(__pigeon_list[1])
     let message: String? = nilOrValue(__pigeon_list[2])
@@ -312,7 +322,7 @@ struct PigeonTripAdvicesData {
     let theme: String? = nilOrValue(__pigeon_list[4])
     let adviceEvaluation: PigeonTripAdviceEvaluation? = nilOrValue(__pigeon_list[5])
 
-    return PigeonTripAdvicesData(
+    return PigeonTripAdviceData(
       id: id,
       title: title,
       message: message,
@@ -438,13 +448,13 @@ struct PigeonEvaluationData {
 struct PigeonDeclaredTransportationMode {
   var transportationMode: Int64
   var comment: String? = nil
-  var passenger: Bool
+  var passenger: Bool? = nil
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
   static func fromList(_ __pigeon_list: [Any?]) -> PigeonDeclaredTransportationMode? {
     let transportationMode = __pigeon_list[0] is Int64 ? __pigeon_list[0] as! Int64 : Int64(__pigeon_list[0] as! Int32)
     let comment: String? = nilOrValue(__pigeon_list[1])
-    let passenger = __pigeon_list[2] as! Bool
+    let passenger: Bool? = nilOrValue(__pigeon_list[2])
 
     return PigeonDeclaredTransportationMode(
       transportationMode: transportationMode,
@@ -744,7 +754,7 @@ struct PigeonEnergyEstimation {
 }
 
 /// Generated class from Pigeon that represents data sent in messages.
-struct PigeonItineraryStatistics {
+struct PigeonTripStatistics {
   var tripDuration: Double
   var drivingDuration: Double
   var idlingDuration: Double
@@ -756,10 +766,9 @@ struct PigeonItineraryStatistics {
   var meteo: Int64
   var day: Bool
   var weekDay: Bool
-  var transportationMode: Int64
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
-  static func fromList(_ __pigeon_list: [Any?]) -> PigeonItineraryStatistics? {
+  static func fromList(_ __pigeon_list: [Any?]) -> PigeonTripStatistics? {
     let tripDuration = __pigeon_list[0] as! Double
     let drivingDuration = __pigeon_list[1] as! Double
     let idlingDuration = __pigeon_list[2] as! Double
@@ -771,9 +780,8 @@ struct PigeonItineraryStatistics {
     let meteo = __pigeon_list[8] is Int64 ? __pigeon_list[8] as! Int64 : Int64(__pigeon_list[8] as! Int32)
     let day = __pigeon_list[9] as! Bool
     let weekDay = __pigeon_list[10] as! Bool
-    let transportationMode = __pigeon_list[11] is Int64 ? __pigeon_list[11] as! Int64 : Int64(__pigeon_list[11] as! Int32)
 
-    return PigeonItineraryStatistics(
+    return PigeonTripStatistics(
       tripDuration: tripDuration,
       drivingDuration: drivingDuration,
       idlingDuration: idlingDuration,
@@ -784,8 +792,7 @@ struct PigeonItineraryStatistics {
       subdispNb: subdispNb,
       meteo: meteo,
       day: day,
-      weekDay: weekDay,
-      transportationMode: transportationMode
+      weekDay: weekDay
     )
   }
   func toList() -> [Any?] {
@@ -801,7 +808,6 @@ struct PigeonItineraryStatistics {
       meteo,
       day,
       weekDay,
-      transportationMode,
     ]
   }
 }
@@ -1051,7 +1057,6 @@ struct PigeonDriverDistraction {
   var score: Double
   var scoreUnlock: Double? = nil
   var scoreCall: Double? = nil
-  var calls: [PigeonCall?]? = nil
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
   static func fromList(_ __pigeon_list: [Any?]) -> PigeonDriverDistraction? {
@@ -1063,7 +1068,6 @@ struct PigeonDriverDistraction {
     let score = __pigeon_list[5] as! Double
     let scoreUnlock: Double? = nilOrValue(__pigeon_list[6])
     let scoreCall: Double? = nilOrValue(__pigeon_list[7])
-    let calls: [PigeonCall?]? = nilOrValue(__pigeon_list[8])
 
     return PigeonDriverDistraction(
       nbUnlock: nbUnlock,
@@ -1073,8 +1077,7 @@ struct PigeonDriverDistraction {
       distancePercentUnlock: distancePercentUnlock,
       score: score,
       scoreUnlock: scoreUnlock,
-      scoreCall: scoreCall,
-      calls: calls
+      scoreCall: scoreCall
     )
   }
   func toList() -> [Any?] {
@@ -1087,7 +1090,6 @@ struct PigeonDriverDistraction {
       score,
       scoreUnlock,
       scoreCall,
-      calls,
     ]
   }
 }
@@ -1216,7 +1218,6 @@ struct PigeonSpeedingStatistics {
   var speedingDistance: Int64
   var speedingDuration: Int64
   var score: Double
-  var speedLimitContexts: [PigeonSpeedLimitContext?]
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
   static func fromList(_ __pigeon_list: [Any?]) -> PigeonSpeedingStatistics? {
@@ -1225,15 +1226,13 @@ struct PigeonSpeedingStatistics {
     let speedingDistance = __pigeon_list[2] is Int64 ? __pigeon_list[2] as! Int64 : Int64(__pigeon_list[2] as! Int32)
     let speedingDuration = __pigeon_list[3] is Int64 ? __pigeon_list[3] as! Int64 : Int64(__pigeon_list[3] as! Int32)
     let score = __pigeon_list[4] as! Double
-    let speedLimitContexts = __pigeon_list[5] as! [PigeonSpeedLimitContext?]
 
     return PigeonSpeedingStatistics(
       distance: distance,
       duration: duration,
       speedingDistance: speedingDistance,
       speedingDuration: speedingDuration,
-      score: score,
-      speedLimitContexts: speedLimitContexts
+      score: score
     )
   }
   func toList() -> [Any?] {
@@ -1243,7 +1242,6 @@ struct PigeonSpeedingStatistics {
       speedingDistance,
       speedingDuration,
       score,
-      speedLimitContexts,
     ]
   }
 }
@@ -1435,7 +1433,7 @@ private class IOSDriverDataApiPigeonCodecReader: FlutterStandardReader {
     case 130:
       return PigeonTrip.fromList(self.readValue() as! [Any?])
     case 131:
-      return PigeonTripAdvicesData.fromList(self.readValue() as! [Any?])
+      return PigeonTripAdviceData.fromList(self.readValue() as! [Any?])
     case 132:
       return PigeonTripAdviceEvaluation.fromList(self.readValue() as! [Any?])
     case 133:
@@ -1461,7 +1459,7 @@ private class IOSDriverDataApiPigeonCodecReader: FlutterStandardReader {
     case 143:
       return PigeonEnergyEstimation.fromList(self.readValue() as! [Any?])
     case 144:
-      return PigeonItineraryStatistics.fromList(self.readValue() as! [Any?])
+      return PigeonTripStatistics.fromList(self.readValue() as! [Any?])
     case 145:
       return PigeonEcoDriving.fromList(self.readValue() as! [Any?])
     case 146:
@@ -1518,7 +1516,7 @@ private class IOSDriverDataApiPigeonCodecWriter: FlutterStandardWriter {
     } else if let value = value as? PigeonTrip {
       super.writeByte(130)
       super.writeValue(value.toList())
-    } else if let value = value as? PigeonTripAdvicesData {
+    } else if let value = value as? PigeonTripAdviceData {
       super.writeByte(131)
       super.writeValue(value.toList())
     } else if let value = value as? PigeonTripAdviceEvaluation {
@@ -1557,7 +1555,7 @@ private class IOSDriverDataApiPigeonCodecWriter: FlutterStandardWriter {
     } else if let value = value as? PigeonEnergyEstimation {
       super.writeByte(143)
       super.writeValue(value.toList())
-    } else if let value = value as? PigeonItineraryStatistics {
+    } else if let value = value as? PigeonTripStatistics {
       super.writeByte(144)
       super.writeValue(value.toList())
     } else if let value = value as? PigeonEcoDriving {

@@ -44,8 +44,8 @@ extension PigeonTrip {
         self.departureAddress = trip.departureAddress
         self.arrivalAddress = trip.arrivalAddress
         self.vehicleId = trip.vehicleId
-        if let itineraryStatistics = trip.tripStatistics {
-            self.itineraryStatistics = PigeonItineraryStatistics(from: itineraryStatistics, transportationMode: Int64(trip.transportationMode))
+        if let tripStatistics = trip.tripStatistics {
+            self.tripStatistics = PigeonTripStatistics(from: tripStatistics)
         }
         if let ecoDriving = trip.ecoDriving {
             self.ecoDriving = PigeonEcoDriving(from: ecoDriving)
@@ -75,7 +75,7 @@ extension PigeonTrip {
             self.brakeWear = PigeonBrakeWear(from: brakeWear)
         }
         if let driverDistraction = trip.driverDistraction {
-            self.driverDistraction = PigeonDriverDistraction(from: driverDistraction, calls: trip.calls?.allObjects as? [Call] ?? [])
+            self.driverDistraction = PigeonDriverDistraction(from: driverDistraction)
         }
         self.itineraryData = PigeonItineraryData(
             startDate: (trip.startDate != nil) ? DateUtils.convertDateToString(date: trip.startDate!) : nil,
@@ -94,9 +94,8 @@ extension PigeonTrip {
                 PigeonSafetyEvent(from: $0)
             })
         }
-        if let speedingStatistics = trip.speedingStatistics,
-           let speedLimitContexts = trip.speedLimitContexts?.allObjects as? [DBSpeedLimitContext] {
-            self.speedingStatistics = PigeonSpeedingStatistics(from: speedingStatistics, speedLimitContexts: speedLimitContexts)
+        if let speedingStatistics = trip.speedingStatistics {
+            self.speedingStatistics = PigeonSpeedingStatistics(from: speedingStatistics)
         }
         if let energyEstimation = trip.energyEstimation {
             self.energyEstimation = PigeonEnergyEstimation(from: energyEstimation)
@@ -107,7 +106,7 @@ extension PigeonTrip {
             })
         }
         if let tripAdvicesData = trip.tripAdvices?.allObjects as? [TripAdvice] {
-            self.tripAdvicesData = tripAdvicesData.map{ PigeonTripAdvicesData(from: $0) }
+            self.tripAdvicesData = tripAdvicesData.map{ PigeonTripAdviceData(from: $0) }
         }
         if let maneuverData = trip.maneuver {
             self.maneuverData = PigeonManeuverData(from: maneuverData)
@@ -122,23 +121,28 @@ extension PigeonTrip {
         self.transportationMode = Int64(trip.transportationMode)
         self.unscored = trip.unscored
         self.comments = []
+        if let calls = trip.calls?.allObjects as? [Call] {
+            self.calls = calls.compactMap { PigeonCall(from: $0) }
+        }
+        if let speedLimitContexts = trip.speedLimitContexts?.allObjects as? [DBSpeedLimitContext] {
+            self.speedLimitContexts = speedLimitContexts.map{ PigeonSpeedLimitContext(from: $0) }
+        }
     }
 }
 
-extension PigeonItineraryStatistics {
-    init (from itineraryStatistics: TripStatistics, transportationMode: Int64) {
-        self.tripDuration = Double(itineraryStatistics.duration)
-        self.drivingDuration = itineraryStatistics.drivingDuration
-        self.idlingDuration = itineraryStatistics.idlingDuration
-        self.drivingPercentage = itineraryStatistics.drivingPercentage
-        self.idlingPercentage = itineraryStatistics.idlingPercentage
-        self.distance = itineraryStatistics.distance
-        self.speedMean = itineraryStatistics.speedMean
-        self.subdispNb = Int64(itineraryStatistics.subdispNb)
-        self.meteo = Int64(itineraryStatistics.meteo)
-        self.day = itineraryStatistics.day
-        self.weekDay = itineraryStatistics.weekDay
-        self.transportationMode = transportationMode
+extension PigeonTripStatistics {
+    init (from tripStatistics: TripStatistics) {
+        self.tripDuration = Double(tripStatistics.duration)
+        self.drivingDuration = tripStatistics.drivingDuration
+        self.idlingDuration = tripStatistics.idlingDuration
+        self.drivingPercentage = tripStatistics.drivingPercentage
+        self.idlingPercentage = tripStatistics.idlingPercentage
+        self.distance = tripStatistics.distance
+        self.speedMean = tripStatistics.speedMean
+        self.subdispNb = Int64(tripStatistics.subdispNb)
+        self.meteo = Int64(tripStatistics.meteo)
+        self.day = tripStatistics.day
+        self.weekDay = tripStatistics.weekDay
     }
 }
 
@@ -297,7 +301,7 @@ extension PigeonBrakeWear {
 }
 
 extension PigeonDriverDistraction {
-    init(from driverDistraction: DriverDistraction, calls: [Call]) {
+    init(from driverDistraction: DriverDistraction) {
         self.init(
             nbUnlock: Int64(driverDistraction.nbUnlock),
             durationUnlock: driverDistraction.durationUnlock,
@@ -306,8 +310,7 @@ extension PigeonDriverDistraction {
             distancePercentUnlock: driverDistraction.distancePercentUnlock,
             score: driverDistraction.score,
             scoreUnlock: driverDistraction.scoreUnlockNumber?.doubleValue,
-            scoreCall: driverDistraction.scoreCallNumber?.doubleValue,
-            calls: calls.map{ PigeonCall(from: $0) }
+            scoreCall: driverDistraction.scoreCallNumber?.doubleValue
         )
     }
 }
@@ -356,14 +359,13 @@ extension PigeonSafetyEvent {
 }
 
 extension PigeonSpeedingStatistics {
-    init(from speedingStatistics: DBSpeedingStatistics, speedLimitContexts: [DBSpeedLimitContext]) {
+    init(from speedingStatistics: DBSpeedingStatistics) {
         self.init(
             distance: Int64(speedingStatistics.distance),
             duration: Int64(speedingStatistics.duration),
             speedingDistance: Int64(speedingStatistics.speedingDistance),
             speedingDuration: Int64(speedingStatistics.speedingDuration),
-            score: speedingStatistics.score,
-            speedLimitContexts: speedLimitContexts.map{ PigeonSpeedLimitContext(from: $0) }
+            score: speedingStatistics.score
         )
     }
 }
@@ -406,7 +408,7 @@ extension PigeonAdvancedEnergyEstimation {
     }
 }
 
-extension PigeonTripAdvicesData {
+extension PigeonTripAdviceData {
     init(from tripAdvice: TripAdvice) {
         self.init(
             id: tripAdvice.id,
