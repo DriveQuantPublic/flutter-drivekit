@@ -153,6 +153,130 @@ class Trip {
   final bool unscored;
 }
 
+/// TripAdvicesData class
+class TripAdvicesData {
+  /// Creates a TripAdvicesData instance
+  TripAdvicesData({
+    required this.id,
+    required this.title,
+    required this.message,
+    required this.messageId,
+    required this.theme,
+    required this.adviceEvaluation,
+  });
+
+  /// The advice identifier
+  final String? id;
+
+  /// The advice title
+  final String? title;
+
+  /// The advice message
+  final String? message;
+
+  /// The advice message identifier
+  final String? messageId;
+
+  /// The advice theme
+  final String? theme;
+
+  /// The advice evaluation
+  final TripAdviceEvaluation? adviceEvaluation;
+}
+
+/// TripAdviceEvaluation class
+class TripAdviceEvaluation {
+  /// Creates a TripAdviceEvaluation instance
+  TripAdviceEvaluation({
+    required this.evaluation,
+    required this.feedback,
+    required this.comment,
+  });
+
+  /// The advice evaluation
+  final int evaluation;
+
+  /// The advice evaluation feedback
+  final int feedback;
+
+  /// The advice evaluation comment
+  final String? comment;
+}
+
+/// ManeuverData class
+class ManeuverData {
+  /// Creates a ManeuverData instance
+  ManeuverData({
+    required this.nbStraightReverseDrivings,
+    required this.nbCurveReverseDrivings,
+    required this.nbTurns,
+    required this.nbHillStarts,
+    required this.nbRoundAbouts,
+    required this.nbEmergencyStops,
+    required this.nbAngledParkings,
+    required this.nbParallelParkings,
+    required this.nbBayParkings,
+  });
+
+  /// The number of straight reverse drivings
+  final int nbStraightReverseDrivings;
+
+  /// The number of curve reverse drivings
+  final int nbCurveReverseDrivings;
+
+  /// The number of turns
+  final int nbTurns;
+
+  /// The number of hill starts
+  final int nbHillStarts;
+
+  /// The number of round abouts
+  final int nbRoundAbouts;
+
+  /// The number of emergency stops
+  final int nbEmergencyStops;
+
+  /// The number of angled parkings
+  final int nbAngledParkings;
+
+  /// The number of parallel parkings
+  final int nbParallelParkings;
+
+  /// The number of bay parkings
+  final int nbBayParkings;
+}
+
+/// EvaluationData class
+class EvaluationData {
+  /// Creates a EvaluationData instance
+  EvaluationData({required this.comment, required this.evaluation});
+
+  /// The evaluation comment
+  final String? comment;
+
+  /// The evaluation
+  final int evaluation;
+}
+
+/// DeclaredTransportationMode class
+class DeclaredTransportationMode {
+  /// Creates an DeclaredTransportationMode instance
+  DeclaredTransportationMode({
+    required this.transportationMode,
+    required this.comment,
+    required this.passenger,
+  });
+
+  /// The declared transportation mode
+  final int transportationMode;
+
+  /// The declared transportation mode comment
+  final String? comment;
+
+  /// The declared seat: passenger or driver
+  final bool passenger;
+}
+
 /// AdvancedEcoDriving class
 class AdvancedEcoDriving {
   /// Creates an AdvancedEcoDriving instance

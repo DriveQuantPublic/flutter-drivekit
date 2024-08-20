@@ -106,6 +106,18 @@ extension PigeonTrip {
                 PigeonAdvancedEnergyEstimation(from: $0)
             })
         }
+        if let tripAdvicesData = trip.tripAdvices?.allObjects as? [TripAdvice] {
+            self.tripAdvicesData = tripAdvicesData.map{ PigeonTripAdvicesData(from: $0) }
+        }
+        if let maneuverData = trip.maneuver {
+            self.maneuverData = PigeonManeuverData(from: maneuverData)
+        }
+        if let evaluationData = trip.evaluation {
+            self.evaluationData = PigeonEvaluationData(from: evaluationData)
+        }
+        if let declaredTransportationMode = trip.declaredTransportationMode {
+            self.declaredTransportationMode = PigeonDeclaredTransportationMode(from: declaredTransportationMode)
+        }
         self.metaData = trip.metadata
         self.transportationMode = Int64(trip.transportationMode)
         self.unscored = trip.unscored
@@ -390,6 +402,58 @@ extension PigeonAdvancedEnergyEstimation {
             duration: advancedEnergyEstimation.duration,
             distance: advancedEnergyEstimation.distance,
             contextId: Int64(advancedEnergyEstimation.contextId)
+        )
+    }
+}
+
+extension PigeonTripAdvicesData {
+    init(from tripAdvice: TripAdvice) {
+        self.init(
+            id: tripAdvice.id,
+            title: tripAdvice.title,
+            message: tripAdvice.message,
+            messageId: tripAdvice.messageId,
+            theme: tripAdvice.theme,
+            adviceEvaluation: PigeonTripAdviceEvaluation(
+                evaluation: Int64(tripAdvice.evaluation),
+                feedback: Int64(tripAdvice.feedback),
+                comment: tripAdvice.comment
+            )
+        )
+    }
+}
+
+extension PigeonManeuverData {
+    init(from maneuver: Maneuver) {
+        self.init(
+            nbStraightReverseDrivings: Int64(maneuver.nbStraightReverseDrivings),
+            nbCurveReverseDrivings: Int64(maneuver.nbCurveReverseDrivings),
+            nbTurns: Int64(maneuver.nbTurns),
+            nbHillStarts: Int64(maneuver.nbHillStarts),
+            nbRoundAbouts: Int64(maneuver.nbRoundAbouts),
+            nbEmergencyStops: Int64(maneuver.nbEmergencyStops),
+            nbAngledParkings: Int64(maneuver.nbAngledParkings),
+            nbParallelParkings: Int64(maneuver.nbParallelParkings),
+            nbBayParkings: Int64(maneuver.nbBayParkings)
+        )
+    }
+}
+
+extension PigeonEvaluationData {
+    init(from evaluation: Evaluation) {
+        self.init(
+            comment: evaluation.comment,
+            evaluation: Int64(evaluation.evaluation)
+        )
+    }
+}
+
+extension PigeonDeclaredTransportationMode {
+    init(from declaredTransportationMode: DeclaredTransportationMode) {
+        self.init(
+            transportationMode: Int64(declaredTransportationMode.transportationMode),
+            comment: declaredTransportationMode.comment,
+            passenger: declaredTransportationMode.passenger
         )
     }
 }

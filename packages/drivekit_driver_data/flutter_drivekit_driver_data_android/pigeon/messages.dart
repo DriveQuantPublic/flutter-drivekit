@@ -56,7 +56,6 @@ enum PigeonTripSyncStatus {
 
 /// Trip class
 class PigeonTrip {
-  /// Creates a PigeonTrip instance
   PigeonTrip({
     required this.itinId,
     required this.startDate,
@@ -84,10 +83,16 @@ class PigeonTrip {
     required this.speedingStatistics,
     required this.energyEstimation,
     required this.advancedEnergyEstimation,
+    required this.tripAdvicesData,
+    required this.maneuverData,
+    required this.evaluationData,
     required this.metaData,
     required this.transportationMode,
+    required this.declaredTransportationMode,
     required this.unscored,
   });
+
+  /// Creates a PigeonTrip instance
 
   /// The itinerary ID
   final String? itinId;
@@ -167,14 +172,101 @@ class PigeonTrip {
   /// The list of advanced energy estimations
   final List<PigeonAdvancedEnergyEstimation?>? advancedEnergyEstimation;
 
+  /// Trip advices
+  final List<PigeonTripAdvicesData?>? tripAdvicesData;
+
+  /// Trip maneuver data
+  final PigeonManeuverData? maneuverData;
+
+  /// Trip evaluation data
+  final PigeonEvaluationData? evaluationData;
+
   /// The metadata
   final Map<String?, String?>? metaData;
 
   /// The transportation mode
   final int transportationMode;
 
+  /// The declared transportation mode
+  final PigeonDeclaredTransportationMode? declaredTransportationMode;
+
   /// The trip is scored or not
   final bool unscored;
+}
+
+class PigeonTripAdvicesData {
+  PigeonTripAdvicesData({
+    required this.id,
+    required this.title,
+    required this.message,
+    required this.messageId,
+    required this.theme,
+    required this.adviceEvaluation,
+  });
+
+  final String? id;
+  final String? title;
+  final String? message;
+  final String? messageId;
+  final String? theme;
+  final PigeonTripAdviceEvaluation? adviceEvaluation;
+}
+
+class PigeonTripAdviceEvaluation {
+  PigeonTripAdviceEvaluation({
+    required this.evaluation,
+    required this.feedback,
+    required this.comment,
+  });
+
+  final int evaluation;
+
+  final int feedback;
+
+  final String? comment;
+}
+
+class PigeonManeuverData {
+  PigeonManeuverData({
+    required this.nbStraightReverseDrivings,
+    required this.nbCurveReverseDrivings,
+    required this.nbTurns,
+    required this.nbHillStarts,
+    required this.nbRoundAbouts,
+    required this.nbEmergencyStops,
+    required this.nbAngledParkings,
+    required this.nbParallelParkings,
+    required this.nbBayParkings,
+  });
+
+  final int nbStraightReverseDrivings;
+  final int nbCurveReverseDrivings;
+  final int nbTurns;
+  final int nbHillStarts;
+  final int nbRoundAbouts;
+  final int nbEmergencyStops;
+  final int nbAngledParkings;
+  final int nbParallelParkings;
+  final int nbBayParkings;
+}
+
+class PigeonEvaluationData {
+  PigeonEvaluationData({required this.comment, required this.evaluation});
+
+  final String? comment;
+  final int evaluation;
+}
+
+class PigeonDeclaredTransportationMode {
+  PigeonDeclaredTransportationMode({
+    required this.transportationMode,
+    required this.comment,
+    required this.passenger,
+  });
+
+  final int transportationMode;
+  final String? comment;
+  final bool passenger;
 }
 
 /// AdvancedEcoDriving class
@@ -700,26 +792,6 @@ class PigeonSafetyEvent {
   final int level;
 
   final double value;
-}
-
-class PigeonSpeedingEvent {
-  const PigeonSpeedingEvent({
-    required this.time,
-    required this.longitude,
-    required this.latitude,
-    required this.type,
-    required this.index,
-  });
-
-  final double time;
-
-  final double longitude;
-
-  final double latitude;
-
-  final double type;
-
-  final int index;
 }
 
 class PigeonSpeedingStatistics {

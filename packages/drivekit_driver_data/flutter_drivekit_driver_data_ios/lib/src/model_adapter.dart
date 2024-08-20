@@ -487,3 +487,73 @@ extension PigeonGetTripsResponseAdapter on PigeonGetTripsResponse {
     );
   }
 }
+
+/// Adapts the [PigeonTripAdvicesData] class to the corresponding model class
+extension PigeonTripAdvicesDataAdapter on PigeonTripAdvicesData {
+  /// Converts a [PigeonTripAdvicesData] to a corresponding model class.
+  TripAdvicesData toModelImplementation() {
+    return TripAdvicesData(
+      id: id,
+      title: title,
+      message: message,
+      messageId: messageId,
+      theme: theme,
+      adviceEvaluation: adviceEvaluation?.toModelImplementation(),
+    );
+  }
+}
+
+/// Adapts the [PigeonManeuverData] class to the corresponding model class
+extension PigeonManeuverDataAdapter on PigeonManeuverData {
+  /// Converts a [PigeonManeuverData] to a corresponding model class.
+  ManeuverData toModelImplementation() {
+    return ManeuverData(
+      nbStraightReverseDrivings: nbStraightReverseDrivings,
+      nbCurveReverseDrivings: nbCurveReverseDrivings,
+      nbTurns: nbTurns,
+      nbHillStarts: nbHillStarts,
+      nbRoundAbouts: nbRoundAbouts,
+      nbEmergencyStops: nbEmergencyStops,
+      nbAngledParkings: nbAngledParkings,
+      nbParallelParkings: nbParallelParkings,
+      nbBayParkings: nbBayParkings,
+    );
+  }
+}
+
+/// Adapts the [PigeonEvaluationData] class to the corresponding model class
+extension PigeonEvaluationDataAdapter on PigeonEvaluationData {
+  /// Converts a [PigeonEvaluationData] to a corresponding model class.
+  EvaluationData toModelImplementation() {
+    return EvaluationData(
+      comment: comment,
+      evaluation: evaluation,
+    );
+  }
+}
+
+/// Adapts the [PigeonDeclaredTransportationMode] class to the corresponding
+/// class in the model.
+extension PigeonDeclaredTransportationModeAdapter
+    on PigeonDeclaredTransportationMode {
+  /// Converts a [PigeonDeclaredTransportationMode] to a corresponding class
+  DeclaredTransportationMode toModelImplementation() {
+    return DeclaredTransportationMode(
+      transportationMode: transportationMode,
+      comment: comment,
+      passenger: passenger,
+    );
+  }
+}
+
+/// Adapts the [PigeonTripAdviceEvaluation] class to the corresponding class
+extension PigeonTripAdviceEvaluationAdapter on PigeonTripAdviceEvaluation {
+  /// Converts a [PigeonTripAdviceEvaluation] to a corresponding model class.
+  TripAdviceEvaluation toModelImplementation() {
+    return TripAdviceEvaluation(
+      evaluation: evaluation,
+      feedback: feedback,
+      comment: comment,
+    );
+  }
+}
