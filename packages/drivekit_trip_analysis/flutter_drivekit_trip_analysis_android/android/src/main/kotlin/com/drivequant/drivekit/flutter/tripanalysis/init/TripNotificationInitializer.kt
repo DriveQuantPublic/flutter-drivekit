@@ -70,10 +70,7 @@ class TripNotificationInitializer : Initializer<TripNotification> {
             .getPendingIntent(0, PendingIntent.FLAG_IMMUTABLE)
     }
 
-    override fun dependencies(): List<Class<out Initializer<*>>> {
-        return listOf(DriveKitInitializer::class.java)
-        return emptyList()
-    }
+    override fun dependencies(): List<Class<out Initializer<*>>> = listOf(DriveKitInitializer::class.java)
 
     enum class LogStatusWhenNotFound {
         ERROR,
