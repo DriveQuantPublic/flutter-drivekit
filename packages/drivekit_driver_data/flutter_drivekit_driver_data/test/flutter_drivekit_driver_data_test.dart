@@ -40,8 +40,22 @@ void main() {
           () => drivekitDriverDataPlatform.deleteTrip(any()),
         ).thenAnswer((_) async => result);
 
-        final actualDeletionResult = await driveKitDriverData.deleteTrip(any());
+        final actualDeletionResult = await driveKitDriverData.deleteTrip('');
         expect(actualDeletionResult, equals(result));
+      });
+    });
+
+    group('Get Trips', () {
+      test('Get Trips', () async {
+        when(
+          () => drivekitDriverDataPlatform.getTripsOrderByDateAsc(),
+        ).thenAnswer(
+          (_) async =>
+              GetTripsResponse(status: TripSyncStatus.noError, trips: []),
+        );
+
+        await driveKitDriverData.getTripsOrderByDateAsc();
+        verify(driveKitDriverData.getTripsOrderByDateAsc).called(1);
       });
     });
   });

@@ -46,5 +46,19 @@ void main() {
           await DrivekitDriverDataPlatform.instance.deleteTrip('');
       expect(deletionResult, false);
     });
+
+    test('Get Trips', () async {
+      //mock
+      when(() => androidDriverDataApi.getTripsOrderByDateAsc()).thenAnswer(
+        (_) async => PigeonGetTripsResponse(
+          status: PigeonTripSyncStatus.noError,
+          trips: [],
+        ),
+      );
+
+      //test
+      await DrivekitDriverDataPlatform.instance.getTripsOrderByDateAsc();
+      verify(() => androidDriverDataApi.getTripsOrderByDateAsc()).called(1);
+    });
   });
 }

@@ -42,5 +42,19 @@ void main() {
       final name = await DrivekitDriverDataPlatform.instance.deleteTrip('');
       expect(name, false);
     });
+
+    test('Get Trips', () async {
+      //mock
+      when(() => iosDriverDataApi.getTripsOrderByDateAsc()).thenAnswer(
+        (_) async => PigeonGetTripsResponse(
+          status: PigeonTripSyncStatus.noError,
+          trips: [],
+        ),
+      );
+
+      //test
+      await DrivekitDriverDataPlatform.instance.getTripsOrderByDateAsc();
+      verify(() => iosDriverDataApi.getTripsOrderByDateAsc()).called(1);
+    });
   });
 }
