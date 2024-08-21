@@ -18,7 +18,9 @@ import 'package:pigeon/pigeon.dart';
 @HostApi()
 abstract class AndroidDriverDataApi {
   String getPlatformName();
+  @async
   bool deleteTrip(String itinId);
+  @async
   PigeonGetTripsResponse getTripsOrderByDateAsc();
 }
 

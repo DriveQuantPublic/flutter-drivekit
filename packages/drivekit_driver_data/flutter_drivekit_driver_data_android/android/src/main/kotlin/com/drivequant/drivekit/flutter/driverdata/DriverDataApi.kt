@@ -1549,11 +1549,12 @@ private object DriverDataApiPigeonCodec : StandardMessageCodec() {
   }
 }
 
+
 /** Generated interface from Pigeon that represents a handler of messages from Flutter. */
 interface AndroidDriverDataApi {
   fun getPlatformName(): String
-  fun deleteTrip(itinId: String): Boolean
-  fun getTripsOrderByDateAsc(): PigeonGetTripsResponse
+  fun deleteTrip(itinId: String, callback: (Result<Boolean>) -> Unit)
+  fun getTripsOrderByDateAsc(callback: (Result<PigeonGetTripsResponse>) -> Unit)
 
   companion object {
     /** The codec used by AndroidDriverDataApi. */
@@ -1585,12 +1586,15 @@ interface AndroidDriverDataApi {
           channel.setMessageHandler { message, reply ->
             val args = message as List<Any?>
             val itinIdArg = args[0] as String
-            val wrapped: List<Any?> = try {
-              listOf(api.deleteTrip(itinIdArg))
-            } catch (exception: Throwable) {
-              wrapError(exception)
+            api.deleteTrip(itinIdArg) { result: Result<Boolean> ->
+              val error = result.exceptionOrNull()
+              if (error != null) {
+                reply.reply(wrapError(error))
+              } else {
+                val data = result.getOrNull()
+                reply.reply(wrapResult(data))
+              }
             }
-            reply.reply(wrapped)
           }
         } else {
           channel.setMessageHandler(null)
@@ -1600,12 +1604,15 @@ interface AndroidDriverDataApi {
         val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_driver_data_package.AndroidDriverDataApi.getTripsOrderByDateAsc$separatedMessageChannelSuffix", codec)
         if (api != null) {
           channel.setMessageHandler { _, reply ->
-            val wrapped: List<Any?> = try {
-              listOf(api.getTripsOrderByDateAsc())
-            } catch (exception: Throwable) {
-              wrapError(exception)
+            api.getTripsOrderByDateAsc{ result: Result<PigeonGetTripsResponse> ->
+              val error = result.exceptionOrNull()
+              if (error != null) {
+                reply.reply(wrapError(error))
+              } else {
+                val data = result.getOrNull()
+                reply.reply(wrapResult(data))
+              }
             }
-            reply.reply(wrapped)
           }
         } else {
           channel.setMessageHandler(null)

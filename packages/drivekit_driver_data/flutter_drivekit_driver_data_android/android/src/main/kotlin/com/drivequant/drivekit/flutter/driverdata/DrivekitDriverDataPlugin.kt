@@ -9,9 +9,6 @@ import com.drivequant.drivekit.driverdata.trip.TripsQueryListener
 import com.drivequant.drivekit.driverdata.trip.TripsSyncStatus
 import com.drivequant.drivekit.flutter.driverdata.mapper.PigeonMapper
 import io.flutter.embedding.engine.plugins.FlutterPlugin
-import kotlin.coroutines.resume
-import kotlin.coroutines.suspendCoroutine
-import kotlinx.coroutines.runBlocking
 
 class DrivekitDriverDataPlugin :
     FlutterPlugin,
@@ -29,35 +26,32 @@ class DrivekitDriverDataPlugin :
     }
 
     override fun getPlatformName(): String = "android"
-
-    override fun deleteTrip(itinId: String): Boolean = runBlocking {
-        suspendCoroutine {
-            DriveKitDriverData.deleteTrip(
-                itinId,
-                object : TripDeleteQueryListener {
-                    override fun onResponse(status: Boolean) {
-                        it.resume(status)
-                    }
+    override fun deleteTrip(itinId: String, callback: (Result<Boolean>) -> Unit) {
+        DriveKitDriverData.deleteTrip(
+            itinId,
+            object : TripDeleteQueryListener {
+                override fun onResponse(status: Boolean) {
+                    callback(Result.success(status))
                 }
-            )
-        }
+            }
+        )
     }
 
-    override fun getTripsOrderByDateAsc(): PigeonGetTripsResponse = runBlocking {
-        suspendCoroutine {
-            DriveKitDriverData.getTripsOrderByDateAsc(
-                type = SynchronizationType.DEFAULT,
-                listener = object : TripsQueryListener {
-                    override fun onResponse(status: TripsSyncStatus, trips: List<Trip>) {
-                        it.resume(
+    override fun getTripsOrderByDateAsc(callback: (Result<PigeonGetTripsResponse>) -> Unit) {
+        DriveKitDriverData.getTripsOrderByDateAsc(
+            type = SynchronizationType.DEFAULT,
+            listener = object : TripsQueryListener {
+                override fun onResponse(status: TripsSyncStatus, trips: List<Trip>) {
+                    callback(
+                        Result.success(
                             PigeonGetTripsResponse(
                                 status = PigeonMapper.toPigeonTripsSyncStatus(status),
                                 trips = trips.map { PigeonMapper.toPigeonTrip(it) }
                             )
                         )
-                    }
+                    )
                 }
-            )
-        }
+            }
+        )
     }
 }

@@ -1626,11 +1626,12 @@ class IOSDriverDataApiPigeonCodec: FlutterStandardMessageCodec, @unchecked Senda
   static let shared = IOSDriverDataApiPigeonCodec(readerWriter: IOSDriverDataApiPigeonCodecReaderWriter())
 }
 
+
 /// Generated protocol from Pigeon that represents a handler of messages from Flutter.
 protocol IOSDriverDataApi {
   func getPlatformName() throws -> String
-  func deleteTrip(itinId: String) throws -> Bool
-  func getTripsOrderByDateAsc() throws -> PigeonGetTripsResponse
+  func deleteTrip(itinId: String, completion: @escaping (Result<Bool, Error>) -> Void)
+  func getTripsOrderByDateAsc(completion: @escaping (Result<PigeonGetTripsResponse, Error>) -> Void)
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
@@ -1657,11 +1658,13 @@ class IOSDriverDataApiSetup {
       deleteTripChannel.setMessageHandler { message, reply in
         let args = message as! [Any?]
         let itinIdArg = args[0] as! String
-        do {
-          let result = try api.deleteTrip(itinId: itinIdArg)
-          reply(wrapResult(result))
-        } catch {
-          reply(wrapError(error))
+        api.deleteTrip(itinId: itinIdArg) { result in
+          switch result {
+          case .success(let res):
+            reply(wrapResult(res))
+          case .failure(let error):
+            reply(wrapError(error))
+          }
         }
       }
     } else {
@@ -1670,11 +1673,13 @@ class IOSDriverDataApiSetup {
     let getTripsOrderByDateAscChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.pigeon_driver_data_package.IOSDriverDataApi.getTripsOrderByDateAsc\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       getTripsOrderByDateAscChannel.setMessageHandler { _, reply in
-        do {
-          let result = try api.getTripsOrderByDateAsc()
-          reply(wrapResult(result))
-        } catch {
-          reply(wrapError(error))
+        api.getTripsOrderByDateAsc { result in
+          switch result {
+          case .success(let res):
+            reply(wrapResult(res))
+          case .failure(let error):
+            reply(wrapError(error))
+          }
         }
       }
     } else {

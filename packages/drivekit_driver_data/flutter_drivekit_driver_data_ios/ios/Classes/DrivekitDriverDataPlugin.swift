@@ -5,6 +5,7 @@ import DriveKitDriverDataModule
 extension FlutterError: Error {}
 
 public class DrivekitDriverDataPlugin: NSObject, FlutterPlugin, IOSDriverDataApi {
+    
     public static func register(with registrar: FlutterPluginRegistrar) {
         let messenger: FlutterBinaryMessenger = registrar.messenger()
         let api: IOSDriverDataApi & NSObjectProtocol = DrivekitDriverDataPlugin.init()
@@ -16,32 +17,15 @@ public class DrivekitDriverDataPlugin: NSObject, FlutterPlugin, IOSDriverDataApi
         return "iOS"
     }
 
-    func deleteTrip(itinId: String) throws -> Bool {
-        var result: Bool = false
-        let group = DispatchGroup()
-        group.enter()
+    func deleteTrip(itinId: String, completion: @escaping (Result<Bool, any Error>) -> Void) {
         DriveKitDriverData.shared.deleteTrip(itinId: itinId) { status in
-            result = status
-            group.leave()
+            completion(Result.success(status))
         }
-        group.wait()
-        return result
     }
-
-    func getTripsOrderByDateAsc() throws -> PigeonGetTripsResponse {
-        var pigeonResponse: PigeonGetTripsResponse?
-        let group = DispatchGroup()
-        group.enter()
+    
+    func getTripsOrderByDateAsc(completion: @escaping (Result<PigeonGetTripsResponse, any Error>) -> Void) {
         DriveKitDriverData.shared.getTripsOrderByDateAsc { status, trips in
-            pigeonResponse = PigeonGetTripsResponse(from: status, trips: trips)
-            group.leave()
+            completion(Result.success(PigeonGetTripsResponse(from: status, trips: trips)))
         }
-        group.wait()
-        guard let pigeonResponse else {
-            // TODO: handle error in a better way
-            fatalError()
-        }
-        return pigeonResponse
     }
-
 }
