@@ -481,25 +481,6 @@ class PostGeneric {
   final Map<String, String>? metaData;
 }
 
-/// Account class
-class Account {
-  /// Creates an Account instance
-  const Account({
-    required this.account,
-    required this.userId,
-    this.vehicleId,
-  });
-
-  /// The account identifier
-  final String account;
-
-  /// The user identifier
-  final String userId;
-
-  /// The vehicle identifier
-  final String? vehicleId;
-}
-
 /// AdvancedEcoDriving class
 class AdvancedEcoDriving {
   /// Creates an AdvancedEcoDriving instance
