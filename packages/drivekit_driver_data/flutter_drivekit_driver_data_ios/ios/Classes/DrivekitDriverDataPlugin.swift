@@ -5,7 +5,7 @@ import DriveKitDriverDataModule
 extension FlutterError: Error {}
 
 public class DrivekitDriverDataPlugin: NSObject, FlutterPlugin, IOSDriverDataApi {
-    
+
     public static func register(with registrar: FlutterPluginRegistrar) {
         let messenger: FlutterBinaryMessenger = registrar.messenger()
         let api: IOSDriverDataApi & NSObjectProtocol = DrivekitDriverDataPlugin.init()
@@ -22,7 +22,7 @@ public class DrivekitDriverDataPlugin: NSObject, FlutterPlugin, IOSDriverDataApi
             completion(Result.success(status))
         }
     }
-    
+
     func getTripsOrderByDateAsc(completion: @escaping (Result<PigeonGetTripsResponse, any Error>) -> Void) {
         DriveKitDriverData.shared.getTripsOrderByDateAsc { status, trips in
             completion(Result.success(PigeonGetTripsResponse(from: status, trips: trips)))

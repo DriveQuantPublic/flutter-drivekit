@@ -2,12 +2,11 @@ import DriveKitDriverDataModule
 import DriveKitDBTripAccessModule
 import DriveKitCoreModule
 
-extension PigeonGetTripsResponse{
+extension PigeonGetTripsResponse {
     init(from status: TripSyncStatus, trips: [Trip]) {
-        self.init(status: PigeonTripSyncStatus(from: status), trips: trips.map{ PigeonTrip(from: $0)})
+        self.init(status: PigeonTripSyncStatus(from: status), trips: trips.ma p{ PigeonTrip(from: $0)})
     }
 }
-
 
 extension PigeonTripSyncStatus {
     init(from status: TripSyncStatus) {
@@ -88,7 +87,7 @@ extension PigeonTrip {
         if let logbook = trip.logbook {
             self.logbook = PigeonLogbook(from: logbook)
         }
-        
+
         if let safetyEvents = trip.safetyEvents?.allObjects as? [SafetyEvents] {
             self.safetyEvents = safetyEvents.map({
                 PigeonSafetyEvent(from: $0)
@@ -106,7 +105,7 @@ extension PigeonTrip {
             })
         }
         if let tripAdvicesData = trip.tripAdvices?.allObjects as? [TripAdvice] {
-            self.tripAdvicesData = tripAdvicesData.map{ PigeonTripAdviceData(from: $0) }
+            self.tripAdvicesData = tripAdvicesData.map { PigeonTripAdviceData(from: $0) }
         }
         if let maneuverData = trip.maneuver {
             self.maneuverData = PigeonManeuverData(from: maneuverData)
@@ -125,7 +124,7 @@ extension PigeonTrip {
             self.calls = calls.compactMap { PigeonCall(from: $0) }
         }
         if let speedLimitContexts = trip.speedLimitContexts?.allObjects as? [DBSpeedLimitContext] {
-            self.speedLimitContexts = speedLimitContexts.map{ PigeonSpeedLimitContext(from: $0) }
+            self.speedLimitContexts = speedLimitContexts.map { PigeonSpeedLimitContext(from: $0) }
         }
     }
 }
