@@ -1,7 +1,7 @@
 import 'package:flutter_drivekit_trip_analysis_android/src/trip_analysis_api.g.dart';
 import 'package:flutter_drivekit_trip_analysis_platform_interface/flutter_drivekit_trip_analysis_platform_interface.dart';
 
-/// Adapts the [PigeonVehicle] class to the [Vehicle] class.
+/// Adapts the [Vehicle] class to the [PigeonVehicle] class.
 extension VehicleAdapter on Vehicle {
   /// Converts a [Vehicle] to a [PigeonVehicle].
   PigeonVehicle toPigeonImplementation() {
@@ -113,7 +113,7 @@ extension CallEventAdapter on CallEvent {
 
 /// Adapts the [Pollutants] class to the corresponding Pigeon
 extension PollutantsAdapter on Pollutants {
-  /// Converts a [PigeonPollutants] to a corresponding Pigeon
+  /// Converts a [Pollutants] to a corresponding Pigeon
   PigeonPollutants toPigeonImplementation() {
     return PigeonPollutants(
       co: co,
@@ -300,7 +300,7 @@ extension FuelEstimationAdapter on FuelEstimation {
 
 /// Adapts the [Safety] class to the corresponding Pigeon
 extension SafetyAdapter on Safety {
-  /// Converts a [PigeonSafety] to a corresponding Pigeon
+  /// Converts a [Safety] to a corresponding Pigeon
   PigeonSafety toPigeonImplementation() {
     return PigeonSafety(
       nbAdh: nbAdh,
@@ -342,7 +342,7 @@ extension LogbookAdapter on Logbook {
 
 /// Adapts the [SpeedingStatistics] class to the Pigeon
 extension SpeedingStatisticsAdapter on SpeedingStatistics {
-  /// Converts a [PigeonSpeedingStatistics] to a corresponding Pigeon
+  /// Converts a [SpeedingStatistics] to a corresponding Pigeon
   PigeonSpeedingStatistics toPigeonImplementation() {
     return PigeonSpeedingStatistics(
       distance: distance,
@@ -359,7 +359,7 @@ extension SpeedingStatisticsAdapter on SpeedingStatistics {
 
 /// Adapts the [AdvancedSafety] class to the corresponding Pigeon
 extension AdvancedSafetyAdapter on AdvancedSafety {
-  /// Converts a [PigeonAdvancedSafety] to a corresponding model class.
+  /// Converts a [AdvancedSafety] to a corresponding model class.
   PigeonAdvancedSafety toPigeonImplementation() {
     return PigeonAdvancedSafety(
       safetyContext: safetyContext
@@ -382,7 +382,7 @@ extension AdvancedEcoDrivingAdapter on AdvancedEcoDriving {
 
 /// Adapts the [AdvancedFuelEstimation] class to the corresponding Pigeon
 extension AdvancedFuelEstimationAdapter on AdvancedFuelEstimation {
-  /// Converts a [PigeonAdvancedFuelEstimation] to a corresponding model class.
+  /// Converts a [AdvancedFuelEstimation] to a corresponding pigeon.
   PigeonAdvancedFuelEstimation toPigeonImplementation() {
     return PigeonAdvancedFuelEstimation(
       fuelEstimationContext:
@@ -415,7 +415,7 @@ extension RouteAdapter on Route {
 
 /// Adapts the [PostGenericResponse] class to the corresponding Pigeon
 extension PigeonPostGenericResponseAdapter on PostGenericResponse {
-  /// Converts a [PigeonPostGenericResponse] to a corresponding model class.
+  /// Converts a [PostGenericResponse] to a corresponding pigeon.
   PigeonPostGenericResponse toPigeonImplementation() {
     return PigeonPostGenericResponse(
       status: status,
@@ -468,7 +468,7 @@ extension PigeonDriverDistractionAdapter on DriverDistraction {
   }
 }
 
-/// Adapts the [PigeonCall] class to the corresponding class in the model.
+/// Adapts the [Call] class to the corresponding pigeon.
 extension PigeonCallAdapter on Call {
   /// Converts a [Call] to a corresponding Pigeon class.
   PigeonCall toPigeonImplementation() {
