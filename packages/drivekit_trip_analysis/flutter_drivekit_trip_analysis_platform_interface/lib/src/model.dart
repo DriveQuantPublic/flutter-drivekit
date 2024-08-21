@@ -1529,7 +1529,6 @@ class TripResponseStatus {
   final List<TripResponseInfo> info;
 
   /// The error that occured when Trip is not valid.
-
   final TripResponseError? error;
 }
 
@@ -1546,36 +1545,29 @@ enum TripResponseStatusType {
 enum TripResponseInfo {
   /// The engine speed is not available. The trip analysis is performed
   /// with an estimated value of the engine speed.
-
   engineSpeedNotAvailable,
 
   /// The engine speed is always at 0 rpm while the vehicle is moving.
   /// The trip analysis is performed but with an estimated value of the
   /// engine speed.
-
   engineSpeedIsNull,
 
   /// The vehicle characteristics are not set or some values are missing.
   /// The trip analysis is performed with generic vehicle model parameters.
-
   noVehicleCharacteristics,
 
   /// More than 25% of data loss is detected during the trip.
-
   dataLoss,
 
   /// The trip was analysed but the distance is not sufficient to provide
   /// an accurate energy analysis.
-
   distanceTooShort,
 
   /// The vehicle characteristics are not in the range of available values.
   /// See vehicle characteristics for range limits.
-
   invalidVehicleCharacteristics,
 
   /// No vehicle found for the vehicleId provided to the API request.
-
   invalidVehicleId,
 }
 
@@ -1596,7 +1588,7 @@ enum TripResponseError {
   /// The input variables have an invalid acquisition period.
   invalidSamplingPeriod,
 
-  /// Unknown account value. Unauthorised access.
+  /// Unknown account value. Unauthorized access.
   invalidCustomerId,
 
   /// The field vehicleDate or gpsDate is not available.

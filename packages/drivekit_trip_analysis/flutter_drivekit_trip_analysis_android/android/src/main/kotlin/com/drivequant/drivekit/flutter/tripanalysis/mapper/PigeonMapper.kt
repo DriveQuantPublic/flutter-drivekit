@@ -88,7 +88,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 object PigeonMapper {
-    private const val datePattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+    private const val DATE_PATTERN = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
 
     fun fromPigeonVehicle(pigeonVehicle: PigeonVehicle): TripVehicle = TripVehicle(
         carTypeIndex = pigeonVehicle.carTypeIndex.toInt(),
@@ -144,7 +144,7 @@ object PigeonMapper {
     }
 
     fun toPigeonDKCrashInfo(crashInfo: DKCrashInfo): PigeonDKCrashInfo {
-        val backendDateFormat: DateFormat = SimpleDateFormat(datePattern, Locale.getDefault())
+        val backendDateFormat: DateFormat = SimpleDateFormat(DATE_PATTERN, Locale.getDefault())
 
         return PigeonDKCrashInfo(
             crashId = crashInfo.crashId,
@@ -222,7 +222,7 @@ object PigeonMapper {
     )
 
     private fun toPigeonItineraryData(itineraryData: ItineraryData): PigeonItineraryData {
-        val backendDateFormat: DateFormat = SimpleDateFormat(datePattern, Locale.getDefault())
+        val backendDateFormat: DateFormat = SimpleDateFormat(DATE_PATTERN, Locale.getDefault())
 
         return PigeonItineraryData(
             startDate = itineraryData.startDate?.let {
@@ -258,7 +258,7 @@ object PigeonMapper {
     )
 
     fun toPigeonPostGenericResponse(postGenericResponse: PostGenericResponse): PigeonPostGenericResponse {
-        val backendDateFormat: DateFormat = SimpleDateFormat(datePattern, Locale.getDefault())
+        val backendDateFormat: DateFormat = SimpleDateFormat(DATE_PATTERN, Locale.getDefault())
 
         val itineraryStatistics: PigeonItineraryStatistics? = postGenericResponse.itineraryStatistics?.let {
             this.toPigeonItineraryStatistics(it)
@@ -527,7 +527,7 @@ object PigeonMapper {
     )
 
     private fun toPigeonLogbook(logbook: Logbook): PigeonLogbook {
-        val backendDateFormat: DateFormat = SimpleDateFormat(datePattern, Locale.getDefault())
+        val backendDateFormat: DateFormat = SimpleDateFormat(DATE_PATTERN, Locale.getDefault())
         val updateDate = logbook.updateDate?.let {
             backendDateFormat.format(it)
         }
@@ -664,7 +664,7 @@ object PigeonMapper {
     }
 
     private fun fromPigeonItineraryData(pigeonItineraryData: PigeonItineraryData): ItineraryData? {
-        val backendDateFormat: DateFormat = SimpleDateFormat(datePattern, Locale.getDefault())
+        val backendDateFormat: DateFormat = SimpleDateFormat(DATE_PATTERN, Locale.getDefault())
 
         val itineraryData = pigeonItineraryData.endDate?.let {
             backendDateFormat.parse(it)?.let { endDate ->
@@ -685,7 +685,7 @@ object PigeonMapper {
     }
 
     fun fromPigeonPostGenericResponse(postGenericResponse: PigeonPostGenericResponse): PostGenericResponse {
-        val backendDateFormat: DateFormat = SimpleDateFormat(datePattern, Locale.getDefault())
+        val backendDateFormat: DateFormat = SimpleDateFormat(DATE_PATTERN, Locale.getDefault())
 
         val itineraryStatistics: ItineraryStatistics? = postGenericResponse.itineraryStatistics?.let {
             this.fromPigeonItineraryStatistics(it)
@@ -969,7 +969,7 @@ object PigeonMapper {
     )
 
     private fun fromPigeonLogbook(logbook: PigeonLogbook): Logbook {
-        val backendDateFormat: DateFormat = SimpleDateFormat(datePattern, Locale.getDefault())
+        val backendDateFormat: DateFormat = SimpleDateFormat(DATE_PATTERN, Locale.getDefault())
         val updateDate = logbook.updateDate?.let {
             backendDateFormat.parse(it)
         }
