@@ -64,6 +64,15 @@ class DrivekitTripAnalysisIOS extends DrivekitTripAnalysisPlatform
       iosTripAnalysisApi.setVehicle(vehicle.toPigeonImplementation());
 
   @override
+  Future<TripResponseStatus?> getTripResponseStatus(
+    PostGenericResponse tripResponse,
+  ) async {
+    final pigeonResult = await iosTripAnalysisApi
+        .getTripResponseStatus(tripResponse.toPigeonImplementation());
+    return pigeonResult?.toModelImplementation();
+  }
+
+  @override
   void addTripListener(TripListener listener) => _listeners.add(listener);
 
   @override

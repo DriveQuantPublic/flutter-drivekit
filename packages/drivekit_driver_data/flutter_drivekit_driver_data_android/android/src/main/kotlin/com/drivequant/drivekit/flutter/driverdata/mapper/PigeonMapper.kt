@@ -58,8 +58,10 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 object PigeonMapper {
+    private const val DATE_PATTERN = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+
     fun toPigeonTrip(trip: Trip): PigeonTrip {
-        val backendDateFormat: DateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.getDefault())
+        val backendDateFormat: DateFormat = SimpleDateFormat(DATE_PATTERN, Locale.getDefault())
 
         val tripStatistics: PigeonTripStatistics? = trip.tripStatistics?.let {
             this.toPigeonTripStatistics(it)
@@ -327,7 +329,7 @@ object PigeonMapper {
     )
 
     private fun toPigeonLogbook(logbook: Logbook): PigeonLogbook {
-        val backendDateFormat: DateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.getDefault())
+        val backendDateFormat: DateFormat = SimpleDateFormat(DATE_PATTERN, Locale.getDefault())
         val updateDate = logbook.updateDate?.let {
             backendDateFormat.format(it)
         }

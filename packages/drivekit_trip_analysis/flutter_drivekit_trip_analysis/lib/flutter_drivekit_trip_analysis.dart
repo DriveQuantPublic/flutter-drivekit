@@ -1,7 +1,13 @@
 import 'package:flutter_drivekit_trip_analysis_platform_interface/flutter_drivekit_trip_analysis_platform_interface.dart';
 
 export 'package:flutter_drivekit_trip_analysis_platform_interface/flutter_drivekit_trip_analysis_platform_interface.dart'
-    show TripListener, Vehicle;
+    show
+        TripListener,
+        TripResponseError,
+        TripResponseInfo,
+        TripResponseStatus,
+        TripResponseStatusType,
+        Vehicle;
 
 DrivekitTripAnalysisPlatform get _platform =>
     DrivekitTripAnalysisPlatform.instance;
@@ -135,5 +141,12 @@ class DrivekitTripAnalysis {
   /// Remove all trip listeners
   void removeAllTripListeners() {
     _platform.removeAllTripListeners();
+  }
+
+  /// Indicates if the analyzed trip is valid or not
+  Future<TripResponseStatus?> getTripResponseStatus(
+    PostGenericResponse tripResponse,
+  ) async {
+    return _platform.getTripResponseStatus(tripResponse);
   }
 }

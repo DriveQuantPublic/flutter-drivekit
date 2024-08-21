@@ -4,7 +4,7 @@ import DriveKitCoreModule
 
 extension PigeonGetTripsResponse {
     init(from status: TripSyncStatus, trips: [Trip]) {
-        self.init(status: PigeonTripSyncStatus(from: status), trips: trips.ma p{ PigeonTrip(from: $0)})
+        self.init(status: PigeonTripSyncStatus(from: status), trips: trips.map { PigeonTrip(from: $0)})
     }
 }
 
