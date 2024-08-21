@@ -86,16 +86,18 @@ extension DrivekitTripAnalysisPlugin: TripListener {
         let pigeonPostValue = PigeonPostGeneric.init(from: post)
         let pigeonResponseValue = PigeonPostGenericResponse.init(from: response)
 
-        self.flutterAPI?.tripFinished(
-            post: pigeonPostValue,
-            response: pigeonResponseValue) { result in
-                switch result {
-                case .success:
-                    print("tripFinished event sent with success.")
-                case .failure(let error):
-                    print("Error when sending tripFinished event: \(error.localizedDescription)")
+        executeOnMainThread {
+            self.flutterAPI?.tripFinished(
+                post: pigeonPostValue,
+                response: pigeonResponseValue) { result in
+                    switch result {
+                    case .success:
+                        print("tripFinished event sent with success.")
+                    case .failure(let error):
+                        print("Error when sending tripFinished event: \(error.localizedDescription)")
+                    }
                 }
-            }
+        }
     }
 
     public func tripCancelled(cancelTrip: DriveKitTripAnalysisModule.CancelTrip) {
@@ -111,7 +113,7 @@ extension DrivekitTripAnalysisPlugin: TripListener {
     }
 
     public func tripSavedForRepost() {
-        self.flutterAPI?.tripSavedForRepost() {result in
+        self.flutterAPI?.tripSavedForRepost {result in
             switch result {
             case .success:
                 print("tripSavedForRepost event sent with success.")
@@ -134,7 +136,7 @@ extension DrivekitTripAnalysisPlugin: TripListener {
     }
 
     public func beaconDetected() {
-        self.flutterAPI?.tripSavedForRepost() {result in
+        self.flutterAPI?.tripSavedForRepost {result in
             switch result {
             case .success:
                 print("beaconDetected event sent with success.")
@@ -158,12 +160,14 @@ extension DrivekitTripAnalysisPlugin: TripListener {
 
     public func sdkStateChanged(state: DriveKitTripAnalysisModule.State) {
         let stateValue = PigeonState.init(from: state)
-        self.flutterAPI?.sdkStateChanged(state: stateValue) {result in
-            switch result {
-            case .success:
-                print("sdkStateChanged event sent with success.")
-            case .failure(let error):
-                print("Error when sending sdkStateChanged event: \(error.localizedDescription)")
+        executeOnMainThread {
+            self.flutterAPI?.sdkStateChanged(state: stateValue) {result in
+                switch result {
+                case .success:
+                    print("sdkStateChanged event sent with success.")
+                case .failure(let error):
+                    print("Error when sending sdkStateChanged event: \(error.localizedDescription)")
+                }
             }
         }
     }
@@ -208,6 +212,16 @@ extension DrivekitTripAnalysisPlugin: TripListener {
                     print("crashFeedbackSent event sent with success.")
                 case .failure(let error):
                     print("Error when sending crashFeedbackSent event: \(error.localizedDescription)")
+            }
+        }
+    }
+
+    private func executeOnMainThread(_ task: @escaping () -> Void) {
+        if Thread.isMainThread {
+            task()
+        } else {
+            DispatchQueue.main.async {
+                task()
             }
         }
     }

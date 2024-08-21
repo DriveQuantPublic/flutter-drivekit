@@ -78,7 +78,7 @@ class TripNotificationInitializer : Initializer<TripNotification> {
     }
 
     @SuppressLint("DiscouragedApi") // As we check for not found resources and ask integrator to specify it
-    private fun Resources.getIdentifier(key: String, defType: String?, appName: String?, logStatus: TripNotificationInitializer.LogStatusWhenNotFound): Int {
+    private fun Resources.getIdentifier(key: String, defType: String?, appName: String?, logStatus: LogStatusWhenNotFound): Int {
         getIdentifier(key, defType, appName).let {
             if (it == 0) {
                 when (logStatus) {

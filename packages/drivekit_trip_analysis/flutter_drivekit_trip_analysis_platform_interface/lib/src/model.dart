@@ -1528,7 +1528,7 @@ class TripResponseStatus {
   /// These are not errors
   final List<TripResponseInfo> info;
 
-  /// The error that occured when Trip is not valid.
+  /// The error that occurred when Trip is not valid.
   final TripResponseError? error;
 }
 
