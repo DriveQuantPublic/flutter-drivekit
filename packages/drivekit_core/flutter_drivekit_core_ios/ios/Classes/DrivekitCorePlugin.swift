@@ -133,10 +133,10 @@ extension DrivekitCorePlugin: DriveKitDelegate {
         let pigeonStatus = PigeonBackgroundFetchStatus.init(from: status)
         flutterAPI?.driveKitBackgroundFetchStatusChanged(status: pigeonStatus) { result in
             switch result {
-                case .success:
-                    print("DriveKit background fetch status changed successfully.")
-                case .failure(let error):
-                    print("Error changing background fetch status in DriveKit: \(error.localizedDescription)")
+            case .success:
+                print("DriveKit background fetch status changed successfully.")
+            case .failure(let error):
+                print("Error changing background fetch status in DriveKit: \(error.localizedDescription)")
             }
         }
     }
