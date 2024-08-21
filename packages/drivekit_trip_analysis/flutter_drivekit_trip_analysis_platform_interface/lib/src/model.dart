@@ -363,7 +363,6 @@ class PostGenericResponse {
     required this.itinId,
     required this.comments,
     this.userId,
-    this.account,
     this.itineraryStatistics,
     this.ecoDriving,
     this.fuelEstimation,
@@ -397,9 +396,6 @@ class PostGenericResponse {
 
   /// The user ID
   final String? userId;
-
-  /// The account information
-  final Account? account;
 
   /// The itinerary statistics
   final ItineraryStatistics? itineraryStatistics;
@@ -483,25 +479,6 @@ class PostGeneric {
 
   /// The metadata
   final Map<String, String>? metaData;
-}
-
-/// Account class
-class Account {
-  /// Creates an Account instance
-  const Account({
-    required this.account,
-    required this.userId,
-    this.vehicleId,
-  });
-
-  /// The account identifier
-  final String account;
-
-  /// The user identifier
-  final String userId;
-
-  /// The vehicle identifier
-  final String? vehicleId;
 }
 
 /// AdvancedEcoDriving class
@@ -1529,4 +1506,136 @@ class Location {
 
   /// The location latitude
   final double latitude;
+}
+
+/// TripResponseStatus class
+class TripResponseStatus {
+  /// creates a TripResponseStatus instance
+  TripResponseStatus({
+    required this.status,
+    required this.hasSafetyAndEcoDrivingScore,
+    required this.info,
+    required this.error,
+  });
+
+  /// Trip status: valid or not
+  final TripResponseStatusType status;
+
+  /// If false, it means that the trip is valid but too short to be analyzed.
+  final bool hasSafetyAndEcoDrivingScore;
+
+  /// List of information codes returned when Trip is valid.
+  /// These are not errors
+  final List<TripResponseInfo> info;
+
+  /// The error that occured when Trip is not valid.
+  final TripResponseError? error;
+}
+
+/// TripResponseStatusType enum
+enum TripResponseStatusType {
+  /// The Trip is valid
+  tripValid,
+
+  /// The trip is not valid
+  tripError,
+}
+
+/// TripResponseInfo enum
+enum TripResponseInfo {
+  /// The engine speed is not available. The trip analysis is performed
+  /// with an estimated value of the engine speed.
+  engineSpeedNotAvailable,
+
+  /// The engine speed is always at 0 rpm while the vehicle is moving.
+  /// The trip analysis is performed but with an estimated value of the
+  /// engine speed.
+  engineSpeedIsNull,
+
+  /// The vehicle characteristics are not set or some values are missing.
+  /// The trip analysis is performed with generic vehicle model parameters.
+  noVehicleCharacteristics,
+
+  /// More than 25% of data loss is detected during the trip.
+  dataLoss,
+
+  /// The trip was analysed but the distance is not sufficient to provide
+  /// an accurate energy analysis.
+  distanceTooShort,
+
+  /// The vehicle characteristics are not in the range of available values.
+  /// See vehicle characteristics for range limits.
+  invalidVehicleCharacteristics,
+
+  /// No vehicle found for the vehicleId provided to the API request.
+  invalidVehicleId,
+}
+
+/// TripResponseError enum
+enum TripResponseError {
+  /// The account block is not set in the trip data.
+  noAccountSet,
+
+  /// The route block is not available in the trip data.
+  noRouteObjectFound,
+
+  /// Error when parsing the route block
+  invalidRouteDefinition,
+
+  /// The vehicle or GPS velocity is not available
+  noVelocityData,
+
+  /// The input variables have an invalid acquisition period.
+  invalidSamplingPeriod,
+
+  /// Unknown account value. Unauthorized access.
+  invalidCustomerId,
+
+  /// The field vehicleDate or gpsDate is not available.
+  noDateFound,
+
+  /// The trip could not be analyzed because you exceeded your daily
+  /// request quota.
+  maxDailyRequestNumberReached,
+
+  /// The service failed to process your data. There is a need to diagnose
+  /// your data to determine the origin of this problem.
+  dataError,
+
+  /// The route vectors are not of the same size, the service cannot
+  /// perform the analysis
+  invalidRouteVectors,
+
+  /// The beacon has not been detected and it is required to validate
+  /// the trip analysis.
+  missingBeacon,
+
+  /// A beacon was detected during the trip but it does not have the
+  /// correct identifiers
+  invalidBeacon,
+
+  /// The duplicate trip feature is enabled and the trip has already
+  /// been analysed
+  duplicateTrip,
+
+  /// The number of GPS points is too low
+  insufficientGpsData,
+
+  /// The driver is disabled, the service cannot perform the analysis
+  userDisabled,
+
+  /// The user identifier is not valid.
+  invalidUser,
+
+  /// The dates are inconstistent, the service cannot perform the analysis
+  invalidGpsData,
+
+  /// The trip has already been analysed and considered as invalid
+  invalidTrip,
+
+  /// The maximum number of user account reached for the customer
+  accountLimitReached,
+
+  /// The error is not yet handled by the DriveKit SDK.
+  unknownError,
 }

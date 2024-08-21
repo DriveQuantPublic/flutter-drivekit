@@ -5,6 +5,9 @@ class MockIOSTripAnalysisApi extends Mock implements IOSTripAnalysisApi {}
 
 class MockPigeonVehicle extends Mock implements PigeonVehicle {}
 
+class MockPigeonPostGenericResponse extends Mock
+    implements PigeonPostGenericResponse {}
+
 final mockPigeonDkCrashInfo = PigeonDKCrashInfo(
   crashId: 'crashId',
   latitude: 0,
@@ -56,4 +59,11 @@ final mockPigeonTripPoint = PigeonTripPoint(
   distance: 0,
   heading: 0,
   duration: 0,
+);
+
+final mockPigeonTripResponseStatus = PigeonTripResponseStatus(
+  status: PigeonTripResponseStatusType.tripError,
+  hasSafetyAndEcoDrivingScore: false,
+  info: [],
+  error: PigeonTripResponseError.noAccountSet,
 );
