@@ -23,6 +23,7 @@ import com.drivequant.drivekit.databaseutils.entity.TireWear
 import com.drivequant.drivekit.databaseutils.entity.Trip
 import com.drivequant.drivekit.databaseutils.entity.TripAdvice
 import com.drivequant.drivekit.databaseutils.entity.TripStatistics
+import com.drivequant.drivekit.driverdata.trip.TripsSyncStatus
 import com.drivequant.drivekit.flutter.driverdata.PigeonAdvancedEcoDriving
 import com.drivequant.drivekit.flutter.driverdata.PigeonAdvancedEnergyEstimation
 import com.drivequant.drivekit.flutter.driverdata.PigeonAdvancedFuelEstimation
@@ -51,6 +52,7 @@ import com.drivequant.drivekit.flutter.driverdata.PigeonTrip
 import com.drivequant.drivekit.flutter.driverdata.PigeonTripAdviceData
 import com.drivequant.drivekit.flutter.driverdata.PigeonTripAdviceEvaluation
 import com.drivequant.drivekit.flutter.driverdata.PigeonTripStatistics
+import com.drivequant.drivekit.flutter.driverdata.PigeonTripSyncStatus
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -441,5 +443,13 @@ object PigeonMapper {
             )
         }
         return null
+    }
+
+    fun toPigeonTripsSyncStatus(tripSyncStatus: TripsSyncStatus): PigeonTripSyncStatus = when (tripSyncStatus) {
+        TripsSyncStatus.NO_ERROR -> PigeonTripSyncStatus.NO_ERROR
+        TripsSyncStatus.CACHE_DATA_ONLY -> PigeonTripSyncStatus.CACHE_DATA_ONLY
+        TripsSyncStatus.FAILED_TO_SYNC_TRIPS_CACHE_ONLY -> PigeonTripSyncStatus.FAILED_TO_SYNC_TRIPS_CACHE_ONLY
+        TripsSyncStatus.FAILED_TO_SYNC_SAFETY_EVENTS -> PigeonTripSyncStatus.FAILED_TO_SYNC_SAFETY_EVENTS
+        TripsSyncStatus.SYNC_ALREADY_IN_PROGRESS -> PigeonTripSyncStatus.SYNC_ALREADY_IN_PROGRESS
     }
 }

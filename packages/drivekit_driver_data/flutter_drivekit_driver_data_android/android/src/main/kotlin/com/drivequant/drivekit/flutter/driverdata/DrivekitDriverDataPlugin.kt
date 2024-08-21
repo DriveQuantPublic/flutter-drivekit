@@ -1,6 +1,7 @@
 package com.drivequant.drivekit.flutter.driverdata
 
 import android.content.Context
+import com.drivequant.drivekit.core.SynchronizationType
 import com.drivequant.drivekit.databaseutils.entity.Trip
 import com.drivequant.drivekit.driverdata.DriveKitDriverData
 import com.drivequant.drivekit.driverdata.trip.TripDeleteQueryListener
@@ -42,21 +43,21 @@ class DrivekitDriverDataPlugin :
         }
     }
 
-    override fun getTripsOrderByDateAsc(): PigeonGetTripsResponse {
-        TODO("Not yet implemented")
-        return runBlocking {
-            suspendCoroutine {
-                DriveKitDriverData.getTripsOrderByDateAsc(object : TripsQueryListener {
+    override fun getTripsOrderByDateAsc(): PigeonGetTripsResponse = runBlocking {
+        suspendCoroutine {
+            DriveKitDriverData.getTripsOrderByDateAsc(
+                type = SynchronizationType.DEFAULT,
+                listener = object : TripsQueryListener {
                     override fun onResponse(status: TripsSyncStatus, trips: List<Trip>) {
                         it.resume(
                             PigeonGetTripsResponse(
-                                status = PigeonTripSyncStatus.NO_ERROR,
+                                status = PigeonMapper.toPigeonTripsSyncStatus(status),
                                 trips = trips.map { PigeonMapper.toPigeonTrip(it) }
                             )
                         )
                     }
-                })
-            }
+                }
+            )
         }
     }
 }
