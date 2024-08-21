@@ -46,7 +46,7 @@ void main() {
     });
 
     group('Get Trips', () {
-      test('Get Trips', () async {
+      test('Get Trips Ascending', () async {
         when(
           () => drivekitDriverDataPlatform.getTripsOrderByDateAsc(),
         ).thenAnswer(
@@ -56,6 +56,18 @@ void main() {
 
         await driveKitDriverData.getTripsOrderByDateAsc();
         verify(driveKitDriverData.getTripsOrderByDateAsc).called(1);
+      });
+
+      test('Get Trips Descending', () async {
+        when(
+          () => drivekitDriverDataPlatform.getTripsOrderByDateDesc(),
+        ).thenAnswer(
+          (_) async =>
+              GetTripsResponse(status: TripSyncStatus.noError, trips: []),
+        );
+
+        await driveKitDriverData.getTripsOrderByDateDesc();
+        verify(driveKitDriverData.getTripsOrderByDateDesc).called(1);
       });
     });
   });

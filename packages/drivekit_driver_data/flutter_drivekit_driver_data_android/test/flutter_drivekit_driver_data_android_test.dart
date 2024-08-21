@@ -47,7 +47,7 @@ void main() {
       expect(deletionResult, false);
     });
 
-    test('Get Trips', () async {
+    test('Get Trips Ascending', () async {
       //mock
       when(() => androidDriverDataApi.getTripsOrderByDateAsc()).thenAnswer(
         (_) async => PigeonGetTripsResponse(
@@ -59,6 +59,20 @@ void main() {
       //test
       await DrivekitDriverDataPlatform.instance.getTripsOrderByDateAsc();
       verify(() => androidDriverDataApi.getTripsOrderByDateAsc()).called(1);
+    });
+
+    test('Get Trips Descending', () async {
+      //mock
+      when(() => androidDriverDataApi.getTripsOrderByDateDesc()).thenAnswer(
+        (_) async => PigeonGetTripsResponse(
+          status: PigeonTripSyncStatus.noError,
+          trips: [],
+        ),
+      );
+
+      //test
+      await DrivekitDriverDataPlatform.instance.getTripsOrderByDateDesc();
+      verify(() => androidDriverDataApi.getTripsOrderByDateDesc()).called(1);
     });
   });
 }

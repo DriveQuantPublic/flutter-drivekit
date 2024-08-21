@@ -1631,6 +1631,7 @@ protocol IOSDriverDataApi {
   func getPlatformName() throws -> String
   func deleteTrip(itinId: String, completion: @escaping (Result<Bool, Error>) -> Void)
   func getTripsOrderByDateAsc(completion: @escaping (Result<PigeonGetTripsResponse, Error>) -> Void)
+  func getTripsOrderByDateDesc(completion: @escaping (Result<PigeonGetTripsResponse, Error>) -> Void)
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
@@ -1683,6 +1684,21 @@ class IOSDriverDataApiSetup {
       }
     } else {
       getTripsOrderByDateAscChannel.setMessageHandler(nil)
+    }
+    let getTripsOrderByDateDescChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.pigeon_driver_data_package.IOSDriverDataApi.getTripsOrderByDateDesc\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      getTripsOrderByDateDescChannel.setMessageHandler { _, reply in
+        api.getTripsOrderByDateDesc { result in
+          switch result {
+          case .success(let res):
+            reply(wrapResult(res))
+          case .failure(let error):
+            reply(wrapError(error))
+          }
+        }
+      }
+    } else {
+      getTripsOrderByDateDescChannel.setMessageHandler(nil)
     }
   }
 }

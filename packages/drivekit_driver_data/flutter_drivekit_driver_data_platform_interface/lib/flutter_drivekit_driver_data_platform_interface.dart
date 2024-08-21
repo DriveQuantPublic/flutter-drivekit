@@ -40,6 +40,9 @@ abstract class DrivekitDriverDataPlatform extends PlatformInterface {
   /// Delete a trip
   Future<bool> deleteTrip(String itinId);
 
-  /// Get trips ordered by date
+  /// Get trips ordered by date Ascending
   Future<GetTripsResponse?> getTripsOrderByDateAsc();
+
+  /// Get trips ordered by date Descending
+  Future<GetTripsResponse?> getTripsOrderByDateDesc();
 }

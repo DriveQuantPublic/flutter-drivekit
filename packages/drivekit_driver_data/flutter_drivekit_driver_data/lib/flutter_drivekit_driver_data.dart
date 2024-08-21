@@ -20,7 +20,11 @@ class DriveKitDriverData {
   /// Delete a trip
   Future<bool> deleteTrip(String itinId) => _platform.deleteTrip(itinId);
 
-  /// Get trips ordered by date
+  /// Get trips ordered by date ascending
   Future<GetTripsResponse?> getTripsOrderByDateAsc() =>
       _platform.getTripsOrderByDateAsc();
+
+  /// Get trips ordered by date descending
+  Future<GetTripsResponse?> getTripsOrderByDateDesc() =>
+      _platform.getTripsOrderByDateDesc();
 }

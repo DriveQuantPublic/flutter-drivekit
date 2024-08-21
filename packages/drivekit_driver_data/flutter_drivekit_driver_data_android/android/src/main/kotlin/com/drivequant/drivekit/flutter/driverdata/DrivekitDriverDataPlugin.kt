@@ -54,4 +54,22 @@ class DrivekitDriverDataPlugin :
             }
         )
     }
+
+    override fun getTripsOrderByDateDesc(callback: (Result<PigeonGetTripsResponse>) -> Unit) {
+        DriveKitDriverData.getTripsOrderByDateDesc(
+            type = SynchronizationType.DEFAULT,
+            listener = object : TripsQueryListener {
+                override fun onResponse(status: TripsSyncStatus, trips: List<Trip>) {
+                    callback(
+                        Result.success(
+                            PigeonGetTripsResponse(
+                                status = PigeonMapper.toPigeonTripsSyncStatus(status),
+                                trips = trips.map { PigeonMapper.toPigeonTrip(it) }
+                            )
+                        )
+                    )
+                }
+            }
+        )
+    }
 }

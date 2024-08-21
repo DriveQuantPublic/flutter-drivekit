@@ -33,4 +33,10 @@ class DrivekitDriverDataIOS extends DrivekitDriverDataPlatform {
     final trips = await iosDriverDataApi.getTripsOrderByDateAsc();
     return trips.toModelImplementation();
   }
+
+  @override
+  Future<GetTripsResponse?> getTripsOrderByDateDesc() async {
+    final trips = await iosDriverDataApi.getTripsOrderByDateDesc();
+    return trips.toModelImplementation();
+  }
 }

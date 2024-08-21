@@ -18,6 +18,8 @@ abstract class IOSDriverDataApi {
   bool deleteTrip(String itinId);
   @async
   PigeonGetTripsResponse getTripsOrderByDateAsc();
+  @async
+  PigeonGetTripsResponse getTripsOrderByDateDesc();
 }
 
 /// the response returned when gettings trips

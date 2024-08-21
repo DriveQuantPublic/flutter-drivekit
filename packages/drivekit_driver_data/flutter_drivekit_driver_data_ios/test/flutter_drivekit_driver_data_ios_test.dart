@@ -43,7 +43,7 @@ void main() {
       expect(name, false);
     });
 
-    test('Get Trips', () async {
+    test('Get Trips Ascending', () async {
       //mock
       when(() => iosDriverDataApi.getTripsOrderByDateAsc()).thenAnswer(
         (_) async => PigeonGetTripsResponse(
@@ -55,6 +55,20 @@ void main() {
       //test
       await DrivekitDriverDataPlatform.instance.getTripsOrderByDateAsc();
       verify(() => iosDriverDataApi.getTripsOrderByDateAsc()).called(1);
+    });
+
+    test('Get Trips Descending', () async {
+      //mock
+      when(() => iosDriverDataApi.getTripsOrderByDateDesc()).thenAnswer(
+        (_) async => PigeonGetTripsResponse(
+          status: PigeonTripSyncStatus.noError,
+          trips: [],
+        ),
+      );
+
+      //test
+      await DrivekitDriverDataPlatform.instance.getTripsOrderByDateDesc();
+      verify(() => iosDriverDataApi.getTripsOrderByDateDesc()).called(1);
     });
   });
 }

@@ -28,4 +28,10 @@ public class DrivekitDriverDataPlugin: NSObject, FlutterPlugin, IOSDriverDataApi
             completion(Result.success(PigeonGetTripsResponse(from: status, trips: trips)))
         }
     }
+
+    func getTripsOrderByDateDesc(completion: @escaping (Result<PigeonGetTripsResponse, any Error>) -> Void) {
+        DriveKitDriverData.shared.getTripsOrderByDateDesc { status, trips in
+            completion(Result.success(PigeonGetTripsResponse(from: status, trips: trips)))
+        }
+    }
 }
