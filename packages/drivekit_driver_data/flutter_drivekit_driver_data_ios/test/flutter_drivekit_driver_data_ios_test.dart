@@ -35,7 +35,9 @@ void main() {
 
     test('Get Trips Ascending', () async {
       //mock
-      when(() => iosDriverDataApi.getTripsOrderByDateAsc()).thenAnswer(
+      when(
+        () => iosDriverDataApi.getTripsOrderByDateAsc(transportationModes: []),
+      ).thenAnswer(
         (_) async => PigeonGetTripsResponse(
           status: PigeonTripSyncStatus.noError,
           trips: [],
@@ -43,13 +45,18 @@ void main() {
       );
 
       //test
-      await DrivekitDriverDataPlatform.instance.getTripsOrderByDateAsc();
-      verify(() => iosDriverDataApi.getTripsOrderByDateAsc()).called(1);
+      await DrivekitDriverDataPlatform.instance
+          .getTripsOrderByDateAsc(transportationModes: []);
+      verify(
+        () => iosDriverDataApi.getTripsOrderByDateAsc(transportationModes: []),
+      ).called(1);
     });
 
     test('Get Trips Descending', () async {
       //mock
-      when(() => iosDriverDataApi.getTripsOrderByDateDesc()).thenAnswer(
+      when(
+        () => iosDriverDataApi.getTripsOrderByDateDesc(transportationModes: []),
+      ).thenAnswer(
         (_) async => PigeonGetTripsResponse(
           status: PigeonTripSyncStatus.noError,
           trips: [],
@@ -57,8 +64,11 @@ void main() {
       );
 
       //test
-      await DrivekitDriverDataPlatform.instance.getTripsOrderByDateDesc();
-      verify(() => iosDriverDataApi.getTripsOrderByDateDesc()).called(1);
+      await DrivekitDriverDataPlatform.instance
+          .getTripsOrderByDateDesc(transportationModes: []);
+      verify(
+        () => iosDriverDataApi.getTripsOrderByDateDesc(transportationModes: []),
+      ).called(1);
     });
 
     test('Get a Trip', () async {
