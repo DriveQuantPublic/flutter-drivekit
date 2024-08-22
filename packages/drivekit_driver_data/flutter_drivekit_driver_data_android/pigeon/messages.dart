@@ -27,7 +27,11 @@ abstract class AndroidDriverDataApi {
     List<PigeonTransportationMode> transportationModes = const [],
   });
   @async
-  PigeonGetTripsResponse getTripsOrderByDateDesc();
+  PigeonGetTripsResponse getTripsOrderByDateDesc({
+    PigeonSynchronizationType synchronizationType =
+        PigeonSynchronizationType.defaultSync,
+    List<PigeonTransportationMode> transportationModes = const [],
+  });
 }
 
 /// the response returned when gettings trips

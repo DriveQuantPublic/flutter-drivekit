@@ -1977,7 +1977,10 @@ class IOSDriverDataApi {
     }
   }
 
-  Future<PigeonGetTripsResponse> getTripsOrderByDateDesc() async {
+  Future<PigeonGetTripsResponse> getTripsOrderByDateDesc(
+      {PigeonSynchronizationType synchronizationType =
+          PigeonSynchronizationType.defaultSync,
+      List<PigeonTransportationMode?> transportationModes = const []}) async {
     final String __pigeon_channelName =
         'dev.flutter.pigeon.pigeon_driver_data_package.IOSDriverDataApi.getTripsOrderByDateDesc$__pigeon_messageChannelSuffix';
     final BasicMessageChannel<Object?> __pigeon_channel =
@@ -1986,8 +1989,9 @@ class IOSDriverDataApi {
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
     );
-    final List<Object?>? __pigeon_replyList =
-        await __pigeon_channel.send(null) as List<Object?>?;
+    final List<Object?>? __pigeon_replyList = await __pigeon_channel
+            .send(<Object?>[synchronizationType, transportationModes])
+        as List<Object?>?;
     if (__pigeon_replyList == null) {
       throw _createConnectionError(__pigeon_channelName);
     } else if (__pigeon_replyList.length > 1) {

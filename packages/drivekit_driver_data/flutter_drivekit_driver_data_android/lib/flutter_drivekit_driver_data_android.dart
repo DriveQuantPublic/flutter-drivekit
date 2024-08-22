@@ -45,8 +45,16 @@ class DrivekitDriverDataAndroid extends DrivekitDriverDataPlatform {
   }
 
   @override
-  Future<GetTripsResponse?> getTripsOrderByDateDesc() async {
-    final trips = await androidDriverDataApi.getTripsOrderByDateDesc();
+  Future<GetTripsResponse?> getTripsOrderByDateDesc({
+    SynchronizationType synchronizationType = SynchronizationType.defaultSync,
+    List<TransportationMode> transportationModes = const <TransportationMode>[],
+  }) async {
+    final trips = await androidDriverDataApi.getTripsOrderByDateDesc(
+      synchronizationType: synchronizationType.toPigeonImplementation(),
+      transportationModes: transportationModes
+          .map((TransportationMode e) => e.toPigeonImplementation())
+          .toList(),
+    );
     return trips.toModelImplementation();
   }
 }

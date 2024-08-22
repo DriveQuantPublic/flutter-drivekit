@@ -1623,7 +1623,7 @@ interface AndroidDriverDataApi {
   fun getPlatformName(): String
   fun deleteTrip(itinId: String, callback: (Result<Boolean>) -> Unit)
   fun getTripsOrderByDateAsc(synchronizationType: PigeonSynchronizationType, transportationModes: List<PigeonTransportationMode>, callback: (Result<PigeonGetTripsResponse>) -> Unit)
-  fun getTripsOrderByDateDesc(callback: (Result<PigeonGetTripsResponse>) -> Unit)
+  fun getTripsOrderByDateDesc(synchronizationType: PigeonSynchronizationType, transportationModes: List<PigeonTransportationMode>, callback: (Result<PigeonGetTripsResponse>) -> Unit)
 
   companion object {
     /** The codec used by AndroidDriverDataApi. */
@@ -1693,8 +1693,11 @@ interface AndroidDriverDataApi {
       run {
         val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_driver_data_package.AndroidDriverDataApi.getTripsOrderByDateDesc$separatedMessageChannelSuffix", codec)
         if (api != null) {
-          channel.setMessageHandler { _, reply ->
-            api.getTripsOrderByDateDesc{ result: Result<PigeonGetTripsResponse> ->
+          channel.setMessageHandler { message, reply ->
+            val args = message as List<Any?>
+            val synchronizationTypeArg = args[0] as PigeonSynchronizationType
+            val transportationModesArg = args[1] as List<PigeonTransportationMode>
+            api.getTripsOrderByDateDesc(synchronizationTypeArg, transportationModesArg) { result: Result<PigeonGetTripsResponse> ->
               val error = result.exceptionOrNull()
               if (error != null) {
                 reply.reply(wrapError(error))

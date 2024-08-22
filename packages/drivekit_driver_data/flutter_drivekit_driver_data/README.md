@@ -42,13 +42,19 @@ You can also take a look at the [flutter example](https://github.com/DriveQuantP
 ### getTripsOrderByDateDesc
 
 ```dart
-  Future<GetTripsResponse?> getTripsOrderByDateAsc();
+  Future<GetTripsResponse?> getTripsOrderByDateAsc(
+        SynchronizationType synchronizationType = SynchronizationType.defaultSync,
+    List<TransportationMode> transportationModes = const [],
+  );
 ```
 
 or
 
 ```dart
-  Future<GetTripsResponse?> getTripsOrderByDateDesc();
+  Future<GetTripsResponse?> getTripsOrderByDateDesc(
+        SynchronizationType synchronizationType = SynchronizationType.defaultSync,
+    List<TransportationMode> transportationModes = const [],
+  );
 ```
 
 

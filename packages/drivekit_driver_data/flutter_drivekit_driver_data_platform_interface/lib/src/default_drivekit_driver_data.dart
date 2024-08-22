@@ -16,14 +16,20 @@ class DefaultDrivekitDriverData extends DrivekitDriverDataPlatform {
   }
 
   @override
-  Future<GetTripsResponse?> getTripsOrderByDateAsc() {
+  Future<GetTripsResponse?> getTripsOrderByDateAsc({
+    SynchronizationType synchronizationType = SynchronizationType.defaultSync,
+    List<TransportationMode> transportationModes = const <TransportationMode>[],
+  }) {
     throw UnimplementedError(
       'getTripsOrderByDateAsc() has not been implemented.',
     );
   }
 
   @override
-  Future<GetTripsResponse?> getTripsOrderByDateDesc() {
+  Future<GetTripsResponse?> getTripsOrderByDateDesc({
+    SynchronizationType synchronizationType = SynchronizationType.defaultSync,
+    List<TransportationMode> transportationModes = const <TransportationMode>[],
+  }) {
     throw UnimplementedError(
       'getTripsOrderByDateDesc() has not been implemented.',
     );

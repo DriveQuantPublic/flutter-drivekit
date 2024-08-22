@@ -22,11 +22,20 @@ class DriveKitDriverData {
     SynchronizationType synchronizationType = SynchronizationType.defaultSync,
     List<TransportationMode> transportationModes = const [],
   }) =>
-      _platform.getTripsOrderByDateAsc();
+      _platform.getTripsOrderByDateAsc(
+        synchronizationType: synchronizationType,
+        transportationModes: transportationModes,
+      );
 
   /// Get trips ordered by date descending
-  Future<GetTripsResponse?> getTripsOrderByDateDesc() =>
-      _platform.getTripsOrderByDateDesc();
+  Future<GetTripsResponse?> getTripsOrderByDateDesc({
+    SynchronizationType synchronizationType = SynchronizationType.defaultSync,
+    List<TransportationMode> transportationModes = const [],
+  }) =>
+      _platform.getTripsOrderByDateDesc(
+        synchronizationType: synchronizationType,
+        transportationModes: transportationModes,
+      );
 
   /// Delete a trip
   Future<bool> deleteTrip(String itinId) => _platform.deleteTrip(itinId);
