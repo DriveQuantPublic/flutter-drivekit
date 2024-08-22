@@ -1,7 +1,6 @@
 package com.drivequant.drivekit.flutter.driverdata
 
 import android.content.Context
-import com.drivequant.drivekit.core.SynchronizationType
 import com.drivequant.drivekit.databaseutils.entity.Trip
 import com.drivequant.drivekit.driverdata.DriveKitDriverData
 import com.drivequant.drivekit.driverdata.trip.TripDeleteQueryListener
@@ -56,9 +55,10 @@ class DrivekitDriverDataPlugin :
         )
     }
 
-    override fun getTripsOrderByDateDesc(callback: (Result<PigeonGetTripsResponse>) -> Unit) {
+    override fun getTripsOrderByDateDesc(synchronizationType: PigeonSynchronizationType, transportationModes: List<PigeonTransportationMode>, callback: (Result<PigeonGetTripsResponse>) -> Unit) {
         DriveKitDriverData.getTripsOrderByDateDesc(
-            type = SynchronizationType.DEFAULT,
+            type = PigeonMapper.fromPigeonSynchronizationType(synchronizationType),
+            transportationModes = transportationModes.map { PigeonMapper.fromPigeonTransportationMode(it) },
             listener = object : TripsQueryListener {
                 override fun onResponse(status: TripsSyncStatus, trips: List<Trip>) {
                     callback(

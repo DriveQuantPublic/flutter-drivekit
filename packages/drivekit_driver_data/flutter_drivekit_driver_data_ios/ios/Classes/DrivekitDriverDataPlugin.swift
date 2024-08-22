@@ -34,8 +34,11 @@ public class DrivekitDriverDataPlugin: NSObject, FlutterPlugin, IOSDriverDataApi
         }
     }
 
-    func getTripsOrderByDateDesc(completion: @escaping (Result<PigeonGetTripsResponse, any Error>) -> Void) {
-        DriveKitDriverData.shared.getTripsOrderByDateDesc { status, trips in
+    func getTripsOrderByDateDesc(synchronizationType: PigeonSynchronizationType, transportationModes: [PigeonTransportationMode], completion: @escaping (Result<PigeonGetTripsResponse, any Error>) -> Void) {
+        DriveKitDriverData.shared.getTripsOrderByDateDesc(
+            withTransportationModes: transportationModes.map({ TransportationMode(from: $0) }),
+            type: SynchronizationType(from: synchronizationType)
+        ) { status, trips in
             completion(Result.success(PigeonGetTripsResponse(from: status, trips: trips)))
         }
     }
