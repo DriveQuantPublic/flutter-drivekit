@@ -36,26 +36,36 @@ void main() {
     group('Get Trips', () {
       test('Get Trips Ascending', () async {
         when(
-          () => drivekitDriverDataPlatform.getTripsOrderByDateAsc(),
+          () => drivekitDriverDataPlatform
+              .getTripsOrderByDateAsc(transportationModes: []),
         ).thenAnswer(
           (_) async =>
               GetTripsResponse(status: TripSyncStatus.noError, trips: []),
         );
 
-        await driveKitDriverData.getTripsOrderByDateAsc();
-        verify(driveKitDriverData.getTripsOrderByDateAsc).called(1);
+        await driveKitDriverData
+            .getTripsOrderByDateAsc(transportationModes: []);
+        verify(
+          () => driveKitDriverData
+              .getTripsOrderByDateAsc(transportationModes: []),
+        ).called(1);
       });
 
       test('Get Trips Descending', () async {
         when(
-          () => drivekitDriverDataPlatform.getTripsOrderByDateDesc(),
+          () => drivekitDriverDataPlatform
+              .getTripsOrderByDateDesc(transportationModes: []),
         ).thenAnswer(
           (_) async =>
               GetTripsResponse(status: TripSyncStatus.noError, trips: []),
         );
 
-        await driveKitDriverData.getTripsOrderByDateDesc();
-        verify(driveKitDriverData.getTripsOrderByDateDesc).called(1);
+        await driveKitDriverData
+            .getTripsOrderByDateDesc(transportationModes: []);
+        verify(
+          () => driveKitDriverData
+              .getTripsOrderByDateDesc(transportationModes: []),
+        ).called(1);
       });
     });
 
