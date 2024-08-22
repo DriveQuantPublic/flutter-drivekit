@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <integer name="drivekit_notif_defaultIntId">123</integer>
     <bool name="drivekit_notif_enablecancel">true</bool>
-    <string name="drivekit_notif_title">Title</string>
-    <string name="drivekit_notif_content">Content</string>
+    <string name="drivekit_notif_content">A trip is recording</string>
+    <string name="drivekit_notif_title">Trip Analysis</string>
     <string name="drivekit_notif_cancel">Cancel</string>
 </resources>
