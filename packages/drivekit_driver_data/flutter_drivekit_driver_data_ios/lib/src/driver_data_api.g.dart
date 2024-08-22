@@ -40,6 +40,57 @@ enum PigeonCrashStatus {
   confirmed,
 }
 
+/// Trip Synchronization Type
+enum PigeonSynchronizationType {
+  /// synchronize by calling the DriveQuant servers
+  defaultSync,
+
+  /// retrieve already synchronized items in the local database
+  cache,
+}
+
+/// Trip Transportation mode
+enum PigeonTransportationMode {
+  /// Unknown
+  unknown,
+
+  /// Car Trip
+  car,
+
+  /// Motorcycle Trip
+  moto,
+
+  /// Heavy-duty vehicle Trip
+  truck,
+
+  /// Bus Trip
+  bus,
+
+  /// Rail trip
+  train,
+
+  /// Boat trip
+  boat,
+
+  /// Bike trip
+  bike,
+
+  /// Plane Trip
+  flight,
+
+  /// Ski Trip
+  skiing,
+
+  /// On foot Trip
+  onFoot,
+
+  /// Idle
+  idle,
+
+  /// Other
+  other,
+}
+
 /// the response returned when gettings trips
 class PigeonGetTripsResponse {
   PigeonGetTripsResponse({
@@ -1728,6 +1779,12 @@ class _PigeonCodec extends StandardMessageCodec {
     } else if (value is PigeonCrashStatus) {
       buffer.putUint8(160);
       writeValue(buffer, value.index);
+    } else if (value is PigeonSynchronizationType) {
+      buffer.putUint8(161);
+      writeValue(buffer, value.index);
+    } else if (value is PigeonTransportationMode) {
+      buffer.putUint8(162);
+      writeValue(buffer, value.index);
     } else {
       super.writeValue(buffer, value);
     }
@@ -1802,6 +1859,12 @@ class _PigeonCodec extends StandardMessageCodec {
       case 160:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : PigeonCrashStatus.values[value];
+      case 161:
+        final int? value = readValue(buffer) as int?;
+        return value == null ? null : PigeonSynchronizationType.values[value];
+      case 162:
+        final int? value = readValue(buffer) as int?;
+        return value == null ? null : PigeonTransportationMode.values[value];
       default:
         return super.readValueOfType(type, buffer);
     }
@@ -1881,7 +1944,10 @@ class IOSDriverDataApi {
     }
   }
 
-  Future<PigeonGetTripsResponse> getTripsOrderByDateAsc() async {
+  Future<PigeonGetTripsResponse> getTripsOrderByDateAsc(
+      {PigeonSynchronizationType synchronizationType =
+          PigeonSynchronizationType.defaultSync,
+      List<PigeonTransportationMode?> transportationModes = const []}) async {
     final String __pigeon_channelName =
         'dev.flutter.pigeon.pigeon_driver_data_package.IOSDriverDataApi.getTripsOrderByDateAsc$__pigeon_messageChannelSuffix';
     final BasicMessageChannel<Object?> __pigeon_channel =
@@ -1890,8 +1956,9 @@ class IOSDriverDataApi {
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
     );
-    final List<Object?>? __pigeon_replyList =
-        await __pigeon_channel.send(null) as List<Object?>?;
+    final List<Object?>? __pigeon_replyList = await __pigeon_channel
+            .send(<Object?>[synchronizationType, transportationModes])
+        as List<Object?>?;
     if (__pigeon_replyList == null) {
       throw _createConnectionError(__pigeon_channelName);
     } else if (__pigeon_replyList.length > 1) {

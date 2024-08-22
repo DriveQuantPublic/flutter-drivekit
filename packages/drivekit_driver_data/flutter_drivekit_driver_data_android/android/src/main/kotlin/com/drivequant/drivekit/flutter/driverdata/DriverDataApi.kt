@@ -81,6 +81,56 @@ enum class PigeonCrashStatus(val raw: Int) {
   }
 }
 
+/** Trip Synchronization Type */
+enum class PigeonSynchronizationType(val raw: Int) {
+  /** synchronize by calling the DriveQuant servers */
+  DEFAULT_SYNC(0),
+  /** retrieve already synchronized items in the local database */
+  CACHE(1);
+
+  companion object {
+    fun ofRaw(raw: Int): PigeonSynchronizationType? {
+      return values().firstOrNull { it.raw == raw }
+    }
+  }
+}
+
+/** Trip Transportation mode */
+enum class PigeonTransportationMode(val raw: Int) {
+  /** Unknown */
+  UNKNOWN(0),
+  /** Car Trip */
+  CAR(1),
+  /** Motorcycle Trip */
+  MOTO(2),
+  /** Heavy-duty vehicle Trip */
+  TRUCK(3),
+  /** Bus Trip */
+  BUS(4),
+  /** Rail trip */
+  TRAIN(5),
+  /** Boat trip */
+  BOAT(6),
+  /** Bike trip */
+  BIKE(7),
+  /** Plane Trip */
+  FLIGHT(8),
+  /** Ski Trip */
+  SKIING(9),
+  /** On foot Trip */
+  ON_FOOT(10),
+  /** Idle */
+  IDLE(11),
+  /** Other */
+  OTHER(12);
+
+  companion object {
+    fun ofRaw(raw: Int): PigeonTransportationMode? {
+      return values().firstOrNull { it.raw == raw }
+    }
+  }
+}
+
 /**
  * the response returned when gettings trips
  *
@@ -1411,6 +1461,16 @@ private object DriverDataApiPigeonCodec : StandardMessageCodec() {
           PigeonCrashStatus.ofRaw(it)
         }
       }
+      161.toByte() -> {
+        return (readValue(buffer) as Int?)?.let {
+          PigeonSynchronizationType.ofRaw(it)
+        }
+      }
+      162.toByte() -> {
+        return (readValue(buffer) as Int?)?.let {
+          PigeonTransportationMode.ofRaw(it)
+        }
+      }
       else -> super.readValueOfType(type, buffer)
     }
   }
@@ -1544,6 +1604,14 @@ private object DriverDataApiPigeonCodec : StandardMessageCodec() {
         stream.write(160)
         writeValue(stream, value.raw)
       }
+      is PigeonSynchronizationType -> {
+        stream.write(161)
+        writeValue(stream, value.raw)
+      }
+      is PigeonTransportationMode -> {
+        stream.write(162)
+        writeValue(stream, value.raw)
+      }
       else -> super.writeValue(stream, value)
     }
   }
@@ -1554,7 +1622,7 @@ private object DriverDataApiPigeonCodec : StandardMessageCodec() {
 interface AndroidDriverDataApi {
   fun getPlatformName(): String
   fun deleteTrip(itinId: String, callback: (Result<Boolean>) -> Unit)
-  fun getTripsOrderByDateAsc(callback: (Result<PigeonGetTripsResponse>) -> Unit)
+  fun getTripsOrderByDateAsc(synchronizationType: PigeonSynchronizationType, transportationModes: List<PigeonTransportationMode>, callback: (Result<PigeonGetTripsResponse>) -> Unit)
   fun getTripsOrderByDateDesc(callback: (Result<PigeonGetTripsResponse>) -> Unit)
 
   companion object {
@@ -1604,8 +1672,11 @@ interface AndroidDriverDataApi {
       run {
         val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_driver_data_package.AndroidDriverDataApi.getTripsOrderByDateAsc$separatedMessageChannelSuffix", codec)
         if (api != null) {
-          channel.setMessageHandler { _, reply ->
-            api.getTripsOrderByDateAsc{ result: Result<PigeonGetTripsResponse> ->
+          channel.setMessageHandler { message, reply ->
+            val args = message as List<Any?>
+            val synchronizationTypeArg = args[0] as PigeonSynchronizationType
+            val transportationModesArg = args[1] as List<PigeonTransportationMode>
+            api.getTripsOrderByDateAsc(synchronizationTypeArg, transportationModesArg) { result: Result<PigeonGetTripsResponse> ->
               val error = result.exceptionOrNull()
               if (error != null) {
                 reply.reply(wrapError(error))

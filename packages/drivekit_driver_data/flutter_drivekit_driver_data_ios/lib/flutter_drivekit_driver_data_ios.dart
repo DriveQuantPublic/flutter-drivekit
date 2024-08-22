@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter_drivekit_driver_data_ios/src/adapter.dart';
 import 'package:flutter_drivekit_driver_data_ios/src/driver_data_api.g.dart';
 import 'package:flutter_drivekit_driver_data_ios/src/model_adapter.dart';
 import 'package:flutter_drivekit_driver_data_platform_interface/flutter_drivekit_driver_data_platform_interface.dart';
@@ -29,8 +30,16 @@ class DrivekitDriverDataIOS extends DrivekitDriverDataPlatform {
   Future<bool> deleteTrip(String itinId) => iosDriverDataApi.deleteTrip(itinId);
 
   @override
-  Future<GetTripsResponse?> getTripsOrderByDateAsc() async {
-    final trips = await iosDriverDataApi.getTripsOrderByDateAsc();
+  Future<GetTripsResponse?> getTripsOrderByDateAsc({
+    SynchronizationType synchronizationType = SynchronizationType.defaultSync,
+    List<TransportationMode> transportationModes = const <TransportationMode>[],
+  }) async {
+    final trips = await iosDriverDataApi.getTripsOrderByDateAsc(
+      synchronizationType: synchronizationType.toPigeonImplementation(),
+      transportationModes: transportationModes
+          .map((TransportationMode e) => e.toPigeonImplementation())
+          .toList(),
+    );
     return trips.toModelImplementation();
   }
 

@@ -17,7 +17,11 @@ abstract class IOSDriverDataApi {
   @async
   bool deleteTrip(String itinId);
   @async
-  PigeonGetTripsResponse getTripsOrderByDateAsc();
+  PigeonGetTripsResponse getTripsOrderByDateAsc({
+    PigeonSynchronizationType synchronizationType =
+        PigeonSynchronizationType.defaultSync,
+    List<PigeonTransportationMode> transportationModes = const [],
+  });
   @async
   PigeonGetTripsResponse getTripsOrderByDateDesc();
 }
@@ -1020,4 +1024,55 @@ class PigeonSpeedLimitContext {
   final int speedingDuration;
 
   final double score;
+}
+
+/// Trip Synchronization Type
+enum PigeonSynchronizationType {
+  /// synchronize by calling the DriveQuant servers
+  defaultSync,
+
+  /// retrieve already synchronized items in the local database
+  cache
+}
+
+/// Trip Transportation mode
+enum PigeonTransportationMode {
+  /// Unknown
+  unknown,
+
+  /// Car Trip
+  car,
+
+  /// Motorcycle Trip
+  moto,
+
+  /// Heavy-duty vehicle Trip
+  truck,
+
+  /// Bus Trip
+  bus,
+
+  /// Rail trip
+  train,
+
+  /// Boat trip
+  boat,
+
+  /// Bike trip
+  bike,
+
+  /// Plane Trip
+  flight,
+
+  /// Ski Trip
+  skiing,
+
+  /// On foot Trip
+  onFoot,
+
+  /// Idle
+  idle,
+
+  /// Other
+  other
 }

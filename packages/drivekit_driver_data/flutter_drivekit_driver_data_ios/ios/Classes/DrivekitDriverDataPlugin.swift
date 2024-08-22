@@ -1,6 +1,8 @@
 import Flutter
 import UIKit
+import DriveKitCoreModule
 import DriveKitDriverDataModule
+import DriveKitDBTripAccessModule
 
 extension FlutterError: Error {}
 
@@ -23,8 +25,11 @@ public class DrivekitDriverDataPlugin: NSObject, FlutterPlugin, IOSDriverDataApi
         }
     }
 
-    func getTripsOrderByDateAsc(completion: @escaping (Result<PigeonGetTripsResponse, any Error>) -> Void) {
-        DriveKitDriverData.shared.getTripsOrderByDateAsc { status, trips in
+    func getTripsOrderByDateAsc(synchronizationType: PigeonSynchronizationType, transportationModes: [PigeonTransportationMode], completion: @escaping (Result<PigeonGetTripsResponse, any Error>) -> Void) {
+        DriveKitDriverData.shared.getTripsOrderByDateAsc(
+            withTransportationModes: transportationModes.map({ TransportationMode(from: $0) }),
+            type: SynchronizationType(from: synchronizationType)
+        ) { status, trips in
             completion(Result.success(PigeonGetTripsResponse(from: status, trips: trips)))
         }
     }

@@ -37,9 +37,10 @@ class DrivekitDriverDataPlugin :
         )
     }
 
-    override fun getTripsOrderByDateAsc(callback: (Result<PigeonGetTripsResponse>) -> Unit) {
+    override fun getTripsOrderByDateAsc(synchronizationType: PigeonSynchronizationType, transportationModes: List<PigeonTransportationMode>, callback: (Result<PigeonGetTripsResponse>) -> Unit) {
         DriveKitDriverData.getTripsOrderByDateAsc(
-            type = SynchronizationType.DEFAULT,
+            type = PigeonMapper.fromPigeonSynchronizationType(synchronizationType),
+            transportationModes = transportationModes.map { PigeonMapper.fromPigeonTransportationMode(it) },
             listener = object : TripsQueryListener {
                 override fun onResponse(status: TripsSyncStatus, trips: List<Trip>) {
                     callback(

@@ -1287,3 +1287,54 @@ class SpeedLimitContext {
   /// The score
   final double score;
 }
+
+/// Trip Synchronization Type
+enum SynchronizationType {
+  /// synchronize by calling the DriveQuant servers
+  defaultSync,
+
+  /// retrieve already synchronized items in the local database
+  cache
+}
+
+/// Trip Transportation mode
+enum TransportationMode {
+  /// Unknown
+  unknown,
+
+  /// Car Trip
+  car,
+
+  /// Motorcycle Trip
+  moto,
+
+  /// Heavy-duty vehicle Trip
+  truck,
+
+  /// Bus Trip
+  bus,
+
+  /// Rail trip
+  train,
+
+  /// Boat trip
+  boat,
+
+  /// Bike trip
+  bike,
+
+  /// Plane Trip
+  flight,
+
+  /// Ski Trip
+  skiing,
+
+  /// On foot Trip
+  onFoot,
+
+  /// Idle
+  idle,
+
+  /// Other
+  other
+}

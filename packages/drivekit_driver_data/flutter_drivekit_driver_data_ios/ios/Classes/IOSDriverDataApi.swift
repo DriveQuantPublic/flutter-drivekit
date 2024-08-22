@@ -85,6 +85,44 @@ enum PigeonCrashStatus: Int {
   case confirmed = 1
 }
 
+/// Trip Synchronization Type
+enum PigeonSynchronizationType: Int {
+  /// synchronize by calling the DriveQuant servers
+  case defaultSync = 0
+  /// retrieve already synchronized items in the local database
+  case cache = 1
+}
+
+/// Trip Transportation mode
+enum PigeonTransportationMode: Int {
+  /// Unknown
+  case unknown = 0
+  /// Car Trip
+  case car = 1
+  /// Motorcycle Trip
+  case moto = 2
+  /// Heavy-duty vehicle Trip
+  case truck = 3
+  /// Bus Trip
+  case bus = 4
+  /// Rail trip
+  case train = 5
+  /// Boat trip
+  case boat = 6
+  /// Bike trip
+  case bike = 7
+  /// Plane Trip
+  case flight = 8
+  /// Ski Trip
+  case skiing = 9
+  /// On foot Trip
+  case onFoot = 10
+  /// Idle
+  case idle = 11
+  /// Other
+  case other = 12
+}
+
 /// the response returned when gettings trips
 ///
 /// Generated class from Pigeon that represents data sent in messages.
@@ -1502,6 +1540,20 @@ private class IOSDriverDataApiPigeonCodecReader: FlutterStandardReader {
         enumResult = PigeonCrashStatus(rawValue: enumResultAsInt)
       }
       return enumResult
+    case 161:
+      var enumResult: PigeonSynchronizationType?
+      let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
+      if let enumResultAsInt = enumResultAsInt {
+        enumResult = PigeonSynchronizationType(rawValue: enumResultAsInt)
+      }
+      return enumResult
+    case 162:
+      var enumResult: PigeonTransportationMode?
+      let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
+      if let enumResultAsInt = enumResultAsInt {
+        enumResult = PigeonTransportationMode(rawValue: enumResultAsInt)
+      }
+      return enumResult
     default:
       return super.readValue(ofType: type)
     }
@@ -1606,6 +1658,12 @@ private class IOSDriverDataApiPigeonCodecWriter: FlutterStandardWriter {
     } else if let value = value as? PigeonCrashStatus {
       super.writeByte(160)
       super.writeValue(value.rawValue)
+    } else if let value = value as? PigeonSynchronizationType {
+      super.writeByte(161)
+      super.writeValue(value.rawValue)
+    } else if let value = value as? PigeonTransportationMode {
+      super.writeByte(162)
+      super.writeValue(value.rawValue)
     } else {
       super.writeValue(value)
     }
@@ -1630,7 +1688,7 @@ class IOSDriverDataApiPigeonCodec: FlutterStandardMessageCodec, @unchecked Senda
 protocol IOSDriverDataApi {
   func getPlatformName() throws -> String
   func deleteTrip(itinId: String, completion: @escaping (Result<Bool, Error>) -> Void)
-  func getTripsOrderByDateAsc(completion: @escaping (Result<PigeonGetTripsResponse, Error>) -> Void)
+  func getTripsOrderByDateAsc(synchronizationType: PigeonSynchronizationType, transportationModes: [PigeonTransportationMode], completion: @escaping (Result<PigeonGetTripsResponse, Error>) -> Void)
   func getTripsOrderByDateDesc(completion: @escaping (Result<PigeonGetTripsResponse, Error>) -> Void)
 }
 
@@ -1672,8 +1730,11 @@ class IOSDriverDataApiSetup {
     }
     let getTripsOrderByDateAscChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.pigeon_driver_data_package.IOSDriverDataApi.getTripsOrderByDateAsc\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
-      getTripsOrderByDateAscChannel.setMessageHandler { _, reply in
-        api.getTripsOrderByDateAsc { result in
+      getTripsOrderByDateAscChannel.setMessageHandler { message, reply in
+        let args = message as! [Any?]
+        let synchronizationTypeArg = args[0] as! PigeonSynchronizationType
+        let transportationModesArg = args[1] as! [PigeonTransportationMode]
+        api.getTripsOrderByDateAsc(synchronizationType: synchronizationTypeArg, transportationModes: transportationModesArg) { result in
           switch result {
           case .success(let res):
             reply(wrapResult(res))

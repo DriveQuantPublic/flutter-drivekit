@@ -458,3 +458,47 @@ extension PigeonDeclaredTransportationMode {
         )
     }
 }
+
+extension TransportationMode {
+    init(from pigeonTransportationMode: PigeonTransportationMode) {
+        switch pigeonTransportationMode {
+        case .unknown:
+            self = .unknown
+        case .car:
+            self = .car
+        case .moto:
+            self = .moto
+        case .truck:
+            self = .truck
+        case .bus:
+            self = .bus
+        case .train:
+            self = .train
+        case .boat:
+            self = .boat
+        case .bike:
+            self = .bike
+        case .flight:
+            self = .flight
+        case .skiing:
+            self = .skiing
+        case .onFoot:
+            self = .onFoot
+        case .idle:
+            self = .idle
+        case .other:
+            self = .other
+        }
+    }
+}
+
+extension SynchronizationType {
+    init(from pigeonSynchronizationType: PigeonSynchronizationType) {
+        switch pigeonSynchronizationType {
+        case .defaultSync:
+            self = .defaultSync
+        case .cache:
+            self = .cache
+        }
+    }
+}

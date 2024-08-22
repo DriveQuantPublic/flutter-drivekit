@@ -1,7 +1,7 @@
 import 'package:flutter_drivekit_driver_data_platform_interface/flutter_drivekit_driver_data_platform_interface.dart';
 
 export 'package:flutter_drivekit_driver_data_platform_interface/flutter_drivekit_driver_data_platform_interface.dart'
-    show TripSyncStatus;
+    show SynchronizationType, TransportationMode, Trip, TripSyncStatus;
 
 DrivekitDriverDataPlatform get _platform => DrivekitDriverDataPlatform.instance;
 
@@ -17,14 +17,17 @@ class DriveKitDriverData {
   /// Returns the name of the current platform.
   Future<String> getPlatformName() => _platform.getPlatformName();
 
-  /// Delete a trip
-  Future<bool> deleteTrip(String itinId) => _platform.deleteTrip(itinId);
-
   /// Get trips ordered by date ascending
-  Future<GetTripsResponse?> getTripsOrderByDateAsc() =>
+  Future<GetTripsResponse?> getTripsOrderByDateAsc({
+    SynchronizationType synchronizationType = SynchronizationType.defaultSync,
+    List<TransportationMode> transportationModes = const [],
+  }) =>
       _platform.getTripsOrderByDateAsc();
 
   /// Get trips ordered by date descending
   Future<GetTripsResponse?> getTripsOrderByDateDesc() =>
       _platform.getTripsOrderByDateDesc();
+
+  /// Delete a trip
+  Future<bool> deleteTrip(String itinId) => _platform.deleteTrip(itinId);
 }

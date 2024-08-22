@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter_drivekit_driver_data_android/src/adapter.dart';
 import 'package:flutter_drivekit_driver_data_android/src/driver_data_api.g.dart';
 import 'package:flutter_drivekit_driver_data_android/src/model_adapter.dart';
 import 'package:flutter_drivekit_driver_data_platform_interface/flutter_drivekit_driver_data_platform_interface.dart';
@@ -30,8 +31,16 @@ class DrivekitDriverDataAndroid extends DrivekitDriverDataPlatform {
       androidDriverDataApi.deleteTrip(itinId);
 
   @override
-  Future<GetTripsResponse?> getTripsOrderByDateAsc() async {
-    final trips = await androidDriverDataApi.getTripsOrderByDateAsc();
+  Future<GetTripsResponse?> getTripsOrderByDateAsc({
+    SynchronizationType synchronizationType = SynchronizationType.defaultSync,
+    List<TransportationMode> transportationModes = const <TransportationMode>[],
+  }) async {
+    final trips = await androidDriverDataApi.getTripsOrderByDateAsc(
+      synchronizationType: synchronizationType.toPigeonImplementation(),
+      transportationModes: transportationModes
+          .map((TransportationMode e) => e.toPigeonImplementation())
+          .toList(),
+    );
     return trips.toModelImplementation();
   }
 

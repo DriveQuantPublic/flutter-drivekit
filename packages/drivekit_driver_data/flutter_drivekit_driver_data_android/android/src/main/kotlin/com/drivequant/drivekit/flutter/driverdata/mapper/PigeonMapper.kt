@@ -1,5 +1,6 @@
 package com.drivequant.drivekit.flutter.driverdata.mapper
 
+import com.drivequant.drivekit.core.SynchronizationType
 import com.drivequant.drivekit.databaseutils.entity.AdvancedEnergyEstimation
 import com.drivequant.drivekit.databaseutils.entity.BrakeWear
 import com.drivequant.drivekit.databaseutils.entity.Call
@@ -20,6 +21,7 @@ import com.drivequant.drivekit.databaseutils.entity.SafetyEvent
 import com.drivequant.drivekit.databaseutils.entity.SpeedLimitContext
 import com.drivequant.drivekit.databaseutils.entity.SpeedingStatistics
 import com.drivequant.drivekit.databaseutils.entity.TireWear
+import com.drivequant.drivekit.databaseutils.entity.TransportationMode
 import com.drivequant.drivekit.databaseutils.entity.Trip
 import com.drivequant.drivekit.databaseutils.entity.TripAdvice
 import com.drivequant.drivekit.databaseutils.entity.TripStatistics
@@ -47,7 +49,9 @@ import com.drivequant.drivekit.flutter.driverdata.PigeonSafetyContext
 import com.drivequant.drivekit.flutter.driverdata.PigeonSafetyEvent
 import com.drivequant.drivekit.flutter.driverdata.PigeonSpeedLimitContext
 import com.drivequant.drivekit.flutter.driverdata.PigeonSpeedingStatistics
+import com.drivequant.drivekit.flutter.driverdata.PigeonSynchronizationType
 import com.drivequant.drivekit.flutter.driverdata.PigeonTireWear
+import com.drivequant.drivekit.flutter.driverdata.PigeonTransportationMode
 import com.drivequant.drivekit.flutter.driverdata.PigeonTrip
 import com.drivequant.drivekit.flutter.driverdata.PigeonTripAdviceData
 import com.drivequant.drivekit.flutter.driverdata.PigeonTripAdviceEvaluation
@@ -453,5 +457,26 @@ object PigeonMapper {
         TripsSyncStatus.FAILED_TO_SYNC_TRIPS_CACHE_ONLY -> PigeonTripSyncStatus.FAILED_TO_SYNC_TRIPS_CACHE_ONLY
         TripsSyncStatus.FAILED_TO_SYNC_SAFETY_EVENTS -> PigeonTripSyncStatus.FAILED_TO_SYNC_SAFETY_EVENTS
         TripsSyncStatus.SYNC_ALREADY_IN_PROGRESS -> PigeonTripSyncStatus.SYNC_ALREADY_IN_PROGRESS
+    }
+
+    fun fromPigeonSynchronizationType(synchronizationType: PigeonSynchronizationType): SynchronizationType = when (synchronizationType) {
+        PigeonSynchronizationType.DEFAULT_SYNC -> SynchronizationType.DEFAULT
+        PigeonSynchronizationType.CACHE -> SynchronizationType.CACHE
+    }
+
+    fun fromPigeonTransportationMode(transportationMode: PigeonTransportationMode): TransportationMode = when (transportationMode) {
+        PigeonTransportationMode.UNKNOWN -> TransportationMode.UNKNOWN
+        PigeonTransportationMode.CAR -> TransportationMode.CAR
+        PigeonTransportationMode.MOTO -> TransportationMode.MOTO
+        PigeonTransportationMode.TRUCK -> TransportationMode.TRUCK
+        PigeonTransportationMode.BUS -> TransportationMode.BUS
+        PigeonTransportationMode.TRAIN -> TransportationMode.TRAIN
+        PigeonTransportationMode.BOAT -> TransportationMode.BOAT
+        PigeonTransportationMode.BIKE -> TransportationMode.BIKE
+        PigeonTransportationMode.FLIGHT -> TransportationMode.FLIGHT
+        PigeonTransportationMode.SKIING -> TransportationMode.SKIING
+        PigeonTransportationMode.ON_FOOT -> TransportationMode.ON_FOOT
+        PigeonTransportationMode.IDLE -> TransportationMode.IDLE
+        PigeonTransportationMode.OTHER -> TransportationMode.OTHER
     }
 }
