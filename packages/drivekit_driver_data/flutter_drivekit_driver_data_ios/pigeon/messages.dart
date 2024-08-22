@@ -15,19 +15,31 @@ import 'package:pigeon/pigeon.dart';
 abstract class IOSDriverDataApi {
   String getPlatformName();
   @async
-  bool deleteTrip(String itinId);
-  @async
   PigeonGetTripsResponse getTripsOrderByDateAsc({
     PigeonSynchronizationType synchronizationType =
         PigeonSynchronizationType.defaultSync,
-    List<PigeonTransportationMode> transportationModes = const [],
+    List<PigeonTransportationMode> transportationModes = const [
+      PigeonTransportationMode.unknown,
+      PigeonTransportationMode.car,
+      PigeonTransportationMode.moto,
+      PigeonTransportationMode.truck,
+    ],
   });
   @async
   PigeonGetTripsResponse getTripsOrderByDateDesc({
     PigeonSynchronizationType synchronizationType =
         PigeonSynchronizationType.defaultSync,
-    List<PigeonTransportationMode> transportationModes = const [],
+    List<PigeonTransportationMode> transportationModes = const [
+      PigeonTransportationMode.unknown,
+      PigeonTransportationMode.car,
+      PigeonTransportationMode.moto,
+      PigeonTransportationMode.truck,
+    ],
   });
+  @async
+  PigeonGetTripResponse getTrip(String itinId);
+  @async
+  bool deleteTrip(String itinId);
 }
 
 /// the response returned when gettings trips
@@ -40,6 +52,18 @@ class PigeonGetTripsResponse {
 
   /// fetched trips
   final List<PigeonTrip?> trips;
+}
+
+/// the response returned when gettings one trip
+class PigeonGetTripResponse {
+  /// Creates a PigeonGetTripResponse instance
+  PigeonGetTripResponse({required this.status, required this.trip});
+
+  /// trip synchronization status
+  final PigeonTripSyncStatus status;
+
+  /// fetched trips
+  final PigeonTrip? trip;
 }
 
 /// Trip synchronization status enum

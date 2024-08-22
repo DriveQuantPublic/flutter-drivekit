@@ -26,9 +26,6 @@ class DrivekitDriverDataAndroid extends DrivekitDriverDataPlatform {
 
   @override
   Future<String> getPlatformName() => androidDriverDataApi.getPlatformName();
-  @override
-  Future<bool> deleteTrip(String itinId) =>
-      androidDriverDataApi.deleteTrip(itinId);
 
   @override
   Future<GetTripsResponse?> getTripsOrderByDateAsc({
@@ -57,4 +54,14 @@ class DrivekitDriverDataAndroid extends DrivekitDriverDataPlatform {
     );
     return trips.toModelImplementation();
   }
+
+  @override
+  Future<GetTripResponse?> getTrip(String itinId) async {
+    final trip = await androidDriverDataApi.getTrip(itinId);
+    return trip.toModelImplementation();
+  }
+
+  @override
+  Future<bool> deleteTrip(String itinId) =>
+      androidDriverDataApi.deleteTrip(itinId);
 }

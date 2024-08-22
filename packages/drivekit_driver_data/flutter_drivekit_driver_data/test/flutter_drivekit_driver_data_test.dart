@@ -33,18 +33,6 @@ void main() {
       });
     });
 
-    group('deleteTrip', () {
-      test('Delete a trip', () async {
-        const result = false;
-        when(
-          () => drivekitDriverDataPlatform.deleteTrip(any()),
-        ).thenAnswer((_) async => result);
-
-        final actualDeletionResult = await driveKitDriverData.deleteTrip('');
-        expect(actualDeletionResult, equals(result));
-      });
-    });
-
     group('Get Trips', () {
       test('Get Trips Ascending', () async {
         when(
@@ -68,6 +56,34 @@ void main() {
 
         await driveKitDriverData.getTripsOrderByDateDesc();
         verify(driveKitDriverData.getTripsOrderByDateDesc).called(1);
+      });
+    });
+
+    group('getTrip', () {
+      test('Get a trip', () async {
+        when(
+          () => drivekitDriverDataPlatform.getTrip(any()),
+        ).thenAnswer(
+          (_) async => GetTripResponse(
+            trip: null,
+            status: TripSyncStatus.noError,
+          ),
+        );
+
+        await driveKitDriverData.getTrip('');
+        verify(() => driveKitDriverData.getTrip('')).called(1);
+      });
+    });
+
+    group('deleteTrip', () {
+      test('Delete a trip', () async {
+        const result = false;
+        when(
+          () => drivekitDriverDataPlatform.deleteTrip(any()),
+        ).thenAnswer((_) async => result);
+
+        final actualDeletionResult = await driveKitDriverData.deleteTrip('');
+        expect(actualDeletionResult, equals(result));
       });
     });
   });

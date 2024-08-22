@@ -8,6 +8,16 @@ extension PigeonGetTripsResponse {
     }
 }
 
+extension PigeonGetTripResponse {
+    init(from status: TripSyncStatus, trip: Trip?) {
+        var pigeonTrip: PigeonTrip?
+        if let trip {
+            pigeonTrip = PigeonTrip(from: trip)
+        }
+        self.init(status: PigeonTripSyncStatus(from: status), trip: pigeonTrip)
+    }
+}
+
 extension PigeonTripSyncStatus {
     init(from status: TripSyncStatus) {
         switch status {

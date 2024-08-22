@@ -19,12 +19,6 @@ public class DrivekitDriverDataPlugin: NSObject, FlutterPlugin, IOSDriverDataApi
         return "iOS"
     }
 
-    func deleteTrip(itinId: String, completion: @escaping (Result<Bool, any Error>) -> Void) {
-        DriveKitDriverData.shared.deleteTrip(itinId: itinId) { status in
-            completion(Result.success(status))
-        }
-    }
-
     func getTripsOrderByDateAsc(synchronizationType: PigeonSynchronizationType, transportationModes: [PigeonTransportationMode], completion: @escaping (Result<PigeonGetTripsResponse, any Error>) -> Void) {
         DriveKitDriverData.shared.getTripsOrderByDateAsc(
             withTransportationModes: transportationModes.map({ TransportationMode(from: $0) }),
@@ -40,6 +34,20 @@ public class DrivekitDriverDataPlugin: NSObject, FlutterPlugin, IOSDriverDataApi
             type: SynchronizationType(from: synchronizationType)
         ) { status, trips in
             completion(Result.success(PigeonGetTripsResponse(from: status, trips: trips)))
+        }
+    }
+
+    func getTrip(itinId: String, completion: @escaping (Result<PigeonGetTripResponse, any Error>) -> Void) {
+        DriveKitDriverData.shared.getTrip(
+            itinId: itinId
+        ) { status, trip  in
+            completion(Result.success(PigeonGetTripResponse(from: status, trip: trip)))
+        }
+    }
+
+    func deleteTrip(itinId: String, completion: @escaping (Result<Bool, any Error>) -> Void) {
+        DriveKitDriverData.shared.deleteTrip(itinId: itinId) { status in
+            completion(Result.success(status))
         }
     }
 }

@@ -33,16 +33,6 @@ void main() {
       expect(name, 'iOS');
     });
 
-    test('Delete a trip', () async {
-      //mocks
-      when(() => iosDriverDataApi.deleteTrip(''))
-          .thenAnswer((_) async => false);
-
-      //test
-      final name = await DrivekitDriverDataPlatform.instance.deleteTrip('');
-      expect(name, false);
-    });
-
     test('Get Trips Ascending', () async {
       //mock
       when(() => iosDriverDataApi.getTripsOrderByDateAsc()).thenAnswer(
@@ -69,6 +59,29 @@ void main() {
       //test
       await DrivekitDriverDataPlatform.instance.getTripsOrderByDateDesc();
       verify(() => iosDriverDataApi.getTripsOrderByDateDesc()).called(1);
+    });
+
+    test('Get a Trip', () async {
+      //mock
+      when(() => iosDriverDataApi.getTrip(any())).thenAnswer(
+        (_) async => PigeonGetTripResponse(
+          status: PigeonTripSyncStatus.noError,
+        ),
+      );
+
+      //test
+      await DrivekitDriverDataPlatform.instance.getTrip('');
+      verify(() => iosDriverDataApi.getTrip('')).called(1);
+    });
+
+    test('Delete a trip', () async {
+      //mocks
+      when(() => iosDriverDataApi.deleteTrip(''))
+          .thenAnswer((_) async => false);
+
+      //test
+      final name = await DrivekitDriverDataPlatform.instance.deleteTrip('');
+      expect(name, false);
     });
   });
 }

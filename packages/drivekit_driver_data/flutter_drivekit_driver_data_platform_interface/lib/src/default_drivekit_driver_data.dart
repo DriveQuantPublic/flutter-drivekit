@@ -11,11 +11,6 @@ class DefaultDrivekitDriverData extends DrivekitDriverDataPlatform {
   }
 
   @override
-  Future<bool> deleteTrip(String itinId) {
-    throw UnimplementedError('deleteTrip() has not been implemented.');
-  }
-
-  @override
   Future<GetTripsResponse?> getTripsOrderByDateAsc({
     SynchronizationType synchronizationType = SynchronizationType.defaultSync,
     List<TransportationMode> transportationModes = const <TransportationMode>[],
@@ -33,5 +28,17 @@ class DefaultDrivekitDriverData extends DrivekitDriverDataPlatform {
     throw UnimplementedError(
       'getTripsOrderByDateDesc() has not been implemented.',
     );
+  }
+
+  @override
+  Future<GetTripResponse?> getTrip(String itinId) {
+    throw UnimplementedError(
+      'getTrip() has not been implemented.',
+    );
+  }
+
+  @override
+  Future<bool> deleteTrip(String itinId) {
+    throw UnimplementedError('deleteTrip() has not been implemented.');
   }
 }

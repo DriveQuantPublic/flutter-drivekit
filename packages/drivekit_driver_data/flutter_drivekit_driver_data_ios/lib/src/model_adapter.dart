@@ -487,6 +487,18 @@ extension PigeonGetTripsResponseAdapter on PigeonGetTripsResponse {
   }
 }
 
+/// Adapts the [PigeonGetTripResponse] class to
+/// the corresponding class in the model.
+extension PigeonGetTripResponseAdapter on PigeonGetTripResponse {
+  /// Converts a [PigeonGetTripResponse] to a corresponding model class.
+  GetTripResponse toModelImplementation() {
+    return GetTripResponse(
+      status: status.toModelImplementation(),
+      trip: trip?.toModelImplementation(),
+    );
+  }
+}
+
 /// Adapts the [PigeonTripAdviceData] class to the corresponding model class
 extension PigeonTripAdviceDataAdapter on PigeonTripAdviceData {
   /// Converts a [PigeonTripAdviceData] to a corresponding model class.

@@ -10,6 +10,18 @@ class GetTripsResponse {
   final List<Trip> trips;
 }
 
+/// the response returned when gettings one trip
+class GetTripResponse {
+  /// Creates a GetTripResponse instance
+  GetTripResponse({required this.status, required this.trip});
+
+  /// trip synchronization status
+  final TripSyncStatus status;
+
+  /// fetched trips
+  final Trip? trip;
+}
+
 /// Trip synchronization status enum
 enum TripSyncStatus {
   /// Synchronization has been successfully performed

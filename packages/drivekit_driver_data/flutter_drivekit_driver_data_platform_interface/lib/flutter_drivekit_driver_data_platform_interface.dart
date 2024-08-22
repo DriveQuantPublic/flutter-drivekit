@@ -37,9 +37,6 @@ abstract class DrivekitDriverDataPlatform extends PlatformInterface {
   /// Return the current platform name.
   Future<String> getPlatformName();
 
-  /// Delete a trip
-  Future<bool> deleteTrip(String itinId);
-
   /// Get trips ordered by date Ascending
   Future<GetTripsResponse?> getTripsOrderByDateAsc({
     SynchronizationType synchronizationType = SynchronizationType.defaultSync,
@@ -51,4 +48,10 @@ abstract class DrivekitDriverDataPlatform extends PlatformInterface {
     SynchronizationType synchronizationType = SynchronizationType.defaultSync,
     List<TransportationMode> transportationModes = const <TransportationMode>[],
   });
+
+  /// Get trip by identider
+  Future<GetTripResponse?> getTrip(String itinId);
+
+  /// Delete a trip
+  Future<bool> deleteTrip(String itinId);
 }

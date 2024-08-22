@@ -20,7 +20,12 @@ class DriveKitDriverData {
   /// Get trips ordered by date ascending
   Future<GetTripsResponse?> getTripsOrderByDateAsc({
     SynchronizationType synchronizationType = SynchronizationType.defaultSync,
-    List<TransportationMode> transportationModes = const [],
+    List<TransportationMode> transportationModes = const [
+      TransportationMode.unknown,
+      TransportationMode.car,
+      TransportationMode.moto,
+      TransportationMode.truck,
+    ],
   }) =>
       _platform.getTripsOrderByDateAsc(
         synchronizationType: synchronizationType,
@@ -30,12 +35,20 @@ class DriveKitDriverData {
   /// Get trips ordered by date descending
   Future<GetTripsResponse?> getTripsOrderByDateDesc({
     SynchronizationType synchronizationType = SynchronizationType.defaultSync,
-    List<TransportationMode> transportationModes = const [],
+    List<TransportationMode> transportationModes = const [
+      TransportationMode.unknown,
+      TransportationMode.car,
+      TransportationMode.moto,
+      TransportationMode.truck,
+    ],
   }) =>
       _platform.getTripsOrderByDateDesc(
         synchronizationType: synchronizationType,
         transportationModes: transportationModes,
       );
+
+  /// Get trips ordered by date ascending
+  Future<GetTripResponse?> getTrip(String itinId) => _platform.getTrip(itinId);
 
   /// Delete a trip
   Future<bool> deleteTrip(String itinId) => _platform.deleteTrip(itinId);

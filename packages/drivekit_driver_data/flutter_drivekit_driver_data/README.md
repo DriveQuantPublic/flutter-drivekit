@@ -34,6 +34,7 @@ You can also take a look at the [flutter example](https://github.com/DriveQuantP
 | --------------------------------------------------------------------- | ------------------------------- | :-: | :-----: |
 | [getTripsOrderByDateAsc()](#getTripsOrderByDateAsc)                   | `Future<GetTripsResponse?>`     | ✅  |   ✅    |
 | [getTripsOrderByDateDesc()](#getTripsOrderByDateDesc)                 | `Future<GetTripsResponse?>`     | ✅  |   ✅    |
+| [getTrip()](#getTrip)                                                 | `Future<GetTripResponse>`       | ✅  |   ✅    |
 | [deleteTrip()](#deleteTrip)                                           | `Future<bool>`                  | ✅  |   ✅    |
 
 
@@ -44,7 +45,12 @@ You can also take a look at the [flutter example](https://github.com/DriveQuantP
 ```dart
   Future<GetTripsResponse?> getTripsOrderByDateAsc(
         SynchronizationType synchronizationType = SynchronizationType.defaultSync,
-    List<TransportationMode> transportationModes = const [],
+    List<TransportationMode> transportationModes = const [
+      TransportationMode.unknown,
+      TransportationMode.car,
+      TransportationMode.moto,
+      TransportationMode.truck,
+    ],
   );
 ```
 
@@ -53,7 +59,12 @@ or
 ```dart
   Future<GetTripsResponse?> getTripsOrderByDateDesc(
         SynchronizationType synchronizationType = SynchronizationType.defaultSync,
-    List<TransportationMode> transportationModes = const [],
+    List<TransportationMode> transportationModes = const [
+      TransportationMode.unknown,
+      TransportationMode.car,
+      TransportationMode.moto,
+      TransportationMode.truck,
+    ],
   );
 ```
 
@@ -76,6 +87,27 @@ or
 ```dart
 final tripSyncResult = await driveKitDriverData.getTripsOrderByDateDesc();
 ```
+
+### getTrip
+
+```dart
+Future<GetTripResponse?> getTrip(String itinId);
+```
+
+
+| GetTripResponse | Type             |
+| --------------- | ---------------- |
+| `status`        | `TripSyncStatus` |
+| `trip`          | `Trip?`          |
+
+
+To get a specific trip, you have to call the following method:
+
+```dart
+final result = await driveKitDriverData.getTrip('TRIP_ID_HERE');
+```
+
+The itinId parameter is the unique identifier for a trip.
 
 
 

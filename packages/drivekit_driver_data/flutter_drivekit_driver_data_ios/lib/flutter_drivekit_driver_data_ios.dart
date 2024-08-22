@@ -27,9 +27,6 @@ class DrivekitDriverDataIOS extends DrivekitDriverDataPlatform {
   Future<String> getPlatformName() => iosDriverDataApi.getPlatformName();
 
   @override
-  Future<bool> deleteTrip(String itinId) => iosDriverDataApi.deleteTrip(itinId);
-
-  @override
   Future<GetTripsResponse?> getTripsOrderByDateAsc({
     SynchronizationType synchronizationType = SynchronizationType.defaultSync,
     List<TransportationMode> transportationModes = const <TransportationMode>[],
@@ -56,4 +53,13 @@ class DrivekitDriverDataIOS extends DrivekitDriverDataPlatform {
     );
     return trips.toModelImplementation();
   }
+
+  @override
+  Future<GetTripResponse?> getTrip(String itinId) async {
+    final trip = await iosDriverDataApi.getTrip(itinId);
+    return trip.toModelImplementation();
+  }
+
+  @override
+  Future<bool> deleteTrip(String itinId) => iosDriverDataApi.deleteTrip(itinId);
 }
