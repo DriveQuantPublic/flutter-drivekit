@@ -512,3 +512,32 @@ extension SynchronizationType {
         }
     }
 }
+
+extension PigeonGetRouteResponse {
+    init(from route: Route?) {
+        if let route = route {
+            self.init(
+                status: .noError,
+                route: PigeonRoute(from: route)
+            )
+        } else {
+            self.init(status: .failedToRetrieveRoute)
+        }
+    }
+}
+
+extension PigeonRoute {
+    init(from route: Route) {
+        self.init(
+            callIndex: route.callIndex?.map { Int64($0) },
+            callTime: route.callTime?.map { Int64($0) },
+            itinId: route.itinId,
+            latitude: route.latitude,
+            longitude: route.longitude,
+            screenLockedIndex: route.screenLockedIndex?.map { Int64($0) },
+            screenLockedTime: route.screenLockedTime?.map { Int64($0) },
+            speedingIndex: route.speedingIndex?.map { Int64($0) },
+            speedingTime: route.speedingTime?.map { Int64($0) }
+            )
+    }
+}

@@ -85,6 +85,22 @@ void main() {
       });
     });
 
+    group('getRoute', () {
+      test('Get a route', () async {
+        when(
+          () => drivekitDriverDataPlatform.getRoute(any()),
+        ).thenAnswer(
+          (_) async => GetRouteResponse(
+            route: null,
+            status: RouteSyncStatus.noError,
+          ),
+        );
+
+        await driveKitDriverData.getRoute('');
+        verify(() => driveKitDriverData.getRoute('')).called(1);
+      });
+    });
+
     group('deleteTrip', () {
       test('Delete a trip', () async {
         const result = false;

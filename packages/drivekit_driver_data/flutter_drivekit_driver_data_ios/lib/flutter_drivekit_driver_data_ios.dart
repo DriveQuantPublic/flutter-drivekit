@@ -61,5 +61,11 @@ class DrivekitDriverDataIOS extends DrivekitDriverDataPlatform {
   }
 
   @override
+  Future<GetRouteResponse?> getRoute(String itinId) async {
+    final route = await iosDriverDataApi.getRoute(itinId);
+    return route.toModelImplementation();
+  }
+
+  @override
   Future<bool> deleteTrip(String itinId) => iosDriverDataApi.deleteTrip(itinId);
 }

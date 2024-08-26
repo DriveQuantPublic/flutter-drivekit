@@ -123,6 +123,16 @@ enum PigeonTransportationMode: Int {
   case other = 12
 }
 
+/// Route synchronization status enum
+enum PigeonRouteSyncStatus: Int {
+  /// Synchronization has been successfully performed
+  case noError = 0
+  /// Synchronization failed
+  case failedToRetrieveRoute = 1
+  /// Wrong trip identifier
+  case wrongItinId = 2
+}
+
 /// the response returned when gettings trips
 ///
 /// Generated class from Pigeon that represents data sent in messages.
@@ -1490,6 +1500,84 @@ struct PigeonSpeedLimitContext {
     ]
   }
 }
+
+/// Generated class from Pigeon that represents data sent in messages.
+struct PigeonRoute {
+  var callIndex: [Int64?]?
+  var callTime: [Int64?]?
+  var itinId: String?
+  var latitude: [Double?]?
+  var longitude: [Double?]?
+  var screenLockedIndex: [Int64?]?
+  var screenLockedTime: [Int64?]?
+  var speedingIndex: [Int64?]?
+  var speedingTime: [Int64?]?
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ __pigeon_list: [Any?]) -> PigeonRoute? {
+    let callIndex: [Int64?]? = nilOrValue(__pigeon_list[0])
+    let callTime: [Int64?]? = nilOrValue(__pigeon_list[1])
+    let itinId: String? = nilOrValue(__pigeon_list[2])
+    let latitude: [Double?]? = nilOrValue(__pigeon_list[3])
+    let longitude: [Double?]? = nilOrValue(__pigeon_list[4])
+    let screenLockedIndex: [Int64?]? = nilOrValue(__pigeon_list[5])
+    let screenLockedTime: [Int64?]? = nilOrValue(__pigeon_list[6])
+    let speedingIndex: [Int64?]? = nilOrValue(__pigeon_list[7])
+    let speedingTime: [Int64?]? = nilOrValue(__pigeon_list[8])
+
+    return PigeonRoute(
+      callIndex: callIndex,
+      callTime: callTime,
+      itinId: itinId,
+      latitude: latitude,
+      longitude: longitude,
+      screenLockedIndex: screenLockedIndex,
+      screenLockedTime: screenLockedTime,
+      speedingIndex: speedingIndex,
+      speedingTime: speedingTime
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      callIndex,
+      callTime,
+      itinId,
+      latitude,
+      longitude,
+      screenLockedIndex,
+      screenLockedTime,
+      speedingIndex,
+      speedingTime
+    ]
+  }
+}
+
+/// the response returned when gettings a Route
+///
+/// Generated class from Pigeon that represents data sent in messages.
+struct PigeonGetRouteResponse {
+  /// route synchronization status
+  var status: PigeonRouteSyncStatus
+  /// fetched route
+  var route: PigeonRoute?
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ __pigeon_list: [Any?]) -> PigeonGetRouteResponse? {
+    let status = __pigeon_list[0] as! PigeonRouteSyncStatus
+    let route: PigeonRoute? = nilOrValue(__pigeon_list[1])
+
+    return PigeonGetRouteResponse(
+      status: status,
+      route: route
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      status,
+      route
+    ]
+  }
+}
 private class IOSDriverDataApiPigeonCodecReader: FlutterStandardReader {
   override func readValue(ofType type: UInt8) -> Any? {
     switch type {
@@ -1556,31 +1644,42 @@ private class IOSDriverDataApiPigeonCodecReader: FlutterStandardReader {
     case 159:
       return PigeonSpeedLimitContext.fromList(self.readValue() as! [Any?])
     case 160:
+      return PigeonRoute.fromList(self.readValue() as! [Any?])
+    case 161:
+      return PigeonGetRouteResponse.fromList(self.readValue() as! [Any?])
+    case 162:
       var enumResult: PigeonTripSyncStatus?
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonTripSyncStatus(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 161:
+    case 163:
       var enumResult: PigeonCrashStatus?
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonCrashStatus(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 162:
+    case 164:
       var enumResult: PigeonSynchronizationType?
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonSynchronizationType(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 163:
+    case 165:
       var enumResult: PigeonTransportationMode?
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonTransportationMode(rawValue: enumResultAsInt)
+      }
+      return enumResult
+    case 166:
+      var enumResult: PigeonRouteSyncStatus?
+      let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
+      if let enumResultAsInt = enumResultAsInt {
+        enumResult = PigeonRouteSyncStatus(rawValue: enumResultAsInt)
       }
       return enumResult
     default:
@@ -1684,17 +1783,26 @@ private class IOSDriverDataApiPigeonCodecWriter: FlutterStandardWriter {
     } else if let value = value as? PigeonSpeedLimitContext {
       super.writeByte(159)
       super.writeValue(value.toList())
-    } else if let value = value as? PigeonTripSyncStatus {
+    } else if let value = value as? PigeonRoute {
       super.writeByte(160)
-      super.writeValue(value.rawValue)
-    } else if let value = value as? PigeonCrashStatus {
+      super.writeValue(value.toList())
+    } else if let value = value as? PigeonGetRouteResponse {
       super.writeByte(161)
-      super.writeValue(value.rawValue)
-    } else if let value = value as? PigeonSynchronizationType {
+      super.writeValue(value.toList())
+    } else if let value = value as? PigeonTripSyncStatus {
       super.writeByte(162)
       super.writeValue(value.rawValue)
-    } else if let value = value as? PigeonTransportationMode {
+    } else if let value = value as? PigeonCrashStatus {
       super.writeByte(163)
+      super.writeValue(value.rawValue)
+    } else if let value = value as? PigeonSynchronizationType {
+      super.writeByte(164)
+      super.writeValue(value.rawValue)
+    } else if let value = value as? PigeonTransportationMode {
+      super.writeByte(165)
+      super.writeValue(value.rawValue)
+    } else if let value = value as? PigeonRouteSyncStatus {
+      super.writeByte(166)
       super.writeValue(value.rawValue)
     } else {
       super.writeValue(value)
@@ -1722,6 +1830,7 @@ protocol IOSDriverDataApi {
   func getTripsOrderByDateAsc(synchronizationType: PigeonSynchronizationType, transportationModes: [PigeonTransportationMode], completion: @escaping (Result<PigeonGetTripsResponse, Error>) -> Void)
   func getTripsOrderByDateDesc(synchronizationType: PigeonSynchronizationType, transportationModes: [PigeonTransportationMode], completion: @escaping (Result<PigeonGetTripsResponse, Error>) -> Void)
   func getTrip(itinId: String, completion: @escaping (Result<PigeonGetTripResponse, Error>) -> Void)
+  func getRoute(itinId: String, completion: @escaping (Result<PigeonGetRouteResponse, Error>) -> Void)
   func deleteTrip(itinId: String, completion: @escaping (Result<Bool, Error>) -> Void)
 }
 
@@ -1796,6 +1905,23 @@ class IOSDriverDataApiSetup {
       }
     } else {
       getTripChannel.setMessageHandler(nil)
+    }
+    let getRouteChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.pigeon_driver_data_package.IOSDriverDataApi.getRoute\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      getRouteChannel.setMessageHandler { message, reply in
+        let args = message as! [Any?]
+        let itinIdArg = args[0] as! String
+        api.getRoute(itinId: itinIdArg) { result in
+          switch result {
+          case .success(let res):
+            reply(wrapResult(res))
+          case .failure(let error):
+            reply(wrapError(error))
+          }
+        }
+      }
+    } else {
+      getRouteChannel.setMessageHandler(nil)
     }
     let deleteTripChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.pigeon_driver_data_package.IOSDriverDataApi.deleteTrip\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {

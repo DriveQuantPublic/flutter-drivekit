@@ -90,6 +90,19 @@ void main() {
       verify(() => androidDriverDataApi.getTrip('')).called(1);
     });
 
+    test('Get a Route', () async {
+      //mock
+      when(() => androidDriverDataApi.getRoute(any())).thenAnswer(
+        (_) async => PigeonGetRouteResponse(
+          status: PigeonRouteSyncStatus.noError,
+        ),
+      );
+
+      //test
+      await DrivekitDriverDataPlatform.instance.getRoute('');
+      verify(() => androidDriverDataApi.getRoute('')).called(1);
+    });
+
     test('Delete a trip', () async {
       //mock
       when(() => androidDriverDataApi.deleteTrip('')).thenAnswer(

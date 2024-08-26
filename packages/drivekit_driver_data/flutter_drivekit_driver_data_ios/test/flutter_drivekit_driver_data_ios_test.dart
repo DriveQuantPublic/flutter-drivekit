@@ -84,6 +84,19 @@ void main() {
       verify(() => iosDriverDataApi.getTrip('')).called(1);
     });
 
+    test('Get a Route', () async {
+      //mock
+      when(() => iosDriverDataApi.getRoute(any())).thenAnswer(
+        (_) async => PigeonGetRouteResponse(
+          status: PigeonRouteSyncStatus.noError,
+        ),
+      );
+
+      //test
+      await DrivekitDriverDataPlatform.instance.getRoute('');
+      verify(() => iosDriverDataApi.getRoute('')).called(1);
+    });
+
     test('Delete a trip', () async {
       //mocks
       when(() => iosDriverDataApi.deleteTrip(''))

@@ -586,3 +586,30 @@ extension PigeonRouteAdapter on PigeonRoute {
     );
   }
 }
+
+/// Adapts the [PigeonGetRouteResponse] class to
+/// the corresponding class in the model.
+extension PigeonGetRouteResponseAdapter on PigeonGetRouteResponse {
+  /// Converts a [PigeonGetRouteResponse] to a corresponding model class.
+  GetRouteResponse toModelImplementation() {
+    return GetRouteResponse(
+      status: status.toModelImplementation(),
+      route: route?.toModelImplementation(),
+    );
+  }
+}
+
+/// Adapts the [PigeonRouteSyncStatus] enum to the corresponding model enum
+extension PigeonRouteSyncStatusAdapter on PigeonRouteSyncStatus {
+  /// Converts a [PigeonRouteSyncStatus] to a corresponding model enum.
+  RouteSyncStatus toModelImplementation() {
+    switch (this) {
+      case PigeonRouteSyncStatus.noError:
+        return RouteSyncStatus.noError;
+      case PigeonRouteSyncStatus.failedToRetrieveRoute:
+        return RouteSyncStatus.failedToRetrieveRoute;
+      case PigeonRouteSyncStatus.wrongItinId:
+        return RouteSyncStatus.wrongItinId;
+    }
+  }
+}
