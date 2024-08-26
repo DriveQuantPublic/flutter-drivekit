@@ -51,6 +51,12 @@ void main() {
     tripCancelled: (cancelTrip) {
       _showTripNotification('Trip cancelled: ${cancelTrip.name}');
     },
+    tripSavedForRepost: () => {
+      _showTripNotification(
+        'The trip could not be analyzed because your phone is not connected'
+        ' to the mobile network. It will be analyzed later',
+      ),
+    },
   );
   DrivekitTripAnalysis.instance.addTripListener(tripListener);
 

@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
-        android:name="${applicationName}"
+        android:name="FlutterDemoApplication"
         android:label="@string/app_name"
         android:icon="@mipmap/ic_launcher"
         tools:replace="android:label">
