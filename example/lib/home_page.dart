@@ -9,6 +9,7 @@ import 'package:drivekit_example/widgets/sliver_enable_logging.dart';
 import 'package:drivekit_example/widgets/sliver_get_api_key.dart';
 import 'package:drivekit_example/widgets/sliver_get_log_file_uri.dart';
 import 'package:drivekit_example/widgets/sliver_get_monitor_potential_trip_start.dart';
+import 'package:drivekit_example/widgets/sliver_get_trip.dart';
 import 'package:drivekit_example/widgets/sliver_get_trips.dart';
 import 'package:drivekit_example/widgets/sliver_get_user_id.dart';
 import 'package:drivekit_example/widgets/sliver_is_token_valid.dart';
@@ -163,6 +164,10 @@ class HomePage extends StatelessWidget {
             SliverPadding(
               padding: EdgeInsets.symmetric(horizontal: 16),
               sliver: SliverGetTrips(),
+            ),
+            SliverPadding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              sliver: SliverGetTrip(),
             ),
             SliverGap(32),
           ],
