@@ -47,7 +47,7 @@ class DriveKitDriverData {
         transportationModes: transportationModes,
       );
 
-  /// Get trips ordered by date ascending
+  /// Get trip by identider
   Future<GetTripResponse?> getTrip(String itinId) => _platform.getTrip(itinId);
 
   /// Delete a trip

@@ -380,8 +380,8 @@ extension PigeonTripAdapter on PigeonTrip {
           .map((e) => e.toModelImplementation())
           .toList(),
       startDate: startDate,
-      departureCity: departureAddress,
-      arrivalCity: arrivalAddress,
+      departureCity: departureCity,
+      arrivalCity: arrivalCity,
       departureAddress: departureAddress,
       arrivalAddress: arrivalAddress,
       vehicleId: vehicleId,
