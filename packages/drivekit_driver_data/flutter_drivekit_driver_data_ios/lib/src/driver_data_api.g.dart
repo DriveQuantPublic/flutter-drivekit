@@ -210,7 +210,7 @@ class PigeonTrip {
   /// The arrival address
   String? arrivalAddress;
 
-  /// The itinerary ID
+  /// The vehicle ID
   String? vehicleId;
 
   /// The list of comments

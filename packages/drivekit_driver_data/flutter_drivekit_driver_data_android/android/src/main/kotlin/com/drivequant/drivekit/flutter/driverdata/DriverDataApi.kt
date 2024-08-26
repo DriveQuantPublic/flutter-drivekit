@@ -210,7 +210,7 @@ data class PigeonTrip (
   val departureAddress: String? = null,
   /** The arrival address */
   val arrivalAddress: String? = null,
-  /** The itinerary ID */
+  /** The vehicle ID */
   val vehicleId: String? = null,
   /** The list of comments */
   val comments: List<PigeonComment?>,

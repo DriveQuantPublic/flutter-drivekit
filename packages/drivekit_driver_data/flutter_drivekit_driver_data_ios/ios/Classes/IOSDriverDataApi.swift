@@ -195,7 +195,7 @@ struct PigeonTrip {
   var departureAddress: String?
   /// The arrival address
   var arrivalAddress: String?
-  /// The itinerary ID
+  /// The vehicle ID
   var vehicleId: String?
   /// The list of comments
   var comments: [PigeonComment?]
