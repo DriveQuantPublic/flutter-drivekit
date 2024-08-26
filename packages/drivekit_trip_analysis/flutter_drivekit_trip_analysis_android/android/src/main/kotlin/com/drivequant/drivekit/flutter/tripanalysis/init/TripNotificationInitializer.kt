@@ -7,7 +7,6 @@ import android.content.Context
 import android.content.res.Resources
 import android.util.Log
 import androidx.startup.Initializer
-import com.drivequant.drivekit.core.autoinit.DriveKitInitializer
 import com.drivequant.drivekit.tripanalysis.DriveKitTripAnalysis
 import com.drivequant.drivekit.tripanalysis.entity.TripNotification
 
@@ -70,7 +69,17 @@ class TripNotificationInitializer : Initializer<TripNotification> {
             .getPendingIntent(0, PendingIntent.FLAG_IMMUTABLE)
     }
 
-    override fun dependencies(): List<Class<out Initializer<*>>> = listOf(DriveKitInitializer::class.java)
+    override fun dependencies(): List<Class<out Initializer<*>>> {
+        try {
+            val clazz: Class<Initializer<*>> = Class.forName("com.drivequant.drivekit.tripanalysis.autoinit.DriveKitTripAnalysisInitializer") as Class<Initializer<*>>
+            return listOf(clazz)
+        } catch (e: NoSuchMethodException) {
+            Log.e("flutter_driveKit", "Could not found DriveKitTripAnalysisInitializer class: $e")
+        } catch (e: Exception) {
+            Log.e("flutter_driveKit", "Error while retrieving DriveKitTripAnalysisInitializer class: $e")
+        }
+        return listOf()
+    }
 
     enum class LogStatusWhenNotFound {
         ERROR,

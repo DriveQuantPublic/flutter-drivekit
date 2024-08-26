@@ -3,6 +3,6 @@
     <integer name="drivekit_notif_defaultIntId">123</integer>
     <bool name="drivekit_notif_enablecancel">true</bool>
     <string name="drivekit_notif_content">A trip is recording</string>
-    <string name="drivekit_notif_title">Trip Analysis</string>
+    <string name="drivekit_notif_title">Start of trip</string>
     <string name="drivekit_notif_cancel">Cancel</string>
 </resources>

@@ -62,13 +62,13 @@ Future<void> _showTripNotification(String message) async {
   const androidNotificationDetails = AndroidNotificationDetails(
     'trip',
     'Trip',
-    priority: Priority.high,
+    priority: Priority.low,
   );
   const notificationDetails =
       NotificationDetails(android: androidNotificationDetails);
   await flutterLocalNotificationsPlugin.show(
     123,
-    'Trip Analysis',
+    'Start of trip',
     message,
     notificationDetails,
   );
