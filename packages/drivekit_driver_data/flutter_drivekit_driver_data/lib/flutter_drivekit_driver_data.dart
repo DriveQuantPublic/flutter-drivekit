@@ -1,7 +1,13 @@
 import 'package:flutter_drivekit_driver_data_platform_interface/flutter_drivekit_driver_data_platform_interface.dart';
 
 export 'package:flutter_drivekit_driver_data_platform_interface/flutter_drivekit_driver_data_platform_interface.dart'
-    show SynchronizationType, TransportationMode, Trip, TripSyncStatus;
+    show
+        Route,
+        RouteSyncStatus,
+        SynchronizationType,
+        TransportationMode,
+        Trip,
+        TripSyncStatus;
 
 DrivekitDriverDataPlatform get _platform => DrivekitDriverDataPlatform.instance;
 

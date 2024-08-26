@@ -35,6 +35,7 @@ You can also take a look at the [flutter example](https://github.com/DriveQuantP
 | [getTripsOrderByDateAsc()](#getTripsOrderByDateAsc)                   | `Future<GetTripsResponse?>`     | ✅  |   ✅    |
 | [getTripsOrderByDateDesc()](#getTripsOrderByDateDesc)                 | `Future<GetTripsResponse?>`     | ✅  |   ✅    |
 | [getTrip()](#getTrip)                                                 | `Future<GetTripResponse>`       | ✅  |   ✅    |
+| [getRoute()](#getRoute)                                               | `Future<GetRouteResponse>`      | ✅  |   ✅    |
 | [deleteTrip()](#deleteTrip)                                           | `Future<bool>`                  | ✅  |   ✅    |
 
 
@@ -105,6 +106,28 @@ To get a specific trip, you have to call the following method:
 
 ```dart
 final result = await driveKitDriverData.getTrip('TRIP_ID_HERE');
+```
+
+The itinId parameter is the unique identifier for a trip.
+
+
+### getRoute
+
+```dart
+Future<GetRouteResponse?> getRoute(String itinId);
+```
+
+
+| GetRouteResponse | Type             |
+| --------------- | ----------------- |
+| `status`        | `RouteSyncStatus` |
+| `route`         | `Route?`          |
+
+
+To get a specific route, you have to call the following method:
+
+```dart
+final result = await driveKitDriverData.getRoute('TRIP_ID_HERE');
 ```
 
 The itinId parameter is the unique identifier for a trip.
