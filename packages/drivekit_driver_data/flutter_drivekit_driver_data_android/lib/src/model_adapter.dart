@@ -568,3 +568,21 @@ extension PigeonTripAdviceEvaluationAdapter on PigeonTripAdviceEvaluation {
     );
   }
 }
+
+/// Adapts the [PigeonRoute] class to the corresponding class in the model.
+extension PigeonRouteAdapter on PigeonRoute {
+  /// Converts a [PigeonRoute] to a corresponding model class.
+  Route toModelImplementation() {
+    return Route(
+      callIndex: callIndex?.toList(),
+      callTime: callTime?.toList(),
+      itinId: itinId,
+      latitude: latitude?.toList(),
+      longitude: longitude?.toList(),
+      screenLockedIndex: screenLockedIndex?.toList(),
+      screenLockedTime: screenLockedTime?.toList(),
+      speedingIndex: speedingIndex?.toList(),
+      speedingTime: speedingTime?.toList(),
+    );
+  }
+}
