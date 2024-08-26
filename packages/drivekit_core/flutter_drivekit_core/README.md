@@ -230,25 +230,25 @@ DriveKitCore.instance.removeAllDriveKitListeners();
 | Method                         | Description                                                            |
 | ------------------------------ | ---------------------------------------------------------------------- |
 | locationPermissionValid        | Location permission status changed and is granted.                     |
-| locationPermissionValid        | Location permission status changed and is revoked.                     |
+| locationPermissionInvalid      | Location permission status changed and is revoked.                     |
 | activityPermissionValid        | Activity permission status changed and is granted.                     |
-| activityPermissionValid        | Activity permission status changed and is revoked.                     |
+| activityPermissionInvalid      | Activity permission status changed and is revoked.                     |
 | notificationPermissionValid    | Notification permission status changed and is granted.                 |
-| notificationPermissionInValid  | Notification permission status changed and is revoked.                 |
+| notificationPermissionInvalid  | Notification permission status changed and is revoked.                 |
 | appBatteryOptimisationValid    | Android only. App battery optimisation setting changed and is valid.   |
 | appBatteryOptimisationInvalid  | Android only. App battery optimisation setting changed and is invalid. |
 | lowPowerModeValid              | iOS only. Low power mode setting changed and is valid.                 |
 | lowPowerModeInvalid            | iOS only. Low power mode setting changed and is invalid.               |
 | autoResetPermissionValid       | Android only. Auto reset setting status changed and is granted.        |
-| autoResetPermissionInValid     | Android only. Auto reset setting status changed and is revoked.        |
+| autoResetPermissionInvalid     | Android only. Auto reset setting status changed and is revoked.        |
 | nearbyDevicesPermissionValid   | Android only. Nearby devices permission status changed and is granted. |
-| nearbyDevicesPermissionInValid | Android only. Nearby devices permission status changed and is revoked. |
+| nearbyDevicesPermissionInvalid | Android only. Nearby devices permission status changed and is revoked. |
 | bluetoothPermissionValid       | iOS only. Bluetooth permission status changed and is granted.          |
-| bluetoothPermissionInValid     | iOS only. Bluetooth permission status changed and is revoked.          |
+| bluetoothPermissionInvalid     | iOS only. Bluetooth permission status changed and is revoked.          |
 | locationSensorValid            | Location sensor status changed and is turned ON.                       |
-| locationSensorInValid          | Location sensor status changed and is turned OFF.                      |
+| locationSensorInvalid          | Location sensor status changed and is turned OFF.                      |
 | bluetoothSensorValid           | Bluetooth sensor status changed and is turned ON.                      |
-| bluetoothSensorInValid         | Bluetooth sensor status changed and is turned OFF.                     |
+| bluetoothSensorInvalid         | Bluetooth sensor status changed and is turned OFF.                     |
 
 ### removeDeviceConfigurationListener
 
