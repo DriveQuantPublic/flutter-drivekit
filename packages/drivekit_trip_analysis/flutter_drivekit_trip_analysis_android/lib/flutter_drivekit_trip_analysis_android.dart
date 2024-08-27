@@ -33,6 +33,10 @@ class DrivekitTripAnalysisAndroid extends DrivekitTripAnalysisPlatform
   final List<TripListener> _listeners = [];
 
   @override
+  Future<bool> isAutoStartActivated() =>
+      androidTripAnalysisApi.isAutoStartActivated();
+
+  @override
   Future<void> activateAutoStart(bool activate) =>
       androidTripAnalysisApi.activateAutoStart(activate);
 

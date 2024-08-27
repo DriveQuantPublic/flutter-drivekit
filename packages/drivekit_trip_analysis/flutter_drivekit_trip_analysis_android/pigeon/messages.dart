@@ -16,6 +16,7 @@ import 'package:pigeon/pigeon.dart';
 )
 @HostApi()
 abstract class AndroidTripAnalysisApi {
+  bool isAutoStartActivated();
   void activateAutoStart(bool activate);
   void activateCrashDetection(bool activate);
   void startTrip();
