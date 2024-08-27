@@ -50,18 +50,14 @@ To install this module, follow step by step the method described in the [Trip Si
 
 To inform the user that the trip has been analyzed, finished or cancelled, the DriveKit libraries for Flutter offers listeners so it becomes easy to build notifications on both mobile platforms.
 
+The `TripListener` interface in the Trip Analysis module will provide some useful information about the lifecycle of the trip analysis.
+In the main method of your main dart class, you can add a `TripListener` and manage the display of trip notifications according to your needs. See our [demo example code](/example/lib/main.dart) for example.
+
 We recommend [flutter_locale_notifications](https://pub.dev/packages/flutter_local_notifications) library to manage your notifications.
-
-#### iOS
-
-`// TODO`
 
 #### Android
 
-`TripListener` in the Trip Analysis module is the interface that will give some useful information about the lifecycle of the trip analysis.
-
-To display a notification when the trip is finished, cancelled or saved for a repost even if the app is in background, you must follow the following instructions as in the [Flutter demo application](/example):
+To display a notification when the trip is finished, cancelled or saved for a repost even if the app is in background, more steps are necessary to follow, as in the [DriveKit demo application](/example):
 
 - If you don't already have one, create a class that extends `FlutterApplication` and ensure that the `name` value of the `application` node in your [`AndroidManifest`](/example/android/app/src/main/AndroidManifest.xml) file is your `Application` class. On our demo app, we have created [`FlutterDemoApplication`](/example/android/app/src/main/kotlin/com/drivequant/drivekit/flutter/example/FlutterDemoApplication.kt)
-- In your Application class, call the following code in the `onCreate()` overriden method: `FlutterEngine(this).dartExecutor.executeDartEntrypoint(DartExecutor.DartEntrypoint.createDefault())`. It will run the dart entry point method. In our demo app, it is the `main` method from the `main.dart` file.
-- In the main method of your main dart class, add a `TripListener` and manage the display of trip notification according to your needs. See our [demo example code](/example/lib/main.dart)
+- In your Application class, call the following code in the `onCreate()` overridden method: `FlutterEngine(this).dartExecutor.executeDartEntrypoint(DartExecutor.DartEntrypoint.createDefault())`. It will run the dart entry point method. In our demo app, it is the `main` method from the `main.dart` file.
