@@ -40,7 +40,7 @@ void main() {
               .getTripsOrderByDateAsc(transportationModes: []),
         ).thenAnswer(
           (_) async =>
-              GetTripsResponse(status: TripSyncStatus.noError, trips: []),
+              GetTripsResponse(status: TripSyncStatus.success, trips: []),
         );
 
         await driveKitDriverData
@@ -57,7 +57,7 @@ void main() {
               .getTripsOrderByDateDesc(transportationModes: []),
         ).thenAnswer(
           (_) async =>
-              GetTripsResponse(status: TripSyncStatus.noError, trips: []),
+              GetTripsResponse(status: TripSyncStatus.success, trips: []),
         );
 
         await driveKitDriverData
@@ -76,12 +76,28 @@ void main() {
         ).thenAnswer(
           (_) async => GetTripResponse(
             trip: null,
-            status: TripSyncStatus.noError,
+            status: TripSyncStatus.success,
           ),
         );
 
         await driveKitDriverData.getTrip('');
         verify(() => driveKitDriverData.getTrip('')).called(1);
+      });
+    });
+
+    group('getRoute', () {
+      test('Get a route', () async {
+        when(
+          () => drivekitDriverDataPlatform.getRoute(any()),
+        ).thenAnswer(
+          (_) async => GetRouteResponse(
+            route: null,
+            status: RouteSyncStatus.success,
+          ),
+        );
+
+        await driveKitDriverData.getRoute('');
+        verify(() => driveKitDriverData.getRoute('')).called(1);
       });
     });
 

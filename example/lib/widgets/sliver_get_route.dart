@@ -1,27 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_drivekit_driver_data/flutter_drivekit_driver_data.dart';
 
-class SliverGetTrips extends StatelessWidget {
-  const SliverGetTrips({super.key});
+class SliverGetRoute extends StatelessWidget {
+  const SliverGetRoute({super.key});
 
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: ElevatedButton(
         onPressed: () async {
-          final tripSyncResult =
-              await DriveKitDriverData.instance.getTripsOrderByDateAsc();
-          final alertMessage = tripSyncResult?.status == TripSyncStatus.success
-              ? 'Trips synchronized with success. '
-                  'You have ${tripSyncResult!.trips.length} trips.'
-              : 'Trips synchronization returned an error. '
-                  'You have ${tripSyncResult?.trips.length} old trips.';
+          const tripId = 'TRIP_ID_HERE';
+          final routeSyncResult =
+              await DriveKitDriverData.instance.getRoute(tripId);
+          final alertMessage = routeSyncResult?.status ==
+                  RouteSyncStatus.success
+              ? 'Route received for itinId: ${routeSyncResult?.route?.itinId}'
+              : 'Route not received';
           if (context.mounted) {
             await showDialog<void>(
               context: context,
               builder: (BuildContext context) {
                 return AlertDialog(
-                  title: const Text('Get Trips'),
+                  title: const Text('Get Route'),
                   content: Text(alertMessage),
                   actions: <Widget>[
                     TextButton(
@@ -37,7 +37,7 @@ class SliverGetTrips extends StatelessWidget {
           }
         },
         child: const Text(
-          'Synchronize trips',
+          'Get route',
         ),
       ),
     );

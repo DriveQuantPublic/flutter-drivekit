@@ -1,8 +1,11 @@
 package com.drivequant.drivekit.flutter.driverdata
 
 import android.content.Context
+import com.drivequant.drivekit.databaseutils.entity.Route
 import com.drivequant.drivekit.databaseutils.entity.Trip
 import com.drivequant.drivekit.driverdata.DriveKitDriverData
+import com.drivequant.drivekit.driverdata.trip.RouteQueryListener
+import com.drivequant.drivekit.driverdata.trip.RouteStatus
 import com.drivequant.drivekit.driverdata.trip.TripDeleteQueryListener
 import com.drivequant.drivekit.driverdata.trip.TripQueryListener
 import com.drivequant.drivekit.driverdata.trip.TripsQueryListener
@@ -79,6 +82,27 @@ class DrivekitDriverDataPlugin :
                             PigeonGetTripResponse(
                                 status = PigeonMapper.toPigeonTripsSyncStatus(status),
                                 trip = pigeonTrip
+                            )
+                        )
+                    )
+                }
+            }
+        )
+    }
+
+    override fun getRoute(itinId: String, callback: (Result<PigeonGetRouteResponse>) -> Unit) {
+        DriveKitDriverData.getRoute(
+            itinId = itinId,
+            listener = object : RouteQueryListener {
+                override fun onResponse(status: RouteStatus, route: Route?) {
+                    val pigeonRoute: PigeonRoute? = route?.let {
+                        PigeonMapper.toPigeonRoute(it)
+                    }
+                    callback(
+                        Result.success(
+                            PigeonGetRouteResponse(
+                                status = PigeonMapper.toRouteStatus(status),
+                                route = pigeonRoute
                             )
                         )
                     )

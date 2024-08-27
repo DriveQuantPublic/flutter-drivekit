@@ -15,6 +15,7 @@ import com.drivequant.drivekit.databaseutils.entity.FuelEstimationDrivingContext
 import com.drivequant.drivekit.databaseutils.entity.Logbook
 import com.drivequant.drivekit.databaseutils.entity.ManeuverData
 import com.drivequant.drivekit.databaseutils.entity.Pollutants
+import com.drivequant.drivekit.databaseutils.entity.Route
 import com.drivequant.drivekit.databaseutils.entity.Safety
 import com.drivequant.drivekit.databaseutils.entity.SafetyContext
 import com.drivequant.drivekit.databaseutils.entity.SafetyEvent
@@ -25,6 +26,7 @@ import com.drivequant.drivekit.databaseutils.entity.TransportationMode
 import com.drivequant.drivekit.databaseutils.entity.Trip
 import com.drivequant.drivekit.databaseutils.entity.TripAdvice
 import com.drivequant.drivekit.databaseutils.entity.TripStatistics
+import com.drivequant.drivekit.driverdata.trip.RouteStatus
 import com.drivequant.drivekit.driverdata.trip.TripsSyncStatus
 import com.drivequant.drivekit.flutter.driverdata.PigeonAdvancedEcoDriving
 import com.drivequant.drivekit.flutter.driverdata.PigeonAdvancedEnergyEstimation
@@ -44,6 +46,8 @@ import com.drivequant.drivekit.flutter.driverdata.PigeonItineraryData
 import com.drivequant.drivekit.flutter.driverdata.PigeonLogbook
 import com.drivequant.drivekit.flutter.driverdata.PigeonManeuverData
 import com.drivequant.drivekit.flutter.driverdata.PigeonPollutants
+import com.drivequant.drivekit.flutter.driverdata.PigeonRoute
+import com.drivequant.drivekit.flutter.driverdata.PigeonRouteSyncStatus
 import com.drivequant.drivekit.flutter.driverdata.PigeonSafety
 import com.drivequant.drivekit.flutter.driverdata.PigeonSafetyContext
 import com.drivequant.drivekit.flutter.driverdata.PigeonSafetyEvent
@@ -452,7 +456,7 @@ object PigeonMapper {
     }
 
     fun toPigeonTripsSyncStatus(tripSyncStatus: TripsSyncStatus): PigeonTripSyncStatus = when (tripSyncStatus) {
-        TripsSyncStatus.NO_ERROR -> PigeonTripSyncStatus.NO_ERROR
+        TripsSyncStatus.NO_ERROR -> PigeonTripSyncStatus.SUCCESS
         TripsSyncStatus.CACHE_DATA_ONLY -> PigeonTripSyncStatus.CACHE_DATA_ONLY
         TripsSyncStatus.FAILED_TO_SYNC_TRIPS_CACHE_ONLY -> PigeonTripSyncStatus.FAILED_TO_SYNC_TRIPS_CACHE_ONLY
         TripsSyncStatus.FAILED_TO_SYNC_SAFETY_EVENTS -> PigeonTripSyncStatus.FAILED_TO_SYNC_SAFETY_EVENTS
@@ -478,5 +482,23 @@ object PigeonMapper {
         PigeonTransportationMode.ON_FOOT -> TransportationMode.ON_FOOT
         PigeonTransportationMode.IDLE -> TransportationMode.IDLE
         PigeonTransportationMode.OTHER -> TransportationMode.OTHER
+    }
+
+    fun toPigeonRoute(route: Route): PigeonRoute = PigeonRoute(
+        itinId = route.itinId,
+        callTime = route.callTime?.map { it.toLong() },
+        callIndex = route.callIndex?.map { it.toLong() },
+        screenLockedTime = route.screenLockedTime?.map { it.toLong() },
+        screenLockedIndex = route.screenLockedIndex?.map { it.toLong() },
+        speedingTime = route.speedingTime?.map { it.toLong() },
+        speedingIndex = route.speedingIndex?.map { it.toLong() },
+        longitude = route.longitude,
+        latitude = route.latitude
+    )
+
+    fun toRouteStatus(routeStatus: RouteStatus): PigeonRouteSyncStatus = when (routeStatus) {
+        RouteStatus.NO_ERROR -> PigeonRouteSyncStatus.SUCCESS
+        RouteStatus.FAILED_TO_RETRIEVE_ROUTE -> PigeonRouteSyncStatus.FAILED_TO_RETRIEVE_ROUTE
+        RouteStatus.WRONG_ITINID -> PigeonRouteSyncStatus.WRONG_ITIN_ID
     }
 }

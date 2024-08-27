@@ -43,6 +43,8 @@ abstract class AndroidDriverDataApi {
   @async
   PigeonGetTripResponse getTrip(String itinId);
   @async
+  PigeonGetRouteResponse getRoute(String itinId);
+  @async
   bool deleteTrip(String itinId);
 }
 
@@ -73,7 +75,7 @@ class PigeonGetTripResponse {
 /// Trip synchronization status enum
 enum PigeonTripSyncStatus {
   /// Synchronization has been successfully performed
-  noError,
+  success,
 
   /// SynchronizationType has been set to cache.
   cacheDataOnly,
@@ -852,50 +854,6 @@ class PigeonSpeedingStatistics {
   final double score;
 }
 
-class PigeonRoute {
-  const PigeonRoute({
-    required this.gpsDate,
-    required this.gpsVelocity,
-    required this.longitude,
-    required this.latitude,
-    required this.gpsElevation,
-    required this.gpsAccuracy,
-    required this.gpsHeading,
-    required this.screenLocked,
-    required this.activityValue,
-    required this.roll,
-    required this.pitch,
-    required this.yaw,
-    required this.gyroscopeNormVar,
-  });
-
-  final List<double?> gpsDate;
-
-  final List<double?> gpsVelocity;
-
-  final List<double?> longitude;
-
-  final List<double?> latitude;
-
-  final List<double?> gpsElevation;
-
-  final List<double?> gpsAccuracy;
-
-  final List<double?> gpsHeading;
-
-  final List<double?> screenLocked;
-
-  final List<double?> activityValue;
-
-  final List<int?> roll;
-
-  final List<int?> pitch;
-
-  final List<int?> yaw;
-
-  final List<int?> gyroscopeNormVar;
-}
-
 class PigeonEcoDrivingContext {
   const PigeonEcoDrivingContext({
     required this.contextId,
@@ -1108,4 +1066,60 @@ enum PigeonTransportationMode {
 
   /// Other
   other
+}
+
+class PigeonRoute {
+  PigeonRoute({
+    required this.callIndex,
+    required this.callTime,
+    required this.itinId,
+    required this.latitude,
+    required this.longitude,
+    required this.screenLockedIndex,
+    required this.screenLockedTime,
+    required this.speedingIndex,
+    required this.speedingTime,
+  });
+
+  final List<int?>? callIndex;
+
+  final List<int?>? callTime;
+
+  final String? itinId;
+
+  final List<double?>? latitude;
+
+  final List<double?>? longitude;
+
+  final List<int?>? screenLockedIndex;
+
+  final List<int?>? screenLockedTime;
+
+  final List<int?>? speedingIndex;
+
+  final List<int?>? speedingTime;
+}
+
+/// the response returned when gettings a Route
+class PigeonGetRouteResponse {
+  /// Creates a PigeonGetRouteResponse instance
+  PigeonGetRouteResponse({required this.status, required this.route});
+
+  /// route synchronization status
+  final PigeonRouteSyncStatus status;
+
+  /// fetched route
+  final PigeonRoute? route;
+}
+
+/// Route synchronization status enum
+enum PigeonRouteSyncStatus {
+  /// Synchronization has been successfully performed
+  success,
+
+  /// Synchronization failed
+  failedToRetrieveRoute,
+
+  /// Wrong trip identifier
+  wrongItinId,
 }

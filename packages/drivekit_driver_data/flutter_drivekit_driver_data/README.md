@@ -65,6 +65,7 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 | [getTripsOrderByDateAsc()](#getTripsOrderByDateAsc)                   | `Future<GetTripsResponse?>`     | ✅  |   ✅    |
 | [getTripsOrderByDateDesc()](#getTripsOrderByDateDesc)                 | `Future<GetTripsResponse?>`     | ✅  |   ✅    |
 | [getTrip()](#getTrip)                                                 | `Future<GetTripResponse>`       | ✅  |   ✅    |
+| [getRoute()](#getRoute)                                               | `Future<GetRouteResponse>`      | ✅  |   ✅    |
 | [deleteTrip()](#deleteTrip)                                           | `Future<bool>`                  | ✅  |   ✅    |
 
 
@@ -132,6 +133,27 @@ To get a specific trip, you have to call the following method:
 
 ```dart
 final result = await DriveKitDriverData.instance.getTrip('TRIP_ID_HERE');
+```
+
+### getRoute
+
+The `itinId` parameter is the unique identifier for a trip.
+
+```dart
+Future<GetRouteResponse?> getRoute(String itinId);
+```
+
+
+| GetRouteResponse | Type             |
+| --------------- | ----------------- |
+| `status`        | `RouteSyncStatus` |
+| `route`         | `Route?`          |
+
+
+To get a specific route, you have to call the following method:
+
+```dart
+final result = await DriveKitDriverData.instance.getRoute('TRIP_ID_HERE');
 ```
 
 ### deleteTrip

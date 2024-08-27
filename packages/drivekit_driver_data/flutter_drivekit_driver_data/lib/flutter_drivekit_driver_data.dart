@@ -1,7 +1,13 @@
 import 'package:flutter_drivekit_driver_data_platform_interface/flutter_drivekit_driver_data_platform_interface.dart';
 
 export 'package:flutter_drivekit_driver_data_platform_interface/flutter_drivekit_driver_data_platform_interface.dart'
-    show SynchronizationType, TransportationMode, Trip, TripSyncStatus;
+    show
+        Route,
+        RouteSyncStatus,
+        SynchronizationType,
+        TransportationMode,
+        Trip,
+        TripSyncStatus;
 
 DrivekitDriverDataPlatform get _platform => DrivekitDriverDataPlatform.instance;
 
@@ -49,6 +55,10 @@ class DriveKitDriverData {
 
   /// Get trip by identider
   Future<GetTripResponse?> getTrip(String itinId) => _platform.getTrip(itinId);
+
+  /// Get route
+  Future<GetRouteResponse?> getRoute(String itinId) =>
+      _platform.getRoute(itinId);
 
   /// Delete a trip
   Future<bool> deleteTrip(String itinId) => _platform.deleteTrip(itinId);

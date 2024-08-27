@@ -12,7 +12,7 @@ class SliverGetTrip extends StatelessWidget {
           const tripId = 'TRIP_ID_HERE';
           final tripSyncResult =
               await DriveKitDriverData.instance.getTrip(tripId);
-          final alertMessage = tripSyncResult?.status == TripSyncStatus.noError
+          final alertMessage = tripSyncResult?.status == TripSyncStatus.success
               ? 'Trip ${tripSyncResult?.trip?.itinId} received with success. '
               : 'Trips not received';
           if (context.mounted) {
