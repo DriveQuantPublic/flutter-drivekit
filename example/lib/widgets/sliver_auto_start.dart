@@ -44,7 +44,7 @@ class _SliverAutoStartState extends State<SliverAutoStart> {
               );
             }
           },
-          child: const Text('Check auto start value?'),
+          child: const Text('Check auto start value'),
         ),
       ],
     );
