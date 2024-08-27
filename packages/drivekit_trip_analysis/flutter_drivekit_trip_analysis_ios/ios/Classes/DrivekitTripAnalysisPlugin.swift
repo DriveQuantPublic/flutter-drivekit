@@ -72,12 +72,14 @@ public class DrivekitTripAnalysisPlugin: NSObject, FlutterPlugin, IOSTripAnalysi
 extension DrivekitTripAnalysisPlugin: TripListener {
     public func tripStarted(startMode: DriveKitTripAnalysisModule.StartMode) {
         let pigeonStartMode = PigeonStartMode.init(from: startMode)
-        self.flutterAPI?.tripStarted(startMode: pigeonStartMode) {result in
-            switch result {
-            case .success:
-                print("Trip did start.")
-            case .failure(let error):
-                print("Error on trip start: \(error.localizedDescription)")
+        executeOnMainThread {
+            self.flutterAPI?.tripStarted(startMode: pigeonStartMode) { result in
+                switch result {
+                case .success:
+                    print("Trip did start.")
+                case .failure(let error):
+                    print("Error on trip start: \(error.localizedDescription)")
+                }
             }
         }
     }
@@ -102,58 +104,68 @@ extension DrivekitTripAnalysisPlugin: TripListener {
 
     public func tripCancelled(cancelTrip: DriveKitTripAnalysisModule.CancelTrip) {
         let pigeonValue = PigeonCancelTrip.init(from: cancelTrip)
-        self.flutterAPI?.tripCancelled(cancelTrip: pigeonValue) {result in
-            switch result {
-            case .success:
-                print("Trip cancelled.")
-            case .failure(let error):
-                print("Error on trip cancelled: \(error.localizedDescription)")
+        executeOnMainThread {
+            self.flutterAPI?.tripCancelled(cancelTrip: pigeonValue) { result in
+                switch result {
+                case .success:
+                    print("Trip cancelled.")
+                case .failure(let error):
+                    print("Error on trip cancelled: \(error.localizedDescription)")
+                }
             }
         }
     }
 
     public func tripSavedForRepost() {
-        self.flutterAPI?.tripSavedForRepost {result in
-            switch result {
-            case .success:
-                print("tripSavedForRepost event sent with success.")
-            case .failure(let error):
-                print("Error when sending tripSavedForRepost event: \(error.localizedDescription)")
+        executeOnMainThread {
+            self.flutterAPI?.tripSavedForRepost { result in
+                switch result {
+                case .success:
+                    print("tripSavedForRepost event sent with success.")
+                case .failure(let error):
+                    print("Error when sending tripSavedForRepost event: \(error.localizedDescription)")
+                }
             }
         }
     }
 
     public func tripPoint(tripPoint: DriveKitTripAnalysisModule.TripPoint) {
         let tripPointValue = PigeonTripPoint.init(from: tripPoint)
-        self.flutterAPI?.tripPoint(tripPoint: tripPointValue) {result in
-            switch result {
-            case .success:
+        executeOnMainThread {
+            self.flutterAPI?.tripPoint(tripPoint: tripPointValue) { result in
+                switch result {
+                case .success:
                     print("tripPoint event sent with success.")
                 case .failure(let error):
                     print("Error when sending tripPoint event: \(error.localizedDescription)")
+                }
             }
         }
     }
 
     public func beaconDetected() {
-        self.flutterAPI?.tripSavedForRepost {result in
-            switch result {
-            case .success:
-                print("beaconDetected event sent with success.")
-            case .failure(let error):
-                print("Error when sending beaconDetected event: \(error.localizedDescription)")
+        executeOnMainThread {
+            self.flutterAPI?.beaconDetected { result in
+                switch result {
+                case .success:
+                    print("beaconDetected event sent with success.")
+                case .failure(let error):
+                    print("Error when sending beaconDetected event: \(error.localizedDescription)")
+                }
             }
         }
     }
 
     public func significantLocationChangeDetected(location: CLLocation) {
         let locationValue = PigeonLocation(from: location)
-        self.flutterAPI?.significantLocationChangeDetected(location: locationValue) {result in
-            switch result {
-            case .success:
-                print("significantLocationChangeDetected event sent with success.")
-            case .failure(let error):
-                print("Error when sending significantLocationChangeDetected event: \(error.localizedDescription)")
+        executeOnMainThread {
+            self.flutterAPI?.significantLocationChangeDetected(location: locationValue) { result in
+                switch result {
+                case .success:
+                    print("significantLocationChangeDetected event sent with success.")
+                case .failure(let error):
+                    print("Error when sending significantLocationChangeDetected event: \(error.localizedDescription)")
+                }
             }
         }
     }
@@ -161,7 +173,7 @@ extension DrivekitTripAnalysisPlugin: TripListener {
     public func sdkStateChanged(state: DriveKitTripAnalysisModule.State) {
         let stateValue = PigeonState.init(from: state)
         executeOnMainThread {
-            self.flutterAPI?.sdkStateChanged(state: stateValue) {result in
+            self.flutterAPI?.sdkStateChanged(state: stateValue) { result in
                 switch result {
                 case .success:
                     print("sdkStateChanged event sent with success.")
@@ -174,24 +186,28 @@ extension DrivekitTripAnalysisPlugin: TripListener {
 
     public func potentialTripStart(startMode: DriveKitTripAnalysisModule.StartMode) {
         let pigeonStartMode = PigeonStartMode.init(from: startMode)
-        self.flutterAPI?.potentialTripStart(startMode: pigeonStartMode) {result in
-            switch result {
-            case .success:
+        executeOnMainThread {
+            self.flutterAPI?.potentialTripStart(startMode: pigeonStartMode) { result in
+                switch result {
+                case .success:
                     print("potentialTripStart event sent with success.")
                 case .failure(let error):
                     print("Error when sending potentialTripStart event: \(error.localizedDescription)")
+                }
             }
         }
     }
 
     public func crashDetected(crashInfo: DriveKitTripAnalysisModule.DKCrashInfo) {
         let pigeonCrashInfo = PigeonDKCrashInfo(from: crashInfo)
-        self.flutterAPI?.crashDetected(crashInfo: pigeonCrashInfo) {result in
-            switch result {
-            case .success:
+        executeOnMainThread {
+            self.flutterAPI?.crashDetected(crashInfo: pigeonCrashInfo) { result in
+                switch result {
+                case .success:
                     print("crashDetected event sent with success.")
                 case .failure(let error):
                     print("Error when sending crashDetected event: \(error.localizedDescription)")
+                }
             }
         }
     }
@@ -202,16 +218,18 @@ extension DrivekitTripAnalysisPlugin: TripListener {
         let pigeonCrashInfo = PigeonDKCrashInfo(from: crashInfo)
         let pigeonCrashFeedbackType = PigeonDKCrashFeedbackType.init(from: feedbackType)
         let pigeonCrashFeedbackSeverity = PigeonDKCrashFeedbackSeverity.init(from: severity)
-        self.flutterAPI?.crashFeedbackSent(
-            crashInfo: pigeonCrashInfo,
-            feedbackType: pigeonCrashFeedbackType,
-            severity: pigeonCrashFeedbackSeverity
-        ) { result in
-            switch result {
-            case .success:
+        executeOnMainThread {
+            self.flutterAPI?.crashFeedbackSent(
+                crashInfo: pigeonCrashInfo,
+                feedbackType: pigeonCrashFeedbackType,
+                severity: pigeonCrashFeedbackSeverity
+            ) { result in
+                switch result {
+                case .success:
                     print("crashFeedbackSent event sent with success.")
                 case .failure(let error):
                     print("Error when sending crashFeedbackSent event: \(error.localizedDescription)")
+                }
             }
         }
     }
