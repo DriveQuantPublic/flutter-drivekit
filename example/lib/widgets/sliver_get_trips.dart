@@ -11,7 +11,7 @@ class SliverGetTrips extends StatelessWidget {
         onPressed: () async {
           final tripSyncResult =
               await DriveKitDriverData.instance.getTripsOrderByDateAsc();
-          final alertMessage = tripSyncResult?.status == TripSyncStatus.noError
+          final alertMessage = tripSyncResult?.status == TripSyncStatus.success
               ? 'Trips synchronized with success. '
                   'You have ${tripSyncResult!.trips.length} trips.'
               : 'Trips synchronization returned an error. '

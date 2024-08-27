@@ -42,7 +42,7 @@ void main() {
             .getTripsOrderByDateAsc(transportationModes: []),
       ).thenAnswer(
         (_) async => PigeonGetTripsResponse(
-          status: PigeonTripSyncStatus.noError,
+          status: PigeonTripSyncStatus.success,
           trips: [],
         ),
       );
@@ -63,7 +63,7 @@ void main() {
             .getTripsOrderByDateDesc(transportationModes: []),
       ).thenAnswer(
         (_) async => PigeonGetTripsResponse(
-          status: PigeonTripSyncStatus.noError,
+          status: PigeonTripSyncStatus.success,
           trips: [],
         ),
       );
@@ -81,7 +81,7 @@ void main() {
       //mock
       when(() => androidDriverDataApi.getTrip(any())).thenAnswer(
         (_) async => PigeonGetTripResponse(
-          status: PigeonTripSyncStatus.noError,
+          status: PigeonTripSyncStatus.success,
         ),
       );
 
@@ -94,7 +94,7 @@ void main() {
       //mock
       when(() => androidDriverDataApi.getRoute(any())).thenAnswer(
         (_) async => PigeonGetRouteResponse(
-          status: PigeonRouteSyncStatus.noError,
+          status: PigeonRouteSyncStatus.success,
         ),
       );
 

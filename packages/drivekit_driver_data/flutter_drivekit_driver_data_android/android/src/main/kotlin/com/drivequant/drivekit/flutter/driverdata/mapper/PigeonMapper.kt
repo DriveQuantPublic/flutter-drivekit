@@ -456,7 +456,7 @@ object PigeonMapper {
     }
 
     fun toPigeonTripsSyncStatus(tripSyncStatus: TripsSyncStatus): PigeonTripSyncStatus = when (tripSyncStatus) {
-        TripsSyncStatus.NO_ERROR -> PigeonTripSyncStatus.NO_ERROR
+        TripsSyncStatus.NO_ERROR -> PigeonTripSyncStatus.SUCCESS
         TripsSyncStatus.CACHE_DATA_ONLY -> PigeonTripSyncStatus.CACHE_DATA_ONLY
         TripsSyncStatus.FAILED_TO_SYNC_TRIPS_CACHE_ONLY -> PigeonTripSyncStatus.FAILED_TO_SYNC_TRIPS_CACHE_ONLY
         TripsSyncStatus.FAILED_TO_SYNC_SAFETY_EVENTS -> PigeonTripSyncStatus.FAILED_TO_SYNC_SAFETY_EVENTS
@@ -497,8 +497,8 @@ object PigeonMapper {
     )
 
     fun toRouteStatus(routeStatus: RouteStatus): PigeonRouteSyncStatus = when (routeStatus) {
-        RouteStatus.NO_ERROR -> PigeonRouteSyncStatus.NO_ERROR
+        RouteStatus.NO_ERROR -> PigeonRouteSyncStatus.SUCCESS
         RouteStatus.FAILED_TO_RETRIEVE_ROUTE -> PigeonRouteSyncStatus.FAILED_TO_RETRIEVE_ROUTE
-        RouteStatus.WRONG_ITINID -> PigeonRouteSyncStatus.WRONG_ITINID
+        RouteStatus.WRONG_ITINID -> PigeonRouteSyncStatus.WRONG_ITIN_ID
     }
 }

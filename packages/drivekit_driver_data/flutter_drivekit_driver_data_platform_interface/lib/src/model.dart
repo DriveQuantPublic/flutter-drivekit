@@ -25,7 +25,7 @@ class GetTripResponse {
 /// Trip synchronization status enum
 enum TripSyncStatus {
   /// Synchronization has been successfully performed
-  noError,
+  success,
 
   /// SynchronizationType has been set to cache.
   cacheDataOnly,
@@ -1350,7 +1350,7 @@ class GetRouteResponse {
 /// Route synchronization status enum
 enum RouteSyncStatus {
   /// Synchronization has been successfully performed
-  noError,
+  success,
 
   /// Synchronization failed
   failedToRetrieveRoute,

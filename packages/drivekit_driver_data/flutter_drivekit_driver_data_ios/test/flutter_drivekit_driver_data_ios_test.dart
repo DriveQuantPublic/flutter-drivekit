@@ -39,7 +39,7 @@ void main() {
         () => iosDriverDataApi.getTripsOrderByDateAsc(transportationModes: []),
       ).thenAnswer(
         (_) async => PigeonGetTripsResponse(
-          status: PigeonTripSyncStatus.noError,
+          status: PigeonTripSyncStatus.success,
           trips: [],
         ),
       );
@@ -58,7 +58,7 @@ void main() {
         () => iosDriverDataApi.getTripsOrderByDateDesc(transportationModes: []),
       ).thenAnswer(
         (_) async => PigeonGetTripsResponse(
-          status: PigeonTripSyncStatus.noError,
+          status: PigeonTripSyncStatus.success,
           trips: [],
         ),
       );
@@ -75,7 +75,7 @@ void main() {
       //mock
       when(() => iosDriverDataApi.getTrip(any())).thenAnswer(
         (_) async => PigeonGetTripResponse(
-          status: PigeonTripSyncStatus.noError,
+          status: PigeonTripSyncStatus.success,
         ),
       );
 
@@ -88,7 +88,7 @@ void main() {
       //mock
       when(() => iosDriverDataApi.getRoute(any())).thenAnswer(
         (_) async => PigeonGetRouteResponse(
-          status: PigeonRouteSyncStatus.noError,
+          status: PigeonRouteSyncStatus.success,
         ),
       );
 

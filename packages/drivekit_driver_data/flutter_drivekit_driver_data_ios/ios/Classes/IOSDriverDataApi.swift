@@ -67,7 +67,7 @@ private func nilOrValue<T>(_ value: Any?) -> T? {
 /// Trip synchronization status enum
 enum PigeonTripSyncStatus: Int {
   /// Synchronization has been successfully performed
-  case noError = 0
+  case success = 0
   /// SynchronizationType has been set to cache.
   case cacheDataOnly = 1
   /// Synchronization has failed,
@@ -126,7 +126,7 @@ enum PigeonTransportationMode: Int {
 /// Route synchronization status enum
 enum PigeonRouteSyncStatus: Int {
   /// Synchronization has been successfully performed
-  case noError = 0
+  case success = 0
   /// Synchronization failed
   case failedToRetrieveRoute = 1
   /// Wrong trip identifier

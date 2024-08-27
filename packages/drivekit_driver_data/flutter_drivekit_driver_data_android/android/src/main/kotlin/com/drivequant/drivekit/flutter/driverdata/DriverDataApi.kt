@@ -47,7 +47,7 @@ class FlutterCoreError (
 /** Trip synchronization status enum */
 enum class PigeonTripSyncStatus(val raw: Int) {
   /** Synchronization has been successfully performed */
-  NO_ERROR(0),
+  SUCCESS(0),
   /** SynchronizationType has been set to cache. */
   CACHE_DATA_ONLY(1),
   /**
@@ -134,7 +134,7 @@ enum class PigeonTransportationMode(val raw: Int) {
 /** Route synchronization status enum */
 enum class PigeonRouteSyncStatus(val raw: Int) {
   /** Synchronization has been successfully performed */
-  NO_ERROR(0),
+  SUCCESS(0),
   /** Synchronization failed */
   FAILED_TO_RETRIEVE_ROUTE(1),
   /** Wrong trip identifier */

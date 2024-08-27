@@ -18,7 +18,7 @@ PlatformException _createConnectionError(String channelName) {
 /// Trip synchronization status enum
 enum PigeonTripSyncStatus {
   /// Synchronization has been successfully performed
-  noError,
+  success,
 
   /// SynchronizationType has been set to cache.
   cacheDataOnly,
@@ -94,7 +94,7 @@ enum PigeonTransportationMode {
 /// Route synchronization status enum
 enum PigeonRouteSyncStatus {
   /// Synchronization has been successfully performed
-  noError,
+  success,
 
   /// Synchronization failed
   failedToRetrieveRoute,

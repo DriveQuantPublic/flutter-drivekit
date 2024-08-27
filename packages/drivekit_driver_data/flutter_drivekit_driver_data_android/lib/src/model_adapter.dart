@@ -460,8 +460,8 @@ extension PigeonTripSyncStatusAdapter on PigeonTripSyncStatus {
   /// Converts a [PigeonTripSyncStatus] to a corresponding model enum.
   TripSyncStatus toModelImplementation() {
     switch (this) {
-      case PigeonTripSyncStatus.noError:
-        return TripSyncStatus.noError;
+      case PigeonTripSyncStatus.success:
+        return TripSyncStatus.success;
       case PigeonTripSyncStatus.cacheDataOnly:
         return TripSyncStatus.cacheDataOnly;
       case PigeonTripSyncStatus.failedToSyncTripsCacheOnly:
@@ -604,8 +604,8 @@ extension PigeonRouteSyncStatusAdapter on PigeonRouteSyncStatus {
   /// Converts a [PigeonRouteSyncStatus] to a corresponding model enum.
   RouteSyncStatus toModelImplementation() {
     switch (this) {
-      case PigeonRouteSyncStatus.noError:
-        return RouteSyncStatus.noError;
+      case PigeonRouteSyncStatus.success:
+        return RouteSyncStatus.success;
       case PigeonRouteSyncStatus.failedToRetrieveRoute:
         return RouteSyncStatus.failedToRetrieveRoute;
       case PigeonRouteSyncStatus.wrongItinId:

@@ -22,7 +22,7 @@ extension PigeonTripSyncStatus {
     init(from status: TripSyncStatus) {
         switch status {
             case .noError:
-                self = PigeonTripSyncStatus.noError
+                self = PigeonTripSyncStatus.success
             case .cacheDataOnly:
                 self = PigeonTripSyncStatus.cacheDataOnly
             case .failedToSyncTripsCacheOnly:
@@ -517,7 +517,7 @@ extension PigeonGetRouteResponse {
     init(from route: Route?) {
         if let route = route {
             self.init(
-                status: .noError,
+                status: .success,
                 route: PigeonRoute(from: route)
             )
         } else {

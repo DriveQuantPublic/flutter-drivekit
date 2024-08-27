@@ -75,7 +75,7 @@ class PigeonGetTripResponse {
 /// Trip synchronization status enum
 enum PigeonTripSyncStatus {
   /// Synchronization has been successfully performed
-  noError,
+  success,
 
   /// SynchronizationType has been set to cache.
   cacheDataOnly,
@@ -1115,7 +1115,7 @@ class PigeonGetRouteResponse {
 /// Route synchronization status enum
 enum PigeonRouteSyncStatus {
   /// Synchronization has been successfully performed
-  noError,
+  success,
 
   /// Synchronization failed
   failedToRetrieveRoute,
