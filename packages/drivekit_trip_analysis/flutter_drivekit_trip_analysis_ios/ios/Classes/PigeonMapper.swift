@@ -740,14 +740,14 @@ extension PigeonPostGenericResponse {
             )
         }
     }
-    
+
     private func isValid() -> Bool {
         if let itineraryStatistics = self.itineraryStatistics, itineraryStatistics.distance > 0, self.itinId != nil, self.comments.contains(where: { $0?.errorCode == 0 }) == true {
             return true
         }
         return false
     }
-    
+
     private func hasSafetyAndEcoDrivingScore() -> Bool {
         var isScored = false
         if let ecoDriving = self.ecoDriving, let safety = self.safety {

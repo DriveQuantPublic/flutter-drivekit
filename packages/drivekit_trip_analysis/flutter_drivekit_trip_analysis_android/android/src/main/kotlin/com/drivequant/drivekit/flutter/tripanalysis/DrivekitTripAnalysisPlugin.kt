@@ -1,6 +1,7 @@
 package com.drivequant.drivekit.flutter.tripanalysis
 
 import android.content.Context
+import androidx.core.content.ContextCompat
 import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper
 import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeonCancelTrip
 import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeonDKCrashFeedbackSeverity
@@ -147,8 +148,12 @@ class DrivekitTripAnalysisPlugin :
                 }
 
                 override fun sdkStateChanged(state: State) {
-                    flutterApi?.sdkStateChanged(toPigeonState(state)) { echo ->
-                        Result.success(echo)
+                    context?.let { context ->
+                        ContextCompat.getMainExecutor(context).execute {
+                            flutterApi?.sdkStateChanged(toPigeonState(state)) { echo ->
+                                Result.success(echo)
+                            }
+                        }
                     }
                 }
 

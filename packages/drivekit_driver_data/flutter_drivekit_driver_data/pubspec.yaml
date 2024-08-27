@@ -1,5 +1,5 @@
 name: flutter_drivekit_driver_data
-description: Flutter plugin for DriveQuant's DriveKit DriverData SDK
+description: This is the Flutter plugin for DriveQuant's DriveKit DriverData component.
 version: 0.0.4
 publish_to: none
 homepage: https://www.drivequant.com/
