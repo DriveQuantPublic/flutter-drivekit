@@ -7,10 +7,11 @@ import android.content.Context
 import android.content.res.Resources
 import android.util.Log
 import androidx.startup.Initializer
+import com.drivequant.drivekit.core.autoinit.DriveKitInitializer
 import com.drivequant.drivekit.tripanalysis.DriveKitTripAnalysis
 import com.drivequant.drivekit.tripanalysis.entity.TripNotification
 
-class TripNotificationInitializer : Initializer<TripNotification> {
+internal class TripNotificationInitializer : Initializer<TripNotification> {
     override fun create(context: Context): TripNotification {
         val resources = context.applicationContext.resources
         val appName = context.applicationContext.packageName
@@ -78,7 +79,7 @@ class TripNotificationInitializer : Initializer<TripNotification> {
         } catch (e: Exception) {
             Log.e("flutter_driveKit", "Error while retrieving DriveKitTripAnalysisInitializer class: $e")
         }
-        return listOf()
+        return listOf(DriveKitInitializer::class.java)
     }
 
     enum class LogStatusWhenNotFound {
