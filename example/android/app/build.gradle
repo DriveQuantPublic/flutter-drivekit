@@ -16,6 +16,7 @@ android {
     compileSdk 34
 
     compileOptions {
+        coreLibraryDesugaringEnabled true // Needed for flutter_local_notifications plugin.
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
@@ -48,4 +49,5 @@ flutter {
 }
 
 dependencies {
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.4' // Needed for flutter_local_notifications plugin.
 }
