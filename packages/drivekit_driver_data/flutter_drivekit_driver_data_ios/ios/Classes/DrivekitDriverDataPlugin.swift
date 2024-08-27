@@ -45,6 +45,14 @@ public class DrivekitDriverDataPlugin: NSObject, FlutterPlugin, IOSDriverDataApi
         }
     }
 
+    func getRoute(itinId: String, completion: @escaping (Result<PigeonGetRouteResponse, any Error>) -> Void) {
+        DriveKitDriverData.shared.getRoute(itinId: itinId) { route in
+            let pigeonRouteResponse = PigeonGetRouteResponse(
+                from: route)
+            completion(Result.success(pigeonRouteResponse))
+        }
+    }
+
     func deleteTrip(itinId: String, completion: @escaping (Result<Bool, any Error>) -> Void) {
         DriveKitDriverData.shared.deleteTrip(itinId: itinId) { status in
             completion(Result.success(status))

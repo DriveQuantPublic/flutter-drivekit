@@ -445,8 +445,8 @@ extension PigeonTripSyncStatusAdapter on PigeonTripSyncStatus {
   /// Converts a [PigeonTripSyncStatus] to a corresponding model enum.
   TripSyncStatus toModelImplementation() {
     switch (this) {
-      case PigeonTripSyncStatus.noError:
-        return TripSyncStatus.noError;
+      case PigeonTripSyncStatus.success:
+        return TripSyncStatus.success;
       case PigeonTripSyncStatus.cacheDataOnly:
         return TripSyncStatus.cacheDataOnly;
       case PigeonTripSyncStatus.failedToSyncTripsCacheOnly:
@@ -551,5 +551,50 @@ extension PigeonTripAdviceEvaluationAdapter on PigeonTripAdviceEvaluation {
       feedback: feedback,
       comment: comment,
     );
+  }
+}
+
+/// Adapts the [PigeonRoute] class to the corresponding class in the model.
+extension PigeonRouteAdapter on PigeonRoute {
+  /// Converts a [PigeonRoute] to a corresponding model class.
+  Route toModelImplementation() {
+    return Route(
+      callIndex: callIndex?.toList(),
+      callTime: callTime?.toList(),
+      itinId: itinId,
+      latitude: latitude?.toList(),
+      longitude: longitude?.toList(),
+      screenLockedIndex: screenLockedIndex?.toList(),
+      screenLockedTime: screenLockedTime?.toList(),
+      speedingIndex: speedingIndex?.toList(),
+      speedingTime: speedingTime?.toList(),
+    );
+  }
+}
+
+/// Adapts the [PigeonGetRouteResponse] class to
+/// the corresponding class in the model.
+extension PigeonGetRouteResponseAdapter on PigeonGetRouteResponse {
+  /// Converts a [PigeonGetRouteResponse] to a corresponding model class.
+  GetRouteResponse toModelImplementation() {
+    return GetRouteResponse(
+      status: status.toModelImplementation(),
+      route: route?.toModelImplementation(),
+    );
+  }
+}
+
+/// Adapts the [PigeonRouteSyncStatus] enum to the corresponding model enum
+extension PigeonRouteSyncStatusAdapter on PigeonRouteSyncStatus {
+  /// Converts a [PigeonRouteSyncStatus] to a corresponding model enum.
+  RouteSyncStatus toModelImplementation() {
+    switch (this) {
+      case PigeonRouteSyncStatus.success:
+        return RouteSyncStatus.success;
+      case PigeonRouteSyncStatus.failedToRetrieveRoute:
+        return RouteSyncStatus.failedToRetrieveRoute;
+      case PigeonRouteSyncStatus.wrongItinId:
+        return RouteSyncStatus.wrongItinId;
+    }
   }
 }

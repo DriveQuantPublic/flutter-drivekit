@@ -18,7 +18,7 @@ PlatformException _createConnectionError(String channelName) {
 /// Trip synchronization status enum
 enum PigeonTripSyncStatus {
   /// Synchronization has been successfully performed
-  noError,
+  success,
 
   /// SynchronizationType has been set to cache.
   cacheDataOnly,
@@ -89,6 +89,18 @@ enum PigeonTransportationMode {
 
   /// Other
   other,
+}
+
+/// Route synchronization status enum
+enum PigeonRouteSyncStatus {
+  /// Synchronization has been successfully performed
+  success,
+
+  /// Synchronization failed
+  failedToRetrieveRoute,
+
+  /// Wrong trip identifier
+  wrongItinId,
 }
 
 /// the response returned when gettings trips
@@ -1677,6 +1689,96 @@ class PigeonSpeedLimitContext {
   }
 }
 
+class PigeonRoute {
+  PigeonRoute({
+    this.callIndex,
+    this.callTime,
+    this.itinId,
+    this.latitude,
+    this.longitude,
+    this.screenLockedIndex,
+    this.screenLockedTime,
+    this.speedingIndex,
+    this.speedingTime,
+  });
+
+  List<int?>? callIndex;
+
+  List<int?>? callTime;
+
+  String? itinId;
+
+  List<double?>? latitude;
+
+  List<double?>? longitude;
+
+  List<int?>? screenLockedIndex;
+
+  List<int?>? screenLockedTime;
+
+  List<int?>? speedingIndex;
+
+  List<int?>? speedingTime;
+
+  Object encode() {
+    return <Object?>[
+      callIndex,
+      callTime,
+      itinId,
+      latitude,
+      longitude,
+      screenLockedIndex,
+      screenLockedTime,
+      speedingIndex,
+      speedingTime,
+    ];
+  }
+
+  static PigeonRoute decode(Object result) {
+    result as List<Object?>;
+    return PigeonRoute(
+      callIndex: (result[0] as List<Object?>?)?.cast<int?>(),
+      callTime: (result[1] as List<Object?>?)?.cast<int?>(),
+      itinId: result[2] as String?,
+      latitude: (result[3] as List<Object?>?)?.cast<double?>(),
+      longitude: (result[4] as List<Object?>?)?.cast<double?>(),
+      screenLockedIndex: (result[5] as List<Object?>?)?.cast<int?>(),
+      screenLockedTime: (result[6] as List<Object?>?)?.cast<int?>(),
+      speedingIndex: (result[7] as List<Object?>?)?.cast<int?>(),
+      speedingTime: (result[8] as List<Object?>?)?.cast<int?>(),
+    );
+  }
+}
+
+/// the response returned when gettings a Route
+class PigeonGetRouteResponse {
+  PigeonGetRouteResponse({
+    required this.status,
+    this.route,
+  });
+
+  /// route synchronization status
+  PigeonRouteSyncStatus status;
+
+  /// fetched route
+  PigeonRoute? route;
+
+  Object encode() {
+    return <Object?>[
+      status,
+      route,
+    ];
+  }
+
+  static PigeonGetRouteResponse decode(Object result) {
+    result as List<Object?>;
+    return PigeonGetRouteResponse(
+      status: result[0]! as PigeonRouteSyncStatus,
+      route: result[1] as PigeonRoute?,
+    );
+  }
+}
+
 class _PigeonCodec extends StandardMessageCodec {
   const _PigeonCodec();
   @override
@@ -1771,17 +1873,26 @@ class _PigeonCodec extends StandardMessageCodec {
     } else if (value is PigeonSpeedLimitContext) {
       buffer.putUint8(158);
       writeValue(buffer, value.encode());
-    } else if (value is PigeonTripSyncStatus) {
+    } else if (value is PigeonRoute) {
       buffer.putUint8(159);
-      writeValue(buffer, value.index);
-    } else if (value is PigeonCrashStatus) {
+      writeValue(buffer, value.encode());
+    } else if (value is PigeonGetRouteResponse) {
       buffer.putUint8(160);
-      writeValue(buffer, value.index);
-    } else if (value is PigeonSynchronizationType) {
+      writeValue(buffer, value.encode());
+    } else if (value is PigeonTripSyncStatus) {
       buffer.putUint8(161);
       writeValue(buffer, value.index);
-    } else if (value is PigeonTransportationMode) {
+    } else if (value is PigeonCrashStatus) {
       buffer.putUint8(162);
+      writeValue(buffer, value.index);
+    } else if (value is PigeonSynchronizationType) {
+      buffer.putUint8(163);
+      writeValue(buffer, value.index);
+    } else if (value is PigeonTransportationMode) {
+      buffer.putUint8(164);
+      writeValue(buffer, value.index);
+    } else if (value is PigeonRouteSyncStatus) {
+      buffer.putUint8(165);
       writeValue(buffer, value.index);
     } else {
       super.writeValue(buffer, value);
@@ -1852,17 +1963,24 @@ class _PigeonCodec extends StandardMessageCodec {
       case 158:
         return PigeonSpeedLimitContext.decode(readValue(buffer)!);
       case 159:
-        final int? value = readValue(buffer) as int?;
-        return value == null ? null : PigeonTripSyncStatus.values[value];
+        return PigeonRoute.decode(readValue(buffer)!);
       case 160:
-        final int? value = readValue(buffer) as int?;
-        return value == null ? null : PigeonCrashStatus.values[value];
+        return PigeonGetRouteResponse.decode(readValue(buffer)!);
       case 161:
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : PigeonSynchronizationType.values[value];
+        return value == null ? null : PigeonTripSyncStatus.values[value];
       case 162:
         final int? value = readValue(buffer) as int?;
+        return value == null ? null : PigeonCrashStatus.values[value];
+      case 163:
+        final int? value = readValue(buffer) as int?;
+        return value == null ? null : PigeonSynchronizationType.values[value];
+      case 164:
+        final int? value = readValue(buffer) as int?;
         return value == null ? null : PigeonTransportationMode.values[value];
+      case 165:
+        final int? value = readValue(buffer) as int?;
+        return value == null ? null : PigeonRouteSyncStatus.values[value];
       default:
         return super.readValueOfType(type, buffer);
     }
@@ -2015,6 +2133,35 @@ class AndroidDriverDataApi {
       );
     } else {
       return (__pigeon_replyList[0] as PigeonGetTripResponse?)!;
+    }
+  }
+
+  Future<PigeonGetRouteResponse> getRoute(String itinId) async {
+    final String __pigeon_channelName =
+        'dev.flutter.pigeon.pigeon_driver_data_package.AndroidDriverDataApi.getRoute$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel =
+        BasicMessageChannel<Object?>(
+      __pigeon_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: __pigeon_binaryMessenger,
+    );
+    final List<Object?>? __pigeon_replyList =
+        await __pigeon_channel.send(<Object?>[itinId]) as List<Object?>?;
+    if (__pigeon_replyList == null) {
+      throw _createConnectionError(__pigeon_channelName);
+    } else if (__pigeon_replyList.length > 1) {
+      throw PlatformException(
+        code: __pigeon_replyList[0]! as String,
+        message: __pigeon_replyList[1] as String?,
+        details: __pigeon_replyList[2],
+      );
+    } else if (__pigeon_replyList[0] == null) {
+      throw PlatformException(
+        code: 'null-error',
+        message: 'Host platform returned null value for non-null return value.',
+      );
+    } else {
+      return (__pigeon_replyList[0] as PigeonGetRouteResponse?)!;
     }
   }
 

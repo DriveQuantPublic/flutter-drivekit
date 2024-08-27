@@ -38,6 +38,13 @@ class DefaultDrivekitDriverData extends DrivekitDriverDataPlatform {
   }
 
   @override
+  Future<GetRouteResponse?> getRoute(String itinId) {
+    throw UnimplementedError(
+      'getRoute() has not been implemented.',
+    );
+  }
+
+  @override
   Future<bool> deleteTrip(String itinId) {
     throw UnimplementedError('deleteTrip() has not been implemented.');
   }

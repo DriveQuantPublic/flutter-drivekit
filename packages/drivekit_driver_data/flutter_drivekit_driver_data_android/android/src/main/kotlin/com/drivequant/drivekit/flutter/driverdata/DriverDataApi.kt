@@ -47,7 +47,7 @@ class FlutterCoreError (
 /** Trip synchronization status enum */
 enum class PigeonTripSyncStatus(val raw: Int) {
   /** Synchronization has been successfully performed */
-  NO_ERROR(0),
+  SUCCESS(0),
   /** SynchronizationType has been set to cache. */
   CACHE_DATA_ONLY(1),
   /**
@@ -126,6 +126,22 @@ enum class PigeonTransportationMode(val raw: Int) {
 
   companion object {
     fun ofRaw(raw: Int): PigeonTransportationMode? {
+      return values().firstOrNull { it.raw == raw }
+    }
+  }
+}
+
+/** Route synchronization status enum */
+enum class PigeonRouteSyncStatus(val raw: Int) {
+  /** Synchronization has been successfully performed */
+  SUCCESS(0),
+  /** Synchronization failed */
+  FAILED_TO_RETRIEVE_ROUTE(1),
+  /** Wrong trip identifier */
+  WRONG_ITIN_ID(2);
+
+  companion object {
+    fun ofRaw(raw: Int): PigeonRouteSyncStatus? {
       return values().firstOrNull { it.raw == raw }
     }
   }
@@ -1300,6 +1316,77 @@ data class PigeonSpeedLimitContext (
     )
   }
 }
+
+/** Generated class from Pigeon that represents data sent in messages. */
+data class PigeonRoute (
+  val callIndex: List<Long?>? = null,
+  val callTime: List<Long?>? = null,
+  val itinId: String? = null,
+  val latitude: List<Double?>? = null,
+  val longitude: List<Double?>? = null,
+  val screenLockedIndex: List<Long?>? = null,
+  val screenLockedTime: List<Long?>? = null,
+  val speedingIndex: List<Long?>? = null,
+  val speedingTime: List<Long?>? = null
+
+) {
+  companion object {
+    @Suppress("LocalVariableName")
+    fun fromList(__pigeon_list: List<Any?>): PigeonRoute {
+      val callIndex = __pigeon_list[0] as List<Long?>?
+      val callTime = __pigeon_list[1] as List<Long?>?
+      val itinId = __pigeon_list[2] as String?
+      val latitude = __pigeon_list[3] as List<Double?>?
+      val longitude = __pigeon_list[4] as List<Double?>?
+      val screenLockedIndex = __pigeon_list[5] as List<Long?>?
+      val screenLockedTime = __pigeon_list[6] as List<Long?>?
+      val speedingIndex = __pigeon_list[7] as List<Long?>?
+      val speedingTime = __pigeon_list[8] as List<Long?>?
+      return PigeonRoute(callIndex, callTime, itinId, latitude, longitude, screenLockedIndex, screenLockedTime, speedingIndex, speedingTime)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      callIndex,
+      callTime,
+      itinId,
+      latitude,
+      longitude,
+      screenLockedIndex,
+      screenLockedTime,
+      speedingIndex,
+      speedingTime,
+    )
+  }
+}
+
+/**
+ * the response returned when gettings a Route
+ *
+ * Generated class from Pigeon that represents data sent in messages.
+ */
+data class PigeonGetRouteResponse (
+  /** route synchronization status */
+  val status: PigeonRouteSyncStatus,
+  /** fetched route */
+  val route: PigeonRoute? = null
+
+) {
+  companion object {
+    @Suppress("LocalVariableName")
+    fun fromList(__pigeon_list: List<Any?>): PigeonGetRouteResponse {
+      val status = __pigeon_list[0] as PigeonRouteSyncStatus
+      val route = __pigeon_list[1] as PigeonRoute?
+      return PigeonGetRouteResponse(status, route)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      status,
+      route,
+    )
+  }
+}
 private object DriverDataApiPigeonCodec : StandardMessageCodec() {
   override fun readValueOfType(type: Byte, buffer: ByteBuffer): Any? {
     return when (type) {
@@ -1454,23 +1541,38 @@ private object DriverDataApiPigeonCodec : StandardMessageCodec() {
         }
       }
       159.toByte() -> {
-        return (readValue(buffer) as Int?)?.let {
-          PigeonTripSyncStatus.ofRaw(it)
+        return (readValue(buffer) as? List<Any?>)?.let {
+          PigeonRoute.fromList(it)
         }
       }
       160.toByte() -> {
-        return (readValue(buffer) as Int?)?.let {
-          PigeonCrashStatus.ofRaw(it)
+        return (readValue(buffer) as? List<Any?>)?.let {
+          PigeonGetRouteResponse.fromList(it)
         }
       }
       161.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
-          PigeonSynchronizationType.ofRaw(it)
+          PigeonTripSyncStatus.ofRaw(it)
         }
       }
       162.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
+          PigeonCrashStatus.ofRaw(it)
+        }
+      }
+      163.toByte() -> {
+        return (readValue(buffer) as Int?)?.let {
+          PigeonSynchronizationType.ofRaw(it)
+        }
+      }
+      164.toByte() -> {
+        return (readValue(buffer) as Int?)?.let {
           PigeonTransportationMode.ofRaw(it)
+        }
+      }
+      165.toByte() -> {
+        return (readValue(buffer) as Int?)?.let {
+          PigeonRouteSyncStatus.ofRaw(it)
         }
       }
       else -> super.readValueOfType(type, buffer)
@@ -1598,20 +1700,32 @@ private object DriverDataApiPigeonCodec : StandardMessageCodec() {
         stream.write(158)
         writeValue(stream, value.toList())
       }
-      is PigeonTripSyncStatus -> {
+      is PigeonRoute -> {
         stream.write(159)
-        writeValue(stream, value.raw)
+        writeValue(stream, value.toList())
       }
-      is PigeonCrashStatus -> {
+      is PigeonGetRouteResponse -> {
         stream.write(160)
-        writeValue(stream, value.raw)
+        writeValue(stream, value.toList())
       }
-      is PigeonSynchronizationType -> {
+      is PigeonTripSyncStatus -> {
         stream.write(161)
         writeValue(stream, value.raw)
       }
-      is PigeonTransportationMode -> {
+      is PigeonCrashStatus -> {
         stream.write(162)
+        writeValue(stream, value.raw)
+      }
+      is PigeonSynchronizationType -> {
+        stream.write(163)
+        writeValue(stream, value.raw)
+      }
+      is PigeonTransportationMode -> {
+        stream.write(164)
+        writeValue(stream, value.raw)
+      }
+      is PigeonRouteSyncStatus -> {
+        stream.write(165)
         writeValue(stream, value.raw)
       }
       else -> super.writeValue(stream, value)
@@ -1626,6 +1740,7 @@ interface AndroidDriverDataApi {
   fun getTripsOrderByDateAsc(synchronizationType: PigeonSynchronizationType, transportationModes: List<PigeonTransportationMode>, callback: (Result<PigeonGetTripsResponse>) -> Unit)
   fun getTripsOrderByDateDesc(synchronizationType: PigeonSynchronizationType, transportationModes: List<PigeonTransportationMode>, callback: (Result<PigeonGetTripsResponse>) -> Unit)
   fun getTrip(itinId: String, callback: (Result<PigeonGetTripResponse>) -> Unit)
+  fun getRoute(itinId: String, callback: (Result<PigeonGetRouteResponse>) -> Unit)
   fun deleteTrip(itinId: String, callback: (Result<Boolean>) -> Unit)
 
   companion object {
@@ -1701,6 +1816,26 @@ interface AndroidDriverDataApi {
             val args = message as List<Any?>
             val itinIdArg = args[0] as String
             api.getTrip(itinIdArg) { result: Result<PigeonGetTripResponse> ->
+              val error = result.exceptionOrNull()
+              if (error != null) {
+                reply.reply(wrapError(error))
+              } else {
+                val data = result.getOrNull()
+                reply.reply(wrapResult(data))
+              }
+            }
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_driver_data_package.AndroidDriverDataApi.getRoute$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { message, reply ->
+            val args = message as List<Any?>
+            val itinIdArg = args[0] as String
+            api.getRoute(itinIdArg) { result: Result<PigeonGetRouteResponse> ->
               val error = result.exceptionOrNull()
               if (error != null) {
                 reply.reply(wrapError(error))

@@ -22,7 +22,7 @@ extension PigeonTripSyncStatus {
     init(from status: TripSyncStatus) {
         switch status {
             case .noError:
-                self = PigeonTripSyncStatus.noError
+                self = PigeonTripSyncStatus.success
             case .cacheDataOnly:
                 self = PigeonTripSyncStatus.cacheDataOnly
             case .failedToSyncTripsCacheOnly:
@@ -509,5 +509,34 @@ extension SynchronizationType {
         case .cache:
             self = .cache
         }
+    }
+}
+
+extension PigeonGetRouteResponse {
+    init(from route: Route?) {
+        if let route = route {
+            self.init(
+                status: .success,
+                route: PigeonRoute(from: route)
+            )
+        } else {
+            self.init(status: .failedToRetrieveRoute)
+        }
+    }
+}
+
+extension PigeonRoute {
+    init(from route: Route) {
+        self.init(
+            callIndex: route.callIndex?.map { Int64($0) },
+            callTime: route.callTime?.map { Int64($0) },
+            itinId: route.itinId,
+            latitude: route.latitude,
+            longitude: route.longitude,
+            screenLockedIndex: route.screenLockedIndex?.map { Int64($0) },
+            screenLockedTime: route.screenLockedTime?.map { Int64($0) },
+            speedingIndex: route.speedingIndex?.map { Int64($0) },
+            speedingTime: route.speedingTime?.map { Int64($0) }
+            )
     }
 }

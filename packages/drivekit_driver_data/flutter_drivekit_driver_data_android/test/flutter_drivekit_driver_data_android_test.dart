@@ -42,7 +42,7 @@ void main() {
             .getTripsOrderByDateAsc(transportationModes: []),
       ).thenAnswer(
         (_) async => PigeonGetTripsResponse(
-          status: PigeonTripSyncStatus.noError,
+          status: PigeonTripSyncStatus.success,
           trips: [],
         ),
       );
@@ -63,7 +63,7 @@ void main() {
             .getTripsOrderByDateDesc(transportationModes: []),
       ).thenAnswer(
         (_) async => PigeonGetTripsResponse(
-          status: PigeonTripSyncStatus.noError,
+          status: PigeonTripSyncStatus.success,
           trips: [],
         ),
       );
@@ -81,13 +81,26 @@ void main() {
       //mock
       when(() => androidDriverDataApi.getTrip(any())).thenAnswer(
         (_) async => PigeonGetTripResponse(
-          status: PigeonTripSyncStatus.noError,
+          status: PigeonTripSyncStatus.success,
         ),
       );
 
       //test
       await DrivekitDriverDataPlatform.instance.getTrip('');
       verify(() => androidDriverDataApi.getTrip('')).called(1);
+    });
+
+    test('Get a Route', () async {
+      //mock
+      when(() => androidDriverDataApi.getRoute(any())).thenAnswer(
+        (_) async => PigeonGetRouteResponse(
+          status: PigeonRouteSyncStatus.success,
+        ),
+      );
+
+      //test
+      await DrivekitDriverDataPlatform.instance.getRoute('');
+      verify(() => androidDriverDataApi.getRoute('')).called(1);
     });
 
     test('Delete a trip', () async {

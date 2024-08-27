@@ -53,6 +53,9 @@ abstract class DrivekitDriverDataPlatform extends PlatformInterface {
   /// Get trip by identider
   Future<GetTripResponse?> getTrip(String itinId);
 
+  /// Get route by trip identifier
+  Future<GetRouteResponse?> getRoute(String itinId);
+
   /// Delete a trip
   Future<bool> deleteTrip(String itinId);
 }

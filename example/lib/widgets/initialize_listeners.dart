@@ -19,12 +19,14 @@ class _InitializeListenersState extends State<InitializeListeners> {
   @override
   void initState() {
     super.initState();
+    const defaultTripListenerDuration = Duration(milliseconds: 1000);
     _tripListener = TripListener(
       beaconDetected: () {
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('Trip : beaconDetected'),
+              content: Text('Trip: beaconDetected'),
+              duration: defaultTripListenerDuration,
             ),
           );
         }
@@ -33,7 +35,7 @@ class _InitializeListenersState extends State<InitializeListeners> {
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('Trip : crashDetected. crashInfo : $crashInfo'),
+              content: Text('Trip: crashDetected.\ncrashInfo: $crashInfo'),
             ),
           );
         }
@@ -42,9 +44,8 @@ class _InitializeListenersState extends State<InitializeListeners> {
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content:
-                  Text('Trip : crashFeedbackSent.\n crashInfo : $crashInfo, '
-                      'feedbackType : $feedbackType, severity: $severity'),
+              content: Text('Trip: crashFeedbackSent.\ncrashInfo: $crashInfo, '
+                  'feedbackType: $feedbackType, severity: $severity'),
             ),
           );
         }
@@ -53,7 +54,8 @@ class _InitializeListenersState extends State<InitializeListeners> {
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('Trip : sdkStateChanged.\n state : $state'),
+              content: Text('Trip: sdkStateChanged.\nstate: $state'),
+              duration: defaultTripListenerDuration,
             ),
           );
         }
@@ -63,8 +65,9 @@ class _InitializeListenersState extends State<InitializeListeners> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
-                'Trip : significantLocationChangeDetected.\n state : $state',
+                'Trip: significantLocationChangeDetected.\nstate: $state',
               ),
+              duration: defaultTripListenerDuration,
             ),
           );
         }
@@ -73,7 +76,8 @@ class _InitializeListenersState extends State<InitializeListeners> {
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('Trip : tripCancelled.\n cancelTrip : $cancelTrip'),
+              content: Text('Trip: tripCancelled.\ncancelTrip: $cancelTrip'),
+              duration: defaultTripListenerDuration,
             ),
           );
         }
@@ -82,7 +86,8 @@ class _InitializeListenersState extends State<InitializeListeners> {
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('Trip : tripFinished.'),
+              content: Text('Trip: tripFinished.'),
+              duration: defaultTripListenerDuration,
             ),
           );
         }
@@ -91,7 +96,8 @@ class _InitializeListenersState extends State<InitializeListeners> {
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('Trip : tripPoint.'),
+              content: Text('Trip: tripPoint.'),
+              duration: Duration(milliseconds: 400),
             ),
           );
         }
@@ -100,7 +106,8 @@ class _InitializeListenersState extends State<InitializeListeners> {
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('Trip : tripSavedForRepost.'),
+              content: Text('Trip: tripSavedForRepost.'),
+              duration: defaultTripListenerDuration,
             ),
           );
         }
@@ -109,7 +116,8 @@ class _InitializeListenersState extends State<InitializeListeners> {
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('Trip : tripStarted.\n startMode : $startMode'),
+              content: Text('Trip: tripStarted.\nstartMode: $startMode'),
+              duration: defaultTripListenerDuration,
             ),
           );
         }

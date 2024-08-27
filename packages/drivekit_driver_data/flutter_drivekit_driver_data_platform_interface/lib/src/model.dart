@@ -27,7 +27,7 @@ class GetTripResponse {
 /// Trip synchronization status enum
 enum TripSyncStatus {
   /// Synchronization has been successfully performed
-  noError,
+  success,
 
   /// SynchronizationType has been set to cache.
   cacheDataOnly,
@@ -77,65 +77,6 @@ class CrashInfo {
 
   /// The crash status
   final CrashStatus crashStatus;
-}
-
-/// Route class
-class Route {
-  /// Creates a Route instance
-  const Route({
-    required this.gpsDate,
-    required this.gpsVelocity,
-    required this.longitude,
-    required this.latitude,
-    required this.gpsElevation,
-    required this.gpsAccuracy,
-    required this.gpsHeading,
-    required this.screenLocked,
-    required this.activityValue,
-    required this.roll,
-    required this.pitch,
-    required this.yaw,
-    required this.gyroscopeNormVar,
-  });
-
-  /// The list of GPS dates
-  final List<double> gpsDate;
-
-  /// The list of GPS velocities
-  final List<double> gpsVelocity;
-
-  /// The list of longitudes
-  final List<double> longitude;
-
-  /// The list of latitudes
-  final List<double> latitude;
-
-  /// The list of GPS elevations
-  final List<double> gpsElevation;
-
-  /// The list of GPS accuracies
-  final List<double> gpsAccuracy;
-
-  /// The list of GPS headings
-  final List<double> gpsHeading;
-
-  /// The list of screen locked statuses
-  final List<double> screenLocked;
-
-  /// The list of activity values
-  final List<double> activityValue;
-
-  /// The list of roll values
-  final List<int> roll;
-
-  /// The list of pitch values
-  final List<int> pitch;
-
-  /// The list of yaw values
-  final List<int> yaw;
-
-  /// The list of gyroscope norm variances
-  final List<int> gyroscopeNormVar;
 }
 
 /// CrashStatus enum
@@ -196,4 +137,71 @@ enum TransportationMode {
 
   /// Other
   other
+}
+
+/// Route Class
+class Route {
+  /// Creates a Route instance
+  Route({
+    required this.callIndex,
+    required this.callTime,
+    required this.itinId,
+    required this.latitude,
+    required this.longitude,
+    required this.screenLockedIndex,
+    required this.screenLockedTime,
+    required this.speedingIndex,
+    required this.speedingTime,
+  });
+
+  /// call indexes array
+  final List<int?>? callIndex;
+
+  /// call time array
+  final List<int?>? callTime;
+
+  /// trip identifier
+  final String? itinId;
+
+  /// latitude array
+  final List<double?>? latitude;
+
+  /// longitude array
+  final List<double?>? longitude;
+
+  /// screen locked indexes array
+  final List<int?>? screenLockedIndex;
+
+  /// screen locked time array
+  final List<int?>? screenLockedTime;
+
+  /// speeding indexes array
+  final List<int?>? speedingIndex;
+
+  /// speeding time array
+  final List<int?>? speedingTime;
+}
+
+/// the response returned when gettings a Route
+class GetRouteResponse {
+  /// Creates a GetRouteResponse instance
+  GetRouteResponse({required this.status, required this.route});
+
+  /// route synchronization status
+  final RouteSyncStatus status;
+
+  /// fetched route
+  final Route? route;
+}
+
+/// Route synchronization status enum
+enum RouteSyncStatus {
+  /// Synchronization has been successfully performed
+  success,
+
+  /// Synchronization failed
+  failedToRetrieveRoute,
+
+  /// Wrong trip identifier
+  wrongItinId,
 }

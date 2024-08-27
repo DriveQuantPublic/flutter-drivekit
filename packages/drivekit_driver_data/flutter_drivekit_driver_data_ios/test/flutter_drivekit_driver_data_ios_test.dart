@@ -39,7 +39,7 @@ void main() {
         () => iosDriverDataApi.getTripsOrderByDateAsc(transportationModes: []),
       ).thenAnswer(
         (_) async => PigeonGetTripsResponse(
-          status: PigeonTripSyncStatus.noError,
+          status: PigeonTripSyncStatus.success,
           trips: [],
         ),
       );
@@ -58,7 +58,7 @@ void main() {
         () => iosDriverDataApi.getTripsOrderByDateDesc(transportationModes: []),
       ).thenAnswer(
         (_) async => PigeonGetTripsResponse(
-          status: PigeonTripSyncStatus.noError,
+          status: PigeonTripSyncStatus.success,
           trips: [],
         ),
       );
@@ -75,13 +75,26 @@ void main() {
       //mock
       when(() => iosDriverDataApi.getTrip(any())).thenAnswer(
         (_) async => PigeonGetTripResponse(
-          status: PigeonTripSyncStatus.noError,
+          status: PigeonTripSyncStatus.success,
         ),
       );
 
       //test
       await DrivekitDriverDataPlatform.instance.getTrip('');
       verify(() => iosDriverDataApi.getTrip('')).called(1);
+    });
+
+    test('Get a Route', () async {
+      //mock
+      when(() => iosDriverDataApi.getRoute(any())).thenAnswer(
+        (_) async => PigeonGetRouteResponse(
+          status: PigeonRouteSyncStatus.success,
+        ),
+      );
+
+      //test
+      await DrivekitDriverDataPlatform.instance.getRoute('');
+      verify(() => iosDriverDataApi.getRoute('')).called(1);
     });
 
     test('Delete a trip', () async {

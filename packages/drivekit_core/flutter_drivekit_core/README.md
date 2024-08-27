@@ -16,7 +16,7 @@ Now, you can import `'package:flutter_drivekit_core/flutter_drivekit_core.dart'`
 
 ### Permissions
 
-Our recommandation is to use [permission_handler]([https://github.com/zoontek/react-native-permissions](https://pub.dev/packages/permission_handler)). You can find an implementation example in the [demo application inside this repository]([../demo/src/hooks/useCheckPermissions.js](https://github.com/DriveQuantPublic/flutter-drivekit/blob/main/packages/drivekit_core/flutter_drivekit_core/example/lib/widgets/sliver_permission_request.dart)).
+Our recommandation is to use [permission_handler](https://pub.dev/packages/permission_handler). You can find an implementation example in the [demo application inside this repository](/example/lib/widgets/sliver_permission_request.dart).
 
 #### Bluetooth authorization
 
@@ -351,7 +351,7 @@ await driveKitCore.disableLogging();
 To enable logging, call the following method specifying the path of the log directory.
 
 ```dart
-await DriveKitCore.enableLogging(showInConsole: true, androidLogPath: '/YouDriveKitFolder');
+await DriveKitCore.enableLogging(showInConsole: true, androidLogPath: '/YourDriveKitFolder');
 ```
 
 ### getLogUriFile

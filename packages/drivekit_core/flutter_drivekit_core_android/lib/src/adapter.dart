@@ -80,7 +80,7 @@ extension PigeonDeviceConfigurationEventAdapter
       PigeonDeviceConfigurationEvent.nearbyDevicePermissionValid =>
         DKDeviceConfigurationEvent.nearbyDevicePermissionValid,
       PigeonDeviceConfigurationEvent.nearbyDevicePermissionInvalid =>
-        DKDeviceConfigurationEvent.nearbyDevicePermissionValid,
+        DKDeviceConfigurationEvent.nearbyDevicePermissionInvalid,
       PigeonDeviceConfigurationEvent.autoResetPermissionValid =>
         DKDeviceConfigurationEvent.autoResetPermissionValid,
       PigeonDeviceConfigurationEvent.autoResetPermissionInvalid =>
@@ -88,7 +88,7 @@ extension PigeonDeviceConfigurationEventAdapter
       PigeonDeviceConfigurationEvent.appBatteryOptimisationValid =>
         DKDeviceConfigurationEvent.appBatteryOptimisationValid,
       PigeonDeviceConfigurationEvent.appBatteryOptimisationInvalid =>
-        DKDeviceConfigurationEvent.appBatteryOptimisationValid,
+        DKDeviceConfigurationEvent.appBatteryOptimisationInvalid,
     };
   }
 }

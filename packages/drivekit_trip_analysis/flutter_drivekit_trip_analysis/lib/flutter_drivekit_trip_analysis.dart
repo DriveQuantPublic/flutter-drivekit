@@ -2,6 +2,7 @@ import 'package:flutter_drivekit_trip_analysis_platform_interface/flutter_drivek
 
 export 'package:flutter_drivekit_trip_analysis_platform_interface/flutter_drivekit_trip_analysis_platform_interface.dart'
     show
+        PostGenericResponse,
         TripListener,
         TripResponseError,
         TripResponseInfo,
