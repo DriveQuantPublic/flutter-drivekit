@@ -66,7 +66,7 @@ class PigeonGetTripResponse {
   /// trip synchronization status
   final PigeonTripSyncStatus status;
 
-  /// fetched trips
+  /// fetched trip
   final PigeonTrip? trip;
 }
 
@@ -153,7 +153,7 @@ class PigeonTrip {
   /// The arrival address
   final String? arrivalAddress;
 
-  /// The itinerary ID
+  /// The vehicle ID
   final String? vehicleId;
 
   /// The list of comments

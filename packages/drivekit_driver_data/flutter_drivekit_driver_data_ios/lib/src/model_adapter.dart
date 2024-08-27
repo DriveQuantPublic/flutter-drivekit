@@ -399,7 +399,7 @@ extension PigeonTripAdapter on PigeonTrip {
   }
 }
 
-/// Convert a the metadata map from pigeon to a map of non-nullable strings.
+/// Convert the metadata map from pigeon to a map of non-nullable strings.
 Map<String, String>? convertMetadata(Map<String?, String?>? input) {
   if (input == null) {
     return null;

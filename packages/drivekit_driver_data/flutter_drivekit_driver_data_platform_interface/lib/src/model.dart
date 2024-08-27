@@ -20,7 +20,7 @@ class GetTripResponse {
   /// trip synchronization status
   final TripSyncStatus status;
 
-  /// fetched trips
+  /// fetched trip
   final Trip? trip;
 }
 

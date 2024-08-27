@@ -156,7 +156,7 @@ struct PigeonGetTripsResponse {
 struct PigeonGetTripResponse {
   /// trip synchronization status
   var status: PigeonTripSyncStatus
-  /// fetched trips
+  /// fetched trip
   var trip: PigeonTrip?
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
@@ -195,7 +195,7 @@ struct PigeonTrip {
   var departureAddress: String?
   /// The arrival address
   var arrivalAddress: String?
-  /// The itinerary ID
+  /// The vehicle ID
   var vehicleId: String?
   /// The list of comments
   var comments: [PigeonComment?]
