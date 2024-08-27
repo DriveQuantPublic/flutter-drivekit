@@ -27,8 +27,9 @@ void main() {
   final tripListener = TripListener(
     tripStarted: (startMode) {
       if (Platform.isIOS) {
+        const title = 'Start of trip';
         final message = 'A trip is recording (startMode = ${startMode.name})';
-        _showTripNotification(message);
+        _showTripNotification(title, message);
       }
     },
     tripFinished: (_, response) async {
@@ -45,14 +46,15 @@ void main() {
             message = 'A new trip has been analyzed'
                 ' (has score = ${responseStatus.hasSafetyAndEcoDrivingScore})';
         }
-        await _showTripNotification(message);
+        await _showTripNotification(null, message);
       }
     },
     tripCancelled: (cancelTrip) {
-      _showTripNotification('Trip cancelled: ${cancelTrip.name}');
+      _showTripNotification(null, 'Trip cancelled: ${cancelTrip.name}');
     },
     tripSavedForRepost: () => {
       _showTripNotification(
+        null,
         'The trip could not be analyzed because your phone is not connected'
         ' to the mobile network. It will be analyzed later',
       ),
@@ -64,17 +66,16 @@ void main() {
   runApp(const MyApp());
 }
 
-Future<void> _showTripNotification(String message) async {
+Future<void> _showTripNotification(String? title, String message) async {
   const androidNotificationDetails = AndroidNotificationDetails(
     'trip',
     'Trip',
-    priority: Priority.low,
   );
   const notificationDetails =
       NotificationDetails(android: androidNotificationDetails);
   await flutterLocalNotificationsPlugin.show(
-    123,
-    'Start of trip',
+    12345,
+    title ?? 'Trip Analysis',
     message,
     notificationDetails,
   );
