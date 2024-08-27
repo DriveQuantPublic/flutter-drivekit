@@ -127,7 +127,7 @@ Future<GetRouteResponse?> getRoute(String itinId);
 To get a specific route, you have to call the following method:
 
 ```dart
-final result = await driveKitDriverData.getRoute('TRIP_ID_HERE');
+final result = await DriveKitDriverData.instance.getRoute('TRIP_ID_HERE');
 ```
 
 The itinId parameter is the unique identifier for a trip.

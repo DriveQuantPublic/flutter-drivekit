@@ -499,6 +499,6 @@ object PigeonMapper {
     fun toRouteStatus(routeStatus: RouteStatus): PigeonRouteSyncStatus = when (routeStatus) {
         RouteStatus.NO_ERROR -> PigeonRouteSyncStatus.NO_ERROR
         RouteStatus.FAILED_TO_RETRIEVE_ROUTE -> PigeonRouteSyncStatus.FAILED_TO_RETRIEVE_ROUTE
-        RouteStatus.WRONG_ITINID -> PigeonRouteSyncStatus.FAILED_TO_RETRIEVE_ROUTE
+        RouteStatus.WRONG_ITINID -> PigeonRouteSyncStatus.WRONG_ITINID
     }
 }

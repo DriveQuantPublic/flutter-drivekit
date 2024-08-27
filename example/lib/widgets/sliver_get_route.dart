@@ -14,7 +14,7 @@ class SliverGetRoute extends StatelessWidget {
               await DriveKitDriverData.instance.getRoute(tripId);
           final alertMessage =
               routeSyncResult?.status == RouteSyncStatus.noError
-                  ? 'Route received ${routeSyncResult?.route?.itinId} trips.'
+                  ? 'Route received for itinId: ${routeSyncResult?.route?.itinId}'
                   : 'Route not received';
           if (context.mounted) {
             await showDialog<void>(
