@@ -98,8 +98,6 @@ or
   );
 ```
 
-
-
 | GetTripsResponse | Type             |
 | ---------------- | ---------------- |
 | `status`         | `TripSyncStatus` |
@@ -107,53 +105,46 @@ or
 
 To get driver's trips, you have to call the following method:
 
-
 ```dart
-final tripSyncResult = await driveKitDriverData.getTripsOrderByDateAsc();
+final tripSyncResult = await DriveKitDriverData.instance.getTripsOrderByDateAsc();
 ```
 
 or 
 
 ```dart
-final tripSyncResult = await driveKitDriverData.getTripsOrderByDateDesc();
+final tripSyncResult = await DriveKitDriverData.instance.getTripsOrderByDateDesc();
 ```
 
 ### getTrip
 
+The `itinId` parameter is the unique identifier for a trip.
+
 ```dart
 Future<GetTripResponse?> getTrip(String itinId);
 ```
-
 
 | GetTripResponse | Type             |
 | --------------- | ---------------- |
 | `status`        | `TripSyncStatus` |
 | `trip`          | `Trip?`          |
 
-
 To get a specific trip, you have to call the following method:
 
 ```dart
-final result = await driveKitDriverData.getTrip('TRIP_ID_HERE');
+final result = await DriveKitDriverData.instance.getTrip('TRIP_ID_HERE');
 ```
-
-The itinId parameter is the unique identifier for a trip.
-
-
 
 ### deleteTrip
 
-To delete a trip, you have to call the following method:
+The `itinId` parameter is the unique identifier for a trip.
 
 ```dart
 Future<bool> deleteTrip(String itinId);
 ```
 
-The itinId parameter is the unique identifier for a trip.
-
-
+To delete a trip, you have to call the following method:
 
 ```dart
-driveKitDriverData.deleteTrip('TRIP_ID_HERE');
+final result = await DriveKitDriverData.instance.deleteTrip('TRIP_ID_HERE');
 ```
 
