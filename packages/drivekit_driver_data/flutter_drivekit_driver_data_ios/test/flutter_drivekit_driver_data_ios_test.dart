@@ -32,5 +32,66 @@ void main() {
       final name = await DrivekitDriverDataPlatform.instance.getPlatformName();
       expect(name, 'iOS');
     });
+
+    test('Get Trips Ascending', () async {
+      //mock
+      when(
+        () => iosDriverDataApi.getTripsOrderByDateAsc(transportationModes: []),
+      ).thenAnswer(
+        (_) async => PigeonGetTripsResponse(
+          status: PigeonTripSyncStatus.noError,
+          trips: [],
+        ),
+      );
+
+      //test
+      await DrivekitDriverDataPlatform.instance
+          .getTripsOrderByDateAsc(transportationModes: []);
+      verify(
+        () => iosDriverDataApi.getTripsOrderByDateAsc(transportationModes: []),
+      ).called(1);
+    });
+
+    test('Get Trips Descending', () async {
+      //mock
+      when(
+        () => iosDriverDataApi.getTripsOrderByDateDesc(transportationModes: []),
+      ).thenAnswer(
+        (_) async => PigeonGetTripsResponse(
+          status: PigeonTripSyncStatus.noError,
+          trips: [],
+        ),
+      );
+
+      //test
+      await DrivekitDriverDataPlatform.instance
+          .getTripsOrderByDateDesc(transportationModes: []);
+      verify(
+        () => iosDriverDataApi.getTripsOrderByDateDesc(transportationModes: []),
+      ).called(1);
+    });
+
+    test('Get a Trip', () async {
+      //mock
+      when(() => iosDriverDataApi.getTrip(any())).thenAnswer(
+        (_) async => PigeonGetTripResponse(
+          status: PigeonTripSyncStatus.noError,
+        ),
+      );
+
+      //test
+      await DrivekitDriverDataPlatform.instance.getTrip('');
+      verify(() => iosDriverDataApi.getTrip('')).called(1);
+    });
+
+    test('Delete a trip', () async {
+      //mocks
+      when(() => iosDriverDataApi.deleteTrip(''))
+          .thenAnswer((_) async => false);
+
+      //test
+      final name = await DrivekitDriverDataPlatform.instance.deleteTrip('');
+      expect(name, false);
+    });
   });
 }

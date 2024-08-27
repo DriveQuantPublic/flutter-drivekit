@@ -1,77 +1,29 @@
-// ignore_for_file: one_member_abstracts
-
-import 'package:pigeon/pigeon.dart';
-
-@ConfigurePigeon(
-  PigeonOptions(
-    dartOut: 'lib/src/driver_data_api.g.dart',
-    dartOptions: DartOptions(),
-    kotlinOut:
-        'android/src/main/kotlin/com/drivequant/drivekit/flutter/driverdata/DriverDataApi.kt',
-    kotlinOptions: KotlinOptions(
-      errorClassName: 'FlutterCoreError',
-      package: 'com.drivequant.drivekit.flutter.driverdata',
-    ),
-    dartPackageName: 'pigeon_driver_data_package',
-  ),
-)
-@HostApi()
-abstract class AndroidDriverDataApi {
-  String getPlatformName();
-  @async
-  PigeonGetTripsResponse getTripsOrderByDateAsc({
-    PigeonSynchronizationType synchronizationType =
-        PigeonSynchronizationType.defaultSync,
-    List<PigeonTransportationMode> transportationModes = const [
-      PigeonTransportationMode.unknown,
-      PigeonTransportationMode.car,
-      PigeonTransportationMode.moto,
-      PigeonTransportationMode.truck,
-    ],
-  });
-  @async
-  PigeonGetTripsResponse getTripsOrderByDateDesc({
-    PigeonSynchronizationType synchronizationType =
-        PigeonSynchronizationType.defaultSync,
-    List<PigeonTransportationMode> transportationModes = const [
-      PigeonTransportationMode.unknown,
-      PigeonTransportationMode.car,
-      PigeonTransportationMode.moto,
-      PigeonTransportationMode.truck,
-    ],
-  });
-  @async
-  PigeonGetTripResponse getTrip(String itinId);
-  @async
-  bool deleteTrip(String itinId);
-}
-
 /// the response returned when gettings trips
-class PigeonGetTripsResponse {
-  /// Creates a PigeonGetTripsResponse instance
-  PigeonGetTripsResponse({required this.status, required this.trips});
+class GetTripsResponse {
+  /// Creates a GetTripsResponse instance
+  GetTripsResponse({required this.status, required this.trips});
 
   /// trip synchronization status
-  final PigeonTripSyncStatus status;
+  final TripSyncStatus status;
 
   /// fetched trips
-  final List<PigeonTrip?> trips;
+  final List<Trip> trips;
 }
 
 /// the response returned when gettings one trip
-class PigeonGetTripResponse {
-  /// Creates a PigeonGetTripResponse instance
-  PigeonGetTripResponse({required this.status, required this.trip});
+class GetTripResponse {
+  /// Creates a GetTripResponse instance
+  GetTripResponse({required this.status, required this.trip});
 
   /// trip synchronization status
-  final PigeonTripSyncStatus status;
+  final TripSyncStatus status;
 
   /// fetched trip
-  final PigeonTrip? trip;
+  final Trip? trip;
 }
 
 /// Trip synchronization status enum
-enum PigeonTripSyncStatus {
+enum TripSyncStatus {
   /// Synchronization has been successfully performed
   noError,
 
@@ -91,8 +43,9 @@ enum PigeonTripSyncStatus {
 }
 
 /// Trip class
-class PigeonTrip {
-  PigeonTrip({
+class Trip {
+  /// Creates a Trip instance
+  Trip({
     required this.itinId,
     required this.startDate,
     required this.endDate,
@@ -119,18 +72,12 @@ class PigeonTrip {
     required this.speedingStatistics,
     required this.energyEstimation,
     required this.advancedEnergyEstimation,
-    required this.tripAdvicesData,
-    required this.maneuverData,
-    required this.evaluationData,
     required this.metaData,
     required this.transportationMode,
-    required this.declaredTransportationMode,
     required this.unscored,
     required this.calls,
     required this.speedLimitContexts,
   });
-
-  /// Creates a PigeonTrip instance
 
   /// The itinerary ID
   final String? itinId;
@@ -157,89 +104,79 @@ class PigeonTrip {
   final String? vehicleId;
 
   /// The list of comments
-  final List<PigeonComment?> comments;
+  final List<Comment> comments;
 
-  /// The trip statistics
-  final PigeonTripStatistics? tripStatistics;
+  /// The itinerary statistics
+  final TripStatistics? tripStatistics;
 
   /// The eco driving information
-  final PigeonEcoDriving? ecoDriving;
+  final EcoDriving? ecoDriving;
 
   /// The fuel estimation information
-  final PigeonFuelEstimation? fuelEstimation;
+  final FuelEstimation? fuelEstimation;
 
   /// The safety information
-  final PigeonSafety? safety;
+  final Safety? safety;
 
   /// The advanced eco driving information
-  final PigeonAdvancedEcoDriving? advancedEcoDriving;
+  final AdvancedEcoDriving? advancedEcoDriving;
 
   /// The advanced fuel estimation information
-  final PigeonAdvancedFuelEstimation? advancedFuelEstimation;
+  final AdvancedFuelEstimation? advancedFuelEstimation;
 
   /// The advanced safety information
-  final PigeonAdvancedSafety? advancedSafety;
+  final AdvancedSafety? advancedSafety;
 
   /// The pollutants information
-  final PigeonPollutants? pollutants;
+  final Pollutants? pollutants;
 
   /// The tire wear information
-  final PigeonTireWear? tireWear;
+  final TireWear? tireWear;
 
   /// The brake wear information
-  final PigeonBrakeWear? brakeWear;
+  final BrakeWear? brakeWear;
 
   /// The driver distraction information
-  final PigeonDriverDistraction? driverDistraction;
+  final DriverDistraction? driverDistraction;
 
   /// The itinerary data
-  final PigeonItineraryData? itineraryData;
+  final ItineraryData? itineraryData;
 
   /// The logbook information
-  final PigeonLogbook? logbook;
+  final Logbook? logbook;
 
   /// The list of safety events
-  final List<PigeonSafetyEvent?>? safetyEvents;
+  final List<SafetyEvent>? safetyEvents;
 
   /// The speeding statistics
-  final PigeonSpeedingStatistics? speedingStatistics;
+  final SpeedingStatistics? speedingStatistics;
 
   /// The energy estimation information
-  final PigeonEnergyEstimation? energyEstimation;
+  final EnergyEstimation? energyEstimation;
 
   /// The list of advanced energy estimations
-  final List<PigeonAdvancedEnergyEstimation?>? advancedEnergyEstimation;
-
-  /// Trip advices
-  final List<PigeonTripAdviceData?>? tripAdvicesData;
-
-  /// Trip maneuver data
-  final PigeonManeuverData? maneuverData;
-
-  /// Trip evaluation data
-  final PigeonEvaluationData? evaluationData;
+  final List<AdvancedEnergyEstimation>? advancedEnergyEstimation;
 
   /// The metadata
-  final Map<String?, String?>? metaData;
+  final Map<String, String>? metaData;
 
   /// The transportation mode
   final int transportationMode;
 
-  /// The declared transportation mode
-  final PigeonDeclaredTransportationMode? declaredTransportationMode;
-
   /// The trip is scored or not
   final bool unscored;
 
-  /// The trip calls
-  final List<PigeonCall?>? calls;
+  /// The list of calls
+  final List<Call>? calls;
 
-  /// The speed limit contexts
-  final List<PigeonSpeedLimitContext?>? speedLimitContexts;
+  /// The list of speed limit contexts
+  final List<SpeedLimitContext>? speedLimitContexts;
 }
 
-class PigeonTripAdviceData {
-  PigeonTripAdviceData({
+/// TripAdviceData class
+class TripAdviceData {
+  /// Creates a TripAdviceData instance
+  TripAdviceData({
     required this.id,
     required this.title,
     required this.message,
@@ -248,30 +185,48 @@ class PigeonTripAdviceData {
     required this.adviceEvaluation,
   });
 
+  /// The advice identifier
   final String? id;
+
+  /// The advice title
   final String? title;
+
+  /// The advice message
   final String? message;
+
+  /// The advice message identifier
   final String? messageId;
+
+  /// The advice theme
   final String? theme;
-  final PigeonTripAdviceEvaluation? adviceEvaluation;
+
+  /// The advice evaluation
+  final TripAdviceEvaluation? adviceEvaluation;
 }
 
-class PigeonTripAdviceEvaluation {
-  PigeonTripAdviceEvaluation({
+/// TripAdviceEvaluation class
+class TripAdviceEvaluation {
+  /// Creates a TripAdviceEvaluation instance
+  TripAdviceEvaluation({
     required this.evaluation,
     required this.feedback,
     required this.comment,
   });
 
+  /// The advice evaluation
   final int evaluation;
 
+  /// The advice evaluation feedback
   final int feedback;
 
+  /// The advice evaluation comment
   final String? comment;
 }
 
-class PigeonManeuverData {
-  PigeonManeuverData({
+/// ManeuverData class
+class ManeuverData {
+  /// Creates a ManeuverData instance
+  ManeuverData({
     required this.nbStraightReverseDrivings,
     required this.nbCurveReverseDrivings,
     required this.nbTurns,
@@ -283,96 +238,147 @@ class PigeonManeuverData {
     required this.nbBayParkings,
   });
 
+  /// The number of straight reverse drivings
   final int nbStraightReverseDrivings;
+
+  /// The number of curve reverse drivings
   final int nbCurveReverseDrivings;
+
+  /// The number of turns
   final int nbTurns;
+
+  /// The number of hill starts
   final int nbHillStarts;
+
+  /// The number of round abouts
   final int nbRoundAbouts;
+
+  /// The number of emergency stops
   final int nbEmergencyStops;
+
+  /// The number of angled parkings
   final int nbAngledParkings;
+
+  /// The number of parallel parkings
   final int nbParallelParkings;
+
+  /// The number of bay parkings
   final int nbBayParkings;
 }
 
-class PigeonEvaluationData {
-  PigeonEvaluationData({required this.comment, required this.evaluation});
+/// EvaluationData class
+class EvaluationData {
+  /// Creates a EvaluationData instance
+  EvaluationData({required this.comment, required this.evaluation});
 
+  /// The evaluation comment
   final String? comment;
+
+  /// The evaluation
   final int evaluation;
 }
 
-class PigeonDeclaredTransportationMode {
-  PigeonDeclaredTransportationMode({
+/// DeclaredTransportationMode class
+class DeclaredTransportationMode {
+  /// Creates an DeclaredTransportationMode instance
+  DeclaredTransportationMode({
     required this.transportationMode,
     required this.comment,
     required this.passenger,
   });
 
+  /// The declared transportation mode
   final int transportationMode;
+
+  /// The declared transportation mode comment
   final String? comment;
+
+  /// The declared seat: passenger or driver
   final bool? passenger;
 }
 
 /// AdvancedEcoDriving class
-class PigeonAdvancedEcoDriving {
-  const PigeonAdvancedEcoDriving({
+class AdvancedEcoDriving {
+  /// Creates an AdvancedEcoDriving instance
+  const AdvancedEcoDriving({
     required this.ecoDrivingContext,
   });
 
-  final List<PigeonEcoDrivingContext?> ecoDrivingContext;
+  /// The list of eco driving contexts
+  final List<EcoDrivingContext> ecoDrivingContext;
 }
 
-class PigeonAdvancedFuelEstimation {
-  const PigeonAdvancedFuelEstimation({
+/// AdvancedFuelEstimation class
+class AdvancedFuelEstimation {
+  /// Creates an AdvancedFuelEstimation instance
+  const AdvancedFuelEstimation({
     required this.fuelEstimationContext,
   });
 
-  final List<PigeonFuelEstimationContext?> fuelEstimationContext;
+  /// The list of fuel estimation contexts
+  final List<FuelEstimationContext> fuelEstimationContext;
 }
 
-class PigeonAdvancedSafety {
-  const PigeonAdvancedSafety({
+/// AdvancedSafety class
+class AdvancedSafety {
+  /// Creates an AdvancedSafety instance
+  const AdvancedSafety({
     required this.safetyContext,
   });
 
-  final List<PigeonSafetyContext?> safetyContext;
+  /// The list of safety contexts
+  final List<SafetyContext> safetyContext;
 }
 
-class PigeonBeaconData {
-  const PigeonBeaconData({
+/// BeaconData class
+class BeaconData {
+  /// Creates a BeaconData instance
+  const BeaconData({
     required this.proximityUuid,
     required this.major,
     required this.minor,
   });
 
+  /// The proximity UUID
   final String proximityUuid;
 
+  /// The major value
   final int major;
 
+  /// The minor value
   final int minor;
 }
 
-class PigeonBluetoothData {
-  const PigeonBluetoothData({
+/// BluetoothData class
+class BluetoothData {
+  /// Creates a BluetoothData instance
+  const BluetoothData({
     required this.name,
     required this.macAddress,
   });
 
+  /// The name of the Bluetooth device
   final String name;
 
+  /// The MAC address of the Bluetooth device
   final String macAddress;
 }
 
-class PigeonBluetoothDevicesList {
-  const PigeonBluetoothDevicesList({
+/// BluetoothDevicesList class
+class BluetoothDevicesList {
+  /// Creates a BluetoothDevicesList instance
+  const BluetoothDevicesList({
     required this.bluetoothDevices,
   });
 
-  final List<PigeonBluetoothData?> bluetoothDevices;
+  /// The list of Bluetooth devices
+  final List<BluetoothData> bluetoothDevices;
 }
 
-class PigeonBrakeWear {
-  const PigeonBrakeWear({
+/// BrakeWear class
+class BrakeWear {
+  /// Creates a BrakeWear instance
+  const BrakeWear({
     required this.frontBrakeAutonomy,
     required this.frontBrakeDistance,
     required this.frontBrakePadWear,
@@ -385,29 +391,41 @@ class PigeonBrakeWear {
     required this.rearBrakeWearRate,
   });
 
+  /// The front brake autonomy
   final int frontBrakeAutonomy;
 
+  /// The front brake distance
   final int frontBrakeDistance;
 
+  /// The front brake pad wear
   final int frontBrakePadWear;
 
+  /// The front brake total wear
   final int frontBrakeTotalWear;
 
+  /// The front brake wear rate
   final int frontBrakeWearRate;
 
+  /// The rear brake autonomy
   final int rearBrakeAutonomy;
 
+  /// The rear brake distance
   final int rearBrakeDistance;
 
+  /// The rear brake pad wear
   final int rearBrakePadWear;
 
+  /// The rear brake total wear
   final int rearBrakeTotalWear;
 
+  /// The rear brake wear rate
   final int rearBrakeWearRate;
 }
 
-class PigeonCall {
-  const PigeonCall({
+/// Call class
+class Call {
+  /// Creates a Call instance
+  const Call({
     required this.id,
     required this.start,
     required this.end,
@@ -424,37 +442,53 @@ class PigeonCall {
     this.audioName,
   });
 
+  /// The ID
   final int id;
 
+  /// The start time
   final double start;
 
+  /// The end time
   final double end;
 
+  /// The duration in seconds
   final int durationS;
 
+  /// The duration
   final int duration;
 
+  /// The distance in meters
   final int distanceM;
 
+  /// The distance
   final int distance;
 
+  /// The status
   final String status;
 
+  /// The audio system
   final String audioSystem;
 
+  /// The audio input
   final String? audioInput;
 
+  /// The audio output
   final String? audioOutput;
 
+  /// The audio name
   final String? audioName;
 
+  /// The Bluetooth class
   final int bluetoothClass;
 
+  /// The forbidden status
   final bool forbidden;
 }
 
-class PigeonCallEvent {
-  const PigeonCallEvent({
+/// CallEvent class
+class CallEvent {
+  /// Creates a CallEvent instance
+  const CallEvent({
     required this.time,
     required this.latitude,
     required this.longitude,
@@ -470,46 +504,65 @@ class PigeonCallEvent {
     required this.forbidden,
   });
 
+  /// The time
   final double time;
 
+  /// The latitude
   final double latitude;
 
+  /// The longitude
   final double longitude;
 
+  /// The velocity
   final double velocity;
 
+  /// The heading
   final double heading;
 
+  /// The elevation
   final double elevation;
 
+  /// The distance
   final double distance;
 
+  /// The type
   final int type;
 
+  /// The duration
   final int duration;
 
+  /// The audio system
   final String audioSystem;
 
+  /// The call type
   final String callType;
 
+  /// The index
   final int index;
 
+  /// The forbidden status
   final bool forbidden;
 }
 
-class PigeonComment {
-  const PigeonComment({
+/// Comment class
+class Comment {
+  /// Creates a Comment instance
+  const Comment({
     required this.errorCode,
     required this.comment,
   });
 
+  /// The error code
   final int errorCode;
 
+  /// The comment
   final String comment;
 }
 
-class PigeonAdvancedEnergyEstimation {
-  const PigeonAdvancedEnergyEstimation({
+/// AdvancedEnergyEstimation class
+class AdvancedEnergyEstimation {
+  /// Creates an AdvancedEnergyEstimation instance
+  const AdvancedEnergyEstimation({
     required this.energy,
     required this.energyConsumption,
     required this.energyOpti,
@@ -519,40 +572,90 @@ class PigeonAdvancedEnergyEstimation {
     required this.contextId,
   });
 
+  /// The energy
   final double energy;
 
+  /// The energy consumption
   final double energyConsumption;
 
+  /// The optimized energy
   final double energyOpti;
 
+  /// The optimized energy consumption
   final double energyOptiConsumption;
 
+  /// The duration
   final double duration;
 
+  /// The distance
   final double distance;
 
+  /// The context ID
   final int contextId;
 }
 
-class PigeonEnergyEstimation {
-  const PigeonEnergyEstimation({
+/// CrashInfo class
+class CrashInfo {
+  /// Creates a CrashInfo instance
+  const CrashInfo({
+    required this.crashId,
+    required this.date,
+    required this.probability,
+    required this.latitude,
+    required this.longitude,
+    required this.velocity,
+    required this.crashStatus,
+  });
+
+  /// The crash ID
+  final String crashId;
+
+  /// The date
+  final String date;
+
+  /// The probability
+  final int probability;
+
+  /// The latitude
+  final double latitude;
+
+  /// The longitude
+  final double longitude;
+
+  /// The velocity
+  final double velocity;
+
+  /// The crash status
+  final CrashStatus crashStatus;
+}
+
+/// EnergyEstimation class
+class EnergyEstimation {
+  /// Creates an EnergyEstimation instance
+  const EnergyEstimation({
     required this.energy,
     required this.energyConsumption,
     required this.energyOpti,
     required this.energyOptiConsumption,
   });
 
+  /// The energy
   final double energy;
 
+  /// The energy consumption
   final double energyConsumption;
 
+  /// The optimized energy
   final double energyOpti;
 
+  /// The optimized energy consumption
   final double energyOptiConsumption;
 }
 
-class PigeonTripStatistics {
-  const PigeonTripStatistics({
+/// TripStatistics class
+class TripStatistics {
+  /// Creates an TripStatistics instance
+  const TripStatistics({
     required this.tripDuration,
     required this.drivingDuration,
     required this.idlingDuration,
@@ -566,31 +669,44 @@ class PigeonTripStatistics {
     required this.weekDay,
   });
 
+  /// The trip duration
   final double tripDuration;
 
+  /// The driving duration
   final double drivingDuration;
 
+  /// The idling duration
   final double idlingDuration;
 
+  /// The driving percentage
   final double drivingPercentage;
 
+  /// The idling percentage
   final double idlingPercentage;
 
+  /// The distance
   final double distance;
 
+  /// The mean speed
   final double speedMean;
 
+  /// The number of subdispositions
   final int subdispNb;
 
+  /// The meteo
   final int meteo;
 
+  /// The day status
   final bool day;
 
+  /// The week day status
   final bool weekDay;
 }
 
-class PigeonEcoDriving {
-  const PigeonEcoDriving({
+/// EcoDriving class
+class EcoDriving {
+  /// Creates an EcoDriving instance
+  const EcoDriving({
     required this.score,
     required this.scoreAccel,
     required this.scoreMain,
@@ -601,25 +717,35 @@ class PigeonEcoDriving {
     required this.energyClass,
   });
 
+  /// The score
   final double score;
 
+  /// The acceleration score
   final double scoreAccel;
 
+  /// The main score
   final double scoreMain;
 
+  /// The deceleration score
   final double scoreDecel;
 
+  /// The standard deviation of acceleration
   final double stdDevAccel;
 
+  /// The standard deviation of main driving
   final double stdDevMain;
 
+  /// The standard deviation of deceleration
   final double stdDevDecel;
 
+  /// The energy class
   final int energyClass;
 }
 
-class PigeonFuelEstimation {
-  const PigeonFuelEstimation({
+/// FuelEstimation class
+class FuelEstimation {
+  /// Creates a FuelEstimation instance
+  const FuelEstimation({
     required this.co2Mass,
     required this.co2Emission,
     required this.fuelVolume,
@@ -633,31 +759,44 @@ class PigeonFuelEstimation {
     required this.coldFuelVolume,
   });
 
+  /// The CO2 mass
   final double co2Mass;
 
+  /// The CO2 emission
   final double co2Emission;
 
+  /// The fuel volume
   final double fuelVolume;
 
+  /// The fuel consumption
   final double fuelConsumption;
 
+  /// The idle fuel volume
   final double idleFuelVolume;
 
+  /// The idle fuel percentage
   final double idleFuelPercentage;
 
+  /// The idle fuel consumption
   final double idleFuelConsumption;
 
+  /// The idle CO2 emission
   final double idleCo2Emission;
 
+  /// The idle CO2 mass
   final double idleCo2Mass;
 
+  /// The engine temperature status
   final bool engineTempStatus;
 
+  /// The cold fuel volume
   final double coldFuelVolume;
 }
 
-class PigeonSafety {
-  const PigeonSafety({
+/// Safety class
+class Safety {
+  /// Creates a Safety instance
+  const Safety({
     required this.nbAdh,
     required this.nbAccel,
     required this.nbDecel,
@@ -667,40 +806,55 @@ class PigeonSafety {
     required this.safetyScore,
   });
 
+  /// The number of adhesion events
   final int nbAdh;
 
+  /// The number of acceleration events
   final int nbAccel;
 
+  /// The number of deceleration events
   final int nbDecel;
 
+  /// The number of critical adhesion events
   final int nbAdhCrit;
 
+  /// The number of critical acceleration events
   final int nbAccelCrit;
 
+  /// The number of critical deceleration events
   final int nbDecelCrit;
 
+  /// The safety score
   final double safetyScore;
 }
 
-class PigeonPollutants {
-  const PigeonPollutants({
+/// Pollutants class
+class Pollutants {
+  /// Creates a Pollutants instance
+  const Pollutants({
     required this.co,
     required this.hc,
     required this.nox,
     required this.soot,
   });
 
+  /// The CO value
   final double co;
 
+  /// The HC value
   final double hc;
 
+  /// The NOx value
   final double nox;
 
+  /// The soot value
   final double soot;
 }
 
-class PigeonTireWear {
-  const PigeonTireWear({
+/// TireWear class
+class TireWear {
+  /// Creates a TireWear instance
+  const TireWear({
     required this.frontTireAutonomy,
     required this.frontTireDistance,
     required this.frontTireTotalWear,
@@ -713,29 +867,41 @@ class PigeonTireWear {
     required this.rearTireWearRate,
   });
 
+  /// The front tire autonomy
   final int frontTireAutonomy;
 
+  /// The front tire distance
   final int frontTireDistance;
 
+  /// The front tire total wear
   final int frontTireTotalWear;
 
+  /// The front tire wear
   final int frontTireWear;
 
+  /// The front tire wear rate
   final int frontTireWearRate;
 
+  /// The rear tire autonomy
   final int rearTireAutonomy;
 
+  /// The rear tire distance
   final int rearTireDistance;
 
+  /// The rear tire total wear
   final int rearTireTotalWear;
 
+  /// The rear tire wear
   final int rearTireWear;
 
+  /// The rear tire wear rate
   final int rearTireWearRate;
 }
 
-class PigeonDriverDistraction {
-  const PigeonDriverDistraction({
+/// DriverDistraction class
+class DriverDistraction {
+  /// Creates a DriverDistraction instance
+  const DriverDistraction({
     required this.nbUnlock,
     required this.durationUnlock,
     required this.durationPercentUnlock,
@@ -746,25 +912,35 @@ class PigeonDriverDistraction {
     this.scoreCall,
   });
 
+  /// The number of unlocks
   final int nbUnlock;
 
+  /// The duration of unlocks
   final double durationUnlock;
 
+  /// The percentage duration of unlocks
   final double durationPercentUnlock;
 
+  /// The distance of unlocks
   final double distanceUnlock;
 
+  /// The percentage distance of unlocks
   final double distancePercentUnlock;
 
+  /// The score
   final double score;
 
+  /// The unlock score
   final double? scoreUnlock;
 
+  /// The call score
   final double? scoreCall;
 }
 
-class PigeonItineraryData {
-  const PigeonItineraryData({
+/// ItineraryData class
+class ItineraryData {
+  /// Creates an ItineraryData instance
+  const ItineraryData({
     this.startDate,
     this.endDate,
     this.departureCity,
@@ -773,32 +949,44 @@ class PigeonItineraryData {
     this.arrivalAddress,
   });
 
+  /// The start date
   final String? startDate;
 
+  /// The end date
   final String? endDate;
 
+  /// The departure city
   final String? departureCity;
 
+  /// The arrival city
   final String? arrivalCity;
 
+  /// The departure address
   final String? departureAddress;
 
+  /// The arrival address
   final String? arrivalAddress;
 }
 
-class PigeonLogbook {
-  const PigeonLogbook({
+/// Logbook class
+class Logbook {
+  /// Creates a Logbook instance
+  const Logbook({
     required this.status,
     this.updateDate,
   });
 
+  /// The status
   final int status;
 
+  /// The update date
   final String? updateDate;
 }
 
-class PigeonSafetyEvent {
-  const PigeonSafetyEvent({
+/// SafetyEvent class
+class SafetyEvent {
+  /// Creates a SafetyEvent instance
+  const SafetyEvent({
     required this.time,
     required this.longitude,
     required this.latitude,
@@ -811,29 +999,68 @@ class PigeonSafetyEvent {
     required this.value,
   });
 
+  /// The time
   final double time;
 
+  /// The longitude
   final double longitude;
 
+  /// The latitude
   final double latitude;
 
+  /// The velocity
   final double velocity;
 
+  /// The heading
   final double heading;
 
+  /// The elevation
   final double elevation;
 
+  /// The distance
   final double distance;
 
+  /// The type
   final int type;
 
+  /// The level
   final int level;
 
+  /// The value
   final double value;
 }
 
-class PigeonSpeedingStatistics {
-  const PigeonSpeedingStatistics({
+/// SpeedingEvents class
+class SpeedingEvents {
+  /// Creates a SpeedingEvents instance
+  const SpeedingEvents({
+    required this.time,
+    required this.longitude,
+    required this.latitude,
+    required this.type,
+    required this.index,
+  });
+
+  /// The time
+  final double time;
+
+  /// The longitude
+  final double longitude;
+
+  /// The latitude
+  final double latitude;
+
+  /// The type
+  final double type;
+
+  /// The index
+  final int index;
+}
+
+/// SpeedingStatistics class
+class SpeedingStatistics {
+  /// Creates a SpeedingStatistics instance
+  const SpeedingStatistics({
     required this.distance,
     required this.duration,
     required this.speedingDistance,
@@ -841,19 +1068,26 @@ class PigeonSpeedingStatistics {
     required this.score,
   });
 
+  /// The distance
   final int distance;
 
+  /// The duration
   final int duration;
 
+  /// The speeding distance
   final int speedingDistance;
 
+  /// The speeding duration
   final int speedingDuration;
 
+  /// The score
   final double score;
 }
 
-class PigeonRoute {
-  const PigeonRoute({
+/// Route class
+class Route {
+  /// Creates a Route instance
+  const Route({
     required this.gpsDate,
     required this.gpsVelocity,
     required this.longitude,
@@ -869,35 +1103,50 @@ class PigeonRoute {
     required this.gyroscopeNormVar,
   });
 
-  final List<double?> gpsDate;
+  /// The list of GPS dates
+  final List<double> gpsDate;
 
-  final List<double?> gpsVelocity;
+  /// The list of GPS velocities
+  final List<double> gpsVelocity;
 
-  final List<double?> longitude;
+  /// The list of longitudes
+  final List<double> longitude;
 
-  final List<double?> latitude;
+  /// The list of latitudes
+  final List<double> latitude;
 
-  final List<double?> gpsElevation;
+  /// The list of GPS elevations
+  final List<double> gpsElevation;
 
-  final List<double?> gpsAccuracy;
+  /// The list of GPS accuracies
+  final List<double> gpsAccuracy;
 
-  final List<double?> gpsHeading;
+  /// The list of GPS headings
+  final List<double> gpsHeading;
 
-  final List<double?> screenLocked;
+  /// The list of screen locked statuses
+  final List<double> screenLocked;
 
-  final List<double?> activityValue;
+  /// The list of activity values
+  final List<double> activityValue;
 
-  final List<int?> roll;
+  /// The list of roll values
+  final List<int> roll;
 
-  final List<int?> pitch;
+  /// The list of pitch values
+  final List<int> pitch;
 
-  final List<int?> yaw;
+  /// The list of yaw values
+  final List<int> yaw;
 
-  final List<int?> gyroscopeNormVar;
+  /// The list of gyroscope norm variances
+  final List<int> gyroscopeNormVar;
 }
 
-class PigeonEcoDrivingContext {
-  const PigeonEcoDrivingContext({
+/// EcoDrivingContext class
+class EcoDrivingContext {
+  /// Creates an EcoDrivingContext instance
+  const EcoDrivingContext({
     required this.contextId,
     required this.distance,
     required this.duration,
@@ -907,23 +1156,32 @@ class PigeonEcoDrivingContext {
     required this.scoreDecel,
   });
 
+  /// The context ID
   final int contextId;
 
+  /// The distance
   final double distance;
 
+  /// The duration
   final double duration;
 
+  /// The efficiency score
   final double efficiencyScore;
 
+  /// The acceleration score
   final double scoreAccel;
 
+  /// The main score
   final double scoreMain;
 
+  /// The deceleration score
   final double scoreDecel;
 }
 
-class PigeonFuelEstimationContext {
-  const PigeonFuelEstimationContext({
+/// FuelEstimationContext class
+class FuelEstimationContext {
+  /// Creates a FuelEstimationContext instance
+  const FuelEstimationContext({
     required this.contextId,
     required this.distance,
     required this.duration,
@@ -933,23 +1191,32 @@ class PigeonFuelEstimationContext {
     required this.fuelConsumption,
   });
 
+  /// The context ID
   final int contextId;
 
+  /// The distance
   final double distance;
 
+  /// The duration
   final double duration;
 
+  /// The CO2 mass
   final double co2Mass;
 
+  /// The CO2 emission
   final double co2Emission;
 
+  /// The fuel volume
   final double fuelVolume;
 
+  /// The fuel consumption
   final double fuelConsumption;
 }
 
-class PigeonSafetyContext {
-  const PigeonSafetyContext({
+/// SafetyContext class
+class SafetyContext {
+  /// Creates a SafetyContext instance
+  const SafetyContext({
     required this.contextId,
     required this.distance,
     required this.duration,
@@ -962,82 +1229,50 @@ class PigeonSafetyContext {
     required this.safetyScore,
   });
 
+  /// The context ID
   final int contextId;
 
+  /// The distance
   final double distance;
 
+  /// The duration
   final double duration;
 
+  /// The number of adhesion events
   final int nbAdh;
 
+  /// The number of acceleration events
   final int nbAccel;
 
+  /// The number of deceleration events
   final int nbDecel;
 
+  /// The number of critical adhesion events
   final int nbAdhCrit;
 
+  /// The number of critical acceleration events
   final int nbAccelCrit;
 
+  /// The number of critical deceleration events
   final int nbDecelCrit;
 
+  /// The safety score
   final double safetyScore;
 }
 
-enum PigeonCrashStatus {
+/// CrashStatus enum
+enum CrashStatus {
+  /// The crash is unconfirmed
   unconfirmed,
 
+  /// The crash is confirmed
   confirmed,
 }
 
-class PigeonPigeonCall {
-  const PigeonPigeonCall({
-    required this.id,
-    required this.start,
-    required this.end,
-    required this.durationS,
-    required this.duration,
-    required this.distanceM,
-    required this.distance,
-    required this.status,
-    required this.audioSystem,
-    required this.bluetoothClass,
-    required this.forbidden,
-    this.audioInput,
-    this.audioOutput,
-    this.audioName,
-  });
-
-  final int id;
-
-  final double start;
-
-  final double end;
-
-  final int durationS;
-
-  final int duration;
-
-  final int distanceM;
-
-  final int distance;
-
-  final String status;
-
-  final String audioSystem;
-
-  final String? audioInput;
-
-  final String? audioOutput;
-
-  final String? audioName;
-
-  final int bluetoothClass;
-
-  final bool forbidden;
-}
-
-class PigeonSpeedLimitContext {
-  const PigeonSpeedLimitContext({
+/// SpeedLimitContext class
+class SpeedLimitContext {
+  /// Creates a SpeedLimitContext instance
+  const SpeedLimitContext({
     required this.speedLimit,
     required this.distance,
     required this.duration,
@@ -1046,21 +1281,27 @@ class PigeonSpeedLimitContext {
     required this.score,
   });
 
+  /// The speed limit
   final int speedLimit;
 
+  /// The distance
   final int distance;
 
+  /// The duration
   final int duration;
 
+  /// The speeding distance
   final int speedingDistance;
 
+  /// The speeding duration
   final int speedingDuration;
 
+  /// The score
   final double score;
 }
 
 /// Trip Synchronization Type
-enum PigeonSynchronizationType {
+enum SynchronizationType {
   /// synchronize by calling the DriveQuant servers
   defaultSync,
 
@@ -1069,7 +1310,7 @@ enum PigeonSynchronizationType {
 }
 
 /// Trip Transportation mode
-enum PigeonTransportationMode {
+enum TransportationMode {
   /// Unknown
   unknown,
 

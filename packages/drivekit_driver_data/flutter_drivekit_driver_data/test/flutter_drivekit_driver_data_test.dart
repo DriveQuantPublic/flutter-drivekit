@@ -32,5 +32,69 @@ void main() {
         expect(actualPlatformName, equals(platformName));
       });
     });
+
+    group('Get Trips', () {
+      test('Get Trips Ascending', () async {
+        when(
+          () => drivekitDriverDataPlatform
+              .getTripsOrderByDateAsc(transportationModes: []),
+        ).thenAnswer(
+          (_) async =>
+              GetTripsResponse(status: TripSyncStatus.noError, trips: []),
+        );
+
+        await driveKitDriverData
+            .getTripsOrderByDateAsc(transportationModes: []);
+        verify(
+          () => driveKitDriverData
+              .getTripsOrderByDateAsc(transportationModes: []),
+        ).called(1);
+      });
+
+      test('Get Trips Descending', () async {
+        when(
+          () => drivekitDriverDataPlatform
+              .getTripsOrderByDateDesc(transportationModes: []),
+        ).thenAnswer(
+          (_) async =>
+              GetTripsResponse(status: TripSyncStatus.noError, trips: []),
+        );
+
+        await driveKitDriverData
+            .getTripsOrderByDateDesc(transportationModes: []);
+        verify(
+          () => driveKitDriverData
+              .getTripsOrderByDateDesc(transportationModes: []),
+        ).called(1);
+      });
+    });
+
+    group('getTrip', () {
+      test('Get a trip', () async {
+        when(
+          () => drivekitDriverDataPlatform.getTrip(any()),
+        ).thenAnswer(
+          (_) async => GetTripResponse(
+            trip: null,
+            status: TripSyncStatus.noError,
+          ),
+        );
+
+        await driveKitDriverData.getTrip('');
+        verify(() => driveKitDriverData.getTrip('')).called(1);
+      });
+    });
+
+    group('deleteTrip', () {
+      test('Delete a trip', () async {
+        const result = false;
+        when(
+          () => drivekitDriverDataPlatform.deleteTrip(any()),
+        ).thenAnswer((_) async => result);
+
+        final actualDeletionResult = await driveKitDriverData.deleteTrip('');
+        expect(actualDeletionResult, equals(result));
+      });
+    });
   });
 }

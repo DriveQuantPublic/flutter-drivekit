@@ -34,5 +34,72 @@ void main() {
       final name = await DrivekitDriverDataPlatform.instance.getPlatformName();
       expect(name, 'Android');
     });
+
+    test('Get Trips Ascending', () async {
+      //mock
+      when(
+        () => androidDriverDataApi
+            .getTripsOrderByDateAsc(transportationModes: []),
+      ).thenAnswer(
+        (_) async => PigeonGetTripsResponse(
+          status: PigeonTripSyncStatus.noError,
+          trips: [],
+        ),
+      );
+
+      //test
+      await DrivekitDriverDataPlatform.instance
+          .getTripsOrderByDateAsc(transportationModes: []);
+      verify(
+        () => androidDriverDataApi
+            .getTripsOrderByDateAsc(transportationModes: []),
+      ).called(1);
+    });
+
+    test('Get Trips Descending', () async {
+      //mock
+      when(
+        () => androidDriverDataApi
+            .getTripsOrderByDateDesc(transportationModes: []),
+      ).thenAnswer(
+        (_) async => PigeonGetTripsResponse(
+          status: PigeonTripSyncStatus.noError,
+          trips: [],
+        ),
+      );
+
+      //test
+      await DrivekitDriverDataPlatform.instance
+          .getTripsOrderByDateDesc(transportationModes: []);
+      verify(
+        () => androidDriverDataApi
+            .getTripsOrderByDateDesc(transportationModes: []),
+      ).called(1);
+    });
+
+    test('Get a Trip', () async {
+      //mock
+      when(() => androidDriverDataApi.getTrip(any())).thenAnswer(
+        (_) async => PigeonGetTripResponse(
+          status: PigeonTripSyncStatus.noError,
+        ),
+      );
+
+      //test
+      await DrivekitDriverDataPlatform.instance.getTrip('');
+      verify(() => androidDriverDataApi.getTrip('')).called(1);
+    });
+
+    test('Delete a trip', () async {
+      //mock
+      when(() => androidDriverDataApi.deleteTrip('')).thenAnswer(
+        (_) async => false,
+      );
+
+      //test
+      final deletionResult =
+          await DrivekitDriverDataPlatform.instance.deleteTrip('');
+      expect(deletionResult, false);
+    });
   });
 }

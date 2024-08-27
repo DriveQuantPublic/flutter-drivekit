@@ -10,6 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_drivekit_core: ^0.0.4
+  flutter_drivekit_driver_data: ^0.0.4
   flutter_drivekit_trip_analysis: ^0.0.4
   flutter_drivekit_trip_simulator: ^0.0.4
   gap: ^3.0.1

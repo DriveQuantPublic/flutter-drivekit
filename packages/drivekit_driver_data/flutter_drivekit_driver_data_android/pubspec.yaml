@@ -19,6 +19,7 @@ flutter:
         dartPluginClass: DrivekitDriverDataAndroid
 
 dependencies:
+  collection: ^1.18.0
   flutter:
     sdk: flutter
   flutter_drivekit_driver_data_platform_interface: ^0.0.4
