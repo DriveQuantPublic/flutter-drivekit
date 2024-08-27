@@ -167,7 +167,7 @@ data class PigeonGetTripsResponse (
 data class PigeonGetTripResponse (
   /** trip synchronization status */
   val status: PigeonTripSyncStatus,
-  /** fetched trips */
+  /** fetched trip */
   val trip: PigeonTrip? = null
 
 ) {

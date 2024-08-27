@@ -130,7 +130,7 @@ class PigeonGetTripResponse {
   /// trip synchronization status
   PigeonTripSyncStatus status;
 
-  /// fetched trips
+  /// fetched trip
   PigeonTrip? trip;
 
   Object encode() {

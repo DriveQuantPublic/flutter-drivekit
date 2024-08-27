@@ -66,7 +66,7 @@ class PigeonGetTripResponse {
   /// trip synchronization status
   final PigeonTripSyncStatus status;
 
-  /// fetched trips
+  /// fetched trip
   final PigeonTrip? trip;
 }
 
