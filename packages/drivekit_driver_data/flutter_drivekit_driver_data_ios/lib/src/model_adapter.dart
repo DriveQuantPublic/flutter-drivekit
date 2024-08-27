@@ -1,5 +1,4 @@
 import 'package:collection/collection.dart';
-import 'package:flutter_drivekit_core_platform_interface/flutter_drivekit_core_platform_interface.dart';
 import 'package:flutter_drivekit_driver_data_ios/src/driver_data_api.g.dart';
 import 'package:flutter_drivekit_driver_data_platform_interface/flutter_drivekit_driver_data_platform_interface.dart';
 
