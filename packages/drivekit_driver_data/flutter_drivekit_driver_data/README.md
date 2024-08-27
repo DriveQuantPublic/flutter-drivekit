@@ -1,4 +1,4 @@
-# DriveKit driver_data plugin
+# DriveKit DriverData plugin
 
 Flutter interface for the DriveKit Driver Data
 
@@ -22,11 +22,41 @@ Then, you need to install the flutter_drivekit_core plugin and follow the instru
 Now, you can configure the Drivekit Core with the options you want, and start using the Drivekit Driver Data plugin. 
 
 
-
 Please refer to the [DriveKit Driver Data documentation](https://docs.drivequant.com/driver-data) for more information about the features we provide.
 
 You can also take a look at the [flutter example](https://github.com/DriveQuantPublic/flutter-drivekit/tree/main/example) for a basic usage of the Drivekit SDK, and the [iOS example app](https://github.com/DriveQuantPublic/drivekit-quickstart-ios) or [android example app](https://github.com/DriveQuantPublic/drivekit-quickstart-android) for a complete demonstration.
 
+
+## Manual initialization
+
+If you have disabled the DriveKit auto-initialization:
+
+- On Android project, call `initialize` method of `DriveKitDriverData` class inside your `MainApplication` class.
+
+```kotlin
+// MainApplication.kt
+
+// …
+override fun onCreate() {
+    super.onCreate()
+
+    DriveKit.initialize()
+    DriveKitTripAnalysis.initialize(…)
+    DriveKitDriverData.initialize()
+    (…)
+}
+```
+
+- On iOS project, call `initialize` method inside your `AppDelegate`.
+
+```swift
+func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    DriveKit.shared.initialize()
+    DriveKitTripAnalysis.shared.initialize(appLaunchOptions: launchOptions)
+    DriveKitDriverData.shared.initialize()
+    (…)
+}
+```
 
 ## API
 
