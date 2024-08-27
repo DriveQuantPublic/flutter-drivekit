@@ -135,10 +135,9 @@ To get a specific trip, you have to call the following method:
 final result = await DriveKitDriverData.instance.getTrip('TRIP_ID_HERE');
 ```
 
-The itinId parameter is the unique identifier for a trip.
-
-
 ### getRoute
+
+The `itinId` parameter is the unique identifier for a trip.
 
 ```dart
 Future<GetRouteResponse?> getRoute(String itinId);
