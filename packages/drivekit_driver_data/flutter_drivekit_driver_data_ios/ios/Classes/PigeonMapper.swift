@@ -42,7 +42,7 @@ extension PigeonTrip {
         if let itinId = trip.itinId {
             self.itinId = itinId
         }
-        if let startDate = trip.endDate {
+        if let startDate = trip.startDate {
             self.startDate = DateUtils.convertDateToString(date: startDate)
         }
         if let endDate = trip.endDate {

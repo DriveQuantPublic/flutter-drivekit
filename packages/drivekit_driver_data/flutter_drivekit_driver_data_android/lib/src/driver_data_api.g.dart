@@ -142,7 +142,7 @@ class PigeonGetTripResponse {
   /// trip synchronization status
   PigeonTripSyncStatus status;
 
-  /// fetched trips
+  /// fetched trip
   PigeonTrip? trip;
 
   Object encode() {
@@ -223,7 +223,7 @@ class PigeonTrip {
   /// The arrival address
   String? arrivalAddress;
 
-  /// The itinerary ID
+  /// The vehicle ID
   String? vehicleId;
 
   /// The list of comments

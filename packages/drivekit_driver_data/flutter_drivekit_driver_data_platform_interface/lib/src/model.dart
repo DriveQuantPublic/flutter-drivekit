@@ -18,7 +18,7 @@ class GetTripResponse {
   /// trip synchronization status
   final TripSyncStatus status;
 
-  /// fetched trips
+  /// fetched trip
   final Trip? trip;
 }
 
@@ -100,7 +100,7 @@ class Trip {
   /// The arrival address
   final String? arrivalAddress;
 
-  /// The itinerary ID
+  /// The vehicle ID
   final String? vehicleId;
 
   /// The list of comments
