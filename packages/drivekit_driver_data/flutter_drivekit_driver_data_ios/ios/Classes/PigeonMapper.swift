@@ -129,7 +129,6 @@ extension PigeonTrip {
         self.metaData = trip.metadata
         self.transportationMode = Int64(trip.transportationMode)
         self.unscored = trip.unscored
-        self.comments = []
         if let calls = trip.calls?.allObjects as? [Call] {
             self.calls = calls.compactMap { PigeonCall(from: $0) }
         }

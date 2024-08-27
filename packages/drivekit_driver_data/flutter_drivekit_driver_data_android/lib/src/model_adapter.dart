@@ -2,17 +2,6 @@ import 'package:collection/collection.dart';
 import 'package:flutter_drivekit_driver_data_android/src/driver_data_api.g.dart';
 import 'package:flutter_drivekit_driver_data_platform_interface/flutter_drivekit_driver_data_platform_interface.dart';
 
-/// Adapts the [PigeonComment] class to the corresponding class in the model.
-extension PigeonCommentAdapter on PigeonComment {
-  /// Converts a [PigeonComment] to a corresponding model class.
-  Comment toModelImplementation() {
-    return Comment(
-      errorCode: errorCode,
-      comment: comment,
-    );
-  }
-}
-
 /// Adapts the [PigeonAdvancedEnergyEstimation] class to the corresponding class
 /// in the model.
 extension PigeonAdvancedEnergyEstimationAdapter
@@ -351,10 +340,6 @@ extension PigeonTripAdapter on PigeonTrip {
   Trip toModelImplementation() {
     return Trip(
       itinId: itinId,
-      comments: comments
-          .whereNotNull()
-          .map((e) => e.toModelImplementation())
-          .toList(),
       tripStatistics: tripStatistics?.toModelImplementation(),
       ecoDriving: ecoDriving?.toModelImplementation(),
       fuelEstimation: fuelEstimation?.toModelImplementation(),

@@ -192,7 +192,6 @@ class Trip {
     required this.departureAddress,
     required this.arrivalAddress,
     required this.vehicleId,
-    required this.comments,
     required this.tripStatistics,
     required this.ecoDriving,
     required this.fuelEstimation,
@@ -240,9 +239,6 @@ class Trip {
 
   /// The vehicle ID
   final String? vehicleId;
-
-  /// The list of comments
-  final List<Comment> comments;
 
   /// The itinerary statistics
   final TripStatistics? tripStatistics;
