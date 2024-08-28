@@ -1,4 +1,3 @@
-import 'package:flutter_drivekit_trip_analysis_android/flutter_drivekit_trip_analysis_android.dart';
 import 'package:flutter_drivekit_trip_analysis_android/src/adapter.dart';
 import 'package:flutter_drivekit_trip_analysis_android/src/model_adapter.dart';
 import 'package:flutter_drivekit_trip_analysis_android/src/trip_analysis_api.g.dart';

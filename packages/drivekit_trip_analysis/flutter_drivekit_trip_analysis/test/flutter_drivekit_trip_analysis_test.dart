@@ -1,4 +1,3 @@
-import 'package:flutter_drivekit_trip_analysis/flutter_drivekit_trip_analysis.dart';
 import 'package:flutter_drivekit_trip_analysis_platform_interface/flutter_drivekit_trip_analysis_platform_interface.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -39,7 +38,9 @@ void main() {
 
       test('calls platform implementation', () async {
         when(() => drivekitTripAnalysisPlatform.activateAutoStart(any()))
-            .thenAnswer((_) async {});
+            .thenAnswer((_) async {
+          return null;
+        });
 
         await DrivekitTripAnalysis.instance.activateAutoStart(true);
         verify(() => drivekitTripAnalysisPlatform.activateAutoStart(true));
@@ -65,7 +66,9 @@ void main() {
 
       test('calls platform implementation', () async {
         when(() => drivekitTripAnalysisPlatform.activateCrashDetection(any()))
-            .thenAnswer((_) async {});
+            .thenAnswer((_) async {
+          return null;
+        });
 
         await DrivekitTripAnalysis.instance.activateCrashDetection(true);
         verify(() => drivekitTripAnalysisPlatform.activateCrashDetection(true));
@@ -81,7 +84,9 @@ void main() {
     group('manage trip manually', () {
       test('calls startTrip on platform implementation', () async {
         when(() => drivekitTripAnalysisPlatform.startTrip())
-            .thenAnswer((_) async {});
+            .thenAnswer((_) async {
+          return null;
+        });
 
         await drivekitTripAnalysisPlatform.startTrip();
         verify(() => drivekitTripAnalysisPlatform.startTrip());
@@ -89,7 +94,9 @@ void main() {
 
       test('stopTrip calls platform implementation', () async {
         when(() => drivekitTripAnalysisPlatform.stopTrip())
-            .thenAnswer((_) async {});
+            .thenAnswer((_) async {
+          return null;
+        });
 
         await DrivekitTripAnalysis.instance.stopTrip();
         verify(() => drivekitTripAnalysisPlatform.stopTrip());
@@ -97,7 +104,9 @@ void main() {
 
       test('cancelTrip calls platform implementation', () async {
         when(() => drivekitTripAnalysisPlatform.cancelTrip())
-            .thenAnswer((_) async {});
+            .thenAnswer((_) async {
+          return null;
+        });
 
         await DrivekitTripAnalysis.instance.cancelTrip();
         verify(() => drivekitTripAnalysisPlatform.cancelTrip());
@@ -122,7 +131,9 @@ void main() {
           when(
             () =>
                 drivekitTripAnalysisPlatform.setMonitorPotentialTripStart(true),
-          ).thenAnswer((_) async {});
+          ).thenAnswer((_) async {
+            return null;
+          });
 
           await DrivekitTripAnalysis.setMonitorPotentialTripStart(true);
           verify(
@@ -150,7 +161,9 @@ void main() {
         const vehicle = Vehicle();
 
         when(() => drivekitTripAnalysisPlatform.setVehicle(vehicle))
-            .thenAnswer((_) async {});
+            .thenAnswer((_) async {
+          return null;
+        });
 
         await DrivekitTripAnalysis.instance.setVehicle(vehicle);
         verify(() => drivekitTripAnalysisPlatform.setVehicle(vehicle));
@@ -161,7 +174,9 @@ void main() {
       test('addListener', () async {
         final listener = TripListener(beaconDetected: () {});
         when(() => drivekitTripAnalysisPlatform.addTripListener(any()))
-            .thenAnswer((_) async {});
+            .thenAnswer((_) async {
+          return null;
+        });
         DrivekitTripAnalysis.instance.addTripListener(listener);
         verify(() => drivekitTripAnalysisPlatform.addTripListener(listener))
             .called(1);
@@ -171,14 +186,18 @@ void main() {
           beaconDetected: () {},
         );
         when(() => drivekitTripAnalysisPlatform.removeTripListener(any()))
-            .thenAnswer((_) async {});
+            .thenAnswer((_) async {
+          return null;
+        });
         DrivekitTripAnalysis.instance.removeTripListener(listener);
         verify(() => drivekitTripAnalysisPlatform.removeTripListener(listener))
             .called(1);
       });
       test('removeAllListeners', () async {
         when(() => drivekitTripAnalysisPlatform.removeAllTripListeners())
-            .thenAnswer((_) async {});
+            .thenAnswer((_) async {
+          return null;
+        });
         DrivekitTripAnalysis.instance.removeAllTripListeners();
         verify(() => drivekitTripAnalysisPlatform.removeAllTripListeners())
             .called(1);
