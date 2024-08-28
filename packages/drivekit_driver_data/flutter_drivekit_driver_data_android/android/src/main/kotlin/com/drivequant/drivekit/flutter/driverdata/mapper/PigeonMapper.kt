@@ -160,7 +160,6 @@ object PigeonMapper {
             departureAddress = trip.departureAddress,
             arrivalAddress = trip.arrivalAddress,
             vehicleId = trip.vehicleId,
-            comments = emptyList(),
             tripStatistics = tripStatistics,
             ecoDriving = ecoDriving,
             fuelEstimation = fuelEstimation,

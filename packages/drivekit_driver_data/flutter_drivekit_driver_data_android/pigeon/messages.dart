@@ -103,7 +103,6 @@ class PigeonTrip {
     required this.departureAddress,
     required this.arrivalAddress,
     required this.vehicleId,
-    required this.comments,
     required this.tripStatistics,
     required this.ecoDriving,
     required this.fuelEstimation,
@@ -157,9 +156,6 @@ class PigeonTrip {
 
   /// The vehicle ID
   final String? vehicleId;
-
-  /// The list of comments
-  final List<PigeonComment?> comments;
 
   /// The trip statistics
   final PigeonTripStatistics? tripStatistics;
@@ -497,17 +493,6 @@ class PigeonCallEvent {
   final int index;
 
   final bool forbidden;
-}
-
-class PigeonComment {
-  const PigeonComment({
-    required this.errorCode,
-    required this.comment,
-  });
-
-  final int errorCode;
-
-  final String comment;
 }
 
 class PigeonAdvancedEnergyEstimation {

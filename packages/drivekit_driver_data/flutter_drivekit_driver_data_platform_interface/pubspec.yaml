@@ -12,6 +12,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_drivekit_core_platform_interface: ^0.0.4
   plugin_platform_interface: ^2.1.8
 
 dev_dependencies:

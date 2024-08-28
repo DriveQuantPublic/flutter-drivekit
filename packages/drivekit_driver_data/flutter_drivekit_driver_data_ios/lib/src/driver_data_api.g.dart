@@ -172,7 +172,6 @@ class PigeonTrip {
     this.departureAddress,
     this.arrivalAddress,
     this.vehicleId,
-    required this.comments,
     this.tripStatistics,
     this.ecoDriving,
     this.fuelEstimation,
@@ -224,9 +223,6 @@ class PigeonTrip {
 
   /// The vehicle ID
   String? vehicleId;
-
-  /// The list of comments
-  List<PigeonComment?> comments;
 
   /// The itinerary statistics
   PigeonTripStatistics? tripStatistics;
@@ -316,7 +312,6 @@ class PigeonTrip {
       departureAddress,
       arrivalAddress,
       vehicleId,
-      comments,
       tripStatistics,
       ecoDriving,
       fuelEstimation,
@@ -357,38 +352,37 @@ class PigeonTrip {
       departureAddress: result[5] as String?,
       arrivalAddress: result[6] as String?,
       vehicleId: result[7] as String?,
-      comments: (result[8] as List<Object?>?)!.cast<PigeonComment?>(),
-      tripStatistics: result[9] as PigeonTripStatistics?,
-      ecoDriving: result[10] as PigeonEcoDriving?,
-      fuelEstimation: result[11] as PigeonFuelEstimation?,
-      safety: result[12] as PigeonSafety?,
-      advancedEcoDriving: result[13] as PigeonAdvancedEcoDriving?,
-      advancedFuelEstimation: result[14] as PigeonAdvancedFuelEstimation?,
-      advancedSafety: result[15] as PigeonAdvancedSafety?,
-      pollutants: result[16] as PigeonPollutants?,
-      tireWear: result[17] as PigeonTireWear?,
-      brakeWear: result[18] as PigeonBrakeWear?,
-      driverDistraction: result[19] as PigeonDriverDistraction?,
-      itineraryData: result[20] as PigeonItineraryData?,
-      logbook: result[21] as PigeonLogbook?,
-      safetyEvents: (result[22] as List<Object?>?)?.cast<PigeonSafetyEvent?>(),
-      speedingStatistics: result[23] as PigeonSpeedingStatistics?,
-      energyEstimation: result[24] as PigeonEnergyEstimation?,
-      advancedEnergyEstimation: (result[25] as List<Object?>?)
+      tripStatistics: result[8] as PigeonTripStatistics?,
+      ecoDriving: result[9] as PigeonEcoDriving?,
+      fuelEstimation: result[10] as PigeonFuelEstimation?,
+      safety: result[11] as PigeonSafety?,
+      advancedEcoDriving: result[12] as PigeonAdvancedEcoDriving?,
+      advancedFuelEstimation: result[13] as PigeonAdvancedFuelEstimation?,
+      advancedSafety: result[14] as PigeonAdvancedSafety?,
+      pollutants: result[15] as PigeonPollutants?,
+      tireWear: result[16] as PigeonTireWear?,
+      brakeWear: result[17] as PigeonBrakeWear?,
+      driverDistraction: result[18] as PigeonDriverDistraction?,
+      itineraryData: result[19] as PigeonItineraryData?,
+      logbook: result[20] as PigeonLogbook?,
+      safetyEvents: (result[21] as List<Object?>?)?.cast<PigeonSafetyEvent?>(),
+      speedingStatistics: result[22] as PigeonSpeedingStatistics?,
+      energyEstimation: result[23] as PigeonEnergyEstimation?,
+      advancedEnergyEstimation: (result[24] as List<Object?>?)
           ?.cast<PigeonAdvancedEnergyEstimation?>(),
       tripAdvicesData:
-          (result[26] as List<Object?>?)?.cast<PigeonTripAdviceData?>(),
-      maneuverData: result[27] as PigeonManeuverData?,
-      evaluationData: result[28] as PigeonEvaluationData?,
+          (result[25] as List<Object?>?)?.cast<PigeonTripAdviceData?>(),
+      maneuverData: result[26] as PigeonManeuverData?,
+      evaluationData: result[27] as PigeonEvaluationData?,
       metaData:
-          (result[29] as Map<Object?, Object?>?)?.cast<String?, String?>(),
-      transportationMode: result[30]! as int,
+          (result[28] as Map<Object?, Object?>?)?.cast<String?, String?>(),
+      transportationMode: result[29]! as int,
       declaredTransportationMode:
-          result[31] as PigeonDeclaredTransportationMode?,
-      unscored: result[32]! as bool,
-      calls: (result[33] as List<Object?>?)?.cast<PigeonCall?>(),
+          result[30] as PigeonDeclaredTransportationMode?,
+      unscored: result[31]! as bool,
+      calls: (result[32] as List<Object?>?)?.cast<PigeonCall?>(),
       speedLimitContexts:
-          (result[34] as List<Object?>?)?.cast<PigeonSpeedLimitContext?>(),
+          (result[33] as List<Object?>?)?.cast<PigeonSpeedLimitContext?>(),
     );
   }
 }
@@ -803,32 +797,6 @@ class PigeonCall {
       audioName: result[11] as String?,
       bluetoothClass: result[12]! as int,
       forbidden: result[13]! as bool,
-    );
-  }
-}
-
-class PigeonComment {
-  PigeonComment({
-    required this.errorCode,
-    required this.comment,
-  });
-
-  int errorCode;
-
-  String comment;
-
-  Object encode() {
-    return <Object?>[
-      errorCode,
-      comment,
-    ];
-  }
-
-  static PigeonComment decode(Object result) {
-    result as List<Object?>;
-    return PigeonComment(
-      errorCode: result[0]! as int,
-      comment: result[1]! as String,
     );
   }
 }
@@ -1853,80 +1821,77 @@ class _PigeonCodec extends StandardMessageCodec {
     } else if (value is PigeonCall) {
       buffer.putUint8(141);
       writeValue(buffer, value.encode());
-    } else if (value is PigeonComment) {
+    } else if (value is PigeonAdvancedEnergyEstimation) {
       buffer.putUint8(142);
       writeValue(buffer, value.encode());
-    } else if (value is PigeonAdvancedEnergyEstimation) {
+    } else if (value is PigeonEnergyEstimation) {
       buffer.putUint8(143);
       writeValue(buffer, value.encode());
-    } else if (value is PigeonEnergyEstimation) {
+    } else if (value is PigeonTripStatistics) {
       buffer.putUint8(144);
       writeValue(buffer, value.encode());
-    } else if (value is PigeonTripStatistics) {
+    } else if (value is PigeonEcoDriving) {
       buffer.putUint8(145);
       writeValue(buffer, value.encode());
-    } else if (value is PigeonEcoDriving) {
+    } else if (value is PigeonFuelEstimation) {
       buffer.putUint8(146);
       writeValue(buffer, value.encode());
-    } else if (value is PigeonFuelEstimation) {
+    } else if (value is PigeonSafety) {
       buffer.putUint8(147);
       writeValue(buffer, value.encode());
-    } else if (value is PigeonSafety) {
+    } else if (value is PigeonPollutants) {
       buffer.putUint8(148);
       writeValue(buffer, value.encode());
-    } else if (value is PigeonPollutants) {
+    } else if (value is PigeonTireWear) {
       buffer.putUint8(149);
       writeValue(buffer, value.encode());
-    } else if (value is PigeonTireWear) {
+    } else if (value is PigeonDriverDistraction) {
       buffer.putUint8(150);
       writeValue(buffer, value.encode());
-    } else if (value is PigeonDriverDistraction) {
+    } else if (value is PigeonItineraryData) {
       buffer.putUint8(151);
       writeValue(buffer, value.encode());
-    } else if (value is PigeonItineraryData) {
+    } else if (value is PigeonLogbook) {
       buffer.putUint8(152);
       writeValue(buffer, value.encode());
-    } else if (value is PigeonLogbook) {
+    } else if (value is PigeonSafetyEvent) {
       buffer.putUint8(153);
       writeValue(buffer, value.encode());
-    } else if (value is PigeonSafetyEvent) {
+    } else if (value is PigeonSpeedingStatistics) {
       buffer.putUint8(154);
       writeValue(buffer, value.encode());
-    } else if (value is PigeonSpeedingStatistics) {
+    } else if (value is PigeonEcoDrivingContext) {
       buffer.putUint8(155);
       writeValue(buffer, value.encode());
-    } else if (value is PigeonEcoDrivingContext) {
+    } else if (value is PigeonFuelEstimationContext) {
       buffer.putUint8(156);
       writeValue(buffer, value.encode());
-    } else if (value is PigeonFuelEstimationContext) {
+    } else if (value is PigeonSafetyContext) {
       buffer.putUint8(157);
       writeValue(buffer, value.encode());
-    } else if (value is PigeonSafetyContext) {
+    } else if (value is PigeonSpeedLimitContext) {
       buffer.putUint8(158);
       writeValue(buffer, value.encode());
-    } else if (value is PigeonSpeedLimitContext) {
+    } else if (value is PigeonRoute) {
       buffer.putUint8(159);
       writeValue(buffer, value.encode());
-    } else if (value is PigeonRoute) {
+    } else if (value is PigeonGetRouteResponse) {
       buffer.putUint8(160);
       writeValue(buffer, value.encode());
-    } else if (value is PigeonGetRouteResponse) {
-      buffer.putUint8(161);
-      writeValue(buffer, value.encode());
     } else if (value is PigeonTripSyncStatus) {
-      buffer.putUint8(162);
+      buffer.putUint8(161);
       writeValue(buffer, value.index);
     } else if (value is PigeonCrashStatus) {
-      buffer.putUint8(163);
+      buffer.putUint8(162);
       writeValue(buffer, value.index);
     } else if (value is PigeonSynchronizationType) {
-      buffer.putUint8(164);
+      buffer.putUint8(163);
       writeValue(buffer, value.index);
     } else if (value is PigeonTransportationMode) {
-      buffer.putUint8(165);
+      buffer.putUint8(164);
       writeValue(buffer, value.index);
     } else if (value is PigeonRouteSyncStatus) {
-      buffer.putUint8(166);
+      buffer.putUint8(165);
       writeValue(buffer, value.index);
     } else {
       super.writeValue(buffer, value);
@@ -1963,58 +1928,56 @@ class _PigeonCodec extends StandardMessageCodec {
       case 141:
         return PigeonCall.decode(readValue(buffer)!);
       case 142:
-        return PigeonComment.decode(readValue(buffer)!);
-      case 143:
         return PigeonAdvancedEnergyEstimation.decode(readValue(buffer)!);
-      case 144:
+      case 143:
         return PigeonEnergyEstimation.decode(readValue(buffer)!);
-      case 145:
+      case 144:
         return PigeonTripStatistics.decode(readValue(buffer)!);
-      case 146:
+      case 145:
         return PigeonEcoDriving.decode(readValue(buffer)!);
-      case 147:
+      case 146:
         return PigeonFuelEstimation.decode(readValue(buffer)!);
-      case 148:
+      case 147:
         return PigeonSafety.decode(readValue(buffer)!);
-      case 149:
+      case 148:
         return PigeonPollutants.decode(readValue(buffer)!);
-      case 150:
+      case 149:
         return PigeonTireWear.decode(readValue(buffer)!);
-      case 151:
+      case 150:
         return PigeonDriverDistraction.decode(readValue(buffer)!);
-      case 152:
+      case 151:
         return PigeonItineraryData.decode(readValue(buffer)!);
-      case 153:
+      case 152:
         return PigeonLogbook.decode(readValue(buffer)!);
-      case 154:
+      case 153:
         return PigeonSafetyEvent.decode(readValue(buffer)!);
-      case 155:
+      case 154:
         return PigeonSpeedingStatistics.decode(readValue(buffer)!);
-      case 156:
+      case 155:
         return PigeonEcoDrivingContext.decode(readValue(buffer)!);
-      case 157:
+      case 156:
         return PigeonFuelEstimationContext.decode(readValue(buffer)!);
-      case 158:
+      case 157:
         return PigeonSafetyContext.decode(readValue(buffer)!);
-      case 159:
+      case 158:
         return PigeonSpeedLimitContext.decode(readValue(buffer)!);
-      case 160:
+      case 159:
         return PigeonRoute.decode(readValue(buffer)!);
-      case 161:
+      case 160:
         return PigeonGetRouteResponse.decode(readValue(buffer)!);
-      case 162:
+      case 161:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : PigeonTripSyncStatus.values[value];
-      case 163:
+      case 162:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : PigeonCrashStatus.values[value];
-      case 164:
+      case 163:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : PigeonSynchronizationType.values[value];
-      case 165:
+      case 164:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : PigeonTransportationMode.values[value];
-      case 166:
+      case 165:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : PigeonRouteSyncStatus.values[value];
       default:
