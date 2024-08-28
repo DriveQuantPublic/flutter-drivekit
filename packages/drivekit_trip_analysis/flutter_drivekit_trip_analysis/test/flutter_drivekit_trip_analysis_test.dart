@@ -26,6 +26,17 @@ void main() {
     });
 
     group('activateAutoStart', () {
+      test('isAutoStartActivated returns false by default', () async {
+        const isActivated = false;
+        when(
+          () => drivekitTripAnalysisPlatform.isAutoStartActivated(),
+        ).thenAnswer((_) async => isActivated);
+
+        final actualIsAutoStartActivatedValue =
+            await DrivekitTripAnalysis.instance.isAutoStartActivated();
+        expect(actualIsAutoStartActivatedValue, equals(isActivated));
+      });
+
       test('calls platform implementation', () async {
         when(() => drivekitTripAnalysisPlatform.activateAutoStart(any()))
             .thenAnswer((_) async {});
