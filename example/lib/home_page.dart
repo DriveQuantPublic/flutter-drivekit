@@ -1,31 +1,23 @@
 import 'package:drivekit_example/widgets/initialize_listeners.dart';
 import 'package:drivekit_example/widgets/sliver_add_vehicle.dart';
 import 'package:drivekit_example/widgets/sliver_auto_start.dart';
-import 'package:drivekit_example/widgets/sliver_cancel_trip.dart';
 import 'package:drivekit_example/widgets/sliver_crash_detection.dart';
 import 'package:drivekit_example/widgets/sliver_delete_account.dart';
-import 'package:drivekit_example/widgets/sliver_disable_logging.dart';
-import 'package:drivekit_example/widgets/sliver_enable_logging.dart';
 import 'package:drivekit_example/widgets/sliver_get_api_key.dart';
-import 'package:drivekit_example/widgets/sliver_get_log_file_uri.dart';
-import 'package:drivekit_example/widgets/sliver_get_monitor_potential_trip_start.dart';
-import 'package:drivekit_example/widgets/sliver_get_route.dart';
-import 'package:drivekit_example/widgets/sliver_get_trip.dart';
-import 'package:drivekit_example/widgets/sliver_get_trips.dart';
 import 'package:drivekit_example/widgets/sliver_get_user_id.dart';
 import 'package:drivekit_example/widgets/sliver_is_token_valid.dart';
-import 'package:drivekit_example/widgets/sliver_is_trip_running.dart';
+import 'package:drivekit_example/widgets/sliver_logs.dart';
+import 'package:drivekit_example/widgets/sliver_monitor_potential_trip_start.dart';
 import 'package:drivekit_example/widgets/sliver_permission_request.dart';
 import 'package:drivekit_example/widgets/sliver_remove_all_device_configuration_listeners.dart';
 import 'package:drivekit_example/widgets/sliver_remove_all_drivekit_listeners.dart';
 import 'package:drivekit_example/widgets/sliver_remove_all_trip_listeners.dart';
 import 'package:drivekit_example/widgets/sliver_reset.dart';
 import 'package:drivekit_example/widgets/sliver_set_api_key.dart';
-import 'package:drivekit_example/widgets/sliver_set_monitor_potential_trip_start.dart';
 import 'package:drivekit_example/widgets/sliver_set_user_id.dart';
-import 'package:drivekit_example/widgets/sliver_start_trip.dart';
-import 'package:drivekit_example/widgets/sliver_stop_trip.dart';
+import 'package:drivekit_example/widgets/sliver_trip_lifecycle.dart';
 import 'package:drivekit_example/widgets/sliver_trip_simulator.dart';
+import 'package:drivekit_example/widgets/sliver_trips.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -56,15 +48,20 @@ class HomePage extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 16),
               sliver: SliverGetApiKey(),
             ),
-            SliverGap(16),
+            SliverGap(4),
             SliverPadding(
               padding: EdgeInsets.symmetric(horizontal: 16),
               sliver: SliverSetUserId(),
             ),
-            SliverGap(10),
+            SliverGap(4),
             SliverPadding(
               padding: EdgeInsets.symmetric(horizontal: 16),
               sliver: SliverGetUserId(),
+            ),
+            SliverGap(32),
+            SliverPadding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              sliver: SliverTokenValidity(),
             ),
             SliverGap(32),
             SliverPadding(
@@ -79,62 +76,17 @@ class HomePage extends StatelessWidget {
             SliverGap(32),
             SliverPadding(
               padding: EdgeInsets.symmetric(horizontal: 16),
-              sliver: SliverReset(),
+              sliver: SliverTripLifecycle(),
             ),
             SliverGap(32),
             SliverPadding(
               padding: EdgeInsets.symmetric(horizontal: 16),
-              sliver: SliverDeleteAccount(),
+              sliver: SliverLogs(),
             ),
             SliverGap(32),
             SliverPadding(
               padding: EdgeInsets.symmetric(horizontal: 16),
-              sliver: SliverTokenValidity(),
-            ),
-            SliverGap(32),
-            SliverPadding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              sliver: SliverStartTrip(),
-            ),
-            SliverGap(10),
-            SliverPadding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              sliver: SliverStopTrip(),
-            ),
-            SliverGap(10),
-            SliverPadding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              sliver: SliverCancelTrip(),
-            ),
-            SliverGap(32),
-            SliverPadding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              sliver: SliverIsTripRunning(),
-            ),
-            SliverGap(32),
-            SliverPadding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              sliver: SliverEnableLogging(),
-            ),
-            SliverGap(10),
-            SliverPadding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              sliver: SliverDisableLogging(),
-            ),
-            SliverGap(10),
-            SliverPadding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              sliver: SliverGetLogFileUri(),
-            ),
-            SliverGap(32),
-            SliverPadding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              sliver: SliverSetMonitorPotentialTripStart(),
-            ),
-            SliverGap(10),
-            SliverPadding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              sliver: SliverGetMonitorPotentialTripStart(),
+              sliver: SliverMonitorPotentialTripStart(),
             ),
             SliverGap(32),
             SliverPadding(
@@ -149,32 +101,29 @@ class HomePage extends StatelessWidget {
             SliverGap(32),
             SliverPadding(
               padding: EdgeInsets.symmetric(horizontal: 16),
+              sliver: SliverTrips(),
+            ),
+            SliverGap(32),
+            SliverPadding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
               sliver: SliverRemoveAllDriveKitListeners(),
             ),
-            SliverGap(10),
             SliverPadding(
               padding: EdgeInsets.symmetric(horizontal: 16),
               sliver: SliverRemoveAllDeviceConfigurationListeners(),
             ),
-            SliverGap(10),
             SliverPadding(
               padding: EdgeInsets.symmetric(horizontal: 16),
               sliver: SliverRemoveAllTripListeners(),
             ),
-            SliverGap(10),
+            SliverGap(32),
             SliverPadding(
               padding: EdgeInsets.symmetric(horizontal: 16),
-              sliver: SliverGetTrips(),
+              sliver: SliverDeleteAccount(),
             ),
-            SliverGap(10),
             SliverPadding(
               padding: EdgeInsets.symmetric(horizontal: 16),
-              sliver: SliverGetTrip(),
-            ),
-            SliverGap(10),
-            SliverPadding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              sliver: SliverGetRoute(),
+              sliver: SliverReset(),
             ),
             SliverGap(32),
           ],

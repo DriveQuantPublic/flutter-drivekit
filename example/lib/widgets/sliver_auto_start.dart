@@ -18,14 +18,12 @@ class SliverAutoStart extends StatelessWidget {
           },
           child: const Text('Activate auto start'),
         ),
-        const SliverGap(4),
         ElevatedButton(
           onPressed: () {
             DrivekitTripAnalysis.instance.activateAutoStart(false);
           },
           child: const Text('Deactivate auto start'),
         ),
-        const SliverGap(4),
         ElevatedButton(
           onPressed: () async {
             final isAutoStartActivated =

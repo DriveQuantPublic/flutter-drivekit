@@ -10,13 +10,8 @@ class SliverTripSimulation extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiSliver(
       children: [
-        SliverToBoxAdapter(
-          child: Text(
-            'Trip Simulator',
-            style: Theme.of(context).textTheme.titleSmall,
-          ),
-        ),
-        const SliverGap(16),
+        const Text('Trip Simulator'),
+        const SliverGap(4),
         ElevatedButton(
           onPressed: () {
             DriveKitTripSimulator.start(PresetTrip.shortTrip);
@@ -29,7 +24,6 @@ class SliverTripSimulation extends StatelessWidget {
           },
           child: const Text('Start Simulation (mixedTrip)'),
         ),
-        const SliverGap(4),
         const ElevatedButton(
           onPressed: DriveKitTripSimulator.stop,
           child: Text('Stop trip simulation'),
