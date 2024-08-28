@@ -22,7 +22,7 @@ public class DrivekitTripAnalysisPlugin: NSObject, FlutterPlugin, IOSTripAnalysi
     }
 
     public func isAutoStartActivated() throws -> Bool {
-        return DriveKitTripAnalysis.shared.config.autostart
+        return DriveKitTripAnalysis.shared.config.autoStartActivate
     }
 
     public func activateAutoStart(activate: Bool) throws {
