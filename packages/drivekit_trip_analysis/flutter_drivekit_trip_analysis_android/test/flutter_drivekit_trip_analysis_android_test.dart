@@ -62,6 +62,17 @@ void main() {
       verify(() => androidTripAnalysisApi.activateAutoStart(false)).called(1);
     });
 
+    test('isCrashDetectionActivated returns true by default,', () async {
+      //mocks
+      when(androidTripAnalysisApi.isCrashDetectionActivated)
+          .thenAnswer((_) async => true);
+
+      //test
+      final isActivated = await DrivekitTripAnalysisPlatform.instance
+          .isCrashDetectionActivated();
+      expect(isActivated, true);
+    });
+
     test('activateCrashDetection calls android implem. with correct argument',
         () async {
       //mock

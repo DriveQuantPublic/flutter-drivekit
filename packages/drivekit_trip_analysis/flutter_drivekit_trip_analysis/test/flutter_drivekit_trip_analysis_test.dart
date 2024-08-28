@@ -52,6 +52,17 @@ void main() {
     });
 
     group('activateCrashDetection', () {
+      test('isCrashDetectionActivated returns true by default', () async {
+        const isActivated = true;
+        when(
+          () => drivekitTripAnalysisPlatform.isCrashDetectionActivated(),
+        ).thenAnswer((_) async => isActivated);
+
+        final actualIsAutoStartActivatedValue =
+            await DrivekitTripAnalysis.instance.isCrashDetectionActivated();
+        expect(actualIsAutoStartActivatedValue, equals(isActivated));
+      });
+
       test('calls platform implementation', () async {
         when(() => drivekitTripAnalysisPlatform.activateCrashDetection(any()))
             .thenAnswer((_) async {});

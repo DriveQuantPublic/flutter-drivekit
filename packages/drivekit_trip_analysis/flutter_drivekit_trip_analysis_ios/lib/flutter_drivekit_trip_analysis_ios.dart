@@ -40,6 +40,10 @@ class DrivekitTripAnalysisIOS extends DrivekitTripAnalysisPlatform
       iosTripAnalysisApi.activateAutoStart(activate);
 
   @override
+  Future<bool> isCrashDetectionActivated() =>
+      iosTripAnalysisApi.isCrashDetectionActivated();
+
+  @override
   Future<void> activateCrashDetection(bool activate) =>
       iosTripAnalysisApi.activateCrashDetection(activate);
 

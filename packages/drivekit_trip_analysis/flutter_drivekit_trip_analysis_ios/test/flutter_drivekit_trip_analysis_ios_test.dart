@@ -61,6 +61,17 @@ void main() {
       verify(() => iOSTripAnalysisApi.activateAutoStart(false)).called(1);
     });
 
+    test('isCrashDetectionActivated returns true by default', () async {
+      //mocks
+      when(iOSTripAnalysisApi.isCrashDetectionActivated)
+          .thenAnswer((_) async => true);
+
+      //test
+      final isActivated = await DrivekitTripAnalysisPlatform.instance
+          .isCrashDetectionActivated();
+      expect(isActivated, true);
+    });
+
     test(
         'activateCrashDetection calls ios implementation with correct argument',
         () async {
