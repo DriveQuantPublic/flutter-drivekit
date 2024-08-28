@@ -28,7 +28,7 @@ class _SliverAutoStartState extends State<SliverAutoStart> {
           onPressed: () {
             DrivekitTripAnalysis.instance.activateAutoStart(false);
           },
-          child: const Text('Disable auto start'),
+          child: const Text('Deactivate auto start'),
         ),
         const SliverGap(4),
         ElevatedButton(
@@ -39,12 +39,12 @@ class _SliverAutoStartState extends State<SliverAutoStart> {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   backgroundColor: Theme.of(context).primaryColor,
-                  content: Text('Auto start value: $isAutoStartActivated'),
+                  content: Text('Auto start activated: $isAutoStartActivated'),
                 ),
               );
             }
           },
-          child: const Text('Check auto start value'),
+          child: const Text('Is auto start activated?'),
         ),
       ],
     );
