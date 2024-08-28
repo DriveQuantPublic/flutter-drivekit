@@ -42,6 +42,11 @@ class DrivekitTripAnalysis {
     await _platform.activateAutoStart(activate);
   }
 
+  /// Returns true if the crash detection is activated
+  Future<bool> isCrashDetectionActivated() async {
+    return _platform.isCrashDetectionActivated();
+  }
+
   /// Crash detection features, included into the DriveKit Trip Analysis
   /// component, is able to collect and analyse smartphone sensors data to
   /// automatically detect when a car accident occurs.

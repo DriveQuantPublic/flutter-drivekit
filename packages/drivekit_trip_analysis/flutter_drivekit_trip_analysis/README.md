@@ -74,11 +74,12 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 | [addTripListener()](#addtriplistener)                                 | `Future<void>`                  | ✅  |   ✅    |
 | [removeTripListener()](#removetriplistener)                           | `Future<void>`                  | ✅  |   ✅    |
 | [removeAllTripListeners()](#removealltriplisteners)                   | `Future<void>`                  | ✅  |   ✅    |
+| [isCrashDetectionActivated()](#iscrashdetectionactivated)             | `Future<bool>`                  | ✅  |   ✅    |
 | [activateCrashDetection()](#activatecrashdetection)                   | `Future<void>`                  | ✅  |   ✅    |
 | [setMonitorPotentialTripStart()](#setmonitorpotentialtripstart)       | `Future<void>`                  | ✅  |   ✅    |
 | [getMonitorPotentialTripStart()](#getmonitorpotentialtripstart)       | `Future<bool>`                  | ✅  |   ✅    |
 | [setVehicle()](#setvehicle)                                           | `Future<bool>`                  | ✅  |   ✅    |
-| [getTripResponseStatus()](#getTripResponseStatus)                                           | `Future<TripResponseStatus>`                  | ✅  |   ✅    |
+| [getTripResponseStatus()](#getTripResponseStatus)                     | `Future<TripResponseStatus>`    | ✅  |   ✅    |
 
 ### isAutoStartActivated
 
@@ -222,6 +223,17 @@ You can remove all registered `TripListener` using the following method:
 void removeAllTripListeners();
 ```
 
+### isCrashDetectionActivated
+
+```dart
+Future<bool> isCrashDetectionActivated();
+```
+
+This method returns `true` if you have activated the crash detection.
+
+```dart
+final isCrashDetectionActivated = await DrivekitTripAnalysis.instance.isCrashDetectionActivated();
+```
 
 ### activateCrashDetection
 
