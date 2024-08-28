@@ -75,4 +75,4 @@ DriveKitTripSimulator.stop();
 
 Please refer to the [DriveKit Trip Simulator documentation](https://docs.drivequant.com/trip-analysis/trip-simulator) for more information about the features we provide.
 
-You can also take a look at the [flutter example](https://github.com/DriveQuantPublic/flutter-drivekit/tree/main/packages/drivekit_core/flutter_drivekit_core/example) for a basic usage of the Drivekit SDK, and the [iOS example app](https://github.com/DriveQuantPublic/drivekit-quickstart-ios) or [android example app](https://github.com/DriveQuantPublic/drivekit-quickstart-android) for a complete demonstration.
+You can also take a look at the [flutter example](https://github.com/DriveQuantPublic/flutter-drivekit/tree/main/packages/drivekit_core/flutter_drivekit_core/example) for a basic usage of the DriveKit SDK, and the [iOS example app](https://github.com/DriveQuantPublic/drivekit-quickstart-ios) or [android example app](https://github.com/DriveQuantPublic/drivekit-quickstart-android) for a complete demonstration.

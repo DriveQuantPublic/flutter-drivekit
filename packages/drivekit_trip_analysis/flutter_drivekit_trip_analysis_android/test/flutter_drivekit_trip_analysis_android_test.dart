@@ -1,3 +1,4 @@
+import 'package:flutter_drivekit_trip_analysis_android/flutter_drivekit_trip_analysis_android.dart';
 import 'package:flutter_drivekit_trip_analysis_android/src/adapter.dart';
 import 'package:flutter_drivekit_trip_analysis_android/src/model_adapter.dart';
 import 'package:flutter_drivekit_trip_analysis_android/src/trip_analysis_api.g.dart';
@@ -15,23 +16,23 @@ void main() {
     registerFallbackValue(MockPigeonPostGenericResponse());
   });
 
-  group('DrivekitTripAnalysisAndroid', () {
+  group('DriveKitTripAnalysisAndroid', () {
     late AndroidTripAnalysisApi androidTripAnalysisApi;
     late FlutterTripAnalysisApi flutterTripAnalysisApi;
 
     setUp(() {
       androidTripAnalysisApi = MockAndroidTripAnalysisApi();
-      flutterTripAnalysisApi = DrivekitTripAnalysisAndroid(
+      flutterTripAnalysisApi = DriveKitTripAnalysisAndroid(
         androidTripAnalysisApi: androidTripAnalysisApi,
       );
-      DrivekitTripAnalysisPlatform.instance =
-          flutterTripAnalysisApi as DrivekitTripAnalysisAndroid;
+      DriveKitTripAnalysisPlatform.instance =
+          flutterTripAnalysisApi as DriveKitTripAnalysisAndroid;
     });
     test('can be registered', () {
-      DrivekitTripAnalysisAndroid.registerWith();
+      DriveKitTripAnalysisAndroid.registerWith();
       expect(
-        DrivekitTripAnalysisPlatform.instance,
-        isA<DrivekitTripAnalysisAndroid>(),
+        DriveKitTripAnalysisPlatform.instance,
+        isA<DriveKitTripAnalysisAndroid>(),
       );
     });
 
@@ -42,7 +43,7 @@ void main() {
 
       //test
       final isActivated =
-          await DrivekitTripAnalysisPlatform.instance.isAutoStartActivated();
+          await DriveKitTripAnalysisPlatform.instance.isAutoStartActivated();
       expect(isActivated, false);
     });
 
@@ -53,11 +54,11 @@ void main() {
           .thenAnswer((_) async {});
 
       //test
-      await DrivekitTripAnalysisPlatform.instance.activateAutoStart(true);
+      await DriveKitTripAnalysisPlatform.instance.activateAutoStart(true);
       verify(() => androidTripAnalysisApi.activateAutoStart(true)).called(1);
       verifyNever(() => androidTripAnalysisApi.activateAutoStart(false));
 
-      await DrivekitTripAnalysisPlatform.instance.activateAutoStart(false);
+      await DriveKitTripAnalysisPlatform.instance.activateAutoStart(false);
       verify(() => androidTripAnalysisApi.activateAutoStart(false)).called(1);
     });
 
@@ -67,7 +68,7 @@ void main() {
           .thenAnswer((_) async => true);
 
       //test
-      final isActivated = await DrivekitTripAnalysisPlatform.instance
+      final isActivated = await DriveKitTripAnalysisPlatform.instance
           .isCrashDetectionActivated();
       expect(isActivated, true);
     });
@@ -79,12 +80,12 @@ void main() {
           .thenAnswer((_) async {});
 
       //test
-      await DrivekitTripAnalysisPlatform.instance.activateCrashDetection(true);
+      await DriveKitTripAnalysisPlatform.instance.activateCrashDetection(true);
       verify(() => androidTripAnalysisApi.activateCrashDetection(true))
           .called(1);
       verifyNever(() => androidTripAnalysisApi.activateCrashDetection(false));
 
-      await DrivekitTripAnalysisPlatform.instance.activateCrashDetection(false);
+      await DriveKitTripAnalysisPlatform.instance.activateCrashDetection(false);
       verify(() => androidTripAnalysisApi.activateCrashDetection(false))
           .called(1);
     });
@@ -93,7 +94,7 @@ void main() {
       //mock
       when(() => androidTripAnalysisApi.startTrip()).thenAnswer((_) async {});
 
-      await DrivekitTripAnalysisPlatform.instance.startTrip();
+      await DriveKitTripAnalysisPlatform.instance.startTrip();
       verify(() => androidTripAnalysisApi.startTrip()).called(1);
     });
 
@@ -102,7 +103,7 @@ void main() {
       when(() => androidTripAnalysisApi.stopTrip()).thenAnswer((_) async {});
 
       //test
-      await DrivekitTripAnalysisPlatform.instance.stopTrip();
+      await DriveKitTripAnalysisPlatform.instance.stopTrip();
       verify(() => androidTripAnalysisApi.stopTrip()).called(1);
     });
 
@@ -111,7 +112,7 @@ void main() {
       when(() => androidTripAnalysisApi.cancelTrip()).thenAnswer((_) async {});
 
       //test
-      await DrivekitTripAnalysisPlatform.instance.cancelTrip();
+      await DriveKitTripAnalysisPlatform.instance.cancelTrip();
       verify(() => androidTripAnalysisApi.cancelTrip()).called(1);
     });
 
@@ -122,7 +123,7 @@ void main() {
 
       //test
       final isRunning =
-          await DrivekitTripAnalysisPlatform.instance.isTripRunning();
+          await DriveKitTripAnalysisPlatform.instance.isTripRunning();
       expect(isRunning, false);
     });
 
@@ -132,7 +133,7 @@ void main() {
           .thenAnswer((_) async {});
 
       //test
-      await DrivekitTripAnalysisPlatform.instance
+      await DriveKitTripAnalysisPlatform.instance
           .setMonitorPotentialTripStart(true);
       verify(() => androidTripAnalysisApi.setMonitorPotentialTripStart(true))
           .called(1);
@@ -145,7 +146,7 @@ void main() {
           .thenAnswer((_) async => false);
 
       //test
-      final isActivated = await DrivekitTripAnalysisPlatform.instance
+      final isActivated = await DriveKitTripAnalysisPlatform.instance
           .getMonitorPotentialTripStart();
       expect(isActivated, false);
     });
@@ -156,7 +157,7 @@ void main() {
           .thenAnswer((_) async {});
 
       //test
-      await DrivekitTripAnalysisPlatform.instance.setVehicle(mockVehicle);
+      await DriveKitTripAnalysisPlatform.instance.setVehicle(mockVehicle);
       verify(
         () => androidTripAnalysisApi.setVehicle(any()),
       ).called(1);
@@ -247,7 +248,7 @@ void main() {
         var tripSavedForRepostCount = 0;
         var tripStartedCount = 0;
         //test
-        DrivekitTripAnalysisPlatform.instance.addTripListener(
+        DriveKitTripAnalysisPlatform.instance.addTripListener(
           TripListener(
             beaconDetected: () => beaconDetectedCount++,
             crashDetected: (crashInfo) => crashDetectedCount++,
@@ -295,7 +296,7 @@ void main() {
         flutterTripAnalysisApi.tripStarted(PigeonStartMode.bicycleActivity);
         expect(tripStartedCount, 1);
 
-        DrivekitTripAnalysisPlatform.instance.addTripListener(
+        DriveKitTripAnalysisPlatform.instance.addTripListener(
           TripListener(
             beaconDetected: () => beaconDetectedCount++,
             crashDetected: (crashInfo) => crashDetectedCount++,
@@ -351,7 +352,7 @@ void main() {
         () async {
           final crashDetectedList = <DKCrashInfo>[];
           //test
-          DrivekitTripAnalysisPlatform.instance.addTripListener(
+          DriveKitTripAnalysisPlatform.instance.addTripListener(
             TripListener(
               crashDetected: crashDetectedList.add,
             ),
@@ -416,8 +417,8 @@ void main() {
           tripStarted: (startMode) => tripStartedCount++,
         );
         //test
-        DrivekitTripAnalysisPlatform.instance.addTripListener(listener);
-        DrivekitTripAnalysisPlatform.instance.removeTripListener(listener);
+        DriveKitTripAnalysisPlatform.instance.addTripListener(listener);
+        DriveKitTripAnalysisPlatform.instance.removeTripListener(listener);
 
         flutterTripAnalysisApi
           ..beaconDetected()
@@ -472,10 +473,10 @@ void main() {
           tripSavedForRepost: () => tripSavedForRepostCount++,
           tripStarted: (startMode) => tripStartedCount++,
         );
-        DrivekitTripAnalysisPlatform.instance.addTripListener(listener);
-        DrivekitTripAnalysisPlatform.instance.addTripListener(listener);
+        DriveKitTripAnalysisPlatform.instance.addTripListener(listener);
+        DriveKitTripAnalysisPlatform.instance.addTripListener(listener);
         flutterTripAnalysisApi.beaconDetected();
-        DrivekitTripAnalysisPlatform.instance.removeAllTripListeners();
+        DriveKitTripAnalysisPlatform.instance.removeAllTripListeners();
 
         flutterTripAnalysisApi
           ..beaconDetected()
@@ -512,7 +513,7 @@ void main() {
 
       //test
       final tripResponseStatus =
-          await DrivekitTripAnalysisPlatform.instance.getTripResponseStatus(
+          await DriveKitTripAnalysisPlatform.instance.getTripResponseStatus(
         const PostGenericResponse(
           status: false,
           itinId: '',

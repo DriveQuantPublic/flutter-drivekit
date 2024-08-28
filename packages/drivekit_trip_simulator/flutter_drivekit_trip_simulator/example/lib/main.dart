@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
     final driveKitTripSimulator = DriveKitTripSimulator.instance;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('DrivekitTripSimulator Example')),
+      appBar: AppBar(title: const Text('DriveKitTripSimulator Example')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

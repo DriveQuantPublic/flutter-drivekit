@@ -1,3 +1,4 @@
+import 'package:flutter_drivekit_trip_analysis_ios/flutter_drivekit_trip_analysis_ios.dart';
 import 'package:flutter_drivekit_trip_analysis_ios/src/adapter.dart';
 import 'package:flutter_drivekit_trip_analysis_ios/src/model_adapter.dart';
 import 'package:flutter_drivekit_trip_analysis_ios/src/trip_analysis_api.g.dart';
@@ -20,17 +21,17 @@ void main() {
   setUp(() {
     iOSTripAnalysisApi = MockIOSTripAnalysisApi();
     flutterTripAnalysisApi =
-        DrivekitTripAnalysisIOS(iosTripAnalysisApi: iOSTripAnalysisApi);
-    DrivekitTripAnalysisPlatform.instance =
-        flutterTripAnalysisApi as DrivekitTripAnalysisIOS;
+        DriveKitTripAnalysisIOS(iosTripAnalysisApi: iOSTripAnalysisApi);
+    DriveKitTripAnalysisPlatform.instance =
+        flutterTripAnalysisApi as DriveKitTripAnalysisIOS;
   });
 
-  group('DrivekitTripAnalysisIOS', () {
+  group('DriveKitTripAnalysisIOS', () {
     test('can be registered', () {
-      DrivekitTripAnalysisIOS.registerWith();
+      DriveKitTripAnalysisIOS.registerWith();
       expect(
-        DrivekitTripAnalysisPlatform.instance,
-        isA<DrivekitTripAnalysisIOS>(),
+        DriveKitTripAnalysisPlatform.instance,
+        isA<DriveKitTripAnalysisIOS>(),
       );
     });
 
@@ -41,7 +42,7 @@ void main() {
 
       //test
       final isActivated =
-          await DrivekitTripAnalysisPlatform.instance.isAutoStartActivated();
+          await DriveKitTripAnalysisPlatform.instance.isAutoStartActivated();
       expect(isActivated, false);
     });
 
@@ -52,11 +53,11 @@ void main() {
           .thenAnswer((_) async {});
 
       //test
-      await DrivekitTripAnalysisPlatform.instance.activateAutoStart(true);
+      await DriveKitTripAnalysisPlatform.instance.activateAutoStart(true);
       verify(() => iOSTripAnalysisApi.activateAutoStart(true)).called(1);
       verifyNever(() => iOSTripAnalysisApi.activateAutoStart(false));
 
-      await DrivekitTripAnalysisPlatform.instance.activateAutoStart(false);
+      await DriveKitTripAnalysisPlatform.instance.activateAutoStart(false);
       verify(() => iOSTripAnalysisApi.activateAutoStart(false)).called(1);
     });
 
@@ -66,7 +67,7 @@ void main() {
           .thenAnswer((_) async => true);
 
       //test
-      final isActivated = await DrivekitTripAnalysisPlatform.instance
+      final isActivated = await DriveKitTripAnalysisPlatform.instance
           .isCrashDetectionActivated();
       expect(isActivated, true);
     });
@@ -79,11 +80,11 @@ void main() {
           .thenAnswer((_) async {});
 
       //test
-      await DrivekitTripAnalysisPlatform.instance.activateCrashDetection(true);
+      await DriveKitTripAnalysisPlatform.instance.activateCrashDetection(true);
       verify(() => iOSTripAnalysisApi.activateCrashDetection(true)).called(1);
       verifyNever(() => iOSTripAnalysisApi.activateCrashDetection(false));
 
-      await DrivekitTripAnalysisPlatform.instance.activateCrashDetection(false);
+      await DriveKitTripAnalysisPlatform.instance.activateCrashDetection(false);
       verify(() => iOSTripAnalysisApi.activateCrashDetection(false)).called(1);
     });
 
@@ -92,7 +93,7 @@ void main() {
       when(() => iOSTripAnalysisApi.startTrip()).thenAnswer((_) async {});
 
       //test
-      await DrivekitTripAnalysisPlatform.instance.startTrip();
+      await DriveKitTripAnalysisPlatform.instance.startTrip();
       verify(() => iOSTripAnalysisApi.startTrip()).called(1);
     });
 
@@ -101,7 +102,7 @@ void main() {
       when(() => iOSTripAnalysisApi.stopTrip()).thenAnswer((_) async {});
 
       //test
-      await DrivekitTripAnalysisPlatform.instance.stopTrip();
+      await DriveKitTripAnalysisPlatform.instance.stopTrip();
       verify(() => iOSTripAnalysisApi.stopTrip()).called(1);
     });
 
@@ -110,7 +111,7 @@ void main() {
       when(() => iOSTripAnalysisApi.cancelTrip()).thenAnswer((_) async {});
 
       //test
-      await DrivekitTripAnalysisPlatform.instance.cancelTrip();
+      await DriveKitTripAnalysisPlatform.instance.cancelTrip();
       verify(() => iOSTripAnalysisApi.cancelTrip()).called(1);
     });
 
@@ -121,7 +122,7 @@ void main() {
 
       //test
       final isRunning =
-          await DrivekitTripAnalysisPlatform.instance.isTripRunning();
+          await DriveKitTripAnalysisPlatform.instance.isTripRunning();
       expect(isRunning, false);
     });
 
@@ -131,7 +132,7 @@ void main() {
           .thenAnswer((_) async {});
 
       //test
-      await DrivekitTripAnalysisPlatform.instance
+      await DriveKitTripAnalysisPlatform.instance
           .setMonitorPotentialTripStart(true);
       verify(() => iOSTripAnalysisApi.setMonitorPotentialTripStart(true))
           .called(1);
@@ -143,7 +144,7 @@ void main() {
           .thenAnswer((_) async => false);
 
       //test
-      final isActivated = await DrivekitTripAnalysisPlatform.instance
+      final isActivated = await DriveKitTripAnalysisPlatform.instance
           .getMonitorPotentialTripStart();
       verify(() => iOSTripAnalysisApi.getMonitorPotentialTripStart()).called(1);
       expect(isActivated, false);
@@ -155,7 +156,7 @@ void main() {
       when(() => iOSTripAnalysisApi.setVehicle(any())).thenAnswer((_) async {});
 
       //test
-      await DrivekitTripAnalysisPlatform.instance.setVehicle(mockVehicle);
+      await DriveKitTripAnalysisPlatform.instance.setVehicle(mockVehicle);
       verify(
         () => iOSTripAnalysisApi.setVehicle(any()),
       ).called(1);
@@ -247,7 +248,7 @@ void main() {
         var tripSavedForRepostCount = 0;
         var tripStartedCount = 0;
         //test
-        DrivekitTripAnalysisPlatform.instance.addTripListener(
+        DriveKitTripAnalysisPlatform.instance.addTripListener(
           TripListener(
             beaconDetected: () => beaconDetectedCount++,
             crashDetected: (crashInfo) => crashDetectedCount++,
@@ -300,7 +301,7 @@ void main() {
         );
         expect(significantLocationChangeDetectedCount, 1);
 
-        DrivekitTripAnalysisPlatform.instance.addTripListener(
+        DriveKitTripAnalysisPlatform.instance.addTripListener(
           TripListener(
             beaconDetected: () => beaconDetectedCount++,
             crashDetected: (crashInfo) => crashDetectedCount++,
@@ -358,7 +359,7 @@ void main() {
         () async {
           final crashDetectedList = <DKCrashInfo>[];
           //test
-          DrivekitTripAnalysisPlatform.instance.addTripListener(
+          DriveKitTripAnalysisPlatform.instance.addTripListener(
             TripListener(
               crashDetected: crashDetectedList.add,
             ),
@@ -423,8 +424,8 @@ void main() {
           tripStarted: (startMode) => tripStartedCount++,
         );
         //test
-        DrivekitTripAnalysisPlatform.instance.addTripListener(listener);
-        DrivekitTripAnalysisPlatform.instance.removeTripListener(listener);
+        DriveKitTripAnalysisPlatform.instance.addTripListener(listener);
+        DriveKitTripAnalysisPlatform.instance.removeTripListener(listener);
 
         flutterTripAnalysisApi
           ..beaconDetected()
@@ -479,10 +480,10 @@ void main() {
           tripSavedForRepost: () => tripSavedForRepostCount++,
           tripStarted: (startMode) => tripStartedCount++,
         );
-        DrivekitTripAnalysisPlatform.instance.addTripListener(listener);
-        DrivekitTripAnalysisPlatform.instance.addTripListener(listener);
+        DriveKitTripAnalysisPlatform.instance.addTripListener(listener);
+        DriveKitTripAnalysisPlatform.instance.addTripListener(listener);
         flutterTripAnalysisApi.beaconDetected();
-        DrivekitTripAnalysisPlatform.instance.removeAllTripListeners();
+        DriveKitTripAnalysisPlatform.instance.removeAllTripListeners();
 
         flutterTripAnalysisApi
           ..beaconDetected()
@@ -519,7 +520,7 @@ void main() {
 
       //test
       final tripResponseStatus =
-          await DrivekitTripAnalysisPlatform.instance.getTripResponseStatus(
+          await DriveKitTripAnalysisPlatform.instance.getTripResponseStatus(
         const PostGenericResponse(
           status: false,
           itinId: '',
