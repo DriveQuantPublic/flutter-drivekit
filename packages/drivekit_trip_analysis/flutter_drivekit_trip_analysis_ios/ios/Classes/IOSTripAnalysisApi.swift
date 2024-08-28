@@ -1972,6 +1972,7 @@ class IOSTripAnalysisApiPigeonCodec: FlutterStandardMessageCodec, @unchecked Sen
 protocol IOSTripAnalysisApi {
   func isAutoStartActivated() throws -> Bool
   func activateAutoStart(activate: Bool) throws
+  func isCrashDetectionActivated() throws -> Bool
   func activateCrashDetection(activate: Bool) throws
   func startTrip() throws
   func stopTrip() throws
@@ -2016,6 +2017,19 @@ class IOSTripAnalysisApiSetup {
       }
     } else {
       activateAutoStartChannel.setMessageHandler(nil)
+    }
+    let isCrashDetectionActivatedChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.pigeon_trip_analysis_package.IOSTripAnalysisApi.isCrashDetectionActivated\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      isCrashDetectionActivatedChannel.setMessageHandler { _, reply in
+        do {
+          let result = try api.isCrashDetectionActivated()
+          reply(wrapResult(result))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      isCrashDetectionActivatedChannel.setMessageHandler(nil)
     }
     let activateCrashDetectionChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.pigeon_trip_analysis_package.IOSTripAnalysisApi.activateCrashDetection\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
