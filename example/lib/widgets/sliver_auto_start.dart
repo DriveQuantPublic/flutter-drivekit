@@ -3,14 +3,9 @@ import 'package:flutter_drivekit_trip_analysis/flutter_drivekit_trip_analysis.da
 import 'package:gap/gap.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 
-class SliverAutoStart extends StatefulWidget {
+class SliverAutoStart extends StatelessWidget {
   const SliverAutoStart({super.key});
 
-  @override
-  State<SliverAutoStart> createState() => _SliverAutoStartState();
-}
-
-class _SliverAutoStartState extends State<SliverAutoStart> {
   @override
   Widget build(BuildContext context) {
     return MultiSliver(

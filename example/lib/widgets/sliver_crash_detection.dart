@@ -3,14 +3,9 @@ import 'package:flutter_drivekit_trip_analysis/flutter_drivekit_trip_analysis.da
 import 'package:gap/gap.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 
-class SliverCrashDetection extends StatefulWidget {
+class SliverCrashDetection extends StatelessWidget {
   const SliverCrashDetection({super.key});
 
-  @override
-  State<SliverCrashDetection> createState() => _SliverCrashDetectionState();
-}
-
-class _SliverCrashDetectionState extends State<SliverCrashDetection> {
   @override
   Widget build(BuildContext context) {
     return MultiSliver(
