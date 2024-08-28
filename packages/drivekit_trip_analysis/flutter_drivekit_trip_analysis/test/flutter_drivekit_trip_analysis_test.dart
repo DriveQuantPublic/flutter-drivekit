@@ -33,7 +33,7 @@ void main() {
         ).thenAnswer((_) async => isActivated);
 
         final actualIsAutoStartActivatedValue =
-            await DriveKitTripAnalysis.instance.isAutoStartActivated(); // TODO
+            await DriveKitTripAnalysis.instance.isAutoStartActivated();
         expect(actualIsAutoStartActivatedValue, equals(isActivated));
       });
 
@@ -68,7 +68,7 @@ void main() {
       test('calls platform implementation', () async {
         when(() => driveKitTripAnalysisPlatform.activateCrashDetection(any()))
             .thenAnswer((_) async {
-          return null;
+          return;
         });
 
         await DriveKitTripAnalysis.instance.activateCrashDetection(true);
@@ -133,7 +133,7 @@ void main() {
             () =>
                 driveKitTripAnalysisPlatform.setMonitorPotentialTripStart(true),
           ).thenAnswer((_) async {
-            return null;
+            return;
           });
 
           await DriveKitTripAnalysis.setMonitorPotentialTripStart(true);
@@ -197,7 +197,7 @@ void main() {
       test('removeAllListeners', () async {
         when(() => driveKitTripAnalysisPlatform.removeAllTripListeners())
             .thenAnswer((_) async {
-          return null;
+          return;
         });
         DriveKitTripAnalysis.instance.removeAllTripListeners();
         verify(() => driveKitTripAnalysisPlatform.removeAllTripListeners())
