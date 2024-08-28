@@ -35,6 +35,18 @@ void main() {
         isA<DrivekitTripAnalysisAndroid>(),
       );
     });
+
+    test('isAutoStartActivated returns false by default,', () async {
+      //mocks
+      when(androidTripAnalysisApi.isAutoStartActivated)
+          .thenAnswer((_) async => false);
+
+      //test
+      final isActivated =
+          await DrivekitTripAnalysisPlatform.instance.isAutoStartActivated();
+      expect(isActivated, false);
+    });
+
     test('activateAutoStart calls android implementation with correct argument',
         () async {
       //mock
@@ -48,6 +60,17 @@ void main() {
 
       await DrivekitTripAnalysisPlatform.instance.activateAutoStart(false);
       verify(() => androidTripAnalysisApi.activateAutoStart(false)).called(1);
+    });
+
+    test('isCrashDetectionActivated returns true by default,', () async {
+      //mocks
+      when(androidTripAnalysisApi.isCrashDetectionActivated)
+          .thenAnswer((_) async => true);
+
+      //test
+      final isActivated = await DrivekitTripAnalysisPlatform.instance
+          .isCrashDetectionActivated();
+      expect(isActivated, true);
     });
 
     test('activateCrashDetection calls android implem. with correct argument',

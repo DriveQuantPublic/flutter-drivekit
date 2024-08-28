@@ -11,8 +11,22 @@ class DefaultDrivekitTripAnalysis extends DrivekitTripAnalysisPlatform {
   }
 
   @override
+  Future<bool> isAutoStartActivated() {
+    throw UnimplementedError(
+      'isAutoStartActivated() has not been implemented.',
+    );
+  }
+
+  @override
   Future<void> activateAutoStart(bool activate) {
     throw UnimplementedError('activateAutoStart() has not been implemented.');
+  }
+
+  @override
+  Future<bool> isCrashDetectionActivated() {
+    throw UnimplementedError(
+      'isCrashDetectionActivated() has not been implemented.',
+    );
   }
 
   @override

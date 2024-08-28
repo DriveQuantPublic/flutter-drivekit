@@ -24,6 +24,11 @@ class DrivekitTripAnalysis {
   static DrivekitTripAnalysis get instance => _instance;
   static final DrivekitTripAnalysis _instance = DrivekitTripAnalysis._();
 
+  /// Returns true if the auto start is activated
+  Future<bool> isAutoStartActivated() async {
+    return _platform.isAutoStartActivated();
+  }
+
   /// The automatic mode detects vehicle movements and triggers the trip
   /// analysis without driver intervention while the application is in
   /// background. The analysis is stopped automatically at the end of the trip.
@@ -35,6 +40,11 @@ class DrivekitTripAnalysis {
   /// calling the following method with the enable parameter to true
   Future<void> activateAutoStart(bool activate) async {
     await _platform.activateAutoStart(activate);
+  }
+
+  /// Returns true if the crash detection is activated
+  Future<bool> isCrashDetectionActivated() async {
+    return _platform.isCrashDetectionActivated();
   }
 
   /// Crash detection features, included into the DriveKit Trip Analysis

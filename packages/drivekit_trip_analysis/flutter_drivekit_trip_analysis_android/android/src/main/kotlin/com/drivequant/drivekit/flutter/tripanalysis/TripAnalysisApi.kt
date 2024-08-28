@@ -1864,7 +1864,9 @@ private object TripAnalysisApiPigeonCodec : StandardMessageCodec() {
 
 /** Generated interface from Pigeon that represents a handler of messages from Flutter. */
 interface AndroidTripAnalysisApi {
+  fun isAutoStartActivated(): Boolean
   fun activateAutoStart(activate: Boolean)
+  fun isCrashDetectionActivated(): Boolean
   fun activateCrashDetection(activate: Boolean)
   fun startTrip()
   fun stopTrip()
@@ -1885,6 +1887,21 @@ interface AndroidTripAnalysisApi {
     fun setUp(binaryMessenger: BinaryMessenger, api: AndroidTripAnalysisApi?, messageChannelSuffix: String = "") {
       val separatedMessageChannelSuffix = if (messageChannelSuffix.isNotEmpty()) ".$messageChannelSuffix" else ""
       run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.isAutoStartActivated$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { _, reply ->
+            val wrapped: List<Any?> = try {
+              listOf(api.isAutoStartActivated())
+            } catch (exception: Throwable) {
+              wrapError(exception)
+            }
+            reply.reply(wrapped)
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
         val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.activateAutoStart$separatedMessageChannelSuffix", codec)
         if (api != null) {
           channel.setMessageHandler { message, reply ->
@@ -1893,6 +1910,21 @@ interface AndroidTripAnalysisApi {
             val wrapped: List<Any?> = try {
               api.activateAutoStart(activateArg)
               listOf(null)
+            } catch (exception: Throwable) {
+              wrapError(exception)
+            }
+            reply.reply(wrapped)
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.isCrashDetectionActivated$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { _, reply ->
+            val wrapped: List<Any?> = try {
+              listOf(api.isCrashDetectionActivated())
             } catch (exception: Throwable) {
               wrapError(exception)
             }

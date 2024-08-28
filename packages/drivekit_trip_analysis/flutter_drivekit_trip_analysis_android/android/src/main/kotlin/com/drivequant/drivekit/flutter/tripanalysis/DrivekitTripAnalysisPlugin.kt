@@ -47,9 +47,15 @@ class DrivekitTripAnalysisPlugin :
         flutterApi = null
     }
 
+    override fun isAutoStartActivated(): Boolean =
+        DriveKitTripAnalysis.getConfig().autoStartActivate
+
     override fun activateAutoStart(activate: Boolean) {
         DriveKitTripAnalysis.activateAutoStart(activate)
     }
+
+    override fun isCrashDetectionActivated(): Boolean =
+        DriveKitTripAnalysis.getConfig().crashDetection
 
     override fun activateCrashDetection(activate: Boolean) {
         DriveKitTripAnalysis.activateCrashDetection(activate)

@@ -13,7 +13,9 @@ import 'package:pigeon/pigeon.dart';
 )
 @HostApi()
 abstract class IOSTripAnalysisApi {
+  bool isAutoStartActivated();
   void activateAutoStart(bool activate);
+  bool isCrashDetectionActivated();
   void activateCrashDetection(bool activate);
   void startTrip();
   void stopTrip();

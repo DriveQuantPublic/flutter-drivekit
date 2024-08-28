@@ -35,6 +35,17 @@ void main() {
       );
     });
 
+    test('isAutoStartActivated returns false by default', () async {
+      //mocks
+      when(iOSTripAnalysisApi.isAutoStartActivated)
+          .thenAnswer((_) async => false);
+
+      //test
+      final isActivated =
+          await DrivekitTripAnalysisPlatform.instance.isAutoStartActivated();
+      expect(isActivated, false);
+    });
+
     test('activateAutoStart calls ios implementation with correct argument',
         () async {
       //mock
@@ -48,6 +59,17 @@ void main() {
 
       await DrivekitTripAnalysisPlatform.instance.activateAutoStart(false);
       verify(() => iOSTripAnalysisApi.activateAutoStart(false)).called(1);
+    });
+
+    test('isCrashDetectionActivated returns true by default', () async {
+      //mocks
+      when(iOSTripAnalysisApi.isCrashDetectionActivated)
+          .thenAnswer((_) async => true);
+
+      //test
+      final isActivated = await DrivekitTripAnalysisPlatform.instance
+          .isCrashDetectionActivated();
+      expect(isActivated, true);
     });
 
     test(
