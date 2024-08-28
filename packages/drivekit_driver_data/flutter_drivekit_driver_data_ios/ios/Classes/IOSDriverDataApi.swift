@@ -1793,7 +1793,6 @@ class IOSDriverDataApiPigeonCodec: FlutterStandardMessageCodec, @unchecked Senda
 
 /// Generated protocol from Pigeon that represents a handler of messages from Flutter.
 protocol IOSDriverDataApi {
-  func getPlatformName() throws -> String
   func getTripsOrderByDateAsc(synchronizationType: PigeonSynchronizationType, transportationModes: [PigeonTransportationMode], completion: @escaping (Result<PigeonGetTripsResponse, Error>) -> Void)
   func getTripsOrderByDateDesc(synchronizationType: PigeonSynchronizationType, transportationModes: [PigeonTransportationMode], completion: @escaping (Result<PigeonGetTripsResponse, Error>) -> Void)
   func getTrip(itinId: String, completion: @escaping (Result<PigeonGetTripResponse, Error>) -> Void)
@@ -1807,19 +1806,6 @@ class IOSDriverDataApiSetup {
   /// Sets up an instance of `IOSDriverDataApi` to handle messages through the `binaryMessenger`.
   static func setUp(binaryMessenger: FlutterBinaryMessenger, api: IOSDriverDataApi?, messageChannelSuffix: String = "") {
     let channelSuffix = messageChannelSuffix.count > 0 ? ".\(messageChannelSuffix)" : ""
-    let getPlatformNameChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.pigeon_driver_data_package.IOSDriverDataApi.getPlatformName\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
-    if let api = api {
-      getPlatformNameChannel.setMessageHandler { _, reply in
-        do {
-          let result = try api.getPlatformName()
-          reply(wrapResult(result))
-        } catch {
-          reply(wrapError(error))
-        }
-      }
-    } else {
-      getPlatformNameChannel.setMessageHandler(nil)
-    }
     let getTripsOrderByDateAscChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.pigeon_driver_data_package.IOSDriverDataApi.getTripsOrderByDateAsc\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       getTripsOrderByDateAscChannel.setMessageHandler { message, reply in

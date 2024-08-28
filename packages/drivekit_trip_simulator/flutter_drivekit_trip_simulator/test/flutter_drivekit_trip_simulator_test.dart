@@ -10,28 +10,12 @@ class MockDrivekitTripSimulatorPlatform extends Mock
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  final driveKitTripSimulator = DriveKitTripSimulator.instance;
-
   group('DrivekitTripSimulator', () {
     late DrivekitTripSimulatorPlatform drivekitTripSimulatorPlatform;
 
     setUp(() {
       drivekitTripSimulatorPlatform = MockDrivekitTripSimulatorPlatform();
       DrivekitTripSimulatorPlatform.instance = drivekitTripSimulatorPlatform;
-    });
-
-    group('getPlatformName', () {
-      test('returns correct name when platform implementation exists',
-          () async {
-        const platformName = '__test_platform__';
-        when(
-          () => drivekitTripSimulatorPlatform.getPlatformName(),
-        ).thenAnswer((_) async => platformName);
-
-        final actualPlatformName =
-            await driveKitTripSimulator.getPlatformName();
-        expect(actualPlatformName, equals(platformName));
-      });
     });
 
     group('start', () {

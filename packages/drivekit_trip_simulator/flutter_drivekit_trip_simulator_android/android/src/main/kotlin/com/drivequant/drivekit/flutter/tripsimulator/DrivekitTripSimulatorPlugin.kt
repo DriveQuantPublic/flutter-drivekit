@@ -20,8 +20,6 @@ class DrivekitTripSimulatorPlugin :
         context = null
     }
 
-    override fun getPlatformName(): String = "android"
-
     override fun start(presetTrip: PigeonPresetTrip) {
         DriveKitTripSimulator.start(TripSimulatorPigeonMapper.fromPresetTrip(presetTrip))
     }

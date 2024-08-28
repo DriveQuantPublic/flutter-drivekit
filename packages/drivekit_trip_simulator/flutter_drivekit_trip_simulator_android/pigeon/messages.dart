@@ -17,7 +17,6 @@ import 'package:pigeon/pigeon.dart';
 )
 @HostApi()
 abstract class AndroidTripSimulatorApi {
-  String getPlatformName();
   void start(PigeonPresetTrip presetTrip);
   void stop();
 }

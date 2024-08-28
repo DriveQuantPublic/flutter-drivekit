@@ -17,7 +17,6 @@ import 'package:pigeon/pigeon.dart';
 )
 @HostApi()
 abstract class AndroidDriverDataApi {
-  String getPlatformName();
   @async
   PigeonGetTripsResponse getTripsOrderByDateAsc({
     PigeonSynchronizationType synchronizationType =

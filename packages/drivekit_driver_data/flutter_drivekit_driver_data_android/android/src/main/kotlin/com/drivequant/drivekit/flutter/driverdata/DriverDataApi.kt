@@ -1736,7 +1736,6 @@ private object DriverDataApiPigeonCodec : StandardMessageCodec() {
 
 /** Generated interface from Pigeon that represents a handler of messages from Flutter. */
 interface AndroidDriverDataApi {
-  fun getPlatformName(): String
   fun getTripsOrderByDateAsc(synchronizationType: PigeonSynchronizationType, transportationModes: List<PigeonTransportationMode>, callback: (Result<PigeonGetTripsResponse>) -> Unit)
   fun getTripsOrderByDateDesc(synchronizationType: PigeonSynchronizationType, transportationModes: List<PigeonTransportationMode>, callback: (Result<PigeonGetTripsResponse>) -> Unit)
   fun getTrip(itinId: String, callback: (Result<PigeonGetTripResponse>) -> Unit)
@@ -1752,21 +1751,6 @@ interface AndroidDriverDataApi {
     @JvmOverloads
     fun setUp(binaryMessenger: BinaryMessenger, api: AndroidDriverDataApi?, messageChannelSuffix: String = "") {
       val separatedMessageChannelSuffix = if (messageChannelSuffix.isNotEmpty()) ".$messageChannelSuffix" else ""
-      run {
-        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_driver_data_package.AndroidDriverDataApi.getPlatformName$separatedMessageChannelSuffix", codec)
-        if (api != null) {
-          channel.setMessageHandler { _, reply ->
-            val wrapped: List<Any?> = try {
-              listOf(api.getPlatformName())
-            } catch (exception: Throwable) {
-              wrapError(exception)
-            }
-            reply.reply(wrapped)
-          }
-        } else {
-          channel.setMessageHandler(null)
-        }
-      }
       run {
         val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_driver_data_package.AndroidDriverDataApi.getTripsOrderByDateAsc$separatedMessageChannelSuffix", codec)
         if (api != null) {
