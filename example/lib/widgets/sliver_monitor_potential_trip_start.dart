@@ -27,7 +27,8 @@ class SliverMonitorPotentialTripStart extends StatelessWidget {
         ElevatedButton(
           onPressed: () async {
             final isMonitorPotentialTripStartActivated =
-                await DrivekitTripAnalysis.getMonitorPotentialTripStart();
+                await DrivekitTripAnalysis
+                    .isMonitorPotentialTripStartActivated();
             if (context.mounted) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(

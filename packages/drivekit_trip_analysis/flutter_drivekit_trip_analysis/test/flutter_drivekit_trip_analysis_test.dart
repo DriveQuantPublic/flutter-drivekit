@@ -117,6 +117,20 @@ void main() {
       });
 
       group('monitorPotentialTripStart', () {
+        test(
+            'isMonitorPotentialTripStartActivated calls platform implementatio',
+            () async {
+          const isActivated = false;
+          when(
+            () => drivekitTripAnalysisPlatform
+                .isMonitorPotentialTripStartActivated(),
+          ).thenAnswer((_) async => isActivated);
+
+          final actualIsActivated =
+              await DrivekitTripAnalysis.isMonitorPotentialTripStartActivated();
+          expect(actualIsActivated, equals(isActivated));
+        });
+
         test('setMonitorPotentialTripStart calls platform implementation',
             () async {
           when(
@@ -129,18 +143,6 @@ void main() {
             () =>
                 drivekitTripAnalysisPlatform.setMonitorPotentialTripStart(true),
           );
-        });
-
-        test('getMonitorPotentialTripStart calls platform implementatio',
-            () async {
-          const isActivated = false;
-          when(
-            () => drivekitTripAnalysisPlatform.getMonitorPotentialTripStart(),
-          ).thenAnswer((_) async => isActivated);
-
-          final actualIsActivated =
-              await DrivekitTripAnalysis.getMonitorPotentialTripStart();
-          expect(actualIsActivated, equals(isActivated));
         });
       });
     });

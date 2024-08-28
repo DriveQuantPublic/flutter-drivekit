@@ -127,6 +127,18 @@ void main() {
       expect(isRunning, false);
     });
 
+    test('isMonitorPotentialTripStartActivated calls Android implementation,',
+        () async {
+      //mocks
+      when(androidTripAnalysisApi.isMonitorPotentialTripStartActivated)
+          .thenAnswer((_) async => false);
+
+      //test
+      final isActivated = await DrivekitTripAnalysisPlatform.instance
+          .isMonitorPotentialTripStartActivated();
+      expect(isActivated, false);
+    });
+
     test('setMonitorPotentialTripStart calls Android implementation', () async {
       //mock
       when(() => androidTripAnalysisApi.setMonitorPotentialTripStart(any()))
@@ -139,17 +151,6 @@ void main() {
           .called(1);
     });
 
-    test('getMonitorPotentialTripStart calls Android implementation,',
-        () async {
-      //mocks
-      when(androidTripAnalysisApi.getMonitorPotentialTripStart)
-          .thenAnswer((_) async => false);
-
-      //test
-      final isActivated = await DrivekitTripAnalysisPlatform.instance
-          .getMonitorPotentialTripStart();
-      expect(isActivated, false);
-    });
     test('setVehicle calls android implementation', () async {
       //mock
       const mockVehicle = Vehicle();

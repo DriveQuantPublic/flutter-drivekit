@@ -1872,8 +1872,8 @@ interface AndroidTripAnalysisApi {
   fun stopTrip()
   fun cancelTrip()
   fun isTripRunning(): Boolean
+  fun isMonitorPotentialTripStartActivated(): Boolean
   fun setMonitorPotentialTripStart(activate: Boolean)
-  fun getMonitorPotentialTripStart(): Boolean
   fun setVehicle(vehicle: PigeonVehicle)
   fun getTripResponseStatus(tripResponse: PigeonPostGenericResponse): PigeonTripResponseStatus?
 
@@ -2016,14 +2016,11 @@ interface AndroidTripAnalysisApi {
         }
       }
       run {
-        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.setMonitorPotentialTripStart$separatedMessageChannelSuffix", codec)
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.isMonitorPotentialTripStartActivated$separatedMessageChannelSuffix", codec)
         if (api != null) {
-          channel.setMessageHandler { message, reply ->
-            val args = message as List<Any?>
-            val activateArg = args[0] as Boolean
+          channel.setMessageHandler { _, reply ->
             val wrapped: List<Any?> = try {
-              api.setMonitorPotentialTripStart(activateArg)
-              listOf(null)
+              listOf(api.isMonitorPotentialTripStartActivated())
             } catch (exception: Throwable) {
               wrapError(exception)
             }
@@ -2034,11 +2031,14 @@ interface AndroidTripAnalysisApi {
         }
       }
       run {
-        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.getMonitorPotentialTripStart$separatedMessageChannelSuffix", codec)
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.setMonitorPotentialTripStart$separatedMessageChannelSuffix", codec)
         if (api != null) {
-          channel.setMessageHandler { _, reply ->
+          channel.setMessageHandler { message, reply ->
+            val args = message as List<Any?>
+            val activateArg = args[0] as Boolean
             val wrapped: List<Any?> = try {
-              listOf(api.getMonitorPotentialTripStart())
+              api.setMonitorPotentialTripStart(activateArg)
+              listOf(null)
             } catch (exception: Throwable) {
               wrapError(exception)
             }

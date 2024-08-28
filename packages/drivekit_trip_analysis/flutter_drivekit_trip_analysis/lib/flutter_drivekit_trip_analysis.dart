@@ -87,6 +87,11 @@ class DrivekitTripAnalysis {
     return _platform.isTripRunning();
   }
 
+  /// Returns true if the monitor potential trip start is activated
+  static Future<bool> isMonitorPotentialTripStartActivated() async {
+    return _platform.isMonitorPotentialTripStartActivated();
+  }
+
   /// DriveKit's automatic start mode detects a trip and launches its recording
   /// immediately. This operating mode may not be appropriate for all use cases.
   /// Your application may require other information or business logic before
@@ -109,11 +114,6 @@ class DrivekitTripAnalysis {
   /// analysis will not be started automatically.
   static Future<void> setMonitorPotentialTripStart(bool activate) async {
     return _platform.setMonitorPotentialTripStart(activate);
-  }
-
-  /// Returns true if the monitor potential trip start is activated
-  static Future<bool> getMonitorPotentialTripStart() async {
-    return _platform.getMonitorPotentialTripStart();
   }
 
   /// To obtain a more precise analysis on driving behavior,
