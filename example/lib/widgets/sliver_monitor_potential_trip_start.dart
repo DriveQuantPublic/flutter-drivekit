@@ -18,14 +18,12 @@ class SliverMonitorPotentialTripStart extends StatelessWidget {
           },
           child: const Text('Activate monitorPotentialTripStart'),
         ),
-        const SliverGap(4),
         ElevatedButton(
           onPressed: () {
             DrivekitTripAnalysis.setMonitorPotentialTripStart(false);
           },
           child: const Text('Deactivate monitorPotentialTripStart'),
         ),
-        const SliverGap(4),
         ElevatedButton(
           onPressed: () async {
             final isMonitorPotentialTripStartActivated =
