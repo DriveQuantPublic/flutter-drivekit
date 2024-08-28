@@ -14,8 +14,8 @@ flutter:
     platforms:
       android:
         package: com.drivequant.drivekit.flutter.tripanalysis
-        pluginClass: DrivekitTripAnalysisPlugin
-        dartPluginClass: DrivekitTripAnalysisAndroid
+        pluginClass: DriveKitTripAnalysisPlugin
+        dartPluginClass: DriveKitTripAnalysisAndroid
 
 dependencies:
   collection: ^1.18.0

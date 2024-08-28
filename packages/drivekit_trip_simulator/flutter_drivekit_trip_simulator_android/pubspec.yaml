@@ -14,8 +14,8 @@ flutter:
     platforms:
       android:
         package: com.drivequant.drivekit.flutter.tripsimulator
-        pluginClass: DrivekitTripSimulatorPlugin
-        dartPluginClass: DrivekitTripSimulatorAndroid
+        pluginClass: DriveKitTripSimulatorPlugin
+        dartPluginClass: DriveKitTripSimulatorAndroid
 
 dependencies:
   flutter:

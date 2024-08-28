@@ -4,19 +4,19 @@ import 'package:flutter_drivekit_core_android/src/adapter.dart';
 import 'package:flutter_drivekit_core_android/src/core_api.g.dart';
 import 'package:flutter_drivekit_core_platform_interface/flutter_drivekit_core_platform_interface.dart';
 
-/// The Android implementation of [DrivekitCorePlatform].
-class DrivekitCoreAndroid extends DrivekitCorePlatform
+/// The Android implementation of [DriveKitCorePlatform].
+class DriveKitCoreAndroid extends DriveKitCorePlatform
     implements FlutterCoreApi {
-  /// Creates a new instance of [DrivekitCoreAndroid].
+  /// Creates a new instance of [DriveKitCoreAndroid].
   /// The optional [androidCoreApi] parameter is used for
   /// dependency injection in tests.
-  DrivekitCoreAndroid({AndroidCoreApi? androidCoreApi})
+  DriveKitCoreAndroid({AndroidCoreApi? androidCoreApi})
       : androidCoreApi = androidCoreApi ?? AndroidCoreApi();
 
-  /// Registers this class as the default instance of [DrivekitCorePlatform]
+  /// Registers this class as the default instance of [DriveKitCorePlatform]
   static void registerWith() {
-    final instance = DrivekitCoreAndroid();
-    DrivekitCorePlatform.instance = instance;
+    final instance = DriveKitCoreAndroid();
+    DriveKitCorePlatform.instance = instance;
   }
 
   /// The instance of [AndroidCoreApi], a class that provides access to the

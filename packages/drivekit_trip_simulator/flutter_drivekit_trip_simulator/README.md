@@ -19,7 +19,7 @@ Now, you can import `'package:flutter_drivekit_trip_simulator/flutter_drivekit_t
 To use this plugin, you need to have an ApiKey from DriveQuant. If you don't have one, please [contact us](https://info.drivequant.com/contact/).
 Then, you need to install the flutter_drivekit_core plugin and follow the instructions to specify the ApiKey and the UserId.
 
-Now, you can configure the Drivekit Core with the options you want, and start using the Drivekit Trip Simulator plugin. For example, you can start trip simulator with the following code:
+Now, you can configure the DriveKit Core with the options you want, and start using the DriveKit Trip Simulator plugin. For example, you can start trip simulator with the following code:
 
 ```dart
 DriveKitTripSimulator.start(PresetTrip.shortTrip);

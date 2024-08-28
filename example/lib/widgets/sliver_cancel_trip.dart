@@ -8,7 +8,7 @@ class SliverCancelTrip extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: ElevatedButton(
-        onPressed: DrivekitTripAnalysis.instance.cancelTrip,
+        onPressed: DriveKitTripAnalysis.instance.cancelTrip,
         child: const Text('Cancel Trip'),
       ),
     );

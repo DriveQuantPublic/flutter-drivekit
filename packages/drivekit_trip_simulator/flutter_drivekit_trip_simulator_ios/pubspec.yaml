@@ -13,8 +13,8 @@ flutter:
     implements: flutter_drivekit_trip_simulator
     platforms:
       ios:
-        pluginClass: DrivekitTripSimulatorPlugin
-        dartPluginClass: DrivekitTripSimulatorIOS
+        pluginClass: DriveKitTripSimulatorPlugin
+        dartPluginClass: DriveKitTripSimulatorIOS
 
 dependencies:
   flutter:

@@ -12,7 +12,7 @@ import com.drivequant.drivekit.core.networking.RequestError
 import com.drivequant.drivekit.flutter.core.mapper.PigeonMapper.toPigeon
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 
-class DrivekitCorePlugin :
+class DriveKitCorePlugin :
     FlutterPlugin,
     AndroidCoreApi {
     private var context: Context? = null

@@ -7,21 +7,21 @@ import 'package:mocktail/mocktail.dart';
 import 'mocks/mocks.dart';
 
 void main() {
-  group('DrivekitDriverDataAndroid', () {
+  group('DriveKitDriverDataAndroid', () {
     late AndroidDriverDataApi androidDriverDataApi;
 
     setUp(() {
       androidDriverDataApi = MockAndroidDriverDataApi();
-      DrivekitDriverDataPlatform.instance = DrivekitDriverDataAndroid(
+      DriveKitDriverDataPlatform.instance = DriveKitDriverDataAndroid(
         androidDriverDataApi: androidDriverDataApi,
       );
     });
 
     test('can be registered', () {
-      DrivekitDriverDataAndroid.registerWith();
+      DriveKitDriverDataAndroid.registerWith();
       expect(
-        DrivekitDriverDataPlatform.instance,
-        isA<DrivekitDriverDataAndroid>(),
+        DriveKitDriverDataPlatform.instance,
+        isA<DriveKitDriverDataAndroid>(),
       );
     });
 
@@ -31,7 +31,7 @@ void main() {
           .thenAnswer((_) async => 'Android');
 
       //test
-      final name = await DrivekitDriverDataPlatform.instance.getPlatformName();
+      final name = await DriveKitDriverDataPlatform.instance.getPlatformName();
       expect(name, 'Android');
     });
 
@@ -48,7 +48,7 @@ void main() {
       );
 
       //test
-      await DrivekitDriverDataPlatform.instance
+      await DriveKitDriverDataPlatform.instance
           .getTripsOrderByDateAsc(transportationModes: []);
       verify(
         () => androidDriverDataApi
@@ -69,7 +69,7 @@ void main() {
       );
 
       //test
-      await DrivekitDriverDataPlatform.instance
+      await DriveKitDriverDataPlatform.instance
           .getTripsOrderByDateDesc(transportationModes: []);
       verify(
         () => androidDriverDataApi
@@ -86,7 +86,7 @@ void main() {
       );
 
       //test
-      await DrivekitDriverDataPlatform.instance.getTrip('');
+      await DriveKitDriverDataPlatform.instance.getTrip('');
       verify(() => androidDriverDataApi.getTrip('')).called(1);
     });
 
@@ -99,7 +99,7 @@ void main() {
       );
 
       //test
-      await DrivekitDriverDataPlatform.instance.getRoute('');
+      await DriveKitDriverDataPlatform.instance.getRoute('');
       verify(() => androidDriverDataApi.getRoute('')).called(1);
     });
 
@@ -111,7 +111,7 @@ void main() {
 
       //test
       final deletionResult =
-          await DrivekitDriverDataPlatform.instance.deleteTrip('');
+          await DriveKitDriverDataPlatform.instance.deleteTrip('');
       expect(deletionResult, false);
     });
   });

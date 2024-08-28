@@ -14,8 +14,8 @@ flutter:
     implements: flutter_drivekit_driver_data
     platforms:
       ios:
-        pluginClass: DrivekitDriverDataPlugin
-        dartPluginClass: DrivekitDriverDataIOS
+        pluginClass: DriveKitDriverDataPlugin
+        dartPluginClass: DriveKitDriverDataIOS
 
 dependencies:
   collection: ^1.18.0

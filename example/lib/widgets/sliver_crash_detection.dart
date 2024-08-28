@@ -14,20 +14,20 @@ class SliverCrashDetection extends StatelessWidget {
         const SliverGap(4),
         ElevatedButton(
           onPressed: () {
-            DrivekitTripAnalysis.instance.activateCrashDetection(true);
+            DriveKitTripAnalysis.instance.activateCrashDetection(true);
           },
           child: const Text('Activate crash detection'),
         ),
         ElevatedButton(
           onPressed: () {
-            DrivekitTripAnalysis.instance.activateCrashDetection(false);
+            DriveKitTripAnalysis.instance.activateCrashDetection(false);
           },
           child: const Text('Deactivate crash detection'),
         ),
         ElevatedButton(
           onPressed: () async {
             final isCrashDetectionActivated =
-                await DrivekitTripAnalysis.instance.isCrashDetectionActivated();
+                await DriveKitTripAnalysis.instance.isCrashDetectionActivated();
             if (context.mounted) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(

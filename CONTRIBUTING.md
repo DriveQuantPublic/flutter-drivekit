@@ -1,4 +1,4 @@
-# Flutter Drivekit
+# Flutter DriveKit
 
 Flutter interface for DriveKit SDK
 
@@ -84,7 +84,7 @@ To add a new method to the communication between Flutter and the native code in 
 
 ### Communication from native to flutter (listeners)
 
-In the Drivekit SDK, we use listeners to notify the app of events happening in the SDK.
+In the DriveKit SDK, we use listeners to notify the app of events happening in the SDK.
 
 To implement listeners in the Flutter code, we register a native listener once in the native code, and then use Pigeon to send the events to the Flutter code. Those events are then dispatched to the listeners registered in the Flutter code. Here is a schema of the process:
 

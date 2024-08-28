@@ -3,25 +3,25 @@
 ./scripts/add_to_public_package.sh \
 ./packages/drivekit_trip_simulator/flutter_drivekit_trip_simulator_platform_interface/lib/flutter_drivekit_trip_simulator_platform_interface.dart \
 ./packages/drivekit_trip_simulator/flutter_drivekit_trip_simulator/lib/flutter_drivekit_trip_simulator.dart \
-DrivekitTripSimulatorPlatform \
+DriveKitTripSimulatorPlatform \
 DriveKitTripSimulator
 
 ./scripts/add_to_default_implem.sh \
 ./packages/drivekit_trip_simulator/flutter_drivekit_trip_simulator_platform_interface/lib/flutter_drivekit_trip_simulator_platform_interface.dart \
 ./packages/drivekit_trip_simulator/flutter_drivekit_trip_simulator_platform_interface/lib/src/default_drivekit_trip_simulator.dart \
-DrivekitTripSimulatorPlatform \
-DefaultDrivekitTripSimulator
+DriveKitTripSimulatorPlatform \
+DefaultDriveKitTripSimulator
 
 ./scripts/add_to_pigeon.sh \
 ./packages/drivekit_trip_simulator/flutter_drivekit_trip_simulator_platform_interface/lib/flutter_drivekit_trip_simulator_platform_interface.dart \
 ./packages/drivekit_trip_simulator/flutter_drivekit_trip_simulator_android/pigeon/messages.dart \
-DrivekitTripSimulatorPlatform \
+DriveKitTripSimulatorPlatform \
 AndroidTripSimulatorApi
 
 ./scripts/add_to_pigeon.sh \
 ./packages/drivekit_trip_simulator/flutter_drivekit_trip_simulator_platform_interface/lib/flutter_drivekit_trip_simulator_platform_interface.dart \
 ./packages/drivekit_trip_simulator/flutter_drivekit_trip_simulator_ios/pigeon/messages.dart \
-DrivekitTripSimulatorPlatform \
+DriveKitTripSimulatorPlatform \
 IOSTripSimulatorApi
 
 melos pigeon
@@ -29,13 +29,13 @@ melos pigeon
 ./scripts/add_to_platform_dart_file.sh \
 ./packages/drivekit_trip_simulator/flutter_drivekit_trip_simulator_platform_interface/lib/flutter_drivekit_trip_simulator_platform_interface.dart \
 ./packages/drivekit_trip_simulator/flutter_drivekit_trip_simulator_android/lib/flutter_drivekit_trip_simulator_android.dart \
-DrivekitTripSimulatorPlatform \
-DrivekitTripSimulatorAndroid \
+DriveKitTripSimulatorPlatform \
+DriveKitTripSimulatorAndroid \
 androidTripSimulatorApi
 
 ./scripts/add_to_platform_dart_file.sh \
 ./packages/drivekit_trip_simulator/flutter_drivekit_trip_simulator_platform_interface/lib/flutter_drivekit_trip_simulator_platform_interface.dart \
 ./packages/drivekit_trip_simulator/flutter_drivekit_trip_simulator_ios/lib/flutter_drivekit_trip_simulator_ios.dart \
-DrivekitTripSimulatorPlatform \
-DrivekitTripSimulatorIOS \
+DriveKitTripSimulatorPlatform \
+DriveKitTripSimulatorIOS \
 iosTripSimulatorApi

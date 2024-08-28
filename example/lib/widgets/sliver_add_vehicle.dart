@@ -9,7 +9,7 @@ class SliverAddVehicle extends StatelessWidget {
     return SliverToBoxAdapter(
       child: ElevatedButton(
         onPressed: () {
-          DrivekitTripAnalysis.instance.setVehicle(
+          DriveKitTripAnalysis.instance.setVehicle(
             const Vehicle(
               carTypeIndex: 2,
               carEngineIndex: 2,

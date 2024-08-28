@@ -7,20 +7,20 @@ import 'package:mocktail/mocktail.dart';
 import 'mocks/mocks.dart';
 
 void main() {
-  group('DrivekitTripSimulatorIOS', () {
+  group('DriveKitTripSimulatorIOS', () {
     late IOSTripSimulatorApi iosTripSimulatorApi;
 
     setUp(() {
       iosTripSimulatorApi = MockIOSTripSimulatorApi();
-      DrivekitTripSimulatorPlatform.instance =
-          DrivekitTripSimulatorIOS(iosTripSimulatorApi: iosTripSimulatorApi);
+      DriveKitTripSimulatorPlatform.instance =
+          DriveKitTripSimulatorIOS(iosTripSimulatorApi: iosTripSimulatorApi);
     });
 
     test('can be registered', () {
-      DrivekitTripSimulatorIOS.registerWith();
+      DriveKitTripSimulatorIOS.registerWith();
       expect(
-        DrivekitTripSimulatorPlatform.instance,
-        isA<DrivekitTripSimulatorIOS>(),
+        DriveKitTripSimulatorPlatform.instance,
+        isA<DriveKitTripSimulatorIOS>(),
       );
     });
 
@@ -30,7 +30,7 @@ void main() {
 
       //test
       final name =
-          await DrivekitTripSimulatorPlatform.instance.getPlatformName();
+          await DriveKitTripSimulatorPlatform.instance.getPlatformName();
       expect(name, 'iOS');
     });
 
@@ -40,7 +40,7 @@ void main() {
           .thenAnswer((_) async {});
 
       //test
-      await DrivekitTripSimulatorPlatform.instance.start(PresetTrip.shortTrip);
+      await DriveKitTripSimulatorPlatform.instance.start(PresetTrip.shortTrip);
       verify(() => iosTripSimulatorApi.start(PigeonPresetTrip.shortTrip))
           .called(1);
     });
@@ -50,7 +50,7 @@ void main() {
       when(() => iosTripSimulatorApi.stop()).thenAnswer((_) async {});
 
       //test
-      await DrivekitTripSimulatorPlatform.instance.stop();
+      await DriveKitTripSimulatorPlatform.instance.stop();
       verify(() => iosTripSimulatorApi.stop()).called(1);
     });
   });

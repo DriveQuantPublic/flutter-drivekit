@@ -13,8 +13,8 @@ flutter:
     implements: flutter_drivekit_core
     platforms:
       ios:
-        pluginClass: DrivekitCorePlugin
-        dartPluginClass: DrivekitCoreIOS
+        pluginClass: DriveKitCorePlugin
+        dartPluginClass: DriveKitCoreIOS
 
 dependencies:
   flutter:

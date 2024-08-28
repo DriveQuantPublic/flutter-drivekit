@@ -13,7 +13,7 @@ import com.drivequant.drivekit.driverdata.trip.TripsSyncStatus
 import com.drivequant.drivekit.flutter.driverdata.mapper.PigeonMapper
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 
-class DrivekitDriverDataPlugin :
+class DriveKitDriverDataPlugin :
     FlutterPlugin,
     AndroidDriverDataApi {
     private var context: Context? = null

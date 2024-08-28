@@ -196,7 +196,7 @@ class _InitializeListenersState extends State<InitializeListeners> {
     DriveKitCore.instance.addDriveKitListener(_driveKitListener);
     DriveKitCore.instance
         .addDeviceConfigurationListener(_deviceConfigurationListener);
-    DrivekitTripAnalysis.instance.addTripListener(_tripListener);
+    DriveKitTripAnalysis.instance.addTripListener(_tripListener);
   }
 
   @override
@@ -204,7 +204,7 @@ class _InitializeListenersState extends State<InitializeListeners> {
     DriveKitCore.instance.removeDriveKitListener(_driveKitListener);
     DriveKitCore.instance
         .removeDeviceConfigurationListener(_deviceConfigurationListener);
-    DrivekitTripAnalysis.instance.removeTripListener(_tripListener);
+    DriveKitTripAnalysis.instance.removeTripListener(_tripListener);
     super.dispose();
   }
 

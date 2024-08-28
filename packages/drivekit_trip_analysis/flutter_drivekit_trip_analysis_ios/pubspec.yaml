@@ -13,8 +13,8 @@ flutter:
     implements: flutter_drivekit_trip_analysis
     platforms:
       ios:
-        pluginClass: DrivekitTripAnalysisPlugin
-        dartPluginClass: DrivekitTripAnalysisIOS
+        pluginClass: DriveKitTripAnalysisPlugin
+        dartPluginClass: DriveKitTripAnalysisIOS
 
 dependencies:
   collection: ^1.18.0

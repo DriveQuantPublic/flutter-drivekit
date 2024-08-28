@@ -1,10 +1,10 @@
 // coverage:ignore-file
 import 'package:flutter_drivekit_core_platform_interface/flutter_drivekit_core_platform_interface.dart';
 
-/// An implementation of [DrivekitCorePlatform]
+/// An implementation of [DriveKitCorePlatform]
 /// that throws [UnimplementedError] when used.
 /// Used by default if no other implementation is registered.
-class DefaultDrivekitCore extends DrivekitCorePlatform {
+class DefaultDriveKitCore extends DriveKitCorePlatform {
   @override
   void initializePlatform() {
     throw UnimplementedError('initialize() has not been implemented.');

@@ -10,19 +10,19 @@ export 'package:flutter_drivekit_trip_analysis_platform_interface/flutter_drivek
         TripResponseStatusType,
         Vehicle;
 
-DrivekitTripAnalysisPlatform get _platform =>
-    DrivekitTripAnalysisPlatform.instance;
+DriveKitTripAnalysisPlatform get _platform =>
+    DriveKitTripAnalysisPlatform.instance;
 
 /// The main class of the plugin.
 /// This class provides methods to interact with the DriveKit Trip Analysis SDK.
-class DrivekitTripAnalysis {
-  DrivekitTripAnalysis._() {
+class DriveKitTripAnalysis {
+  DriveKitTripAnalysis._() {
     _platform.initializePlatform();
   }
 
-  /// unique instance of the DrivekitTripAnalysis
-  static DrivekitTripAnalysis get instance => _instance;
-  static final DrivekitTripAnalysis _instance = DrivekitTripAnalysis._();
+  /// unique instance of the DriveKitTripAnalysis
+  static DriveKitTripAnalysis get instance => _instance;
+  static final DriveKitTripAnalysis _instance = DriveKitTripAnalysis._();
 
   /// Returns true if the auto start is activated
   Future<bool> isAutoStartActivated() async {

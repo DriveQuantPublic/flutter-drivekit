@@ -14,26 +14,26 @@ class SliverTripLifecycle extends StatelessWidget {
         const SliverGap(4),
         ElevatedButton(
           onPressed: () {
-            DrivekitTripAnalysis.instance.startTrip();
+            DriveKitTripAnalysis.instance.startTrip();
           },
           child: const Text('Start trip'),
         ),
         ElevatedButton(
           onPressed: () {
-            DrivekitTripAnalysis.instance.stopTrip();
+            DriveKitTripAnalysis.instance.stopTrip();
           },
           child: const Text('Stop trip'),
         ),
         ElevatedButton(
           onPressed: () {
-            DrivekitTripAnalysis.instance.cancelTrip();
+            DriveKitTripAnalysis.instance.cancelTrip();
           },
           child: const Text('Cancel trip'),
         ),
         ElevatedButton(
           onPressed: () async {
             final isTripRunning =
-                await DrivekitTripAnalysis.instance.isTripRunning();
+                await DriveKitTripAnalysis.instance.isTripRunning();
             final alertMessage =
                 isTripRunning ? 'Trip is running' : 'Trip is not running';
             if (context.mounted) {

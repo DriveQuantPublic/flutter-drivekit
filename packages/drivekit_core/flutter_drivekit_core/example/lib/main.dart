@@ -25,7 +25,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('DrivekitCore Example')),
+      appBar: AppBar(title: const Text('DriveKitCore Example')),
       body: Column(
         children: [
           Padding(

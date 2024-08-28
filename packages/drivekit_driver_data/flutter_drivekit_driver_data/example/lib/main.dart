@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
     final driveKitDriverData = DriveKitDriverData.instance;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('DrivekitDriverData Example')),
+      appBar: AppBar(title: const Text('DriveKitDriverData Example')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

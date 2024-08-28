@@ -4,19 +4,19 @@ import 'package:flutter_drivekit_driver_data_android/src/driver_data_api.g.dart'
 import 'package:flutter_drivekit_driver_data_android/src/model_adapter.dart';
 import 'package:flutter_drivekit_driver_data_platform_interface/flutter_drivekit_driver_data_platform_interface.dart';
 
-/// The Android implementation of [DrivekitDriverDataPlatform].
-class DrivekitDriverDataAndroid extends DrivekitDriverDataPlatform {
-  /// Creates a new instance of [DrivekitDriverDataAndroid].
+/// The Android implementation of [DriveKitDriverDataPlatform].
+class DriveKitDriverDataAndroid extends DriveKitDriverDataPlatform {
+  /// Creates a new instance of [DriveKitDriverDataAndroid].
   /// The optional [androidDriverDataApi] parameter is used for
   /// dependency injection in tests.
-  DrivekitDriverDataAndroid({
+  DriveKitDriverDataAndroid({
     AndroidDriverDataApi? androidDriverDataApi,
   }) : androidDriverDataApi = androidDriverDataApi ?? AndroidDriverDataApi();
 
   /// Registers this class as the default instance of
-  /// [DrivekitDriverDataPlatform]
+  /// [DriveKitDriverDataPlatform]
   static void registerWith() {
-    DrivekitDriverDataPlatform.instance = DrivekitDriverDataAndroid();
+    DriveKitDriverDataPlatform.instance = DriveKitDriverDataAndroid();
   }
 
   /// The instance of [AndroidDriverDataApi], a class that provides

@@ -4,19 +4,19 @@ import 'package:flutter_drivekit_trip_analysis_ios/src/model_adapter.dart';
 import 'package:flutter_drivekit_trip_analysis_ios/src/trip_analysis_api.g.dart';
 import 'package:flutter_drivekit_trip_analysis_platform_interface/flutter_drivekit_trip_analysis_platform_interface.dart';
 
-/// The iOS implementation of [DrivekitTripAnalysisPlatform].
-class DrivekitTripAnalysisIOS extends DrivekitTripAnalysisPlatform
+/// The iOS implementation of [DriveKitTripAnalysisPlatform].
+class DriveKitTripAnalysisIOS extends DriveKitTripAnalysisPlatform
     implements FlutterTripAnalysisApi {
-  /// Creates a new instance of [DrivekitTripAnalysisIOS].
+  /// Creates a new instance of [DriveKitTripAnalysisIOS].
   /// The optional [iosTripAnalysisApi] parameter is used for
   /// dependency injection in tests.
-  DrivekitTripAnalysisIOS({IOSTripAnalysisApi? iosTripAnalysisApi})
+  DriveKitTripAnalysisIOS({IOSTripAnalysisApi? iosTripAnalysisApi})
       : iosTripAnalysisApi = iosTripAnalysisApi ?? IOSTripAnalysisApi();
 
   /// Registers this class as the default instance of
-  /// [DrivekitTripAnalysisPlatform]
+  /// [DriveKitTripAnalysisPlatform]
   static void registerWith() {
-    DrivekitTripAnalysisPlatform.instance = DrivekitTripAnalysisIOS();
+    DriveKitTripAnalysisPlatform.instance = DriveKitTripAnalysisIOS();
   }
 
   /// The instance of [IOSTripAnalysisApi], a class that provides access to the
