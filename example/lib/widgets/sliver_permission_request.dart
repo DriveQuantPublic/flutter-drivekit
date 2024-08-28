@@ -68,7 +68,7 @@ class _SliverPermissionRequestState extends State<SliverPermissionRequest> {
               'Location when in use permission status : '
               '${locationWhenInUseStatus.isGranted ? '✅' : '❌'}',
             ),
-            const Gap(16),
+            const Gap(4),
             Text(
               'Background location status : '
               '${switch (backgroundLocationStatus) {
@@ -77,7 +77,7 @@ class _SliverPermissionRequestState extends State<SliverPermissionRequest> {
                 _ => '❌',
               }}',
             ),
-            const Gap(16),
+            const Gap(4),
             Text(
               'Activity recognition status : '
               '${switch (activityRecognitionStatus) {
@@ -86,7 +86,7 @@ class _SliverPermissionRequestState extends State<SliverPermissionRequest> {
                 _ => '❌',
               }}',
             ),
-            const Gap(16),
+            const Gap(4),
             Text(
               'Notification permission status : '
               '${switch (notificationStatus) {
@@ -95,7 +95,7 @@ class _SliverPermissionRequestState extends State<SliverPermissionRequest> {
                 _ => '❌',
               }}',
             ),
-            const Gap(16),
+            const Gap(4),
             Text(
               'Ignore battery optimizations status : '
               '${switch (ignoreBatteryOptimizationsStatus) {
@@ -104,7 +104,7 @@ class _SliverPermissionRequestState extends State<SliverPermissionRequest> {
                 _ => '❌',
               }}',
             ),
-            const Gap(16),
+            const Gap(4),
             Row(
               children: [
                 const Gap(16),
@@ -210,7 +210,7 @@ class _SliverPermissionRequestState extends State<SliverPermissionRequest> {
                       ),
                   },
                 ),
-                const Gap(16),
+                const Gap(4),
               ],
             ),
             const Gap(16),
