@@ -25,7 +25,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('DrivekitTripAnalysis Example')),
+      appBar: AppBar(title: const Text('DriveKitTripAnalysis Example')),
       body: Center(
         child: Row(
           children: [
@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
             Switch(
               value: _autoStart,
               onChanged: (value) {
-                DrivekitTripAnalysis.instance.activateAutoStart(value);
+                DriveKitTripAnalysis.instance.activateAutoStart(value);
                 setState(() {
                   _autoStart = value;
                 });

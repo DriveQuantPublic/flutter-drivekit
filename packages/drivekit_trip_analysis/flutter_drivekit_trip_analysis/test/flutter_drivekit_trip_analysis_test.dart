@@ -6,9 +6,9 @@ import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'mocks/mocks.dart';
 
-class MockDrivekitTripAnalysisPlatform extends Mock
+class MockDriveKitTripAnalysisPlatform extends Mock
     with MockPlatformInterfaceMixin
-    implements DrivekitTripAnalysisPlatform {}
+    implements DriveKitTripAnalysisPlatform {}
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -17,37 +17,39 @@ void main() {
     registerFallbackValue(MockTripListener());
   });
 
-  group('DrivekitTripAnalysis', () {
-    late DrivekitTripAnalysisPlatform drivekitTripAnalysisPlatform;
+  group('DriveKitTripAnalysis', () {
+    late DriveKitTripAnalysisPlatform driveKitTripAnalysisPlatform;
 
     setUp(() {
-      drivekitTripAnalysisPlatform = MockDrivekitTripAnalysisPlatform();
-      DrivekitTripAnalysisPlatform.instance = drivekitTripAnalysisPlatform;
+      driveKitTripAnalysisPlatform = MockDriveKitTripAnalysisPlatform();
+      DriveKitTripAnalysisPlatform.instance = driveKitTripAnalysisPlatform;
     });
 
     group('activateAutoStart', () {
       test('isAutoStartActivated returns false by default', () async {
         const isActivated = false;
         when(
-          () => drivekitTripAnalysisPlatform.isAutoStartActivated(),
+          () => driveKitTripAnalysisPlatform.isAutoStartActivated(),
         ).thenAnswer((_) async => isActivated);
 
         final actualIsAutoStartActivatedValue =
-            await DrivekitTripAnalysis.instance.isAutoStartActivated();
+            await DriveKitTripAnalysis.instance.isAutoStartActivated();
         expect(actualIsAutoStartActivatedValue, equals(isActivated));
       });
 
       test('calls platform implementation', () async {
-        when(() => drivekitTripAnalysisPlatform.activateAutoStart(any()))
-            .thenAnswer((_) async {});
+        when(() => driveKitTripAnalysisPlatform.activateAutoStart(any()))
+            .thenAnswer((_) async {
+          return;
+        });
 
-        await DrivekitTripAnalysis.instance.activateAutoStart(true);
-        verify(() => drivekitTripAnalysisPlatform.activateAutoStart(true));
+        await DriveKitTripAnalysis.instance.activateAutoStart(true);
+        verify(() => driveKitTripAnalysisPlatform.activateAutoStart(true));
         verifyNever(
-          () => drivekitTripAnalysisPlatform.activateAutoStart(false),
+          () => driveKitTripAnalysisPlatform.activateAutoStart(false),
         );
-        await DrivekitTripAnalysis.instance.activateAutoStart(false);
-        verify(() => drivekitTripAnalysisPlatform.activateAutoStart(false));
+        await DriveKitTripAnalysis.instance.activateAutoStart(false);
+        verify(() => driveKitTripAnalysisPlatform.activateAutoStart(false));
       });
     });
 
@@ -55,63 +57,71 @@ void main() {
       test('isCrashDetectionActivated returns true by default', () async {
         const isActivated = true;
         when(
-          () => drivekitTripAnalysisPlatform.isCrashDetectionActivated(),
+          () => driveKitTripAnalysisPlatform.isCrashDetectionActivated(),
         ).thenAnswer((_) async => isActivated);
 
         final actualIsAutoStartActivatedValue =
-            await DrivekitTripAnalysis.instance.isCrashDetectionActivated();
+            await DriveKitTripAnalysis.instance.isCrashDetectionActivated();
         expect(actualIsAutoStartActivatedValue, equals(isActivated));
       });
 
       test('calls platform implementation', () async {
-        when(() => drivekitTripAnalysisPlatform.activateCrashDetection(any()))
-            .thenAnswer((_) async {});
+        when(() => driveKitTripAnalysisPlatform.activateCrashDetection(any()))
+            .thenAnswer((_) async {
+          return;
+        });
 
-        await DrivekitTripAnalysis.instance.activateCrashDetection(true);
-        verify(() => drivekitTripAnalysisPlatform.activateCrashDetection(true));
+        await DriveKitTripAnalysis.instance.activateCrashDetection(true);
+        verify(() => driveKitTripAnalysisPlatform.activateCrashDetection(true));
         verifyNever(
-          () => drivekitTripAnalysisPlatform.activateCrashDetection(false),
+          () => driveKitTripAnalysisPlatform.activateCrashDetection(false),
         );
-        await DrivekitTripAnalysis.instance.activateCrashDetection(false);
-        verify(() => drivekitTripAnalysisPlatform.activateCrashDetection(false))
+        await DriveKitTripAnalysis.instance.activateCrashDetection(false);
+        verify(() => driveKitTripAnalysisPlatform.activateCrashDetection(false))
             .called(1);
       });
     });
 
     group('manage trip manually', () {
       test('calls startTrip on platform implementation', () async {
-        when(() => drivekitTripAnalysisPlatform.startTrip())
-            .thenAnswer((_) async {});
+        when(() => driveKitTripAnalysisPlatform.startTrip())
+            .thenAnswer((_) async {
+          return;
+        });
 
-        await drivekitTripAnalysisPlatform.startTrip();
-        verify(() => drivekitTripAnalysisPlatform.startTrip());
+        await driveKitTripAnalysisPlatform.startTrip();
+        verify(() => driveKitTripAnalysisPlatform.startTrip());
       });
 
       test('stopTrip calls platform implementation', () async {
-        when(() => drivekitTripAnalysisPlatform.stopTrip())
-            .thenAnswer((_) async {});
+        when(() => driveKitTripAnalysisPlatform.stopTrip())
+            .thenAnswer((_) async {
+          return;
+        });
 
-        await DrivekitTripAnalysis.instance.stopTrip();
-        verify(() => drivekitTripAnalysisPlatform.stopTrip());
+        await DriveKitTripAnalysis.instance.stopTrip();
+        verify(() => driveKitTripAnalysisPlatform.stopTrip());
       });
 
       test('cancelTrip calls platform implementation', () async {
-        when(() => drivekitTripAnalysisPlatform.cancelTrip())
-            .thenAnswer((_) async {});
+        when(() => driveKitTripAnalysisPlatform.cancelTrip())
+            .thenAnswer((_) async {
+          return;
+        });
 
-        await DrivekitTripAnalysis.instance.cancelTrip();
-        verify(() => drivekitTripAnalysisPlatform.cancelTrip());
+        await DriveKitTripAnalysis.instance.cancelTrip();
+        verify(() => driveKitTripAnalysisPlatform.cancelTrip());
       });
 
       group('isTripRunning', () {
         test('returns false if the SDK is in INACTIVE state', () async {
           const isRunning = false;
           when(
-            () => drivekitTripAnalysisPlatform.isTripRunning(),
+            () => driveKitTripAnalysisPlatform.isTripRunning(),
           ).thenAnswer((_) async => isRunning);
 
           final actualIsRunningValue =
-              await DrivekitTripAnalysis.instance.isTripRunning();
+              await DriveKitTripAnalysis.instance.isTripRunning();
           expect(actualIsRunningValue, equals(isRunning));
         });
       });
@@ -121,11 +131,11 @@ void main() {
             () async {
           const isActivated = false;
           when(
-            () => drivekitTripAnalysisPlatform.isMonitoringPotentialTripStart(),
+            () => driveKitTripAnalysisPlatform.isMonitoringPotentialTripStart(),
           ).thenAnswer((_) async => isActivated);
 
           final actualIsActivated =
-              await DrivekitTripAnalysis.isMonitoringPotentialTripStart();
+              await DriveKitTripAnalysis.isMonitoringPotentialTripStart();
           expect(actualIsActivated, equals(isActivated));
         });
 
@@ -133,13 +143,15 @@ void main() {
             () async {
           when(
             () =>
-                drivekitTripAnalysisPlatform.setMonitorPotentialTripStart(true),
-          ).thenAnswer((_) async {});
+                driveKitTripAnalysisPlatform.setMonitorPotentialTripStart(true),
+          ).thenAnswer((_) async {
+            return;
+          });
 
-          await DrivekitTripAnalysis.setMonitorPotentialTripStart(true);
+          await DriveKitTripAnalysis.setMonitorPotentialTripStart(true);
           verify(
             () =>
-                drivekitTripAnalysisPlatform.setMonitorPotentialTripStart(true),
+                driveKitTripAnalysisPlatform.setMonitorPotentialTripStart(true),
           );
         });
       });
@@ -149,38 +161,46 @@ void main() {
       test('calls platform implementation', () async {
         const vehicle = Vehicle();
 
-        when(() => drivekitTripAnalysisPlatform.setVehicle(vehicle))
-            .thenAnswer((_) async {});
+        when(() => driveKitTripAnalysisPlatform.setVehicle(vehicle))
+            .thenAnswer((_) async {
+          return;
+        });
 
-        await DrivekitTripAnalysis.instance.setVehicle(vehicle);
-        verify(() => drivekitTripAnalysisPlatform.setVehicle(vehicle));
+        await DriveKitTripAnalysis.instance.setVehicle(vehicle);
+        verify(() => driveKitTripAnalysisPlatform.setVehicle(vehicle));
       });
     });
 
     group('listener', () {
       test('addListener', () async {
         final listener = TripListener(beaconDetected: () {});
-        when(() => drivekitTripAnalysisPlatform.addTripListener(any()))
-            .thenAnswer((_) async {});
-        DrivekitTripAnalysis.instance.addTripListener(listener);
-        verify(() => drivekitTripAnalysisPlatform.addTripListener(listener))
+        when(() => driveKitTripAnalysisPlatform.addTripListener(any()))
+            .thenAnswer((_) async {
+          return;
+        });
+        DriveKitTripAnalysis.instance.addTripListener(listener);
+        verify(() => driveKitTripAnalysisPlatform.addTripListener(listener))
             .called(1);
       });
       test('removeListener', () async {
         final listener = TripListener(
           beaconDetected: () {},
         );
-        when(() => drivekitTripAnalysisPlatform.removeTripListener(any()))
-            .thenAnswer((_) async {});
-        DrivekitTripAnalysis.instance.removeTripListener(listener);
-        verify(() => drivekitTripAnalysisPlatform.removeTripListener(listener))
+        when(() => driveKitTripAnalysisPlatform.removeTripListener(any()))
+            .thenAnswer((_) async {
+          return;
+        });
+        DriveKitTripAnalysis.instance.removeTripListener(listener);
+        verify(() => driveKitTripAnalysisPlatform.removeTripListener(listener))
             .called(1);
       });
       test('removeAllListeners', () async {
-        when(() => drivekitTripAnalysisPlatform.removeAllTripListeners())
-            .thenAnswer((_) async {});
-        DrivekitTripAnalysis.instance.removeAllTripListeners();
-        verify(() => drivekitTripAnalysisPlatform.removeAllTripListeners())
+        when(() => driveKitTripAnalysisPlatform.removeAllTripListeners())
+            .thenAnswer((_) async {
+          return;
+        });
+        DriveKitTripAnalysis.instance.removeAllTripListeners();
+        verify(() => driveKitTripAnalysisPlatform.removeAllTripListeners())
             .called(1);
       });
     });
@@ -199,11 +219,11 @@ void main() {
           comments: [Comment(errorCode: 10, comment: 'no account set')],
         );
         when(
-          () => drivekitTripAnalysisPlatform
+          () => driveKitTripAnalysisPlatform
               .getTripResponseStatus(postGenericResponse),
         ).thenAnswer((_) async => tripResponseStatus);
 
-        final actualTripResponseStatus = await DrivekitTripAnalysis.instance
+        final actualTripResponseStatus = await DriveKitTripAnalysis.instance
             .getTripResponseStatus(postGenericResponse);
         expect(actualTripResponseStatus, equals(tripResponseStatus));
       });

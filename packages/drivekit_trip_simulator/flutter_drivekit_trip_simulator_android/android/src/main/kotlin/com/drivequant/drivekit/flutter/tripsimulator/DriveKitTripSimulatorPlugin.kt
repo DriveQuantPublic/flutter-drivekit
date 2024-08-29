@@ -5,7 +5,7 @@ import com.drivequant.drivekit.flutter.core.mapper.TripSimulatorPigeonMapper
 import com.drivequant.drivekit.tripsimulator.DriveKitTripSimulator
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 
-class DrivekitTripSimulatorPlugin :
+class DriveKitTripSimulatorPlugin :
     FlutterPlugin,
     AndroidTripSimulatorApi {
     private var context: Context? = null

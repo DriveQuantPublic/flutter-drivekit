@@ -15,8 +15,8 @@ flutter:
     platforms:
       android:
         package: com.drivequant.drivekit.flutter.driverdata
-        pluginClass: DrivekitDriverDataPlugin
-        dartPluginClass: DrivekitDriverDataAndroid
+        pluginClass: DriveKitDriverDataPlugin
+        dartPluginClass: DriveKitDriverDataAndroid
 
 dependencies:
   collection: ^1.18.0

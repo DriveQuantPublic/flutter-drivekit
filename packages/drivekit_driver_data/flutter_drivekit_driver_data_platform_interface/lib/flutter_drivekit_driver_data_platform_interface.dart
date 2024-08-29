@@ -9,28 +9,28 @@ export 'package:flutter_drivekit_driver_data_platform_interface/src/model.dart';
 /// implement.
 ///
 /// Platform implementations should extend this class
-/// rather than implement it as `DrivekitDriverData`.
+/// rather than implement it as `DriveKitDriverData`.
 /// Extending this class (using `extends`) ensures that the subclass will get
 /// the default implementation, while platform implementations that `implements`
-/// this interface will be broken by newly added [DrivekitDriverDataPlatform]
+/// this interface will be broken by newly added [DriveKitDriverDataPlatform]
 /// methods.
-abstract class DrivekitDriverDataPlatform extends PlatformInterface {
-  /// Constructs a DrivekitDriverDataPlatform.
-  DrivekitDriverDataPlatform() : super(token: _token);
+abstract class DriveKitDriverDataPlatform extends PlatformInterface {
+  /// Constructs a DriveKitDriverDataPlatform.
+  DriveKitDriverDataPlatform() : super(token: _token);
 
   static final Object _token = Object();
 
-  static DrivekitDriverDataPlatform _instance = DefaultDrivekitDriverData();
+  static DriveKitDriverDataPlatform _instance = DefaultDriveKitDriverData();
 
-  /// The default instance of [DrivekitDriverDataPlatform] to use.
+  /// The default instance of [DriveKitDriverDataPlatform] to use.
   ///
-  /// Defaults to [DefaultDrivekitDriverData].
-  static DrivekitDriverDataPlatform get instance => _instance;
+  /// Defaults to [DefaultDriveKitDriverData].
+  static DriveKitDriverDataPlatform get instance => _instance;
 
   /// Platform-specific plugins should set this with their own platform-specific
-  /// class that extends [DrivekitDriverDataPlatform] when they register
+  /// class that extends [DriveKitDriverDataPlatform] when they register
   /// themselves.
-  static set instance(DrivekitDriverDataPlatform instance) {
+  static set instance(DriveKitDriverDataPlatform instance) {
     PlatformInterface.verify(instance, _token);
     _instance = instance;
   }

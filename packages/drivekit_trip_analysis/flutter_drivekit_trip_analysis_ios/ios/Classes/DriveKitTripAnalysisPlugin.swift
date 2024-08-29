@@ -5,12 +5,12 @@ import CoreLocation
 
 extension FlutterError: Error {}
 
-public class DrivekitTripAnalysisPlugin: NSObject, FlutterPlugin, IOSTripAnalysisApi {
+public class DriveKitTripAnalysisPlugin: NSObject, FlutterPlugin, IOSTripAnalysisApi {
     var flutterAPI: FlutterTripAnalysisApi?
 
     public static func register(with registrar: FlutterPluginRegistrar) {
         let messenger: FlutterBinaryMessenger = registrar.messenger()
-        let api: IOSTripAnalysisApi & NSObjectProtocol = DrivekitTripAnalysisPlugin.init(binaryMessenger: messenger )
+        let api: IOSTripAnalysisApi & NSObjectProtocol = DriveKitTripAnalysisPlugin.init(binaryMessenger: messenger )
 
         IOSTripAnalysisApiSetup.setUp(binaryMessenger: messenger, api: api)
     }
@@ -77,7 +77,7 @@ public class DrivekitTripAnalysisPlugin: NSObject, FlutterPlugin, IOSTripAnalysi
 
 }
 
-extension DrivekitTripAnalysisPlugin: TripListener {
+extension DriveKitTripAnalysisPlugin: TripListener {
     public func tripStarted(startMode: DriveKitTripAnalysisModule.StartMode) {
         let pigeonStartMode = PigeonStartMode.init(from: startMode)
         executeOnMainThread {

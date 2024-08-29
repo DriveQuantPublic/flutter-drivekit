@@ -7,21 +7,21 @@ import 'package:mocktail/mocktail.dart';
 import 'mocks/mocks.dart';
 
 void main() {
-  group('DrivekitTripSimulatorAndroid', () {
+  group('DriveKitTripSimulatorAndroid', () {
     late AndroidTripSimulatorApi androidTripSimulatorApi;
 
     setUp(() {
       androidTripSimulatorApi = MockAndroidTripSimulatorApi();
-      DrivekitTripSimulatorPlatform.instance = DrivekitTripSimulatorAndroid(
+      DriveKitTripSimulatorPlatform.instance = DriveKitTripSimulatorAndroid(
         androidTripSimulatorApi: androidTripSimulatorApi,
       );
     });
 
     test('can be registered', () {
-      DrivekitTripSimulatorAndroid.registerWith();
+      DriveKitTripSimulatorAndroid.registerWith();
       expect(
-        DrivekitTripSimulatorPlatform.instance,
-        isA<DrivekitTripSimulatorAndroid>(),
+        DriveKitTripSimulatorPlatform.instance,
+        isA<DriveKitTripSimulatorAndroid>(),
       );
     });
 
@@ -31,10 +31,10 @@ void main() {
           .thenAnswer((_) async {});
 
       //test
-      await DrivekitTripSimulatorPlatform.instance.start(PresetTrip.shortTrip);
+      await DriveKitTripSimulatorPlatform.instance.start(PresetTrip.shortTrip);
       verify(
         () =>
-            DrivekitTripSimulatorPlatform.instance.start(PresetTrip.shortTrip),
+            DriveKitTripSimulatorPlatform.instance.start(PresetTrip.shortTrip),
       ).called(1);
     });
 
@@ -43,9 +43,9 @@ void main() {
       when(() => androidTripSimulatorApi.stop()).thenAnswer((_) async {});
 
       //test
-      await DrivekitTripSimulatorPlatform.instance.stop();
+      await DriveKitTripSimulatorPlatform.instance.stop();
       verify(
-        () => DrivekitTripSimulatorPlatform.instance.stop(),
+        () => DriveKitTripSimulatorPlatform.instance.stop(),
       ).called(1);
     });
   });

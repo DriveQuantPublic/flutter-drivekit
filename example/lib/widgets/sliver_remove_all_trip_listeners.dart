@@ -9,7 +9,7 @@ class SliverRemoveAllTripListeners extends StatelessWidget {
     return SliverToBoxAdapter(
       child: ElevatedButton(
         onPressed: () {
-          DrivekitTripAnalysis.instance.removeAllTripListeners();
+          DriveKitTripAnalysis.instance.removeAllTripListeners();
         },
         child: const Text('Remove all TripListener'),
       ),

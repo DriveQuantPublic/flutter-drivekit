@@ -5,7 +5,7 @@ import 'package:flutter_drivekit_core_platform_interface/flutter_drivekit_core_p
 export 'package:flutter_drivekit_core_platform_interface/flutter_drivekit_core_platform_interface.dart'
     show DKDeviceConfigurationListener, DriveKitListener;
 
-DrivekitCorePlatform get _platform => DrivekitCorePlatform.instance;
+DriveKitCorePlatform get _platform => DriveKitCorePlatform.instance;
 
 /// The main class of the plugin.
 /// This class provides methods to interact with the DriveKit Core SDK.

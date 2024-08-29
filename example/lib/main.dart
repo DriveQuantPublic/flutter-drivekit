@@ -34,7 +34,7 @@ void main() {
     },
     tripFinished: (_, response) async {
       final responseStatus =
-          await DrivekitTripAnalysis.instance.getTripResponseStatus(response);
+          await DriveKitTripAnalysis.instance.getTripResponseStatus(response);
       if (responseStatus != null) {
         final String message;
         switch (responseStatus.status) {
@@ -60,7 +60,7 @@ void main() {
       ),
     },
   );
-  DrivekitTripAnalysis.instance.addTripListener(tripListener);
+  DriveKitTripAnalysis.instance.addTripListener(tripListener);
 
   // Setup widget.
   runApp(const MyApp());

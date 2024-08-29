@@ -5,7 +5,7 @@ A common platform interface for the drivekit_core plugin.
 This interface allows platform-specific implementations of the drivekit_core plugin, as well as the plugin itself, to ensure they are supporting the same interface.
 
 Usage
-To implement a new platform-specific implementation of drivekit_core, extend DrivekitCorePlatform with an implementation that performs the platform-specific behavior, and when you register your plugin, set the default DrivekitCorePlatform by calling DrivekitCorePlatform.instance = MyDrivekitCore().
+To implement a new platform-specific implementation of drivekit_core, extend DriveKitCorePlatform with an implementation that performs the platform-specific behavior, and when you register your plugin, set the default DriveKitCorePlatform by calling DriveKitCorePlatform.instance = MyDriveKitCore().
 
 Note on breaking changes
 Strongly prefer non-breaking changes (such as adding a method to the interface) over breaking changes for this package.

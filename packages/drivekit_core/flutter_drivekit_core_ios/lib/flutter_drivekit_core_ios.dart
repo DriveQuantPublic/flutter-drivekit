@@ -3,17 +3,17 @@ import 'package:flutter_drivekit_core_ios/src/adapter.dart';
 import 'package:flutter_drivekit_core_ios/src/core_api.g.dart';
 import 'package:flutter_drivekit_core_platform_interface/flutter_drivekit_core_platform_interface.dart';
 
-/// The iOS implementation of [DrivekitCorePlatform].
-class DrivekitCoreIOS extends DrivekitCorePlatform implements FlutterCoreApi {
-  /// Creates a new instance of [DrivekitCoreIOS].
+/// The iOS implementation of [DriveKitCorePlatform].
+class DriveKitCoreIOS extends DriveKitCorePlatform implements FlutterCoreApi {
+  /// Creates a new instance of [DriveKitCoreIOS].
   /// The optional [iosCoreApi] parameter is used for
   /// dependency injection in tests.
-  DrivekitCoreIOS({IOSCoreApi? iosCoreApi})
+  DriveKitCoreIOS({IOSCoreApi? iosCoreApi})
       : iosCoreApi = iosCoreApi ?? IOSCoreApi();
 
-  /// Registers this class as the default instance of [DrivekitCorePlatform]
+  /// Registers this class as the default instance of [DriveKitCorePlatform]
   static void registerWith() {
-    DrivekitCorePlatform.instance = DrivekitCoreIOS();
+    DriveKitCorePlatform.instance = DriveKitCoreIOS();
   }
 
   /// The instance of [IOSCoreApi], a class that provides access to the

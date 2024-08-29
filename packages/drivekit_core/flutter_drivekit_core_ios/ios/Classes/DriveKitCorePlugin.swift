@@ -4,12 +4,12 @@ import DriveKitCoreModule
 
 extension FlutterError: Error {}
 
-public class DrivekitCorePlugin: NSObject, FlutterPlugin, IOSCoreApi {
+public class DriveKitCorePlugin: NSObject, FlutterPlugin, IOSCoreApi {
     var flutterAPI: FlutterCoreApi?
 
     public static func register(with registrar: FlutterPluginRegistrar) {
         let messenger: FlutterBinaryMessenger = registrar.messenger()
-        let api: IOSCoreApi & NSObjectProtocol = DrivekitCorePlugin.init(binaryMessenger: messenger )
+        let api: IOSCoreApi & NSObjectProtocol = DriveKitCorePlugin.init(binaryMessenger: messenger )
 
         IOSCoreApiSetup.setUp(binaryMessenger: messenger, api: api)
     }
@@ -80,7 +80,7 @@ public class DrivekitCorePlugin: NSObject, FlutterPlugin, IOSCoreApi {
     }
 }
 
-extension DrivekitCorePlugin: DriveKitDelegate {
+extension DriveKitCorePlugin: DriveKitDelegate {
     public func driveKitDidConnect(_ driveKit: DriveKitCoreModule.DriveKit) {
         executeOnMainThread {
             self.flutterAPI?.driveKitDidConnect { result in
@@ -164,7 +164,7 @@ extension DrivekitCorePlugin: DriveKitDelegate {
     }
 }
 
-extension DrivekitCorePlugin: DKDeviceConfigurationDelegate {
+extension DriveKitCorePlugin: DKDeviceConfigurationDelegate {
     public func deviceConfigurationDidChange(event: DKDeviceConfigurationEvent) {
         let event = PigeonDeviceConfigurationEvent.init(from: event)
         executeOnMainThread {

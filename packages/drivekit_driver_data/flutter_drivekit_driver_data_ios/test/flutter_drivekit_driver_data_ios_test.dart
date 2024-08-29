@@ -7,20 +7,20 @@ import 'package:mocktail/mocktail.dart';
 import 'mocks/mocks.dart';
 
 void main() {
-  group('DrivekitDriverDataIOS', () {
+  group('DriveKitDriverDataIOS', () {
     late IOSDriverDataApi iosDriverDataApi;
 
     setUp(() {
       iosDriverDataApi = MockIOSDriverDataApi();
-      DrivekitDriverDataPlatform.instance =
-          DrivekitDriverDataIOS(iosDriverDataApi: iosDriverDataApi);
+      DriveKitDriverDataPlatform.instance =
+          DriveKitDriverDataIOS(iosDriverDataApi: iosDriverDataApi);
     });
 
     test('can be registered', () {
-      DrivekitDriverDataIOS.registerWith();
+      DriveKitDriverDataIOS.registerWith();
       expect(
-        DrivekitDriverDataPlatform.instance,
-        isA<DrivekitDriverDataIOS>(),
+        DriveKitDriverDataPlatform.instance,
+        isA<DriveKitDriverDataIOS>(),
       );
     });
 
@@ -36,7 +36,7 @@ void main() {
       );
 
       //test
-      await DrivekitDriverDataPlatform.instance
+      await DriveKitDriverDataPlatform.instance
           .getTripsOrderByDateAsc(transportationModes: []);
       verify(
         () => iosDriverDataApi.getTripsOrderByDateAsc(transportationModes: []),
@@ -55,7 +55,7 @@ void main() {
       );
 
       //test
-      await DrivekitDriverDataPlatform.instance
+      await DriveKitDriverDataPlatform.instance
           .getTripsOrderByDateDesc(transportationModes: []);
       verify(
         () => iosDriverDataApi.getTripsOrderByDateDesc(transportationModes: []),
@@ -71,7 +71,7 @@ void main() {
       );
 
       //test
-      await DrivekitDriverDataPlatform.instance.getTrip('');
+      await DriveKitDriverDataPlatform.instance.getTrip('');
       verify(() => iosDriverDataApi.getTrip('')).called(1);
     });
 
@@ -84,7 +84,7 @@ void main() {
       );
 
       //test
-      await DrivekitDriverDataPlatform.instance.getRoute('');
+      await DriveKitDriverDataPlatform.instance.getRoute('');
       verify(() => iosDriverDataApi.getRoute('')).called(1);
     });
 
@@ -94,7 +94,7 @@ void main() {
           .thenAnswer((_) async => false);
 
       //test
-      final name = await DrivekitDriverDataPlatform.instance.deleteTrip('');
+      final name = await DriveKitDriverDataPlatform.instance.deleteTrip('');
       expect(name, false);
     });
   });

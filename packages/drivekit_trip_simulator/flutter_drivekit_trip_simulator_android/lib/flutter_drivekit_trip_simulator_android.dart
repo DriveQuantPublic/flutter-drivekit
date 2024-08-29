@@ -3,20 +3,20 @@ import 'package:flutter_drivekit_trip_simulator_android/src/adapter.dart';
 import 'package:flutter_drivekit_trip_simulator_android/src/trip_simulator_api.g.dart';
 import 'package:flutter_drivekit_trip_simulator_platform_interface/flutter_drivekit_trip_simulator_platform_interface.dart';
 
-/// The Android implementation of [DrivekitTripSimulatorPlatform].
-class DrivekitTripSimulatorAndroid extends DrivekitTripSimulatorPlatform {
-  /// Creates a new instance of [DrivekitTripSimulatorAndroid].
+/// The Android implementation of [DriveKitTripSimulatorPlatform].
+class DriveKitTripSimulatorAndroid extends DriveKitTripSimulatorPlatform {
+  /// Creates a new instance of [DriveKitTripSimulatorAndroid].
   /// The optional [androidTripSimulatorApi] parameter is used for
   /// dependency injection in tests.
-  DrivekitTripSimulatorAndroid({
+  DriveKitTripSimulatorAndroid({
     AndroidTripSimulatorApi? androidTripSimulatorApi,
   }) : androidTripSimulatorApi =
             androidTripSimulatorApi ?? AndroidTripSimulatorApi();
 
   /// Registers this class as the default instance of
-  /// [DrivekitTripSimulatorPlatform]
+  /// [DriveKitTripSimulatorPlatform]
   static void registerWith() {
-    DrivekitTripSimulatorPlatform.instance = DrivekitTripSimulatorAndroid();
+    DriveKitTripSimulatorPlatform.instance = DriveKitTripSimulatorAndroid();
   }
 
   /// The instance of [AndroidTripSimulatorApi], a class that provides

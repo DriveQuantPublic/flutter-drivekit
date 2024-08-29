@@ -1,10 +1,10 @@
 // coverage:ignore-file
 import 'package:flutter_drivekit_trip_analysis_platform_interface/flutter_drivekit_trip_analysis_platform_interface.dart';
 
-/// An implementation of [DrivekitTripAnalysisPlatform]
+/// An implementation of [DriveKitTripAnalysisPlatform]
 /// that throws [UnimplementedError] when used.
 /// Used by default if no other implementation is registered.
-class DefaultDrivekitTripAnalysis extends DrivekitTripAnalysisPlatform {
+class DefaultDriveKitTripAnalysis extends DriveKitTripAnalysisPlatform {
   @override
   void initializePlatform() {
     throw UnimplementedError('initializePlatform() has not been implemented.');

@@ -23,7 +23,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('DrivekitDriverData Example')),
+      appBar: AppBar(title: const Text('DriveKitDriverData Example')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

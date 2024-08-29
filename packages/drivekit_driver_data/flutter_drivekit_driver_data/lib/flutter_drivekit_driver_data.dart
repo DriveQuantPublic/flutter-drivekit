@@ -9,14 +9,14 @@ export 'package:flutter_drivekit_driver_data_platform_interface/flutter_drivekit
         Trip,
         TripSyncStatus;
 
-DrivekitDriverDataPlatform get _platform => DrivekitDriverDataPlatform.instance;
+DriveKitDriverDataPlatform get _platform => DriveKitDriverDataPlatform.instance;
 
 /// The main class of the plugin.
 /// This class provides methods to interact with the DriveKit DriverData SDK.
 class DriveKitDriverData {
   const DriveKitDriverData._();
 
-  /// unique instance of the DrivekitDriverData
+  /// unique instance of the DriveKitDriverData
   static DriveKitDriverData get instance => _instance;
   static const DriveKitDriverData _instance = DriveKitDriverData._();
 

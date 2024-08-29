@@ -6,9 +6,9 @@ import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'mocks/mocks.dart';
 
-class MockDrivekitCorePlatform extends Mock
+class MockDriveKitCorePlatform extends Mock
     with MockPlatformInterfaceMixin
-    implements DrivekitCorePlatform {}
+    implements DriveKitCorePlatform {}
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -18,12 +18,12 @@ void main() {
     registerFallbackValue(MockDKDeviceConfigurationListener());
   });
 
-  group('DrivekitCore', () {
-    late DrivekitCorePlatform drivekitCorePlatform;
+  group('DriveKitCore', () {
+    late DriveKitCorePlatform drivekitCorePlatform;
 
     setUp(() {
-      drivekitCorePlatform = MockDrivekitCorePlatform();
-      DrivekitCorePlatform.instance = drivekitCorePlatform;
+      drivekitCorePlatform = MockDriveKitCorePlatform();
+      DriveKitCorePlatform.instance = drivekitCorePlatform;
     });
 
     group('apiKey', () {

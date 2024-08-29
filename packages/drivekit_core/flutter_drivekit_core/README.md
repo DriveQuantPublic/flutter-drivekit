@@ -61,7 +61,7 @@ driveKitCore.setApiKey(apiKey)
 driveKitCore.setUserId(userId)
 ```
 
-Now, you can configure the Drivekit Core with the options you want, and use other Drivekit plugins to start analysing trips.
+Now, you can configure the DriveKit Core with the options you want, and use other DriveKit plugins to start analysing trips.
 
 ## API
 

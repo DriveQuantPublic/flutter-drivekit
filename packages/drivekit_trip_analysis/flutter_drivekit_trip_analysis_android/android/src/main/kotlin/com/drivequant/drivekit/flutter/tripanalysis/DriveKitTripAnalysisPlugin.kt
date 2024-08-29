@@ -25,7 +25,7 @@ import com.drivequant.drivekit.tripanalysis.service.recorder.StartMode
 import com.drivequant.drivekit.tripanalysis.service.recorder.State
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 
-class DrivekitTripAnalysisPlugin :
+class DriveKitTripAnalysisPlugin :
     FlutterPlugin,
     AndroidTripAnalysisApi {
     private var context: Context? = null

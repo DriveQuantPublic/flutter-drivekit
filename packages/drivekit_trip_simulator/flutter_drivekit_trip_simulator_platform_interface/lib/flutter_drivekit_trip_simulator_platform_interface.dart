@@ -8,29 +8,29 @@ export 'package:flutter_drivekit_trip_simulator_platform_interface/src/model.dar
 /// implement.
 ///
 /// Platform implementations should extend this class
-/// rather than implement it as `DrivekitTripSimulator`.
+/// rather than implement it as `DriveKitTripSimulator`.
 /// Extending this class (using `extends`) ensures that the subclass will get
 /// the default implementation, while platform implementations that `implements`
-/// this interface will be broken by newly added [DrivekitTripSimulatorPlatform]
+/// this interface will be broken by newly added [DriveKitTripSimulatorPlatform]
 /// methods.
-abstract class DrivekitTripSimulatorPlatform extends PlatformInterface {
-  /// Constructs a DrivekitTripSimulatorPlatform.
-  DrivekitTripSimulatorPlatform() : super(token: _token);
+abstract class DriveKitTripSimulatorPlatform extends PlatformInterface {
+  /// Constructs a DriveKitTripSimulatorPlatform.
+  DriveKitTripSimulatorPlatform() : super(token: _token);
 
   static final Object _token = Object();
 
-  static DrivekitTripSimulatorPlatform _instance =
-      DefaultDrivekitTripSimulator();
+  static DriveKitTripSimulatorPlatform _instance =
+      DefaultDriveKitTripSimulator();
 
-  /// The default instance of [DrivekitTripSimulatorPlatform] to use.
+  /// The default instance of [DriveKitTripSimulatorPlatform] to use.
   ///
-  /// Defaults to [DefaultDrivekitTripSimulator].
-  static DrivekitTripSimulatorPlatform get instance => _instance;
+  /// Defaults to [DefaultDriveKitTripSimulator].
+  static DriveKitTripSimulatorPlatform get instance => _instance;
 
   /// Platform-specific plugins should set this with their own platform-specific
-  /// class that extends [DrivekitTripSimulatorPlatform] when they register
+  /// class that extends [DriveKitTripSimulatorPlatform] when they register
   /// themselves.
-  static set instance(DrivekitTripSimulatorPlatform instance) {
+  static set instance(DriveKitTripSimulatorPlatform instance) {
     PlatformInterface.verify(instance, _token);
     _instance = instance;
   }

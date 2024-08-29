@@ -7,28 +7,28 @@ export 'package:flutter_drivekit_trip_analysis_platform_interface/src/model.dart
 /// The interface that implementations of drivekit_trip_analysis must implement.
 ///
 /// Platform implementations should extend this class
-/// rather than implement it as `DrivekitTripAnalysis`.
+/// rather than implement it as `DriveKitTripAnalysis`.
 /// Extending this class (using `extends`) ensures that the subclass will get
 /// the default implementation, while platform implementations that `implements`
 /// this interface will be broken by newly
-/// added [DrivekitTripAnalysisPlatform] methods.
-abstract class DrivekitTripAnalysisPlatform extends PlatformInterface {
-  /// Constructs a DrivekitTripAnalysisPlatform.
-  DrivekitTripAnalysisPlatform() : super(token: _token);
+/// added [DriveKitTripAnalysisPlatform] methods.
+abstract class DriveKitTripAnalysisPlatform extends PlatformInterface {
+  /// Constructs a DriveKitTripAnalysisPlatform.
+  DriveKitTripAnalysisPlatform() : super(token: _token);
 
   static final Object _token = Object();
 
-  static DrivekitTripAnalysisPlatform _instance = DefaultDrivekitTripAnalysis();
+  static DriveKitTripAnalysisPlatform _instance = DefaultDriveKitTripAnalysis();
 
-  /// The default instance of [DrivekitTripAnalysisPlatform] to use.
+  /// The default instance of [DriveKitTripAnalysisPlatform] to use.
   ///
-  /// Defaults to [DefaultDrivekitTripAnalysis].
-  static DrivekitTripAnalysisPlatform get instance => _instance;
+  /// Defaults to [DefaultDriveKitTripAnalysis].
+  static DriveKitTripAnalysisPlatform get instance => _instance;
 
   /// Platform-specific plugins should set this with their own platform-specific
-  /// class that extends [DrivekitTripAnalysisPlatform]
+  /// class that extends [DriveKitTripAnalysisPlatform]
   /// when they register themselves.
-  static set instance(DrivekitTripAnalysisPlatform instance) {
+  static set instance(DriveKitTripAnalysisPlatform instance) {
     PlatformInterface.verify(instance, _token);
     _instance = instance;
   }

@@ -6,11 +6,11 @@ import DriveKitDBTripAccessModule
 
 extension FlutterError: Error {}
 
-public class DrivekitDriverDataPlugin: NSObject, FlutterPlugin, IOSDriverDataApi {
+public class DriveKitDriverDataPlugin: NSObject, FlutterPlugin, IOSDriverDataApi {
 
     public static func register(with registrar: FlutterPluginRegistrar) {
         let messenger: FlutterBinaryMessenger = registrar.messenger()
-        let api: IOSDriverDataApi & NSObjectProtocol = DrivekitDriverDataPlugin.init()
+        let api: IOSDriverDataApi & NSObjectProtocol = DriveKitDriverDataPlugin.init()
 
         IOSDriverDataApiSetup.setUp(binaryMessenger: messenger, api: api)
     }

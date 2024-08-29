@@ -3,25 +3,25 @@
 ./scripts/add_to_public_package.sh \
 ./packages/drivekit_core/flutter_drivekit_core_platform_interface/lib/flutter_drivekit_core_platform_interface.dart \
 ./packages/drivekit_core/flutter_drivekit_core/lib/flutter_drivekit_core.dart \
-DrivekitCorePlatform \
+DriveKitCorePlatform \
 DriveKitCore
 
 ./scripts/add_to_default_implem.sh \
 ./packages/drivekit_core/flutter_drivekit_core_platform_interface/lib/flutter_drivekit_core_platform_interface.dart \
 ./packages/drivekit_core/flutter_drivekit_core_platform_interface/lib/src/default_drivekit_core.dart \
-DrivekitCorePlatform \
-DefaultDrivekitCore
+DriveKitCorePlatform \
+DefaultDriveKitCore
 
 ./scripts/add_to_pigeon.sh \
 ./packages/drivekit_core/flutter_drivekit_core_platform_interface/lib/flutter_drivekit_core_platform_interface.dart \
 ./packages/drivekit_core/flutter_drivekit_core_android/pigeon/messages.dart \
-DrivekitCorePlatform \
+DriveKitCorePlatform \
 AndroidCoreApi
 
 ./scripts/add_to_pigeon.sh \
 ./packages/drivekit_core/flutter_drivekit_core_platform_interface/lib/flutter_drivekit_core_platform_interface.dart \
 ./packages/drivekit_core/flutter_drivekit_core_ios/pigeon/messages.dart \
-DrivekitCorePlatform \
+DriveKitCorePlatform \
 IOSCoreApi
 
 melos pigeon
@@ -29,13 +29,13 @@ melos pigeon
 ./scripts/add_to_platform_dart_file.sh \
 ./packages/drivekit_core/flutter_drivekit_core_platform_interface/lib/flutter_drivekit_core_platform_interface.dart \
 ./packages/drivekit_core/flutter_drivekit_core_android/lib/flutter_drivekit_core_android.dart \
-DrivekitCorePlatform \
-DrivekitCoreAndroid \
+DriveKitCorePlatform \
+DriveKitCoreAndroid \
 androidCoreApi
 
 ./scripts/add_to_platform_dart_file.sh \
 ./packages/drivekit_core/flutter_drivekit_core_platform_interface/lib/flutter_drivekit_core_platform_interface.dart \
 ./packages/drivekit_core/flutter_drivekit_core_ios/lib/flutter_drivekit_core_ios.dart \
-DrivekitCorePlatform \
-DrivekitCoreIOS \
+DriveKitCorePlatform \
+DriveKitCoreIOS \
 iosCoreApi

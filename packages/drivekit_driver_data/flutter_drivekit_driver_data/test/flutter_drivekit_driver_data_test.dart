@@ -4,20 +4,20 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
-class MockDrivekitDriverDataPlatform extends Mock
+class MockDriveKitDriverDataPlatform extends Mock
     with MockPlatformInterfaceMixin
-    implements DrivekitDriverDataPlatform {}
+    implements DriveKitDriverDataPlatform {}
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   final driveKitDriverData = DriveKitDriverData.instance;
 
-  group('DrivekitDriverData', () {
-    late DrivekitDriverDataPlatform drivekitDriverDataPlatform;
+  group('DriveKitDriverData', () {
+    late DriveKitDriverDataPlatform drivekitDriverDataPlatform;
 
     setUp(() {
-      drivekitDriverDataPlatform = MockDrivekitDriverDataPlatform();
-      DrivekitDriverDataPlatform.instance = drivekitDriverDataPlatform;
+      drivekitDriverDataPlatform = MockDriveKitDriverDataPlatform();
+      DriveKitDriverDataPlatform.instance = drivekitDriverDataPlatform;
     });
 
     group('Get Trips', () {

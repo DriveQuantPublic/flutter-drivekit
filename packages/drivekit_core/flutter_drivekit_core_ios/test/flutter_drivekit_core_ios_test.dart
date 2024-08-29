@@ -7,19 +7,19 @@ import 'package:mocktail/mocktail.dart';
 import 'mocks/mocks.dart';
 
 void main() {
-  group('DrivekitCoreIOS', () {
+  group('DriveKitCoreIOS', () {
     late IOSCoreApi iosCoreApi;
     late FlutterCoreApi flutterCoreApi;
 
     setUp(() {
       iosCoreApi = MockIOSCoreApi();
-      flutterCoreApi = DrivekitCoreIOS(iosCoreApi: iosCoreApi);
-      DrivekitCorePlatform.instance = flutterCoreApi as DrivekitCoreIOS;
+      flutterCoreApi = DriveKitCoreIOS(iosCoreApi: iosCoreApi);
+      DriveKitCorePlatform.instance = flutterCoreApi as DriveKitCoreIOS;
     });
 
     test('can be registered', () {
-      DrivekitCoreIOS.registerWith();
-      expect(DrivekitCorePlatform.instance, isA<DrivekitCoreIOS>());
+      DriveKitCoreIOS.registerWith();
+      expect(DriveKitCorePlatform.instance, isA<DriveKitCoreIOS>());
     });
 
     test('setApiKey calls setApiKey method with correct key', () async {
@@ -27,7 +27,7 @@ void main() {
       when(() => iosCoreApi.setApiKey(any())).thenAnswer((_) async {});
 
       //test
-      await DrivekitCorePlatform.instance.setApiKey('api_key');
+      await DriveKitCorePlatform.instance.setApiKey('api_key');
       verify(() => iosCoreApi.setApiKey('api_key')).called(1);
     });
 
@@ -37,7 +37,7 @@ void main() {
       when(() => iosCoreApi.getApiKey()).thenAnswer((_) async => mockApiKey);
 
       //test
-      final apiKey = await DrivekitCorePlatform.instance.getApiKey();
+      final apiKey = await DriveKitCorePlatform.instance.getApiKey();
       expect(apiKey, mockApiKey);
     });
 
@@ -46,7 +46,7 @@ void main() {
       when(() => iosCoreApi.setUserId(any())).thenAnswer((_) async {});
 
       //test
-      await DrivekitCorePlatform.instance.setUserId('user_id');
+      await DriveKitCorePlatform.instance.setUserId('user_id');
       verify(() => iosCoreApi.setUserId('user_id')).called(1);
     });
 
@@ -56,7 +56,7 @@ void main() {
       when(() => iosCoreApi.getUserId()).thenAnswer((_) async => mockedUserId);
 
       //test
-      final userId = await DrivekitCorePlatform.instance.getUserId();
+      final userId = await DriveKitCorePlatform.instance.getUserId();
       expect(userId, mockedUserId);
     });
 
@@ -65,7 +65,7 @@ void main() {
       when(() => iosCoreApi.reset()).thenAnswer((_) async {});
 
       //test
-      await DrivekitCorePlatform.instance.reset();
+      await DriveKitCorePlatform.instance.reset();
       verify(() => iosCoreApi.reset()).called(1);
     });
 
@@ -74,7 +74,7 @@ void main() {
       when(iosCoreApi.isTokenValid).thenAnswer((_) async => true);
 
       //test
-      final isValid = await DrivekitCorePlatform.instance.isTokenValid();
+      final isValid = await DriveKitCorePlatform.instance.isTokenValid();
       expect(isValid, true);
     });
 
@@ -83,7 +83,7 @@ void main() {
       when(iosCoreApi.deleteAccount).thenAnswer((_) async {});
 
       //test
-      await DrivekitCorePlatform.instance.deleteAccount();
+      await DriveKitCorePlatform.instance.deleteAccount();
       verify(() => iosCoreApi.deleteAccount()).called(1);
     });
 
@@ -93,7 +93,7 @@ void main() {
           .thenAnswer((_) async {});
 
       //test
-      await DrivekitCorePlatform.instance.enableLogging(showInConsole: false);
+      await DriveKitCorePlatform.instance.enableLogging(showInConsole: false);
       verify(() => iosCoreApi.enableLogging(showInConsole: false)).called(1);
       // ignore: avoid_redundant_argument_values
       verifyNever(() => iosCoreApi.enableLogging(showInConsole: true));
@@ -104,7 +104,7 @@ void main() {
       when(iosCoreApi.disableLogging).thenAnswer((_) async {});
 
       //test
-      await DrivekitCorePlatform.instance.disableLogging();
+      await DriveKitCorePlatform.instance.disableLogging();
       verify(() => iosCoreApi.disableLogging()).called(1);
     });
     test('returns correct log file URI when platform implementation exists',
@@ -114,7 +114,7 @@ void main() {
           .thenAnswer((_) async => 'file://log.txt');
 
       final actualLogFileUri =
-          await DrivekitCorePlatform.instance.getLogUriFile();
+          await DriveKitCorePlatform.instance.getLogUriFile();
       expect(actualLogFileUri, equals(logFileUri));
     });
 
@@ -122,7 +122,7 @@ void main() {
       when(() => iosCoreApi.getLogUriFile()).thenAnswer((_) async => null);
 
       final actualLogFileUri =
-          await DrivekitCorePlatform.instance.getLogUriFile();
+          await DriveKitCorePlatform.instance.getLogUriFile();
       expect(actualLogFileUri, isNull);
     });
     group('DriveKitListener', () {
@@ -134,7 +134,7 @@ void main() {
         var onBackgroundFetchStatusChangedCount = 0;
         var userIdUpdateStatusCount = 0;
         //test
-        DrivekitCorePlatform.instance.addDriveKitListener(
+        DriveKitCorePlatform.instance.addDriveKitListener(
           DriveKitListener(
             onConnected: () {
               onConnectedCount++;
@@ -184,7 +184,7 @@ void main() {
         );
         expect(userIdUpdateStatusCount, 1);
 
-        DrivekitCorePlatform.instance.addDriveKitListener(
+        DriveKitCorePlatform.instance.addDriveKitListener(
           DriveKitListener(
             onConnected: () {
               onConnectedCount++;
@@ -242,7 +242,7 @@ void main() {
           final updateUserIdStatusList = <UpdateUserIdStatus>[];
           final backgroundFetchStatusList = <BackgroundFetchStatus>[];
           //test
-          DrivekitCorePlatform.instance.addDriveKitListener(
+          DriveKitCorePlatform.instance.addDriveKitListener(
             DriveKitListener(
               onAccountDeleted: deleteAccountStatusList.add,
               onAuthenticationError: requestErrorList.add,
@@ -315,8 +315,8 @@ void main() {
             userIdUpdateStatusCount++;
           },
         );
-        DrivekitCorePlatform.instance.addDriveKitListener(listener);
-        DrivekitCorePlatform.instance.removeDriveKitListener(listener);
+        DriveKitCorePlatform.instance.addDriveKitListener(listener);
+        DriveKitCorePlatform.instance.removeDriveKitListener(listener);
 
         flutterCoreApi
           ..driveKitDidConnect()
@@ -368,10 +368,10 @@ void main() {
             userIdUpdateStatusCount++;
           },
         );
-        DrivekitCorePlatform.instance.addDriveKitListener(listener);
-        DrivekitCorePlatform.instance.addDriveKitListener(listener);
+        DriveKitCorePlatform.instance.addDriveKitListener(listener);
+        DriveKitCorePlatform.instance.addDriveKitListener(listener);
         flutterCoreApi.driveKitDidConnect();
-        DrivekitCorePlatform.instance.removeAllDriveKitListeners();
+        DriveKitCorePlatform.instance.removeAllDriveKitListeners();
 
         flutterCoreApi
           ..driveKitDidConnect()
@@ -398,7 +398,7 @@ void main() {
         var onDeviceConfigurationChangedCount = 0;
 
         //test
-        DrivekitCorePlatform.instance.addDeviceConfigurationListener(
+        DriveKitCorePlatform.instance.addDeviceConfigurationListener(
           DKDeviceConfigurationListener(
             onDeviceConfigurationChanged: (event) {
               onDeviceConfigurationChangedCount++;
@@ -410,7 +410,7 @@ void main() {
         );
         expect(onDeviceConfigurationChangedCount, 1);
 
-        DrivekitCorePlatform.instance.addDeviceConfigurationListener(
+        DriveKitCorePlatform.instance.addDeviceConfigurationListener(
           DKDeviceConfigurationListener(
             onDeviceConfigurationChanged: (event) {
               onDeviceConfigurationChangedCount++;
@@ -432,8 +432,8 @@ void main() {
           },
         );
 
-        DrivekitCorePlatform.instance.addDeviceConfigurationListener(listener);
-        DrivekitCorePlatform.instance
+        DriveKitCorePlatform.instance.addDeviceConfigurationListener(listener);
+        DriveKitCorePlatform.instance
             .removeDeviceConfigurationListener(listener);
 
         flutterCoreApi.onDeviceConfigurationChanged(
@@ -452,12 +452,12 @@ void main() {
           },
         );
 
-        DrivekitCorePlatform.instance.addDeviceConfigurationListener(listener);
-        DrivekitCorePlatform.instance.addDeviceConfigurationListener(listener);
+        DriveKitCorePlatform.instance.addDeviceConfigurationListener(listener);
+        DriveKitCorePlatform.instance.addDeviceConfigurationListener(listener);
         flutterCoreApi.onDeviceConfigurationChanged(
           PigeonDeviceConfigurationEvent.activityPermissionValid,
         );
-        DrivekitCorePlatform.instance.removeAllDeviceConfigurationListeners();
+        DriveKitCorePlatform.instance.removeAllDeviceConfigurationListeners();
 
         flutterCoreApi.onDeviceConfigurationChanged(
           PigeonDeviceConfigurationEvent.activityPermissionValid,

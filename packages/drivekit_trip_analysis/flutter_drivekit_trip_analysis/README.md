@@ -18,7 +18,7 @@ Now, you can import `'package:flutter_drivekit_trip_analysis/flutter_drivekit_tr
 
 You need to install the flutter_drivekit_core plugin and follow the instructions to specify the API key and the user identifier.
 
-Then, you can start using the Drivekit Trip Analysis plugin. For example, you can activate the auto start mode with the following code:
+Then, you can start using the DriveKit Trip Analysis plugin. For example, you can activate the auto start mode with the following code:
 
 ```dart
 final tripAnalysis = DriveKitTripAnalysis()
@@ -91,7 +91,7 @@ Future<bool> isAutoStartActivated();
 This method returns `true` if you have activated the auto start.
 
 ```dart
-final isAutoStartActivated = await DrivekitTripAnalysis.instance.isAutoStartActivated();
+final isAutoStartActivated = await DriveKitTripAnalysis.instance.isAutoStartActivated();
 ```
 
 ### activateAutoStart
@@ -233,7 +233,7 @@ Future<bool> isCrashDetectionActivated();
 This method returns `true` if you have activated the crash detection.
 
 ```dart
-final isCrashDetectionActivated = await DrivekitTripAnalysis.instance.isCrashDetectionActivated();
+final isCrashDetectionActivated = await DriveKitTripAnalysis.instance.isCrashDetectionActivated();
 ```
 
 ### activateCrashDetection
@@ -267,7 +267,7 @@ Future<bool> isMonitoringPotentialTripStart();
 Check if the feature is activated or not with the following command:
 
 ```dart
-final isMonitoringPotentialTripStart = await DrivekitTripAnalysis.isMonitoringPotentialTripStart();
+final isMonitoringPotentialTripStart = await DriveKitTripAnalysis.isMonitoringPotentialTripStart();
 ```
 
 ### setMonitorPotentialTripStart
@@ -292,13 +292,13 @@ Learn more about the feature [on iOS](https://docs.drivequant.com/trip-analysis/
 By default, the configuration is disabled. Call the following method with parameter to `true` to enable it.
 
 ```dart
-DrivekitTripAnalysis.setMonitorPotentialTripStart(true);
+DriveKitTripAnalysis.setMonitorPotentialTripStart(true);
 ```
 
 To disable the feature, call the method with parameter to `false`
 
 ```dart
-DrivekitTripAnalysis.setMonitorPotentialTripStart(false);
+DriveKitTripAnalysis.setMonitorPotentialTripStart(false);
 ```
 
 ### setVehicle
@@ -310,7 +310,7 @@ Future<void> setVehicle(Vehicle vehicle);
 To obtain a more precise analysis on driving behaviour, it's recommended to configure the vehicle used by the driver. You can do this by calling the following method:
 
 ```dart
-DrivekitTripAnalysis.instance.setVehicle(
+DriveKitTripAnalysis.instance.setVehicle(
   const Vehicle(
     carTypeIndex: 2,
     carEngineIndex: 2,

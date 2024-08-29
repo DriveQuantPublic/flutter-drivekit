@@ -14,8 +14,8 @@ flutter:
     platforms:
       android:
         package: com.drivequant.drivekit.flutter.core
-        pluginClass: DrivekitCorePlugin
-        dartPluginClass: DrivekitCoreAndroid
+        pluginClass: DriveKitCorePlugin
+        dartPluginClass: DriveKitCoreAndroid
 
 dependencies:
   flutter:

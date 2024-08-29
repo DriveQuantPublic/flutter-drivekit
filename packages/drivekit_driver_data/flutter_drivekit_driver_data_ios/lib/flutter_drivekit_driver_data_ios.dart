@@ -4,18 +4,18 @@ import 'package:flutter_drivekit_driver_data_ios/src/driver_data_api.g.dart';
 import 'package:flutter_drivekit_driver_data_ios/src/model_adapter.dart';
 import 'package:flutter_drivekit_driver_data_platform_interface/flutter_drivekit_driver_data_platform_interface.dart';
 
-/// The iOS implementation of [DrivekitDriverDataPlatform].
-class DrivekitDriverDataIOS extends DrivekitDriverDataPlatform {
-  /// Creates a new instance of [DrivekitDriverDataIOS].
+/// The iOS implementation of [DriveKitDriverDataPlatform].
+class DriveKitDriverDataIOS extends DriveKitDriverDataPlatform {
+  /// Creates a new instance of [DriveKitDriverDataIOS].
   /// The optional [iosDriverDataApi] parameter is used for
   /// dependency injection in tests.
-  DrivekitDriverDataIOS({IOSDriverDataApi? iosDriverDataApi})
+  DriveKitDriverDataIOS({IOSDriverDataApi? iosDriverDataApi})
       : iosDriverDataApi = iosDriverDataApi ?? IOSDriverDataApi();
 
   /// Registers this class as the default instance of
-  /// [DrivekitDriverDataPlatform]
+  /// [DriveKitDriverDataPlatform]
   static void registerWith() {
-    DrivekitDriverDataPlatform.instance = DrivekitDriverDataIOS();
+    DriveKitDriverDataPlatform.instance = DriveKitDriverDataIOS();
   }
 
   /// The instance of [IOSDriverDataApi], a class that provides access to the

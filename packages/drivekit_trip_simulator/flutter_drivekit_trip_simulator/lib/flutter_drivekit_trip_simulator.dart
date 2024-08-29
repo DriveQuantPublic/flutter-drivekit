@@ -3,15 +3,15 @@ import 'package:flutter_drivekit_trip_simulator_platform_interface/flutter_drive
 export 'package:flutter_drivekit_trip_simulator_platform_interface/flutter_drivekit_trip_simulator_platform_interface.dart'
     show PresetTrip;
 
-DrivekitTripSimulatorPlatform get _platform =>
-    DrivekitTripSimulatorPlatform.instance;
+DriveKitTripSimulatorPlatform get _platform =>
+    DriveKitTripSimulatorPlatform.instance;
 
 /// The main class of the plugin.
 /// This class provides methods to interact with the DriveKit TripSimulator SDK.
 class DriveKitTripSimulator {
   const DriveKitTripSimulator._();
 
-  /// unique instance of the DrivekitTripSimulator
+  /// unique instance of the DriveKitTripSimulator
   static DriveKitTripSimulator get instance => _instance;
   static const DriveKitTripSimulator _instance = DriveKitTripSimulator._();
 
