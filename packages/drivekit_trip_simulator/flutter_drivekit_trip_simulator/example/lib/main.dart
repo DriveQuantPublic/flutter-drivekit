@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () {
-                DriveKitTripSimulator.start(PresetTrip.shortTrip);
+                DriveKitTripSimulator.instance.start(PresetTrip.shortTrip);
               },
               child: const Text('Start Simulation (shortTrip)'),
             ),

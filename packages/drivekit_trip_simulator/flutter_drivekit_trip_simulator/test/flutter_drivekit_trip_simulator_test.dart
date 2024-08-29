@@ -26,7 +26,8 @@ void main() {
 
         await DriveKitTripSimulator.instance.start(PresetTrip.shortTrip);
         verify(
-            () => DriveKitTripSimulator.instance.start(PresetTrip.shortTrip));
+          () => DriveKitTripSimulator.instance.start(PresetTrip.shortTrip),
+        );
       });
     });
 
