@@ -56,9 +56,8 @@ To finish the module's initialization, you need to :
 2. Identify the driver with a unique ID.
 
 ```dart
-final driveKitCore = DriveKitCore()
-driveKitCore.setApiKey(apiKey)
-driveKitCore.setUserId(userId)
+await DriveKitCore.instance.setApiKey(apiKey)
+await DriveKitCore.instance.setUserId(userId)
 ```
 
 Now, you can configure the DriveKit Core with the options you want, and use other DriveKit plugins to start analysing trips.
@@ -93,7 +92,7 @@ Future<String?> getApiKey()
 This method can be useful to check which DriveKit API Key you have set in the SDK.
 
 ```dart
-final apiKey = await driveKitCore.getApiKey();
+final apiKey = await DriveKitCore.instance.getApiKey();
 ```
 
 ### setApiKey
@@ -107,7 +106,7 @@ To use DriveKit modules, you have to obtain an API Key from DriveQuant. If you d
 Once you've stored your API key in a secure way in your app, you can configure DriveKit by calling the following method:
 
 ```dart
-driveKitCore.setApiKey('MyAPIKey');
+await DriveKitCore.instance.setApiKey('MyAPIKey');
 ```
 
 ### getUserId
@@ -119,7 +118,7 @@ Future<String?> getUserId()
 This method can be useful to retrieve the current userId.
 
 ```dart
-final userId = await driveKitCore.getUserId();
+final userId = await DriveKitCore.instance.getUserId();
 ```
 
 ### setUserId
@@ -131,7 +130,7 @@ Future<void> setUserId()
 Each driver must be identified with a unique identifier. Once you have this identifier, configure DriveKit by calling the following method:
 
 ```dart
-driveKitCore.setUserId('MyUniqueUserId);
+await DriveKitCore.instance.setUserId('MyUniqueUserId);
 ```
 
 > ℹ️
@@ -290,7 +289,7 @@ The deletion can be done instantly or with delay.
 To delete a driver's account, use the following method:
 
 ```dart
-await driveKitCore.deleteAccount(instantDeletion: true);
+await DriveKitCore.instance.deleteAccount(instantDeletion: true);
 ```
 
 `instantDeletion` can have 2 values:
@@ -345,25 +344,25 @@ DriveKit comes with a logging feature that is enabled by default. This feature a
 Disable logging by calling:
 
 ```dart
-await driveKitCore.disableLogging();
+await DriveKitCore.instance.disableLogging();
 ```
 
 To enable logging, call the following method specifying the path of the log directory.
 
 ```dart
-await DriveKitCore.enableLogging(showInConsole: true, androidLogPath: '/YourDriveKitFolder');
+await DriveKitCore.instance.enableLogging(showInConsole: true, androidLogPath: '/YourDriveKitFolder');
 ```
 
 ### getLogUriFile
 
 ```dart
-static Future<Uri?> getLogUriFile() => _platform.getLogUriFile();
+Future<Uri?> getLogUriFile();
 ```
 
 You can retrieve the Uri log file by calling the following method:
 
 ```dart
-final logFile = await DriveKitCore.getLogUriFile();
+final logFile = await DriveKitCore.instance.getLogUriFile();
 ```
 
 ### isTokenValid
@@ -375,7 +374,7 @@ Future<bool> isTokenValid();
 Once you are connected to the SDK with your key and a user ID, you can check the validity of the generated token by calling:
 
 ```dart
-final isValid = await driveKitCore.isTokenValid();
+final isTokenValid = await DriveKitCore.instance.isTokenValid();
 ```
 
 ### reset
@@ -387,5 +386,5 @@ Future<void> reset();
 If you need to reset DriveKit configuration (user logout for example), you can call the following method:
 
 ```dart
-await driveKitCore.reset();
+await DriveKitCore.instance.reset();
 ```

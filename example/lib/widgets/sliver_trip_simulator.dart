@@ -14,19 +14,21 @@ class SliverTripSimulation extends StatelessWidget {
         const SliverGap(4),
         ElevatedButton(
           onPressed: () {
-            DriveKitTripSimulator.start(PresetTrip.shortTrip);
+            DriveKitTripSimulator.instance.start(PresetTrip.shortTrip);
           },
           child: const Text('Start Simulation (shortTrip)'),
         ),
         ElevatedButton(
           onPressed: () {
-            DriveKitTripSimulator.start(PresetTrip.mixedTrip);
+            DriveKitTripSimulator.instance.start(PresetTrip.mixedTrip);
           },
           child: const Text('Start Simulation (mixedTrip)'),
         ),
-        const ElevatedButton(
-          onPressed: DriveKitTripSimulator.stop,
-          child: Text('Stop trip simulation'),
+        ElevatedButton(
+          onPressed: () {
+            DriveKitTripSimulator.instance.stop();
+          },
+          child: const Text('Stop trip simulation'),
         ),
       ],
     );

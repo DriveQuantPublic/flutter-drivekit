@@ -21,8 +21,7 @@ You need to install the flutter_drivekit_core plugin and follow the instructions
 Then, you can start using the DriveKit Trip Analysis plugin. For example, you can activate the auto start mode with the following code:
 
 ```dart
-final tripAnalysis = DriveKitTripAnalysis()
-tripAnalysis.activateAutoStart(true);
+await DriveKitTripAnalysis.instance.activateAutoStart(true);
 ```
 
 Please refer to the [DriveKit Trip Analysis documentation](https://docs.drivequant.com/trip-analysis/introduction) for more information about the features we provide.
@@ -63,23 +62,25 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 
 ## API
 
-| Method                                                                          | Return Type                  | iOS | Android |
-|---------------------------------------------------------------------------------|------------------------------|-:-:-|-:-:-----|
-| [isAutoStartActivated()](#isautostartactivated)                                 | `Future<bool>`               | ✅   | ✅       |
-| [activateAutoStart()](#activateautostart)                                       | `Future<void>`               | ✅   | ✅       |
-| [startTrip()](#starttrip)                                                       | `Future<void>`               | ✅   | ✅       |
-| [stopTrip()](#stoptrip)                                                         | `Future<void>`               | ✅   | ✅       |
-| [cancelTrip()](#canceltrip)                                                     | `Future<void>`               | ✅   | ✅       |
-| [isTripRunning()](#istriprunning)                                               | `Future<bool>`               | ✅   | ✅       |
-| [addTripListener()](#addtriplistener)                                           | `Future<void>`               | ✅   | ✅       |
-| [removeTripListener()](#removetriplistener)                                     | `Future<void>`               | ✅   | ✅       |
-| [removeAllTripListeners()](#removealltriplisteners)                             | `Future<void>`               | ✅   | ✅       |
-| [isCrashDetectionActivated()](#iscrashdetectionactivated)                       | `Future<bool>`               | ✅   | ✅       |
-| [activateCrashDetection()](#activatecrashdetection)                             | `Future<void>`               | ✅   | ✅       |
-| [isMonitoringPotentialTripStart()](#isonitoringpotentialtripstart)             | `Future<bool>`               | ✅   | ✅       |
-| [setMonitorPotentialTripStart()](#setmonitorpotentialtripstart)                 | `Future<void>`               | ✅   | ✅       |
-| [setVehicle()](#setvehicle)                                                     | `Future<bool>`               | ✅   | ✅       |
-| [getTripResponseStatus()](#getTripResponseStatus)                               | `Future<TripResponseStatus>` | ✅   | ✅       |
+| Method                                                             | Return Type                  | iOS  | Android  |
+|--------------------------------------------------------------------|------------------------------| :-:  | :-:      |
+| [isAutoStartActivated()](#isautostartactivated)                    | `Future<bool>`               | ✅   | ✅       |
+| [activateAutoStart()](#activateautostart)                          | `Future<void>`               | ✅   | ✅       |
+| [startTrip()](#starttrip)                                          | `Future<void>`               | ✅   | ✅       |
+| [stopTrip()](#stoptrip)                                            | `Future<void>`               | ✅   | ✅       |
+| [cancelTrip()](#canceltrip)                                        | `Future<void>`               | ✅   | ✅       |
+| [isTripRunning()](#istriprunning)                                  | `Future<bool>`               | ✅   | ✅       |
+| [addTripListener()](#addtriplistener)                              | `Future<void>`               | ✅   | ✅       |
+| [removeTripListener()](#removetriplistener)                        | `Future<void>`               | ✅   | ✅       |
+| [removeAllTripListeners()](#removealltriplisteners)                | `Future<void>`               | ✅   | ✅       |
+| [isCrashDetectionActivated()](#iscrashdetectionactivated)          | `Future<bool>`               | ✅   | ✅       |
+| [activateCrashDetection()](#activatecrashdetection)                | `Future<void>`               | ✅   | ✅       |
+| [isMonitoringPotentialTripStart()](#ismonitoringpotentialtripstart)| `Future<bool>`               | ✅   | ✅       |
+| [setMonitorPotentialTripStart()](#setmonitorpotentialtripstart)    | `Future<void>`               | ✅   | ✅       |
+| [setVehicle()](#setvehicle)                                        | `Future<bool>`               | ✅   | ✅       |
+| [getTripResponseStatus()](#getTripResponseStatus)                  | `Future<TripResponseStatus>` | ✅   | ✅       |
+
+
 
 
 ### isAutoStartActivated
@@ -107,13 +108,13 @@ This feature is recommended to avoid driver distraction and phone handling while
 By default, auto start is disabled. To enable automatic trip detection mode, call the following method:
 
 ```dart
-driveKitTripAnalysis.activateAutoStart(true);
+await DriveKitTripAnalysis.instance.activateAutoStart(true);
 ```
 
 To disable automatic trip detection call the same method with parameter enable set to `false`
 
 ```dart
-driveKitTripAnalysis.activateAutoStart(false);
+await DriveKitTripAnalysis.instance.activateAutoStart(false);
 ```
 
 > ⚠️
@@ -129,7 +130,7 @@ Future<void> startTrip();
 You can start a trip by calling the following method:
 
 ```dart
-driveKitTripAnalysis.startTrip
+await DriveKitTripAnalysis.instance.startTrip();
 ```
 
 > ℹ️
@@ -145,8 +146,8 @@ Future<void> stopTrip();
 
 You can stop a trip by calling the following method. The trip will be stopped instantly:
 
-```typescript
-driveKitTripAnalysis.stopTrip
+```dart
+await DriveKitTripAnalysis.instance.stopTrip();
 ```
 
 > ℹ️
@@ -166,7 +167,7 @@ Future<void> cancelTrip();
 If you want to cancel a trip, you can call this method:
 
 ```dart
-driveKitTripAnalysis.cancelTrip
+await DriveKitTripAnalysis.instance.cancelTrip();
 ```
 
 ### isTripRunning
@@ -178,7 +179,7 @@ Future<bool> isTripRunning();
 This method returns false if the SDK is in `INACTIVE` state, and no trip is currently running.
 
 ```dart
-final isTripRunning = await driveKitTripAnalysis.isTripRunning();
+final isTripRunning = await DriveKitTripAnalysis.instance.isTripRunning();
 ```
 
 ### addTripListener
@@ -238,10 +239,6 @@ final isCrashDetectionActivated = await DriveKitTripAnalysis.instance.isCrashDet
 
 ### activateCrashDetection
 
-```dart
-activateCrashDetection(enable: boolean): Promise<void>
-```
-
 Crash detection features, included into the DriveKit Trip Analysis component, is able to collect and analyse smartphone sensors data to automatically detect when a car accident occurs.
 
 Learn more about the feature [on iOS](https://docs.drivequant.com/trip-analysis/ios/crash-detection) / [on Android](https://docs.drivequant.com/trip-analysis/android/crash-detection)
@@ -252,10 +249,16 @@ An input parameter is available in DriveKitTripAnalysis to enable or disable the
 Future<void> activateCrashDetection(bool activate);
 ```
 
+To activate crash detection, call the method with parameter to `true`
+
+```dart
+await DriveKitTripAnalysis.instance.activateCrashDetection(true);
+```
+
 To disable crash detection, call the method with parameter to `false`
 
 ```dart
-driveKitTripAnalysis.activateCrashDetection(false);
+await DriveKitTripAnalysis.instance.activateCrashDetection(false);
 ```
 
 ### isMonitoringPotentialTripStart
@@ -267,7 +270,7 @@ Future<bool> isMonitoringPotentialTripStart();
 Check if the feature is activated or not with the following command:
 
 ```dart
-final isMonitoringPotentialTripStart = await DriveKitTripAnalysis.isMonitoringPotentialTripStart();
+final isMonitoringPotentialTripStart = await DriveKitTripAnalysis.instance.isMonitoringPotentialTripStart();
 ```
 
 ### setMonitorPotentialTripStart
@@ -292,13 +295,13 @@ Learn more about the feature [on iOS](https://docs.drivequant.com/trip-analysis/
 By default, the configuration is disabled. Call the following method with parameter to `true` to enable it.
 
 ```dart
-DriveKitTripAnalysis.setMonitorPotentialTripStart(true);
+await DriveKitTripAnalysis.instance.setMonitorPotentialTripStart(true);
 ```
 
 To disable the feature, call the method with parameter to `false`
 
 ```dart
-DriveKitTripAnalysis.setMonitorPotentialTripStart(false);
+await DriveKitTripAnalysis.instance.setMonitorPotentialTripStart(false);
 ```
 
 ### setVehicle
@@ -310,7 +313,7 @@ Future<void> setVehicle(Vehicle vehicle);
 To obtain a more precise analysis on driving behaviour, it's recommended to configure the vehicle used by the driver. You can do this by calling the following method:
 
 ```dart
-DriveKitTripAnalysis.instance.setVehicle(
+await DriveKitTripAnalysis.instance.setVehicle(
   const Vehicle(
     carTypeIndex: 2,
     carEngineIndex: 2,

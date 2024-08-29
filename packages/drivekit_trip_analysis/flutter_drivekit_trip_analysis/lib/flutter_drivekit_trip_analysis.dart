@@ -88,7 +88,7 @@ class DriveKitTripAnalysis {
   }
 
   /// Returns true if the monitor potential trip start is activated
-  static Future<bool> isMonitoringPotentialTripStart() async {
+  Future<bool> isMonitoringPotentialTripStart() async {
     return _platform.isMonitoringPotentialTripStart();
   }
 
@@ -112,7 +112,7 @@ class DriveKitTripAnalysis {
   /// If this method is called with parameter to true and autostart is disable,
   /// you will be able to listen for trip start trigger events, and the trip
   /// analysis will not be started automatically.
-  static Future<void> setMonitorPotentialTripStart(bool activate) async {
+  Future<void> setMonitorPotentialTripStart(bool activate) async {
     return _platform.setMonitorPotentialTripStart(activate);
   }
 

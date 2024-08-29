@@ -104,7 +104,7 @@ void main() {
           ),
         ).thenAnswer((_) async {});
 
-        await DriveKitCore.enableLogging(
+        await DriveKitCore.instance.enableLogging(
           androidLogPath: '/testLogPath',
           showInConsole: false,
         );
@@ -140,7 +140,7 @@ void main() {
         when(() => drivekitCorePlatform.getLogUriFile())
             .thenAnswer((_) async => logFileUri);
 
-        final actualLogFileUri = await DriveKitCore.getLogUriFile();
+        final actualLogFileUri = await DriveKitCore.instance.getLogUriFile();
         expect(actualLogFileUri, equals(logFileUri));
       });
 
@@ -148,7 +148,7 @@ void main() {
         when(() => drivekitCorePlatform.getLogUriFile())
             .thenAnswer((_) async => null);
 
-        final actualLogFileUri = await DriveKitCore.getLogUriFile();
+        final actualLogFileUri = await DriveKitCore.instance.getLogUriFile();
         expect(actualLogFileUri, isNull);
       });
     });

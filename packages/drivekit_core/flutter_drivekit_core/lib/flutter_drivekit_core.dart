@@ -68,7 +68,7 @@ class DriveKitCore {
   /// We recommend leaving the log enabled as it does not consume memory space
   /// and is useful in the support phase.
   /// However, if you don't want to use it, it can be disabled.
-  static Future<void> enableLogging({
+  Future<void> enableLogging({
     bool showInConsole = true,
     String androidLogPath = '/DriveKit',
   }) =>
@@ -99,7 +99,7 @@ class DriveKitCore {
   }
 
   /// You can retrieve the Uri log file by calling the following method.
-  static Future<Uri?> getLogUriFile() => _platform.getLogUriFile();
+  Future<Uri?> getLogUriFile() => _platform.getLogUriFile();
 
   /// Adds a device configuration listener.
   /// See [DKDeviceConfigurationListener] to know which callbacks are available

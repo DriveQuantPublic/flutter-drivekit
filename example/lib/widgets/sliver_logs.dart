@@ -15,7 +15,7 @@ class SliverLogs extends StatelessWidget {
         ElevatedButton(
           onPressed: () async {
             if (!context.mounted) return;
-            await DriveKitCore.enableLogging(
+            await DriveKitCore.instance.enableLogging(
               // ignore: avoid_redundant_argument_values
               showInConsole: true,
               androidLogPath: '/YouDriveKitFolder',
@@ -32,7 +32,7 @@ class SliverLogs extends StatelessWidget {
         ),
         ElevatedButton(
           onPressed: () async {
-            final logFile = await DriveKitCore.getLogUriFile();
+            final logFile = await DriveKitCore.instance.getLogUriFile();
             String snackBarText;
             if (logFile == null) {
               snackBarText = 'Log file Uri: null';
