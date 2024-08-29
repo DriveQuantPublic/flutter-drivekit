@@ -3,7 +3,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'flutter_drivekit_core_ios'
-  s.version          = '0.0.4'
+  s.version          = '0.0.5'
   s.summary          = 'An iOS implementation of the drivekit_core plugin.'
   s.description      = <<-DESC
   An iOS implementation of the drivekit_core plugin.
