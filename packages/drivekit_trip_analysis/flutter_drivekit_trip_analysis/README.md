@@ -249,6 +249,12 @@ An input parameter is available in DriveKitTripAnalysis to enable or disable the
 Future<void> activateCrashDetection(bool activate);
 ```
 
+To activate crash detection, call the method with parameter to `true`
+
+```dart
+await DriveKitTripAnalysis.instance.activateCrashDetection(true);
+```
+
 To disable crash detection, call the method with parameter to `false`
 
 ```dart
