@@ -10,33 +10,34 @@ class MockDriveKitTripSimulatorPlatform extends Mock
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  group('DrivekitTripSimulator', () {
-    late DriveKitTripSimulatorPlatform drivekitTripSimulatorPlatform;
+  group('DriveKitTripSimulator', () {
+    late DriveKitTripSimulatorPlatform driveKitTripSimulatorPlatform;
 
     setUp(() {
-      drivekitTripSimulatorPlatform = MockDriveKitTripSimulatorPlatform();
-      DriveKitTripSimulatorPlatform.instance = drivekitTripSimulatorPlatform;
+      driveKitTripSimulatorPlatform = MockDriveKitTripSimulatorPlatform();
+      DriveKitTripSimulatorPlatform.instance = driveKitTripSimulatorPlatform;
     });
 
     group('start', () {
       test('start trip simulation', () async {
         when(
-          () => drivekitTripSimulatorPlatform.start(PresetTrip.shortTrip),
+          () => driveKitTripSimulatorPlatform.start(PresetTrip.shortTrip),
         ).thenAnswer((_) async {});
 
-        await DriveKitTripSimulator.start(PresetTrip.shortTrip);
-        verify(() => DriveKitTripSimulator.start(PresetTrip.shortTrip));
+        await DriveKitTripSimulator.instance.start(PresetTrip.shortTrip);
+        verify(
+            () => DriveKitTripSimulator.instance.start(PresetTrip.shortTrip));
       });
     });
 
     group('stop', () {
       test('stop trip simulation', () async {
         when(
-          () => drivekitTripSimulatorPlatform.stop(),
+          () => driveKitTripSimulatorPlatform.stop(),
         ).thenAnswer((_) async {});
 
-        await DriveKitTripSimulator.stop();
-        verify(DriveKitTripSimulator.stop);
+        await DriveKitTripSimulator.instance.stop();
+        verify(DriveKitTripSimulator.instance.stop);
       });
     });
   });

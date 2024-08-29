@@ -134,8 +134,8 @@ void main() {
             () => driveKitTripAnalysisPlatform.isMonitoringPotentialTripStart(),
           ).thenAnswer((_) async => isActivated);
 
-          final actualIsActivated =
-              await DriveKitTripAnalysis.isMonitoringPotentialTripStart();
+          final actualIsActivated = await DriveKitTripAnalysis.instance
+              .isMonitoringPotentialTripStart();
           expect(actualIsActivated, equals(isActivated));
         });
 
@@ -148,7 +148,8 @@ void main() {
             return;
           });
 
-          await DriveKitTripAnalysis.setMonitorPotentialTripStart(true);
+          await DriveKitTripAnalysis.instance
+              .setMonitorPotentialTripStart(true);
           verify(
             () =>
                 driveKitTripAnalysisPlatform.setMonitorPotentialTripStart(true),

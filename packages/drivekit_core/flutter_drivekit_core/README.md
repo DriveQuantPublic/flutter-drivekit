@@ -345,25 +345,25 @@ DriveKit comes with a logging feature that is enabled by default. This feature a
 Disable logging by calling:
 
 ```dart
-await driveKitCore.disableLogging();
+await DriveKitCore.instance.disableLogging();
 ```
 
 To enable logging, call the following method specifying the path of the log directory.
 
 ```dart
-await DriveKitCore.enableLogging(showInConsole: true, androidLogPath: '/YourDriveKitFolder');
+await DriveKitCore.instance.enableLogging(showInConsole: true, androidLogPath: '/YourDriveKitFolder');
 ```
 
 ### getLogUriFile
 
 ```dart
-static Future<Uri?> getLogUriFile() => _platform.getLogUriFile();
+Future<Uri?> getLogUriFile();
 ```
 
 You can retrieve the Uri log file by calling the following method:
 
 ```dart
-final logFile = await DriveKitCore.getLogUriFile();
+final logFile = await DriveKitCore.instance.getLogUriFile();
 ```
 
 ### isTokenValid
@@ -375,7 +375,7 @@ Future<bool> isTokenValid();
 Once you are connected to the SDK with your key and a user ID, you can check the validity of the generated token by calling:
 
 ```dart
-final isValid = await driveKitCore.isTokenValid();
+final isTokenValid = await DriveKitCore.instance.isTokenValid();
 ```
 
 ### reset
@@ -387,5 +387,5 @@ Future<void> reset();
 If you need to reset DriveKit configuration (user logout for example), you can call the following method:
 
 ```dart
-await driveKitCore.reset();
+await DriveKitCore.instance.reset();
 ```
