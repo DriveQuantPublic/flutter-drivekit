@@ -117,17 +117,15 @@ void main() {
       });
 
       group('monitorPotentialTripStart', () {
-        test(
-            'isMonitorPotentialTripStartActivated calls platform implementatio',
+        test('isMonitoringPotentialTripStart calls platform implementatio',
             () async {
           const isActivated = false;
           when(
-            () => drivekitTripAnalysisPlatform
-                .isMonitorPotentialTripStartActivated(),
+            () => drivekitTripAnalysisPlatform.isMonitoringPotentialTripStart(),
           ).thenAnswer((_) async => isActivated);
 
           final actualIsActivated =
-              await DrivekitTripAnalysis.isMonitorPotentialTripStartActivated();
+              await DrivekitTripAnalysis.isMonitoringPotentialTripStart();
           expect(actualIsActivated, equals(isActivated));
         });
 

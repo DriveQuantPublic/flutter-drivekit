@@ -1872,7 +1872,7 @@ interface AndroidTripAnalysisApi {
   fun stopTrip()
   fun cancelTrip()
   fun isTripRunning(): Boolean
-  fun isMonitorPotentialTripStartActivated(): Boolean
+  fun isMonitoringPotentialTripStart(): Boolean
   fun setMonitorPotentialTripStart(activate: Boolean)
   fun setVehicle(vehicle: PigeonVehicle)
   fun getTripResponseStatus(tripResponse: PigeonPostGenericResponse): PigeonTripResponseStatus?
@@ -2016,11 +2016,11 @@ interface AndroidTripAnalysisApi {
         }
       }
       run {
-        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.isMonitorPotentialTripStartActivated$separatedMessageChannelSuffix", codec)
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.isMonitoringPotentialTripStart$separatedMessageChannelSuffix", codec)
         if (api != null) {
           channel.setMessageHandler { _, reply ->
             val wrapped: List<Any?> = try {
-              listOf(api.isMonitorPotentialTripStartActivated())
+              listOf(api.isMonitoringPotentialTripStart())
             } catch (exception: Throwable) {
               wrapError(exception)
             }

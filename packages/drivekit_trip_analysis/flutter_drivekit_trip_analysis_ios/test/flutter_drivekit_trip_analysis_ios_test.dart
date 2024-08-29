@@ -126,16 +126,15 @@ void main() {
       expect(isRunning, false);
     });
 
-    test('isMonitorPotentialTripStartActivated calls iOS implementation',
-        () async {
+    test('isMonitoringPotentialTripStart calls iOS implementation', () async {
       //mock
-      when(iOSTripAnalysisApi.isMonitorPotentialTripStartActivated)
+      when(iOSTripAnalysisApi.isMonitoringPotentialTripStart)
           .thenAnswer((_) async => false);
 
       //test
       final isActivated = await DrivekitTripAnalysisPlatform.instance
-          .isMonitorPotentialTripStartActivated();
-      verify(() => iOSTripAnalysisApi.isMonitorPotentialTripStartActivated())
+          .isMonitoringPotentialTripStart();
+      verify(() => iOSTripAnalysisApi.isMonitoringPotentialTripStart())
           .called(1);
       expect(isActivated, false);
     });

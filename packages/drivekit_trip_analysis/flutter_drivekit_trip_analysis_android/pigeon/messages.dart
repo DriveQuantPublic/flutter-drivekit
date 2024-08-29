@@ -24,7 +24,7 @@ abstract class AndroidTripAnalysisApi {
   void stopTrip();
   void cancelTrip();
   bool isTripRunning();
-  bool isMonitorPotentialTripStartActivated();
+  bool isMonitoringPotentialTripStart();
   void setMonitorPotentialTripStart(bool activate);
   void setVehicle(PigeonVehicle vehicle);
   PigeonTripResponseStatus? getTripResponseStatus(

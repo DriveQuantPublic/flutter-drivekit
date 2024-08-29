@@ -76,7 +76,7 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 | [removeAllTripListeners()](#removealltriplisteners)                             | `Future<void>`               | ✅   | ✅       |
 | [isCrashDetectionActivated()](#iscrashdetectionactivated)                       | `Future<bool>`               | ✅   | ✅       |
 | [activateCrashDetection()](#activatecrashdetection)                             | `Future<void>`               | ✅   | ✅       |
-| [isMonitorPotentialTripStartActivated()](#ismonitorpotentialtripstartactivated) | `Future<bool>`               | ✅   | ✅       |
+| [isMonitoringPotentialTripStart()](#isonitoringpotentialtripstart)             | `Future<bool>`               | ✅   | ✅       |
 | [setMonitorPotentialTripStart()](#setmonitorpotentialtripstart)                 | `Future<void>`               | ✅   | ✅       |
 | [setVehicle()](#setvehicle)                                                     | `Future<bool>`               | ✅   | ✅       |
 | [getTripResponseStatus()](#getTripResponseStatus)                               | `Future<TripResponseStatus>` | ✅   | ✅       |
@@ -258,16 +258,16 @@ To disable crash detection, call the method with parameter to `false`
 driveKitTripAnalysis.activateCrashDetection(false);
 ```
 
-### isMonitorPotentialTripStartActivated
+### isMonitoringPotentialTripStart
 
 ```dart
-Future<bool> isMonitorPotentialTripStartActivated();
+Future<bool> isMonitoringPotentialTripStart();
 ```
 
 Check if the feature is activated or not with the following command:
 
 ```dart
-final isMonitorPotentialTripStartActivated = await DrivekitTripAnalysis.isMonitorPotentialTripStartActivated();
+final isMonitoringPotentialTripStart = await DrivekitTripAnalysis.isMonitoringPotentialTripStart();
 ```
 
 ### setMonitorPotentialTripStart

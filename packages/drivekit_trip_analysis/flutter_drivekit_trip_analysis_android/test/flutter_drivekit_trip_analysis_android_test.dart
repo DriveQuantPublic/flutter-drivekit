@@ -127,15 +127,15 @@ void main() {
       expect(isRunning, false);
     });
 
-    test('isMonitorPotentialTripStartActivated calls Android implementation,',
+    test('isMonitoringPotentialTripStart calls Android implementation,',
         () async {
       //mocks
-      when(androidTripAnalysisApi.isMonitorPotentialTripStartActivated)
+      when(androidTripAnalysisApi.isMonitoringPotentialTripStart)
           .thenAnswer((_) async => false);
 
       //test
       final isActivated = await DrivekitTripAnalysisPlatform.instance
-          .isMonitorPotentialTripStartActivated();
+          .isMonitoringPotentialTripStart();
       expect(isActivated, false);
     });
 

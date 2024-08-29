@@ -2398,9 +2398,9 @@ class IOSTripAnalysisApi {
     }
   }
 
-  Future<bool> isMonitorPotentialTripStartActivated() async {
+  Future<bool> isMonitoringPotentialTripStart() async {
     final String __pigeon_channelName =
-        'dev.flutter.pigeon.pigeon_trip_analysis_package.IOSTripAnalysisApi.isMonitorPotentialTripStartActivated$__pigeon_messageChannelSuffix';
+        'dev.flutter.pigeon.pigeon_trip_analysis_package.IOSTripAnalysisApi.isMonitoringPotentialTripStart$__pigeon_messageChannelSuffix';
     final BasicMessageChannel<Object?> __pigeon_channel =
         BasicMessageChannel<Object?>(
       __pigeon_channelName,
