@@ -44,8 +44,13 @@ class _SliverPermissionRequestState extends State<SliverPermissionRequest> {
       setState(() {
         if (Platform.isAndroid) {
           activityRecognitionStatus = status;
-        } else {
-          activityRecognitionStatus = PermissionStatus.granted;
+        }
+      });
+    });
+    Permission.sensors.status.then((status) {
+      setState(() {
+        if (Platform.isIOS) {
+          activityRecognitionStatus = status;
         }
       });
     });
@@ -120,7 +125,20 @@ class _SliverPermissionRequestState extends State<SliverPermissionRequest> {
                     (_, PermissionStatus.permanentlyDenied, _, _, _) =>
                       ElevatedButton(
                         onPressed: openSettings,
-                        child: const Text('Open settings'),
+                        child: const Text(
+                          'Open settings to always allow location access',
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+
+                    // Activity recognition is permanently denied
+                    (_, _, PermissionStatus.permanentlyDenied, _, _) =>
+                      ElevatedButton(
+                        onPressed: openSettings,
+                        child: const Text(
+                          'Open settings to allow activity recognition',
+                          textAlign: TextAlign.center,
+                        ),
                       ),
 
                     // All OK, display well done message
@@ -222,9 +240,21 @@ class _SliverPermissionRequestState extends State<SliverPermissionRequest> {
 
   Future<void> openSettings() async {
     await openAppSettings();
-    final status = await Permission.locationAlways.status;
+    final newBackgroundLocationStatus = await Permission.locationAlways.status;
+    final PermissionStatus newActivityRecognitionStatus;
+    if (Platform.isAndroid) {
+      newActivityRecognitionStatus =
+          await Permission.activityRecognition.status;
+    } else if (Platform.isIOS) {
+      newActivityRecognitionStatus = await Permission.sensors.status;
+    } else {
+      newActivityRecognitionStatus = PermissionStatus.granted;
+    }
+    final newNotificationStatus = await Permission.notification.status;
     setState(() {
-      backgroundLocationStatus = status;
+      backgroundLocationStatus = newBackgroundLocationStatus;
+      activityRecognitionStatus = newActivityRecognitionStatus;
+      notificationStatus = newNotificationStatus;
     });
   }
 
@@ -243,10 +273,17 @@ class _SliverPermissionRequestState extends State<SliverPermissionRequest> {
   }
 
   Future<void> requestActivityRecognitionPermission() async {
-    final status = await Permission.activityRecognition.request();
-    setState(() {
-      activityRecognitionStatus = status;
-    });
+    if (Platform.isAndroid) {
+      final status = await Permission.activityRecognition.request();
+      setState(() {
+        activityRecognitionStatus = status;
+      });
+    } else if (Platform.isIOS) {
+      final status = await Permission.sensors.request();
+      setState(() {
+        activityRecognitionStatus = status;
+      });
+    }
   }
 
   Future<void> requestLocationWhenInUsePermission() async {
@@ -257,9 +294,13 @@ class _SliverPermissionRequestState extends State<SliverPermissionRequest> {
   }
 
   Future<void> requestNotificationPermission() async {
-    final status = await Permission.notification.request();
-    setState(() {
-      notificationStatus = status;
-    });
+    if (notificationStatus == PermissionStatus.denied) {
+      final status = await Permission.notification.request();
+      setState(() {
+        notificationStatus = status;
+      });
+    } else {
+      await openSettings();
+    }
   }
 }
