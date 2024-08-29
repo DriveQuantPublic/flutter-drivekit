@@ -62,23 +62,25 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 
 ## API
 
-| Method                                                                          | Return Type                  | iOS | Android |
-|---------------------------------------------------------------------------------|------------------------------|-:-:-|-:-:-----|
-| [isAutoStartActivated()](#isautostartactivated)                                 | `Future<bool>`               | ✅   | ✅       |
-| [activateAutoStart()](#activateautostart)                                       | `Future<void>`               | ✅   | ✅       |
-| [startTrip()](#starttrip)                                                       | `Future<void>`               | ✅   | ✅       |
-| [stopTrip()](#stoptrip)                                                         | `Future<void>`               | ✅   | ✅       |
-| [cancelTrip()](#canceltrip)                                                     | `Future<void>`               | ✅   | ✅       |
-| [isTripRunning()](#istriprunning)                                               | `Future<bool>`               | ✅   | ✅       |
-| [addTripListener()](#addtriplistener)                                           | `Future<void>`               | ✅   | ✅       |
-| [removeTripListener()](#removetriplistener)                                     | `Future<void>`               | ✅   | ✅       |
-| [removeAllTripListeners()](#removealltriplisteners)                             | `Future<void>`               | ✅   | ✅       |
-| [isCrashDetectionActivated()](#iscrashdetectionactivated)                       | `Future<bool>`               | ✅   | ✅       |
-| [activateCrashDetection()](#activatecrashdetection)                             | `Future<void>`               | ✅   | ✅       |
-| [isMonitoringPotentialTripStart()](#isonitoringpotentialtripstart)             | `Future<bool>`               | ✅   | ✅       |
-| [setMonitorPotentialTripStart()](#setmonitorpotentialtripstart)                 | `Future<void>`               | ✅   | ✅       |
-| [setVehicle()](#setvehicle)                                                     | `Future<bool>`               | ✅   | ✅       |
-| [getTripResponseStatus()](#getTripResponseStatus)                               | `Future<TripResponseStatus>` | ✅   | ✅       |
+| Method                                                             | Return Type                  | iOS  | Android  |
+|--------------------------------------------------------------------|------------------------------| :-:  | :-:      |
+| [isAutoStartActivated()](#isautostartactivated)                    | `Future<bool>`               | ✅   | ✅       |
+| [activateAutoStart()](#activateautostart)                          | `Future<void>`               | ✅   | ✅       |
+| [startTrip()](#starttrip)                                          | `Future<void>`               | ✅   | ✅       |
+| [stopTrip()](#stoptrip)                                            | `Future<void>`               | ✅   | ✅       |
+| [cancelTrip()](#canceltrip)                                        | `Future<void>`               | ✅   | ✅       |
+| [isTripRunning()](#istriprunning)                                  | `Future<bool>`               | ✅   | ✅       |
+| [addTripListener()](#addtriplistener)                              | `Future<void>`               | ✅   | ✅       |
+| [removeTripListener()](#removetriplistener)                        | `Future<void>`               | ✅   | ✅       |
+| [removeAllTripListeners()](#removealltriplisteners)                | `Future<void>`               | ✅   | ✅       |
+| [isCrashDetectionActivated()](#iscrashdetectionactivated)          | `Future<bool>`               | ✅   | ✅       |
+| [activateCrashDetection()](#activatecrashdetection)                | `Future<void>`               | ✅   | ✅       |
+| [isMonitoringPotentialTripStart()](#ismonitoringpotentialtripstart)| `Future<bool>`               | ✅   | ✅       |
+| [setMonitorPotentialTripStart()](#setmonitorpotentialtripstart)    | `Future<void>`               | ✅   | ✅       |
+| [setVehicle()](#setvehicle)                                        | `Future<bool>`               | ✅   | ✅       |
+| [getTripResponseStatus()](#getTripResponseStatus)                  | `Future<TripResponseStatus>` | ✅   | ✅       |
+
+
 
 
 ### isAutoStartActivated
@@ -106,13 +108,13 @@ This feature is recommended to avoid driver distraction and phone handling while
 By default, auto start is disabled. To enable automatic trip detection mode, call the following method:
 
 ```dart
-DriveKitTripAnalysis.instance.activateAutoStart(true);
+await DriveKitTripAnalysis.instance.activateAutoStart(true);
 ```
 
 To disable automatic trip detection call the same method with parameter enable set to `false`
 
 ```dart
-DriveKitTripAnalysis.instance.activateAutoStart(false);
+await DriveKitTripAnalysis.instance.activateAutoStart(false);
 ```
 
 > ⚠️
@@ -128,7 +130,7 @@ Future<void> startTrip();
 You can start a trip by calling the following method:
 
 ```dart
-DriveKitTripAnalysis.instance.startTrip();
+await DriveKitTripAnalysis.instance.startTrip();
 ```
 
 > ℹ️
@@ -145,7 +147,7 @@ Future<void> stopTrip();
 You can stop a trip by calling the following method. The trip will be stopped instantly:
 
 ```dart
-DriveKitTripAnalysis.instance.stopTrip();
+await DriveKitTripAnalysis.instance.stopTrip();
 ```
 
 > ℹ️
@@ -165,7 +167,7 @@ Future<void> cancelTrip();
 If you want to cancel a trip, you can call this method:
 
 ```dart
-DriveKitTripAnalysis.instance.cancelTrip();
+await DriveKitTripAnalysis.instance.cancelTrip();
 ```
 
 ### isTripRunning
@@ -254,7 +256,7 @@ Future<void> activateCrashDetection(bool activate);
 To disable crash detection, call the method with parameter to `false`
 
 ```dart
-DriveKitTripAnalysis.instance.activateCrashDetection(false);
+await DriveKitTripAnalysis.instance.activateCrashDetection(false);
 ```
 
 ### isMonitoringPotentialTripStart
@@ -291,13 +293,13 @@ Learn more about the feature [on iOS](https://docs.drivequant.com/trip-analysis/
 By default, the configuration is disabled. Call the following method with parameter to `true` to enable it.
 
 ```dart
-DriveKitTripAnalysis.instance.setMonitorPotentialTripStart(true);
+await DriveKitTripAnalysis.instance.setMonitorPotentialTripStart(true);
 ```
 
 To disable the feature, call the method with parameter to `false`
 
 ```dart
-DriveKitTripAnalysis.instance.setMonitorPotentialTripStart(false);
+await DriveKitTripAnalysis.instance.setMonitorPotentialTripStart(false);
 ```
 
 ### setVehicle
