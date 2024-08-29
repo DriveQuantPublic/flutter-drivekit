@@ -4,7 +4,7 @@ import DriveKitTripSimulatorModule
 
 extension FlutterError: Error {}
 
-public class DriveJitTripSimulatorPlugin: NSObject, FlutterPlugin, IOSTripSimulatorApi {
+public class DriveKitTripSimulatorPlugin: NSObject, FlutterPlugin, IOSTripSimulatorApi {
     public static func register(with registrar: FlutterPluginRegistrar) {
         let messenger: FlutterBinaryMessenger = registrar.messenger()
         let api: IOSTripSimulatorApi & NSObjectProtocol = DriveKitTripSimulatorPlugin.init()
