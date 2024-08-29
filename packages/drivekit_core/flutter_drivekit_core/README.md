@@ -289,7 +289,7 @@ The deletion can be done instantly or with delay.
 To delete a driver's account, use the following method:
 
 ```dart
-await DriveKitCore.deleteAccount(instantDeletion: true);
+await DriveKitCore.instance.deleteAccount(instantDeletion: true);
 ```
 
 `instantDeletion` can have 2 values:
