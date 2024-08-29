@@ -6,11 +6,6 @@ import 'package:flutter_drivekit_driver_data_platform_interface/flutter_drivekit
 /// Used by default if no other implementation is registered.
 class DefaultDriveKitDriverData extends DriveKitDriverDataPlatform {
   @override
-  Future<String> getPlatformName() {
-    throw UnimplementedError('getPlatformName() has not been implemented.');
-  }
-
-  @override
   Future<GetTripsResponse?> getTripsOrderByDateAsc({
     SynchronizationType synchronizationType = SynchronizationType.defaultSync,
     List<TransportationMode> transportationModes = const <TransportationMode>[],

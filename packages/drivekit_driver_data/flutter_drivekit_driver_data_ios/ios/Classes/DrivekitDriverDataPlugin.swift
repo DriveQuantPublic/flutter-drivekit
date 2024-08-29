@@ -15,10 +15,6 @@ public class DriveKitDriverDataPlugin: NSObject, FlutterPlugin, IOSDriverDataApi
         IOSDriverDataApiSetup.setUp(binaryMessenger: messenger, api: api)
     }
 
-    public func getPlatformName() throws -> String {
-        return "iOS"
-    }
-
     func getTripsOrderByDateAsc(synchronizationType: PigeonSynchronizationType, transportationModes: [PigeonTransportationMode], completion: @escaping (Result<PigeonGetTripsResponse, any Error>) -> Void) {
         DriveKitDriverData.shared.getTripsOrderByDateAsc(
             withTransportationModes: transportationModes.map({ TransportationMode(from: $0) }),

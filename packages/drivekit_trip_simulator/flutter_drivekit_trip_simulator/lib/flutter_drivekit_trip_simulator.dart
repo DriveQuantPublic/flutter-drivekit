@@ -15,9 +15,6 @@ class DriveKitTripSimulator {
   static DriveKitTripSimulator get instance => _instance;
   static const DriveKitTripSimulator _instance = DriveKitTripSimulator._();
 
-  /// Returns the name of the current platform.
-  Future<String> getPlatformName() => _platform.getPlatformName();
-
   /// Starts trip simulation with a preset trip
   static Future<void> start(PresetTrip presetTrip) =>
       _platform.start(presetTrip);

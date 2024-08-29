@@ -35,9 +35,6 @@ abstract class DriveKitDriverDataPlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  /// Return the current platform name.
-  Future<String> getPlatformName();
-
   /// Get trips ordered by date Ascending
   Future<GetTripsResponse?> getTripsOrderByDateAsc({
     SynchronizationType synchronizationType = SynchronizationType.defaultSync,

@@ -24,9 +24,6 @@ class DriveKitDriverDataIOS extends DriveKitDriverDataPlatform {
   final IOSDriverDataApi iosDriverDataApi;
 
   @override
-  Future<String> getPlatformName() => iosDriverDataApi.getPlatformName();
-
-  @override
   Future<GetTripsResponse?> getTripsOrderByDateAsc({
     SynchronizationType synchronizationType = SynchronizationType.defaultSync,
     List<TransportationMode> transportationModes = const <TransportationMode>[],

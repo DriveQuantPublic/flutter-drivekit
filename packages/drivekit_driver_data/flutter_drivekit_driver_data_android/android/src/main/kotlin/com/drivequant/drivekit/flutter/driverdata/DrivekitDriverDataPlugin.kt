@@ -28,8 +28,6 @@ class DriveKitDriverDataPlugin :
         context = null
     }
 
-    override fun getPlatformName(): String = "android"
-
     override fun getTripsOrderByDateAsc(synchronizationType: PigeonSynchronizationType, transportationModes: List<PigeonTransportationMode>, callback: (Result<PigeonGetTripsResponse>) -> Unit) {
         DriveKitDriverData.getTripsOrderByDateAsc(
             type = PigeonMapper.fromPigeonSynchronizationType(synchronizationType),

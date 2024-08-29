@@ -12,10 +12,6 @@ public class DriveJitTripSimulatorPlugin: NSObject, FlutterPlugin, IOSTripSimula
         IOSTripSimulatorApiSetup.setUp(binaryMessenger: messenger, api: api)
     }
 
-    public func getPlatformName() throws -> String {
-        return "iOS"
-    }
-
     func start(presetTrip: PigeonPresetTrip) throws {
         let (tripToSimulate, crashTripToSimulate) = PigeonMapper.getPresetTrip(from: presetTrip)
         if let tripToSimulate {

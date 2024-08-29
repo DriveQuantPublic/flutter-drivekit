@@ -20,9 +20,6 @@ class DriveKitDriverData {
   static DriveKitDriverData get instance => _instance;
   static const DriveKitDriverData _instance = DriveKitDriverData._();
 
-  /// Returns the name of the current platform.
-  Future<String> getPlatformName() => _platform.getPlatformName();
-
   /// Get trips ordered by date ascending
   Future<GetTripsResponse?> getTripsOrderByDateAsc({
     SynchronizationType synchronizationType = SynchronizationType.defaultSync,

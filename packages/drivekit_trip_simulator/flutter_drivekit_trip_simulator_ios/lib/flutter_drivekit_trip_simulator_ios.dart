@@ -23,9 +23,6 @@ class DriveKitTripSimulatorIOS extends DriveKitTripSimulatorPlatform {
   final IOSTripSimulatorApi iosTripSimulatorApi;
 
   @override
-  Future<String> getPlatformName() => iosTripSimulatorApi.getPlatformName();
-
-  @override
   Future<void> start(PresetTrip presetTrip) =>
       iosTripSimulatorApi.start(presetTrip.toPigeonImplementation());
 

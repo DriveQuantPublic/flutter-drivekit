@@ -126,6 +126,19 @@ void main() {
       expect(isRunning, false);
     });
 
+    test('isMonitoringPotentialTripStart calls iOS implementation', () async {
+      //mock
+      when(iOSTripAnalysisApi.isMonitoringPotentialTripStart)
+          .thenAnswer((_) async => false);
+
+      //test
+      final isActivated = await DriveKitTripAnalysisPlatform.instance
+          .isMonitoringPotentialTripStart();
+      verify(() => iOSTripAnalysisApi.isMonitoringPotentialTripStart())
+          .called(1);
+      expect(isActivated, false);
+    });
+
     test('setMonitorPotentialTripStart calls iOS implementation', () async {
       //mock
       when(() => iOSTripAnalysisApi.setMonitorPotentialTripStart(any()))
@@ -136,18 +149,6 @@ void main() {
           .setMonitorPotentialTripStart(true);
       verify(() => iOSTripAnalysisApi.setMonitorPotentialTripStart(true))
           .called(1);
-    });
-
-    test('getMonitorPotentialTripStart calls iOS implementation', () async {
-      //mock
-      when(iOSTripAnalysisApi.getMonitorPotentialTripStart)
-          .thenAnswer((_) async => false);
-
-      //test
-      final isActivated = await DriveKitTripAnalysisPlatform.instance
-          .getMonitorPotentialTripStart();
-      verify(() => iOSTripAnalysisApi.getMonitorPotentialTripStart()).called(1);
-      expect(isActivated, false);
     });
 
     test('setVehicle calls iOS implementation', () async {

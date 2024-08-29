@@ -20,43 +20,47 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  String? _platformName;
-
   @override
   Widget build(BuildContext context) {
-    final driveKitDriverData = DriveKitDriverData.instance;
-
     return Scaffold(
       appBar: AppBar(title: const Text('DriveKitDriverData Example')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (_platformName == null)
-              const SizedBox.shrink()
-            else
-              Text(
-                'Platform Name: $_platformName',
-                style: Theme.of(context).textTheme.headlineSmall,
-              ),
             const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () async {
-                if (!context.mounted) return;
-                try {
-                  final result = await driveKitDriverData.getPlatformName();
-                  setState(() => _platformName = result);
-                } catch (error) {
-                  if (!context.mounted) return;
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      backgroundColor: Theme.of(context).primaryColor,
-                      content: Text('$error'),
-                    ),
+                const tripId = 'TRIP_ID_HERE';
+                final tripSyncResult =
+                    await DriveKitDriverData.instance.getTrip(tripId);
+                final alertMessage =
+                    tripSyncResult?.status == TripSyncStatus.success
+                        ? 'Trip ${tripSyncResult?.trip?.itinId} well received'
+                        : 'Trips not received';
+                if (context.mounted) {
+                  await showDialog<void>(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text('Get Trip'),
+                        content: Text(alertMessage),
+                        actions: <Widget>[
+                          TextButton(
+                            child: const Text('OK'),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      );
+                    },
                   );
                 }
               },
-              child: const Text('Get Platform Name'),
+              child: const Text(
+                'Get Trip',
+              ),
             ),
           ],
         ),

@@ -122,7 +122,6 @@ class IOSTripSimulatorApiPigeonCodec: FlutterStandardMessageCodec, @unchecked Se
 
 /// Generated protocol from Pigeon that represents a handler of messages from Flutter.
 protocol IOSTripSimulatorApi {
-  func getPlatformName() throws -> String
   func start(presetTrip: PigeonPresetTrip) throws
   func stop() throws
 }
@@ -133,19 +132,6 @@ class IOSTripSimulatorApiSetup {
   /// Sets up an instance of `IOSTripSimulatorApi` to handle messages through the `binaryMessenger`.
   static func setUp(binaryMessenger: FlutterBinaryMessenger, api: IOSTripSimulatorApi?, messageChannelSuffix: String = "") {
     let channelSuffix = messageChannelSuffix.count > 0 ? ".\(messageChannelSuffix)" : ""
-    let getPlatformNameChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.pigeon_trip_simulator_package.IOSTripSimulatorApi.getPlatformName\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
-    if let api = api {
-      getPlatformNameChannel.setMessageHandler { _, reply in
-        do {
-          let result = try api.getPlatformName()
-          reply(wrapResult(result))
-        } catch {
-          reply(wrapError(error))
-        }
-      }
-    } else {
-      getPlatformNameChannel.setMessageHandler(nil)
-    }
     let startChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.pigeon_trip_simulator_package.IOSTripSimulatorApi.start\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       startChannel.setMessageHandler { message, reply in
