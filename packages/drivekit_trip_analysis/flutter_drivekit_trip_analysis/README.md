@@ -239,10 +239,6 @@ final isCrashDetectionActivated = await DriveKitTripAnalysis.instance.isCrashDet
 
 ### activateCrashDetection
 
-```dart
-activateCrashDetection(enable: boolean): Promise<void>
-```
-
 Crash detection features, included into the DriveKit Trip Analysis component, is able to collect and analyse smartphone sensors data to automatically detect when a car accident occurs.
 
 Learn more about the feature [on iOS](https://docs.drivequant.com/trip-analysis/ios/crash-detection) / [on Android](https://docs.drivequant.com/trip-analysis/android/crash-detection)
