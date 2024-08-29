@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_drivekit_trip_simulator/flutter_drivekit_trip_simulator.dart';
 
 void main() => runApp(const MyApp());
 
@@ -24,19 +23,13 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('DriveKitTripSimulator Example')),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () {
-                DriveKitTripSimulator.instance.start(PresetTrip.shortTrip);
-              },
-              child: const Text('Start Simulation (shortTrip)'),
-            ),
-          ],
-        ),
+      body: const Column(
+        children: [
+          Text('Please refer to the main flutter example SDK'),
+          Text(
+            'https://github.com/DriveQuantPublic/flutter-drivekit/tree/main/example',
+          ),
+        ],
       ),
     );
   }
