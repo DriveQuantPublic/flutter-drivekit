@@ -1978,8 +1978,8 @@ protocol IOSTripAnalysisApi {
   func stopTrip() throws
   func cancelTrip() throws
   func isTripRunning() throws -> Bool
+  func isMonitoringPotentialTripStart() throws -> Bool
   func setMonitorPotentialTripStart(activate: Bool) throws
-  func getMonitorPotentialTripStart() throws -> Bool
   func setVehicle(vehicle: PigeonVehicle) throws
   func getTripResponseStatus(tripResponse: PigeonPostGenericResponse) throws -> PigeonTripResponseStatus?
 }
@@ -2098,6 +2098,19 @@ class IOSTripAnalysisApiSetup {
     } else {
       isTripRunningChannel.setMessageHandler(nil)
     }
+    let isMonitoringPotentialTripStartChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.pigeon_trip_analysis_package.IOSTripAnalysisApi.isMonitoringPotentialTripStart\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      isMonitoringPotentialTripStartChannel.setMessageHandler { _, reply in
+        do {
+          let result = try api.isMonitoringPotentialTripStart()
+          reply(wrapResult(result))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      isMonitoringPotentialTripStartChannel.setMessageHandler(nil)
+    }
     let setMonitorPotentialTripStartChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.pigeon_trip_analysis_package.IOSTripAnalysisApi.setMonitorPotentialTripStart\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       setMonitorPotentialTripStartChannel.setMessageHandler { message, reply in
@@ -2112,19 +2125,6 @@ class IOSTripAnalysisApiSetup {
       }
     } else {
       setMonitorPotentialTripStartChannel.setMessageHandler(nil)
-    }
-    let getMonitorPotentialTripStartChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.pigeon_trip_analysis_package.IOSTripAnalysisApi.getMonitorPotentialTripStart\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
-    if let api = api {
-      getMonitorPotentialTripStartChannel.setMessageHandler { _, reply in
-        do {
-          let result = try api.getMonitorPotentialTripStart()
-          reply(wrapResult(result))
-        } catch {
-          reply(wrapError(error))
-        }
-      }
-    } else {
-      getMonitorPotentialTripStartChannel.setMessageHandler(nil)
     }
     let setVehicleChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.pigeon_trip_analysis_package.IOSTripAnalysisApi.setVehicle\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {

@@ -61,13 +61,13 @@ abstract class DrivekitTripAnalysisPlatform extends PlatformInterface {
   /// and no trip is currently running.
   Future<bool> isTripRunning();
 
+  /// Returns true if the monitor potential trip is activated.
+  Future<bool> isMonitoringPotentialTripStart();
+
   /// If this method is called with parameter to true and autostart is disable,
   /// you will be able to listen for trip start trigger events, and the trip
   /// analysis will not be started automatically.
   Future<void> setMonitorPotentialTripStart(bool activate);
-
-  /// Returns true if the monitor potential trip is activated.
-  Future<bool> getMonitorPotentialTripStart();
 
   /// Set the user's vehicle.
   Future<void> setVehicle(Vehicle vehicle);

@@ -26,19 +26,19 @@ class SliverMonitorPotentialTripStart extends StatelessWidget {
         ),
         ElevatedButton(
           onPressed: () async {
-            final isMonitorPotentialTripStartActivated =
-                await DrivekitTripAnalysis.getMonitorPotentialTripStart();
+            final isMonitoringPotentialTripStart =
+                await DrivekitTripAnalysis.isMonitoringPotentialTripStart();
             if (context.mounted) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   backgroundColor: Theme.of(context).primaryColor,
-                  content: Text('monitorPotentialTripStart activated:'
-                      ' $isMonitorPotentialTripStartActivated'),
+                  content: Text('is monitoring potentialTripStart:'
+                      ' $isMonitoringPotentialTripStart'),
                 ),
               );
             }
           },
-          child: const Text('Is monitorPotentialTripStart activated?'),
+          child: const Text('Is monitoring potential trip start ?'),
         ),
       ],
     );
