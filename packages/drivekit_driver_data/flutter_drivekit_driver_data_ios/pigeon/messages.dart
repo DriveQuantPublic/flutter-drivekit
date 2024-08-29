@@ -13,7 +13,6 @@ import 'package:pigeon/pigeon.dart';
 )
 @HostApi()
 abstract class IOSDriverDataApi {
-  String getPlatformName();
   @async
   PigeonGetTripsResponse getTripsOrderByDateAsc({
     PigeonSynchronizationType synchronizationType =

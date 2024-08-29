@@ -25,16 +25,6 @@ void main() {
       );
     });
 
-    test('getPlatformName returns correct name', () async {
-      //mock
-      when(androidDriverDataApi.getPlatformName)
-          .thenAnswer((_) async => 'Android');
-
-      //test
-      final name = await DrivekitDriverDataPlatform.instance.getPlatformName();
-      expect(name, 'Android');
-    });
-
     test('Get Trips Ascending', () async {
       //mock
       when(

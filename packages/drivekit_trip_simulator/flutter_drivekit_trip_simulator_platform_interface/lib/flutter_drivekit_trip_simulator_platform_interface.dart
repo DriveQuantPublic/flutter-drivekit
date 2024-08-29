@@ -35,9 +35,6 @@ abstract class DrivekitTripSimulatorPlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  /// Return the current platform name.
-  Future<String> getPlatformName();
-
   /// Starts trip simulation with a preset trip
   Future<void> start(PresetTrip presetTrip);
 

@@ -25,9 +25,6 @@ class DrivekitDriverDataAndroid extends DrivekitDriverDataPlatform {
   final AndroidDriverDataApi androidDriverDataApi;
 
   @override
-  Future<String> getPlatformName() => androidDriverDataApi.getPlatformName();
-
-  @override
   Future<GetTripsResponse?> getTripsOrderByDateAsc({
     SynchronizationType synchronizationType = SynchronizationType.defaultSync,
     List<TransportationMode> transportationModes = const <TransportationMode>[],

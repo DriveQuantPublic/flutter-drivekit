@@ -24,16 +24,6 @@ void main() {
       );
     });
 
-    test('getPlatformName returns correct name', () async {
-      //mocks
-      when(iosTripSimulatorApi.getPlatformName).thenAnswer((_) async => 'iOS');
-
-      //test
-      final name =
-          await DrivekitTripSimulatorPlatform.instance.getPlatformName();
-      expect(name, 'iOS');
-    });
-
     test('start trip simulation', () async {
       //mock
       when(() => iosTripSimulatorApi.start(PigeonPresetTrip.shortTrip))

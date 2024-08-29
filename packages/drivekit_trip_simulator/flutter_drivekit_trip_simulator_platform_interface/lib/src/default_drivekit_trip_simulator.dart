@@ -6,11 +6,6 @@ import 'package:flutter_drivekit_trip_simulator_platform_interface/flutter_drive
 /// Used by default if no other implementation is registered.
 class DefaultDrivekitTripSimulator extends DrivekitTripSimulatorPlatform {
   @override
-  Future<String> getPlatformName() {
-    throw UnimplementedError('getPlatformName() has not been implemented.');
-  }
-
-  @override
   Future<void> start(PresetTrip presetTrip) {
     throw UnimplementedError('start() has not been implemented.');
   }

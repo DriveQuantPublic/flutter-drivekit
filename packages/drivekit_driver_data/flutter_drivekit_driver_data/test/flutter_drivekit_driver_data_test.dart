@@ -20,19 +20,6 @@ void main() {
       DrivekitDriverDataPlatform.instance = drivekitDriverDataPlatform;
     });
 
-    group('getPlatformName', () {
-      test('returns correct name when platform implementation exists',
-          () async {
-        const platformName = '__test_platform__';
-        when(
-          () => drivekitDriverDataPlatform.getPlatformName(),
-        ).thenAnswer((_) async => platformName);
-
-        final actualPlatformName = await driveKitDriverData.getPlatformName();
-        expect(actualPlatformName, equals(platformName));
-      });
-    });
-
     group('Get Trips', () {
       test('Get Trips Ascending', () async {
         when(
