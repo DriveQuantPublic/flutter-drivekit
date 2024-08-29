@@ -32,7 +32,7 @@ class SliverMonitorPotentialTripStart extends StatelessWidget {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   backgroundColor: Theme.of(context).primaryColor,
-                  content: Text('is monitoring potentialtripstart:'
+                  content: Text('is monitoring potentialTripStart:'
                       ' $isMonitoringPotentialTripStart'),
                 ),
               );
