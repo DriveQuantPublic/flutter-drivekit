@@ -22,7 +22,7 @@ Then, you need to install the flutter_drivekit_core plugin and follow the instru
 Now, you can configure the DriveKit Core with the options you want, and start using the DriveKit Trip Simulator plugin. For example, you can start trip simulator with the following code:
 
 ```dart
-DriveKitTripSimulator.start(PresetTrip.shortTrip);
+await DriveKitTripSimulator.instance.start(PresetTrip.shortTrip);
 ```
 
 | Method                    | Return Type    | iOS | Android |
@@ -33,13 +33,13 @@ DriveKitTripSimulator.start(PresetTrip.shortTrip);
 ### startTrip
 
 ```dart
-static Future<void> start(PresetTrip presetTrip)
+Future<void> start(PresetTrip presetTrip)
 ```
 
 To simulate a trip, call the start method in TripSimulator with a appropriate configuration with the `PresetTrip` parameter.
 
 ```dart
-DriveKitTripSimulator.start(PresetTrip.highwayTrip);
+await DriveKitTripSimulator.instance.start(PresetTrip.highwayTrip);
 ```
 
 | PresetTrip                                  | Description
@@ -63,13 +63,13 @@ DriveKitTripSimulator.start(PresetTrip.highwayTrip);
 ### stopTrip
 
 ```dart
-static Future<void> stop()
+Future<void> stop()
 ```
 
 To stop the trip simulation, call the following method. The trip will be stopped instantly:
 
 ```dart
-DriveKitTripSimulator.stop();
+await DriveKitTripSimulator.instance.stop();
 ```
 
 

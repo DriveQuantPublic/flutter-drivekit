@@ -16,9 +16,8 @@ class DriveKitTripSimulator {
   static const DriveKitTripSimulator _instance = DriveKitTripSimulator._();
 
   /// Starts trip simulation with a preset trip
-  static Future<void> start(PresetTrip presetTrip) =>
-      _platform.start(presetTrip);
+  Future<void> start(PresetTrip presetTrip) => _platform.start(presetTrip);
 
   /// Stops trip simulation
-  static Future<void> stop() => _platform.stop();
+  Future<void> stop() => _platform.stop();
 }
