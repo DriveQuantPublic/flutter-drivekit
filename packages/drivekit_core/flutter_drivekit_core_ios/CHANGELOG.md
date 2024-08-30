@@ -1,3 +1,7 @@
+# 0.0.5
+
+    - version 0.0.5 of DriveKit flutter SDK
+
 # 0.0.4
 
     - forth version of DriveKit flutter SDK
