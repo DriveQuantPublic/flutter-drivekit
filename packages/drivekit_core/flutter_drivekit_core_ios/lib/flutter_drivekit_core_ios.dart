@@ -45,6 +45,9 @@ class DriveKitCoreIOS extends DriveKitCorePlatform implements FlutterCoreApi {
   Future<String?> getUserId() => iosCoreApi.getUserId();
 
   @override
+  Future<void> updateUserId(String userId) => iosCoreApi.updateUserId(userId);
+
+  @override
   Future<void> reset() => iosCoreApi.reset();
 
   @override
