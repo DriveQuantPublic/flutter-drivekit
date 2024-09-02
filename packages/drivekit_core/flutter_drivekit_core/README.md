@@ -70,6 +70,7 @@ Now, you can configure the DriveKit Core with the options you want, and use othe
 | [setApiKey()](#setapikey)                                                         | `Future<void>`    | ✅  |   ✅    |
 | [getUserId()](#getuserid)                                                         | `Future<String?>` | ✅  |   ✅    |
 | [setUserId()](#setuserid)                                                         | `Future<void>`    | ✅  |   ✅    |
+| [updateUserId()](#updateuserid)                                                   | `Future<void>`    | ✅  |   ✅    |
 | [addDriveKitListener()](#adddrivekitlistener)                                     | `Future<void>`    | ✅  |   ✅    |
 | [removeDriveKitListener()](#removedrivekitlistener)                               | `Future<void>`    | ✅  |   ✅    |
 | [removeAllDriveKitListener()](#removealldrivekitlisteners)                        | `Future<void>`    | ✅  |   ✅    |
@@ -144,6 +145,23 @@ await DriveKitCore.instance.setUserId('MyUniqueUserId);
 > ⚠️
 >
 > DriveKit SDK will not work until you set the API key and the userId.
+
+
+### updateUserId
+
+```dart
+Future<void> updateUserId()
+```
+
+It is possible to update the userId by calling the following method:
+
+```dart
+await DriveKitCore.instance.updateUserId('MyNewUniqueUserId);
+```
+
+> ℹ️
+>
+> To be able to check whenever userId got updated and catch the update status you have to use DriveKitListener listener.
 
 ### addDriveKitListener
 

@@ -16,6 +16,7 @@ abstract class IOSCoreApi {
   void setApiKey(String key);
   void setUserId(String userId);
   String? getUserId();
+  void updateUserId(String userId);
   void reset();
   bool isTokenValid();
   void deleteAccount({bool instantDeletion = false});

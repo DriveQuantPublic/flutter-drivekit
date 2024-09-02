@@ -4,7 +4,6 @@ import 'package:drivekit_example/widgets/sliver_auto_start.dart';
 import 'package:drivekit_example/widgets/sliver_crash_detection.dart';
 import 'package:drivekit_example/widgets/sliver_delete_account.dart';
 import 'package:drivekit_example/widgets/sliver_get_api_key.dart';
-import 'package:drivekit_example/widgets/sliver_get_user_id.dart';
 import 'package:drivekit_example/widgets/sliver_is_token_valid.dart';
 import 'package:drivekit_example/widgets/sliver_logs.dart';
 import 'package:drivekit_example/widgets/sliver_monitor_potential_trip_start.dart';
@@ -14,10 +13,10 @@ import 'package:drivekit_example/widgets/sliver_remove_all_drivekit_listeners.da
 import 'package:drivekit_example/widgets/sliver_remove_all_trip_listeners.dart';
 import 'package:drivekit_example/widgets/sliver_reset.dart';
 import 'package:drivekit_example/widgets/sliver_set_api_key.dart';
-import 'package:drivekit_example/widgets/sliver_set_user_id.dart';
 import 'package:drivekit_example/widgets/sliver_trip_lifecycle.dart';
 import 'package:drivekit_example/widgets/sliver_trip_simulator.dart';
 import 'package:drivekit_example/widgets/sliver_trips.dart';
+import 'package:drivekit_example/widgets/sliver_user_id.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -48,15 +47,10 @@ class HomePage extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 16),
               sliver: SliverGetApiKey(),
             ),
-            SliverGap(4),
+            SliverGap(32),
             SliverPadding(
               padding: EdgeInsets.symmetric(horizontal: 16),
-              sliver: SliverSetUserId(),
-            ),
-            SliverGap(4),
-            SliverPadding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              sliver: SliverGetUserId(),
+              sliver: SliverUserId(),
             ),
             SliverGap(32),
             SliverPadding(

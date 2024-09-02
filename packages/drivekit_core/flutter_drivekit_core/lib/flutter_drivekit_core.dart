@@ -42,6 +42,11 @@ class DriveKitCore {
   /// Get the id of the currently identified user, if exists.
   Future<String?> getUserId() => _platform.getUserId();
 
+  /// Update the userId
+  /// To be able to check whenever userId got updated and catch the update
+  /// status you have to use [DriveKitListener] listener.
+  Future<void> updateUserId(String userId) => _platform.updateUserId(userId);
+
   /// Resets the DriveKit SDK.
   /// If you need to reset DriveKit configuration (user logout for example),
   /// you can call the following method.

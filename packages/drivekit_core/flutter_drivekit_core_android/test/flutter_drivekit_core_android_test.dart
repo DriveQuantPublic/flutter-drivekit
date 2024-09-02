@@ -63,6 +63,15 @@ void main() {
       expect(userId, mockedUserId);
     });
 
+    test('updateUserId calls updateUserId method with correct value', () async {
+      //mock
+      when(() => androidCoreApi.updateUserId(any())).thenAnswer((_) async {});
+
+      //test
+      await DriveKitCorePlatform.instance.updateUserId('newUserId');
+      verify(() => androidCoreApi.updateUserId('newUserId')).called(1);
+    });
+
     test('reset calls reset method', () async {
       //mock
       when(() => androidCoreApi.reset()).thenAnswer((_) async {});
