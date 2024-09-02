@@ -161,7 +161,7 @@ await DriveKitCore.instance.updateUserId('MyNewUniqueUserId);
 
 > ℹ️
 >
-> To be able to check whenever userId got updated and catch the update status you have to use DriveKitListener listener.
+> To be able to check whenever `userId` got updated and catch the update status you have to use `DriveKitListener` listener.
 
 ### addDriveKitListener
 
