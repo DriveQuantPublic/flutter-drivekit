@@ -13,6 +13,7 @@ void main() {
     late FlutterCoreApi flutterCoreApi;
 
     setUp(() {
+      registerFallbackValue(MockUserInfo());
       androidCoreApi = MockAndroidCoreApi();
       flutterCoreApi = DriveKitCoreAndroid(androidCoreApi: androidCoreApi);
       DriveKitCorePlatform.instance = flutterCoreApi as DriveKitCoreAndroid;

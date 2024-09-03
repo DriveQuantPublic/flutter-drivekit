@@ -13,6 +13,7 @@ void main() {
     late FlutterCoreApi flutterCoreApi;
 
     setUp(() {
+      registerFallbackValue(MockUserInfo());
       iosCoreApi = MockIOSCoreApi();
       flutterCoreApi = DriveKitCoreIOS(iosCoreApi: iosCoreApi);
       DriveKitCorePlatform.instance = flutterCoreApi as DriveKitCoreIOS;
