@@ -93,14 +93,14 @@ class _InitializeListenersState extends State<InitializeListeners> {
         }
       },
       tripPoint: (tripPoint) {
-        if (context.mounted) {
+        /*if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text('Trip: tripPoint.'),
               duration: Duration(milliseconds: 400),
             ),
           );
-        }
+        }*/
       },
       tripSavedForRepost: () {
         if (context.mounted) {
