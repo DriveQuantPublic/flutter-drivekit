@@ -17,6 +17,7 @@ import 'package:drivekit_example/widgets/sliver_trip_lifecycle.dart';
 import 'package:drivekit_example/widgets/sliver_trip_simulator.dart';
 import 'package:drivekit_example/widgets/sliver_trips.dart';
 import 'package:drivekit_example/widgets/sliver_user_id.dart';
+import 'package:drivekit_example/widgets/sliver_user_info.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -56,6 +57,11 @@ class HomePage extends StatelessWidget {
             SliverPadding(
               padding: EdgeInsets.symmetric(horizontal: 16),
               sliver: SliverTokenValidity(),
+            ),
+            SliverGap(32),
+            SliverPadding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              sliver: SliverUserInfo(),
             ),
             SliverGap(32),
             SliverPadding(

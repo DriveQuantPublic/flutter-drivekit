@@ -113,25 +113,59 @@ enum class PigeonDeviceConfigurationEvent(val raw: Int) {
     }
   }
 }
+
+/**
+ * User Info
+ *
+ * Generated class from Pigeon that represents data sent in messages.
+ */
+data class PigeonUserInfo (
+  val firstname: String? = null,
+  val lastname: String? = null,
+  val pseudo: String? = null
+
+) {
+  companion object {
+    @Suppress("LocalVariableName")
+    fun fromList(__pigeon_list: List<Any?>): PigeonUserInfo {
+      val firstname = __pigeon_list[0] as String?
+      val lastname = __pigeon_list[1] as String?
+      val pseudo = __pigeon_list[2] as String?
+      return PigeonUserInfo(firstname, lastname, pseudo)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      firstname,
+      lastname,
+      pseudo,
+    )
+  }
+}
 private object CoreApiPigeonCodec : StandardMessageCodec() {
   override fun readValueOfType(type: Byte, buffer: ByteBuffer): Any? {
     return when (type) {
       129.toByte() -> {
-        return (readValue(buffer) as Int?)?.let {
-          PigeonDeleteAccountStatus.ofRaw(it)
+        return (readValue(buffer) as? List<Any?>)?.let {
+          PigeonUserInfo.fromList(it)
         }
       }
       130.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
-          PigeonRequestError.ofRaw(it)
+          PigeonDeleteAccountStatus.ofRaw(it)
         }
       }
       131.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
-          PigeonUpdateUserIdStatus.ofRaw(it)
+          PigeonRequestError.ofRaw(it)
         }
       }
       132.toByte() -> {
+        return (readValue(buffer) as Int?)?.let {
+          PigeonUpdateUserIdStatus.ofRaw(it)
+        }
+      }
+      133.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
           PigeonDeviceConfigurationEvent.ofRaw(it)
         }
@@ -141,20 +175,24 @@ private object CoreApiPigeonCodec : StandardMessageCodec() {
   }
   override fun writeValue(stream: ByteArrayOutputStream, value: Any?)   {
     when (value) {
-      is PigeonDeleteAccountStatus -> {
+      is PigeonUserInfo -> {
         stream.write(129)
-        writeValue(stream, value.raw)
+        writeValue(stream, value.toList())
       }
-      is PigeonRequestError -> {
+      is PigeonDeleteAccountStatus -> {
         stream.write(130)
         writeValue(stream, value.raw)
       }
-      is PigeonUpdateUserIdStatus -> {
+      is PigeonRequestError -> {
         stream.write(131)
         writeValue(stream, value.raw)
       }
-      is PigeonDeviceConfigurationEvent -> {
+      is PigeonUpdateUserIdStatus -> {
         stream.write(132)
+        writeValue(stream, value.raw)
+      }
+      is PigeonDeviceConfigurationEvent -> {
+        stream.write(133)
         writeValue(stream, value.raw)
       }
       else -> super.writeValue(stream, value)
@@ -162,12 +200,14 @@ private object CoreApiPigeonCodec : StandardMessageCodec() {
   }
 }
 
+
 /** Generated interface from Pigeon that represents a handler of messages from Flutter. */
 interface AndroidCoreApi {
   fun setApiKey(key: String)
   fun setUserId(userId: String)
   fun getUserId(): String?
   fun updateUserId(userId: String)
+  fun updateUserInfo(userInfo: PigeonUserInfo, callback: (Result<Boolean>) -> Unit)
   fun reset()
   fun isTokenValid(): Boolean
   fun deleteAccount(instantDeletion: Boolean)
@@ -249,6 +289,26 @@ interface AndroidCoreApi {
               wrapError(exception)
             }
             reply.reply(wrapped)
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_core_package.AndroidCoreApi.updateUserInfo$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { message, reply ->
+            val args = message as List<Any?>
+            val userInfoArg = args[0] as PigeonUserInfo
+            api.updateUserInfo(userInfoArg) { result: Result<Boolean> ->
+              val error = result.exceptionOrNull()
+              if (error != null) {
+                reply.reply(wrapError(error))
+              } else {
+                val data = result.getOrNull()
+                reply.reply(wrapResult(data))
+              }
+            }
           }
         } else {
           channel.setMessageHandler(null)

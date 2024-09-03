@@ -160,4 +160,8 @@ class DriveKitCoreAndroid extends DriveKitCorePlatform
           ?.call(event.toModelImplementation());
     }
   }
+
+  @override
+  Future<bool> updateUserInfo(UserInfo userInfo) =>
+      androidCoreApi.updateUserInfo(userInfo.toPigeonImplementation());
 }

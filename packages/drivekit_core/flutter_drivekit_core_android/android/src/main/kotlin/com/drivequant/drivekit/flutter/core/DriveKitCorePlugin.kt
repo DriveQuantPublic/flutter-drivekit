@@ -6,6 +6,7 @@ import com.drivequant.drivekit.core.DriveKitLog
 import com.drivequant.drivekit.core.deviceconfiguration.DKDeviceConfigurationEvent
 import com.drivequant.drivekit.core.deviceconfiguration.DKDeviceConfigurationListener
 import com.drivequant.drivekit.core.driver.UpdateUserIdStatus
+import com.drivequant.drivekit.core.driver.UpdateUserInfoQueryListener
 import com.drivequant.drivekit.core.driver.deletion.DeleteAccountStatus
 import com.drivequant.drivekit.core.networking.DriveKitListener
 import com.drivequant.drivekit.core.networking.RequestError
@@ -113,4 +114,19 @@ class DriveKitCorePlugin :
 
     override fun getLogUriFile(): String? =
         context?.let { DriveKitLog.getLogUriFile(it).toString() }
+
+    override fun updateUserInfo(userInfo: PigeonUserInfo, callback: (Result<Boolean>) -> Unit) {
+        DriveKit.updateUserInfo(
+            userInfo.firstname,
+            userInfo.lastname,
+            userInfo.pseudo,
+            object : UpdateUserInfoQueryListener {
+                override fun onResponse(status: Boolean) {
+                    callback(
+                        Result.success(status)
+                    )
+                }
+            }
+        )
+    }
 }

@@ -168,4 +168,8 @@ class DriveKitCoreIOS extends DriveKitCorePlatform implements FlutterCoreApi {
   void removeAllDeviceConfigurationListeners() {
     _deviceConfigurationListeners.clear();
   }
+
+  @override
+  Future<bool> updateUserInfo(UserInfo userInfo) =>
+      iosCoreApi.updateUserInfo(userInfo.toPigeonImplementation());
 }

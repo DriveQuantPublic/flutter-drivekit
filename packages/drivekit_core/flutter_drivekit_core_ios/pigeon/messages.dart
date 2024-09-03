@@ -17,6 +17,7 @@ abstract class IOSCoreApi {
   void setUserId(String userId);
   String? getUserId();
   void updateUserId(String userId);
+  bool updateUserInfo(PigeonUserInfo userInfo);
   void reset();
   bool isTokenValid();
   void deleteAccount({bool instantDeletion = false});
@@ -86,4 +87,17 @@ enum PigeonDeviceConfigurationEvent {
   bluetoothPermissionInvalid,
   lowPowerModeValid,
   lowPowerModeInvalid,
+}
+
+/// User Info
+class PigeonUserInfo {
+  PigeonUserInfo({
+    this.firstname,
+    this.lastname,
+    this.pseudo,
+  });
+
+  final String? firstname;
+  final String? lastname;
+  final String? pseudo;
 }

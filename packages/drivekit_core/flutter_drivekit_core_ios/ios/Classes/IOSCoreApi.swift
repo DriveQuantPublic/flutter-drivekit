@@ -114,38 +114,69 @@ enum PigeonDeviceConfigurationEvent: Int {
   case lowPowerModeValid = 12
   case lowPowerModeInvalid = 13
 }
+
+/// User Info
+///
+/// Generated class from Pigeon that represents data sent in messages.
+struct PigeonUserInfo {
+  var firstname: String? = nil
+  var lastname: String? = nil
+  var pseudo: String? = nil
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ __pigeon_list: [Any?]) -> PigeonUserInfo? {
+    let firstname: String? = nilOrValue(__pigeon_list[0])
+    let lastname: String? = nilOrValue(__pigeon_list[1])
+    let pseudo: String? = nilOrValue(__pigeon_list[2])
+
+    return PigeonUserInfo(
+      firstname: firstname,
+      lastname: lastname,
+      pseudo: pseudo
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      firstname,
+      lastname,
+      pseudo,
+    ]
+  }
+}
 private class IOSCoreApiPigeonCodecReader: FlutterStandardReader {
   override func readValue(ofType type: UInt8) -> Any? {
     switch type {
     case 129:
+      return PigeonUserInfo.fromList(self.readValue() as! [Any?])
+    case 130:
       var enumResult: PigeonDeleteAccountStatus? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonDeleteAccountStatus(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 130:
+    case 131:
       var enumResult: PigeonRequestError? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonRequestError(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 131:
+    case 132:
       var enumResult: PigeonUpdateUserIdStatus? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonUpdateUserIdStatus(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 132:
+    case 133:
       var enumResult: PigeonBackgroundFetchStatus? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonBackgroundFetchStatus(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 133:
+    case 134:
       var enumResult: PigeonDeviceConfigurationEvent? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
@@ -160,20 +191,23 @@ private class IOSCoreApiPigeonCodecReader: FlutterStandardReader {
 
 private class IOSCoreApiPigeonCodecWriter: FlutterStandardWriter {
   override func writeValue(_ value: Any) {
-    if let value = value as? PigeonDeleteAccountStatus {
+    if let value = value as? PigeonUserInfo {
       super.writeByte(129)
-      super.writeValue(value.rawValue)
-    } else if let value = value as? PigeonRequestError {
+      super.writeValue(value.toList())
+    } else if let value = value as? PigeonDeleteAccountStatus {
       super.writeByte(130)
       super.writeValue(value.rawValue)
-    } else if let value = value as? PigeonUpdateUserIdStatus {
+    } else if let value = value as? PigeonRequestError {
       super.writeByte(131)
       super.writeValue(value.rawValue)
-    } else if let value = value as? PigeonBackgroundFetchStatus {
+    } else if let value = value as? PigeonUpdateUserIdStatus {
       super.writeByte(132)
       super.writeValue(value.rawValue)
-    } else if let value = value as? PigeonDeviceConfigurationEvent {
+    } else if let value = value as? PigeonBackgroundFetchStatus {
       super.writeByte(133)
+      super.writeValue(value.rawValue)
+    } else if let value = value as? PigeonDeviceConfigurationEvent {
+      super.writeByte(134)
       super.writeValue(value.rawValue)
     } else {
       super.writeValue(value)
@@ -201,6 +235,7 @@ protocol IOSCoreApi {
   func setUserId(userId: String) throws
   func getUserId() throws -> String?
   func updateUserId(userId: String) throws
+  func updateUserInfo(userInfo: PigeonUserInfo) throws -> Bool
   func reset() throws
   func isTokenValid() throws -> Bool
   func deleteAccount(instantDeletion: Bool) throws
@@ -273,6 +308,21 @@ class IOSCoreApiSetup {
       }
     } else {
       updateUserIdChannel.setMessageHandler(nil)
+    }
+    let updateUserInfoChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.pigeon_core_package.IOSCoreApi.updateUserInfo\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      updateUserInfoChannel.setMessageHandler { message, reply in
+        let args = message as! [Any?]
+        let userInfoArg = args[0] as! PigeonUserInfo
+        do {
+          let result = try api.updateUserInfo(userInfo: userInfoArg)
+          reply(wrapResult(result))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      updateUserInfoChannel.setMessageHandler(nil)
     }
     let resetChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.pigeon_core_package.IOSCoreApi.reset\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {

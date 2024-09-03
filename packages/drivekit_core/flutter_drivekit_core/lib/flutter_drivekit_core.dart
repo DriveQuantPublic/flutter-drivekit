@@ -123,4 +123,8 @@ class DriveKitCore {
   void removeAllDeviceConfigurationListeners() {
     _platform.removeAllDeviceConfigurationListeners();
   }
+
+  /// Update user information data
+  Future<bool> updateUserInfo(UserInfo userInfo) =>
+      _platform.updateUserInfo(userInfo);
 }

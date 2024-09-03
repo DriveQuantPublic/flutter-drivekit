@@ -88,15 +88,6 @@ enum CrashStatus {
   confirmed,
 }
 
-/// Trip Synchronization Type
-enum SynchronizationType {
-  /// synchronize by calling the DriveQuant servers
-  defaultSync,
-
-  /// retrieve already synchronized items in the local database
-  cache
-}
-
 /// Trip Transportation mode
 enum TransportationMode {
   /// Unknown
