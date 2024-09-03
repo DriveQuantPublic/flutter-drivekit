@@ -47,6 +47,10 @@ class DriveKitCore {
   /// status you have to use [DriveKitListener] listener.
   Future<void> updateUserId(String userId) => _platform.updateUserId(userId);
 
+  /// Update user information data
+  Future<bool> updateUserInfo(UserInfo userInfo) =>
+      _platform.updateUserInfo(userInfo);
+
   /// Resets the DriveKit SDK.
   /// If you need to reset DriveKit configuration (user logout for example),
   /// you can call the following method.
@@ -123,8 +127,4 @@ class DriveKitCore {
   void removeAllDeviceConfigurationListeners() {
     _platform.removeAllDeviceConfigurationListeners();
   }
-
-  /// Update user information data
-  Future<bool> updateUserInfo(UserInfo userInfo) =>
-      _platform.updateUserInfo(userInfo);
 }

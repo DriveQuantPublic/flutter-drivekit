@@ -17,6 +17,7 @@ abstract class IOSCoreApi {
   void setUserId(String userId);
   String? getUserId();
   void updateUserId(String userId);
+  @async
   bool updateUserInfo(PigeonUserInfo userInfo);
   void reset();
   bool isTokenValid();

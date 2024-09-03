@@ -229,13 +229,14 @@ class IOSCoreApiPigeonCodec: FlutterStandardMessageCodec, @unchecked Sendable {
   static let shared = IOSCoreApiPigeonCodec(readerWriter: IOSCoreApiPigeonCodecReaderWriter())
 }
 
+
 /// Generated protocol from Pigeon that represents a handler of messages from Flutter.
 protocol IOSCoreApi {
   func setApiKey(key: String) throws
   func setUserId(userId: String) throws
   func getUserId() throws -> String?
   func updateUserId(userId: String) throws
-  func updateUserInfo(userInfo: PigeonUserInfo) throws -> Bool
+  func updateUserInfo(userInfo: PigeonUserInfo, completion: @escaping (Result<Bool, Error>) -> Void)
   func reset() throws
   func isTokenValid() throws -> Bool
   func deleteAccount(instantDeletion: Bool) throws
@@ -314,11 +315,13 @@ class IOSCoreApiSetup {
       updateUserInfoChannel.setMessageHandler { message, reply in
         let args = message as! [Any?]
         let userInfoArg = args[0] as! PigeonUserInfo
-        do {
-          let result = try api.updateUserInfo(userInfo: userInfoArg)
-          reply(wrapResult(result))
-        } catch {
-          reply(wrapError(error))
+        api.updateUserInfo(userInfo: userInfoArg) { result in
+          switch result {
+          case .success(let res):
+            reply(wrapResult(res))
+          case .failure(let error):
+            reply(wrapError(error))
+          }
         }
       }
     } else {

@@ -73,6 +73,13 @@ public class DriveKitCorePlugin: NSObject, FlutterPlugin, IOSCoreApi {
         DriveKit.shared.addDeviceConfigurationDelegate(self)
     }
 
+    func updateUserInfo(userInfo: PigeonUserInfo, completion: @escaping (Result<Bool, any Error>) -> Void) {
+        DriveKit.shared.updateUserInfo(firstname: userInfo.firstname, lastname: userInfo.lastname, pseudo: userInfo.pseudo) {
+            success in 
+            completion(Result.success(success))  
+        }
+    }
+
     private func executeOnMainThread(_ task: @escaping () -> Void) {
         if Thread.isMainThread {
             task()
