@@ -36,7 +36,15 @@ To install this module, follow step by step the method described in the [Trip An
 
 ---
 
-### ➡️ Step 3: Test your implementation with Trip Simulator module
+### ➡️ Step 3: Install the Driver Data module
+
+The Driver Data module manages the driver trips display (list and details) and ensures the synchronisation of driver data.
+
+To install this module, follow step by step the method described in the [Driver Data documentation](/packages/drivekit_driver_data/flutter_drivekit_driver_data/README.md)
+
+---
+
+### ➡️ Step 4: Test your implementation with Trip Simulator module
 
 To verify the DriveKit Trip Analysis component integration into your app, it is recommended to perform tests in real conditions. Before carrying out driving tests, it may be useful to validate the implementation of the SDK in your application.
 
@@ -46,7 +54,7 @@ To install this module, follow step by step the method described in the [Trip Si
 
 --- 
 
-### ➡️ Step 4 : Notify the user about the trip analysis
+### ➡️ Step 5: Notify the user about the trip analysis
 
 To inform the user that the trip has been analyzed, finished or cancelled, the DriveKit libraries for Flutter offers listeners so it becomes easy to build notifications on both mobile platforms.
 
