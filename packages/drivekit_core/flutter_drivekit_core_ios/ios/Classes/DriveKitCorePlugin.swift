@@ -74,8 +74,7 @@ public class DriveKitCorePlugin: NSObject, FlutterPlugin, IOSCoreApi {
     }
 
     func updateUserInfo(userInfo: PigeonUserInfo, completion: @escaping (Result<Bool, any Error>) -> Void) {
-        DriveKit.shared.updateUserInfo(firstname: userInfo.firstname, lastname: userInfo.lastname, pseudo: userInfo.pseudo) {
-            success in
+        DriveKit.shared.updateUserInfo(firstname: userInfo.firstname, lastname: userInfo.lastname, pseudo: userInfo.pseudo) { success in
             completion(Result.success(success))
         }
     }
