@@ -173,4 +173,8 @@ class DriveKitTripAnalysisAndroid extends DriveKitTripAnalysisPlatform
       listener.potentialTripStart?.call(startMode.toModelImplementation());
     }
   }
+
+  @override
+  Future<Map<String?, String?>?> getTripMetaData() =>
+      androidTripAnalysisApi.getTripMetaData();
 }

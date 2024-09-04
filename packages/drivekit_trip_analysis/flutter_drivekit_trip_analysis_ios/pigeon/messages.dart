@@ -27,6 +27,7 @@ abstract class IOSTripAnalysisApi {
   PigeonTripResponseStatus? getTripResponseStatus(
     PigeonPostGenericResponse tripResponse,
   );
+  Map<String, String>? getTripMetaData();
 }
 
 @FlutterApi()
