@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_drivekit_core_android/src/adapter.dart';
 import 'package:flutter_drivekit_core_android/src/core_api.g.dart';
+import 'package:flutter_drivekit_core_android/src/model_adapter.dart';
 import 'package:flutter_drivekit_core_platform_interface/flutter_drivekit_core_platform_interface.dart';
 
 /// The Android implementation of [DriveKitCorePlatform].
@@ -164,9 +165,14 @@ class DriveKitCoreAndroid extends DriveKitCorePlatform
   @override
   Future<bool> updateUserInfo(UserInfo userInfo) =>
       androidCoreApi.updateUserInfo(userInfo.toPigeonImplementation());
+
   @override
   Future<GetUserInfoResponse> getUserInfo({
     SynchronizationType synchronizationType = SynchronizationType.defaultSync,
-  }) =>
-      androidCoreApi.getUserInfo(synchronizationType: synchronizationType);
+  }) async {
+    final userInfo = await androidCoreApi.getUserInfo(
+      synchronizationType: synchronizationType.toPigeonImplementation(),
+    );
+    return userInfo.toModelImplementation();
+  }
 }

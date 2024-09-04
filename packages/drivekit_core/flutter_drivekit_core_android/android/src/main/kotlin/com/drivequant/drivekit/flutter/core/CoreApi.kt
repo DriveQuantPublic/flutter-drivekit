@@ -47,6 +47,20 @@ class FlutterCoreError (
   val details: Any? = null
 ) : Throwable()
 
+/** Trip Synchronization Type */
+enum class PigeonSynchronizationType(val raw: Int) {
+  /** synchronize by calling the DriveQuant servers */
+  DEFAULT_SYNC(0),
+  /** retrieve already synchronized items in the local database */
+  CACHE(1);
+
+  companion object {
+    fun ofRaw(raw: Int): PigeonSynchronizationType? {
+      return values().firstOrNull { it.raw == raw }
+    }
+  }
+}
+
 enum class PigeonDeleteAccountStatus(val raw: Int) {
   SUCCESS(0),
   FAILED_TO_DELETE(1),
@@ -114,6 +128,25 @@ enum class PigeonDeviceConfigurationEvent(val raw: Int) {
   }
 }
 
+/** User info synchronization status enum */
+enum class PigeonUserInfoSyncStatus(val raw: Int) {
+  /** Synchronization has been successfully performed */
+  SUCCESS(0),
+  /** SynchronizationType has been set to cache. */
+  CACHE_DATA_ONLY(1),
+  /**
+   * Synchronization has failed,
+   * only user info previously synchronized is returned
+   */
+  FAILED_TO_SYNC_USER_INFO_CACHE_ONLY(2);
+
+  companion object {
+    fun ofRaw(raw: Int): PigeonUserInfoSyncStatus? {
+      return values().firstOrNull { it.raw == raw }
+    }
+  }
+}
+
 /**
  * User Info
  *
@@ -142,6 +175,37 @@ data class PigeonUserInfo (
     )
   }
 }
+
+/**
+ * the response returned when getting user info
+ *
+ * Generated class from Pigeon that represents data sent in messages.
+ */
+data class PigeonGetUserInfoResponse (
+  /**
+   * user info sync status
+   * final PigeonUserInfoSyncStatus status
+   */
+  val status: PigeonUserInfoSyncStatus,
+  /** user info data */
+  val userInfo: PigeonUserInfo? = null
+
+) {
+  companion object {
+    @Suppress("LocalVariableName")
+    fun fromList(__pigeon_list: List<Any?>): PigeonGetUserInfoResponse {
+      val status = __pigeon_list[0] as PigeonUserInfoSyncStatus
+      val userInfo = __pigeon_list[1] as PigeonUserInfo?
+      return PigeonGetUserInfoResponse(status, userInfo)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      status,
+      userInfo,
+    )
+  }
+}
 private object CoreApiPigeonCodec : StandardMessageCodec() {
   override fun readValueOfType(type: Byte, buffer: ByteBuffer): Any? {
     return when (type) {
@@ -151,23 +215,38 @@ private object CoreApiPigeonCodec : StandardMessageCodec() {
         }
       }
       130.toByte() -> {
-        return (readValue(buffer) as Int?)?.let {
-          PigeonDeleteAccountStatus.ofRaw(it)
+        return (readValue(buffer) as? List<Any?>)?.let {
+          PigeonGetUserInfoResponse.fromList(it)
         }
       }
       131.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
-          PigeonRequestError.ofRaw(it)
+          PigeonSynchronizationType.ofRaw(it)
         }
       }
       132.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
-          PigeonUpdateUserIdStatus.ofRaw(it)
+          PigeonDeleteAccountStatus.ofRaw(it)
         }
       }
       133.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
+          PigeonRequestError.ofRaw(it)
+        }
+      }
+      134.toByte() -> {
+        return (readValue(buffer) as Int?)?.let {
+          PigeonUpdateUserIdStatus.ofRaw(it)
+        }
+      }
+      135.toByte() -> {
+        return (readValue(buffer) as Int?)?.let {
           PigeonDeviceConfigurationEvent.ofRaw(it)
+        }
+      }
+      136.toByte() -> {
+        return (readValue(buffer) as Int?)?.let {
+          PigeonUserInfoSyncStatus.ofRaw(it)
         }
       }
       else -> super.readValueOfType(type, buffer)
@@ -179,20 +258,32 @@ private object CoreApiPigeonCodec : StandardMessageCodec() {
         stream.write(129)
         writeValue(stream, value.toList())
       }
-      is PigeonDeleteAccountStatus -> {
+      is PigeonGetUserInfoResponse -> {
         stream.write(130)
-        writeValue(stream, value.raw)
+        writeValue(stream, value.toList())
       }
-      is PigeonRequestError -> {
+      is PigeonSynchronizationType -> {
         stream.write(131)
         writeValue(stream, value.raw)
       }
-      is PigeonUpdateUserIdStatus -> {
+      is PigeonDeleteAccountStatus -> {
         stream.write(132)
         writeValue(stream, value.raw)
       }
-      is PigeonDeviceConfigurationEvent -> {
+      is PigeonRequestError -> {
         stream.write(133)
+        writeValue(stream, value.raw)
+      }
+      is PigeonUpdateUserIdStatus -> {
+        stream.write(134)
+        writeValue(stream, value.raw)
+      }
+      is PigeonDeviceConfigurationEvent -> {
+        stream.write(135)
+        writeValue(stream, value.raw)
+      }
+      is PigeonUserInfoSyncStatus -> {
+        stream.write(136)
         writeValue(stream, value.raw)
       }
       else -> super.writeValue(stream, value)
@@ -207,6 +298,7 @@ interface AndroidCoreApi {
   fun setUserId(userId: String)
   fun getUserId(): String?
   fun updateUserId(userId: String)
+  fun getUserInfo(synchronizationType: PigeonSynchronizationType, callback: (Result<PigeonGetUserInfoResponse>) -> Unit)
   fun updateUserInfo(userInfo: PigeonUserInfo, callback: (Result<Boolean>) -> Unit)
   fun reset()
   fun isTokenValid(): Boolean
@@ -289,6 +381,26 @@ interface AndroidCoreApi {
               wrapError(exception)
             }
             reply.reply(wrapped)
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_core_package.AndroidCoreApi.getUserInfo$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { message, reply ->
+            val args = message as List<Any?>
+            val synchronizationTypeArg = args[0] as PigeonSynchronizationType
+            api.getUserInfo(synchronizationTypeArg) { result: Result<PigeonGetUserInfoResponse> ->
+              val error = result.exceptionOrNull()
+              if (error != null) {
+                reply.reply(wrapError(error))
+              } else {
+                val data = result.getOrNull()
+                reply.reply(wrapResult(data))
+              }
+            }
           }
         } else {
           channel.setMessageHandler(null)

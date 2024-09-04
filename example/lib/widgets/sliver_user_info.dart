@@ -82,16 +82,19 @@ class _SliverUserInfoState extends State<SliverUserInfo> {
         SliverToBoxAdapter(
           child: ElevatedButton(
             onPressed: () async {
-              final userInfo =
-                  await DriveKitCore.instance.updateUserInfo(userInfo);
-
+              final response = await DriveKitCore.instance.getUserInfo();
+              final message = response.userInfo == null
+                  ? 'userInfo is null'
+                  : 'firstname: ${response.userInfo?.firstname} / lastname: ${response.userInfo?.lastname} / pseudo: ${response.userInfo?.pseudo}';
               if (context.mounted) {
                 await showDialog<void>(
                   context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
                       title: const Text('Get user info'),
-                      content: Text('Get userInfo status: $success'),
+                      content: Text(
+                        'Get userInfo status: ${response.status}\n$message',
+                      ),
                       actions: <Widget>[
                         TextButton(
                           child: const Text('OK'),

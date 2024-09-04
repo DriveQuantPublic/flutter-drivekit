@@ -93,6 +93,19 @@ extension PigeonDeviceConfigurationEventAdapter
   }
 }
 
+/// Adapts the [SynchronizationType] enum to the corresponding Pigeon enum
+extension SynchronizationTypeAdapter on SynchronizationType {
+  /// Converts a [SynchronizationType] to a corresponding Pigeon enum
+  PigeonSynchronizationType toPigeonImplementation() {
+    switch (this) {
+      case SynchronizationType.defaultSync:
+        return PigeonSynchronizationType.defaultSync;
+      case SynchronizationType.cache:
+        return PigeonSynchronizationType.cache;
+    }
+  }
+}
+
 /// Adapts the [UserInfo] class to the [PigeonUserInfo] class.
 extension UserInfoAdapter on UserInfo {
   /// Converts a [UserInfo] to a [PigeonUserInfo].

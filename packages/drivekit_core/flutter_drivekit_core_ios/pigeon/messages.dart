@@ -127,7 +127,7 @@ class PigeonGetUserInfoResponse {
   final PigeonUserInfoSyncStatus status;
 
   /// user info data
-  final PigeonGetUserInfo? userInfo;
+  final PigeonUserInfo? userInfo;
 }
 
 /// User info synchronization status enum
@@ -141,19 +141,4 @@ enum PigeonUserInfoSyncStatus {
   /// Synchronization has failed,
   /// only user info previously synchronized is returned
   failedToSyncTripsCacheOnly,
-}
-
-/// UserInfo class
-class PigeonGetUserInfo {
-  /// Creates a PigeonUserInfo instance
-  PigeonGetUserInfo({
-    required this.status,
-    required this.userInfo,
-  });
-
-  /// the retrieval status
-  final PigeonUserInfoSyncStatus status;
-
-  /// the user info data
-  final PigeonUserInfo? userInfo;
 }

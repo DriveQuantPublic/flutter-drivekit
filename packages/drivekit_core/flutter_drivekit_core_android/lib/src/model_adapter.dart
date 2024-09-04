@@ -1,4 +1,4 @@
-import 'package:flutter_drivekit_core_ios/src/core_api.g.dart';
+import 'package:flutter_drivekit_core_android/src/core_api.g.dart';
 import 'package:flutter_drivekit_core_platform_interface/flutter_drivekit_core_platform_interface.dart';
 
 /// Adapts the [PigeonGetUserInfoResponse] class to
@@ -22,7 +22,7 @@ extension PigeonTripSyncStatusAdapter on PigeonUserInfoSyncStatus {
         return UserInfoSyncStatus.success;
       case PigeonUserInfoSyncStatus.cacheDataOnly:
         return UserInfoSyncStatus.cacheDataOnly;
-      case PigeonUserInfoSyncStatus.failedToSyncTripsCacheOnly:
+      case PigeonUserInfoSyncStatus.failedToSyncUserInfoCacheOnly:
         return UserInfoSyncStatus.failedToSyncUserInfoCacheOnly;
     }
   }

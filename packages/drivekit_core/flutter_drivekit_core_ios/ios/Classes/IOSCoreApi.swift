@@ -171,41 +171,14 @@ struct PigeonGetUserInfoResponse {
   /// final PigeonUserInfoSyncStatus status
   var status: PigeonUserInfoSyncStatus
   /// user info data
-  var userInfo: PigeonGetUserInfo? = nil
+  var userInfo: PigeonUserInfo? = nil
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
   static func fromList(_ __pigeon_list: [Any?]) -> PigeonGetUserInfoResponse? {
     let status = __pigeon_list[0] as! PigeonUserInfoSyncStatus
-    let userInfo: PigeonGetUserInfo? = nilOrValue(__pigeon_list[1])
-
-    return PigeonGetUserInfoResponse(
-      status: status,
-      userInfo: userInfo
-    )
-  }
-  func toList() -> [Any?] {
-    return [
-      status,
-      userInfo,
-    ]
-  }
-}
-
-/// UserInfo class
-///
-/// Generated class from Pigeon that represents data sent in messages.
-struct PigeonGetUserInfo {
-  /// the retrieval status
-  var status: PigeonUserInfoSyncStatus
-  /// the user info data
-  var userInfo: PigeonUserInfo? = nil
-
-  // swift-format-ignore: AlwaysUseLowerCamelCase
-  static func fromList(_ __pigeon_list: [Any?]) -> PigeonGetUserInfo? {
-    let status = __pigeon_list[0] as! PigeonUserInfoSyncStatus
     let userInfo: PigeonUserInfo? = nilOrValue(__pigeon_list[1])
 
-    return PigeonGetUserInfo(
+    return PigeonGetUserInfoResponse(
       status: status,
       userInfo: userInfo
     )
@@ -225,50 +198,48 @@ private class IOSCoreApiPigeonCodecReader: FlutterStandardReader {
     case 130:
       return PigeonGetUserInfoResponse.fromList(self.readValue() as! [Any?])
     case 131:
-      return PigeonGetUserInfo.fromList(self.readValue() as! [Any?])
-    case 132:
       var enumResult: PigeonDeleteAccountStatus? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonDeleteAccountStatus(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 133:
+    case 132:
       var enumResult: PigeonRequestError? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonRequestError(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 134:
+    case 133:
       var enumResult: PigeonUpdateUserIdStatus? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonUpdateUserIdStatus(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 135:
+    case 134:
       var enumResult: PigeonBackgroundFetchStatus? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonBackgroundFetchStatus(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 136:
+    case 135:
       var enumResult: PigeonDeviceConfigurationEvent? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonDeviceConfigurationEvent(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 137:
+    case 136:
       var enumResult: PigeonSynchronizationType? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonSynchronizationType(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 138:
+    case 137:
       var enumResult: PigeonUserInfoSyncStatus? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
@@ -289,29 +260,26 @@ private class IOSCoreApiPigeonCodecWriter: FlutterStandardWriter {
     } else if let value = value as? PigeonGetUserInfoResponse {
       super.writeByte(130)
       super.writeValue(value.toList())
-    } else if let value = value as? PigeonGetUserInfo {
-      super.writeByte(131)
-      super.writeValue(value.toList())
     } else if let value = value as? PigeonDeleteAccountStatus {
-      super.writeByte(132)
+      super.writeByte(131)
       super.writeValue(value.rawValue)
     } else if let value = value as? PigeonRequestError {
-      super.writeByte(133)
+      super.writeByte(132)
       super.writeValue(value.rawValue)
     } else if let value = value as? PigeonUpdateUserIdStatus {
-      super.writeByte(134)
+      super.writeByte(133)
       super.writeValue(value.rawValue)
     } else if let value = value as? PigeonBackgroundFetchStatus {
-      super.writeByte(135)
+      super.writeByte(134)
       super.writeValue(value.rawValue)
     } else if let value = value as? PigeonDeviceConfigurationEvent {
-      super.writeByte(136)
+      super.writeByte(135)
       super.writeValue(value.rawValue)
     } else if let value = value as? PigeonSynchronizationType {
-      super.writeByte(137)
+      super.writeByte(136)
       super.writeValue(value.rawValue)
     } else if let value = value as? PigeonUserInfoSyncStatus {
-      super.writeByte(138)
+      super.writeByte(137)
       super.writeValue(value.rawValue)
     } else {
       super.writeValue(value)

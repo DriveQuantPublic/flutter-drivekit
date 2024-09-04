@@ -67,7 +67,7 @@ extension PigeonGetUserInfoResponse {
              pigeonUserInfo = nil
          }
          let pigeonUserInfoSyncStatus = PigeonUserInfoSyncStatus(rawValue: status.rawValue)!
-         self.init(status: pigeonUserInfoSyncStatus, userInfo: PigeonGetUserInfo(status: pigeonUserInfoSyncStatus, userInfo: pigeonUserInfo))
+         self.init(status: pigeonUserInfoSyncStatus, userInfo: pigeonUserInfo)
      }
 }
 
