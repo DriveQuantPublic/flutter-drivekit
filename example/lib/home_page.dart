@@ -13,6 +13,7 @@ import 'package:drivekit_example/widgets/sliver_remove_all_drivekit_listeners.da
 import 'package:drivekit_example/widgets/sliver_remove_all_trip_listeners.dart';
 import 'package:drivekit_example/widgets/sliver_reset.dart';
 import 'package:drivekit_example/widgets/sliver_set_api_key.dart';
+import 'package:drivekit_example/widgets/sliver_stop_timeout.dart';
 import 'package:drivekit_example/widgets/sliver_trip_lifecycle.dart';
 import 'package:drivekit_example/widgets/sliver_trip_simulator.dart';
 import 'package:drivekit_example/widgets/sliver_trips.dart';
@@ -76,6 +77,11 @@ class HomePage extends StatelessWidget {
             SliverPadding(
               padding: EdgeInsets.symmetric(horizontal: 16),
               sliver: SliverLogs(),
+            ),
+            SliverGap(32),
+            SliverPadding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              sliver: SliverStopTimeout(),
             ),
             SliverGap(32),
             SliverPadding(

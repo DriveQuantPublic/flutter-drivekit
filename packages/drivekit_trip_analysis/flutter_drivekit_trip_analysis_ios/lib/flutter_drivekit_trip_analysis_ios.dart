@@ -60,6 +60,10 @@ class DriveKitTripAnalysisIOS extends DriveKitTripAnalysisPlatform
   Future<bool> isTripRunning() => iosTripAnalysisApi.isTripRunning();
 
   @override
+  Future<void> setStopTimeOut(int timeOut) =>
+      iosTripAnalysisApi.setStopTimeOut(timeOut);
+
+  @override
   Future<bool> isMonitoringPotentialTripStart() =>
       iosTripAnalysisApi.isMonitoringPotentialTripStart();
 

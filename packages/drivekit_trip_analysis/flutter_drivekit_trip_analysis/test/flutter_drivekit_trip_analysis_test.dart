@@ -126,6 +126,18 @@ void main() {
         });
       });
 
+      test('setStopTimeOut calls platform implementation', () async {
+        when(() => driveKitTripAnalysisPlatform.setStopTimeOut(any()))
+            .thenAnswer((_) async {
+          return;
+        });
+
+        await DriveKitTripAnalysis.instance.setStopTimeOut(234);
+        verify(() => driveKitTripAnalysisPlatform.setStopTimeOut(234))
+            .called(1);
+        verifyNever(() => driveKitTripAnalysisPlatform.setStopTimeOut(240));
+      });
+
       group('monitorPotentialTripStart', () {
         test('isMonitoringPotentialTripStart calls platform implementatio',
             () async {
