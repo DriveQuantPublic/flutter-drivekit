@@ -60,12 +60,15 @@ extension PigeonUpdateUserIdStatus {
 
 extension PigeonGetUserInfoResponse {
     init(from status: UserInfoGetStatus, userInfo: UserInfo?) {
-        var pigeonUserInfo: PigeonUserInfo?
-        if let userInfo {
-            pigeonUserInfo = PigeonUserInfo(from: userInfo)
-        }
-        self.init(status: PigeonUserInfoSyncStatus(from: status), userInfo: pigeonUserInfo)
-    }
+         let pigeonUserInfo: PigeonUserInfo?
+         if let userInfo {
+             pigeonUserInfo = PigeonUserInfo(firstname: userInfo.firstname, lastname: userInfo.lastname, pseudo: userInfo.pseudo)
+         } else {
+             pigeonUserInfo = nil
+         }
+         let pigeonUserInfoSyncStatus = PigeonUserInfoSyncStatus(rawValue: status.rawValue)!
+         self.init(status: pigeonUserInfoSyncStatus, userInfo: PigeonGetUserInfo(status: pigeonUserInfoSyncStatus, userInfo: pigeonUserInfo))
+     }
 }
 
 extension PigeonBackgroundFetchStatus {
