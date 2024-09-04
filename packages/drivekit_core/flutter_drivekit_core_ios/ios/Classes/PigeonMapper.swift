@@ -134,3 +134,14 @@ extension PigeonDeviceConfigurationEvent {
         }
     }
 }
+
+extension SynchronizationType {
+    init(from pigeonSynchronizationType: PigeonSynchronizationType) {
+        switch pigeonSynchronizationType {
+        case .defaultSync:
+            self = .defaultSync
+        case .cache:
+            self = .cache
+        }
+    }
+}

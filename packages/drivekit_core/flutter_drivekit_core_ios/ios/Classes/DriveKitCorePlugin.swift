@@ -80,7 +80,7 @@ public class DriveKitCorePlugin: NSObject, FlutterPlugin, IOSCoreApi {
     }
 
     func getUserInfo(synchronizationType: PigeonSynchronizationType, completion: @escaping (Result<PigeonGetUserInfoResponse, any Error>) -> Void) {
-        DriveKit.shared.getUserInfo(synchronizationType: synchronizationType) { status, userInfo in 
+        DriveKit.shared.getUserInfo(synchronizationType: SynchronizationType(from: synchronizationType)) { status, userInfo in 
             completion(Result.success(PigeonGetUserInfoResponse(from: status, userInfo: userInfo)))
         }
     }
