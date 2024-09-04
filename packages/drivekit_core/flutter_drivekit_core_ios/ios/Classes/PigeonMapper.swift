@@ -58,6 +58,16 @@ extension PigeonUpdateUserIdStatus {
     }
 }
 
+extension PigeonGetUserInfoResponse {
+    init(from status: UserInfoGetStatus, userInfo: UserInfo?) {
+        var pigeonUserInfo: PigeonUserInfo?
+        if let userInfo {
+            pigeonUserInfo = PigeonUserInfo(from: userInfo)
+        }
+        self.init(status: PigeonUserInfoSyncStatus(from: status), userInfo: pigeonUserInfo)
+    }
+}
+
 extension PigeonBackgroundFetchStatus {
     init(from status: DriveKitCoreModule.DriveKitBackgroundFetchStatus) {
         switch status {

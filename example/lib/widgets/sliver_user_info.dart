@@ -78,6 +78,36 @@ class _SliverUserInfoState extends State<SliverUserInfo> {
             child: const Text('Update user info'),
           ),
         ),
+        const SliverGap(4),
+        SliverToBoxAdapter(
+          child: ElevatedButton(
+            onPressed: () async {
+              final userInfo =
+                  await DriveKitCore.instance.updateUserInfo(userInfo);
+
+              if (context.mounted) {
+                await showDialog<void>(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text('Get user info'),
+                      content: Text('Get userInfo status: $success'),
+                      actions: <Widget>[
+                        TextButton(
+                          child: const Text('OK'),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                );
+              }
+            },
+            child: const Text('Get user info'),
+          ),
+        ),
       ],
     );
   }

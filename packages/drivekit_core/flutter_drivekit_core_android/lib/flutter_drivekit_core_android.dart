@@ -164,4 +164,9 @@ class DriveKitCoreAndroid extends DriveKitCorePlatform
   @override
   Future<bool> updateUserInfo(UserInfo userInfo) =>
       androidCoreApi.updateUserInfo(userInfo.toPigeonImplementation());
+  @override
+  Future<GetUserInfoResponse> getUserInfo({
+    SynchronizationType synchronizationType = SynchronizationType.defaultSync,
+  }) =>
+      androidCoreApi.getUserInfo(synchronizationType: synchronizationType);
 }

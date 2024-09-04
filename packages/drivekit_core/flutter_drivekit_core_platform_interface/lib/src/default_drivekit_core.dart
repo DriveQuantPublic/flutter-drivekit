@@ -114,4 +114,11 @@ class DefaultDriveKitCore extends DriveKitCorePlatform {
       'removeAllDeviceConfigurationListeners() has not been implemented.',
     );
   }
+
+  @override
+  Future<GetUserInfoResponse> getUserInfo({
+    SynchronizationType synchronizationType = SynchronizationType.defaultSync,
+  }) {
+    throw UnimplementedError('getUserInfo() has not been implemented.');
+  }
 }

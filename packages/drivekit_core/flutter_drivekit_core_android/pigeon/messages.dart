@@ -33,6 +33,9 @@ abstract class AndroidCoreApi {
   });
   void disableLogging({bool showInConsole = true});
   String? getLogUriFile();
+  GetUserInfoResponse getUserInfo({
+    SynchronizationType synchronizationType = SynchronizationType.defaultSync,
+  });
 }
 
 @FlutterApi()

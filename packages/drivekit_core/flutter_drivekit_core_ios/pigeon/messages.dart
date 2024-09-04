@@ -18,6 +18,11 @@ abstract class IOSCoreApi {
   String? getUserId();
   void updateUserId(String userId);
   @async
+  PigeonGetUserInfoResponse getUserInfo({
+    PigeonSynchronizationType synchronizationType =
+        PigeonSynchronizationType.defaultSync,
+  });
+  @async
   bool updateUserInfo(PigeonUserInfo userInfo);
   void reset();
   bool isTokenValid();
@@ -101,4 +106,54 @@ class PigeonUserInfo {
   final String? firstname;
   final String? lastname;
   final String? pseudo;
+}
+
+/// Trip Synchronization Type
+enum PigeonSynchronizationType {
+  /// synchronize by calling the DriveQuant servers
+  defaultSync,
+
+  /// retrieve already synchronized items in the local database
+  cache
+}
+
+/// the response returned when getting user info
+class PigeonGetUserInfoResponse {
+  /// Creates a PigeonGetUserInfoResponse instance
+  PigeonGetUserInfoResponse({required this.status, required this.userInfo});
+
+  /// user info sync status
+  /// final PigeonUserInfoSyncStatus status
+  final PigeonUserInfoSyncStatus status;
+
+  /// user info data
+  final PigeonGetUserInfo? userInfo;
+}
+
+/// User info synchronization status enum
+enum PigeonUserInfoSyncStatus {
+  /// Synchronization has been successfully performed
+  success,
+
+  /// SynchronizationType has been set to cache.
+  cacheDataOnly,
+
+  /// Synchronization has failed,
+  /// only user info previously synchronized is returned
+  failedToSyncTripsCacheOnly,
+}
+
+/// UserInfo class
+class PigeonGetUserInfo {
+  /// Creates a PigeonUserInfo instance
+  PigeonGetUserInfo({
+    required this.status,
+    required this.userInfo,
+  });
+
+  /// the retrieval status
+  final PigeonUserInfoSyncStatus status;
+
+  /// the user info data
+  final PigeonUserInfo? userInfo;
 }

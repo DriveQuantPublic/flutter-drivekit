@@ -127,4 +127,10 @@ class DriveKitCore {
   void removeAllDeviceConfigurationListeners() {
     _platform.removeAllDeviceConfigurationListeners();
   }
+
+  /// Retrieve user info data
+  Future<GetUserInfoResponse> getUserInfo({
+    SynchronizationType synchronizationType = SynchronizationType.defaultSync,
+  }) =>
+      _platform.getUserInfo(synchronizationType: synchronizationType);
 }
