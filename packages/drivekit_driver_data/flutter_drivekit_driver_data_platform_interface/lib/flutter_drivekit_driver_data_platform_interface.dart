@@ -1,3 +1,4 @@
+import 'package:flutter_drivekit_core_platform_interface/flutter_drivekit_core_platform_interface.dart';
 import 'package:flutter_drivekit_driver_data_platform_interface/src/default_drivekit_driver_data.dart';
 import 'package:flutter_drivekit_driver_data_platform_interface/src/model.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';

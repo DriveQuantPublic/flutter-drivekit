@@ -1,4 +1,5 @@
 import 'package:flutter_drivekit_core_ios/flutter_drivekit_core_ios.dart';
+import 'package:flutter_drivekit_core_ios/src/adapter.dart';
 import 'package:flutter_drivekit_core_ios/src/core_api.g.dart';
 import 'package:flutter_drivekit_core_platform_interface/flutter_drivekit_core_platform_interface.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -12,6 +13,7 @@ void main() {
     late FlutterCoreApi flutterCoreApi;
 
     setUp(() {
+      registerFallbackValue(MockUserInfo());
       iosCoreApi = MockIOSCoreApi();
       flutterCoreApi = DriveKitCoreIOS(iosCoreApi: iosCoreApi);
       DriveKitCorePlatform.instance = flutterCoreApi as DriveKitCoreIOS;
@@ -473,6 +475,49 @@ void main() {
         );
 
         expect(onDeviceConfigurationChangedCount, 2);
+      });
+    });
+
+    group('UserInfo', () {
+      test('updateUserInfo calls iOS implementation', () async {
+        //mock
+        const mockUserInfo = UserInfo();
+        when(() => iosCoreApi.updateUserInfo(any()))
+            .thenAnswer((_) async => true);
+
+        //test
+        await DriveKitCorePlatform.instance.updateUserInfo(mockUserInfo);
+        verify(
+          () => iosCoreApi.updateUserInfo(any()),
+        ).called(1);
+      });
+
+      test('userInfo toPigeonImplementation includes all attributes', () {
+        //mock
+        const userInfo = UserInfo(
+          firstname: 'firstname',
+          lastname: 'lastname',
+          pseudo: 'pseudo',
+        );
+
+        //test
+        final pigeonUserInfo = userInfo.toPigeonImplementation();
+        expect(pigeonUserInfo.firstname, userInfo.firstname);
+        expect(pigeonUserInfo.lastname, userInfo.lastname);
+        expect(pigeonUserInfo.pseudo, userInfo.pseudo);
+      });
+
+      test(
+          'null userInfo.toPigeonImplementation includes null attributes'
+          ' and includes default attributes value if not possible to be null',
+          () {
+        const userInfo = UserInfo();
+
+        //test
+        final pigeonUserInfo = userInfo.toPigeonImplementation();
+        expect(pigeonUserInfo.firstname, null);
+        expect(pigeonUserInfo.lastname, null);
+        expect(pigeonUserInfo.pseudo, null);
       });
     });
   });
