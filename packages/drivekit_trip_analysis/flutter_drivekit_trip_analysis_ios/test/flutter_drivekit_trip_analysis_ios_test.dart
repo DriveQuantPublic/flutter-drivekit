@@ -126,6 +126,18 @@ void main() {
       expect(isRunning, false);
     });
 
+    test('setStopTimeOut calls ios implementation with correct argument',
+        () async {
+      //mock
+      when(() => iOSTripAnalysisApi.setStopTimeOut(any()))
+          .thenAnswer((_) async {});
+
+      //test
+      await DriveKitTripAnalysisPlatform.instance.setStopTimeOut(222);
+      verify(() => iOSTripAnalysisApi.setStopTimeOut(222)).called(1);
+      verifyNever(() => iOSTripAnalysisApi.setStopTimeOut(240));
+    });
+
     test('isMonitoringPotentialTripStart calls iOS implementation', () async {
       //mock
       when(iOSTripAnalysisApi.isMonitoringPotentialTripStart)

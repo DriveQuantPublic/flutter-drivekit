@@ -1872,6 +1872,7 @@ interface AndroidTripAnalysisApi {
   fun stopTrip()
   fun cancelTrip()
   fun isTripRunning(): Boolean
+  fun setStopTimeOut(timeOut: Long)
   fun isMonitoringPotentialTripStart(): Boolean
   fun setMonitorPotentialTripStart(activate: Boolean)
   fun setVehicle(vehicle: PigeonVehicle)
@@ -2006,6 +2007,24 @@ interface AndroidTripAnalysisApi {
           channel.setMessageHandler { _, reply ->
             val wrapped: List<Any?> = try {
               listOf(api.isTripRunning())
+            } catch (exception: Throwable) {
+              wrapError(exception)
+            }
+            reply.reply(wrapped)
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.setStopTimeOut$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { message, reply ->
+            val args = message as List<Any?>
+            val timeOutArg = args[0].let { num -> if (num is Int) num.toLong() else num as Long }
+            val wrapped: List<Any?> = try {
+              api.setStopTimeOut(timeOutArg)
+              listOf(null)
             } catch (exception: Throwable) {
               wrapError(exception)
             }

@@ -61,6 +61,10 @@ class DriveKitTripAnalysisAndroid extends DriveKitTripAnalysisPlatform
   Future<bool> isTripRunning() => androidTripAnalysisApi.isTripRunning();
 
   @override
+  Future<void> setStopTimeOut(int timeOut) =>
+      androidTripAnalysisApi.setStopTimeOut(timeOut);
+
+  @override
   Future<bool> isMonitoringPotentialTripStart() =>
       androidTripAnalysisApi.isMonitoringPotentialTripStart();
 

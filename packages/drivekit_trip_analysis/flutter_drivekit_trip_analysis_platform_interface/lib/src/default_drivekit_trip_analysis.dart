@@ -57,6 +57,11 @@ class DefaultDriveKitTripAnalysis extends DriveKitTripAnalysisPlatform {
   }
 
   @override
+  Future<void> setStopTimeOut(int timeOut) {
+    throw UnimplementedError('setStopTimeOut() has not been implemented.');
+  }
+
+  @override
   Future<bool> isMonitoringPotentialTripStart() {
     throw UnimplementedError(
       'isMonitoringPotentialTripStart() has not been implemented.',

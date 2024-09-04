@@ -70,6 +70,7 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 | [stopTrip()](#stoptrip)                                            | `Future<void>`               | ✅   | ✅       |
 | [cancelTrip()](#canceltrip)                                        | `Future<void>`               | ✅   | ✅       |
 | [isTripRunning()](#istriprunning)                                  | `Future<bool>`               | ✅   | ✅       |
+| [setCustomTimeOut()](#setcustomtimeout)                            | `Future<void>`               | ✅   | ✅       |
 | [addTripListener()](#addtriplistener)                              | `Future<void>`               | ✅   | ✅       |
 | [removeTripListener()](#removetriplistener)                        | `Future<void>`               | ✅   | ✅       |
 | [removeAllTripListeners()](#removealltriplisteners)                | `Future<void>`               | ✅   | ✅       |
@@ -181,6 +182,25 @@ This method returns false if the SDK is in `INACTIVE` state, and no trip is curr
 ```dart
 final isTripRunning = await DriveKitTripAnalysis.instance.isTripRunning();
 ```
+
+### setCustomTimeOut
+```dart
+Future<void> setStopTimeOut(int timeOut)
+```
+
+A trip being analyzed is automatically stopped after a period of inactivity (which begins when the vehicle has stopped). The DriveQuant SDK allows to set the end-of-trip duration. 
+
+By default, the trip analysis is stopped after 240 seconds. This value can be tuned according to your need and you can choose any integer values between 120 and 480 seconds by calling the following method:
+
+```dart
+await DriveKitTripAnalysis.instance.setStopTimeOut(123);
+```
+
+> ℹ️
+>
+> If a value greater than `480` is set, the value will be forced to `480`.
+> If a value lower than `120` is set, the value will be forced to `120`.
+
 
 ### addTripListener
 
