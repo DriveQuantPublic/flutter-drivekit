@@ -8,7 +8,7 @@ The DriveKit SDK for Flutter is available with:
 - Android 6.0 (API 23) and later versions, 
 - and iOS 12 and later versions.
 
-This SDK are supported for Flutter `1.20.0` version and above. It is recommended to use a recent version of Flutter.
+This SDK is supported for Flutter `1.20.0` version and above. It is recommended to use a recent version of Flutter.
 
 To learn more about DriveKit, please visit our [DriveKit documentation](https://docs.drivequant.com/)
 
