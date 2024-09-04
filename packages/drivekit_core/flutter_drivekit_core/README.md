@@ -71,6 +71,7 @@ Now, you can configure the DriveKit Core with the options you want, and use othe
 | [getUserId()](#getuserid)                                                         | `Future<String?>` | ✅  |   ✅    |
 | [setUserId()](#setuserid)                                                         | `Future<void>`    | ✅  |   ✅    |
 | [updateUserId()](#updateuserid)                                                   | `Future<void>`    | ✅  |   ✅    |
+| [updateUserInfo()](#updateuserinfo)                                               | `Future<void>`    | ✅  |   ✅    |
 | [addDriveKitListener()](#adddrivekitlistener)                                     | `Future<void>`    | ✅  |   ✅    |
 | [removeDriveKitListener()](#removedrivekitlistener)                               | `Future<void>`    | ✅  |   ✅    |
 | [removeAllDriveKitListener()](#removealldrivekitlisteners)                        | `Future<void>`    | ✅  |   ✅    |
@@ -162,6 +163,29 @@ await DriveKitCore.instance.updateUserId('MyNewUniqueUserId);
 > ℹ️
 >
 > To be able to check whenever `userId` got updated and catch the update status you have to use `DriveKitListener` listener.
+
+
+### updateUserInfo
+
+You can add information to a user's account such as first name, last name and pseudo.
+
+These details are optional and you can choose to make the user's account anonymous.
+
+```dart
+Future<bool> updateUserInfo(UserInfo userInfo)
+```
+
+To update the user's information, call the following method :
+
+```dart
+const userInfo = UserInfo(
+  firstname: 'yourFirstname',
+  lastname: 'yourLastname',
+  pseudo: 'yourPseudo',
+);
+final success = await DriveKitCore.instance.updateUserInfo(userInfo);
+```
+
 
 ### addDriveKitListener
 
