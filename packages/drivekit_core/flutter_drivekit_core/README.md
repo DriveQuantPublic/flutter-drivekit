@@ -175,7 +175,7 @@ These details are optional and you can choose to make the user's account anonymo
 Future<bool> updateUserInfo(UserInfo userInfo)
 ```
 
-To update the user's information, call the following method :
+To update the user's information, call the following method:
 
 ```dart
 const userInfo = UserInfo(
