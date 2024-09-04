@@ -19,7 +19,8 @@ class _SliverTripMetadataState extends State<SliverTripMetadata> {
           onPressed: () async {
             final tripMetadata =
                 await DriveKitTripAnalysis.instance.getTripMetaData();
-            String metaDataCopy = '';
+            // ignore: unused_local_variable
+            var metaDataCopy = '';
             tripMetadata?.forEach((key, value) {
               metaDataCopy += 'key: $key, value: $value\n';
             });
