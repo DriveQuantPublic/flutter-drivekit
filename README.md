@@ -38,7 +38,7 @@ To install this module, follow step by step the method described in the [Trip An
 
 ### ➡️ Step 3: Install the Driver Data module
 
-The Driver Data module manages the driver trips display (list and details) and ensures the synchronisation of driver data.
+The Driver Data module manages the driver trips (list, details, deletion) and ensures the synchronisation of driver data.
 
 To install this module, follow step by step the method described in the [Driver Data documentation](/packages/drivekit_driver_data/flutter_drivekit_driver_data/README.md)
 
