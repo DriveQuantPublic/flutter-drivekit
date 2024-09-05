@@ -431,7 +431,7 @@ final tripMetadata = await DriveKitTripAnalysis.instance.getTripMetadata();
 
 ### setTripMetadata
 
-It is possible to add additional metadata to your trip.
+It is possible to add some metadata to your trip.
 
 ```dart
 Future<void> setTripMetadata(Map<String, String>? metadata)
