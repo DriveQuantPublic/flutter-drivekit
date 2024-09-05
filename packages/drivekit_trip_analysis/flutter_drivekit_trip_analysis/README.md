@@ -81,6 +81,8 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 | [setVehicle()](#setvehicle)                                        | `Future<bool>`                  | ✅   | ✅       |
 | [getTripResponseStatus()](#getTripResponseStatus)                  | `Future<TripResponseStatus>`    | ✅   | ✅       |
 | [getTripMetadata()](#gettripmetadata)                              | `Future<Map<String, String>?`   | ✅   | ✅       |
+| [updateTripMetadata()](#updatetripmetadata)                        | `Future<void>`                  | ✅   | ✅       |
+
 
 
 
@@ -426,3 +428,17 @@ final tripMetadata = await DriveKitTripAnalysis.instance.getTripMetadata();
 > ℹ️
 >
 > Any modification on the returned object has no effect on the metadata sent with a trip.
+
+### updateTripMetadata
+
+You can update a value in metadata for a specific key
+
+```dart
+Future<void> updateTripMetadata(String key, String? value)
+```
+
+To do this, call the following method:
+
+```dart
+await DriveKitTripAnalysis.instance.updateTripMetadata('key', 'newValue');
+```

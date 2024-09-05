@@ -242,14 +242,29 @@ void main() {
       });
     });
 
-    test('getTripMetadata calls platform implementation', () async {
-      when(() => driveKitTripAnalysisPlatform.getTripMetadata())
-          .thenAnswer((_) async {
-        return;
+    group('Trip metadata', () {
+      test('getTripMetadata calls platform implementation', () async {
+        when(() => driveKitTripAnalysisPlatform.getTripMetadata())
+            .thenAnswer((_) async {
+          return;
+        });
+
+        await DriveKitTripAnalysis.instance.getTripMetadata();
+        verify(() => driveKitTripAnalysisPlatform.getTripMetadata()).called(1);
       });
 
-      await DriveKitTripAnalysis.instance.getTripMetadata();
-      verify(() => driveKitTripAnalysisPlatform.getTripMetadata()).called(1);
+      test('updateTripMetadata calls platform implementation', () async {
+        when(
+          () => driveKitTripAnalysisPlatform.updateTripMetadata(any(), any()),
+        ).thenAnswer((_) async {
+          return;
+        });
+
+        await DriveKitTripAnalysis.instance.updateTripMetadata('key', 'value');
+        verify(
+          () => driveKitTripAnalysisPlatform.updateTripMetadata('key', 'value'),
+        ).called(1);
+      });
     });
   });
 }

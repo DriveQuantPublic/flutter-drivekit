@@ -183,4 +183,8 @@ class DriveKitTripAnalysisAndroid extends DriveKitTripAnalysisPlatform
     final metadata = await androidTripAnalysisApi.getTripMetadata();
     return convertMetadata(metadata);
   }
+
+  @override
+  Future<void> updateTripMetadata(String key, String? value) =>
+      androidTripAnalysisApi.updateTripMetadata(key, value);
 }

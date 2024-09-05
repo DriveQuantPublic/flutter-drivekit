@@ -1984,6 +1984,7 @@ protocol IOSTripAnalysisApi {
   func setVehicle(vehicle: PigeonVehicle) throws
   func getTripResponseStatus(tripResponse: PigeonPostGenericResponse) throws -> PigeonTripResponseStatus?
   func getTripMetadata() throws -> [String: String]?
+  func updateTripMetadata(key: String, value: String?) throws
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
@@ -2185,6 +2186,22 @@ class IOSTripAnalysisApiSetup {
       }
     } else {
       getTripMetadataChannel.setMessageHandler(nil)
+    }
+    let updateTripMetadataChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.pigeon_trip_analysis_package.IOSTripAnalysisApi.updateTripMetadata\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      updateTripMetadataChannel.setMessageHandler { message, reply in
+        let args = message as! [Any?]
+        let keyArg = args[0] as! String
+        let valueArg: String? = nilOrValue(args[1])
+        do {
+          try api.updateTripMetadata(key: keyArg, value: valueArg)
+          reply(wrapResult(nil))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      updateTripMetadataChannel.setMessageHandler(nil)
     }
   }
 }
