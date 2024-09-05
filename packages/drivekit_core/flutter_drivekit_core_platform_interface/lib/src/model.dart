@@ -1358,3 +1358,28 @@ class SafetyContext {
   /// The safety score
   final double safetyScore;
 }
+
+/// The response returned when retrieving user info
+class GetUserInfoResponse {
+  /// Creates a GetUserInfoResponse instance
+  GetUserInfoResponse({required this.status, required this.userInfo});
+
+  /// The synchronization status
+  final UserInfoSyncStatus status;
+
+  /// The user info data
+  final UserInfo? userInfo;
+}
+
+/// User info sync status enum
+enum UserInfoSyncStatus {
+  /// Synchronization has been successfully performed
+  success,
+
+  /// SynchronizationType has been set to cache.
+  cacheDataOnly,
+
+  /// Synchronization has failed,
+  /// only user info previously synchronized is returned
+  failedToSyncUserInfoCacheOnly,
+}

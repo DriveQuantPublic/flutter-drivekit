@@ -1,13 +1,19 @@
 package com.drivequant.drivekit.flutter.core.mapper
 
+import com.drivequant.drivekit.core.SynchronizationType
 import com.drivequant.drivekit.core.deviceconfiguration.DKDeviceConfigurationEvent
 import com.drivequant.drivekit.core.driver.UpdateUserIdStatus
+import com.drivequant.drivekit.core.driver.UserInfo
+import com.drivequant.drivekit.core.driver.UserInfoGetStatus
 import com.drivequant.drivekit.core.driver.deletion.DeleteAccountStatus
 import com.drivequant.drivekit.core.networking.RequestError
 import com.drivequant.drivekit.flutter.core.PigeonDeleteAccountStatus
 import com.drivequant.drivekit.flutter.core.PigeonDeviceConfigurationEvent
 import com.drivequant.drivekit.flutter.core.PigeonRequestError
+import com.drivequant.drivekit.flutter.core.PigeonSynchronizationType
 import com.drivequant.drivekit.flutter.core.PigeonUpdateUserIdStatus
+import com.drivequant.drivekit.flutter.core.PigeonUserInfo
+import com.drivequant.drivekit.flutter.core.PigeonUserInfoSyncStatus
 
 internal object PigeonMapper {
 
@@ -92,5 +98,20 @@ internal object PigeonMapper {
                 PigeonDeviceConfigurationEvent.NOTIFICATION_PERMISSION_INVALID
             }
         }
+    }
+
+    fun UserInfoGetStatus.toPigeon(): PigeonUserInfoSyncStatus = when (this) {
+        UserInfoGetStatus.SUCCESS -> PigeonUserInfoSyncStatus.SUCCESS
+        UserInfoGetStatus.CACHE_DATA_ONLY -> PigeonUserInfoSyncStatus.CACHE_DATA_ONLY
+        UserInfoGetStatus.FAILED_TO_SYNC_USER_INFO_CACHE_ONLY -> PigeonUserInfoSyncStatus.FAILED_TO_SYNC_USER_INFO_CACHE_ONLY
+    }
+
+    fun UserInfo?.toPigeon(): PigeonUserInfo? = this?.let {
+        PigeonUserInfo(this.firstname, this.lastname, this.pseudo)
+    }
+
+    fun PigeonSynchronizationType.toModel(): SynchronizationType = when (this) {
+        PigeonSynchronizationType.DEFAULT_SYNC -> SynchronizationType.DEFAULT
+        PigeonSynchronizationType.CACHE -> SynchronizationType.CACHE
     }
 }

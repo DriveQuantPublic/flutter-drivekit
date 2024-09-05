@@ -519,6 +519,20 @@ void main() {
         expect(pigeonUserInfo.lastname, null);
         expect(pigeonUserInfo.pseudo, null);
       });
+
+      test('getUserInfo calls iOS implementation', () async {
+        //mock
+        when(() => iosCoreApi.getUserInfo()).thenAnswer(
+          (_) async => PigeonGetUserInfoResponse(
+            status: PigeonUserInfoSyncStatus.success,
+            userInfo: PigeonUserInfo(),
+          ),
+        );
+
+        //test
+        await DriveKitCorePlatform.instance.getUserInfo();
+        verify(() => iosCoreApi.getUserInfo()).called(1);
+      });
     });
   });
 }

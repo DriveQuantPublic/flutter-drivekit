@@ -58,6 +58,19 @@ extension PigeonUpdateUserIdStatus {
     }
 }
 
+extension PigeonGetUserInfoResponse {
+    init(from status: UserInfoGetStatus, userInfo: UserInfo?) {
+         let pigeonUserInfo: PigeonUserInfo?
+         if let userInfo {
+             pigeonUserInfo = PigeonUserInfo(firstname: userInfo.firstname, lastname: userInfo.lastname, pseudo: userInfo.pseudo)
+         } else {
+             pigeonUserInfo = nil
+         }
+         let pigeonUserInfoSyncStatus = PigeonUserInfoSyncStatus(rawValue: status.rawValue)!
+         self.init(status: pigeonUserInfoSyncStatus, userInfo: pigeonUserInfo)
+     }
+}
+
 extension PigeonBackgroundFetchStatus {
     init(from status: DriveKitCoreModule.DriveKitBackgroundFetchStatus) {
         switch status {
@@ -118,6 +131,17 @@ extension PigeonDeviceConfigurationEvent {
                 }
         @unknown default:
                 fatalError()
+        }
+    }
+}
+
+extension SynchronizationType {
+    init(from pigeonSynchronizationType: PigeonSynchronizationType) {
+        switch pigeonSynchronizationType {
+        case .defaultSync:
+            self = .defaultSync
+        case .cache:
+            self = .cache
         }
     }
 }

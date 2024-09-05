@@ -47,6 +47,11 @@ abstract class DriveKitCorePlatform extends PlatformInterface {
   /// Update the userId
   Future<void> updateUserId(String userId);
 
+  /// Retrieve user info data
+  Future<GetUserInfoResponse> getUserInfo({
+    SynchronizationType synchronizationType = SynchronizationType.defaultSync,
+  });
+
   /// You can add information to a user's account such as first name, last name
   /// and pseudo.
   Future<bool> updateUserInfo(UserInfo userInfo);

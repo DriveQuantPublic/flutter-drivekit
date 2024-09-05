@@ -16,6 +16,7 @@ void main() {
   setUpAll(() {
     registerFallbackValue(MockDriveKitListener());
     registerFallbackValue(MockDKDeviceConfigurationListener());
+    registerFallbackValue(MockUserInfo());
   });
 
   group('DriveKitCore', () {
@@ -61,6 +62,45 @@ void main() {
 
         final actualUserId = await DriveKitCore.instance.getUserId();
         expect(actualUserId, equals(mockedUserId));
+      });
+    });
+
+    group('User Info', () {
+      test('calls updateUserInfo on platform implementation', () async {
+        when(() => drivekitCorePlatform.updateUserInfo(any()))
+            .thenAnswer((_) async => true);
+
+        const mockedUserInfo = UserInfo(
+          firstname: 'firstname',
+          lastname: 'lastname',
+          pseudo: 'pseudo',
+        );
+        await DriveKitCore.instance.updateUserInfo(mockedUserInfo);
+        verify(() => drivekitCorePlatform.updateUserInfo(mockedUserInfo))
+            .called(1);
+      });
+
+      test('calls getUserInfo on platform implementation', () async {
+        when(() => drivekitCorePlatform.getUserInfo()).thenAnswer(
+          (_) async => GetUserInfoResponse(
+            status: UserInfoSyncStatus.success,
+            userInfo: const UserInfo(
+              firstname: 'firstname',
+              lastname: 'lastname',
+              pseudo: 'pseudo',
+            ),
+          ),
+        );
+
+        const mockedUserInfo = UserInfo(
+          firstname: 'firstname',
+          lastname: 'lastname',
+          pseudo: 'pseudo',
+        );
+
+        final actualUserInfo = await DriveKitCore.instance.getUserInfo();
+        expect(actualUserInfo.status, UserInfoSyncStatus.success);
+        expect(actualUserInfo.userInfo, mockedUserInfo);
       });
     });
 

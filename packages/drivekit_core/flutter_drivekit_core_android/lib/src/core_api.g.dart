@@ -26,6 +26,15 @@ List<Object?> wrapResponse(
   return <Object?>[error.code, error.message, error.details];
 }
 
+/// Trip Synchronization Type
+enum PigeonSynchronizationType {
+  /// synchronize by calling the DriveQuant servers
+  defaultSync,
+
+  /// retrieve already synchronized items in the local database
+  cache,
+}
+
 enum PigeonDeleteAccountStatus {
   success,
   failedToDelete,
@@ -69,6 +78,19 @@ enum PigeonDeviceConfigurationEvent {
   appBatteryOptimisationInvalid,
 }
 
+/// User info synchronization status enum
+enum PigeonUserInfoSyncStatus {
+  /// Synchronization has been successfully performed
+  success,
+
+  /// SynchronizationType has been set to cache.
+  cacheDataOnly,
+
+  /// Synchronization has failed,
+  /// only user info previously synchronized is returned
+  failedToSyncUserInfoCacheOnly,
+}
+
 /// User Info
 class PigeonUserInfo {
   PigeonUserInfo({
@@ -101,6 +123,36 @@ class PigeonUserInfo {
   }
 }
 
+/// the response returned when getting user info
+class PigeonGetUserInfoResponse {
+  PigeonGetUserInfoResponse({
+    required this.status,
+    this.userInfo,
+  });
+
+  /// user info sync status
+  /// final PigeonUserInfoSyncStatus status
+  PigeonUserInfoSyncStatus status;
+
+  /// user info data
+  PigeonUserInfo? userInfo;
+
+  Object encode() {
+    return <Object?>[
+      status,
+      userInfo,
+    ];
+  }
+
+  static PigeonGetUserInfoResponse decode(Object result) {
+    result as List<Object?>;
+    return PigeonGetUserInfoResponse(
+      status: result[0]! as PigeonUserInfoSyncStatus,
+      userInfo: result[1] as PigeonUserInfo?,
+    );
+  }
+}
+
 class _PigeonCodec extends StandardMessageCodec {
   const _PigeonCodec();
   @override
@@ -108,17 +160,26 @@ class _PigeonCodec extends StandardMessageCodec {
     if (value is PigeonUserInfo) {
       buffer.putUint8(129);
       writeValue(buffer, value.encode());
-    } else if (value is PigeonDeleteAccountStatus) {
+    } else if (value is PigeonGetUserInfoResponse) {
       buffer.putUint8(130);
-      writeValue(buffer, value.index);
-    } else if (value is PigeonRequestError) {
+      writeValue(buffer, value.encode());
+    } else if (value is PigeonSynchronizationType) {
       buffer.putUint8(131);
       writeValue(buffer, value.index);
-    } else if (value is PigeonUpdateUserIdStatus) {
+    } else if (value is PigeonDeleteAccountStatus) {
       buffer.putUint8(132);
       writeValue(buffer, value.index);
-    } else if (value is PigeonDeviceConfigurationEvent) {
+    } else if (value is PigeonRequestError) {
       buffer.putUint8(133);
+      writeValue(buffer, value.index);
+    } else if (value is PigeonUpdateUserIdStatus) {
+      buffer.putUint8(134);
+      writeValue(buffer, value.index);
+    } else if (value is PigeonDeviceConfigurationEvent) {
+      buffer.putUint8(135);
+      writeValue(buffer, value.index);
+    } else if (value is PigeonUserInfoSyncStatus) {
+      buffer.putUint8(136);
       writeValue(buffer, value.index);
     } else {
       super.writeValue(buffer, value);
@@ -131,19 +192,27 @@ class _PigeonCodec extends StandardMessageCodec {
       case 129:
         return PigeonUserInfo.decode(readValue(buffer)!);
       case 130:
-        final int? value = readValue(buffer) as int?;
-        return value == null ? null : PigeonDeleteAccountStatus.values[value];
+        return PigeonGetUserInfoResponse.decode(readValue(buffer)!);
       case 131:
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : PigeonRequestError.values[value];
+        return value == null ? null : PigeonSynchronizationType.values[value];
       case 132:
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : PigeonUpdateUserIdStatus.values[value];
+        return value == null ? null : PigeonDeleteAccountStatus.values[value];
       case 133:
+        final int? value = readValue(buffer) as int?;
+        return value == null ? null : PigeonRequestError.values[value];
+      case 134:
+        final int? value = readValue(buffer) as int?;
+        return value == null ? null : PigeonUpdateUserIdStatus.values[value];
+      case 135:
         final int? value = readValue(buffer) as int?;
         return value == null
             ? null
             : PigeonDeviceConfigurationEvent.values[value];
+      case 136:
+        final int? value = readValue(buffer) as int?;
+        return value == null ? null : PigeonUserInfoSyncStatus.values[value];
       default:
         return super.readValueOfType(type, buffer);
     }
@@ -258,6 +327,37 @@ class AndroidCoreApi {
       );
     } else {
       return;
+    }
+  }
+
+  Future<PigeonGetUserInfoResponse> getUserInfo(
+      {PigeonSynchronizationType synchronizationType =
+          PigeonSynchronizationType.defaultSync}) async {
+    final String __pigeon_channelName =
+        'dev.flutter.pigeon.pigeon_core_package.AndroidCoreApi.getUserInfo$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel =
+        BasicMessageChannel<Object?>(
+      __pigeon_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: __pigeon_binaryMessenger,
+    );
+    final List<Object?>? __pigeon_replyList = await __pigeon_channel
+        .send(<Object?>[synchronizationType]) as List<Object?>?;
+    if (__pigeon_replyList == null) {
+      throw _createConnectionError(__pigeon_channelName);
+    } else if (__pigeon_replyList.length > 1) {
+      throw PlatformException(
+        code: __pigeon_replyList[0]! as String,
+        message: __pigeon_replyList[1] as String?,
+        details: __pigeon_replyList[2],
+      );
+    } else if (__pigeon_replyList[0] == null) {
+      throw PlatformException(
+        code: 'null-error',
+        message: 'Host platform returned null value for non-null return value.',
+      );
+    } else {
+      return (__pigeon_replyList[0] as PigeonGetUserInfoResponse?)!;
     }
   }
 

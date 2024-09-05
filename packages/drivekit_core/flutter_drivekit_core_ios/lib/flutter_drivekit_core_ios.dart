@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_drivekit_core_ios/src/adapter.dart';
 import 'package:flutter_drivekit_core_ios/src/core_api.g.dart';
+import 'package:flutter_drivekit_core_ios/src/model_adapter.dart';
 import 'package:flutter_drivekit_core_platform_interface/flutter_drivekit_core_platform_interface.dart';
 
 /// The iOS implementation of [DriveKitCorePlatform].
@@ -46,6 +47,21 @@ class DriveKitCoreIOS extends DriveKitCorePlatform implements FlutterCoreApi {
 
   @override
   Future<void> updateUserId(String userId) => iosCoreApi.updateUserId(userId);
+
+  @override
+  Future<GetUserInfoResponse> getUserInfo({
+    SynchronizationType synchronizationType = SynchronizationType.defaultSync,
+  }) async {
+    final userInfo = await iosCoreApi.getUserInfo(
+      synchronizationType: synchronizationType.toPigeonImplementation(),
+    );
+
+    return userInfo.toModelImplementation();
+  }
+
+  @override
+  Future<bool> updateUserInfo(UserInfo userInfo) =>
+      iosCoreApi.updateUserInfo(userInfo.toPigeonImplementation());
 
   @override
   Future<void> reset() => iosCoreApi.reset();
@@ -168,8 +184,4 @@ class DriveKitCoreIOS extends DriveKitCorePlatform implements FlutterCoreApi {
   void removeAllDeviceConfigurationListeners() {
     _deviceConfigurationListeners.clear();
   }
-
-  @override
-  Future<bool> updateUserInfo(UserInfo userInfo) =>
-      iosCoreApi.updateUserInfo(userInfo.toPigeonImplementation());
 }

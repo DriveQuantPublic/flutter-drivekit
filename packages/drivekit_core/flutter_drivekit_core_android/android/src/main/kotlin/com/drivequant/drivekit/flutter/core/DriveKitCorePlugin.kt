@@ -5,11 +5,15 @@ import com.drivequant.drivekit.core.DriveKit
 import com.drivequant.drivekit.core.DriveKitLog
 import com.drivequant.drivekit.core.deviceconfiguration.DKDeviceConfigurationEvent
 import com.drivequant.drivekit.core.deviceconfiguration.DKDeviceConfigurationListener
+import com.drivequant.drivekit.core.driver.GetUserInfoQueryListener
 import com.drivequant.drivekit.core.driver.UpdateUserIdStatus
 import com.drivequant.drivekit.core.driver.UpdateUserInfoQueryListener
+import com.drivequant.drivekit.core.driver.UserInfo
+import com.drivequant.drivekit.core.driver.UserInfoGetStatus
 import com.drivequant.drivekit.core.driver.deletion.DeleteAccountStatus
 import com.drivequant.drivekit.core.networking.DriveKitListener
 import com.drivequant.drivekit.core.networking.RequestError
+import com.drivequant.drivekit.flutter.core.mapper.PigeonMapper.toModel
 import com.drivequant.drivekit.flutter.core.mapper.PigeonMapper.toPigeon
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 
@@ -127,6 +131,17 @@ class DriveKitCorePlugin :
                     )
                 }
             }
+        )
+    }
+
+    override fun getUserInfo(synchronizationType: PigeonSynchronizationType, callback: (Result<PigeonGetUserInfoResponse>) -> Unit) {
+        DriveKit.getUserInfo(
+            object : GetUserInfoQueryListener {
+                override fun onResponse(status: UserInfoGetStatus, userInfo: UserInfo?) {
+                    callback(Result.success(PigeonGetUserInfoResponse(status.toPigeon(), userInfo.toPigeon())))
+                }
+            },
+            synchronizationType.toModel()
         )
     }
 }
