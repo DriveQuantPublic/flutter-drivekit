@@ -505,7 +505,7 @@ void main() {
         expect(pigeonUserInfo.pseudo, null);
       });
 
-      test('getUserInfo calls iOS implementation', () async {
+      test('getUserInfo calls Android implementation', () async {
         //mock
         when(() => androidCoreApi.getUserInfo()).thenAnswer(
           (_) async => PigeonGetUserInfoResponse(
