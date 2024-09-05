@@ -1879,6 +1879,7 @@ interface AndroidTripAnalysisApi {
   fun getTripResponseStatus(tripResponse: PigeonPostGenericResponse): PigeonTripResponseStatus?
   fun getTripMetadata(): Map<String, String>?
   fun updateTripMetadata(key: String, value: String?)
+  fun setTripMetadata(metadata: Map<String, String>?)
 
   companion object {
     /** The codec used by AndroidTripAnalysisApi. */
@@ -2128,6 +2129,24 @@ interface AndroidTripAnalysisApi {
             val valueArg = args[1] as String?
             val wrapped: List<Any?> = try {
               api.updateTripMetadata(keyArg, valueArg)
+              listOf(null)
+            } catch (exception: Throwable) {
+              wrapError(exception)
+            }
+            reply.reply(wrapped)
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.setTripMetadata$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { message, reply ->
+            val args = message as List<Any?>
+            val metadataArg = args[0] as Map<String, String>?
+            val wrapped: List<Any?> = try {
+              api.setTripMetadata(metadataArg)
               listOf(null)
             } catch (exception: Throwable) {
               wrapError(exception)

@@ -33,6 +33,7 @@ abstract class AndroidTripAnalysisApi {
   );
   Map<String, String>? getTripMetadata();
   void updateTripMetadata(String key, String? value);
+  void setTripMetadata(Map<String, String>? metadata);
 }
 
 @FlutterApi()

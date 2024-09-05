@@ -265,6 +265,24 @@ void main() {
           () => driveKitTripAnalysisPlatform.updateTripMetadata('key', 'value'),
         ).called(1);
       });
+
+      test('setTripMetadata calls platform implementation', () async {
+        when(
+          () => driveKitTripAnalysisPlatform.setTripMetadata(any()),
+        ).thenAnswer((_) async {
+          return;
+        });
+
+        const mockedTripMetadata = {
+          'key1': 'value1',
+          'key2': 'value2',
+        };
+        await DriveKitTripAnalysis.instance.setTripMetadata(mockedTripMetadata);
+        verify(
+          () =>
+              driveKitTripAnalysisPlatform.setTripMetadata(mockedTripMetadata),
+        ).called(1);
+      });
     });
   });
 }

@@ -49,11 +49,23 @@ class _SliverTripMetadataState extends State<SliverTripMetadata> {
         ),
         ElevatedButton(
           onPressed: () async {
-            await DriveKitTripAnalysis.instance
-                .updateTripMetadata('abc', '123');
+            const tripMetadata = {
+              'key1': 'value1',
+              'key2': 'value2',
+            };
+            await DriveKitTripAnalysis.instance.setTripMetadata(tripMetadata);
           },
           child: const Text(
-            'Update trip metadata key "abc" with the value "123"',
+            'Set trip metadata with some dummy data',
+          ),
+        ),
+        ElevatedButton(
+          onPressed: () async {
+            await DriveKitTripAnalysis.instance
+                .updateTripMetadata('key1', 'newValue1');
+          },
+          child: const Text(
+            'Update trip metadata "key1" with the value "newValue1"',
           ),
         ),
       ],

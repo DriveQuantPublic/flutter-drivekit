@@ -24,6 +24,7 @@ import com.drivequant.drivekit.tripanalysis.service.recorder.CancelTrip
 import com.drivequant.drivekit.tripanalysis.service.recorder.StartMode
 import com.drivequant.drivekit.tripanalysis.service.recorder.State
 import io.flutter.embedding.engine.plugins.FlutterPlugin
+import java.util.HashMap
 
 class DriveKitTripAnalysisPlugin :
     FlutterPlugin,
@@ -178,5 +179,9 @@ class DriveKitTripAnalysisPlugin :
 
     override fun updateTripMetadata(key: String, value: String?) {
         DriveKitTripAnalysis.updateTripMetaData(key, value)
+    }
+
+    override fun setTripMetadata(metadata: Map<String, String>?) {
+        DriveKitTripAnalysis.setTripMetaData(metadata?.let { HashMap(it) })
     }
 }
