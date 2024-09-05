@@ -241,5 +241,15 @@ void main() {
         expect(actualTripResponseStatus, equals(tripResponseStatus));
       });
     });
+
+    test('getTripMetadata calls platform implementation', () async {
+      when(() => driveKitTripAnalysisPlatform.getTripMetadata())
+          .thenAnswer((_) async {
+        return;
+      });
+
+      await DriveKitTripAnalysis.instance.getTripMetadata();
+      verify(() => driveKitTripAnalysisPlatform.getTripMetadata()).called(1);
+    });
   });
 }

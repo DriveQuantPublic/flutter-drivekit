@@ -105,4 +105,9 @@ class DefaultDriveKitTripAnalysis extends DriveKitTripAnalysisPlatform {
       'getTripResponseStatus() has not been implemented.',
     );
   }
+
+  @override
+  Future<Map<String, String>?> getTripMetadata() {
+    throw UnimplementedError('getTripMetadata>() has not been implemented.');
+  }
 }

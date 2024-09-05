@@ -62,24 +62,26 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 
 ## API
 
-| Method                                                             | Return Type                  | iOS  | Android  |
-|--------------------------------------------------------------------|------------------------------| :-:  | :-:      |
-| [isAutoStartActivated()](#isautostartactivated)                    | `Future<bool>`               | ✅   | ✅       |
-| [activateAutoStart()](#activateautostart)                          | `Future<void>`               | ✅   | ✅       |
-| [startTrip()](#starttrip)                                          | `Future<void>`               | ✅   | ✅       |
-| [stopTrip()](#stoptrip)                                            | `Future<void>`               | ✅   | ✅       |
-| [cancelTrip()](#canceltrip)                                        | `Future<void>`               | ✅   | ✅       |
-| [isTripRunning()](#istriprunning)                                  | `Future<bool>`               | ✅   | ✅       |
-| [setCustomTimeOut()](#setcustomtimeout)                            | `Future<void>`               | ✅   | ✅       |
-| [addTripListener()](#addtriplistener)                              | `Future<void>`               | ✅   | ✅       |
-| [removeTripListener()](#removetriplistener)                        | `Future<void>`               | ✅   | ✅       |
-| [removeAllTripListeners()](#removealltriplisteners)                | `Future<void>`               | ✅   | ✅       |
-| [isCrashDetectionActivated()](#iscrashdetectionactivated)          | `Future<bool>`               | ✅   | ✅       |
-| [activateCrashDetection()](#activatecrashdetection)                | `Future<void>`               | ✅   | ✅       |
-| [isMonitoringPotentialTripStart()](#ismonitoringpotentialtripstart)| `Future<bool>`               | ✅   | ✅       |
-| [setMonitorPotentialTripStart()](#setmonitorpotentialtripstart)    | `Future<void>`               | ✅   | ✅       |
-| [setVehicle()](#setvehicle)                                        | `Future<bool>`               | ✅   | ✅       |
-| [getTripResponseStatus()](#getTripResponseStatus)                  | `Future<TripResponseStatus>` | ✅   | ✅       |
+| Method                                                             | Return Type                     | iOS  | Android  |
+|--------------------------------------------------------------------|---------------------------------| :-:  | :-:      |
+| [isAutoStartActivated()](#isautostartactivated)                    | `Future<bool>`                  | ✅   | ✅       |
+| [activateAutoStart()](#activateautostart)                          | `Future<void>`                  | ✅   | ✅       |
+| [startTrip()](#starttrip)                                          | `Future<void>`                  | ✅   | ✅       |
+| [stopTrip()](#stoptrip)                                            | `Future<void>`                  | ✅   | ✅       |
+| [cancelTrip()](#canceltrip)                                        | `Future<void>`                  | ✅   | ✅       |
+| [isTripRunning()](#istriprunning)                                  | `Future<bool>`                  | ✅   | ✅       |
+| [setCustomTimeOut()](#setcustomtimeout)                            | `Future<void>`                  | ✅   | ✅       |
+| [addTripListener()](#addtriplistener)                              | `Future<void>`                  | ✅   | ✅       |
+| [removeTripListener()](#removetriplistener)                        | `Future<void>`                  | ✅   | ✅       |
+| [removeAllTripListeners()](#removealltriplisteners)                | `Future<void>`                  | ✅   | ✅       |
+| [isCrashDetectionActivated()](#iscrashdetectionactivated)          | `Future<bool>`                  | ✅   | ✅       |
+| [activateCrashDetection()](#activatecrashdetection)                | `Future<void>`                  | ✅   | ✅       |
+| [isMonitoringPotentialTripStart()](#ismonitoringpotentialtripstart)| `Future<bool>`                  | ✅   | ✅       |
+| [setMonitorPotentialTripStart()](#setmonitorpotentialtripstart)    | `Future<void>`                  | ✅   | ✅       |
+| [setVehicle()](#setvehicle)                                        | `Future<bool>`                  | ✅   | ✅       |
+| [getTripResponseStatus()](#getTripResponseStatus)                  | `Future<TripResponseStatus>`    | ✅   | ✅       |
+| [getTripMetadata()](#gettripmetadata)                              | `Future<Map<String, String>?`   | ✅   | ✅       |
+
 
 
 
@@ -406,3 +408,21 @@ The TripResponseStatus model is described in the References part.
 
 A detailed description of TripResponseStatus model is available [here](https://docs.drivequant.com/trip-analysis/ios/references#tripresponsestatus).
 
+
+### getTripMetadata
+
+It is possible to get a copy of configured metadata thanks to the following method on `DriveKitTripAnalysis`.
+
+```dart
+Future<Map<String, String>?> getTripMetadata()
+```
+
+To do this, call the following method:
+
+```dart
+final tripMetadata = await DriveKitTripAnalysis.instance.getTripMetadata();
+```
+ 
+> ℹ️
+>
+> Any modification on the returned object has no effect on the metadata sent with a trip.

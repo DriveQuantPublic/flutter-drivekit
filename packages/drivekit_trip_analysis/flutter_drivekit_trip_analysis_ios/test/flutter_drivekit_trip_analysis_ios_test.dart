@@ -554,4 +554,14 @@ void main() {
       expect(tripResponseStatus?.status, expectedResult.status);
     });
   });
+
+  test('getTripMetadata returns a null map by default', () async {
+    //mocks
+    when(iOSTripAnalysisApi.getTripMetadata).thenAnswer((_) async => null);
+
+    //test
+    final metadata =
+        await DriveKitTripAnalysisPlatform.instance.getTripMetadata();
+    expect(metadata, null);
+  });
 }

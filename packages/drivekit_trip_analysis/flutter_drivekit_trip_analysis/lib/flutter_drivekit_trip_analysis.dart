@@ -170,4 +170,9 @@ class DriveKitTripAnalysis {
   ) async {
     return _platform.getTripResponseStatus(tripResponse);
   }
+
+  /// It is possible to get a copy of configured metadata
+  /// Note: Any modification on the returned object has no effect on the
+  /// metadata sent with a trip.
+  Future<Map<String, String>?> getTripMetadata() => _platform.getTripMetadata();
 }

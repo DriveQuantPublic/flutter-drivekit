@@ -79,6 +79,9 @@ public class DriveKitTripAnalysisPlugin: NSObject, FlutterPlugin, IOSTripAnalysi
         return tripResponse.getStatus()
     }
 
+    func getTripMetadata() -> [String: String]? {
+        return DriveKitTripAnalysis.shared.getTripMetadata()
+    }
 }
 
 extension DriveKitTripAnalysisPlugin: TripListener {

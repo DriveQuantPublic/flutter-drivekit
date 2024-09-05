@@ -184,4 +184,10 @@ class DriveKitTripAnalysisIOS extends DriveKitTripAnalysisPlatform
       listener.potentialTripStart?.call(startMode.toModelImplementation());
     }
   }
+
+  @override
+  Future<Map<String, String>?> getTripMetadata() async {
+    final metadata = await iosTripAnalysisApi.getTripMetadata();
+    return convertMetadata(metadata);
+  }
 }
