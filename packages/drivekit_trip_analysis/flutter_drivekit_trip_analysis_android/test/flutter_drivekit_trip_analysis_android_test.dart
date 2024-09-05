@@ -572,6 +572,23 @@ void main() {
         verify(() => androidTripAnalysisApi.updateTripMetadata('key', 'value'))
             .called(1);
       });
+
+      test('setTripMetadata calls android implementation with correct argument',
+          () async {
+        //mock
+        when(() => androidTripAnalysisApi.setTripMetadata(any()))
+            .thenAnswer((_) async {});
+
+        //test
+        const mockedTripMetadata = {
+          'key1': 'value1',
+          'key2': 'value2',
+        };
+        await DriveKitTripAnalysisPlatform.instance
+            .setTripMetadata(mockedTripMetadata);
+        verify(() => androidTripAnalysisApi.setTripMetadata(mockedTripMetadata))
+            .called(1);
+      });
     });
   });
 }

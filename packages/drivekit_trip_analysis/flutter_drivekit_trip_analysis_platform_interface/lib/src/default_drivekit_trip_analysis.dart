@@ -115,4 +115,9 @@ class DefaultDriveKitTripAnalysis extends DriveKitTripAnalysisPlatform {
   Future<void> updateTripMetadata(String key, String? value) {
     throw UnimplementedError('updateTripMetadata() has not been implemented.');
   }
+
+  @override
+  Future<void> setTripMetadata(Map<String, String>? metadata) {
+    throw UnimplementedError('setTripMetadata() has not been implemented.');
+  }
 }

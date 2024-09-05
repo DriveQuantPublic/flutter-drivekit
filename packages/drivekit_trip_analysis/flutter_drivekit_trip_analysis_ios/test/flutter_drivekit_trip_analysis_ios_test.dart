@@ -578,5 +578,22 @@ void main() {
       verify(() => iOSTripAnalysisApi.updateTripMetadata('key', 'value'))
           .called(1);
     });
+
+    test('setTripMetadata calls ios implementation with correct argument',
+        () async {
+      //mock
+      when(() => iOSTripAnalysisApi.setTripMetadata(any()))
+          .thenAnswer((_) async {});
+
+      //test
+      const mockedTripMetadata = {
+        'key1': 'value1',
+        'key2': 'value2',
+      };
+      await DriveKitTripAnalysisPlatform.instance
+          .setTripMetadata(mockedTripMetadata);
+      verify(() => iOSTripAnalysisApi.setTripMetadata(mockedTripMetadata))
+          .called(1);
+    });
   });
 }

@@ -429,6 +429,33 @@ final tripMetadata = await DriveKitTripAnalysis.instance.getTripMetadata();
 >
 > Any modification on the returned object has no effect on the metadata sent with a trip.
 
+### setTripMetadata
+
+It is possible to add some metadata to your trip.
+
+```dart
+Future<void> setTripMetadata(Map<String, String>? metadata)
+```
+
+To do this, call the following method:
+
+```dart
+const tripMetadata = {
+  'key1': 'value1',
+  'key2': 'value2',
+};
+await DriveKitTripAnalysis.instance.setTripMetadata(tripMetadata);
+```
+
+The metadata must be represented as a key/value object where the key and value have a String type.
+The metadata can be set any time before the end of a trip.
+
+> ℹ️
+>
+> If metadata is sent, it will also be added to the push data request in the metaData field.
+
+
+
 ### updateTripMetadata
 
 You can update a value in metadata for a specific key

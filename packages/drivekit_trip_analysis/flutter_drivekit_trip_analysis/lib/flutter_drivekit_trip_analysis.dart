@@ -179,4 +179,13 @@ class DriveKitTripAnalysis {
   /// You can update a specific trip metadata by using this method
   Future<void> updateTripMetadata(String key, String? value) =>
       _platform.updateTripMetadata(key, value);
+
+  /// You can add some metadata to your trip.
+  /// The metadata must be represented as a key/value object where the key
+  /// and value have a String type.
+  /// The metadata can be set any time before the end of a trip.
+  /// If metadata is sent, it will also be added to the push data request in the
+  /// metaData field.
+  Future<void> setTripMetadata(Map<String, String>? metadata) =>
+      _platform.setTripMetadata(metadata);
 }
