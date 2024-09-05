@@ -483,7 +483,7 @@ await DriveKitTripAnalysis.instance.deleteTripMetadata('key');
 
 ### deleteAllTripMetadata
 
-You can delete all value in trip metadata
+You can delete all values in trip metadata
 
 ```dart
 Future<void> deleteAllTripMetadata()
