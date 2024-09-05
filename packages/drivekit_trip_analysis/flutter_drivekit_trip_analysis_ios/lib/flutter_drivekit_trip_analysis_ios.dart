@@ -198,4 +198,12 @@ class DriveKitTripAnalysisIOS extends DriveKitTripAnalysisPlatform
   @override
   Future<void> setTripMetadata(Map<String, String>? metadata) =>
       iosTripAnalysisApi.setTripMetadata(metadata);
+
+  @override
+  Future<void> deleteTripMetadata(String key) =>
+      iosTripAnalysisApi.deleteTripMetadata(key);
+
+  @override
+  Future<void> deleteAllTripMetadata() =>
+      iosTripAnalysisApi.deleteAllTripMetadata();
 }

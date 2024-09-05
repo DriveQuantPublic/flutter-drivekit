@@ -68,6 +68,22 @@ class _SliverTripMetadataState extends State<SliverTripMetadata> {
             'Update trip metadata "key1" with the value "newValue1"',
           ),
         ),
+        ElevatedButton(
+          onPressed: () async {
+            await DriveKitTripAnalysis.instance.deleteTripMetadata('key1');
+          },
+          child: const Text(
+            'Delete trip metadata "key1"',
+          ),
+        ),
+        ElevatedButton(
+          onPressed: () async {
+            await DriveKitTripAnalysis.instance.deleteAllTripMetadata();
+          },
+          child: const Text(
+            'Delete all trip metadata values',
+          ),
+        ),
       ],
     );
   }

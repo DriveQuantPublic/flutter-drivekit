@@ -595,5 +595,26 @@ void main() {
       verify(() => iOSTripAnalysisApi.setTripMetadata(mockedTripMetadata))
           .called(1);
     });
+
+    test('deleteTripMetadata calls ios implementation with correct argument',
+        () async {
+      //mock
+      when(() => iOSTripAnalysisApi.deleteTripMetadata(any()))
+          .thenAnswer((_) async {});
+
+      //test
+      await DriveKitTripAnalysisPlatform.instance.deleteTripMetadata('key1');
+      verify(() => iOSTripAnalysisApi.deleteTripMetadata('key1')).called(1);
+    });
+
+    test('deleteAllTripMetadata calls ios implementation', () async {
+      //mock
+      when(() => iOSTripAnalysisApi.deleteAllTripMetadata())
+          .thenAnswer((_) async {});
+
+      //test
+      await DriveKitTripAnalysisPlatform.instance.deleteAllTripMetadata();
+      verify(() => iOSTripAnalysisApi.deleteAllTripMetadata()).called(1);
+    });
   });
 }

@@ -1986,6 +1986,8 @@ protocol IOSTripAnalysisApi {
   func getTripMetadata() throws -> [String: String]?
   func updateTripMetadata(key: String, value: String?) throws
   func setTripMetadata(metadata: [String: String]?) throws
+  func deleteTripMetadata(key: String) throws
+  func deleteAllTripMetadata() throws
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
@@ -2218,6 +2220,34 @@ class IOSTripAnalysisApiSetup {
       }
     } else {
       setTripMetadataChannel.setMessageHandler(nil)
+    }
+    let deleteTripMetadataChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.pigeon_trip_analysis_package.IOSTripAnalysisApi.deleteTripMetadata\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      deleteTripMetadataChannel.setMessageHandler { message, reply in
+        let args = message as! [Any?]
+        let keyArg = args[0] as! String
+        do {
+          try api.deleteTripMetadata(key: keyArg)
+          reply(wrapResult(nil))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      deleteTripMetadataChannel.setMessageHandler(nil)
+    }
+    let deleteAllTripMetadataChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.pigeon_trip_analysis_package.IOSTripAnalysisApi.deleteAllTripMetadata\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      deleteAllTripMetadataChannel.setMessageHandler { _, reply in
+        do {
+          try api.deleteAllTripMetadata()
+          reply(wrapResult(nil))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      deleteAllTripMetadataChannel.setMessageHandler(nil)
     }
   }
 }

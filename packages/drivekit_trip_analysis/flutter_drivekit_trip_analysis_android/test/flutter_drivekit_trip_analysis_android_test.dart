@@ -589,6 +589,28 @@ void main() {
         verify(() => androidTripAnalysisApi.setTripMetadata(mockedTripMetadata))
             .called(1);
       });
+
+      test('deleteTripMetadata calls and. implementation with correct argument',
+          () async {
+        //mock
+        when(() => androidTripAnalysisApi.deleteTripMetadata(any()))
+            .thenAnswer((_) async {});
+
+        //test
+        await DriveKitTripAnalysisPlatform.instance.deleteTripMetadata('key1');
+        verify(() => androidTripAnalysisApi.deleteTripMetadata('key1'))
+            .called(1);
+      });
+
+      test('deleteAllTripMetadata calls android implementation', () async {
+        //mock
+        when(() => androidTripAnalysisApi.deleteAllTripMetadata())
+            .thenAnswer((_) async {});
+
+        //test
+        await DriveKitTripAnalysisPlatform.instance.deleteAllTripMetadata();
+        verify(() => androidTripAnalysisApi.deleteAllTripMetadata()).called(1);
+      });
     });
   });
 }
