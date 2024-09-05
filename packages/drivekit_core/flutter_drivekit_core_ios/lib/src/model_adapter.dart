@@ -14,7 +14,7 @@ extension PigeonGetUserInfoResponseAdapter on PigeonGetUserInfoResponse {
 }
 
 /// Adapts the [PigeonUserInfoSyncStatus] enum to the corresponding model enum
-extension PigeonTripSyncStatusAdapter on PigeonUserInfoSyncStatus {
+extension PigeonUserInfoSyncStatusAdapter on PigeonUserInfoSyncStatus {
   /// Converts a [PigeonUserInfoSyncStatus] to a corresponding model enum.
   UserInfoSyncStatus toModelImplementation() {
     switch (this) {
