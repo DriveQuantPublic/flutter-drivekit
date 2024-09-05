@@ -167,7 +167,7 @@ await DriveKitCore.instance.updateUserId('MyNewUniqueUserId);
 
 ### getUserInfo
 
-To get the user's information (first name, last name and pseudo), call this method. This method will retrieve and save these data locally.
+It is possible to get the user's information (first name, last name and pseudo). This method will retrieve them and save them locally.
 
 ```dart
 Future<GetUserInfoResponse> getUserInfo({
