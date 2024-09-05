@@ -117,7 +117,7 @@ enum PigeonSynchronizationType {
   cache
 }
 
-/// the response returned when getting user info
+/// The response returned when getting user info
 class PigeonGetUserInfoResponse {
   /// Creates a PigeonGetUserInfoResponse instance
   PigeonGetUserInfoResponse({required this.status, required this.userInfo});
@@ -140,5 +140,5 @@ enum PigeonUserInfoSyncStatus {
 
   /// Synchronization has failed,
   /// only user info previously synchronized is returned
-  failedToSyncTripsCacheOnly,
+  failedToSyncUserInfoCacheOnly,
 }

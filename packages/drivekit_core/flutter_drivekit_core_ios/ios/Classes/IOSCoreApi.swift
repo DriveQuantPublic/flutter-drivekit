@@ -131,7 +131,7 @@ enum PigeonUserInfoSyncStatus: Int {
   case cacheDataOnly = 1
   /// Synchronization has failed,
   /// only user info previously synchronized is returned
-  case failedToSyncTripsCacheOnly = 2
+  case failedToSyncUserInfoCacheOnly = 2
 }
 
 /// User Info
@@ -163,7 +163,7 @@ struct PigeonUserInfo {
   }
 }
 
-/// the response returned when getting user info
+/// The response returned when getting user info
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 struct PigeonGetUserInfoResponse {

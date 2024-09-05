@@ -92,7 +92,7 @@ enum PigeonUserInfoSyncStatus {
 
   /// Synchronization has failed,
   /// only user info previously synchronized is returned
-  failedToSyncTripsCacheOnly,
+  failedToSyncUserInfoCacheOnly,
 }
 
 /// User Info
@@ -127,7 +127,7 @@ class PigeonUserInfo {
   }
 }
 
-/// the response returned when getting user info
+/// The response returned when getting user info
 class PigeonGetUserInfoResponse {
   PigeonGetUserInfoResponse({
     required this.status,

@@ -22,7 +22,7 @@ extension PigeonTripSyncStatusAdapter on PigeonUserInfoSyncStatus {
         return UserInfoSyncStatus.success;
       case PigeonUserInfoSyncStatus.cacheDataOnly:
         return UserInfoSyncStatus.cacheDataOnly;
-      case PigeonUserInfoSyncStatus.failedToSyncTripsCacheOnly:
+      case PigeonUserInfoSyncStatus.failedToSyncUserInfoCacheOnly:
         return UserInfoSyncStatus.failedToSyncUserInfoCacheOnly;
     }
   }

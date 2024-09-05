@@ -48,6 +48,20 @@ class DriveKitCoreAndroid extends DriveKitCorePlatform
       androidCoreApi.updateUserId(userId);
 
   @override
+  Future<bool> updateUserInfo(UserInfo userInfo) =>
+      androidCoreApi.updateUserInfo(userInfo.toPigeonImplementation());
+
+  @override
+  Future<GetUserInfoResponse> getUserInfo({
+    SynchronizationType synchronizationType = SynchronizationType.defaultSync,
+  }) async {
+    final userInfo = await androidCoreApi.getUserInfo(
+      synchronizationType: synchronizationType.toPigeonImplementation(),
+    );
+    return userInfo.toModelImplementation();
+  }
+
+  @override
   Future<void> reset() => androidCoreApi.reset();
 
   @override
@@ -160,19 +174,5 @@ class DriveKitCoreAndroid extends DriveKitCorePlatform
       listener.onDeviceConfigurationChanged
           ?.call(event.toModelImplementation());
     }
-  }
-
-  @override
-  Future<bool> updateUserInfo(UserInfo userInfo) =>
-      androidCoreApi.updateUserInfo(userInfo.toPigeonImplementation());
-
-  @override
-  Future<GetUserInfoResponse> getUserInfo({
-    SynchronizationType synchronizationType = SynchronizationType.defaultSync,
-  }) async {
-    final userInfo = await androidCoreApi.getUserInfo(
-      synchronizationType: synchronizationType.toPigeonImplementation(),
-    );
-    return userInfo.toModelImplementation();
   }
 }

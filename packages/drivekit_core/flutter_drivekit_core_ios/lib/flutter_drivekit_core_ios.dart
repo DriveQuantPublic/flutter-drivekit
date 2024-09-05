@@ -49,6 +49,21 @@ class DriveKitCoreIOS extends DriveKitCorePlatform implements FlutterCoreApi {
   Future<void> updateUserId(String userId) => iosCoreApi.updateUserId(userId);
 
   @override
+  Future<GetUserInfoResponse> getUserInfo({
+    SynchronizationType synchronizationType = SynchronizationType.defaultSync,
+  }) async {
+    final userInfo = await iosCoreApi.getUserInfo(
+      synchronizationType: synchronizationType.toPigeonImplementation(),
+    );
+
+    return userInfo.toModelImplementation();
+  }
+
+  @override
+  Future<bool> updateUserInfo(UserInfo userInfo) =>
+      iosCoreApi.updateUserInfo(userInfo.toPigeonImplementation());
+
+  @override
   Future<void> reset() => iosCoreApi.reset();
 
   @override
@@ -168,20 +183,5 @@ class DriveKitCoreIOS extends DriveKitCorePlatform implements FlutterCoreApi {
   @override
   void removeAllDeviceConfigurationListeners() {
     _deviceConfigurationListeners.clear();
-  }
-
-  @override
-  Future<bool> updateUserInfo(UserInfo userInfo) =>
-      iosCoreApi.updateUserInfo(userInfo.toPigeonImplementation());
-
-  @override
-  Future<GetUserInfoResponse> getUserInfo({
-    SynchronizationType synchronizationType = SynchronizationType.defaultSync,
-  }) async {
-    final userInfo = await iosCoreApi.getUserInfo(
-      synchronizationType: synchronizationType.toPigeonImplementation(),
-    );
-
-    return userInfo.toModelImplementation();
   }
 }
