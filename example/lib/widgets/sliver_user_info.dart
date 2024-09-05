@@ -85,7 +85,10 @@ class _SliverUserInfoState extends State<SliverUserInfo> {
               final response = await DriveKitCore.instance.getUserInfo();
               final message = response.userInfo == null
                   ? 'userInfo is null'
-                  : 'firstname: ${response.userInfo?.firstname} / lastname: ${response.userInfo?.lastname} / pseudo: ${response.userInfo?.pseudo}';
+                  // ignore: prefer_interpolation_to_compose_strings
+                  : 'firstname: ${response.userInfo?.firstname}'
+                      '\nlastname: ${response.userInfo?.lastname}'
+                      '\npseudo: ${response.userInfo?.pseudo}';
               if (context.mounted) {
                 await showDialog<void>(
                   context: context,
