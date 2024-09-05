@@ -71,7 +71,7 @@ Now, you can configure the DriveKit Core with the options you want, and use othe
 | [getUserId()](#getuserid)                                                         | `Future<String?>` | ✅  |   ✅    |
 | [setUserId()](#setuserid)                                                         | `Future<void>`    | ✅  |   ✅    |
 | [updateUserId()](#updateuserid)                                                   | `Future<void>`    | ✅  |   ✅    |
-| [getUserInfo()](#getserinfo)                                                      | `Future<void>`    | ✅  |   ✅    |
+| [getUserInfo()](#getuserinfo)                                                     | `Future<void>`    | ✅  |   ✅    |
 | [updateUserInfo()](#updateuserinfo)                                               | `Future<void>`    | ✅  |   ✅    |
 | [addDriveKitListener()](#adddrivekitlistener)                                     | `Future<void>`    | ✅  |   ✅    |
 | [removeDriveKitListener()](#removedrivekitlistener)                               | `Future<void>`    | ✅  |   ✅    |
@@ -165,14 +165,14 @@ await DriveKitCore.instance.updateUserId('MyNewUniqueUserId);
 >
 > To be able to check whenever `userId` got updated and catch the update status you have to use `DriveKitListener` listener.
 
-### getserInfo
+### getUserInfo
 
 To get the user's information (first name, last name and pseudo), call this method. This method will retrieve and save these data locally.
 
 ```dart
-  Future<GetUserInfoResponse> getUserInfo({
-    SynchronizationType synchronizationType = SynchronizationType.defaultSync,
-  });
+Future<GetUserInfoResponse> getUserInfo({
+  SynchronizationType synchronizationType = SynchronizationType.defaultSync,
+});
 ```
 
 To get the user's information, call the following method:
