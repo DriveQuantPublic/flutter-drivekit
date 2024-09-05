@@ -31,6 +31,13 @@ class DefaultDriveKitCore extends DriveKitCorePlatform {
   }
 
   @override
+  Future<GetUserInfoResponse> getUserInfo({
+    SynchronizationType synchronizationType = SynchronizationType.defaultSync,
+  }) {
+    throw UnimplementedError('getUserInfo() has not been implemented.');
+  }
+
+  @override
   Future<bool> updateUserInfo(UserInfo userInfo) {
     throw UnimplementedError('updateUserInfo() has not been implemented.');
   }
@@ -113,12 +120,5 @@ class DefaultDriveKitCore extends DriveKitCorePlatform {
     throw UnimplementedError(
       'removeAllDeviceConfigurationListeners() has not been implemented.',
     );
-  }
-
-  @override
-  Future<GetUserInfoResponse> getUserInfo({
-    SynchronizationType synchronizationType = SynchronizationType.defaultSync,
-  }) {
-    throw UnimplementedError('getUserInfo() has not been implemented.');
   }
 }

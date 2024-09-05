@@ -1359,15 +1359,15 @@ class SafetyContext {
   final double safetyScore;
 }
 
-/// the response returned when retrieving user info
+/// The response returned when retrieving user info
 class GetUserInfoResponse {
   /// Creates a GetUserInfoResponse instance
   GetUserInfoResponse({required this.status, required this.userInfo});
 
-  /// synchronization status
+  /// The synchronization status
   final UserInfoSyncStatus status;
 
-  /// user info
+  /// The user info data
   final UserInfo? userInfo;
 }
 
