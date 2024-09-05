@@ -29,6 +29,7 @@ abstract class IOSTripAnalysisApi {
     PigeonPostGenericResponse tripResponse,
   );
   Map<String, String>? getTripMetadata();
+  void updateTripMetadata(String key, String? value);
 }
 
 @FlutterApi()

@@ -547,15 +547,31 @@ void main() {
       expect(tripResponseStatus?.status, expectedResult.status);
     });
 
-    test('getTripMetadata returns a null map by default', () async {
-      //mocks
-      when(androidTripAnalysisApi.getTripMetadata)
-          .thenAnswer((_) async => null);
+    group('Trip Metadata', () {
+      test('getTripMetadata returns a null map by default', () async {
+        //mocks
+        when(androidTripAnalysisApi.getTripMetadata)
+            .thenAnswer((_) async => null);
 
-      //test
-      final metadata =
-          await DriveKitTripAnalysisPlatform.instance.getTripMetadata();
-      expect(metadata, null);
+        //test
+        final metadata =
+            await DriveKitTripAnalysisPlatform.instance.getTripMetadata();
+        expect(metadata, null);
+      });
+
+      test(
+          'updateTripMetadata calls Android implementation with correct'
+          ' argument', () async {
+        //mock
+        when(() => androidTripAnalysisApi.updateTripMetadata(any(), any()))
+            .thenAnswer((_) async {});
+
+        //test
+        await DriveKitTripAnalysisPlatform.instance
+            .updateTripMetadata('key', 'value');
+        verify(() => androidTripAnalysisApi.updateTripMetadata('key', 'value'))
+            .called(1);
+      });
     });
   });
 }

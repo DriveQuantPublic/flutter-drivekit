@@ -555,13 +555,28 @@ void main() {
     });
   });
 
-  test('getTripMetadata returns a null map by default', () async {
-    //mocks
-    when(iOSTripAnalysisApi.getTripMetadata).thenAnswer((_) async => null);
+  group('Trip Metadata', () {
+    test('getTripMetadata returns a null map by default', () async {
+      //mocks
+      when(iOSTripAnalysisApi.getTripMetadata).thenAnswer((_) async => null);
 
-    //test
-    final metadata =
-        await DriveKitTripAnalysisPlatform.instance.getTripMetadata();
-    expect(metadata, null);
+      //test
+      final metadata =
+          await DriveKitTripAnalysisPlatform.instance.getTripMetadata();
+      expect(metadata, null);
+    });
+
+    test('getTripMetadata calls ios implementation with correct argument',
+        () async {
+      //mock
+      when(() => iOSTripAnalysisApi.updateTripMetadata(any(), any()))
+          .thenAnswer((_) async {});
+
+      //test
+      await DriveKitTripAnalysisPlatform.instance
+          .updateTripMetadata('key', 'value');
+      verify(() => iOSTripAnalysisApi.updateTripMetadata('key', 'value'))
+          .called(1);
+    });
   });
 }

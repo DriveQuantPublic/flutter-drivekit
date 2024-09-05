@@ -94,4 +94,7 @@ abstract class DriveKitTripAnalysisPlatform extends PlatformInterface {
   /// Any modification on the returned object has no effect on the metadata sent
   /// with a trip.
   Future<Map<String, String>?> getTripMetadata();
+
+  /// Update a specific metadata
+  Future<void> updateTripMetadata(String key, String? value);
 }
