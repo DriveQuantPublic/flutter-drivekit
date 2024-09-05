@@ -176,7 +176,7 @@ class DriveKitTripAnalysis {
   /// metadata sent with a trip.
   Future<Map<String, String>?> getTripMetadata() => _platform.getTripMetadata();
 
-  /// You can update a spefic trip metadata by using this method
+  /// You can update a specific trip metadata by using this method
   Future<void> updateTripMetadata(String key, String? value) =>
       _platform.updateTripMetadata(key, value);
 }
