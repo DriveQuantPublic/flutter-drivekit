@@ -182,6 +182,8 @@ class DriveKitTripAnalysisIOS extends DriveKitTripAnalysisPlatform
   }
 
   @override
-  Future<Map<String?, String?>?> getTripMetaData() =>
-      iosTripAnalysisApi.getTripMetaData();
+  Future<Map<String, String>?> getTripMetadata() async {
+    final metadata = await iosTripAnalysisApi.getTripMetadata();
+    return convertMetadata(metadata);
+  }
 }

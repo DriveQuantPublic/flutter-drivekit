@@ -81,7 +81,7 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 | [setMonitorPotentialTripStart()](#setmonitorpotentialtripstart)    | `Future<void>`                  | ✅   | ✅       |
 | [setVehicle()](#setvehicle)                                        | `Future<bool>`                  | ✅   | ✅       |
 | [getTripResponseStatus()](#getTripResponseStatus)                  | `Future<TripResponseStatus>`    | ✅   | ✅       |
-| [getTripMetaData()](#gettripmetadata)                              | `Future<Map<String?, String?>?` | ✅   | ✅       |
+| [getTripMetadata()](#gettripmetadata)                              | `Future<Map<String?, String?>?` | ✅   | ✅       |
 
 
 
@@ -391,18 +391,18 @@ The TripResponseStatus model is described in the References part.
 A detailed description of TripResponseStatus model is available [here](https://docs.drivequant.com/trip-analysis/ios/references#tripresponsestatus).
 
 
-### getTripMetaData
+### getTripMetadata
 
 It is possible to get a copy of configured metadata thanks to the following method on `DriveKitTripAnalysis`.
 
 ```dart
-Future<Map<String?, String?>?> getTripMetaData()
+Future<Map<String, String>?> getTripMetadata()
 ```
 
 To do this, call the following method:
 
 ```dart
-final tripMetadata = await DriveKitTripAnalysis.instance.getTripMetaData();
+final tripMetadata = await DriveKitTripAnalysis.instance.getTripMetadata();
 ```
  
 > ℹ️

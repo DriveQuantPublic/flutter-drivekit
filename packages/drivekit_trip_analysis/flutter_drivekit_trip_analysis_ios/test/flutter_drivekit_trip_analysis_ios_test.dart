@@ -543,13 +543,13 @@ void main() {
     });
   });
 
-  test('getTripMetaData returns a null map by default', () async {
+  test('getTripMetadata returns a null map by default', () async {
     //mocks
-    when(iOSTripAnalysisApi.getTripMetaData).thenAnswer((_) async => null);
+    when(iOSTripAnalysisApi.getTripMetadata).thenAnswer((_) async => null);
 
     //test
     final metadata =
-        await DriveKitTripAnalysisPlatform.instance.getTripMetaData();
+        await DriveKitTripAnalysisPlatform.instance.getTripMetadata();
     expect(metadata, null);
   });
 }

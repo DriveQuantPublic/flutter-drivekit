@@ -535,14 +535,14 @@ void main() {
       expect(tripResponseStatus?.status, expectedResult.status);
     });
 
-    test('getTripMetaData returns a null map by default', () async {
+    test('getTripMetadata returns a null map by default', () async {
       //mocks
-      when(androidTripAnalysisApi.getTripMetaData)
+      when(androidTripAnalysisApi.getTripMetadata)
           .thenAnswer((_) async => null);
 
       //test
       final metadata =
-          await DriveKitTripAnalysisPlatform.instance.getTripMetaData();
+          await DriveKitTripAnalysisPlatform.instance.getTripMetadata();
       expect(metadata, null);
     });
   });

@@ -18,13 +18,7 @@ class _SliverTripMetadataState extends State<SliverTripMetadata> {
         ElevatedButton(
           onPressed: () async {
             final tripMetadata =
-                await DriveKitTripAnalysis.instance.getTripMetaData();
-            // ignore: unused_local_variable
-            var metaDataCopy = '';
-            tripMetadata?.forEach((key, value) {
-              metaDataCopy += 'key: $key, value: $value\n';
-            });
-
+                await DriveKitTripAnalysis.instance.getTripMetadata();
             final alertMessage = tripMetadata == null
                 ? 'No trip metadata'
                 : tripMetadata.toString();
@@ -34,7 +28,7 @@ class _SliverTripMetadataState extends State<SliverTripMetadata> {
                 context: context,
                 builder: (BuildContext context) {
                   return AlertDialog(
-                    title: const Text('Get trip metadata copy'),
+                    title: const Text('Get trip metadata'),
                     content: Text(alertMessage),
                     actions: <Widget>[
                       TextButton(
@@ -50,7 +44,7 @@ class _SliverTripMetadataState extends State<SliverTripMetadata> {
             }
           },
           child: const Text(
-            'Get trip metadata copy',
+            'Get trip metadata',
           ),
         ),
       ],

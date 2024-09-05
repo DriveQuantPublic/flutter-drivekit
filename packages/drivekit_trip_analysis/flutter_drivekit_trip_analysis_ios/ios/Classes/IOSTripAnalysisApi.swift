@@ -1982,7 +1982,7 @@ protocol IOSTripAnalysisApi {
   func setMonitorPotentialTripStart(activate: Bool) throws
   func setVehicle(vehicle: PigeonVehicle) throws
   func getTripResponseStatus(tripResponse: PigeonPostGenericResponse) throws -> PigeonTripResponseStatus?
-  func getTripMetaData() throws -> [String: String]?
+  func getTripMetadata() throws -> [String: String]?
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
@@ -2157,18 +2157,18 @@ class IOSTripAnalysisApiSetup {
     } else {
       getTripResponseStatusChannel.setMessageHandler(nil)
     }
-    let getTripMetaDataChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.pigeon_trip_analysis_package.IOSTripAnalysisApi.getTripMetaData\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
+    let getTripMetadataChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.pigeon_trip_analysis_package.IOSTripAnalysisApi.getTripMetadata\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
-      getTripMetaDataChannel.setMessageHandler { _, reply in
+      getTripMetadataChannel.setMessageHandler { _, reply in
         do {
-          let result = try api.getTripMetaData()
+          let result = try api.getTripMetadata()
           reply(wrapResult(result))
         } catch {
           reply(wrapError(error))
         }
       }
     } else {
-      getTripMetaDataChannel.setMessageHandler(nil)
+      getTripMetadataChannel.setMessageHandler(nil)
     }
   }
 }

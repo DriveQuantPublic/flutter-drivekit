@@ -230,14 +230,14 @@ void main() {
       });
     });
 
-    test('getTripMetaData calls platform implementation', () async {
-      when(() => driveKitTripAnalysisPlatform.getTripMetaData())
+    test('getTripMetadata calls platform implementation', () async {
+      when(() => driveKitTripAnalysisPlatform.getTripMetadata())
           .thenAnswer((_) async {
         return;
       });
 
-      await DriveKitTripAnalysis.instance.getTripMetaData();
-      verify(() => driveKitTripAnalysisPlatform.getTripMetaData()).called(1);
+      await DriveKitTripAnalysis.instance.getTripMetadata();
+      verify(() => driveKitTripAnalysisPlatform.getTripMetadata()).called(1);
     });
   });
 }

@@ -2472,9 +2472,9 @@ class AndroidTripAnalysisApi {
     }
   }
 
-  Future<Map<String?, String?>?> getTripMetaData() async {
+  Future<Map<String?, String?>?> getTripMetadata() async {
     final String __pigeon_channelName =
-        'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.getTripMetaData$__pigeon_messageChannelSuffix';
+        'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.getTripMetadata$__pigeon_messageChannelSuffix';
     final BasicMessageChannel<Object?> __pigeon_channel =
         BasicMessageChannel<Object?>(
       __pigeon_channelName,

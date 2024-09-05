@@ -172,5 +172,5 @@ class DriveKitTripAnalysisPlugin :
         )
     }
 
-    override fun getTripMetaData(): Map<String, String>? = DriveKitTripAnalysis.getTripMetaData()
+    override fun getTripMetadata(): Map<String, String>? = DriveKitTripAnalysis.getTripMetaData()
 }

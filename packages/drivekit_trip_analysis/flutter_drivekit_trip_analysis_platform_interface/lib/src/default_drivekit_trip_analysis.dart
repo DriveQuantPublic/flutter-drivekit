@@ -102,7 +102,7 @@ class DefaultDriveKitTripAnalysis extends DriveKitTripAnalysisPlatform {
   }
 
   @override
-  Future<Map<String, String>?> getTripMetaData() {
-    throw UnimplementedError('getTripMetaData>() has not been implemented.');
+  Future<Map<String, String>?> getTripMetadata() {
+    throw UnimplementedError('getTripMetadata>() has not been implemented.');
   }
 }

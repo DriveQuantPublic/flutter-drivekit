@@ -30,7 +30,7 @@ abstract class AndroidTripAnalysisApi {
   PigeonTripResponseStatus? getTripResponseStatus(
     PigeonPostGenericResponse tripResponse,
   );
-  Map<String, String>? getTripMetaData();
+  Map<String, String>? getTripMetadata();
 }
 
 @FlutterApi()

@@ -1876,7 +1876,7 @@ interface AndroidTripAnalysisApi {
   fun setMonitorPotentialTripStart(activate: Boolean)
   fun setVehicle(vehicle: PigeonVehicle)
   fun getTripResponseStatus(tripResponse: PigeonPostGenericResponse): PigeonTripResponseStatus?
-  fun getTripMetaData(): Map<String, String>?
+  fun getTripMetadata(): Map<String, String>?
 
   companion object {
     /** The codec used by AndroidTripAnalysisApi. */
@@ -2085,11 +2085,11 @@ interface AndroidTripAnalysisApi {
         }
       }
       run {
-        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.getTripMetaData$separatedMessageChannelSuffix", codec)
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.getTripMetadata$separatedMessageChannelSuffix", codec)
         if (api != null) {
           channel.setMessageHandler { _, reply ->
             val wrapped: List<Any?> = try {
-              listOf(api.getTripMetaData())
+              listOf(api.getTripMetadata())
             } catch (exception: Throwable) {
               wrapError(exception)
             }
