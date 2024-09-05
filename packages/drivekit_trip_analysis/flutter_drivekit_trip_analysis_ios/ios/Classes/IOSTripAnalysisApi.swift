@@ -1978,6 +1978,7 @@ protocol IOSTripAnalysisApi {
   func stopTrip() throws
   func cancelTrip() throws
   func isTripRunning() throws -> Bool
+  func setStopTimeOut(timeOut: Int64) throws
   func isMonitoringPotentialTripStart() throws -> Bool
   func setMonitorPotentialTripStart(activate: Bool) throws
   func setVehicle(vehicle: PigeonVehicle) throws
@@ -2098,6 +2099,21 @@ class IOSTripAnalysisApiSetup {
       }
     } else {
       isTripRunningChannel.setMessageHandler(nil)
+    }
+    let setStopTimeOutChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.pigeon_trip_analysis_package.IOSTripAnalysisApi.setStopTimeOut\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      setStopTimeOutChannel.setMessageHandler { message, reply in
+        let args = message as! [Any?]
+        let timeOutArg = args[0] is Int64 ? args[0] as! Int64 : Int64(args[0] as! Int32)
+        do {
+          try api.setStopTimeOut(timeOut: timeOutArg)
+          reply(wrapResult(nil))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      setStopTimeOutChannel.setMessageHandler(nil)
     }
     let isMonitoringPotentialTripStartChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.pigeon_trip_analysis_package.IOSTripAnalysisApi.isMonitoringPotentialTripStart\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {

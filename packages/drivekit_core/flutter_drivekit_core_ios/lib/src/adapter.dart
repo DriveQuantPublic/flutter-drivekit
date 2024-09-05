@@ -101,3 +101,15 @@ extension PigeonDeviceConfigurationEventAdapter
     };
   }
 }
+
+/// Adapts the [UserInfo] class to the [PigeonUserInfo] class.
+extension UserInfoAdapter on UserInfo {
+  /// Converts a [UserInfo] to a [PigeonUserInfo].
+  PigeonUserInfo toPigeonImplementation() {
+    return PigeonUserInfo(
+      firstname: firstname,
+      lastname: lastname,
+      pseudo: pseudo,
+    );
+  }
+}

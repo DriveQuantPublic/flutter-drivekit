@@ -46,6 +46,15 @@ class DKDeviceConfigurationListener {
   void Function(DKDeviceConfigurationEvent event)? onDeviceConfigurationChanged;
 }
 
+/// Synchronization Type
+enum SynchronizationType {
+  /// synchronize by calling the DriveQuant servers
+  defaultSync,
+
+  /// retrieve already synchronized items in the local database
+  cache
+}
+
 /// Describes the deletion status
 enum DeleteAccountStatus {
   /// Account deleted successfully.
@@ -178,6 +187,25 @@ enum DKDeviceConfigurationEvent {
 
   /// Low power mode is invalid (iOS only)
   lowPowerModeInvalid,
+}
+
+/// UserInfo class
+class UserInfo {
+  /// Creates a UserInfo instance
+  const UserInfo({
+    this.firstname,
+    this.lastname,
+    this.pseudo,
+  });
+
+  /// The user's firstname
+  final String? firstname;
+
+  /// The user's lastname
+  final String? lastname;
+
+  /// The user's pseudo
+  final String? pseudo;
 }
 
 /// Trip class

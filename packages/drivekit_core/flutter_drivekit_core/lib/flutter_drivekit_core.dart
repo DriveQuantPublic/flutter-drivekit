@@ -3,7 +3,7 @@
 import 'package:flutter_drivekit_core_platform_interface/flutter_drivekit_core_platform_interface.dart';
 
 export 'package:flutter_drivekit_core_platform_interface/flutter_drivekit_core_platform_interface.dart'
-    show DKDeviceConfigurationListener, DriveKitListener;
+    show DKDeviceConfigurationListener, DriveKitListener, UserInfo;
 
 DriveKitCorePlatform get _platform => DriveKitCorePlatform.instance;
 
@@ -46,6 +46,10 @@ class DriveKitCore {
   /// To be able to check whenever userId got updated and catch the update
   /// status you have to use [DriveKitListener] listener.
   Future<void> updateUserId(String userId) => _platform.updateUserId(userId);
+
+  /// Update user information data
+  Future<bool> updateUserInfo(UserInfo userInfo) =>
+      _platform.updateUserInfo(userInfo);
 
   /// Resets the DriveKit SDK.
   /// If you need to reset DriveKit configuration (user logout for example),

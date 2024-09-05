@@ -69,21 +69,56 @@ enum PigeonDeviceConfigurationEvent {
   appBatteryOptimisationInvalid,
 }
 
+/// User Info
+class PigeonUserInfo {
+  PigeonUserInfo({
+    this.firstname,
+    this.lastname,
+    this.pseudo,
+  });
+
+  String? firstname;
+
+  String? lastname;
+
+  String? pseudo;
+
+  Object encode() {
+    return <Object?>[
+      firstname,
+      lastname,
+      pseudo,
+    ];
+  }
+
+  static PigeonUserInfo decode(Object result) {
+    result as List<Object?>;
+    return PigeonUserInfo(
+      firstname: result[0] as String?,
+      lastname: result[1] as String?,
+      pseudo: result[2] as String?,
+    );
+  }
+}
+
 class _PigeonCodec extends StandardMessageCodec {
   const _PigeonCodec();
   @override
   void writeValue(WriteBuffer buffer, Object? value) {
-    if (value is PigeonDeleteAccountStatus) {
+    if (value is PigeonUserInfo) {
       buffer.putUint8(129);
-      writeValue(buffer, value.index);
-    } else if (value is PigeonRequestError) {
+      writeValue(buffer, value.encode());
+    } else if (value is PigeonDeleteAccountStatus) {
       buffer.putUint8(130);
       writeValue(buffer, value.index);
-    } else if (value is PigeonUpdateUserIdStatus) {
+    } else if (value is PigeonRequestError) {
       buffer.putUint8(131);
       writeValue(buffer, value.index);
-    } else if (value is PigeonDeviceConfigurationEvent) {
+    } else if (value is PigeonUpdateUserIdStatus) {
       buffer.putUint8(132);
+      writeValue(buffer, value.index);
+    } else if (value is PigeonDeviceConfigurationEvent) {
+      buffer.putUint8(133);
       writeValue(buffer, value.index);
     } else {
       super.writeValue(buffer, value);
@@ -94,15 +129,17 @@ class _PigeonCodec extends StandardMessageCodec {
   Object? readValueOfType(int type, ReadBuffer buffer) {
     switch (type) {
       case 129:
-        final int? value = readValue(buffer) as int?;
-        return value == null ? null : PigeonDeleteAccountStatus.values[value];
+        return PigeonUserInfo.decode(readValue(buffer)!);
       case 130:
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : PigeonRequestError.values[value];
+        return value == null ? null : PigeonDeleteAccountStatus.values[value];
       case 131:
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : PigeonUpdateUserIdStatus.values[value];
+        return value == null ? null : PigeonRequestError.values[value];
       case 132:
+        final int? value = readValue(buffer) as int?;
+        return value == null ? null : PigeonUpdateUserIdStatus.values[value];
+      case 133:
         final int? value = readValue(buffer) as int?;
         return value == null
             ? null
@@ -221,6 +258,35 @@ class AndroidCoreApi {
       );
     } else {
       return;
+    }
+  }
+
+  Future<bool> updateUserInfo(PigeonUserInfo userInfo) async {
+    final String __pigeon_channelName =
+        'dev.flutter.pigeon.pigeon_core_package.AndroidCoreApi.updateUserInfo$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel =
+        BasicMessageChannel<Object?>(
+      __pigeon_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: __pigeon_binaryMessenger,
+    );
+    final List<Object?>? __pigeon_replyList =
+        await __pigeon_channel.send(<Object?>[userInfo]) as List<Object?>?;
+    if (__pigeon_replyList == null) {
+      throw _createConnectionError(__pigeon_channelName);
+    } else if (__pigeon_replyList.length > 1) {
+      throw PlatformException(
+        code: __pigeon_replyList[0]! as String,
+        message: __pigeon_replyList[1] as String?,
+        details: __pigeon_replyList[2],
+      );
+    } else if (__pigeon_replyList[0] == null) {
+      throw PlatformException(
+        code: 'null-error',
+        message: 'Host platform returned null value for non-null return value.',
+      );
+    } else {
+      return (__pigeon_replyList[0] as bool?)!;
     }
   }
 

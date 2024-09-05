@@ -87,6 +87,16 @@ class DriveKitTripAnalysis {
     return _platform.isTripRunning();
   }
 
+  /// A trip being analyzed is automatically stopped after a period of
+  /// inactivity (which begins when the vehicle has stopped).
+  /// The DriveQuant SDK allows to set the end-of-trip duration.
+  /// By default, the trip analysis is stopped after 240 seconds.
+  /// This value can be tuned according to your need and you can choose any
+  /// integer values between 120 and 480 seconds.
+  Future<void> setStopTimeOut(int timeOut) async {
+    await _platform.setStopTimeOut(timeOut);
+  }
+
   /// Returns true if the monitor potential trip start is activated
   Future<bool> isMonitoringPotentialTripStart() async {
     return _platform.isMonitoringPotentialTripStart();

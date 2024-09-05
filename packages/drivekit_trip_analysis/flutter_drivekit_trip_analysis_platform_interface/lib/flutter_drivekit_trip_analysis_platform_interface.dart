@@ -61,6 +61,10 @@ abstract class DriveKitTripAnalysisPlatform extends PlatformInterface {
   /// and no trip is currently running.
   Future<bool> isTripRunning();
 
+  /// Set a custom stop timeout value in seconds.
+  /// Default value is 240 seconds.
+  Future<void> setStopTimeOut(int timeOut);
+
   /// Returns true if the monitor potential trip is activated.
   Future<bool> isMonitoringPotentialTripStart();
 

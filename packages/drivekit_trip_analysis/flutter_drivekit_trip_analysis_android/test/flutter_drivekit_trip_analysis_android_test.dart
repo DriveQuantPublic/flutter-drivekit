@@ -127,6 +127,18 @@ void main() {
       expect(isRunning, false);
     });
 
+    test('setStopTimeOut calls ios implementation with correct argument',
+        () async {
+      //mock
+      when(() => androidTripAnalysisApi.setStopTimeOut(any()))
+          .thenAnswer((_) async {});
+
+      //test
+      await DriveKitTripAnalysisPlatform.instance.setStopTimeOut(222);
+      verify(() => androidTripAnalysisApi.setStopTimeOut(222)).called(1);
+      verifyNever(() => androidTripAnalysisApi.setStopTimeOut(240));
+    });
+
     test('isMonitoringPotentialTripStart calls Android implementation,',
         () async {
       //mocks

@@ -21,6 +21,7 @@ abstract class IOSTripAnalysisApi {
   void stopTrip();
   void cancelTrip();
   bool isTripRunning();
+  void setStopTimeOut(int timeOut);
   bool isMonitoringPotentialTripStart();
   void setMonitorPotentialTripStart(bool activate);
   void setVehicle(PigeonVehicle vehicle);

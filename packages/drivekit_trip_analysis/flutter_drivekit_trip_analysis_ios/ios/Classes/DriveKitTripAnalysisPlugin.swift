@@ -53,6 +53,10 @@ public class DriveKitTripAnalysisPlugin: NSObject, FlutterPlugin, IOSTripAnalysi
         return DriveKitTripAnalysis.shared.isTripRunning()
     }
 
+    public func setStopTimeOut(timeOut: Int64) {
+        DriveKitTripAnalysis.shared.setStopTimeOut(timeOut: Int(timeOut))
+    }
+
     func isMonitoringPotentialTripStart() throws -> Bool {
         return DriveKitTripAnalysis.shared.monitorPotentialTripStart
     }

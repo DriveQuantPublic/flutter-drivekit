@@ -75,6 +75,8 @@ class DriveKitTripAnalysisPlugin :
 
     override fun isTripRunning(): Boolean = DriveKitTripAnalysis.isTripRunning()
 
+    override fun setStopTimeOut(timeOut: Long) = DriveKitTripAnalysis.setStopTimeOut(timeOut.toInt())
+
     override fun isMonitoringPotentialTripStart(): Boolean =
         DriveKitTripAnalysis.monitorPotentialTripStart
 

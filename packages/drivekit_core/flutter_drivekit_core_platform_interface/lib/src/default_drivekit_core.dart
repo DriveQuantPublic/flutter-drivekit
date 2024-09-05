@@ -31,6 +31,11 @@ class DefaultDriveKitCore extends DriveKitCorePlatform {
   }
 
   @override
+  Future<bool> updateUserInfo(UserInfo userInfo) {
+    throw UnimplementedError('updateUserInfo() has not been implemented.');
+  }
+
+  @override
   Future<void> reset() {
     throw UnimplementedError('reset() has not been implemented.');
   }
