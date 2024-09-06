@@ -90,6 +90,14 @@ public class DriveKitTripAnalysisPlugin: NSObject, FlutterPlugin, IOSTripAnalysi
     func setTripMetadata(metadata: [String: String]?) {
         DriveKitTripAnalysis.shared.setTripMetadata(metadata)
     }
+
+    func deleteTripMetadata(key: String) {
+        DriveKitTripAnalysis.shared.deleteTripMetadata(key: key)
+    }
+
+    func deleteAllTripMetadata() {
+        DriveKitTripAnalysis.shared.deleteTripMetadata()
+    }
 }
 
 extension DriveKitTripAnalysisPlugin: TripListener {

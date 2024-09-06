@@ -1880,6 +1880,8 @@ interface AndroidTripAnalysisApi {
   fun getTripMetadata(): Map<String, String>?
   fun updateTripMetadata(key: String, value: String?)
   fun setTripMetadata(metadata: Map<String, String>?)
+  fun deleteTripMetadata(key: String)
+  fun deleteAllTripMetadata()
 
   companion object {
     /** The codec used by AndroidTripAnalysisApi. */
@@ -2147,6 +2149,40 @@ interface AndroidTripAnalysisApi {
             val metadataArg = args[0] as Map<String, String>?
             val wrapped: List<Any?> = try {
               api.setTripMetadata(metadataArg)
+              listOf(null)
+            } catch (exception: Throwable) {
+              wrapError(exception)
+            }
+            reply.reply(wrapped)
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.deleteTripMetadata$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { message, reply ->
+            val args = message as List<Any?>
+            val keyArg = args[0] as String
+            val wrapped: List<Any?> = try {
+              api.deleteTripMetadata(keyArg)
+              listOf(null)
+            } catch (exception: Throwable) {
+              wrapError(exception)
+            }
+            reply.reply(wrapped)
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.deleteAllTripMetadata$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { _, reply ->
+            val wrapped: List<Any?> = try {
+              api.deleteAllTripMetadata()
               listOf(null)
             } catch (exception: Throwable) {
               wrapError(exception)

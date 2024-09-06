@@ -82,10 +82,8 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 | [getTripResponseStatus()](#getTripResponseStatus)                  | `Future<TripResponseStatus>`    | ✅   | ✅       |
 | [getTripMetadata()](#gettripmetadata)                              | `Future<Map<String, String>?`   | ✅   | ✅       |
 | [updateTripMetadata()](#updatetripmetadata)                        | `Future<void>`                  | ✅   | ✅       |
-
-
-
-
+| [deleteTripMetadata()](#deletetripmetadata)                        | `Future<void>`                  | ✅   | ✅       |
+| [deleteAllTripMetadata()](#deletealltripmetadata)                  | `Future<void>`                  | ✅   | ✅       |
 
 
 ### isAutoStartActivated
@@ -455,7 +453,6 @@ The metadata can be set any time before the end of a trip.
 > If metadata is sent, it will also be added to the push data request in the metaData field.
 
 
-
 ### updateTripMetadata
 
 You can update a value in metadata for a specific key
@@ -468,4 +465,32 @@ To do this, call the following method:
 
 ```dart
 await DriveKitTripAnalysis.instance.updateTripMetadata('key', 'newValue');
+```
+
+### deleteTripMetadata
+
+You can delete a value in metadata for a specific key
+
+```dart
+Future<void> deleteTripMetadata(String key)
+```
+
+To do this, call the following method:
+
+```dart
+await DriveKitTripAnalysis.instance.deleteTripMetadata('key');
+```
+
+### deleteAllTripMetadata
+
+You can delete all values in trip metadata
+
+```dart
+Future<void> deleteAllTripMetadata()
+```
+
+To do this, call the following method:
+
+```dart
+await DriveKitTripAnalysis.instance.deleteAllTripMetadata();
 ```

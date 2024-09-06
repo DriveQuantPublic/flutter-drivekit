@@ -31,6 +31,8 @@ abstract class IOSTripAnalysisApi {
   Map<String, String>? getTripMetadata();
   void updateTripMetadata(String key, String? value);
   void setTripMetadata(Map<String, String>? metadata);
+  void deleteTripMetadata(String key);
+  void deleteAllTripMetadata();
 }
 
 @FlutterApi()

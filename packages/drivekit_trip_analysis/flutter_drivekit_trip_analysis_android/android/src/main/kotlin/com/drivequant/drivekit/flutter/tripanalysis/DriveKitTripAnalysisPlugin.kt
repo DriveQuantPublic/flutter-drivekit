@@ -184,4 +184,12 @@ class DriveKitTripAnalysisPlugin :
     override fun setTripMetadata(metadata: Map<String, String>?) {
         DriveKitTripAnalysis.setTripMetaData(metadata?.let { HashMap(it) })
     }
+
+    override fun deleteTripMetadata(key: String) {
+        DriveKitTripAnalysis.deleteTripMetaData(key)
+    }
+
+    override fun deleteAllTripMetadata() {
+        DriveKitTripAnalysis.deleteTripMetaData()
+    }
 }

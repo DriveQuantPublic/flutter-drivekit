@@ -188,4 +188,11 @@ class DriveKitTripAnalysis {
   /// metaData field.
   Future<void> setTripMetadata(Map<String, String>? metadata) =>
       _platform.setTripMetadata(metadata);
+
+  /// Call this method to delete a specific trip metadata
+  Future<void> deleteTripMetadata(String key) =>
+      _platform.deleteTripMetadata(key);
+
+  /// Call this method to delete all trip metadata values
+  Future<void> deleteAllTripMetadata() => _platform.deleteAllTripMetadata();
 }

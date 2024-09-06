@@ -100,4 +100,10 @@ abstract class DriveKitTripAnalysisPlatform extends PlatformInterface {
 
   /// Set trip metadata
   Future<void> setTripMetadata(Map<String, String>? metadata);
+
+  /// Delete a specific value in trip metadata
+  Future<void> deleteTripMetadata(String key);
+
+  /// Delete all values in trip metadata
+  Future<void> deleteAllTripMetadata();
 }
