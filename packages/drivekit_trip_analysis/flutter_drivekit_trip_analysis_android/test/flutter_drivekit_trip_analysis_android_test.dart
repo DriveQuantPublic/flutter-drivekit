@@ -590,8 +590,9 @@ void main() {
             .called(1);
       });
 
-      test('deleteTripMetadata calls and. implementation with correct argument',
-          () async {
+      test(
+          'deleteTripMetadata calls android implementation with correct'
+          ' argument', () async {
         //mock
         when(() => androidTripAnalysisApi.deleteTripMetadata(any()))
             .thenAnswer((_) async {});
