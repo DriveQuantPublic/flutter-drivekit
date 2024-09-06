@@ -60,21 +60,21 @@ packages:
       path: "../flutter_drivekit_trip_simulator_android"
       relative: true
     source: path
-    version: "0.0.5"
+    version: "1.0.0"
   flutter_drivekit_trip_simulator_ios:
     dependency: "direct main"
     description:
       path: "../flutter_drivekit_trip_simulator_ios"
       relative: true
     source: path
-    version: "0.0.5"
+    version: "1.0.0"
   flutter_drivekit_trip_simulator_platform_interface:
     dependency: "direct main"
     description:
       path: "../flutter_drivekit_trip_simulator_platform_interface"
       relative: true
     source: path
-    version: "0.0.5"
+    version: "1.0.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter

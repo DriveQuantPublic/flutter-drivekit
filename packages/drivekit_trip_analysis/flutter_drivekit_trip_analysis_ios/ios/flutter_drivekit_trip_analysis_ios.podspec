@@ -3,7 +3,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'flutter_drivekit_trip_analysis_ios'
-  s.version          = '0.0.5'
+  s.version          = '1.0.0'
   s.summary          = 'An iOS implementation of the drivekit_trip_analysis plugin.'
   s.description      = <<-DESC
   An iOS implementation of the drivekit_trip_analysis plugin.
