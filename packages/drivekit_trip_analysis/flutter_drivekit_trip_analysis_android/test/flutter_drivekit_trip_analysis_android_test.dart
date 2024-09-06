@@ -591,8 +591,9 @@ void main() {
       });
 
       test(
-          'deleteTripMetadata calls android implementation with correct'
-          ' argument', () async {
+          // ignore: lines_longer_than_80_chars
+          'deleteTripMetadata calls android implementation with correct argument',
+          () async {
         //mock
         when(() => androidTripAnalysisApi.deleteTripMetadata(any()))
             .thenAnswer((_) async {});
