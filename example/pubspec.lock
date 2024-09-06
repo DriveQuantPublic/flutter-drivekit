@@ -133,7 +133,7 @@ packages:
       path: "../packages/drivekit_driver_data/flutter_drivekit_driver_data_platform_interface"
       relative: true
     source: path
-    version: "1.0.0
+    version: "1.0.0"
   flutter_drivekit_trip_analysis:
     dependency: "direct main"
     description:
