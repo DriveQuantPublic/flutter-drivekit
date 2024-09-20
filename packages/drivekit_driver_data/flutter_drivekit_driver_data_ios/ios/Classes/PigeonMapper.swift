@@ -126,7 +126,7 @@ extension PigeonTrip {
         if let declaredTransportationMode = trip.declaredTransportationMode {
             self.declaredTransportationMode = PigeonDeclaredTransportationMode(from: declaredTransportationMode)
         }
-        self.metaData = trip.metadata as? [String?: String?]
+        self.metaData = trip.metadata
         self.transportationMode = Int64(trip.transportationMode)
         self.unscored = trip.unscored
         if let calls = trip.calls?.allObjects as? [Call] {
@@ -528,15 +528,15 @@ extension PigeonGetRouteResponse {
 extension PigeonRoute {
     init(from route: Route) {
         self.init(
-            callIndex: (route.callIndex as? [Int])?.map { Int64($0) },
-            callTime: (route.callTime as? [Int])?.map { Int64($0) },
+            callIndex: route.callIndex?.map { Int64($0) },
+            callTime: route.callTime?.map { Int64($0) },
             itinId: route.itinId,
-            latitude: route.latitude as? [Double],
-            longitude: route.longitude as? [Double],
-            screenLockedIndex: (route.screenLockedIndex as? [Int])?.map { Int64($0) },
-            screenLockedTime: (route.screenLockedTime as? [Int])?.map { Int64($0) },
-            speedingIndex: (route.speedingIndex as? [Int])?.map { Int64($0) },
-            speedingTime: (route.speedingTime as? [Int])?.map { Int64($0) }
+            latitude: route.latitude,
+            longitude: route.longitude,
+            screenLockedIndex: route.screenLockedIndex?.map { Int64($0) },
+            screenLockedTime: route.screenLockedTime?.map { Int64($0) },
+            speedingIndex: route.speedingIndex?.map { Int64($0) },
+            speedingTime: route.speedingTime?.map { Int64($0) }
             )
     }
 }

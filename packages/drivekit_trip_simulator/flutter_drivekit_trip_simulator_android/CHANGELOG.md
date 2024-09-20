@@ -1,3 +1,7 @@
+# 1.1.1
+
+    - version 1.1.1 of DriveKit flutter SDK
+
 # 1.1.0
 
     - version 1.1.0 of DriveKit flutter SDK
