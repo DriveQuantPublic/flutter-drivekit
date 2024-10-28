@@ -85,11 +85,6 @@ abstract class DriveKitTripAnalysisPlatform extends PlatformInterface {
   /// Remove all trip listeners
   void removeAllTripListeners();
 
-  /// Indicates if the analyzed trip is valid or not
-  Future<TripResponseStatus?> getTripResponseStatus(
-    PostGenericResponse tripResponse,
-  );
-
   /// It is possible to get a copy of configured metadata.
   /// Any modification on the returned object has no effect on the metadata sent
   /// with a trip.

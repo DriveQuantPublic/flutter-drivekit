@@ -1,6 +1,7 @@
 import DriveKitCoreModule
 import CoreLocation
 import DriveKitTripAnalysisModule
+import DriveKitDBTripAccessModule
 
 class PigeonMapper {
     static func initTripVehicle(from pigeonVehicle: PigeonVehicle) -> TripVehicle {
@@ -97,43 +98,6 @@ extension PigeonState {
     }
 }
 
-extension PigeonPostGeneric {
-    init(from post: PostGeneric) {
-        if let route = post.route {
-            self.route = PigeonRoute(from: route)
-        }
-        if let itineraryData = post.itineraryData {
-            self.itineraryData = PigeonItineraryData(from: itineraryData)
-        }
-        if let metaData = post.metaData {
-            self.metaData = metaData
-        }
-        if let vehicle = post.vehicle {
-            self.vehicle = PigeonVehicle(from: vehicle)
-        }
-    }
-}
-
-extension PigeonRoute {
-    init(from route: Route) {
-        self.init(
-            gpsDate: route.gpsDate,
-            gpsVelocity: route.gpsVelocity,
-            longitude: route.longitude,
-            latitude: route.latitude,
-            gpsElevation: route.gpsElevation,
-            gpsAccuracy: route.gpsAccuracy,
-            gpsHeading: route.gpsHeading,
-            screenLocked: route.screenLocked,
-            activityValue: route.activityValue,
-            roll: route.roll.map({ Int64($0) }),
-            pitch: route.pitch.map({ Int64($0) }),
-            yaw: route.yaw.map({ Int64($0) }),
-            gyroscopeNormVar: route.gyroscopeNormVar.map({ Int64($0) })
-        )
-    }
-}
-
 extension PigeonItineraryData {
     init(from itineraryData: ItineraryData) {
         self.init(
@@ -168,110 +132,25 @@ extension PigeonVehicle {
     }
 }
 
-extension PigeonPostGenericResponse {
-    init (from postGenericResponse: PostGenericResponse) {
-        self.status = postGenericResponse.status
-        if let itinId = postGenericResponse.itinId {
-            self.itinId = itinId
-        }
-        if let comments = postGenericResponse.comments {
-            self.comments = comments.map({
-                PigeonComment(errorCode: Int64($0.errorCode), comment: $0.comment)
-            })
+extension PigeonTripResponseStatus {
+    init (from tripResponseStatus: TripResponseStatus) {
+        if let error = tripResponseStatus.error {
+            self.error = PigeonTripResponseError(from: error)
         } else {
-            self.comments = []
+            self.error = nil
         }
-        if let userId = postGenericResponse.userId {
-            self.userId = userId
+        self.info = tripResponseStatus.info.compactMap { PigeonTripResponseInfoItem(info: PigeonTripResponseInfo(from: $0)) }
+        self.itinId = tripResponseStatus.itinId
+        self.hasSafetyAndEcoDrivingScore = tripResponseStatus.hasSafetyAndEcoDrivingScore
+        self.status = PigeonTripResponseStatusType(from: tripResponseStatus.status)
+        if let trip = tripResponseStatus.getTrip() {
+            self.trip = PigeonTrip(from: trip)
         }
-        if let itineraryStatistics = postGenericResponse.itineraryStatistics {
-            self.itineraryStatistics = PigeonItineraryStatistics(from: itineraryStatistics)
-        }
-        if let ecoDriving = postGenericResponse.ecoDriving {
-            self.ecoDriving = PigeonEcoDriving(from: ecoDriving)
-        }
-        if let fuelEstimation = postGenericResponse.fuelEstimation {
-            self.fuelEstimation = PigeonFuelEstimation(from: fuelEstimation)
-        }
-        if let safety = postGenericResponse.safety {
-            self.safety = PigeonSafety(from: safety)
-        }
-        if let advancedEcoDriving = postGenericResponse.advancedEcoDriving {
-            self.advancedEcoDriving = PigeonAdvancedEcoDriving(from: advancedEcoDriving)
-        }
-        if let advancedFuelEstimation = postGenericResponse.advancedFuelEstimation {
-            self.advancedFuelEstimation = PigeonAdvancedFuelEstimation(from: advancedFuelEstimation)
-        }
-        if let advancedSafety = postGenericResponse.advancedSafety {
-            self.advancedSafety = PigeonAdvancedSafety(from: advancedSafety)
-        }
-        if let pollutants = postGenericResponse.pollutants {
-            self.pollutants = PigeonPollutants(from: pollutants)
-        }
-        if let tireWear = postGenericResponse.tireWear {
-            self.tireWear = PigeonTireWear(from: tireWear)
-        }
-        if let brakeWear = postGenericResponse.brakeWear {
-            self.brakeWear = PigeonBrakeWear(from: brakeWear)
-        }
-        if let driverDistraction = postGenericResponse.driverDistraction {
-            self.driverDistraction = PigeonDriverDistraction(from: driverDistraction)
-        }
-        if let itineraryData = postGenericResponse.itineraryData {
-            self.itineraryData = PigeonItineraryData(from: itineraryData)
-        }
-        self.endDate = postGenericResponse.endDate
-        if let logbook = postGenericResponse.logbook {
-            self.logbook = PigeonLogbook(from: logbook)
-        }
-        if let safetyEvents = postGenericResponse.safetyEvents {
-            self.safetyEvents = safetyEvents.map({
-                PigeonSafetyEvent(from: $0)
-            })
-        }
-        if let callEvents = postGenericResponse.callEvents {
-            self.callEvents = callEvents.map({
-                PigeonCallEvent(from: $0)
-            })
-        }
-        if let speedingEvents = postGenericResponse.speedingEvents {
-            self.speedingEvents = speedingEvents.map({
-                PigeonSpeedingEvent(from: $0)
-            })
-        }
-        if let speedingStatistics = postGenericResponse.speedingStatistics {
-            self.speedingStatistics = PigeonSpeedingStatistics(from: speedingStatistics)
-        }
-        if let energyEstimation = postGenericResponse.energyEstimation {
-            self.energyEstimation = PigeonEnergyEstimation(from: energyEstimation)
-        }
-        if let advancedEnergyEstimation = postGenericResponse.advancedEnergyEstimation {
-            self.advancedEnergyEstimation = advancedEnergyEstimation.map({
-                PigeonAdvancedEnergyEstimation(from: $0)
-            })
-        }
-    }
-}
-
-extension PigeonItineraryStatistics {
-    init (from itineraryStatistics: ItineraryStatistics) {
-        self.tripDuration = itineraryStatistics.tripDuration
-        self.drivingDuration = itineraryStatistics.drivingDuration
-        self.idlingDuration = itineraryStatistics.idlingDuration
-        self.drivingPercentage = itineraryStatistics.drivingPercentage
-        self.idlingPercentage = itineraryStatistics.idlingPercentage
-        self.distance = itineraryStatistics.distance
-        self.speedMean = itineraryStatistics.speedMean
-        self.subdispNb = Int64(itineraryStatistics.subdispNb)
-        self.meteo = Int64(itineraryStatistics.meteo)
-        self.day = itineraryStatistics.day
-        self.weekDay = itineraryStatistics.weekDay
-        self.transportationMode = Int64(itineraryStatistics.transportationMode)
     }
 }
 
 extension PigeonEcoDriving {
-    init (from ecoDriving: EcoDriving) {
+    init (from ecoDriving: DriveKitDBTripAccessModule.EcoDriving) {
         self.init(
             score: ecoDriving.score,
             scoreAccel: ecoDriving.scoreAccel,
@@ -286,7 +165,7 @@ extension PigeonEcoDriving {
 }
 
 extension PigeonFuelEstimation {
-    init (from fuelEstimation: FuelEstimation) {
+    init (from fuelEstimation: DriveKitDBTripAccessModule.FuelEstimation) {
         self.init(
             co2Mass: fuelEstimation.co2Mass,
             co2Emission: fuelEstimation.co2Emission,
@@ -304,7 +183,7 @@ extension PigeonFuelEstimation {
 }
 
 extension PigeonSafety {
-    init(from safety: Safety) {
+    init(from safety: DriveKitDBTripAccessModule.Safety) {
         self.init(
             nbAdh: Int64(safety.nbAdh),
             nbAccel: Int64(safety.nbAccel),
@@ -387,7 +266,7 @@ extension PigeonAdvancedSafety {
 }
 
 extension PigeonPollutants {
-    init(from polluants: Pollutants) {
+    init(from polluants: DriveKitDBTripAccessModule.Pollutants) {
         self.init(
             co: polluants.co,
             hc: polluants.hc,
@@ -398,7 +277,7 @@ extension PigeonPollutants {
 }
 
 extension PigeonTireWear {
-    init(from tireWear: TireWear) {
+    init(from tireWear: DriveKitDBTripAccessModule.TireWear) {
         self.init(
             frontTireAutonomy: Int64(tireWear.frontTireAutonomy),
             frontTireDistance: Int64(tireWear.frontTireDistance),
@@ -415,7 +294,7 @@ extension PigeonTireWear {
 }
 
 extension PigeonBrakeWear {
-    init(from brakeWear: BrakeWear) {
+    init(from brakeWear: DriveKitDBTripAccessModule.BrakeWear) {
         self.init(
             frontBrakeAutonomy: Int64(brakeWear.frontBrakeAutonomy),
             frontBrakeDistance: Int64(brakeWear.frontBrakeDistance),
@@ -427,28 +306,6 @@ extension PigeonBrakeWear {
             rearBrakePadWear: Int64(brakeWear.rearBrakePadWear),
             rearBrakeTotalWear: Int64(brakeWear.rearBrakeTotalWear),
             rearBrakeWearRate: Int64(brakeWear.rearBrakeWearRate)
-        )
-    }
-}
-
-extension PigeonDriverDistraction {
-    init(from driverDistraction: DriverDistraction) {
-        self.init(
-            nbUnlock: Int64(driverDistraction.nbUnlock),
-            durationUnlock: driverDistraction.durationUnlock,
-            durationPercentUnlock: driverDistraction.durationPercentUnlock,
-            distanceUnlock: driverDistraction.distanceUnlock,
-            distancePercentUnlock: driverDistraction.distancePercentUnlock,
-            score: driverDistraction.score
-        )
-    }
-}
-
-extension PigeonLogbook {
-    init(from logbook: Logbook) {
-        self.init(
-            status: Int64(logbook.status),
-            updateDate: logbook.updateDate
         )
     }
 }
@@ -470,38 +327,6 @@ extension PigeonSafetyEvent {
     }
 }
 
-extension PigeonCallEvent {
-    init(from callEvent: CallEvent) {
-        self.init(
-            time: callEvent.time,
-            latitude: callEvent.latitude,
-            longitude: callEvent.longitude,
-            velocity: callEvent.velocity,
-            heading: callEvent.heading,
-            elevation: callEvent.elevation,
-            distance: callEvent.distance,
-            type: Int64(callEvent.type),
-            duration: Int64(callEvent.duration),
-            audioSystem: callEvent.audioSystem,
-            callType: callEvent.callType,
-            index: Int64(callEvent.index),
-            forbidden: callEvent.forbidden
-        )
-    }
-}
-
-extension PigeonSpeedingEvent {
-    init(from speedingEvent: SpeedingEvent) {
-        self.init(
-            time: speedingEvent.time,
-            longitude: speedingEvent.longitude,
-            latitude: speedingEvent.latitude,
-            type: speedingEvent.type,
-            index: Int64(speedingEvent.index)
-        )
-    }
-}
-
 extension PigeonSpeedingStatistics {
     init(from speedingStatistics: SpeedingStatistics) {
         self.init(
@@ -509,10 +334,7 @@ extension PigeonSpeedingStatistics {
             duration: Int64(speedingStatistics.duration),
             speedingDistance: Int64(speedingStatistics.speedingDistance),
             speedingDuration: Int64(speedingStatistics.speedingDuration),
-            score: speedingStatistics.score,
-            speedLimitContexts: speedingStatistics.speedLimitContexts.map({
-                PigeonSpeedLimitContext(from: $0)
-            })
+            score: speedingStatistics.score
         )
     }
 }
@@ -705,54 +527,354 @@ extension PigeonTripResponseError {
     }
 }
 
-extension PigeonPostGenericResponse {
-    func getStatus() -> PigeonTripResponseStatus {
-        if self.isValid() {
-            let info: [PigeonTripResponseInfoItem] = self.comments.compactMap {pigeonComment in
-                if let pigeonComment,
-                   let tripResponseInfo = TripResponseInfo(rawValue: Int(pigeonComment.errorCode)) {
-                    return PigeonTripResponseInfoItem(
-                        info: PigeonTripResponseInfo(from: tripResponseInfo)
+extension PigeonTripResponseStatusType {
+    init(from tripResponseStatusType: TripResponseStatusType) {
+        switch tripResponseStatusType {
+            case .tripValid:
+                self = .tripValid
+            case .tripError:
+                self = .tripError
+            @unknown default:
+                fatalError()
+        }
+    }
+}
+
+extension PigeonTrip {
+    init (from trip: Trip) {
+        if let itinId = trip.itinId {
+            self.itinId = itinId
+        }
+        if let startDate = trip.startDate {
+            self.startDate = DateUtils.convertDateToString(date: startDate)
+        }
+        if let endDate = trip.endDate {
+            self.endDate = DateUtils.convertDateToString(date: endDate)
+        }
+        self.departureCity = trip.departureCity
+        self.arrivalCity = trip.arrivalCity
+        self.departureAddress = trip.departureAddress
+        self.arrivalAddress = trip.arrivalAddress
+        self.vehicleId = trip.vehicleId
+        if let tripStatistics = trip.tripStatistics {
+            self.tripStatistics = PigeonTripStatistics(from: tripStatistics)
+        }
+        if let ecoDriving = trip.ecoDriving {
+            self.ecoDriving = PigeonEcoDriving(from: ecoDriving)
+        }
+        if let fuelEstimation = trip.fuelEstimation {
+            self.fuelEstimation = PigeonFuelEstimation(from: fuelEstimation)
+        }
+        if let safety = trip.safety {
+            self.safety = PigeonSafety(from: safety)
+        }
+        if let advancedEcoDrivingContexts = trip.ecoDrivingContexts?.allObjects as? [DriveKitDBTripAccessModule.EcoDrivingContext] {
+            self.advancedEcoDriving = PigeonAdvancedEcoDriving(from: advancedEcoDrivingContexts)
+        }
+        if let advancedFuelEstimationContexts = trip.fuelEstimationContexts?.allObjects as? [DriveKitDBTripAccessModule.FuelEstimationContext] {
+            self.advancedFuelEstimation = PigeonAdvancedFuelEstimation(from: advancedFuelEstimationContexts)
+        }
+        if let advancedSafetyContexts = trip.safetyContexts?.allObjects as? [DriveKitDBTripAccessModule.SafetyContext] {
+            self.advancedSafety = PigeonAdvancedSafety(from: advancedSafetyContexts)
+        }
+        if let pollutants = trip.pollutants {
+            self.pollutants = PigeonPollutants(from: pollutants)
+        }
+        if let tireWear = trip.tireWear {
+            self.tireWear = PigeonTireWear(from: tireWear)
+        }
+        if let brakeWear = trip.brakeWear {
+            self.brakeWear = PigeonBrakeWear(from: brakeWear)
+        }
+        if let driverDistraction = trip.driverDistraction {
+            self.driverDistraction = PigeonDriverDistraction(from: driverDistraction)
+        }
+        self.itineraryData = PigeonItineraryData(
+            startDate: (trip.startDate != nil) ? DateUtils.convertDateToString(date: trip.startDate!) : nil,
+            endDate: (trip.endDate != nil) ? DateUtils.convertDateToString(date: trip.endDate!) : nil,
+            departureCity: trip.departureCity,
+            arrivalCity: trip.arrivalCity,
+            departureAddress: trip.departureAddress,
+            arrivalAddress: trip.arrivalAddress
+        )
+        if let logbook = trip.logbook {
+            self.logbook = PigeonLogbook(from: logbook)
+        }
+
+        if let safetyEvents = trip.safetyEvents?.allObjects as? [SafetyEvents] {
+            self.safetyEvents = safetyEvents.map({
+                PigeonSafetyEvent(from: $0)
+            })
+        }
+        if let speedingStatistics = trip.speedingStatistics {
+            self.speedingStatistics = PigeonSpeedingStatistics(from: speedingStatistics)
+        }
+        if let energyEstimation = trip.energyEstimation {
+            self.energyEstimation = PigeonEnergyEstimation(from: energyEstimation)
+        }
+        if let advancedEnergyEstimation = trip.advancedEnergyEstimation?.allObjects as? [DBAdvancedEnergyEstimation] {
+            self.advancedEnergyEstimation = advancedEnergyEstimation.map({
+                PigeonAdvancedEnergyEstimation(from: $0)
+            })
+        }
+        if let tripAdvicesData = trip.tripAdvices?.allObjects as? [TripAdvice] {
+            self.tripAdvicesData = tripAdvicesData.map { PigeonTripAdviceData(from: $0) }
+        }
+        if let maneuverData = trip.maneuver {
+            self.maneuverData = PigeonManeuverData(from: maneuverData)
+        }
+        if let evaluationData = trip.evaluation {
+            self.evaluationData = PigeonEvaluationData(from: evaluationData)
+        }
+        if let declaredTransportationMode = trip.declaredTransportationMode {
+            self.declaredTransportationMode = PigeonDeclaredTransportationMode(from: declaredTransportationMode)
+        }
+        self.metaData = trip.metadata
+        self.transportationMode = Int64(trip.transportationMode)
+        self.unscored = trip.unscored
+        if let calls = trip.calls?.allObjects as? [DriveKitDBTripAccessModule.Call] {
+            self.calls = calls.compactMap { PigeonCall(from: $0) }
+        }
+        if let speedLimitContexts = trip.speedLimitContexts?.allObjects as? [DBSpeedLimitContext] {
+            self.speedLimitContexts = speedLimitContexts.map { PigeonSpeedLimitContext(from: $0) }
+        }
+    }
+}
+
+extension PigeonTripStatistics {
+    init (from tripStatistics: TripStatistics) {
+        self.tripDuration = Double(tripStatistics.duration)
+        self.drivingDuration = tripStatistics.drivingDuration
+        self.idlingDuration = tripStatistics.idlingDuration
+        self.drivingPercentage = tripStatistics.drivingPercentage
+        self.idlingPercentage = tripStatistics.idlingPercentage
+        self.distance = tripStatistics.distance
+        self.speedMean = tripStatistics.speedMean
+        self.subdispNb = Int64(tripStatistics.subdispNb)
+        self.meteo = Int64(tripStatistics.meteo)
+        self.day = tripStatistics.day
+        self.weekDay = tripStatistics.weekDay
+    }
+}
+
+extension PigeonAdvancedEcoDriving {
+    init(from ecoDrivingContexts: [DriveKitDBTripAccessModule.EcoDrivingContext]) {
+        var contextArray: [PigeonEcoDrivingContext?] = []
+            for context in ecoDrivingContexts {
+                contextArray.append(
+                    PigeonEcoDrivingContext(
+                        contextId: Int64(context.contextId),
+                        distance: context.distance,
+                        duration: context.duration,
+                        efficiencyScore: context.efficiencyScore,
+                        scoreAccel: context.scoreAccel,
+                        scoreMain: context.scoreMain,
+                        scoreDecel: context.scoreDecel
+                    ))
+        }
+        self.init(ecoDrivingContext: contextArray)
+    }
+}
+
+extension PigeonAdvancedFuelEstimation {
+    init(from fuelEstimationContexts: [DriveKitDBTripAccessModule.FuelEstimationContext]) {
+        var contextArray: [PigeonFuelEstimationContext?] = []
+        for context in fuelEstimationContexts {
+            contextArray.append(
+                PigeonFuelEstimationContext(
+                    contextId: Int64(context.contextId),
+                    distance: context.distance,
+                    duration: context.duration,
+                    co2Mass: context.co2Mass,
+                    co2Emission: context.co2Emission,
+                    fuelVolume: context.fuelVolume,
+                    fuelConsumption: context.fuelConsumption
+                )
+            )
+        }
+        self.init(fuelEstimationContext: contextArray)
+    }
+}
+
+extension PigeonAdvancedSafety {
+    init(from safetyContexts: [DriveKitDBTripAccessModule.SafetyContext]) {
+        var contextArray: [PigeonSafetyContext?] = []
+            for context in safetyContexts {
+                contextArray.append(
+                    PigeonSafetyContext(
+                        contextId: Int64(context.contextId),
+                        distance: context.distance,
+                        duration: context.duration,
+                        nbAdh: Int64(context.nbAdh),
+                        nbAccel: Int64(context.nbAccel),
+                        nbDecel: Int64(context.nbDecel),
+                        nbAdhCrit: Int64(context.nbAdhCrit),
+                        nbAccelCrit: Int64(context.nbAccelCrit),
+                        nbDecelCrit: Int64(context.nbDecelCrit),
+                        safetyScore: context.safetyScore
                     )
-                } else {
-                    return nil
-                }
+                )
             }
-            return PigeonTripResponseStatus(
-                status: .tripValid,
-                hasSafetyAndEcoDrivingScore: self.hasSafetyAndEcoDrivingScore(),
-                info: info
-            )
-        } else {
-            let error: PigeonTripResponseError? = self.comments.compactMap {pigeonComment in
-                if let pigeonComment,
-                   let tripResponseError = TripResponseError(rawValue: Int(pigeonComment.errorCode)) {
-                    return PigeonTripResponseError(from: tripResponseError)
-                } else {
-                    return nil
-                }
-            }.first
-            return PigeonTripResponseStatus(
-                status: .tripError,
-                hasSafetyAndEcoDrivingScore: false,
-                info: [],
-                error: error
-            )
-        }
+        self.init(safetyContext: contextArray)
     }
+}
 
-    private func isValid() -> Bool {
-        if let itineraryStatistics = self.itineraryStatistics, itineraryStatistics.distance > 0, self.itinId != nil, self.comments.contains(where: { $0?.errorCode == 0 }) == true {
-            return true
-        }
-        return false
+extension PigeonDriverDistraction {
+    init(from driverDistraction: DriveKitDBTripAccessModule.DriverDistraction) {
+        self.init(
+            nbUnlock: Int64(driverDistraction.nbUnlock),
+            durationUnlock: driverDistraction.durationUnlock,
+            durationPercentUnlock: driverDistraction.durationPercentUnlock,
+            distanceUnlock: driverDistraction.distanceUnlock,
+            distancePercentUnlock: driverDistraction.distancePercentUnlock,
+            score: driverDistraction.score,
+            scoreUnlock: driverDistraction.scoreUnlockNumber?.doubleValue,
+            scoreCall: driverDistraction.scoreCallNumber?.doubleValue
+        )
     }
+}
 
-    private func hasSafetyAndEcoDrivingScore() -> Bool {
-        var isScored = false
-        if let ecoDriving = self.ecoDriving, let safety = self.safety {
-            isScored = ecoDriving.score <= 10 && safety.safetyScore <= 10
-        }
-        return isScored
+extension PigeonCall {
+    init(from call: DriveKitDBTripAccessModule.Call) {
+        self.init(
+            id: Int64(call.id),
+            start: call.start,
+            end: call.end,
+            durationS: Int64(call.duration),
+            duration: Int64(call.durationPercent),
+            distanceM: Int64(call.distance),
+            distance: Int64(call.distancePercent),
+            status: call.typeValue ?? "",
+            audioSystem: call.audioSystemValue ?? "",
+            audioInput: call.audioInput, audioOutput: call.audioOutput, audioName: call.audioName, bluetoothClass: Int64(call.bluetoothClass),
+            forbidden: call.isForbidden
+        )
+    }
+}
+extension PigeonLogbook {
+    init(from logbook: DriveKitDBTripAccessModule.Logbook) {
+        self.init(
+            status: Int64(logbook.status),
+            updateDate: (logbook.updateDate != nil) ? DateUtils.convertDateToString(date: logbook.updateDate!) : nil
+        )
+    }
+}
+
+extension PigeonSafetyEvent {
+    init(from safetyEvent: SafetyEvents) {
+        self.init(
+            time: safetyEvent.time,
+            longitude: safetyEvent.longitude,
+            latitude: safetyEvent.latitude,
+            velocity: safetyEvent.velocity,
+            heading: safetyEvent.heading,
+            elevation: safetyEvent.elevation,
+            distance: safetyEvent.distance,
+            type: Int64(safetyEvent.type),
+            level: Int64(safetyEvent.level),
+            value: safetyEvent.value
+        )
+    }
+}
+
+extension PigeonSpeedingStatistics {
+    init(from speedingStatistics: DBSpeedingStatistics) {
+        self.init(
+            distance: Int64(speedingStatistics.distance),
+            duration: Int64(speedingStatistics.duration),
+            speedingDistance: Int64(speedingStatistics.speedingDistance),
+            speedingDuration: Int64(speedingStatistics.speedingDuration),
+            score: speedingStatistics.score
+        )
+    }
+}
+
+extension PigeonSpeedLimitContext {
+    init(from speedLimitContext: DBSpeedLimitContext) {
+        self.init(
+            speedLimit: Int64(speedLimitContext.speedLimit),
+            distance: Int64(speedLimitContext.distance),
+            duration: Int64(speedLimitContext.duration),
+            speedingDistance: Int64(speedLimitContext.speedingDistance),
+            speedingDuration: Int64(speedLimitContext.speedingDuration),
+            score: speedLimitContext.score
+        )
+    }
+}
+
+extension PigeonEnergyEstimation {
+    init(from energyEstimation: DBEnergyEstimation) {
+        self.init(
+            energy: energyEstimation.energy,
+            energyConsumption: energyEstimation.energyConsumption,
+            energyOpti: energyEstimation.energyOpti,
+            energyOptiConsumption: energyEstimation.energyOptiConsumption
+        )
+    }
+}
+
+extension PigeonAdvancedEnergyEstimation {
+    init(from advancedEnergyEstimation: DBAdvancedEnergyEstimation) {
+        self.init(
+            energy: advancedEnergyEstimation.energy,
+            energyConsumption: advancedEnergyEstimation.energyConsumption,
+            energyOpti: advancedEnergyEstimation.energyOpti,
+            energyOptiConsumption: advancedEnergyEstimation.energyOptiConsumption,
+            duration: advancedEnergyEstimation.duration,
+            distance: advancedEnergyEstimation.distance,
+            contextId: Int64(advancedEnergyEstimation.contextId)
+        )
+    }
+}
+
+extension PigeonTripAdviceData {
+    init(from tripAdvice: TripAdvice) {
+        self.init(
+            id: tripAdvice.id,
+            title: tripAdvice.title,
+            message: tripAdvice.message,
+            messageId: tripAdvice.messageId,
+            theme: tripAdvice.theme,
+            adviceEvaluation: PigeonTripAdviceEvaluation(
+                evaluation: Int64(tripAdvice.evaluation),
+                feedback: Int64(tripAdvice.feedback),
+                comment: tripAdvice.comment
+            )
+        )
+    }
+}
+
+extension PigeonManeuverData {
+    init(from maneuver: Maneuver) {
+        self.init(
+            nbStraightReverseDrivings: Int64(maneuver.nbStraightReverseDrivings),
+            nbCurveReverseDrivings: Int64(maneuver.nbCurveReverseDrivings),
+            nbTurns: Int64(maneuver.nbTurns),
+            nbHillStarts: Int64(maneuver.nbHillStarts),
+            nbRoundAbouts: Int64(maneuver.nbRoundAbouts),
+            nbEmergencyStops: Int64(maneuver.nbEmergencyStops),
+            nbAngledParkings: Int64(maneuver.nbAngledParkings),
+            nbParallelParkings: Int64(maneuver.nbParallelParkings),
+            nbBayParkings: Int64(maneuver.nbBayParkings)
+        )
+    }
+}
+
+extension PigeonEvaluationData {
+    init(from evaluation: Evaluation) {
+        self.init(
+            comment: evaluation.comment,
+            evaluation: Int64(evaluation.evaluation)
+        )
+    }
+}
+
+extension PigeonDeclaredTransportationMode {
+    init(from declaredTransportationMode: DeclaredTransportationMode) {
+        self.init(
+            transportationMode: Int64(declaredTransportationMode.transportationMode),
+            comment: declaredTransportationMode.comment,
+            passenger: declaredTransportationMode.passenger
+        )
     }
 }

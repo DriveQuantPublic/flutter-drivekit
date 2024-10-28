@@ -218,30 +218,6 @@ void main() {
       });
     });
 
-    group('getTripResponseStatus', () {
-      test('Indicates if the analyzed trip is valid or not', () async {
-        final tripResponseStatus = TripResponseStatus(
-          status: TripResponseStatusType.tripError,
-          hasSafetyAndEcoDrivingScore: false,
-          info: [],
-          error: TripResponseError.noAccountSet,
-        );
-        const postGenericResponse = PostGenericResponse(
-          status: false,
-          itinId: null,
-          comments: [Comment(errorCode: 10, comment: 'no account set')],
-        );
-        when(
-          () => driveKitTripAnalysisPlatform
-              .getTripResponseStatus(postGenericResponse),
-        ).thenAnswer((_) async => tripResponseStatus);
-
-        final actualTripResponseStatus = await DriveKitTripAnalysis.instance
-            .getTripResponseStatus(postGenericResponse);
-        expect(actualTripResponseStatus, equals(tripResponseStatus));
-      });
-    });
-
     group('Trip metadata', () {
       test('getTripMetadata calls platform implementation', () async {
         when(() => driveKitTripAnalysisPlatform.getTripMetadata())

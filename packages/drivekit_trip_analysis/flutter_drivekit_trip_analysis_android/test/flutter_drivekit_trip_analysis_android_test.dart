@@ -1,6 +1,5 @@
 import 'package:flutter_drivekit_trip_analysis_android/flutter_drivekit_trip_analysis_android.dart';
 import 'package:flutter_drivekit_trip_analysis_android/src/adapter.dart';
-import 'package:flutter_drivekit_trip_analysis_android/src/model_adapter.dart';
 import 'package:flutter_drivekit_trip_analysis_android/src/trip_analysis_api.g.dart';
 import 'package:flutter_drivekit_trip_analysis_platform_interface/flutter_drivekit_trip_analysis_platform_interface.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -13,7 +12,6 @@ void main() {
 
   setUpAll(() {
     registerFallbackValue(MockPigeonVehicle());
-    registerFallbackValue(MockPigeonPostGenericResponse());
   });
 
   group('DriveKitTripAnalysisAndroid', () {
@@ -51,7 +49,9 @@ void main() {
         () async {
       //mock
       when(() => androidTripAnalysisApi.activateAutoStart(any()))
-          .thenAnswer((_) async {});
+          .thenAnswer((_) async {
+        return;
+      });
 
       //test
       await DriveKitTripAnalysisPlatform.instance.activateAutoStart(true);
@@ -77,7 +77,9 @@ void main() {
         () async {
       //mock
       when(() => androidTripAnalysisApi.activateCrashDetection(any()))
-          .thenAnswer((_) async {});
+          .thenAnswer((_) async {
+        return;
+      });
 
       //test
       await DriveKitTripAnalysisPlatform.instance.activateCrashDetection(true);
@@ -92,7 +94,9 @@ void main() {
 
     test('startTrip calls android implementation', () async {
       //mock
-      when(() => androidTripAnalysisApi.startTrip()).thenAnswer((_) async {});
+      when(() => androidTripAnalysisApi.startTrip()).thenAnswer((_) async {
+        return;
+      });
 
       await DriveKitTripAnalysisPlatform.instance.startTrip();
       verify(() => androidTripAnalysisApi.startTrip()).called(1);
@@ -100,7 +104,9 @@ void main() {
 
     test('stopTrip calls android implementation', () async {
       //mock
-      when(() => androidTripAnalysisApi.stopTrip()).thenAnswer((_) async {});
+      when(() => androidTripAnalysisApi.stopTrip()).thenAnswer((_) async {
+        return;
+      });
 
       //test
       await DriveKitTripAnalysisPlatform.instance.stopTrip();
@@ -109,7 +115,9 @@ void main() {
 
     test('cancelTrip calls android implementation', () async {
       //mock
-      when(() => androidTripAnalysisApi.cancelTrip()).thenAnswer((_) async {});
+      when(() => androidTripAnalysisApi.cancelTrip()).thenAnswer((_) async {
+        return;
+      });
 
       //test
       await DriveKitTripAnalysisPlatform.instance.cancelTrip();
@@ -131,7 +139,9 @@ void main() {
         () async {
       //mock
       when(() => androidTripAnalysisApi.setStopTimeOut(any()))
-          .thenAnswer((_) async {});
+          .thenAnswer((_) async {
+        return;
+      });
 
       //test
       await DriveKitTripAnalysisPlatform.instance.setStopTimeOut(222);
@@ -154,7 +164,9 @@ void main() {
     test('setMonitorPotentialTripStart calls Android implementation', () async {
       //mock
       when(() => androidTripAnalysisApi.setMonitorPotentialTripStart(any()))
-          .thenAnswer((_) async {});
+          .thenAnswer((_) async {
+        return;
+      });
 
       //test
       await DriveKitTripAnalysisPlatform.instance
@@ -167,7 +179,9 @@ void main() {
       //mock
       const mockVehicle = Vehicle();
       when(() => androidTripAnalysisApi.setVehicle(any()))
-          .thenAnswer((_) async {});
+          .thenAnswer((_) async {
+        return;
+      });
 
       //test
       await DriveKitTripAnalysisPlatform.instance.setVehicle(mockVehicle);
@@ -271,7 +285,7 @@ void main() {
             significantLocationChangeDetected: (state) =>
                 significantLocationChangeDetectedCount++,
             tripCancelled: (cancelTrip) => tripCancelledCount++,
-            tripFinished: (post, response) => tripFinishedCount++,
+            tripFinished: (response) => tripFinishedCount++,
             tripPoint: (tripPoint) => tripPointCount++,
             tripSavedForRepost: () => tripSavedForRepostCount++,
             tripStarted: (startMode) => tripStartedCount++,
@@ -297,7 +311,7 @@ void main() {
         flutterTripAnalysisApi.tripCancelled(PigeonCancelTrip.beaconNoSpeed);
         expect(tripCancelledCount, 1);
 
-        flutterTripAnalysisApi.tripFinished(mockPigeonPost, mockPigeonResponse);
+        flutterTripAnalysisApi.tripFinished(mockPigeonTripResponseStatus);
         expect(tripFinishedCount, 1);
 
         flutterTripAnalysisApi.tripPoint(mockPigeonTripPoint);
@@ -319,7 +333,7 @@ void main() {
             significantLocationChangeDetected: (state) =>
                 significantLocationChangeDetectedCount++,
             tripCancelled: (cancelTrip) => tripCancelledCount++,
-            tripFinished: (post, response) => tripFinishedCount++,
+            tripFinished: (response) => tripFinishedCount++,
             tripPoint: (tripPoint) => tripPointCount++,
             tripSavedForRepost: () => tripSavedForRepostCount++,
             tripStarted: (startMode) => tripStartedCount++,
@@ -344,7 +358,7 @@ void main() {
         flutterTripAnalysisApi.tripCancelled(PigeonCancelTrip.beaconNoSpeed);
         expect(tripCancelledCount, 3);
 
-        flutterTripAnalysisApi.tripFinished(mockPigeonPost, mockPigeonResponse);
+        flutterTripAnalysisApi.tripFinished(mockPigeonTripResponseStatus);
         expect(tripFinishedCount, 3);
 
         flutterTripAnalysisApi.tripPoint(mockPigeonTripPoint);
@@ -424,7 +438,7 @@ void main() {
           significantLocationChangeDetected: (state) =>
               significantLocationChangeDetectedCount++,
           tripCancelled: (cancelTrip) => tripCancelledCount++,
-          tripFinished: (post, response) => tripFinishedCount++,
+          tripFinished: (response) => tripFinishedCount++,
           tripPoint: (tripPoint) => tripPointCount++,
           tripSavedForRepost: () => tripSavedForRepostCount++,
           tripStarted: (startMode) => tripStartedCount++,
@@ -443,7 +457,7 @@ void main() {
           )
           ..sdkStateChanged(PigeonState.inactive)
           ..tripCancelled(PigeonCancelTrip.beaconNoSpeed)
-          ..tripFinished(mockPigeonPost, mockPigeonResponse)
+          ..tripFinished(mockPigeonTripResponseStatus)
           ..tripPoint(mockPigeonTripPoint)
           ..tripSavedForRepost()
           ..tripStarted(PigeonStartMode.bicycleActivity);
@@ -481,7 +495,7 @@ void main() {
           significantLocationChangeDetected: (state) =>
               significantLocationChangeDetectedCount++,
           tripCancelled: (cancelTrip) => tripCancelledCount++,
-          tripFinished: (post, response) => tripFinishedCount++,
+          tripFinished: (response) => tripFinishedCount++,
           tripPoint: (tripPoint) => tripPointCount++,
           tripSavedForRepost: () => tripSavedForRepostCount++,
           tripStarted: (startMode) => tripStartedCount++,
@@ -501,7 +515,7 @@ void main() {
           )
           ..sdkStateChanged(PigeonState.inactive)
           ..tripCancelled(PigeonCancelTrip.beaconNoSpeed)
-          ..tripFinished(mockPigeonPost, mockPigeonResponse)
+          ..tripFinished(mockPigeonTripResponseStatus)
           ..tripPoint(mockPigeonTripPoint)
           ..tripSavedForRepost()
           ..tripStarted(PigeonStartMode.bicycleActivity);
@@ -517,34 +531,6 @@ void main() {
         expect(tripSavedForRepostCount, 0);
         expect(tripStartedCount, 0);
       });
-    });
-    test('Indicates if the analyzed trip is valid or not,', () async {
-      //mocks
-
-      when(() => androidTripAnalysisApi.getTripResponseStatus(any()))
-          .thenAnswer((_) async => mockPigeonTripResponseStatus);
-
-      //test
-      final tripResponseStatus =
-          await DriveKitTripAnalysisPlatform.instance.getTripResponseStatus(
-        const PostGenericResponse(
-          status: false,
-          itinId: '',
-          comments: [Comment(errorCode: 10, comment: 'no account set')],
-        ),
-      );
-      final expectedResult =
-          mockPigeonTripResponseStatus.toModelImplementation();
-      expect(
-        tripResponseStatus?.error,
-        mockPigeonTripResponseStatus.error?.toModelImplementation(),
-      );
-      expect(
-        tripResponseStatus?.hasSafetyAndEcoDrivingScore,
-        mockPigeonTripResponseStatus.hasSafetyAndEcoDrivingScore,
-      );
-      expect(tripResponseStatus?.info, expectedResult.info);
-      expect(tripResponseStatus?.status, expectedResult.status);
     });
 
     group('Trip Metadata', () {
@@ -564,7 +550,9 @@ void main() {
           ' argument', () async {
         //mock
         when(() => androidTripAnalysisApi.updateTripMetadata(any(), any()))
-            .thenAnswer((_) async {});
+            .thenAnswer((_) async {
+          return;
+        });
 
         //test
         await DriveKitTripAnalysisPlatform.instance
@@ -577,7 +565,9 @@ void main() {
           () async {
         //mock
         when(() => androidTripAnalysisApi.setTripMetadata(any()))
-            .thenAnswer((_) async {});
+            .thenAnswer((_) async {
+          return;
+        });
 
         //test
         const mockedTripMetadata = {
@@ -596,7 +586,9 @@ void main() {
           () async {
         //mock
         when(() => androidTripAnalysisApi.deleteTripMetadata(any()))
-            .thenAnswer((_) async {});
+            .thenAnswer((_) async {
+          return;
+        });
 
         //test
         await DriveKitTripAnalysisPlatform.instance.deleteTripMetadata('key1');
@@ -607,7 +599,9 @@ void main() {
       test('deleteAllTripMetadata calls android implementation', () async {
         //mock
         when(() => androidTripAnalysisApi.deleteAllTripMetadata())
-            .thenAnswer((_) async {});
+            .thenAnswer((_) async {
+          return;
+        });
 
         //test
         await DriveKitTripAnalysisPlatform.instance.deleteAllTripMetadata();

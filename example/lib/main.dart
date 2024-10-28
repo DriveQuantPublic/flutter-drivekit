@@ -32,22 +32,17 @@ void main() {
         _showTripNotification(title, message);
       }
     },
-    tripFinished: (_, response) async {
-      final responseStatus =
-          await DriveKitTripAnalysis.instance.getTripResponseStatus(response);
-      if (responseStatus != null) {
-        final String message;
-        switch (responseStatus.status) {
-          case TripResponseStatusType.tripError:
-            final error =
-                responseStatus.error ?? TripResponseError.unknownError;
-            message = 'Failed to analyze trip: ${error.name}';
-          case TripResponseStatusType.tripValid:
-            message = 'A new trip has been analyzed'
-                ' (has score = ${responseStatus.hasSafetyAndEcoDrivingScore})';
-        }
-        await _showTripNotification(null, message);
+    tripFinished: (response) async {
+      final String message;
+      switch (response.status) {
+        case TripResponseStatusType.tripError:
+          final error = response.error ?? TripResponseError.unknownError;
+          message = 'Failed to analyze trip: ${error.name}';
+        case TripResponseStatusType.tripValid:
+          message = 'A new trip has been analyzed'
+              ' (has score = ${response.hasSafetyAndEcoDrivingScore})';
       }
+      await _showTripNotification(null, message);
     },
     tripCancelled: (cancelTrip) {
       _showTripNotification(null, 'Trip cancelled: ${cancelTrip.name}');

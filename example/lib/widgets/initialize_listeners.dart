@@ -82,7 +82,7 @@ class _InitializeListenersState extends State<InitializeListeners> {
           );
         }
       },
-      tripFinished: (post, response) {
+      tripFinished: (response) {
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(

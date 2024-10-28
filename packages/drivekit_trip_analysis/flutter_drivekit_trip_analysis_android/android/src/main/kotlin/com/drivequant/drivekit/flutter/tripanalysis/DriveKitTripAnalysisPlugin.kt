@@ -7,15 +7,12 @@ import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeon
 import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeonDKCrashFeedbackSeverity
 import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeonDKCrashFeedbackType
 import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeonDKCrashInfo
-import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeonPostGeneric
-import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeonPostGenericResponse
 import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeonStartMode
 import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeonState
 import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeonTripPoint
+import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeonTripResponseStatus
 import com.drivequant.drivekit.tripanalysis.DriveKitTripAnalysis
 import com.drivequant.drivekit.tripanalysis.TripListener
-import com.drivequant.drivekit.tripanalysis.entity.PostGeneric
-import com.drivequant.drivekit.tripanalysis.entity.PostGenericResponse
 import com.drivequant.drivekit.tripanalysis.entity.TripPoint
 import com.drivequant.drivekit.tripanalysis.model.crashdetection.DKCrashInfo
 import com.drivequant.drivekit.tripanalysis.service.crashdetection.feedback.CrashFeedbackSeverity
@@ -23,6 +20,7 @@ import com.drivequant.drivekit.tripanalysis.service.crashdetection.feedback.Cras
 import com.drivequant.drivekit.tripanalysis.service.recorder.CancelTrip
 import com.drivequant.drivekit.tripanalysis.service.recorder.StartMode
 import com.drivequant.drivekit.tripanalysis.service.recorder.State
+import com.drivequant.drivekit.tripanalysis.utils.TripResult
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import java.util.HashMap
 
@@ -89,11 +87,6 @@ class DriveKitTripAnalysisPlugin :
         DriveKitTripAnalysis.setVehicle(PigeonMapper.fromPigeonVehicle(vehicle))
     }
 
-    override fun getTripResponseStatus(tripResponse: PigeonPostGenericResponse): PigeonTripResponseStatus {
-        val result = DriveKitTripAnalysis.getTripResponseStatus(PigeonMapper.fromPigeonPostGenericResponse(tripResponse))
-        return PigeonMapper.toPigeonTripResponseStatus(result)
-    }
-
     private fun configureTripListener() {
         DriveKitTripAnalysis.addTripListener(
             object : TripListener {
@@ -103,10 +96,9 @@ class DriveKitTripAnalysisPlugin :
                     }
                 }
 
-                override fun tripFinished(post: PostGeneric, response: PostGenericResponse) {
+                override fun tripFinished(result: TripResult) {
                     flutterApi?.tripFinished(
-                        postArg = toPigeonPostGeneric(post),
-                        responseArg = toPigeonPostGenericResponse(response)
+                        responseArg = toPigeonTripResponseStatus(result)
                     ) { echo ->
                         Result.success(echo)
                     }

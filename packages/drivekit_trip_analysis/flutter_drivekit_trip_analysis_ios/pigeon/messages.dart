@@ -25,9 +25,6 @@ abstract class IOSTripAnalysisApi {
   bool isMonitoringPotentialTripStart();
   void setMonitorPotentialTripStart(bool activate);
   void setVehicle(PigeonVehicle vehicle);
-  PigeonTripResponseStatus? getTripResponseStatus(
-    PigeonPostGenericResponse tripResponse,
-  );
   Map<String, String>? getTripMetadata();
   void updateTripMetadata(String key, String? value);
   void setTripMetadata(Map<String, String>? metadata);
@@ -40,7 +37,7 @@ abstract class FlutterTripAnalysisApi {
   void tripStarted(PigeonStartMode startMode);
   void tripPoint(PigeonTripPoint tripPoint);
   void tripSavedForRepost();
-  void tripFinished(PigeonPostGeneric post, PigeonPostGenericResponse response);
+  void tripFinished(PigeonTripResponseStatus response);
   void tripCancelled(PigeonCancelTrip cancelTrip);
   void potentialTripStart(PigeonStartMode startMode);
   void beaconDetected();
@@ -230,100 +227,6 @@ enum PigeonDKCrashFeedbackSeverity {
   minor,
 
   critical;
-}
-
-class PigeonPostGenericResponse {
-  const PigeonPostGenericResponse({
-    required this.status,
-    required this.itinId,
-    required this.comments,
-    this.userId,
-    this.itineraryStatistics,
-    this.ecoDriving,
-    this.fuelEstimation,
-    this.safety,
-    this.advancedEcoDriving,
-    this.advancedFuelEstimation,
-    this.advancedSafety,
-    this.pollutants,
-    this.tireWear,
-    this.brakeWear,
-    this.driverDistraction,
-    this.itineraryData,
-    this.endDate,
-    this.logbook,
-    this.safetyEvents,
-    this.callEvents,
-    this.speedingEvents,
-    this.speedingStatistics,
-    this.energyEstimation,
-    this.advancedEnergyEstimation,
-  });
-
-  final bool status;
-
-  final String? itinId;
-
-  final List<PigeonComment?> comments;
-
-  final String? userId;
-
-  final PigeonItineraryStatistics? itineraryStatistics;
-
-  final PigeonEcoDriving? ecoDriving;
-
-  final PigeonFuelEstimation? fuelEstimation;
-
-  final PigeonSafety? safety;
-
-  final PigeonAdvancedEcoDriving? advancedEcoDriving;
-
-  final PigeonAdvancedFuelEstimation? advancedFuelEstimation;
-
-  final PigeonAdvancedSafety? advancedSafety;
-
-  final PigeonPollutants? pollutants;
-
-  final PigeonTireWear? tireWear;
-
-  final PigeonBrakeWear? brakeWear;
-
-  final PigeonDriverDistraction? driverDistraction;
-
-  final PigeonItineraryData? itineraryData;
-
-  final String? endDate;
-
-  final PigeonLogbook? logbook;
-
-  final List<PigeonSafetyEvent?>? safetyEvents;
-
-  final List<PigeonCallEvent?>? callEvents;
-
-  final List<PigeonSpeedingEvent?>? speedingEvents;
-
-  final PigeonSpeedingStatistics? speedingStatistics;
-
-  final PigeonEnergyEstimation? energyEstimation;
-
-  final List<PigeonAdvancedEnergyEstimation?>? advancedEnergyEstimation;
-}
-
-class PigeonPostGeneric {
-  const PigeonPostGeneric({
-    required this.route,
-    required this.vehicle,
-    required this.itineraryData,
-    this.metaData,
-  });
-
-  final PigeonRoute? route;
-
-  final PigeonVehicle? vehicle;
-
-  final PigeonItineraryData? itineraryData;
-
-  final Map<String?, String?>? metaData;
 }
 
 class PigeonAdvancedEcoDriving {
@@ -877,7 +780,6 @@ class PigeonSpeedingStatistics {
     required this.speedingDistance,
     required this.speedingDuration,
     required this.score,
-    required this.speedLimitContexts,
   });
 
   final int distance;
@@ -889,8 +791,6 @@ class PigeonSpeedingStatistics {
   final int speedingDuration;
 
   final double score;
-
-  final List<PigeonSpeedLimitContext?> speedLimitContexts;
 }
 
 class PigeonRoute {
@@ -1114,14 +1014,18 @@ class PigeonLocation {
 class PigeonTripResponseStatus {
   PigeonTripResponseStatus({
     required this.status,
+    required this.itinId,
     required this.hasSafetyAndEcoDrivingScore,
     required this.info,
     required this.error,
+    required this.trip,
   });
   final PigeonTripResponseStatusType status;
+  final String? itinId;
   final bool hasSafetyAndEcoDrivingScore;
   final List<PigeonTripResponseInfoItem?> info;
   final PigeonTripResponseError? error;
+  final PigeonTrip? trip;
 }
 
 enum PigeonTripResponseStatusType {
@@ -1165,4 +1069,259 @@ enum PigeonTripResponseError {
   invalidGpsData,
   invalidTrip,
   accountLimitReached,
+}
+
+class PigeonTrip {
+  /// Creates a PigeonTrip instance
+  PigeonTrip({
+    required this.itinId,
+    required this.startDate,
+    required this.endDate,
+    required this.departureCity,
+    required this.arrivalCity,
+    required this.departureAddress,
+    required this.arrivalAddress,
+    required this.vehicleId,
+    required this.tripStatistics,
+    required this.ecoDriving,
+    required this.fuelEstimation,
+    required this.safety,
+    required this.advancedEcoDriving,
+    required this.advancedFuelEstimation,
+    required this.advancedSafety,
+    required this.pollutants,
+    required this.tireWear,
+    required this.brakeWear,
+    required this.driverDistraction,
+    required this.itineraryData,
+    required this.logbook,
+    required this.safetyEvents,
+    required this.speedingStatistics,
+    required this.energyEstimation,
+    required this.advancedEnergyEstimation,
+    required this.tripAdvicesData,
+    required this.maneuverData,
+    required this.evaluationData,
+    required this.metaData,
+    required this.transportationMode,
+    required this.declaredTransportationMode,
+    required this.unscored,
+    required this.calls,
+    required this.speedLimitContexts,
+  });
+
+  /// The itinerary ID
+  final String? itinId;
+
+  /// The start date
+  final String? startDate;
+
+  /// The end date
+  final String? endDate;
+
+  /// The departure city
+  final String? departureCity;
+
+  /// The arrival city
+  final String? arrivalCity;
+
+  /// The departure address
+  final String? departureAddress;
+
+  /// The arrival address
+  final String? arrivalAddress;
+
+  /// The vehicle ID
+  final String? vehicleId;
+
+  /// The itinerary statistics
+  final PigeonTripStatistics? tripStatistics;
+
+  /// The eco driving information
+  final PigeonEcoDriving? ecoDriving;
+
+  /// The fuel estimation information
+  final PigeonFuelEstimation? fuelEstimation;
+
+  /// The safety information
+  final PigeonSafety? safety;
+
+  /// The advanced eco driving information
+  final PigeonAdvancedEcoDriving? advancedEcoDriving;
+
+  /// The advanced fuel estimation information
+  final PigeonAdvancedFuelEstimation? advancedFuelEstimation;
+
+  /// The advanced safety information
+  final PigeonAdvancedSafety? advancedSafety;
+
+  /// The pollutants information
+  final PigeonPollutants? pollutants;
+
+  /// The tire wear information
+  final PigeonTireWear? tireWear;
+
+  /// The brake wear information
+  final PigeonBrakeWear? brakeWear;
+
+  /// The driver distraction information
+  final PigeonDriverDistraction? driverDistraction;
+
+  /// The itinerary data
+  final PigeonItineraryData? itineraryData;
+
+  /// The logbook information
+  final PigeonLogbook? logbook;
+
+  /// The list of safety events
+  final List<PigeonSafetyEvent?>? safetyEvents;
+
+  /// The speeding statistics
+  final PigeonSpeedingStatistics? speedingStatistics;
+
+  /// The energy estimation information
+  final PigeonEnergyEstimation? energyEstimation;
+
+  /// The list of advanced energy estimations
+  final List<PigeonAdvancedEnergyEstimation?>? advancedEnergyEstimation;
+
+  /// Trip advices
+  final List<PigeonTripAdviceData?>? tripAdvicesData;
+
+  /// Trip maneuver data
+  final PigeonManeuverData? maneuverData;
+
+  /// Trip evaluation data
+  final PigeonEvaluationData? evaluationData;
+
+  /// The metadata
+  final Map<String?, String?>? metaData;
+
+  /// The transportation mode
+  final int transportationMode;
+
+  /// The declared transportation mode
+  final PigeonDeclaredTransportationMode? declaredTransportationMode;
+
+  /// The trip is scored or not
+  final bool unscored;
+
+  /// The trip calls
+  final List<PigeonCall?>? calls;
+
+  /// The speed limit contexts
+  final List<PigeonSpeedLimitContext?>? speedLimitContexts;
+}
+
+class PigeonTripStatistics {
+  const PigeonTripStatistics({
+    required this.tripDuration,
+    required this.drivingDuration,
+    required this.idlingDuration,
+    required this.drivingPercentage,
+    required this.idlingPercentage,
+    required this.distance,
+    required this.speedMean,
+    required this.subdispNb,
+    required this.meteo,
+    required this.day,
+    required this.weekDay,
+  });
+
+  final double tripDuration;
+
+  final double drivingDuration;
+
+  final double idlingDuration;
+
+  final double drivingPercentage;
+
+  final double idlingPercentage;
+
+  final double distance;
+
+  final double speedMean;
+
+  final int subdispNb;
+
+  final int meteo;
+
+  final bool day;
+
+  final bool weekDay;
+}
+
+class PigeonTripAdviceData {
+  PigeonTripAdviceData({
+    required this.id,
+    required this.title,
+    required this.message,
+    required this.messageId,
+    required this.theme,
+    required this.adviceEvaluation,
+  });
+
+  final String? id;
+  final String? title;
+  final String? message;
+  final String? messageId;
+  final String? theme;
+  final PigeonTripAdviceEvaluation? adviceEvaluation;
+}
+
+class PigeonTripAdviceEvaluation {
+  PigeonTripAdviceEvaluation({
+    required this.evaluation,
+    required this.feedback,
+    required this.comment,
+  });
+
+  final int evaluation;
+
+  final int feedback;
+
+  final String? comment;
+}
+
+class PigeonManeuverData {
+  PigeonManeuverData({
+    required this.nbStraightReverseDrivings,
+    required this.nbCurveReverseDrivings,
+    required this.nbTurns,
+    required this.nbHillStarts,
+    required this.nbRoundAbouts,
+    required this.nbEmergencyStops,
+    required this.nbAngledParkings,
+    required this.nbParallelParkings,
+    required this.nbBayParkings,
+  });
+
+  final int nbStraightReverseDrivings;
+  final int nbCurveReverseDrivings;
+  final int nbTurns;
+  final int nbHillStarts;
+  final int nbRoundAbouts;
+  final int nbEmergencyStops;
+  final int nbAngledParkings;
+  final int nbParallelParkings;
+  final int nbBayParkings;
+}
+
+class PigeonEvaluationData {
+  PigeonEvaluationData({required this.comment, required this.evaluation});
+
+  final String? comment;
+  final int evaluation;
+}
+
+class PigeonDeclaredTransportationMode {
+  PigeonDeclaredTransportationMode({
+    required this.transportationMode,
+    required this.comment,
+    required this.passenger,
+  });
+
+  final int transportationMode;
+  final String? comment;
+  final bool? passenger;
 }

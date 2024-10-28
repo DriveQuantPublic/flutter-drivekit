@@ -86,15 +86,6 @@ class DriveKitTripAnalysisAndroid extends DriveKitTripAnalysisPlatform
   void removeAllTripListeners() => _listeners.clear();
 
   @override
-  Future<TripResponseStatus?> getTripResponseStatus(
-    PostGenericResponse tripResponse,
-  ) async {
-    final tripStatus = await androidTripAnalysisApi
-        .getTripResponseStatus(tripResponse.toPigeonImplementation());
-    return tripStatus?.toModelImplementation();
-  }
-
-  @override
   void beaconDetected() {
     for (final listener in _listeners) {
       listener.beaconDetected?.call();
@@ -139,12 +130,10 @@ class DriveKitTripAnalysisAndroid extends DriveKitTripAnalysisPlatform
 
   @override
   void tripFinished(
-    PigeonPostGeneric post,
-    PigeonPostGenericResponse response,
+    PigeonTripResponseStatus response,
   ) {
     for (final listener in _listeners) {
       listener.tripFinished?.call(
-        post.toModelImplementation(),
         response.toModelImplementation(),
       );
     }

@@ -133,8 +133,7 @@ class TripListener {
   /// [PostGeneric] object contains raw data sent to DriveQuant's server,
   /// [PostGenericResponse] object contains the trip analysis
   /// made on DriveQuant's server.
-  final void Function(PostGeneric post, PostGenericResponse response)?
-      tripFinished;
+  final void Function(TripResponseStatus response)? tripFinished;
 
   /// Called when a trip is cancelled.
   /// [CancelTrip] indicates which event cancels the trip.
@@ -1258,7 +1257,6 @@ class SpeedingStatistics {
     required this.speedingDistance,
     required this.speedingDuration,
     required this.score,
-    required this.speedLimitContexts,
   });
 
   /// The distance
@@ -1275,9 +1273,6 @@ class SpeedingStatistics {
 
   /// The score
   final double score;
-
-  /// The list of speed limit contexts
-  final List<SpeedLimitContext> speedLimitContexts;
 }
 
 /// Route class
@@ -1513,6 +1508,7 @@ class TripResponseStatus {
   /// creates a TripResponseStatus instance
   TripResponseStatus({
     required this.status,
+    required this.itinId,
     required this.hasSafetyAndEcoDrivingScore,
     required this.info,
     required this.error,
@@ -1520,6 +1516,9 @@ class TripResponseStatus {
 
   /// Trip status: valid or not
   final TripResponseStatusType status;
+
+  /// The id of the trip if it is valid, otherwise nil.
+  final String? itinId;
 
   /// If false, it means that the trip is valid but too short to be analyzed.
   final bool hasSafetyAndEcoDrivingScore;

@@ -28,17 +28,6 @@ extension VehicleAdapter on Vehicle {
   }
 }
 
-/// Adapts the [Comment] class to the corresponding Pigeon
-extension CommentAdapter on Comment {
-  /// Converts a [Comment] to a corresponding Pigeon
-  PigeonComment toPigeonImplementation() {
-    return PigeonComment(
-      errorCode: errorCode,
-      comment: comment,
-    );
-  }
-}
-
 /// Adapts the [AdvancedEnergyEstimation] class to the corresponding Pigeon
 extension AdvancedEnergyEstimationAdapter on AdvancedEnergyEstimation {
   /// Converts a [AdvancedEnergyEstimation] to a corresponding Pigeon
@@ -64,49 +53,6 @@ extension EnergyEstimationAdapter on EnergyEstimation {
       energyConsumption: energyConsumption,
       energyOpti: energyOpti,
       energyOptiConsumption: energyOptiConsumption,
-    );
-  }
-}
-
-/// Adapts the [ItineraryStatistics] class to the corresponding Pigeon
-extension ItineraryStatisticsAdapter on ItineraryStatistics {
-  /// Converts a [ItineraryStatistics] to a corresponding Pigeon
-  PigeonItineraryStatistics toPigeonImplementation() {
-    return PigeonItineraryStatistics(
-      tripDuration: tripDuration,
-      drivingDuration: drivingDuration,
-      idlingDuration: idlingDuration,
-      drivingPercentage: drivingPercentage,
-      idlingPercentage: idlingPercentage,
-      distance: distance,
-      speedMean: speedMean,
-      subdispNb: subdispNb,
-      meteo: meteo,
-      day: day,
-      weekDay: weekDay,
-      transportationMode: transportationMode,
-    );
-  }
-}
-
-/// Adapts the [CallEvent] class to the corresponding Pigeon
-extension CallEventAdapter on CallEvent {
-  /// Converts a [CallEvent] to a corresponding Pigeon
-  PigeonCallEvent toPigeonImplementation() {
-    return PigeonCallEvent(
-      time: time,
-      latitude: latitude,
-      longitude: longitude,
-      velocity: velocity,
-      heading: heading,
-      elevation: elevation,
-      distance: distance,
-      type: type,
-      duration: duration,
-      audioSystem: audioSystem,
-      callType: callType,
-      index: index,
-      forbidden: forbidden,
     );
   }
 }
@@ -158,20 +104,6 @@ extension SafetyEventAdapter on SafetyEvent {
       type: type,
       level: level,
       value: value,
-    );
-  }
-}
-
-/// Adapts the [SpeedingEvents] class to the corresponding Pigeon
-extension SpeedingEventAdapter on SpeedingEvents {
-  /// Converts a [SpeedingEvents] to a corresponding Pigeon
-  PigeonSpeedingEvent toPigeonImplementation() {
-    return PigeonSpeedingEvent(
-      time: time,
-      longitude: longitude,
-      latitude: latitude,
-      type: type,
-      index: index,
     );
   }
 }
@@ -350,9 +282,6 @@ extension SpeedingStatisticsAdapter on SpeedingStatistics {
       speedingDistance: speedingDistance,
       speedingDuration: speedingDuration,
       score: score,
-      speedLimitContexts: speedLimitContexts
-          .map((SpeedLimitContext e) => e.toPigeonImplementation())
-          .toList(),
     );
   }
 }
@@ -387,65 +316,6 @@ extension AdvancedFuelEstimationAdapter on AdvancedFuelEstimation {
     return PigeonAdvancedFuelEstimation(
       fuelEstimationContext:
           fuelEstimationContext.map((e) => e.toPigeonImplementation()).toList(),
-    );
-  }
-}
-
-/// Adapts the [Route] class to the corresponding Pigeon
-extension RouteAdapter on Route {
-  /// Converts a [Route] to a corresponding Pigeon.
-  PigeonRoute toPigeonImplementation() {
-    return PigeonRoute(
-      gpsDate: gpsDate.toList(),
-      gpsVelocity: gpsVelocity.toList(),
-      longitude: longitude.toList(),
-      latitude: latitude.toList(),
-      gpsElevation: gpsElevation.toList(),
-      gpsAccuracy: gpsAccuracy.toList(),
-      gpsHeading: gpsHeading.toList(),
-      screenLocked: screenLocked.toList(),
-      activityValue: activityValue.toList(),
-      roll: roll.toList(),
-      pitch: pitch.toList(),
-      yaw: yaw.toList(),
-      gyroscopeNormVar: gyroscopeNormVar.toList(),
-    );
-  }
-}
-
-/// Adapts the [PostGenericResponse] class to the corresponding Pigeon
-extension PigeonPostGenericResponseAdapter on PostGenericResponse {
-  /// Converts a [PostGenericResponse] to a corresponding pigeon.
-  PigeonPostGenericResponse toPigeonImplementation() {
-    return PigeonPostGenericResponse(
-      status: status,
-      itinId: itinId,
-      comments: comments.map((e) => e.toPigeonImplementation()).toList(),
-      userId: userId,
-      itineraryStatistics: itineraryStatistics?.toPigeonImplementation(),
-      ecoDriving: ecoDriving?.toPigeonImplementation(),
-      fuelEstimation: fuelEstimation?.toPigeonImplementation(),
-      safety: safety?.toPigeonImplementation(),
-      advancedEcoDriving: advancedEcoDriving?.toPigeonImplementation(),
-      advancedFuelEstimation: advancedFuelEstimation?.toPigeonImplementation(),
-      advancedSafety: advancedSafety?.toPigeonImplementation(),
-      pollutants: pollutants?.toPigeonImplementation(),
-      tireWear: tireWear?.toPigeonImplementation(),
-      brakeWear: brakeWear?.toPigeonImplementation(),
-      driverDistraction: driverDistraction?.toPigeonImplementation(),
-      itineraryData: itineraryData?.toPigeonImplementation(),
-      endDate: endDate,
-      logbook: logbook?.toPigeonImplementation(),
-      safetyEvents:
-          safetyEvents?.map((e) => e.toPigeonImplementation()).toList(),
-      callEvents: callEvents?.map((e) => e.toPigeonImplementation()).toList(),
-      speedingEvents:
-          speedingEvents?.map((e) => e.toPigeonImplementation()).toList(),
-      speedingStatistics: speedingStatistics?.toPigeonImplementation(),
-      energyEstimation: energyEstimation?.toPigeonImplementation(),
-      advancedEnergyEstimation: advancedEnergyEstimation
-          ?.map((e) => e.toPigeonImplementation())
-          .toList(),
     );
   }
 }
