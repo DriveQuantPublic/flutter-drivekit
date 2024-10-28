@@ -668,7 +668,6 @@ class PigeonDriverDistraction {
     required this.score,
     this.scoreUnlock,
     this.scoreCall,
-    this.calls,
   });
 
   final int nbUnlock;
@@ -686,8 +685,6 @@ class PigeonDriverDistraction {
   final double? scoreUnlock;
 
   final double? scoreCall;
-
-  final List<PigeonCall?>? calls;
 }
 
 class PigeonItineraryData {

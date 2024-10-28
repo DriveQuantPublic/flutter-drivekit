@@ -831,7 +831,6 @@ struct PigeonDriverDistraction {
   var score: Double
   var scoreUnlock: Double? = nil
   var scoreCall: Double? = nil
-  var calls: [PigeonCall?]? = nil
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
   static func fromList(_ __pigeon_list: [Any?]) -> PigeonDriverDistraction? {
@@ -843,7 +842,6 @@ struct PigeonDriverDistraction {
     let score = __pigeon_list[5] as! Double
     let scoreUnlock: Double? = nilOrValue(__pigeon_list[6])
     let scoreCall: Double? = nilOrValue(__pigeon_list[7])
-    let calls: [PigeonCall?]? = nilOrValue(__pigeon_list[8])
 
     return PigeonDriverDistraction(
       nbUnlock: nbUnlock,
@@ -853,8 +851,7 @@ struct PigeonDriverDistraction {
       distancePercentUnlock: distancePercentUnlock,
       score: score,
       scoreUnlock: scoreUnlock,
-      scoreCall: scoreCall,
-      calls: calls
+      scoreCall: scoreCall
     )
   }
   func toList() -> [Any?] {
@@ -867,7 +864,6 @@ struct PigeonDriverDistraction {
       score,
       scoreUnlock,
       scoreCall,
-      calls,
     ]
   }
 }

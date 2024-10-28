@@ -770,8 +770,7 @@ data class PigeonDriverDistraction (
   val distancePercentUnlock: Double,
   val score: Double,
   val scoreUnlock: Double? = null,
-  val scoreCall: Double? = null,
-  val calls: List<PigeonCall?>? = null
+  val scoreCall: Double? = null
 
 ) {
   companion object {
@@ -785,8 +784,7 @@ data class PigeonDriverDistraction (
       val score = __pigeon_list[5] as Double
       val scoreUnlock = __pigeon_list[6] as Double?
       val scoreCall = __pigeon_list[7] as Double?
-      val calls = __pigeon_list[8] as List<PigeonCall?>?
-      return PigeonDriverDistraction(nbUnlock, durationUnlock, durationPercentUnlock, distanceUnlock, distancePercentUnlock, score, scoreUnlock, scoreCall, calls)
+      return PigeonDriverDistraction(nbUnlock, durationUnlock, durationPercentUnlock, distanceUnlock, distancePercentUnlock, score, scoreUnlock, scoreCall)
     }
   }
   fun toList(): List<Any?> {
@@ -799,7 +797,6 @@ data class PigeonDriverDistraction (
       score,
       scoreUnlock,
       scoreCall,
-      calls,
     )
   }
 }

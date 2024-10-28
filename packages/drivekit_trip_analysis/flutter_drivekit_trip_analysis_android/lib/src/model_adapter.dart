@@ -493,8 +493,6 @@ extension PigeonDriverDistractionAdapter on PigeonDriverDistraction {
       score: score,
       scoreUnlock: scoreUnlock,
       scoreCall: scoreCall,
-      calls:
-          calls?.whereNotNull().map((e) => e.toModelImplementation()).toList(),
     );
   }
 }

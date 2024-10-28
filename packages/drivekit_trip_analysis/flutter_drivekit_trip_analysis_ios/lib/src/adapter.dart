@@ -333,7 +333,6 @@ extension PigeonDriverDistractionAdapter on DriverDistraction {
       score: score,
       scoreUnlock: scoreUnlock,
       scoreCall: scoreCall,
-      calls: calls?.map((e) => e.toPigeonImplementation()).toList(),
     );
   }
 }

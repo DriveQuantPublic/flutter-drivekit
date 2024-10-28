@@ -921,7 +921,6 @@ class PigeonDriverDistraction {
     required this.score,
     this.scoreUnlock,
     this.scoreCall,
-    this.calls,
   });
 
   int nbUnlock;
@@ -940,8 +939,6 @@ class PigeonDriverDistraction {
 
   double? scoreCall;
 
-  List<PigeonCall?>? calls;
-
   Object encode() {
     return <Object?>[
       nbUnlock,
@@ -952,7 +949,6 @@ class PigeonDriverDistraction {
       score,
       scoreUnlock,
       scoreCall,
-      calls,
     ];
   }
 
@@ -967,7 +963,6 @@ class PigeonDriverDistraction {
       score: result[5]! as double,
       scoreUnlock: result[6] as double?,
       scoreCall: result[7] as double?,
-      calls: (result[8] as List<Object?>?)?.cast<PigeonCall?>(),
     );
   }
 }

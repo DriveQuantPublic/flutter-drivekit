@@ -142,6 +142,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_drivekit_core_platform_interface:
+    dependency: "direct overridden"
+    description:
+      path: "../../drivekit_core/flutter_drivekit_core_platform_interface"
+      relative: true
+    source: path
+    version: "1.1.1"
   flutter_drivekit_trip_analysis_platform_interface:
     dependency: "direct main"
     description:

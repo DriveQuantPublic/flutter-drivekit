@@ -79,7 +79,6 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 | [isMonitoringPotentialTripStart()](#ismonitoringpotentialtripstart)| `Future<bool>`                  | ✅   | ✅       |
 | [setMonitorPotentialTripStart()](#setmonitorpotentialtripstart)    | `Future<void>`                  | ✅   | ✅       |
 | [setVehicle()](#setvehicle)                                        | `Future<bool>`                  | ✅   | ✅       |
-| [getTripResponseStatus()](#getTripResponseStatus)                  | `Future<TripResponseStatus>`    | ✅   | ✅       |
 | [getTripMetadata()](#gettripmetadata)                              | `Future<Map<String, String>?`   | ✅   | ✅       |
 | [updateTripMetadata()](#updatetripmetadata)                        | `Future<void>`                  | ✅   | ✅       |
 | [deleteTripMetadata()](#deletetripmetadata)                        | `Future<void>`                  | ✅   | ✅       |
@@ -221,7 +220,7 @@ void addTripListener(TripListener listener);
 | tripStarted                       | Called each time a trip is started. `StartMode` indicates which event starts the trip.                                                                                                                                                                    |
 | tripPoint                         | Called when a trip is started and confirmed, for each GPS point recorded by the SDK.                                                                                                                                                                      |
 | tripSavedForRepost                | Called if at the end of the trip, the trip can be sent to DriveQuant's server for the analysis. The trip is saved locally on the SDK and will be sent later.                                                                                              |
-| tripFinished                      | Called when a trip has been recorded by the SDK and sent to DriveQuant's server to be analyzed.  `PostGeneric` object contains raw data sent to DriveQuant's server, `PostGenericResponse` object contains the trip analysis made on DriveQuant's server. |
+| tripFinished                      | Called when a trip has been recorded by the SDK and sent to DriveQuant's server to be analyzed.  `TripResponseStatus` object contains trip response status details. More about this object [here](https://docs.drivequant.com/trip-analysis/ios/references#tripresponsestatus) |
 | tripCancelled                     | Called when a trip is cancelled. `CancelTrip` indicates which event cancels the trip.                                                                                                                                                                     |
 | potentialTripStart                | Called each time a potential trip is started. `StartMode` indicates which event starts the potential trip.                                                                                                                                                |
 | beaconDetected                    | Called when a beacon sets in the SDK is detected.                                                                                                                                                                                                         |
@@ -389,24 +388,6 @@ A detailed description of vehicle parameter is available [here](https://docs.dri
 >
 > driveWheels = 0
 
-### getTripResponseStatus
-
-Once the DriveQuant servers has analyzed a trip, the `tripFinished()` [callback of TripListener](#addtriplistener) is triggered with the data in the `PostGenericResponse` object.
-
-It can be useful to check the trip response status in order to check for example if the trip is valid or not with detailed information.
-
-To do this, call the following method:
-
-```dart
-  Future<TripResponseStatus?> getTripResponseStatus(
-    PostGenericResponse tripResponse,
-  )
-```
-
-The TripResponseStatus model is described in the References part.
-
-
-A detailed description of TripResponseStatus model is available [here](https://docs.drivequant.com/trip-analysis/ios/references#tripresponsestatus).
 
 
 ### getTripMetadata

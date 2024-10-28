@@ -1,5 +1,7 @@
-# melos_managed_dependency_overrides: flutter_drivekit_trip_analysis_android,flutter_drivekit_trip_analysis_ios,flutter_drivekit_trip_analysis_platform_interface
+# melos_managed_dependency_overrides: flutter_drivekit_trip_analysis_android,flutter_drivekit_trip_analysis_ios,flutter_drivekit_trip_analysis_platform_interface,flutter_drivekit_core_platform_interface
 dependency_overrides:
+  flutter_drivekit_core_platform_interface:
+    path: ../../drivekit_core/flutter_drivekit_core_platform_interface
   flutter_drivekit_trip_analysis_android:
     path: ../flutter_drivekit_trip_analysis_android
   flutter_drivekit_trip_analysis_ios:
