@@ -1,3 +1,5 @@
+import 'package:flutter_drivekit_core_platform_interface/flutter_drivekit_core_platform_interface.dart';
+
 /// Vehicle class
 class Vehicle {
   /// Creates a Vehicle instance
@@ -415,6 +417,7 @@ class TripResponseStatus {
     required this.hasSafetyAndEcoDrivingScore,
     required this.info,
     required this.error,
+    required this.trip,
   });
 
   /// Trip status: valid or not
@@ -432,6 +435,9 @@ class TripResponseStatus {
 
   /// The error that occurred when Trip is not valid.
   final TripResponseError? error;
+
+  /// The trip related to the response status. Null in case of non valid trip.
+  final Trip? trip;
 }
 
 /// TripResponseStatusType enum
