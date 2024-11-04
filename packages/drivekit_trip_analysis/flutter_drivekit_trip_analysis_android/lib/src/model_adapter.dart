@@ -352,22 +352,6 @@ extension PigeonSafetyAdapter on PigeonSafety {
   }
 }
 
-/// Adapts the [PigeonItineraryData] class to the corresponding class in the
-/// model.
-extension PigeonItineraryDataAdapter on PigeonItineraryData {
-  /// Converts a [PigeonItineraryData] to a corresponding model class.
-  ItineraryData toModelImplementation() {
-    return ItineraryData(
-      startDate: startDate,
-      endDate: endDate,
-      departureCity: departureCity,
-      arrivalCity: arrivalCity,
-      departureAddress: departureAddress,
-      arrivalAddress: arrivalAddress,
-    );
-  }
-}
-
 /// Adapts the [PigeonLogbook] class to the corresponding class in the model.
 extension PigeonLogbookAdapter on PigeonLogbook {
   /// Converts a [PigeonLogbook] to a corresponding model class.
@@ -646,7 +630,6 @@ extension PigeonTripAdapter on PigeonTrip {
       tireWear: tireWear?.toModelImplementation(),
       brakeWear: brakeWear?.toModelImplementation(),
       driverDistraction: driverDistraction?.toModelImplementation(),
-      itineraryData: itineraryData?.toModelImplementation(),
       endDate: endDate,
       logbook: logbook?.toModelImplementation(),
       safetyEvents: safetyEvents

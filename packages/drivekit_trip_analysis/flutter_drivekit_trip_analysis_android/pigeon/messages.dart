@@ -687,29 +687,6 @@ class PigeonDriverDistraction {
   final double? scoreCall;
 }
 
-class PigeonItineraryData {
-  const PigeonItineraryData({
-    this.startDate,
-    this.endDate,
-    this.departureCity,
-    this.arrivalCity,
-    this.departureAddress,
-    this.arrivalAddress,
-  });
-
-  final String? startDate;
-
-  final String? endDate;
-
-  final String? departureCity;
-
-  final String? arrivalCity;
-
-  final String? departureAddress;
-
-  final String? arrivalAddress;
-}
-
 class PigeonLogbook {
   const PigeonLogbook({
     required this.status,
@@ -1039,7 +1016,6 @@ class PigeonTrip {
     required this.tireWear,
     required this.brakeWear,
     required this.driverDistraction,
-    required this.itineraryData,
     required this.logbook,
     required this.safetyEvents,
     required this.speedingStatistics,
@@ -1112,9 +1088,6 @@ class PigeonTrip {
 
   /// The driver distraction information
   final PigeonDriverDistraction? driverDistraction;
-
-  /// The itinerary data
-  final PigeonItineraryData? itineraryData;
 
   /// The logbook information
   final PigeonLogbook? logbook;

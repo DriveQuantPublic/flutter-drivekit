@@ -43,7 +43,6 @@ import com.drivequant.drivekit.flutter.tripanalysis.PigeonEnergyEstimation
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonEvaluationData
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonFuelEstimation
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonFuelEstimationContext
-import com.drivequant.drivekit.flutter.tripanalysis.PigeonItineraryData
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonLogbook
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonManeuverData
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonPollutants
@@ -482,16 +481,6 @@ object PigeonMapper {
         val driverDistraction: PigeonDriverDistraction? = trip.driverDistraction?.let {
             this.toPigeonDriverDistraction(it)
         }
-        val itineraryData = PigeonItineraryData(
-            startDate = trip.startDate?.let {
-                backendDateFormat.format(it)
-            },
-            endDate = backendDateFormat.format(trip.endDate),
-            departureAddress = trip.departureAddress,
-            arrivalAddress = trip.arrivalAddress,
-            departureCity = trip.departureCity,
-            arrivalCity = trip.arrivalCity
-        )
         val logbook: PigeonLogbook? = trip.logbook?.let {
             this.toPigeonLogbook(it)
         }
@@ -545,7 +534,6 @@ object PigeonMapper {
             tireWear = tireWear,
             brakeWear = brakeWear,
             driverDistraction = driverDistraction,
-            itineraryData = itineraryData,
             logbook = logbook,
             safetyEvents = safetyEvents,
             speedingStatistics = speedingStatistics,

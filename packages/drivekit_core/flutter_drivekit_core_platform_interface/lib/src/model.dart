@@ -231,7 +231,6 @@ class Trip {
     required this.tireWear,
     required this.brakeWear,
     required this.driverDistraction,
-    required this.itineraryData,
     required this.logbook,
     required this.safetyEvents,
     required this.speedingStatistics,
@@ -300,9 +299,6 @@ class Trip {
 
   /// The driver distraction information
   final DriverDistraction? driverDistraction;
-
-  /// The itinerary data
-  final ItineraryData? itineraryData;
 
   /// The logbook information
   final Logbook? logbook;

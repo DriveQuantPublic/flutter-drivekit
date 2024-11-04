@@ -86,14 +86,6 @@ extension PigeonTrip {
         if let driverDistraction = trip.driverDistraction {
             self.driverDistraction = PigeonDriverDistraction(from: driverDistraction)
         }
-        self.itineraryData = PigeonItineraryData(
-            startDate: (trip.startDate != nil) ? DateUtils.convertDateToString(date: trip.startDate!) : nil,
-            endDate: (trip.endDate != nil) ? DateUtils.convertDateToString(date: trip.endDate!) : nil,
-            departureCity: trip.departureCity,
-            arrivalCity: trip.arrivalCity,
-            departureAddress: trip.departureAddress,
-            arrivalAddress: trip.arrivalAddress
-        )
         if let logbook = trip.logbook {
             self.logbook = PigeonLogbook(from: logbook)
         }

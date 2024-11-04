@@ -98,19 +98,6 @@ extension PigeonState {
     }
 }
 
-extension PigeonItineraryData {
-    init(from itineraryData: ItineraryData) {
-        self.init(
-            startDate: itineraryData.startDate,
-            endDate: itineraryData.endDate,
-            departureCity: itineraryData.departureCity,
-            arrivalCity: itineraryData.arrivalCity,
-            departureAddress: itineraryData.departureAddress,
-            arrivalAddress: itineraryData.arrivalAddress
-        )
-    }
-}
-
 extension PigeonVehicle {
     init (from vehicle: TripVehicle) {
         self.init(
@@ -589,14 +576,6 @@ extension PigeonTrip {
         if let driverDistraction = trip.driverDistraction {
             self.driverDistraction = PigeonDriverDistraction(from: driverDistraction)
         }
-        self.itineraryData = PigeonItineraryData(
-            startDate: (trip.startDate != nil) ? DateUtils.convertDateToString(date: trip.startDate!) : nil,
-            endDate: (trip.endDate != nil) ? DateUtils.convertDateToString(date: trip.endDate!) : nil,
-            departureCity: trip.departureCity,
-            arrivalCity: trip.arrivalCity,
-            departureAddress: trip.departureAddress,
-            arrivalAddress: trip.arrivalAddress
-        )
         if let logbook = trip.logbook {
             self.logbook = PigeonLogbook(from: logbook)
         }

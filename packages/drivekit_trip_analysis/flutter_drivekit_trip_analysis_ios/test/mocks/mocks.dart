@@ -15,8 +15,6 @@ final mockPigeonDkCrashInfo = PigeonDKCrashInfo(
   status: PigeonCrashStatus.confirmed,
 );
 
-final mockPigeonItineraryData = PigeonItineraryData();
-
 final mockPigeonVehicle = PigeonVehicle();
 
 final mockPigeonTripPoint = PigeonTripPoint(

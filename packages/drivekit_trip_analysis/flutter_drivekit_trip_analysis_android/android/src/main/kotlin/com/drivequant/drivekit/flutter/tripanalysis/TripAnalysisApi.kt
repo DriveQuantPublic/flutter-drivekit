@@ -802,40 +802,6 @@ data class PigeonDriverDistraction (
 }
 
 /** Generated class from Pigeon that represents data sent in messages. */
-data class PigeonItineraryData (
-  val startDate: String? = null,
-  val endDate: String? = null,
-  val departureCity: String? = null,
-  val arrivalCity: String? = null,
-  val departureAddress: String? = null,
-  val arrivalAddress: String? = null
-
-) {
-  companion object {
-    @Suppress("LocalVariableName")
-    fun fromList(__pigeon_list: List<Any?>): PigeonItineraryData {
-      val startDate = __pigeon_list[0] as String?
-      val endDate = __pigeon_list[1] as String?
-      val departureCity = __pigeon_list[2] as String?
-      val arrivalCity = __pigeon_list[3] as String?
-      val departureAddress = __pigeon_list[4] as String?
-      val arrivalAddress = __pigeon_list[5] as String?
-      return PigeonItineraryData(startDate, endDate, departureCity, arrivalCity, departureAddress, arrivalAddress)
-    }
-  }
-  fun toList(): List<Any?> {
-    return listOf(
-      startDate,
-      endDate,
-      departureCity,
-      arrivalCity,
-      departureAddress,
-      arrivalAddress,
-    )
-  }
-}
-
-/** Generated class from Pigeon that represents data sent in messages. */
 data class PigeonLogbook (
   val status: Long,
   val updateDate: String? = null
@@ -1181,8 +1147,6 @@ data class PigeonTrip (
   val brakeWear: PigeonBrakeWear? = null,
   /** The driver distraction information */
   val driverDistraction: PigeonDriverDistraction? = null,
-  /** The itinerary data */
-  val itineraryData: PigeonItineraryData? = null,
   /** The logbook information */
   val logbook: PigeonLogbook? = null,
   /** The list of safety events */
@@ -1235,22 +1199,21 @@ data class PigeonTrip (
       val tireWear = __pigeon_list[16] as PigeonTireWear?
       val brakeWear = __pigeon_list[17] as PigeonBrakeWear?
       val driverDistraction = __pigeon_list[18] as PigeonDriverDistraction?
-      val itineraryData = __pigeon_list[19] as PigeonItineraryData?
-      val logbook = __pigeon_list[20] as PigeonLogbook?
-      val safetyEvents = __pigeon_list[21] as List<PigeonSafetyEvent?>?
-      val speedingStatistics = __pigeon_list[22] as PigeonSpeedingStatistics?
-      val energyEstimation = __pigeon_list[23] as PigeonEnergyEstimation?
-      val advancedEnergyEstimation = __pigeon_list[24] as List<PigeonAdvancedEnergyEstimation?>?
-      val tripAdvicesData = __pigeon_list[25] as List<PigeonTripAdviceData?>?
-      val maneuverData = __pigeon_list[26] as PigeonManeuverData?
-      val evaluationData = __pigeon_list[27] as PigeonEvaluationData?
-      val metadata = __pigeon_list[28] as Map<String?, String?>?
-      val transportationMode = __pigeon_list[29].let { num -> if (num is Int) num.toLong() else num as Long }
-      val declaredTransportationMode = __pigeon_list[30] as PigeonDeclaredTransportationMode?
-      val unscored = __pigeon_list[31] as Boolean
-      val calls = __pigeon_list[32] as List<PigeonCall?>?
-      val speedLimitContexts = __pigeon_list[33] as List<PigeonSpeedLimitContext?>?
-      return PigeonTrip(itinId, startDate, endDate, departureCity, arrivalCity, departureAddress, arrivalAddress, vehicleId, tripStatistics, ecoDriving, fuelEstimation, safety, advancedEcoDriving, advancedFuelEstimation, advancedSafety, pollutants, tireWear, brakeWear, driverDistraction, itineraryData, logbook, safetyEvents, speedingStatistics, energyEstimation, advancedEnergyEstimation, tripAdvicesData, maneuverData, evaluationData, metadata, transportationMode, declaredTransportationMode, unscored, calls, speedLimitContexts)
+      val logbook = __pigeon_list[19] as PigeonLogbook?
+      val safetyEvents = __pigeon_list[20] as List<PigeonSafetyEvent?>?
+      val speedingStatistics = __pigeon_list[21] as PigeonSpeedingStatistics?
+      val energyEstimation = __pigeon_list[22] as PigeonEnergyEstimation?
+      val advancedEnergyEstimation = __pigeon_list[23] as List<PigeonAdvancedEnergyEstimation?>?
+      val tripAdvicesData = __pigeon_list[24] as List<PigeonTripAdviceData?>?
+      val maneuverData = __pigeon_list[25] as PigeonManeuverData?
+      val evaluationData = __pigeon_list[26] as PigeonEvaluationData?
+      val metadata = __pigeon_list[27] as Map<String?, String?>?
+      val transportationMode = __pigeon_list[28].let { num -> if (num is Int) num.toLong() else num as Long }
+      val declaredTransportationMode = __pigeon_list[29] as PigeonDeclaredTransportationMode?
+      val unscored = __pigeon_list[30] as Boolean
+      val calls = __pigeon_list[31] as List<PigeonCall?>?
+      val speedLimitContexts = __pigeon_list[32] as List<PigeonSpeedLimitContext?>?
+      return PigeonTrip(itinId, startDate, endDate, departureCity, arrivalCity, departureAddress, arrivalAddress, vehicleId, tripStatistics, ecoDriving, fuelEstimation, safety, advancedEcoDriving, advancedFuelEstimation, advancedSafety, pollutants, tireWear, brakeWear, driverDistraction, logbook, safetyEvents, speedingStatistics, energyEstimation, advancedEnergyEstimation, tripAdvicesData, maneuverData, evaluationData, metadata, transportationMode, declaredTransportationMode, unscored, calls, speedLimitContexts)
     }
   }
   fun toList(): List<Any?> {
@@ -1274,7 +1237,6 @@ data class PigeonTrip (
       tireWear,
       brakeWear,
       driverDistraction,
-      itineraryData,
       logbook,
       safetyEvents,
       speedingStatistics,
@@ -1575,130 +1537,125 @@ private object TripAnalysisApiPigeonCodec : StandardMessageCodec() {
       }
       145.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          PigeonItineraryData.fromList(it)
+          PigeonLogbook.fromList(it)
         }
       }
       146.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          PigeonLogbook.fromList(it)
+          PigeonSafetyEvent.fromList(it)
         }
       }
       147.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          PigeonSafetyEvent.fromList(it)
+          PigeonSpeedingStatistics.fromList(it)
         }
       }
       148.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          PigeonSpeedingStatistics.fromList(it)
+          PigeonEcoDrivingContext.fromList(it)
         }
       }
       149.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          PigeonEcoDrivingContext.fromList(it)
+          PigeonFuelEstimationContext.fromList(it)
         }
       }
       150.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          PigeonFuelEstimationContext.fromList(it)
+          PigeonSafetyContext.fromList(it)
         }
       }
       151.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          PigeonSafetyContext.fromList(it)
+          PigeonSpeedLimitContext.fromList(it)
         }
       }
       152.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          PigeonSpeedLimitContext.fromList(it)
+          PigeonTripResponseStatus.fromList(it)
         }
       }
       153.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          PigeonTripResponseStatus.fromList(it)
+          PigeonTripResponseInfoItem.fromList(it)
         }
       }
       154.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          PigeonTripResponseInfoItem.fromList(it)
+          PigeonTrip.fromList(it)
         }
       }
       155.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          PigeonTrip.fromList(it)
+          PigeonTripStatistics.fromList(it)
         }
       }
       156.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          PigeonTripStatistics.fromList(it)
+          PigeonTripAdviceData.fromList(it)
         }
       }
       157.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          PigeonTripAdviceData.fromList(it)
+          PigeonTripAdviceEvaluation.fromList(it)
         }
       }
       158.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          PigeonTripAdviceEvaluation.fromList(it)
+          PigeonManeuverData.fromList(it)
         }
       }
       159.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          PigeonManeuverData.fromList(it)
+          PigeonEvaluationData.fromList(it)
         }
       }
       160.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          PigeonEvaluationData.fromList(it)
-        }
-      }
-      161.toByte() -> {
-        return (readValue(buffer) as? List<Any?>)?.let {
           PigeonDeclaredTransportationMode.fromList(it)
         }
       }
-      162.toByte() -> {
+      161.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
           PigeonStartMode.ofRaw(it)
         }
       }
-      163.toByte() -> {
+      162.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
           PigeonCancelTrip.ofRaw(it)
         }
       }
-      164.toByte() -> {
+      163.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
           PigeonState.ofRaw(it)
         }
       }
-      165.toByte() -> {
+      164.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
           PigeonDKCrashFeedbackType.ofRaw(it)
         }
       }
-      166.toByte() -> {
+      165.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
           PigeonDKCrashFeedbackSeverity.ofRaw(it)
         }
       }
-      167.toByte() -> {
+      166.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
           PigeonCrashStatus.ofRaw(it)
         }
       }
-      168.toByte() -> {
+      167.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
           PigeonTripResponseStatusType.ofRaw(it)
         }
       }
-      169.toByte() -> {
+      168.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
           PigeonTripResponseInfo.ofRaw(it)
         }
       }
-      170.toByte() -> {
+      169.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
           PigeonTripResponseError.ofRaw(it)
         }
@@ -1772,108 +1729,104 @@ private object TripAnalysisApiPigeonCodec : StandardMessageCodec() {
         stream.write(144)
         writeValue(stream, value.toList())
       }
-      is PigeonItineraryData -> {
+      is PigeonLogbook -> {
         stream.write(145)
         writeValue(stream, value.toList())
       }
-      is PigeonLogbook -> {
+      is PigeonSafetyEvent -> {
         stream.write(146)
         writeValue(stream, value.toList())
       }
-      is PigeonSafetyEvent -> {
+      is PigeonSpeedingStatistics -> {
         stream.write(147)
         writeValue(stream, value.toList())
       }
-      is PigeonSpeedingStatistics -> {
+      is PigeonEcoDrivingContext -> {
         stream.write(148)
         writeValue(stream, value.toList())
       }
-      is PigeonEcoDrivingContext -> {
+      is PigeonFuelEstimationContext -> {
         stream.write(149)
         writeValue(stream, value.toList())
       }
-      is PigeonFuelEstimationContext -> {
+      is PigeonSafetyContext -> {
         stream.write(150)
         writeValue(stream, value.toList())
       }
-      is PigeonSafetyContext -> {
+      is PigeonSpeedLimitContext -> {
         stream.write(151)
         writeValue(stream, value.toList())
       }
-      is PigeonSpeedLimitContext -> {
+      is PigeonTripResponseStatus -> {
         stream.write(152)
         writeValue(stream, value.toList())
       }
-      is PigeonTripResponseStatus -> {
+      is PigeonTripResponseInfoItem -> {
         stream.write(153)
         writeValue(stream, value.toList())
       }
-      is PigeonTripResponseInfoItem -> {
+      is PigeonTrip -> {
         stream.write(154)
         writeValue(stream, value.toList())
       }
-      is PigeonTrip -> {
+      is PigeonTripStatistics -> {
         stream.write(155)
         writeValue(stream, value.toList())
       }
-      is PigeonTripStatistics -> {
+      is PigeonTripAdviceData -> {
         stream.write(156)
         writeValue(stream, value.toList())
       }
-      is PigeonTripAdviceData -> {
+      is PigeonTripAdviceEvaluation -> {
         stream.write(157)
         writeValue(stream, value.toList())
       }
-      is PigeonTripAdviceEvaluation -> {
+      is PigeonManeuverData -> {
         stream.write(158)
         writeValue(stream, value.toList())
       }
-      is PigeonManeuverData -> {
+      is PigeonEvaluationData -> {
         stream.write(159)
         writeValue(stream, value.toList())
       }
-      is PigeonEvaluationData -> {
+      is PigeonDeclaredTransportationMode -> {
         stream.write(160)
         writeValue(stream, value.toList())
       }
-      is PigeonDeclaredTransportationMode -> {
-        stream.write(161)
-        writeValue(stream, value.toList())
-      }
       is PigeonStartMode -> {
-        stream.write(162)
+        stream.write(161)
         writeValue(stream, value.raw)
       }
       is PigeonCancelTrip -> {
-        stream.write(163)
+        stream.write(162)
         writeValue(stream, value.raw)
       }
       is PigeonState -> {
-        stream.write(164)
+        stream.write(163)
         writeValue(stream, value.raw)
       }
       is PigeonDKCrashFeedbackType -> {
-        stream.write(165)
+        stream.write(164)
         writeValue(stream, value.raw)
       }
       is PigeonDKCrashFeedbackSeverity -> {
-        stream.write(166)
+        stream.write(165)
         writeValue(stream, value.raw)
       }
       is PigeonCrashStatus -> {
-        stream.write(167)
+        stream.write(166)
         writeValue(stream, value.raw)
       }
       is PigeonTripResponseStatusType -> {
-        stream.write(168)
+        stream.write(167)
         writeValue(stream, value.raw)
       }
       is PigeonTripResponseInfo -> {
-        stream.write(169)
+        stream.write(168)
         writeValue(stream, value.raw)
       }
       is PigeonTripResponseError -> {
-        stream.write(170)
+        stream.write(169)
         writeValue(stream, value.raw)
       }
       else -> super.writeValue(stream, value)
