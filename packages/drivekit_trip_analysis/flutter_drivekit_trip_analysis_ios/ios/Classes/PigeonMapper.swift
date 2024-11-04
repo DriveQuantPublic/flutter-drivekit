@@ -740,14 +740,17 @@ extension PigeonCall {
             id: Int64(call.id),
             start: call.start,
             end: call.end,
-            durationS: Int64(call.duration),
-            duration: Int64(call.durationPercent),
-            distanceM: Int64(call.distance),
-            distance: Int64(call.distancePercent),
-            status: call.typeValue ?? "",
+            duration: Int64(call.duration),
+            durationPercent: Int64(call.durationPercent),
+            distance: Int64(call.distance),
+            distancePercent: Int64(call.distancePercent),
+            type: call.typeValue ?? "",
             audioSystem: call.audioSystemValue ?? "",
-            audioInput: call.audioInput, audioOutput: call.audioOutput, audioName: call.audioName, bluetoothClass: Int64(call.bluetoothClass),
-            forbidden: call.isForbidden
+            audioInput: call.audioInput,
+            audioOutput: call.audioOutput,
+            audioName: call.audioName,
+            bluetoothClass: Int64(call.bluetoothClass),
+            isForbidden: call.isForbidden
         )
     }
 }

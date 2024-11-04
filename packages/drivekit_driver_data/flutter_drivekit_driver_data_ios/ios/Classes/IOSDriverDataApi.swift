@@ -660,50 +660,50 @@ struct PigeonCall {
   var id: Int64
   var start: Double
   var end: Double
-  var durationS: Int64
   var duration: Int64
-  var distanceM: Int64
+  var durationPercent: Int64
   var distance: Int64
-  var status: String
+  var distancePercent: Int64
+  var type: String
   var audioSystem: String
   var audioInput: String?
   var audioOutput: String?
   var audioName: String?
   var bluetoothClass: Int64
-  var forbidden: Bool
+  var isForbidden: Bool
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
   static func fromList(_ __pigeon_list: [Any?]) -> PigeonCall? {
     let id = __pigeon_list[0] is Int64 ? __pigeon_list[0] as! Int64 : Int64(__pigeon_list[0] as! Int32)
     let start = __pigeon_list[1] as! Double
     let end = __pigeon_list[2] as! Double
-    let durationS = __pigeon_list[3] is Int64 ? __pigeon_list[3] as! Int64 : Int64(__pigeon_list[3] as! Int32)
-    let duration = __pigeon_list[4] is Int64 ? __pigeon_list[4] as! Int64 : Int64(__pigeon_list[4] as! Int32)
-    let distanceM = __pigeon_list[5] is Int64 ? __pigeon_list[5] as! Int64 : Int64(__pigeon_list[5] as! Int32)
-    let distance = __pigeon_list[6] is Int64 ? __pigeon_list[6] as! Int64 : Int64(__pigeon_list[6] as! Int32)
-    let status = __pigeon_list[7] as! String
+    let duration = __pigeon_list[3] is Int64 ? __pigeon_list[3] as! Int64 : Int64(__pigeon_list[3] as! Int32)
+    let durationPercent = __pigeon_list[4] is Int64 ? __pigeon_list[4] as! Int64 : Int64(__pigeon_list[4] as! Int32)
+    let distance = __pigeon_list[5] is Int64 ? __pigeon_list[5] as! Int64 : Int64(__pigeon_list[5] as! Int32)
+    let distancePercent = __pigeon_list[6] is Int64 ? __pigeon_list[6] as! Int64 : Int64(__pigeon_list[6] as! Int32)
+    let type = __pigeon_list[7] as! String
     let audioSystem = __pigeon_list[8] as! String
     let audioInput: String? = nilOrValue(__pigeon_list[9])
     let audioOutput: String? = nilOrValue(__pigeon_list[10])
     let audioName: String? = nilOrValue(__pigeon_list[11])
     let bluetoothClass = __pigeon_list[12] is Int64 ? __pigeon_list[12] as! Int64 : Int64(__pigeon_list[12] as! Int32)
-    let forbidden = __pigeon_list[13] as! Bool
+    let isForbidden = __pigeon_list[13] as! Bool
 
     return PigeonCall(
       id: id,
       start: start,
       end: end,
-      durationS: durationS,
       duration: duration,
-      distanceM: distanceM,
+      durationPercent: durationPercent,
       distance: distance,
-      status: status,
+      distancePercent: distancePercent,
+      type: type,
       audioSystem: audioSystem,
       audioInput: audioInput,
       audioOutput: audioOutput,
       audioName: audioName,
       bluetoothClass: bluetoothClass,
-      forbidden: forbidden
+      isForbidden: isForbidden
     )
   }
   func toList() -> [Any?] {
@@ -711,17 +711,17 @@ struct PigeonCall {
       id,
       start,
       end,
-      durationS,
       duration,
-      distanceM,
+      durationPercent,
       distance,
-      status,
+      distancePercent,
+      type,
       audioSystem,
       audioInput,
       audioOutput,
       audioName,
       bluetoothClass,
-      forbidden
+      isForbidden
     ]
   }
 }

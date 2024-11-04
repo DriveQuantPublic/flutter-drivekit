@@ -443,17 +443,17 @@ data class PigeonCall (
   val id: Long,
   val start: Double,
   val end: Double,
-  val durationS: Long,
   val duration: Long,
-  val distanceM: Long,
+  val durationPercent: Long,
   val distance: Long,
-  val status: String,
+  val distancePercent: Long,
+  val type: String,
   val audioSystem: String,
   val audioInput: String? = null,
   val audioOutput: String? = null,
   val audioName: String? = null,
   val bluetoothClass: Long,
-  val forbidden: Boolean
+  val isForbidden: Boolean
 
 ) {
   companion object {
@@ -462,18 +462,18 @@ data class PigeonCall (
       val id = __pigeon_list[0].let { num -> if (num is Int) num.toLong() else num as Long }
       val start = __pigeon_list[1] as Double
       val end = __pigeon_list[2] as Double
-      val durationS = __pigeon_list[3].let { num -> if (num is Int) num.toLong() else num as Long }
-      val duration = __pigeon_list[4].let { num -> if (num is Int) num.toLong() else num as Long }
-      val distanceM = __pigeon_list[5].let { num -> if (num is Int) num.toLong() else num as Long }
-      val distance = __pigeon_list[6].let { num -> if (num is Int) num.toLong() else num as Long }
-      val status = __pigeon_list[7] as String
+      val duration = __pigeon_list[3].let { num -> if (num is Int) num.toLong() else num as Long }
+      val durationPercent = __pigeon_list[4].let { num -> if (num is Int) num.toLong() else num as Long }
+      val distance = __pigeon_list[5].let { num -> if (num is Int) num.toLong() else num as Long }
+      val distancePercent = __pigeon_list[6].let { num -> if (num is Int) num.toLong() else num as Long }
+      val type = __pigeon_list[7] as String
       val audioSystem = __pigeon_list[8] as String
       val audioInput = __pigeon_list[9] as String?
       val audioOutput = __pigeon_list[10] as String?
       val audioName = __pigeon_list[11] as String?
       val bluetoothClass = __pigeon_list[12].let { num -> if (num is Int) num.toLong() else num as Long }
-      val forbidden = __pigeon_list[13] as Boolean
-      return PigeonCall(id, start, end, durationS, duration, distanceM, distance, status, audioSystem, audioInput, audioOutput, audioName, bluetoothClass, forbidden)
+      val isForbidden = __pigeon_list[13] as Boolean
+      return PigeonCall(id, start, end, duration, durationPercent, distance, distancePercent, type, audioSystem, audioInput, audioOutput, audioName, bluetoothClass, isForbidden)
     }
   }
   fun toList(): List<Any?> {
@@ -481,17 +481,17 @@ data class PigeonCall (
       id,
       start,
       end,
-      durationS,
       duration,
-      distanceM,
+      durationPercent,
       distance,
-      status,
+      distancePercent,
+      type,
       audioSystem,
       audioInput,
       audioOutput,
       audioName,
       bluetoothClass,
-      forbidden,
+      isForbidden,
     )
   }
 }

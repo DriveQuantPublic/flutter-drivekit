@@ -332,14 +332,14 @@ class PigeonCall {
     required this.id,
     required this.start,
     required this.end,
-    required this.durationS,
     required this.duration,
-    required this.distanceM,
+    required this.durationPercent,
     required this.distance,
-    required this.status,
+    required this.distancePercent,
+    required this.type,
     required this.audioSystem,
     required this.bluetoothClass,
-    required this.forbidden,
+    required this.isForbidden,
     this.audioInput,
     this.audioOutput,
     this.audioName,
@@ -351,15 +351,15 @@ class PigeonCall {
 
   final double end;
 
-  final int durationS;
-
   final int duration;
 
-  final int distanceM;
+  final int durationPercent;
 
   final int distance;
 
-  final String status;
+  final int distancePercent;
+
+  final String type;
 
   final String audioSystem;
 
@@ -371,7 +371,7 @@ class PigeonCall {
 
   final int bluetoothClass;
 
-  final bool forbidden;
+  final bool isForbidden;
 }
 
 class PigeonCallEvent {
@@ -931,53 +931,6 @@ enum PigeonCrashStatus {
   unconfirmed,
 
   confirmed,
-}
-
-class PigeonPigeonCall {
-  const PigeonPigeonCall({
-    required this.id,
-    required this.start,
-    required this.end,
-    required this.durationS,
-    required this.duration,
-    required this.distanceM,
-    required this.distance,
-    required this.status,
-    required this.audioSystem,
-    required this.bluetoothClass,
-    required this.forbidden,
-    this.audioInput,
-    this.audioOutput,
-    this.audioName,
-  });
-
-  final int id;
-
-  final double start;
-
-  final double end;
-
-  final int durationS;
-
-  final int duration;
-
-  final int distanceM;
-
-  final int distance;
-
-  final String status;
-
-  final String audioSystem;
-
-  final String? audioInput;
-
-  final String? audioOutput;
-
-  final String? audioName;
-
-  final int bluetoothClass;
-
-  final bool forbidden;
 }
 
 class PigeonSpeedLimitContext {

@@ -503,17 +503,17 @@ extension PigeonCallAdapter on PigeonCall {
       id: id,
       start: start,
       end: end,
-      durationS: durationS,
       duration: duration,
-      distanceM: distanceM,
+      durationPercent: durationPercent,
       distance: distance,
-      status: status,
+      distancePercent: distancePercent,
+      type: type,
       audioSystem: audioSystem,
       audioInput: audioInput,
       audioOutput: audioOutput,
       audioName: audioName,
       bluetoothClass: bluetoothClass,
-      forbidden: forbidden,
+      isForbidden: isForbidden,
     );
   }
 }

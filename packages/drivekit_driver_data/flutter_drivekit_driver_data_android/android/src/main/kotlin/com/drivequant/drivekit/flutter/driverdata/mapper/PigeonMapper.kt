@@ -322,17 +322,17 @@ object PigeonMapper {
         id = call.uniqueId,
         start = call.start,
         end = call.end,
-        durationS = call.duration.toLong(),
-        duration = call.durationPercent.toLong(),
-        distanceM = call.distance.toLong(),
-        distance = call.distancePercent.toLong(),
-        status = call.type.toString(),
+        duration = call.duration.toLong(),
+        durationPercent = call.durationPercent.toLong(),
+        distance = call.distance.toLong(),
+        distancePercent = call.distancePercent.toLong(),
+        type = call.type.toString(),
         audioSystem = call.audioSystem.toString(),
         audioInput = call.audioInput,
         audioOutput = call.audioOutput,
         audioName = call.audioName,
         bluetoothClass = call.bluetoothClass.toLong(),
-        forbidden = call.isForbidden
+        isForbidden = call.isForbidden
     )
 
     private fun toPigeonLogbook(logbook: Logbook): PigeonLogbook {

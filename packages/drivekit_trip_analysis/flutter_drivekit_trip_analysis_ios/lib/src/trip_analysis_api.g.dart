@@ -460,17 +460,17 @@ class PigeonCall {
     required this.id,
     required this.start,
     required this.end,
-    required this.durationS,
     required this.duration,
-    required this.distanceM,
+    required this.durationPercent,
     required this.distance,
-    required this.status,
+    required this.distancePercent,
+    required this.type,
     required this.audioSystem,
     this.audioInput,
     this.audioOutput,
     this.audioName,
     required this.bluetoothClass,
-    required this.forbidden,
+    required this.isForbidden,
   });
 
   int id;
@@ -479,15 +479,15 @@ class PigeonCall {
 
   double end;
 
-  int durationS;
-
   int duration;
 
-  int distanceM;
+  int durationPercent;
 
   int distance;
 
-  String status;
+  int distancePercent;
+
+  String type;
 
   String audioSystem;
 
@@ -499,24 +499,24 @@ class PigeonCall {
 
   int bluetoothClass;
 
-  bool forbidden;
+  bool isForbidden;
 
   Object encode() {
     return <Object?>[
       id,
       start,
       end,
-      durationS,
       duration,
-      distanceM,
+      durationPercent,
       distance,
-      status,
+      distancePercent,
+      type,
       audioSystem,
       audioInput,
       audioOutput,
       audioName,
       bluetoothClass,
-      forbidden,
+      isForbidden,
     ];
   }
 
@@ -526,17 +526,17 @@ class PigeonCall {
       id: result[0]! as int,
       start: result[1]! as double,
       end: result[2]! as double,
-      durationS: result[3]! as int,
-      duration: result[4]! as int,
-      distanceM: result[5]! as int,
-      distance: result[6]! as int,
-      status: result[7]! as String,
+      duration: result[3]! as int,
+      durationPercent: result[4]! as int,
+      distance: result[5]! as int,
+      distancePercent: result[6]! as int,
+      type: result[7]! as String,
       audioSystem: result[8]! as String,
       audioInput: result[9] as String?,
       audioOutput: result[10] as String?,
       audioName: result[11] as String?,
       bluetoothClass: result[12]! as int,
-      forbidden: result[13]! as bool,
+      isForbidden: result[13]! as bool,
     );
   }
 }
