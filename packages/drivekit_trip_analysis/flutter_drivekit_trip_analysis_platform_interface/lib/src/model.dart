@@ -423,7 +423,7 @@ class TripResponseStatus {
   /// Trip status: valid or not
   final TripResponseStatusType status;
 
-  /// The id of the trip if it is valid, otherwise nil.
+  /// The id of the trip if it is valid, otherwise null.
   final String? itinId;
 
   /// If false, it means that the trip is valid but too short to be analyzed.
