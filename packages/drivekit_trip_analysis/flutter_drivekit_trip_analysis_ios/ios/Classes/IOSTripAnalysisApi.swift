@@ -1340,7 +1340,7 @@ struct PigeonTrip {
   /// Trip evaluation data
   var evaluationData: PigeonEvaluationData? = nil
   /// The metadata
-  var metaData: [String?: String?]? = nil
+  var metadata: [String?: String?]? = nil
   /// The transportation mode
   var transportationMode: Int64
   /// The declared transportation mode
@@ -1382,7 +1382,7 @@ struct PigeonTrip {
     let tripAdvicesData: [PigeonTripAdviceData?]? = nilOrValue(__pigeon_list[25])
     let maneuverData: PigeonManeuverData? = nilOrValue(__pigeon_list[26])
     let evaluationData: PigeonEvaluationData? = nilOrValue(__pigeon_list[27])
-    let metaData: [String?: String?]? = nilOrValue(__pigeon_list[28])
+    let metadata: [String?: String?]? = nilOrValue(__pigeon_list[28])
     let transportationMode = __pigeon_list[29] is Int64 ? __pigeon_list[29] as! Int64 : Int64(__pigeon_list[29] as! Int32)
     let declaredTransportationMode: PigeonDeclaredTransportationMode? = nilOrValue(__pigeon_list[30])
     let unscored = __pigeon_list[31] as! Bool
@@ -1418,7 +1418,7 @@ struct PigeonTrip {
       tripAdvicesData: tripAdvicesData,
       maneuverData: maneuverData,
       evaluationData: evaluationData,
-      metaData: metaData,
+      metadata: metadata,
       transportationMode: transportationMode,
       declaredTransportationMode: declaredTransportationMode,
       unscored: unscored,
@@ -1456,7 +1456,7 @@ struct PigeonTrip {
       tripAdvicesData,
       maneuverData,
       evaluationData,
-      metaData,
+      metadata,
       transportationMode,
       declaredTransportationMode,
       unscored,

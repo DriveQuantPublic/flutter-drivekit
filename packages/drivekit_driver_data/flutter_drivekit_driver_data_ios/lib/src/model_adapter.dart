@@ -370,7 +370,7 @@ extension PigeonTripAdapter on PigeonTrip {
       departureAddress: departureAddress,
       arrivalAddress: arrivalAddress,
       vehicleId: vehicleId,
-      metaData: convertMetadata(metaData),
+      metaData: convertMetadata(metadata),
       transportationMode: transportationMode,
       unscored: unscored,
       calls:

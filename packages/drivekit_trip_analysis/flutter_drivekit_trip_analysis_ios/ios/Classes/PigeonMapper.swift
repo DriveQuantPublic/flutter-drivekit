@@ -629,7 +629,7 @@ extension PigeonTrip {
         if let declaredTransportationMode = trip.declaredTransportationMode {
             self.declaredTransportationMode = PigeonDeclaredTransportationMode(from: declaredTransportationMode)
         }
-        self.metaData = trip.metadata
+        self.metadata = trip.metadata
         self.transportationMode = Int64(trip.transportationMode)
         self.unscored = trip.unscored
         if let calls = trip.calls?.allObjects as? [DriveKitDBTripAccessModule.Call] {

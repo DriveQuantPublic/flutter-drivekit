@@ -119,7 +119,7 @@ class PigeonTrip {
     required this.tripAdvicesData,
     required this.maneuverData,
     required this.evaluationData,
-    required this.metaData,
+    required this.metadata,
     required this.transportationMode,
     required this.declaredTransportationMode,
     required this.unscored,
@@ -212,7 +212,7 @@ class PigeonTrip {
   final PigeonEvaluationData? evaluationData;
 
   /// The metadata
-  final Map<String?, String?>? metaData;
+  final Map<String?, String?>? metadata;
 
   /// The transportation mode
   final int transportationMode;

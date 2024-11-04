@@ -1200,7 +1200,7 @@ data class PigeonTrip (
   /** Trip evaluation data */
   val evaluationData: PigeonEvaluationData? = null,
   /** The metadata */
-  val metaData: Map<String?, String?>? = null,
+  val metadata: Map<String?, String?>? = null,
   /** The transportation mode */
   val transportationMode: Long,
   /** The declared transportation mode */
@@ -1244,13 +1244,13 @@ data class PigeonTrip (
       val tripAdvicesData = __pigeon_list[25] as List<PigeonTripAdviceData?>?
       val maneuverData = __pigeon_list[26] as PigeonManeuverData?
       val evaluationData = __pigeon_list[27] as PigeonEvaluationData?
-      val metaData = __pigeon_list[28] as Map<String?, String?>?
+      val metadata = __pigeon_list[28] as Map<String?, String?>?
       val transportationMode = __pigeon_list[29].let { num -> if (num is Int) num.toLong() else num as Long }
       val declaredTransportationMode = __pigeon_list[30] as PigeonDeclaredTransportationMode?
       val unscored = __pigeon_list[31] as Boolean
       val calls = __pigeon_list[32] as List<PigeonCall?>?
       val speedLimitContexts = __pigeon_list[33] as List<PigeonSpeedLimitContext?>?
-      return PigeonTrip(itinId, startDate, endDate, departureCity, arrivalCity, departureAddress, arrivalAddress, vehicleId, tripStatistics, ecoDriving, fuelEstimation, safety, advancedEcoDriving, advancedFuelEstimation, advancedSafety, pollutants, tireWear, brakeWear, driverDistraction, itineraryData, logbook, safetyEvents, speedingStatistics, energyEstimation, advancedEnergyEstimation, tripAdvicesData, maneuverData, evaluationData, metaData, transportationMode, declaredTransportationMode, unscored, calls, speedLimitContexts)
+      return PigeonTrip(itinId, startDate, endDate, departureCity, arrivalCity, departureAddress, arrivalAddress, vehicleId, tripStatistics, ecoDriving, fuelEstimation, safety, advancedEcoDriving, advancedFuelEstimation, advancedSafety, pollutants, tireWear, brakeWear, driverDistraction, itineraryData, logbook, safetyEvents, speedingStatistics, energyEstimation, advancedEnergyEstimation, tripAdvicesData, maneuverData, evaluationData, metadata, transportationMode, declaredTransportationMode, unscored, calls, speedLimitContexts)
     }
   }
   fun toList(): List<Any?> {
@@ -1283,7 +1283,7 @@ data class PigeonTrip (
       tripAdvicesData,
       maneuverData,
       evaluationData,
-      metaData,
+      metadata,
       transportationMode,
       declaredTransportationMode,
       unscored,

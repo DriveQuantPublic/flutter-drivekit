@@ -192,7 +192,7 @@ class PigeonTrip {
     this.tripAdvicesData,
     this.maneuverData,
     this.evaluationData,
-    this.metaData,
+    this.metadata,
     required this.transportationMode,
     this.declaredTransportationMode,
     required this.unscored,
@@ -286,7 +286,7 @@ class PigeonTrip {
   PigeonEvaluationData? evaluationData;
 
   /// The metadata
-  Map<String?, String?>? metaData;
+  Map<String?, String?>? metadata;
 
   /// The transportation mode
   int transportationMode;
@@ -333,7 +333,7 @@ class PigeonTrip {
       tripAdvicesData,
       maneuverData,
       evaluationData,
-      metaData,
+      metadata,
       transportationMode,
       declaredTransportationMode,
       unscored,
@@ -375,7 +375,7 @@ class PigeonTrip {
           (result[25] as List<Object?>?)?.cast<PigeonTripAdviceData?>(),
       maneuverData: result[26] as PigeonManeuverData?,
       evaluationData: result[27] as PigeonEvaluationData?,
-      metaData:
+      metadata:
           (result[28] as Map<Object?, Object?>?)?.cast<String?, String?>(),
       transportationMode: result[29]! as int,
       declaredTransportationMode:

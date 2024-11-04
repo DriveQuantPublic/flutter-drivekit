@@ -562,7 +562,8 @@ object PigeonMapper {
             tripAdvicesData = tripAdvicesData,
             maneuverData = maneuverData,
             evaluationData = evaluationData,
-            declaredTransportationMode = declaredTransportationMode
+            declaredTransportationMode = declaredTransportationMode,
+            metadata = trip.metaData as Map<String?, String?>?
         )
     }
     fun toPigeonTripResponseStatus(result: TripResult): PigeonTripResponseStatus {
