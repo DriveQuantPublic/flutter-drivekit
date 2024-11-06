@@ -34,6 +34,8 @@ void main() {
 
 @pragma('vm:entry-point')
 void registerTripListener() {
+  WidgetsFlutterBinding.ensureInitialized();
+
   final tripListener = TripListener(
     tripStarted: (startMode) {
       if (Platform.isIOS) {
