@@ -1,7 +1,8 @@
 # 1.2.0
 
     - version 1.2.0 of DriveKit flutter SDK
-
+    - The `tripFinished` TripListener's callback is updated. This callback is called now with a `TripResponseStatus` object. This makes it easier to understand the trip analysis result from our DriveQuant servers.
+    
 # 1.1.1
 
     - version 1.1.1 of DriveKit flutter SDK
