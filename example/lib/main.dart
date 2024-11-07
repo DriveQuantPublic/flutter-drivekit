@@ -24,6 +24,18 @@ void main() {
   );
   flutterLocalNotificationsPlugin.initialize(initializationSettings);
 
+  if (Platform.isIOS) {
+    registerTripListener();
+  }
+
+  // Setup widget.
+  runApp(const MyApp());
+}
+
+@pragma('vm:entry-point')
+void registerTripListener() {
+  WidgetsFlutterBinding.ensureInitialized();
+
   final tripListener = TripListener(
     tripStarted: (startMode) {
       if (Platform.isIOS) {
@@ -61,9 +73,6 @@ void main() {
     },
   );
   DriveKitTripAnalysis.instance.addTripListener(tripListener);
-
-  // Setup widget.
-  runApp(const MyApp());
 }
 
 Future<void> _showTripNotification(String? title, String message) async {
