@@ -18,7 +18,7 @@ class SliverLogs extends StatelessWidget {
             await DriveKitCore.instance.enableLogging(
               // ignore: avoid_redundant_argument_values
               showInConsole: true,
-              androidLogPath: '/YouDriveKitFolder',
+              androidLogPath: '/YourDriveKitFolder',
             );
           },
           child: const Text('Enable logging'),
