@@ -6,6 +6,7 @@ import CoreLocation
 extension FlutterError: Error {}
 
 public class DriveKitTripAnalysisPlugin: NSObject, FlutterPlugin, IOSTripAnalysisApi {
+
     var flutterAPI: FlutterTripAnalysisApi?
 
     public static func register(with registrar: FlutterPluginRegistrar) {
@@ -75,10 +76,6 @@ public class DriveKitTripAnalysisPlugin: NSObject, FlutterPlugin, IOSTripAnalysi
         DriveKitTripAnalysis.shared.addTripListener(self)
     }
 
-    func getTripResponseStatus(tripResponse: PigeonPostGenericResponse) throws -> PigeonTripResponseStatus? {
-        return tripResponse.getStatus()
-    }
-
     func getTripMetadata() -> [String: String]? {
         return DriveKitTripAnalysis.shared.getTripMetadata()
     }
@@ -115,14 +112,12 @@ extension DriveKitTripAnalysisPlugin: TripListener {
         }
     }
 
-    public func tripFinished(post: DriveKitTripAnalysisModule.PostGeneric, response: DriveKitTripAnalysisModule.PostGenericResponse) {
-        let pigeonPostValue = PigeonPostGeneric.init(from: post)
-        let pigeonResponseValue = PigeonPostGenericResponse.init(from: response)
+    public func tripFinished(responseStatus: TripResponseStatus) {
+        let pigeonTripResponseStatus = PigeonTripResponseStatus.init(from: responseStatus)
 
         executeOnMainThread {
             self.flutterAPI?.tripFinished(
-                post: pigeonPostValue,
-                response: pigeonResponseValue) { result in
+                response: pigeonTripResponseStatus) { result in
                     switch result {
                     case .success:
                         print("tripFinished event sent with success.")

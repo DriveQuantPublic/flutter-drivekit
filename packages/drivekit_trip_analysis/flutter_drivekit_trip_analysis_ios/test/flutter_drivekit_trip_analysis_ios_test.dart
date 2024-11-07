@@ -1,6 +1,5 @@
 import 'package:flutter_drivekit_trip_analysis_ios/flutter_drivekit_trip_analysis_ios.dart';
 import 'package:flutter_drivekit_trip_analysis_ios/src/adapter.dart';
-import 'package:flutter_drivekit_trip_analysis_ios/src/model_adapter.dart';
 import 'package:flutter_drivekit_trip_analysis_ios/src/trip_analysis_api.g.dart';
 import 'package:flutter_drivekit_trip_analysis_platform_interface/flutter_drivekit_trip_analysis_platform_interface.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -15,7 +14,6 @@ void main() {
 
   setUpAll(() {
     registerFallbackValue(MockPigeonVehicle());
-    registerFallbackValue(MockPigeonPostGenericResponse());
   });
 
   setUp(() {
@@ -271,7 +269,7 @@ void main() {
             significantLocationChangeDetected: (state) =>
                 significantLocationChangeDetectedCount++,
             tripCancelled: (cancelTrip) => tripCancelledCount++,
-            tripFinished: (post, response) => tripFinishedCount++,
+            tripFinished: (response) => tripFinishedCount++,
             tripPoint: (tripPoint) => tripPointCount++,
             tripSavedForRepost: () => tripSavedForRepostCount++,
             tripStarted: (startMode) => tripStartedCount++,
@@ -297,7 +295,7 @@ void main() {
         flutterTripAnalysisApi.tripCancelled(PigeonCancelTrip.beaconNoSpeed);
         expect(tripCancelledCount, 1);
 
-        flutterTripAnalysisApi.tripFinished(mockPigeonPost, mockPigeonResponse);
+        flutterTripAnalysisApi.tripFinished(mockPigeonTripResponseStatus);
         expect(tripFinishedCount, 1);
 
         flutterTripAnalysisApi.tripPoint(mockPigeonTripPoint);
@@ -324,7 +322,7 @@ void main() {
             significantLocationChangeDetected: (state) =>
                 significantLocationChangeDetectedCount++,
             tripCancelled: (cancelTrip) => tripCancelledCount++,
-            tripFinished: (post, response) => tripFinishedCount++,
+            tripFinished: (response) => tripFinishedCount++,
             tripPoint: (tripPoint) => tripPointCount++,
             tripSavedForRepost: () => tripSavedForRepostCount++,
             tripStarted: (startMode) => tripStartedCount++,
@@ -349,7 +347,7 @@ void main() {
         flutterTripAnalysisApi.tripCancelled(PigeonCancelTrip.beaconNoSpeed);
         expect(tripCancelledCount, 3);
 
-        flutterTripAnalysisApi.tripFinished(mockPigeonPost, mockPigeonResponse);
+        flutterTripAnalysisApi.tripFinished(mockPigeonTripResponseStatus);
         expect(tripFinishedCount, 3);
 
         flutterTripAnalysisApi.tripPoint(mockPigeonTripPoint);
@@ -431,7 +429,7 @@ void main() {
           significantLocationChangeDetected: (state) =>
               significantLocationChangeDetectedCount++,
           tripCancelled: (cancelTrip) => tripCancelledCount++,
-          tripFinished: (post, response) => tripFinishedCount++,
+          tripFinished: (response) => tripFinishedCount++,
           tripPoint: (tripPoint) => tripPointCount++,
           tripSavedForRepost: () => tripSavedForRepostCount++,
           tripStarted: (startMode) => tripStartedCount++,
@@ -450,7 +448,7 @@ void main() {
           )
           ..sdkStateChanged(PigeonState.inactive)
           ..tripCancelled(PigeonCancelTrip.beaconNoSpeed)
-          ..tripFinished(mockPigeonPost, mockPigeonResponse)
+          ..tripFinished(mockPigeonTripResponseStatus)
           ..tripPoint(mockPigeonTripPoint)
           ..tripSavedForRepost()
           ..tripStarted(PigeonStartMode.bluetooth);
@@ -488,7 +486,7 @@ void main() {
           significantLocationChangeDetected: (state) =>
               significantLocationChangeDetectedCount++,
           tripCancelled: (cancelTrip) => tripCancelledCount++,
-          tripFinished: (post, response) => tripFinishedCount++,
+          tripFinished: (response) => tripFinishedCount++,
           tripPoint: (tripPoint) => tripPointCount++,
           tripSavedForRepost: () => tripSavedForRepostCount++,
           tripStarted: (startMode) => tripStartedCount++,
@@ -508,7 +506,7 @@ void main() {
           )
           ..sdkStateChanged(PigeonState.inactive)
           ..tripCancelled(PigeonCancelTrip.beaconNoSpeed)
-          ..tripFinished(mockPigeonPost, mockPigeonResponse)
+          ..tripFinished(mockPigeonTripResponseStatus)
           ..tripPoint(mockPigeonTripPoint)
           ..tripSavedForRepost()
           ..tripStarted(PigeonStartMode.bluetooth);
@@ -524,34 +522,6 @@ void main() {
         expect(tripSavedForRepostCount, 0);
         expect(tripStartedCount, 0);
       });
-    });
-
-    test('Indicates if the analyzed trip is valid or not', () async {
-      //mocks
-      when(() => iOSTripAnalysisApi.getTripResponseStatus(any()))
-          .thenAnswer((_) async => mockPigeonTripResponseStatus);
-
-      //test
-      final tripResponseStatus =
-          await DriveKitTripAnalysisPlatform.instance.getTripResponseStatus(
-        const PostGenericResponse(
-          status: false,
-          itinId: '',
-          comments: [Comment(errorCode: 10, comment: 'no account set')],
-        ),
-      );
-      final expectedResult =
-          mockPigeonTripResponseStatus.toModelImplementation();
-      expect(
-        tripResponseStatus?.error,
-        mockPigeonTripResponseStatus.error?.toModelImplementation(),
-      );
-      expect(
-        tripResponseStatus?.hasSafetyAndEcoDrivingScore,
-        mockPigeonTripResponseStatus.hasSafetyAndEcoDrivingScore,
-      );
-      expect(tripResponseStatus?.info, expectedResult.info);
-      expect(tripResponseStatus?.status, expectedResult.status);
     });
   });
 

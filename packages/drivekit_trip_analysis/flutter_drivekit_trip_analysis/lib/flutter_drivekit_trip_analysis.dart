@@ -2,7 +2,6 @@ import 'package:flutter_drivekit_trip_analysis_platform_interface/flutter_drivek
 
 export 'package:flutter_drivekit_trip_analysis_platform_interface/flutter_drivekit_trip_analysis_platform_interface.dart'
     show
-        PostGenericResponse,
         TripListener,
         TripResponseError,
         TripResponseInfo,
@@ -162,13 +161,6 @@ class DriveKitTripAnalysis {
   /// Remove all trip listeners
   void removeAllTripListeners() {
     _platform.removeAllTripListeners();
-  }
-
-  /// Indicates if the analyzed trip is valid or not
-  Future<TripResponseStatus?> getTripResponseStatus(
-    PostGenericResponse tripResponse,
-  ) async {
-    return _platform.getTripResponseStatus(tripResponse);
   }
 
   /// It is possible to get a copy of configured metadata

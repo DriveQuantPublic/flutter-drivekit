@@ -231,7 +231,6 @@ class Trip {
     required this.tireWear,
     required this.brakeWear,
     required this.driverDistraction,
-    required this.itineraryData,
     required this.logbook,
     required this.safetyEvents,
     required this.speedingStatistics,
@@ -300,9 +299,6 @@ class Trip {
 
   /// The driver distraction information
   final DriverDistraction? driverDistraction;
-
-  /// The itinerary data
-  final ItineraryData? itineraryData;
 
   /// The logbook information
   final Logbook? logbook;
@@ -591,14 +587,14 @@ class Call {
     required this.id,
     required this.start,
     required this.end,
-    required this.durationS,
     required this.duration,
-    required this.distanceM,
+    required this.durationPercent,
     required this.distance,
-    required this.status,
+    required this.distancePercent,
+    required this.type,
     required this.audioSystem,
     required this.bluetoothClass,
-    required this.forbidden,
+    required this.isForbidden,
     this.audioInput,
     this.audioOutput,
     this.audioName,
@@ -614,19 +610,19 @@ class Call {
   final double end;
 
   /// The duration in seconds
-  final int durationS;
-
-  /// The duration
   final int duration;
 
-  /// The distance in meters
-  final int distanceM;
+  /// The duration
+  final int durationPercent;
 
-  /// The distance
+  /// The distance in meters
   final int distance;
 
-  /// The status
-  final String status;
+  /// The distance
+  final int distancePercent;
+
+  /// The call type
+  final String type;
 
   /// The audio system
   final String audioSystem;
@@ -644,7 +640,7 @@ class Call {
   final int bluetoothClass;
 
   /// The forbidden status
-  final bool forbidden;
+  final bool isForbidden;
 }
 
 /// CallEvent class

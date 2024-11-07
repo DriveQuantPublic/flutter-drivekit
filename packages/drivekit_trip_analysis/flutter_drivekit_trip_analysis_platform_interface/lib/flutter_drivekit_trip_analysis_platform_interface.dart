@@ -2,6 +2,7 @@ import 'package:flutter_drivekit_trip_analysis_platform_interface/src/default_dr
 import 'package:flutter_drivekit_trip_analysis_platform_interface/src/model.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
+export 'package:flutter_drivekit_core_platform_interface/src/model.dart';
 export 'package:flutter_drivekit_trip_analysis_platform_interface/src/model.dart';
 
 /// The interface that implementations of drivekit_trip_analysis must implement.
@@ -84,11 +85,6 @@ abstract class DriveKitTripAnalysisPlatform extends PlatformInterface {
 
   /// Remove all trip listeners
   void removeAllTripListeners();
-
-  /// Indicates if the analyzed trip is valid or not
-  Future<TripResponseStatus?> getTripResponseStatus(
-    PostGenericResponse tripResponse,
-  );
 
   /// It is possible to get a copy of configured metadata.
   /// Any modification on the returned object has no effect on the metadata sent

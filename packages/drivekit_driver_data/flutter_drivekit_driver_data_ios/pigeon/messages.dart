@@ -110,7 +110,6 @@ class PigeonTrip {
     required this.tireWear,
     required this.brakeWear,
     required this.driverDistraction,
-    required this.itineraryData,
     required this.logbook,
     required this.safetyEvents,
     required this.speedingStatistics,
@@ -119,7 +118,7 @@ class PigeonTrip {
     required this.tripAdvicesData,
     required this.maneuverData,
     required this.evaluationData,
-    required this.metaData,
+    required this.metadata,
     required this.transportationMode,
     required this.declaredTransportationMode,
     required this.unscored,
@@ -184,9 +183,6 @@ class PigeonTrip {
   /// The driver distraction information
   final PigeonDriverDistraction? driverDistraction;
 
-  /// The itinerary data
-  final PigeonItineraryData? itineraryData;
-
   /// The logbook information
   final PigeonLogbook? logbook;
 
@@ -212,7 +208,7 @@ class PigeonTrip {
   final PigeonEvaluationData? evaluationData;
 
   /// The metadata
-  final Map<String?, String?>? metaData;
+  final Map<String?, String?>? metadata;
 
   /// The transportation mode
   final int transportationMode;
@@ -403,14 +399,14 @@ class PigeonCall {
     required this.id,
     required this.start,
     required this.end,
-    required this.durationS,
     required this.duration,
-    required this.distanceM,
+    required this.durationPercent,
     required this.distance,
-    required this.status,
+    required this.distancePercent,
+    required this.type,
     required this.audioSystem,
     required this.bluetoothClass,
-    required this.forbidden,
+    required this.isForbidden,
     this.audioInput,
     this.audioOutput,
     this.audioName,
@@ -422,15 +418,15 @@ class PigeonCall {
 
   final double end;
 
-  final int durationS;
-
   final int duration;
 
-  final int distanceM;
+  final int durationPercent;
 
   final int distance;
 
-  final String status;
+  final int distancePercent;
+
+  final String type;
 
   final String audioSystem;
 
@@ -442,7 +438,7 @@ class PigeonCall {
 
   final int bluetoothClass;
 
-  final bool forbidden;
+  final bool isForbidden;
 }
 
 class PigeonCallEvent {
@@ -744,29 +740,6 @@ class PigeonDriverDistraction {
   final double? scoreCall;
 }
 
-class PigeonItineraryData {
-  const PigeonItineraryData({
-    this.startDate,
-    this.endDate,
-    this.departureCity,
-    this.arrivalCity,
-    this.departureAddress,
-    this.arrivalAddress,
-  });
-
-  final String? startDate;
-
-  final String? endDate;
-
-  final String? departureCity;
-
-  final String? arrivalCity;
-
-  final String? departureAddress;
-
-  final String? arrivalAddress;
-}
-
 class PigeonLogbook {
   const PigeonLogbook({
     required this.status,
@@ -924,53 +897,6 @@ enum PigeonCrashStatus {
   unconfirmed,
 
   confirmed,
-}
-
-class PigeonPigeonCall {
-  const PigeonPigeonCall({
-    required this.id,
-    required this.start,
-    required this.end,
-    required this.durationS,
-    required this.duration,
-    required this.distanceM,
-    required this.distance,
-    required this.status,
-    required this.audioSystem,
-    required this.bluetoothClass,
-    required this.forbidden,
-    this.audioInput,
-    this.audioOutput,
-    this.audioName,
-  });
-
-  final int id;
-
-  final double start;
-
-  final double end;
-
-  final int durationS;
-
-  final int duration;
-
-  final int distanceM;
-
-  final int distance;
-
-  final String status;
-
-  final String audioSystem;
-
-  final String? audioInput;
-
-  final String? audioOutput;
-
-  final String? audioName;
-
-  final int bluetoothClass;
-
-  final bool forbidden;
 }
 
 class PigeonSpeedLimitContext {

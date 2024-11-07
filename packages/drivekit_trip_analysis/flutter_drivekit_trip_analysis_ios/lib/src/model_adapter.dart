@@ -124,17 +124,6 @@ extension PigeonTripPointAdapter on PigeonTripPoint {
   }
 }
 
-/// Adapts the [PigeonComment] class to the corresponding class in the model.
-extension PigeonCommentAdapter on PigeonComment {
-  /// Converts a [PigeonComment] to a corresponding model class.
-  Comment toModelImplementation() {
-    return Comment(
-      errorCode: errorCode,
-      comment: comment,
-    );
-  }
-}
-
 /// Adapts the [PigeonAdvancedEnergyEstimation] class to the corresponding
 /// class in the model.
 extension PigeonAdvancedEnergyEstimationAdapter
@@ -163,50 +152,6 @@ extension PigeonEnergyEstimationAdapter on PigeonEnergyEstimation {
       energyConsumption: energyConsumption,
       energyOpti: energyOpti,
       energyOptiConsumption: energyOptiConsumption,
-    );
-  }
-}
-
-/// Adapts the [PigeonItineraryStatistics] class to the corresponding class
-/// in the model.
-extension PigeonItineraryStatisticsAdapter on PigeonItineraryStatistics {
-  /// Converts a [PigeonItineraryStatistics] to a corresponding model class.
-  ItineraryStatistics toModelImplementation() {
-    return ItineraryStatistics(
-      tripDuration: tripDuration,
-      drivingDuration: drivingDuration,
-      idlingDuration: idlingDuration,
-      drivingPercentage: drivingPercentage,
-      idlingPercentage: idlingPercentage,
-      distance: distance,
-      speedMean: speedMean,
-      subdispNb: subdispNb,
-      meteo: meteo,
-      day: day,
-      weekDay: weekDay,
-      transportationMode: transportationMode,
-    );
-  }
-}
-
-/// Adapts the [PigeonCallEvent] class to the corresponding class in the model.
-extension PigeonCallEventAdapter on PigeonCallEvent {
-  /// Converts a [PigeonCallEvent] to a corresponding model class.
-  CallEvent toModelImplementation() {
-    return CallEvent(
-      time: time,
-      latitude: latitude,
-      longitude: longitude,
-      velocity: velocity,
-      heading: heading,
-      elevation: elevation,
-      distance: distance,
-      type: type,
-      duration: duration,
-      audioSystem: audioSystem,
-      callType: callType,
-      index: index,
-      forbidden: forbidden,
     );
   }
 }
@@ -258,21 +203,6 @@ extension PigeonSafetyEventAdapter on PigeonSafetyEvent {
       type: type,
       level: level,
       value: value,
-    );
-  }
-}
-
-/// Adapts the [PigeonSpeedingEvent] class to the corresponding class in the
-/// model.
-extension PigeonSpeedingEventAdapter on PigeonSpeedingEvent {
-  /// Converts a [PigeonSpeedingEvent] to a corresponding model class.
-  SpeedingEvents toModelImplementation() {
-    return SpeedingEvents(
-      time: time,
-      longitude: longitude,
-      latitude: latitude,
-      type: type,
-      index: index,
     );
   }
 }
@@ -420,22 +350,6 @@ extension PigeonSafetyAdapter on PigeonSafety {
   }
 }
 
-/// Adapts the [PigeonItineraryData] class to the corresponding class in the
-/// model.
-extension PigeonItineraryDataAdapter on PigeonItineraryData {
-  /// Converts a [PigeonItineraryData] to a corresponding model class.
-  ItineraryData toModelImplementation() {
-    return ItineraryData(
-      startDate: startDate,
-      endDate: endDate,
-      departureCity: departureCity,
-      arrivalCity: arrivalCity,
-      departureAddress: departureAddress,
-      arrivalAddress: arrivalAddress,
-    );
-  }
-}
-
 /// Adapts the [PigeonLogbook] class to the corresponding class in the model.
 extension PigeonLogbookAdapter on PigeonLogbook {
   /// Converts a [PigeonLogbook] to a corresponding model class.
@@ -458,10 +372,6 @@ extension PigeonSpeedingStatisticsAdapter on PigeonSpeedingStatistics {
       speedingDistance: speedingDistance,
       speedingDuration: speedingDuration,
       score: score,
-      speedLimitContexts: speedLimitContexts
-          .whereNotNull()
-          .map((PigeonSpeedLimitContext e) => e.toModelImplementation())
-          .toList(),
     );
   }
 }
@@ -508,77 +418,6 @@ extension PigeonAdvancedFuelEstimationAdapter on PigeonAdvancedFuelEstimation {
   }
 }
 
-/// Adapts the [PigeonRoute] class to the corresponding class in the model.
-extension PigeonRouteAdapter on PigeonRoute {
-  /// Converts a [PigeonRoute] to a corresponding model class.
-  Route toModelImplementation() {
-    return Route(
-      gpsDate: gpsDate.whereNotNull().toList(),
-      gpsVelocity: gpsVelocity.whereNotNull().toList(),
-      longitude: longitude.whereNotNull().toList(),
-      latitude: latitude.whereNotNull().toList(),
-      gpsElevation: gpsElevation.whereNotNull().toList(),
-      gpsAccuracy: gpsAccuracy.whereNotNull().toList(),
-      gpsHeading: gpsHeading.whereNotNull().toList(),
-      screenLocked: screenLocked.whereNotNull().toList(),
-      activityValue: activityValue.whereNotNull().toList(),
-      roll: roll.whereNotNull().toList(),
-      pitch: pitch.whereNotNull().toList(),
-      yaw: yaw.whereNotNull().toList(),
-      gyroscopeNormVar: gyroscopeNormVar.whereNotNull().toList(),
-    );
-  }
-}
-
-/// Adapts the [PigeonPostGenericResponse] class to the corresponding class
-/// in the model.
-extension PigeonPostGenericResponseAdapter on PigeonPostGenericResponse {
-  /// Converts a [PigeonPostGenericResponse] to a corresponding model class.
-  PostGenericResponse toModelImplementation() {
-    return PostGenericResponse(
-      status: status,
-      itinId: itinId,
-      comments: comments
-          .whereNotNull()
-          .map((e) => e.toModelImplementation())
-          .toList(),
-      userId: userId,
-      itineraryStatistics: itineraryStatistics?.toModelImplementation(),
-      ecoDriving: ecoDriving?.toModelImplementation(),
-      fuelEstimation: fuelEstimation?.toModelImplementation(),
-      safety: safety?.toModelImplementation(),
-      advancedEcoDriving: advancedEcoDriving?.toModelImplementation(),
-      advancedFuelEstimation: advancedFuelEstimation?.toModelImplementation(),
-      advancedSafety: advancedSafety?.toModelImplementation(),
-      pollutants: pollutants?.toModelImplementation(),
-      tireWear: tireWear?.toModelImplementation(),
-      brakeWear: brakeWear?.toModelImplementation(),
-      driverDistraction: driverDistraction?.toModelImplementation(),
-      itineraryData: itineraryData?.toModelImplementation(),
-      endDate: endDate,
-      logbook: logbook?.toModelImplementation(),
-      safetyEvents: safetyEvents
-          ?.whereNotNull()
-          .map((e) => e.toModelImplementation())
-          .toList(),
-      callEvents: callEvents
-          ?.whereNotNull()
-          .map((e) => e.toModelImplementation())
-          .toList(),
-      speedingEvents: speedingEvents
-          ?.whereNotNull()
-          .map((e) => e.toModelImplementation())
-          .toList(),
-      speedingStatistics: speedingStatistics?.toModelImplementation(),
-      energyEstimation: energyEstimation?.toModelImplementation(),
-      advancedEnergyEstimation: advancedEnergyEstimation
-          ?.whereNotNull()
-          .map((e) => e.toModelImplementation())
-          .toList(),
-    );
-  }
-}
-
 /// Adapts the [PigeonVehicle] class to the [Vehicle] class.
 extension VehicleAdapter on PigeonVehicle {
   /// Converts a [PigeonVehicle] to a [Vehicle].
@@ -602,19 +441,6 @@ extension VehicleAdapter on PigeonVehicle {
       height: height,
       engineCylinderNb: engineCylinderNb,
       driveWheels: driveWheels,
-    );
-  }
-}
-
-/// Adapts the [PigeonPostGeneric] class to the [PostGeneric] class.
-extension PigeonPostGenericAdapter on PigeonPostGeneric {
-  /// Converts a [PigeonPostGeneric] to a [PostGeneric].
-  PostGeneric toModelImplementation() {
-    return PostGeneric(
-      route: route?.toModelImplementation(),
-      vehicle: vehicle?.toModelImplementation(),
-      itineraryData: itineraryData?.toModelImplementation(),
-      metaData: convertMetadata(metaData),
     );
   }
 }
@@ -649,8 +475,6 @@ extension PigeonDriverDistractionAdapter on PigeonDriverDistraction {
       score: score,
       scoreUnlock: scoreUnlock,
       scoreCall: scoreCall,
-      calls:
-          calls?.whereNotNull().map((e) => e.toModelImplementation()).toList(),
     );
   }
 }
@@ -663,17 +487,17 @@ extension PigeonCallAdapter on PigeonCall {
       id: id,
       start: start,
       end: end,
-      durationS: durationS,
       duration: duration,
-      distanceM: distanceM,
+      durationPercent: durationPercent,
       distance: distance,
-      status: status,
+      distancePercent: distancePercent,
+      type: type,
       audioSystem: audioSystem,
       audioInput: audioInput,
       audioOutput: audioOutput,
       audioName: audioName,
       bluetoothClass: bluetoothClass,
-      forbidden: forbidden,
+      isForbidden: isForbidden,
     );
   }
 }
@@ -693,9 +517,11 @@ extension PigeonTripResponseStatusAdapter on PigeonTripResponseStatus {
   TripResponseStatus toModelImplementation() {
     return TripResponseStatus(
       status: status.toModelImplementation(),
+      itinId: itinId,
       hasSafetyAndEcoDrivingScore: hasSafetyAndEcoDrivingScore,
       info: info.whereNotNull().map((e) => e.toModelImplementation()).toList(),
       error: error?.toModelImplementation(),
+      trip: trip?.toModelImplementation(),
     );
   }
 }
@@ -788,5 +614,75 @@ extension PigeonTripResponseInfoItemAdapter on PigeonTripResponseInfoItem {
   /// Converts a [PigeonTripResponseInfoItem] to a corresponding model class.
   TripResponseInfo toModelImplementation() {
     return info.toModelImplementation();
+  }
+}
+
+/// Adapts the [PigeonTrip] class to the corresponding class
+/// in the model.
+extension PigeonTripAdapter on PigeonTrip {
+  /// Converts a [PigeonTrip] to a corresponding model class.
+  Trip toModelImplementation() {
+    return Trip(
+      itinId: itinId,
+      tripStatistics: tripStatistics?.toModelImplementation(),
+      ecoDriving: ecoDriving?.toModelImplementation(),
+      fuelEstimation: fuelEstimation?.toModelImplementation(),
+      safety: safety?.toModelImplementation(),
+      advancedEcoDriving: advancedEcoDriving?.toModelImplementation(),
+      advancedFuelEstimation: advancedFuelEstimation?.toModelImplementation(),
+      advancedSafety: advancedSafety?.toModelImplementation(),
+      pollutants: pollutants?.toModelImplementation(),
+      tireWear: tireWear?.toModelImplementation(),
+      brakeWear: brakeWear?.toModelImplementation(),
+      driverDistraction: driverDistraction?.toModelImplementation(),
+      endDate: endDate,
+      logbook: logbook?.toModelImplementation(),
+      safetyEvents: safetyEvents
+          ?.whereNotNull()
+          .map((e) => e.toModelImplementation())
+          .toList(),
+      speedingStatistics: speedingStatistics?.toModelImplementation(),
+      energyEstimation: energyEstimation?.toModelImplementation(),
+      advancedEnergyEstimation: advancedEnergyEstimation
+          ?.whereNotNull()
+          .map((e) => e.toModelImplementation())
+          .toList(),
+      startDate: startDate,
+      departureCity: departureCity,
+      arrivalCity: arrivalCity,
+      departureAddress: departureAddress,
+      arrivalAddress: arrivalAddress,
+      vehicleId: vehicleId,
+      metaData: convertMetadata(metadata),
+      transportationMode: transportationMode,
+      unscored: unscored,
+      calls:
+          calls?.whereNotNull().map((e) => e.toModelImplementation()).toList(),
+      speedLimitContexts: speedLimitContexts
+          ?.whereNotNull()
+          .map((PigeonSpeedLimitContext e) => e.toModelImplementation())
+          .toList(),
+    );
+  }
+}
+
+/// Adapts the [PigeonTripStatistics] class to the corresponding class in
+/// the model.
+extension PigeonTripStatisticsAdapter on PigeonTripStatistics {
+  /// Converts a [PigeonTripStatistics] to a corresponding model class.
+  TripStatistics toModelImplementation() {
+    return TripStatistics(
+      tripDuration: tripDuration,
+      drivingDuration: drivingDuration,
+      idlingDuration: idlingDuration,
+      drivingPercentage: drivingPercentage,
+      idlingPercentage: idlingPercentage,
+      distance: distance,
+      speedMean: speedMean,
+      subdispNb: subdispNb,
+      meteo: meteo,
+      day: day,
+      weekDay: weekDay,
+    );
   }
 }

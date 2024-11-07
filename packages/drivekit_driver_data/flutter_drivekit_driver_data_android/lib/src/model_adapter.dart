@@ -249,22 +249,6 @@ extension PigeonSafetyAdapter on PigeonSafety {
   }
 }
 
-/// Adapts the [PigeonItineraryData] class to the corresponding class in the
-/// model.
-extension PigeonItineraryDataAdapter on PigeonItineraryData {
-  /// Converts a [PigeonItineraryData] to a corresponding model class.
-  ItineraryData toModelImplementation() {
-    return ItineraryData(
-      startDate: startDate,
-      endDate: endDate,
-      departureCity: departureCity,
-      arrivalCity: arrivalCity,
-      departureAddress: departureAddress,
-      arrivalAddress: arrivalAddress,
-    );
-  }
-}
-
 /// Adapts the [PigeonLogbook] class to the corresponding class in the model.
 extension PigeonLogbookAdapter on PigeonLogbook {
   /// Converts a [PigeonLogbook] to a corresponding model class.
@@ -351,7 +335,6 @@ extension PigeonTripAdapter on PigeonTrip {
       tireWear: tireWear?.toModelImplementation(),
       brakeWear: brakeWear?.toModelImplementation(),
       driverDistraction: driverDistraction?.toModelImplementation(),
-      itineraryData: itineraryData?.toModelImplementation(),
       endDate: endDate,
       logbook: logbook?.toModelImplementation(),
       safetyEvents: safetyEvents
@@ -370,7 +353,7 @@ extension PigeonTripAdapter on PigeonTrip {
       departureAddress: departureAddress,
       arrivalAddress: arrivalAddress,
       vehicleId: vehicleId,
-      metaData: convertMetadata(metaData),
+      metaData: convertMetadata(metadata),
       transportationMode: transportationMode,
       unscored: unscored,
       calls:
@@ -425,17 +408,17 @@ extension PigeonCallAdapter on PigeonCall {
       id: id,
       start: start,
       end: end,
-      durationS: durationS,
       duration: duration,
-      distanceM: distanceM,
+      durationPercent: durationPercent,
       distance: distance,
-      status: status,
+      distancePercent: distancePercent,
+      type: type,
       audioSystem: audioSystem,
       audioInput: audioInput,
       audioOutput: audioOutput,
       audioName: audioName,
       bluetoothClass: bluetoothClass,
-      forbidden: forbidden,
+      isForbidden: isForbidden,
     );
   }
 }

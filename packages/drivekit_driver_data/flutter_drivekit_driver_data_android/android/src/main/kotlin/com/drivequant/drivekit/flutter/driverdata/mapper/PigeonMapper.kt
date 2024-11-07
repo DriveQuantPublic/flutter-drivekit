@@ -42,7 +42,6 @@ import com.drivequant.drivekit.flutter.driverdata.PigeonEnergyEstimation
 import com.drivequant.drivekit.flutter.driverdata.PigeonEvaluationData
 import com.drivequant.drivekit.flutter.driverdata.PigeonFuelEstimation
 import com.drivequant.drivekit.flutter.driverdata.PigeonFuelEstimationContext
-import com.drivequant.drivekit.flutter.driverdata.PigeonItineraryData
 import com.drivequant.drivekit.flutter.driverdata.PigeonLogbook
 import com.drivequant.drivekit.flutter.driverdata.PigeonManeuverData
 import com.drivequant.drivekit.flutter.driverdata.PigeonPollutants
@@ -108,16 +107,6 @@ object PigeonMapper {
         val driverDistraction: PigeonDriverDistraction? = trip.driverDistraction?.let {
             this.toPigeonDriverDistraction(it)
         }
-        val itineraryData = PigeonItineraryData(
-            startDate = trip.startDate?.let {
-                backendDateFormat.format(it)
-            },
-            endDate = backendDateFormat.format(trip.endDate),
-            departureAddress = trip.departureAddress,
-            arrivalAddress = trip.arrivalAddress,
-            departureCity = trip.departureCity,
-            arrivalCity = trip.arrivalCity
-        )
         val logbook: PigeonLogbook? = trip.logbook?.let {
             this.toPigeonLogbook(it)
         }
@@ -171,7 +160,6 @@ object PigeonMapper {
             tireWear = tireWear,
             brakeWear = brakeWear,
             driverDistraction = driverDistraction,
-            itineraryData = itineraryData,
             logbook = logbook,
             safetyEvents = safetyEvents,
             speedingStatistics = speedingStatistics,
@@ -188,7 +176,8 @@ object PigeonMapper {
             tripAdvicesData = tripAdvicesData,
             maneuverData = maneuverData,
             evaluationData = evaluationData,
-            declaredTransportationMode = declaredTransportationMode
+            declaredTransportationMode = declaredTransportationMode,
+            metadata = trip.metaData as Map<String?, String?>?
         )
     }
 
@@ -322,17 +311,17 @@ object PigeonMapper {
         id = call.uniqueId,
         start = call.start,
         end = call.end,
-        durationS = call.duration.toLong(),
-        duration = call.durationPercent.toLong(),
-        distanceM = call.distance.toLong(),
-        distance = call.distancePercent.toLong(),
-        status = call.type.toString(),
+        duration = call.duration.toLong(),
+        durationPercent = call.durationPercent.toLong(),
+        distance = call.distance.toLong(),
+        distancePercent = call.distancePercent.toLong(),
+        type = call.type.toString(),
         audioSystem = call.audioSystem.toString(),
         audioInput = call.audioInput,
         audioOutput = call.audioOutput,
         audioName = call.audioName,
         bluetoothClass = call.bluetoothClass.toLong(),
-        forbidden = call.isForbidden
+        isForbidden = call.isForbidden
     )
 
     private fun toPigeonLogbook(logbook: Logbook): PigeonLogbook {

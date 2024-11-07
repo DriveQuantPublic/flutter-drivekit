@@ -5,9 +5,6 @@ class MockIOSTripAnalysisApi extends Mock implements IOSTripAnalysisApi {}
 
 class MockPigeonVehicle extends Mock implements PigeonVehicle {}
 
-class MockPigeonPostGenericResponse extends Mock
-    implements PigeonPostGenericResponse {}
-
 final mockPigeonDkCrashInfo = PigeonDKCrashInfo(
   crashId: 'crashId',
   latitude: 0,
@@ -18,37 +15,7 @@ final mockPigeonDkCrashInfo = PigeonDKCrashInfo(
   status: PigeonCrashStatus.confirmed,
 );
 
-final mockPigeonRoute = PigeonRoute(
-  activityValue: [],
-  gpsAccuracy: [],
-  gpsDate: [],
-  gpsVelocity: [],
-  longitude: [],
-  latitude: [],
-  gpsElevation: [],
-  gpsHeading: [],
-  screenLocked: [],
-  roll: [],
-  pitch: [],
-  yaw: [],
-  gyroscopeNormVar: [],
-);
-
-final mockPigeonItineraryData = PigeonItineraryData();
-
 final mockPigeonVehicle = PigeonVehicle();
-
-final mockPigeonPost = PigeonPostGeneric(
-  route: mockPigeonRoute,
-  vehicle: mockPigeonVehicle,
-  itineraryData: mockPigeonItineraryData,
-);
-
-final mockPigeonResponse = PigeonPostGenericResponse(
-  status: true,
-  itinId: '',
-  comments: [],
-);
 
 final mockPigeonTripPoint = PigeonTripPoint(
   latitude: 0,

@@ -86,14 +86,6 @@ extension PigeonTrip {
         if let driverDistraction = trip.driverDistraction {
             self.driverDistraction = PigeonDriverDistraction(from: driverDistraction)
         }
-        self.itineraryData = PigeonItineraryData(
-            startDate: (trip.startDate != nil) ? DateUtils.convertDateToString(date: trip.startDate!) : nil,
-            endDate: (trip.endDate != nil) ? DateUtils.convertDateToString(date: trip.endDate!) : nil,
-            departureCity: trip.departureCity,
-            arrivalCity: trip.arrivalCity,
-            departureAddress: trip.departureAddress,
-            arrivalAddress: trip.arrivalAddress
-        )
         if let logbook = trip.logbook {
             self.logbook = PigeonLogbook(from: logbook)
         }
@@ -126,7 +118,7 @@ extension PigeonTrip {
         if let declaredTransportationMode = trip.declaredTransportationMode {
             self.declaredTransportationMode = PigeonDeclaredTransportationMode(from: declaredTransportationMode)
         }
-        self.metaData = trip.metadata
+        self.metadata = trip.metadata
         self.transportationMode = Int64(trip.transportationMode)
         self.unscored = trip.unscored
         if let calls = trip.calls?.allObjects as? [Call] {
@@ -329,14 +321,14 @@ extension PigeonCall {
             id: Int64(call.id),
             start: call.start,
             end: call.end,
-            durationS: Int64(call.duration),
-            duration: Int64(call.durationPercent),
-            distanceM: Int64(call.distance),
-            distance: Int64(call.distancePercent),
-            status: call.typeValue ?? "",
+            duration: Int64(call.duration),
+            durationPercent: Int64(call.durationPercent),
+            distance: Int64(call.distance),
+            distancePercent: Int64(call.distancePercent),
+            type: call.typeValue ?? "",
             audioSystem: call.audioSystemValue ?? "",
             audioInput: call.audioInput, audioOutput: call.audioOutput, audioName: call.audioName, bluetoothClass: Int64(call.bluetoothClass),
-            forbidden: call.isForbidden
+            isForbidden: call.isForbidden
         )
     }
 }
