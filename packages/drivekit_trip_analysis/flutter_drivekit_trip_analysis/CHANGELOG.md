@@ -1,6 +1,6 @@
 # 1.2.0
 
-    - version 1.2.0 of DriveKit flutter SDK
+    - Update DriveKit version to 2.8.0 for iOS, and 2.7.0 for Android
     - The `tripFinished` TripListener's callback is updated. This callback is called now with a `TripResponseStatus` object. This makes it easier to understand the trip analysis result from our DriveQuant servers.
     
 # 1.1.1

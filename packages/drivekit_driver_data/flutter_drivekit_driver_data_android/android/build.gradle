@@ -45,7 +45,7 @@ android {
     dependencies {
         testImplementation 'org.jetbrains.kotlin:kotlin-test'
         testImplementation 'org.mockito:mockito-core:5.0.0'
-        implementation 'com.drivequant.drivekit:drivekit-driver-data:2.6.0'
+        implementation 'com.drivequant.drivekit:drivekit-driver-data:2.7.0'
     }
 
     testOptions {
