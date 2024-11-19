@@ -148,7 +148,7 @@ packages:
       path: "../flutter_drivekit_core_platform_interface"
       relative: true
     source: path
-    version: "1.2.0"
+    version: "1.2.1"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -294,7 +294,7 @@ packages:
       sha256: "556692adab6cfa87322a115640c11f13cb77b3f076ddcc5d6ae3c20242bedcde"
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.0"
+    version: "1.2.1"
   term_glyph:
     dependency: transitive
     description:
