@@ -19,9 +19,9 @@ flutter:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_drivekit_core_android: ^1.2.1
-  flutter_drivekit_core_ios: ^1.2.1
-  flutter_drivekit_core_platform_interface: ^1.2.1
+  flutter_drivekit_core_android: ^1.2.2
+  flutter_drivekit_core_ios: ^1.2.2
+  flutter_drivekit_core_platform_interface: ^1.2.2
 
 dev_dependencies:
   flutter_test:
