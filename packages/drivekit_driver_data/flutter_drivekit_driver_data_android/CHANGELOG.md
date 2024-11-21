@@ -1,3 +1,7 @@
+# 1.2.1
+
+    - Update DriveKit version to 2.7.1 for Android
+
 # 1.2.0
 
     - version 1.2.0 of DriveKit flutter SDK
