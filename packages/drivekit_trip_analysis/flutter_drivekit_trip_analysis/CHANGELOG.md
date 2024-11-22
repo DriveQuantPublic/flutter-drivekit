@@ -1,6 +1,6 @@
 # 1.2.2
 
-    - Update DriveKit version to 2.7. for Android
+    - Update DriveKit version to 2.7.2 for Android
 
 # 1.2.1
 
