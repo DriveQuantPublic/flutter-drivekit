@@ -10,7 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_drivekit_core: ^1.2.3
-  flutter_drivekit_driver_data: ^1.2.3"
+  flutter_drivekit_driver_data: ^1.2.3
   flutter_drivekit_trip_analysis: ^1.2.3
   flutter_drivekit_trip_simulator: ^1.2.3
   flutter_local_notifications: ^17.2.2
