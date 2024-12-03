@@ -1,3 +1,7 @@
+# 1.3.0
+
+    - Update DriveKit version to 2.8.0 for Android
+    
 # 1.2.3
 
     - Update DriveKit version to 2.7.3 for Android
