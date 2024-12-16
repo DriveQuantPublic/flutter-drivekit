@@ -1452,6 +1452,31 @@ data class PigeonDeclaredTransportationMode (
     )
   }
 }
+
+/** Generated class from Pigeon that represents data sent in messages. */
+data class PigeonCurrentTripInfo (
+  val localTripId: String,
+  val date: String,
+  val startMode: PigeonStartMode
+
+) {
+  companion object {
+    @Suppress("LocalVariableName")
+    fun fromList(__pigeon_list: List<Any?>): PigeonCurrentTripInfo {
+      val localTripId = __pigeon_list[0] as String
+      val date = __pigeon_list[1] as String
+      val startMode = __pigeon_list[2] as PigeonStartMode
+      return PigeonCurrentTripInfo(localTripId, date, startMode)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      localTripId,
+      date,
+      startMode,
+    )
+  }
+}
 private object TripAnalysisApiPigeonCodec : StandardMessageCodec() {
   override fun readValueOfType(type: Byte, buffer: ByteBuffer): Any? {
     return when (type) {
@@ -1616,46 +1641,51 @@ private object TripAnalysisApiPigeonCodec : StandardMessageCodec() {
         }
       }
       161.toByte() -> {
-        return (readValue(buffer) as Int?)?.let {
-          PigeonStartMode.ofRaw(it)
+        return (readValue(buffer) as? List<Any?>)?.let {
+          PigeonCurrentTripInfo.fromList(it)
         }
       }
       162.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
-          PigeonCancelTrip.ofRaw(it)
+          PigeonStartMode.ofRaw(it)
         }
       }
       163.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
-          PigeonState.ofRaw(it)
+          PigeonCancelTrip.ofRaw(it)
         }
       }
       164.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
-          PigeonDKCrashFeedbackType.ofRaw(it)
+          PigeonState.ofRaw(it)
         }
       }
       165.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
-          PigeonDKCrashFeedbackSeverity.ofRaw(it)
+          PigeonDKCrashFeedbackType.ofRaw(it)
         }
       }
       166.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
-          PigeonCrashStatus.ofRaw(it)
+          PigeonDKCrashFeedbackSeverity.ofRaw(it)
         }
       }
       167.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
-          PigeonTripResponseStatusType.ofRaw(it)
+          PigeonCrashStatus.ofRaw(it)
         }
       }
       168.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
-          PigeonTripResponseInfo.ofRaw(it)
+          PigeonTripResponseStatusType.ofRaw(it)
         }
       }
       169.toByte() -> {
+        return (readValue(buffer) as Int?)?.let {
+          PigeonTripResponseInfo.ofRaw(it)
+        }
+      }
+      170.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
           PigeonTripResponseError.ofRaw(it)
         }
@@ -1793,40 +1823,44 @@ private object TripAnalysisApiPigeonCodec : StandardMessageCodec() {
         stream.write(160)
         writeValue(stream, value.toList())
       }
-      is PigeonStartMode -> {
+      is PigeonCurrentTripInfo -> {
         stream.write(161)
-        writeValue(stream, value.raw)
+        writeValue(stream, value.toList())
       }
-      is PigeonCancelTrip -> {
+      is PigeonStartMode -> {
         stream.write(162)
         writeValue(stream, value.raw)
       }
-      is PigeonState -> {
+      is PigeonCancelTrip -> {
         stream.write(163)
         writeValue(stream, value.raw)
       }
-      is PigeonDKCrashFeedbackType -> {
+      is PigeonState -> {
         stream.write(164)
         writeValue(stream, value.raw)
       }
-      is PigeonDKCrashFeedbackSeverity -> {
+      is PigeonDKCrashFeedbackType -> {
         stream.write(165)
         writeValue(stream, value.raw)
       }
-      is PigeonCrashStatus -> {
+      is PigeonDKCrashFeedbackSeverity -> {
         stream.write(166)
         writeValue(stream, value.raw)
       }
-      is PigeonTripResponseStatusType -> {
+      is PigeonCrashStatus -> {
         stream.write(167)
         writeValue(stream, value.raw)
       }
-      is PigeonTripResponseInfo -> {
+      is PigeonTripResponseStatusType -> {
         stream.write(168)
         writeValue(stream, value.raw)
       }
-      is PigeonTripResponseError -> {
+      is PigeonTripResponseInfo -> {
         stream.write(169)
+        writeValue(stream, value.raw)
+      }
+      is PigeonTripResponseError -> {
+        stream.write(170)
         writeValue(stream, value.raw)
       }
       else -> super.writeValue(stream, value)
@@ -1853,6 +1887,7 @@ interface AndroidTripAnalysisApi {
   fun setTripMetadata(metadata: Map<String, String>?)
   fun deleteTripMetadata(key: String)
   fun deleteAllTripMetadata()
+  fun getCurrentTripInfo(): PigeonCurrentTripInfo?
 
   companion object {
     /** The codec used by AndroidTripAnalysisApi. */
@@ -2138,6 +2173,21 @@ interface AndroidTripAnalysisApi {
             val wrapped: List<Any?> = try {
               api.deleteAllTripMetadata()
               listOf(null)
+            } catch (exception: Throwable) {
+              wrapError(exception)
+            }
+            reply.reply(wrapped)
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.getCurrentTripInfo$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { _, reply ->
+            val wrapped: List<Any?> = try {
+              listOf(api.getCurrentTripInfo())
             } catch (exception: Throwable) {
               wrapError(exception)
             }
