@@ -60,6 +60,39 @@ class SliverTripLifecycle extends StatelessWidget {
             'Is trip running ?',
           ),
         ),
+        ElevatedButton(
+          onPressed: () async {
+            final currentTripInfo =
+                await DriveKitTripAnalysis.instance.getCurrentTripInfo();
+            final alertMessage = currentTripInfo != null
+                ? 'localTripId: ${currentTripInfo.localTripId}'
+                    '\ndate: ${currentTripInfo.date}'
+                    '\nstartMode: ${currentTripInfo.startMode.name}'
+                : 'CurrentTripInfo is null (no trip recording)';
+            if (context.mounted) {
+              await showDialog<void>(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: const Text('Get CurrentTripInfo'),
+                    content: Text(alertMessage),
+                    actions: <Widget>[
+                      TextButton(
+                        child: const Text('OK'),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
+                  );
+                },
+              );
+            }
+          },
+          child: const Text(
+            'Get CurrentTripInfo',
+          ),
+        ),
       ],
     );
   }
