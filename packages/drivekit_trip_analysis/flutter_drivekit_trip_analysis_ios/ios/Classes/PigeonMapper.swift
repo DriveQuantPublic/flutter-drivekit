@@ -860,3 +860,14 @@ extension PigeonDeclaredTransportationMode {
         )
     }
 }
+
+extension PigeonCurrentTripInfo {
+    init(from currentTripInfo: DKTripInfo) {
+        self.init(
+            localTripId: currentTripInfo.localTripId,
+            date: DateUtils.convertDateToString(date: currentTripInfo.date),
+            startMode: PigeonStartMode.init(from: currentTripInfo.startMode) 
+        )
+    }
+}
+
