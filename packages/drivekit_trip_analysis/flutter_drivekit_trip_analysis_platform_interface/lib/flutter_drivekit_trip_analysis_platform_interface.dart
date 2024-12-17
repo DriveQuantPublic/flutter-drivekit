@@ -105,4 +105,7 @@ abstract class DriveKitTripAnalysisPlatform extends PlatformInterface {
 
   /// Get current trip information
   Future<CurrentTripInfo?> getCurrentTripInfo();
+
+  /// Get current trip information
+  Future<LastTripLocation?> getLastTripLocation();
 }

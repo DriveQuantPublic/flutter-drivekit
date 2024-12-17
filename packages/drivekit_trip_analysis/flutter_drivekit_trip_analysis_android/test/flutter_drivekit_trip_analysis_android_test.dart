@@ -610,7 +610,7 @@ void main() {
     });
 
     group('CurrentTripInfo', () {
-      test('currentTripInfo returns a null map by default', () async {
+      test('currentTripInfo returns a null object by default', () async {
         //mocks
         when(androidTripAnalysisApi.getCurrentTripInfo)
             .thenAnswer((_) async => null);
@@ -619,6 +619,19 @@ void main() {
         final currentTripInfo =
             await DriveKitTripAnalysisPlatform.instance.getCurrentTripInfo();
         expect(currentTripInfo, null);
+      });
+    });
+
+    group('LastTripLocation', () {
+      test('lastTripLocation returns a null object by default', () async {
+        //mocks
+        when(androidTripAnalysisApi.getLastTripLocation)
+            .thenAnswer((_) async => null);
+
+        //test
+        final lastTripLocation =
+            await DriveKitTripAnalysisPlatform.instance.getLastTripLocation();
+        expect(lastTripLocation, null);
       });
     });
   });

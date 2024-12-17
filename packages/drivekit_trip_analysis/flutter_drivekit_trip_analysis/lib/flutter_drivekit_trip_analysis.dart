@@ -192,4 +192,9 @@ class DriveKitTripAnalysis {
   Future<CurrentTripInfo?> getCurrentTripInfo() async {
     return _platform.getCurrentTripInfo();
   }
+
+  /// Call this method to retrieve the arrival location of the last trip
+  Future<LastTripLocation?> getLastTripLocation() async {
+    return _platform.getLastTripLocation();
+  }
 }
