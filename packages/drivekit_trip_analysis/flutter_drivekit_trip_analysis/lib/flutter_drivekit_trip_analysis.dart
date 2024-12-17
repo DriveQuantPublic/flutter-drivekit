@@ -187,4 +187,9 @@ class DriveKitTripAnalysis {
 
   /// Call this method to delete all trip metadata values
   Future<void> deleteAllTripMetadata() => _platform.deleteAllTripMetadata();
+
+  /// Call this method to retrieve current trip information
+  Future<CurrentTripInfo?> getCurrentTripInfo() async {
+    return _platform.getCurrentTripInfo();
+  }
 }

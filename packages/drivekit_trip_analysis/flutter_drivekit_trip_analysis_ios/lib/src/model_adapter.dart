@@ -686,3 +686,16 @@ extension PigeonTripStatisticsAdapter on PigeonTripStatistics {
     );
   }
 }
+
+/// Adapts the [PigeonCurrentTripInfo] class to the corresponding class in
+/// the model.
+extension PigeonCurrentTripInfoAdapter on PigeonCurrentTripInfo {
+  /// Converts a [PigeonCurrentTripInfo] to a corresponding model class.
+  CurrentTripInfo? toModelImplementation() {
+    return CurrentTripInfo(
+      localTripId: localTripId,
+      date: date,
+      startMode: startMode.toModelImplementation(),
+    );
+  }
+}

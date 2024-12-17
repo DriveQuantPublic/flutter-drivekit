@@ -344,3 +344,32 @@ extension PigeonCallAdapter on Call {
     );
   }
 }
+
+/// Adapts the [CurrentTripInfo] class to the corresponding pigeon.
+extension PigeonCurrentTripInfoAdapter on CurrentTripInfo {
+  /// Converts a [CurrentTripInfo] to a corresponding Pigeon class.
+  PigeonCurrentTripInfo toPigeonImplementation() {
+    return PigeonCurrentTripInfo(
+      localTripId: localTripId,
+      date: date,
+      startMode: startMode.toPigeonImplementation(),
+    );
+  }
+}
+
+/// Adapts the [StartMode] class to the corresponding pigeon.
+extension PigeonStartModeAdapter on StartMode {
+  /// Converts a [StartMode] to a corresponding Pigeon class.
+  PigeonStartMode toPigeonImplementation() {
+    return switch (this) {
+      StartMode.gps => PigeonStartMode.gps,
+      StartMode.beacon => PigeonStartMode.beacon,
+      StartMode.bluetooth => PigeonStartMode.bluetooth,
+      StartMode.geozone => PigeonStartMode.geozone,
+      StartMode.manual => PigeonStartMode.manual,
+      StartMode.unknownBluetooth => PigeonStartMode.unknownBluetooth,
+      StartMode.connectedCar => PigeonStartMode.connectedCar,
+      StartMode.bicycleActivity => PigeonStartMode.bicycleActivity,
+    };
+  }
+}
