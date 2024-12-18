@@ -871,3 +871,29 @@ extension PigeonCurrentTripInfo {
     }
 }
 
+extension PigeonLastTripLocation {
+    init(from lastTripLocation: DKTripLocation) {
+        self.init(
+            date: DateUtils.convertDateToString(date: lastTripLocation.date),
+            latitude: lastTripLocation.latitude,
+            longitude: lastTripLocation.longitude,
+            accuracyMeter: lastTripLocation.accuracyMeter,
+            accuracyLevel: PigeonAccuracyLevel.init(from: lastTripLocation.getAccuracyLevel()) 
+        )
+    }
+}
+
+extension PigeonAccuracyLevel {
+    init(from accuracyLevel: DKCoordinateAccuracy) {
+        switch accuracyLevel {
+        case .good:
+            self = .good
+        case .fair:
+            self = .fair
+        case .poor:
+            self = .poor
+        @unknown default:
+            fatalError()
+        }
+    }
+}

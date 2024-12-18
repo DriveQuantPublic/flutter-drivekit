@@ -273,5 +273,18 @@ void main() {
             .called(1);
       });
     });
+
+    group('LastTripLocation', () {
+      test('getLastTripLocation calls platform implementation', () async {
+        when(() => driveKitTripAnalysisPlatform.getLastTripLocation())
+            .thenAnswer((_) async {
+          return;
+        });
+
+        await DriveKitTripAnalysis.instance.getLastTripLocation();
+        verify(() => driveKitTripAnalysisPlatform.getLastTripLocation())
+            .called(1);
+      });
+    });
   });
 }

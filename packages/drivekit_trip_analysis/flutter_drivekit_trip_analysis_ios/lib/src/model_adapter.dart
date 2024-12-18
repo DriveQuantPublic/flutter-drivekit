@@ -92,7 +92,7 @@ extension PigeonCancelTripAdapter on PigeonCancelTrip {
   }
 }
 
-/// Adapt the [PigeonStartMode] class to the [TripPoint] class.
+/// Adapt the [PigeonStartMode] class to the [StartMode] class.
 extension PigeonStartModeAdapter on PigeonStartMode {
   /// Converts a [PigeonStartMode] to a [StartMode].
   StartMode toModelImplementation() {
@@ -697,5 +697,32 @@ extension PigeonCurrentTripInfoAdapter on PigeonCurrentTripInfo {
       date: date,
       startMode: startMode.toModelImplementation(),
     );
+  }
+}
+
+/// Adapts the [PigeonLastTripLocation] class to the corresponding class in
+/// the model.
+extension PigeonLastTripLocationAdapter on PigeonLastTripLocation {
+  /// Converts a [PigeonLastTripLocation] to a corresponding model class.
+  LastTripLocation? toModelImplementation() {
+    return LastTripLocation(
+      date: date,
+      latitude: latitude,
+      longitude: longitude,
+      accuracyMeter: accuracyMeter,
+      accuracyLevel: accuracyLevel.toModelImplementation(),
+    );
+  }
+}
+
+/// Adapt the [PigeonAccuracyLevel] class to the [AccuracyLevel] class.
+extension PigeonAccuracyLevelAdapter on PigeonAccuracyLevel {
+  /// Converts a [PigeonAccuracyLevel] to a [AccuracyLevel].
+  AccuracyLevel toModelImplementation() {
+    return switch (this) {
+      PigeonAccuracyLevel.good => AccuracyLevel.good,
+      PigeonAccuracyLevel.fair => AccuracyLevel.fair,
+      PigeonAccuracyLevel.poor => AccuracyLevel.poor,
+    };
   }
 }

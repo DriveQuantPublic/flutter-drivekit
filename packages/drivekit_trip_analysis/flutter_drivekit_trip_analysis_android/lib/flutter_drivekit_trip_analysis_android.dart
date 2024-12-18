@@ -198,4 +198,14 @@ class DriveKitTripAnalysisAndroid extends DriveKitTripAnalysisPlatform
       return currentTripInfo.toModelImplementation();
     }
   }
+
+  @override
+  Future<LastTripLocation?> getLastTripLocation() async {
+    final lastTripLocation = await androidTripAnalysisApi.getLastTripLocation();
+    if (lastTripLocation == null) {
+      return null;
+    } else {
+      return lastTripLocation.toModelImplementation();
+    }
+  }
 }

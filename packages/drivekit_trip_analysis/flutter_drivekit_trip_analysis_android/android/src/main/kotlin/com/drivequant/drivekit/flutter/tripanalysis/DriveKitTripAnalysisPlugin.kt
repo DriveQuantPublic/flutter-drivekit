@@ -187,4 +187,7 @@ class DriveKitTripAnalysisPlugin :
 
     override fun getCurrentTripInfo(): PigeonCurrentTripInfo? =
         PigeonMapper.toPigeonCurrentTripInfo(DriveKitTripAnalysis.getCurrentTripInfo())
+
+    override fun getLastTripLocation(): PigeonLastTripLocation? =
+        PigeonMapper.toPigeonLastTripLocation(DriveKitTripAnalysis.getLastTripLocation())
 }

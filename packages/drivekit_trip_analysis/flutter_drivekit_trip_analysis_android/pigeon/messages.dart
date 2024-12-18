@@ -34,6 +34,7 @@ abstract class AndroidTripAnalysisApi {
   void deleteTripMetadata(String key);
   void deleteAllTripMetadata();
   PigeonCurrentTripInfo? getCurrentTripInfo();
+  PigeonLastTripLocation? getLastTripLocation();
 }
 
 @FlutterApi()
@@ -1256,4 +1257,26 @@ class PigeonCurrentTripInfo {
   final String localTripId;
   final String date;
   final PigeonStartMode startMode;
+}
+
+class PigeonLastTripLocation {
+  PigeonLastTripLocation({
+    required this.date,
+    required this.latitude,
+    required this.longitude,
+    required this.accuracyMeter,
+    required this.accuracyLevel,
+  });
+
+  final String date;
+  final double latitude;
+  final double longitude;
+  final double accuracyMeter;
+  final PigeonAccuracyLevel accuracyLevel;
+}
+
+enum PigeonAccuracyLevel {
+  good,
+  fair,
+  poor,
 }

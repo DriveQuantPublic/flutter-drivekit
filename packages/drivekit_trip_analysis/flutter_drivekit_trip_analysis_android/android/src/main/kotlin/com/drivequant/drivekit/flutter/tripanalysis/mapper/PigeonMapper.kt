@@ -1,6 +1,8 @@
 // PigeonMapper object with the mapping function
 package com.drivequant.drivekit.flutter.tripanalysis.mapper
 
+import com.drivequant.drivekit.core.common.model.DKCoordinateAccuracy
+import com.drivequant.drivekit.core.common.model.DKTripLocation
 import com.drivequant.drivekit.databaseutils.entity.AdvancedEnergyEstimation
 import com.drivequant.drivekit.databaseutils.entity.BrakeWear
 import com.drivequant.drivekit.databaseutils.entity.Call
@@ -24,6 +26,7 @@ import com.drivequant.drivekit.databaseutils.entity.TireWear
 import com.drivequant.drivekit.databaseutils.entity.Trip
 import com.drivequant.drivekit.databaseutils.entity.TripAdvice
 import com.drivequant.drivekit.databaseutils.entity.TripStatistics
+import com.drivequant.drivekit.flutter.tripanalysis.PigeonAccuracyLevel
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonAdvancedEcoDriving
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonAdvancedEnergyEstimation
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonAdvancedFuelEstimation
@@ -44,6 +47,7 @@ import com.drivequant.drivekit.flutter.tripanalysis.PigeonEnergyEstimation
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonEvaluationData
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonFuelEstimation
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonFuelEstimationContext
+import com.drivequant.drivekit.flutter.tripanalysis.PigeonLastTripLocation
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonLogbook
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonManeuverData
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonPollutants
@@ -618,5 +622,24 @@ object PigeonMapper {
                 startMode = toPigeonStartMode(currentTripInfo.startMode)
             )
         }
+    }
+
+    fun toPigeonLastTripLocation(lastTripLocation: DKTripLocation?): PigeonLastTripLocation? {
+        return lastTripLocation?.let {
+            val backendDateFormat: DateFormat = SimpleDateFormat(DATE_PATTERN, Locale.getDefault())
+            return PigeonLastTripLocation(
+                date = backendDateFormat.format(lastTripLocation.date),
+                latitude = lastTripLocation.latitude,
+                longitude = lastTripLocation.longitude,
+                accuracyMeter = lastTripLocation.accuracyMeter,
+                accuracyLevel = toPigeonAccuracyLevel(lastTripLocation.getAccuracyLevel())
+            )
+        }
+    }
+
+    private fun toPigeonAccuracyLevel(accuracyLevel: DKCoordinateAccuracy): PigeonAccuracyLevel = when (accuracyLevel) {
+        DKCoordinateAccuracy.GOOD -> PigeonAccuracyLevel.GOOD
+        DKCoordinateAccuracy.FAIR -> PigeonAccuracyLevel.FAIR
+        DKCoordinateAccuracy.POOR -> PigeonAccuracyLevel.POOR
     }
 }

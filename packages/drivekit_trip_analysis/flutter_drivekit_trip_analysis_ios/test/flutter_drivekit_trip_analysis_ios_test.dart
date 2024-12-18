@@ -599,4 +599,17 @@ void main() {
       expect(currentTripInfo, null);
     });
   });
+
+  group('LastTripLocation', () {
+    test('getLastTripLocation returns a null object by default', () async {
+      //mocks
+      when(iOSTripAnalysisApi.getLastTripLocation)
+          .thenAnswer((_) async => null);
+
+      //test
+      final lastTripLocation =
+          await DriveKitTripAnalysisPlatform.instance.getLastTripLocation();
+      expect(lastTripLocation, null);
+    });
+  });
 }

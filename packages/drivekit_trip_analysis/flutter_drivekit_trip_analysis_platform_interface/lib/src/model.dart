@@ -566,3 +566,42 @@ class CurrentTripInfo {
   /// The StartMode that triggers the trip recording
   final StartMode startMode;
 }
+
+/// LastTripLocation class
+class LastTripLocation {
+  /// Creates a LastTripLocation instance
+  LastTripLocation({
+    required this.date,
+    required this.latitude,
+    required this.longitude,
+    required this.accuracyMeter,
+    required this.accuracyLevel,
+  });
+
+  /// The arrival date
+  final String date;
+
+  /// The latitude of the end of the trip.
+  final double latitude;
+
+  /// The longitude of the end of the trip.
+  final double longitude;
+
+  /// GPS data accuracy value in meters.
+  final double accuracyMeter;
+
+  /// GPS data accuracy level.
+  final AccuracyLevel accuracyLevel;
+}
+
+/// A GPS accuracy indicator with a 3-level scale.
+enum AccuracyLevel {
+  /// The GPS accuracy is strictly below 10 meters.
+  good,
+
+  /// The GPS accuracy is between 10 and 30 meters.
+  fair,
+
+  /// The GPS accuracy is strictly above 30 meters.
+  poor,
+}

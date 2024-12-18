@@ -694,3 +694,30 @@ extension PigeonCurrentTripInfoAdapter on PigeonCurrentTripInfo {
     );
   }
 }
+
+/// Adapts the [PigeonLastTripLocation] class to the corresponding class in
+/// the model.
+extension PigeonLastTripLocationAdapter on PigeonLastTripLocation {
+  /// Converts a [PigeonLastTripLocation] to a corresponding model class.
+  LastTripLocation? toModelImplementation() {
+    return LastTripLocation(
+      date: date,
+      latitude: latitude,
+      longitude: longitude,
+      accuracyMeter: accuracyMeter,
+      accuracyLevel: accuracyLevel.toModelImplementation(),
+    );
+  }
+}
+
+/// Adapt the [PigeonAccuracyLevel] class to the [AccuracyLevel] class.
+extension PigeonAccuracyLevelAdapter on PigeonAccuracyLevel {
+  /// Converts a [PigeonStartMode] to a [StartMode].
+  AccuracyLevel toModelImplementation() {
+    return switch (this) {
+      PigeonAccuracyLevel.good => AccuracyLevel.good,
+      PigeonAccuracyLevel.fair => AccuracyLevel.fair,
+      PigeonAccuracyLevel.poor => AccuracyLevel.poor,
+    };
+  }
+}

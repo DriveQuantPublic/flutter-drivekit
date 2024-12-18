@@ -152,6 +152,12 @@ enum PigeonTripResponseError: Int {
   case accountLimitReached = 18
 }
 
+enum PigeonAccuracyLevel: Int {
+  case good = 0
+  case fair = 1
+  case poor = 2
+}
+
 /// Generated class from Pigeon that represents data sent in messages.
 struct PigeonVehicle {
   var carTypeIndex: Int64
@@ -1674,6 +1680,41 @@ struct PigeonCurrentTripInfo {
     ]
   }
 }
+
+/// Generated class from Pigeon that represents data sent in messages.
+struct PigeonLastTripLocation {
+  var date: String
+  var latitude: Double
+  var longitude: Double
+  var accuracyMeter: Double
+  var accuracyLevel: PigeonAccuracyLevel
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ __pigeon_list: [Any?]) -> PigeonLastTripLocation? {
+    let date = __pigeon_list[0] as! String
+    let latitude = __pigeon_list[1] as! Double
+    let longitude = __pigeon_list[2] as! Double
+    let accuracyMeter = __pigeon_list[3] as! Double
+    let accuracyLevel = __pigeon_list[4] as! PigeonAccuracyLevel
+
+    return PigeonLastTripLocation(
+      date: date,
+      latitude: latitude,
+      longitude: longitude,
+      accuracyMeter: accuracyMeter,
+      accuracyLevel: accuracyLevel
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      date,
+      latitude,
+      longitude,
+      accuracyMeter,
+      accuracyLevel,
+    ]
+  }
+}
 private class IOSTripAnalysisApiPigeonCodecReader: FlutterStandardReader {
   override func readValue(ofType type: UInt8) -> Any? {
     switch type {
@@ -1746,66 +1787,75 @@ private class IOSTripAnalysisApiPigeonCodecReader: FlutterStandardReader {
     case 162:
       return PigeonCurrentTripInfo.fromList(self.readValue() as! [Any?])
     case 163:
+      return PigeonLastTripLocation.fromList(self.readValue() as! [Any?])
+    case 164:
       var enumResult: PigeonStartMode? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonStartMode(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 164:
+    case 165:
       var enumResult: PigeonCancelTrip? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonCancelTrip(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 165:
+    case 166:
       var enumResult: PigeonState? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonState(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 166:
+    case 167:
       var enumResult: PigeonDKCrashFeedbackType? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonDKCrashFeedbackType(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 167:
+    case 168:
       var enumResult: PigeonDKCrashFeedbackSeverity? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonDKCrashFeedbackSeverity(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 168:
+    case 169:
       var enumResult: PigeonCrashStatus? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonCrashStatus(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 169:
+    case 170:
       var enumResult: PigeonTripResponseStatusType? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonTripResponseStatusType(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 170:
+    case 171:
       var enumResult: PigeonTripResponseInfo? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonTripResponseInfo(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 171:
+    case 172:
       var enumResult: PigeonTripResponseError? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonTripResponseError(rawValue: enumResultAsInt)
+      }
+      return enumResult
+    case 173:
+      var enumResult: PigeonAccuracyLevel? = nil
+      let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
+      if let enumResultAsInt = enumResultAsInt {
+        enumResult = PigeonAccuracyLevel(rawValue: enumResultAsInt)
       }
       return enumResult
     default:
@@ -1918,32 +1968,38 @@ private class IOSTripAnalysisApiPigeonCodecWriter: FlutterStandardWriter {
     } else if let value = value as? PigeonCurrentTripInfo {
       super.writeByte(162)
       super.writeValue(value.toList())
-    } else if let value = value as? PigeonStartMode {
+    } else if let value = value as? PigeonLastTripLocation {
       super.writeByte(163)
-      super.writeValue(value.rawValue)
-    } else if let value = value as? PigeonCancelTrip {
+      super.writeValue(value.toList())
+    } else if let value = value as? PigeonStartMode {
       super.writeByte(164)
       super.writeValue(value.rawValue)
-    } else if let value = value as? PigeonState {
+    } else if let value = value as? PigeonCancelTrip {
       super.writeByte(165)
       super.writeValue(value.rawValue)
-    } else if let value = value as? PigeonDKCrashFeedbackType {
+    } else if let value = value as? PigeonState {
       super.writeByte(166)
       super.writeValue(value.rawValue)
-    } else if let value = value as? PigeonDKCrashFeedbackSeverity {
+    } else if let value = value as? PigeonDKCrashFeedbackType {
       super.writeByte(167)
       super.writeValue(value.rawValue)
-    } else if let value = value as? PigeonCrashStatus {
+    } else if let value = value as? PigeonDKCrashFeedbackSeverity {
       super.writeByte(168)
       super.writeValue(value.rawValue)
-    } else if let value = value as? PigeonTripResponseStatusType {
+    } else if let value = value as? PigeonCrashStatus {
       super.writeByte(169)
       super.writeValue(value.rawValue)
-    } else if let value = value as? PigeonTripResponseInfo {
+    } else if let value = value as? PigeonTripResponseStatusType {
       super.writeByte(170)
       super.writeValue(value.rawValue)
-    } else if let value = value as? PigeonTripResponseError {
+    } else if let value = value as? PigeonTripResponseInfo {
       super.writeByte(171)
+      super.writeValue(value.rawValue)
+    } else if let value = value as? PigeonTripResponseError {
+      super.writeByte(172)
+      super.writeValue(value.rawValue)
+    } else if let value = value as? PigeonAccuracyLevel {
+      super.writeByte(173)
       super.writeValue(value.rawValue)
     } else {
       super.writeValue(value)
@@ -1985,6 +2041,7 @@ protocol IOSTripAnalysisApi {
   func deleteTripMetadata(key: String) throws
   func deleteAllTripMetadata() throws
   func getCurrentTripInfo() throws -> PigeonCurrentTripInfo?
+  func getLastTripLocation() throws -> PigeonLastTripLocation?
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
@@ -2243,6 +2300,19 @@ class IOSTripAnalysisApiSetup {
       }
     } else {
       getCurrentTripInfoChannel.setMessageHandler(nil)
+    }
+    let getLastTripLocationChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.pigeon_trip_analysis_package.IOSTripAnalysisApi.getLastTripLocation\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      getLastTripLocationChannel.setMessageHandler { _, reply in
+        do {
+          let result = try api.getLastTripLocation()
+          reply(wrapResult(result))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      getLastTripLocationChannel.setMessageHandler(nil)
     }
   }
 }

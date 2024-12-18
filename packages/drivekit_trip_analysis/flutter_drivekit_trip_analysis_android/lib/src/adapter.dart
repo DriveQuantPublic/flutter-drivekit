@@ -373,3 +373,29 @@ extension PigeonStartModeAdapter on StartMode {
     };
   }
 }
+
+/// Adapts the [LastTripLocation] class to the corresponding pigeon.
+extension PigeonLastTripLocationAdapter on LastTripLocation {
+  /// Converts a [LastTripLocation] to a corresponding Pigeon class.
+  PigeonLastTripLocation toPigeonImplementation() {
+    return PigeonLastTripLocation(
+      date: date,
+      latitude: latitude,
+      longitude: longitude,
+      accuracyMeter: accuracyMeter,
+      accuracyLevel: accuracyLevel.toPigeonImplementation(),
+    );
+  }
+}
+
+/// Adapts the [AccuracyLevel] class to the corresponding pigeon.
+extension PigeonAccuracyLevelAdapter on AccuracyLevel {
+  /// Converts a [AccuracyLevel] to a corresponding Pigeon class.
+  PigeonAccuracyLevel toPigeonImplementation() {
+    return switch (this) {
+      AccuracyLevel.good => PigeonAccuracyLevel.good,
+      AccuracyLevel.fair => PigeonAccuracyLevel.fair,
+      AccuracyLevel.poor => PigeonAccuracyLevel.poor,
+    };
+  }
+}
