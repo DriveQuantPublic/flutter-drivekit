@@ -260,5 +260,18 @@ void main() {
         ).called(1);
       });
     });
+
+    group('CurrentTripInfo', () {
+      test('getCurrentTripInfo calls platform implementation', () async {
+        when(() => driveKitTripAnalysisPlatform.getCurrentTripInfo())
+            .thenAnswer((_) async {
+          return;
+        });
+
+        await DriveKitTripAnalysis.instance.getCurrentTripInfo();
+        verify(() => driveKitTripAnalysisPlatform.getCurrentTripInfo())
+            .called(1);
+      });
+    });
   });
 }

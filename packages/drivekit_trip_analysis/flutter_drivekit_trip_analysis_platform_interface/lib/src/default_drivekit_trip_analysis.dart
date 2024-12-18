@@ -123,4 +123,11 @@ class DefaultDriveKitTripAnalysis extends DriveKitTripAnalysisPlatform {
       'deleteAllTripMetadata() has not been implemented.',
     );
   }
+
+  @override
+  Future<CurrentTripInfo?> getCurrentTripInfo() {
+    throw UnimplementedError(
+      'getCurrentTripInfo() has not been implemented.',
+    );
+  }
 }

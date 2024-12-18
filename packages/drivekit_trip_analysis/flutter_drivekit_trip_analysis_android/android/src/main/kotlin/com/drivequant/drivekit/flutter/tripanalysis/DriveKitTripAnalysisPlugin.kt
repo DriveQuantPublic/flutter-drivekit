@@ -184,4 +184,7 @@ class DriveKitTripAnalysisPlugin :
     override fun deleteAllTripMetadata() {
         DriveKitTripAnalysis.deleteTripMetaData()
     }
+
+    override fun getCurrentTripInfo(): PigeonCurrentTripInfo? =
+        PigeonMapper.toPigeonCurrentTripInfo(DriveKitTripAnalysis.getCurrentTripInfo())
 }

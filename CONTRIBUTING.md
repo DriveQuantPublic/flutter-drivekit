@@ -161,7 +161,7 @@ Developers can be tempted to commit without this pre-commit hook to have instant
 
 ## Implement a function that use a custom type as parameter or return a custom type
 
-1. Write the exact equivalent of the SDK platform type in Pigeon config of the platform package `message.dart`
+1. Write the exact equivalent of the SDK platform type in Pigeon config of the platform package `messages.dart`
 2. Run `melos pigeon` to generate the code
 3. Write a converter in the native code from the platform package to map PigeonType to the native SDK type
 4. Create a new Dart equivalent of this type in the model of the platform interface package. It should represents android and iOS types, be careful with the differences between the two platforms

@@ -536,7 +536,7 @@ void main() {
       expect(metadata, null);
     });
 
-    test('getTripMetadata calls ios implementation with correct argument',
+    test('updateTripMetadata calls ios implementation with correct argument',
         () async {
       //mock
       when(() => iOSTripAnalysisApi.updateTripMetadata(any(), any()))
@@ -585,6 +585,18 @@ void main() {
       //test
       await DriveKitTripAnalysisPlatform.instance.deleteAllTripMetadata();
       verify(() => iOSTripAnalysisApi.deleteAllTripMetadata()).called(1);
+    });
+  });
+
+  group('CurrentTripInfo', () {
+    test('getCurrentTripInfo returns a null object by default', () async {
+      //mocks
+      when(iOSTripAnalysisApi.getCurrentTripInfo).thenAnswer((_) async => null);
+
+      //test
+      final currentTripInfo =
+          await DriveKitTripAnalysisPlatform.instance.getCurrentTripInfo();
+      expect(currentTripInfo, null);
     });
   });
 }

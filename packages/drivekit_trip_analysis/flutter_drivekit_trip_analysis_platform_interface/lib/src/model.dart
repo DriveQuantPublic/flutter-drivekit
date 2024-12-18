@@ -547,3 +547,22 @@ enum TripResponseError {
   /// The error is not yet handled by the DriveKit SDK.
   unknownError,
 }
+
+/// CurrentTripInfo class
+class CurrentTripInfo {
+  /// Creates a CurrentTripInfo instance
+  CurrentTripInfo({
+    required this.localTripId,
+    required this.date,
+    required this.startMode,
+  });
+
+  /// The localTripId
+  final String localTripId;
+
+  /// The trip recording start date
+  final String date;
+
+  /// The StartMode that triggers the trip recording
+  final StartMode startMode;
+}

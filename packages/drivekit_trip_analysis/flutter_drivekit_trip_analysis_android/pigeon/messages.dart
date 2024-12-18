@@ -33,6 +33,7 @@ abstract class AndroidTripAnalysisApi {
   void setTripMetadata(Map<String, String>? metadata);
   void deleteTripMetadata(String key);
   void deleteAllTripMetadata();
+  PigeonCurrentTripInfo? getCurrentTripInfo();
 }
 
 @FlutterApi()
@@ -1243,4 +1244,16 @@ class PigeonDeclaredTransportationMode {
   final int transportationMode;
   final String? comment;
   final bool? passenger;
+}
+
+class PigeonCurrentTripInfo {
+  PigeonCurrentTripInfo({
+    required this.localTripId,
+    required this.date,
+    required this.startMode,
+  });
+
+  final String localTripId;
+  final String date;
+  final PigeonStartMode startMode;
 }

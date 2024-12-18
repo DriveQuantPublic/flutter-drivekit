@@ -95,6 +95,15 @@ public class DriveKitTripAnalysisPlugin: NSObject, FlutterPlugin, IOSTripAnalysi
     func deleteAllTripMetadata() {
         DriveKitTripAnalysis.shared.deleteTripMetadata()
     }
+
+    func getCurrentTripInfo() -> PigeonCurrentTripInfo? {
+        let nativeTripInfo = DriveKitTripAnalysis.shared.getCurrentTripInfo()
+        if let nativeTripInfo {
+            let currentTripInfo = PigeonCurrentTripInfo.init(from: nativeTripInfo)
+            return currentTripInfo
+        }
+        return nil
+    }
 }
 
 extension DriveKitTripAnalysisPlugin: TripListener {

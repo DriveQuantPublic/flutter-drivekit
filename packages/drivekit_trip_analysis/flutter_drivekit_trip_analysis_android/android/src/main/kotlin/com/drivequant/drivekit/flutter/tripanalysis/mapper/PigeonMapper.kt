@@ -32,6 +32,7 @@ import com.drivequant.drivekit.flutter.tripanalysis.PigeonBrakeWear
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonCall
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonCancelTrip
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonCrashStatus
+import com.drivequant.drivekit.flutter.tripanalysis.PigeonCurrentTripInfo
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonDKCrashFeedbackSeverity
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonDKCrashFeedbackType
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonDKCrashInfo
@@ -70,6 +71,7 @@ import com.drivequant.drivekit.tripanalysis.entity.TripResponseError
 import com.drivequant.drivekit.tripanalysis.entity.TripResponseInfo
 import com.drivequant.drivekit.tripanalysis.entity.TripVehicle
 import com.drivequant.drivekit.tripanalysis.model.crashdetection.DKCrashInfo
+import com.drivequant.drivekit.tripanalysis.model.currenttripinfo.DKTripInfo
 import com.drivequant.drivekit.tripanalysis.service.crashdetection.CrashStatus
 import com.drivequant.drivekit.tripanalysis.service.crashdetection.feedback.CrashFeedbackSeverity
 import com.drivequant.drivekit.tripanalysis.service.crashdetection.feedback.CrashFeedbackType
@@ -605,5 +607,16 @@ object PigeonMapper {
         TripResponseError.INVALID_TRIP -> PigeonTripResponseError.INVALID_TRIP
         TripResponseError.ACCOUNT_LIMIT_REACHED -> PigeonTripResponseError.ACCOUNT_LIMIT_REACHED
         TripResponseError.UNKNOWN_ERROR -> PigeonTripResponseError.UNKNOWN_ERROR
+    }
+
+    fun toPigeonCurrentTripInfo(currentTripInfo: DKTripInfo?): PigeonCurrentTripInfo? {
+        return currentTripInfo?.let {
+            val backendDateFormat: DateFormat = SimpleDateFormat(DATE_PATTERN, Locale.getDefault())
+            return PigeonCurrentTripInfo(
+                localTripId = currentTripInfo.localTripId,
+                date = backendDateFormat.format(currentTripInfo.date),
+                startMode = toPigeonStartMode(currentTripInfo.startMode)
+            )
+        }
     }
 }

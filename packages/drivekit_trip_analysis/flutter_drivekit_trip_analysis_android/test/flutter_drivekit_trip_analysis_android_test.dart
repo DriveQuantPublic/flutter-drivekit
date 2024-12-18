@@ -608,5 +608,18 @@ void main() {
         verify(() => androidTripAnalysisApi.deleteAllTripMetadata()).called(1);
       });
     });
+
+    group('CurrentTripInfo', () {
+      test('currentTripInfo returns a null map by default', () async {
+        //mocks
+        when(androidTripAnalysisApi.getCurrentTripInfo)
+            .thenAnswer((_) async => null);
+
+        //test
+        final currentTripInfo =
+            await DriveKitTripAnalysisPlatform.instance.getCurrentTripInfo();
+        expect(currentTripInfo, null);
+      });
+    });
   });
 }

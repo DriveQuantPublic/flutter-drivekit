@@ -102,4 +102,7 @@ abstract class DriveKitTripAnalysisPlatform extends PlatformInterface {
 
   /// Delete all values in trip metadata
   Future<void> deleteAllTripMetadata();
+
+  /// Get current trip information
+  Future<CurrentTripInfo?> getCurrentTripInfo();
 }

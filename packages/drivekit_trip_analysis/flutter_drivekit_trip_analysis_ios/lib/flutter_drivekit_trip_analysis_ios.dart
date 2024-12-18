@@ -195,4 +195,14 @@ class DriveKitTripAnalysisIOS extends DriveKitTripAnalysisPlatform
   @override
   Future<void> deleteAllTripMetadata() =>
       iosTripAnalysisApi.deleteAllTripMetadata();
+
+  @override
+  Future<CurrentTripInfo?> getCurrentTripInfo() async {
+    final currentTripInfo = await iosTripAnalysisApi.getCurrentTripInfo();
+    if (currentTripInfo == null) {
+      return null;
+    } else {
+      return currentTripInfo.toModelImplementation();
+    }
+  }
 }
