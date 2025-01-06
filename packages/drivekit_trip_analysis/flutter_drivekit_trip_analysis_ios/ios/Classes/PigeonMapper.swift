@@ -866,7 +866,7 @@ extension PigeonCurrentTripInfo {
         self.init(
             localTripId: currentTripInfo.localTripId,
             date: DateUtils.convertDateToString(date: currentTripInfo.date),
-            startMode: PigeonStartMode.init(from: currentTripInfo.startMode) 
+            startMode: PigeonStartMode.init(from: currentTripInfo.startMode)
         )
     }
 }
@@ -878,7 +878,7 @@ extension PigeonLastTripLocation {
             latitude: lastTripLocation.latitude,
             longitude: lastTripLocation.longitude,
             accuracyMeter: lastTripLocation.accuracyMeter,
-            accuracyLevel: PigeonAccuracyLevel.init(from: lastTripLocation.getAccuracyLevel()) 
+            accuracyLevel: PigeonAccuracyLevel.init(from: lastTripLocation.getAccuracyLevel())
         )
     }
 }
