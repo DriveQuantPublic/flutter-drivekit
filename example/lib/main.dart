@@ -60,7 +60,7 @@ void registerTripListener() {
     tripRecordingCanceled: (state) {
       _showTripNotification(
         null,
-        'Trip cancelled: ${state.cancelationReason.name}',
+        'Trip canceled: ${state.cancelationReason.name}',
       );
     },
     tripSavedForRepost: () => {
