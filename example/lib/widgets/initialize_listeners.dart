@@ -116,6 +116,57 @@ class _InitializeListenersState extends State<InitializeListeners> {
           );
         }
       },
+      tripRecordingStarted: (state) {
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                'Trip: tripRecordingStarted. startMode: ${state.startMode}',
+              ),
+              duration: defaultTripListenerDuration,
+            ),
+          );
+        }
+      },
+      tripRecordingConfirmed: (state) {
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                'Trip: tripRecordingConfirmed. '
+                'recordingConfirmationDate: ${state.recordingConfirmationDate}',
+              ),
+              duration: defaultTripListenerDuration,
+            ),
+          );
+        }
+      },
+      tripRecordingCanceled: (state) {
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                'Trip: tripRecordingCanceled. '
+                'cancelationReason: ${state.cancelationReason}',
+              ),
+              duration: defaultTripListenerDuration,
+            ),
+          );
+        }
+      },
+      tripRecordingFinished: (state) {
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                'Trip: tripRecordingFinished. '
+                'recordingEndDate: ${state.recordingEndDate}',
+              ),
+              duration: defaultTripListenerDuration,
+            ),
+          );
+        }
+      },
     );
     _driveKitListener = DriveKitListener(
       onConnected: () {

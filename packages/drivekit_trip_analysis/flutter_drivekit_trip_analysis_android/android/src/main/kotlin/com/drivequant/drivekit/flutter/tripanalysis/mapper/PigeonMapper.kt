@@ -62,7 +62,12 @@ import com.drivequant.drivekit.flutter.tripanalysis.PigeonTireWear
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonTrip
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonTripAdviceData
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonTripAdviceEvaluation
+import com.drivequant.drivekit.flutter.tripanalysis.PigeonTripCancelationReason
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonTripPoint
+import com.drivequant.drivekit.flutter.tripanalysis.PigeonTripRecordingCanceledState
+import com.drivequant.drivekit.flutter.tripanalysis.PigeonTripRecordingConfirmedState
+import com.drivequant.drivekit.flutter.tripanalysis.PigeonTripRecordingFinishedState
+import com.drivequant.drivekit.flutter.tripanalysis.PigeonTripRecordingStartedState
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonTripResponseError
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonTripResponseInfo
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonTripResponseInfoItem
@@ -76,6 +81,11 @@ import com.drivequant.drivekit.tripanalysis.entity.TripResponseInfo
 import com.drivequant.drivekit.tripanalysis.entity.TripVehicle
 import com.drivequant.drivekit.tripanalysis.model.crashdetection.DKCrashInfo
 import com.drivequant.drivekit.tripanalysis.model.currenttripinfo.DKTripInfo
+import com.drivequant.drivekit.tripanalysis.model.triplistener.DKTripCancelationReason
+import com.drivequant.drivekit.tripanalysis.model.triplistener.DKTripRecordingCanceledState
+import com.drivequant.drivekit.tripanalysis.model.triplistener.DKTripRecordingConfirmedState
+import com.drivequant.drivekit.tripanalysis.model.triplistener.DKTripRecordingFinishedState
+import com.drivequant.drivekit.tripanalysis.model.triplistener.DKTripRecordingStartedState
 import com.drivequant.drivekit.tripanalysis.service.crashdetection.CrashStatus
 import com.drivequant.drivekit.tripanalysis.service.crashdetection.feedback.CrashFeedbackSeverity
 import com.drivequant.drivekit.tripanalysis.service.crashdetection.feedback.CrashFeedbackType
@@ -641,5 +651,60 @@ object PigeonMapper {
         DKCoordinateAccuracy.GOOD -> PigeonAccuracyLevel.GOOD
         DKCoordinateAccuracy.FAIR -> PigeonAccuracyLevel.FAIR
         DKCoordinateAccuracy.POOR -> PigeonAccuracyLevel.POOR
+    }
+
+    fun toPigeonTripRecordingStartedState(state: DKTripRecordingStartedState): PigeonTripRecordingStartedState {
+        val backendDateFormat: DateFormat = SimpleDateFormat(DATE_PATTERN, Locale.getDefault())
+        return PigeonTripRecordingStartedState(
+            localTripId = state.localTripId,
+            recordingStartDate = backendDateFormat.format(state.recordingStartDate),
+            startMode = toPigeonStartMode(state.startMode)
+        )
+    }
+
+    fun toPigeonTripRecordingConfirmedState(state: DKTripRecordingConfirmedState): PigeonTripRecordingConfirmedState {
+        val backendDateFormat: DateFormat = SimpleDateFormat(DATE_PATTERN, Locale.getDefault())
+        return PigeonTripRecordingConfirmedState(
+            localTripId = state.localTripId,
+            recordingStartDate = backendDateFormat.format(state.recordingStartDate),
+            startMode = toPigeonStartMode(state.startMode),
+            recordingConfirmationDate = backendDateFormat.format(state.recordingConfirmationDate)
+        )
+    }
+
+    fun toPigeonTripRecordingCanceledState(state: DKTripRecordingCanceledState): PigeonTripRecordingCanceledState {
+        val backendDateFormat: DateFormat = SimpleDateFormat(DATE_PATTERN, Locale.getDefault())
+        return PigeonTripRecordingCanceledState(
+            localTripId = state.localTripId,
+            recordingStartDate = backendDateFormat.format(state.recordingStartDate),
+            startMode = toPigeonStartMode(state.startMode),
+            recordingConfirmationDate = state.recordingConfirmationDate?.let { backendDateFormat.format(it) },
+            cancelationReason = toPigeonCancelationReason(state.cancelationReason)
+        )
+    }
+
+    fun toPigeonTripRecordingFinishedState(state: DKTripRecordingFinishedState): PigeonTripRecordingFinishedState {
+        val backendDateFormat: DateFormat = SimpleDateFormat(DATE_PATTERN, Locale.getDefault())
+        return PigeonTripRecordingFinishedState(
+            localTripId = state.localTripId,
+            recordingStartDate = backendDateFormat.format(state.recordingStartDate),
+            startMode = toPigeonStartMode(state.startMode),
+            recordingConfirmationDate = backendDateFormat.format(state.recordingConfirmationDate),
+            recordingEndDate = backendDateFormat.format(state.recordingEndDate)
+        )
+    }
+
+    fun toPigeonCancelationReason(reason: DKTripCancelationReason): PigeonTripCancelationReason = when (reason) {
+        DKTripCancelationReason.USER -> PigeonTripCancelationReason.USER
+        DKTripCancelationReason.HIGH_SPEED -> PigeonTripCancelationReason.HIGH_SPEED
+        DKTripCancelationReason.NO_SPEED -> PigeonTripCancelationReason.NO_SPEED
+        DKTripCancelationReason.NO_BEACON -> PigeonTripCancelationReason.NO_BEACON
+        DKTripCancelationReason.NO_BLUETOOTH_DEVICE -> PigeonTripCancelationReason.NO_BLUETOOTH_DEVICE
+        DKTripCancelationReason.MISSING_CONFIGURATION -> PigeonTripCancelationReason.MISSING_CONFIGURATION
+        DKTripCancelationReason.NO_LOCATION_DATA -> PigeonTripCancelationReason.NO_LOCATION_DATA
+        DKTripCancelationReason.RESET -> PigeonTripCancelationReason.RESET
+        DKTripCancelationReason.BEACON_NO_SPEED -> PigeonTripCancelationReason.BEACON_NO_SPEED
+        DKTripCancelationReason.BLUETOOTH_DEVICE_NO_SPEED -> PigeonTripCancelationReason.BLUETOOTH_DEVICE_NO_SPEED
+        DKTripCancelationReason.APP_KILLED -> PigeonTripCancelationReason.APP_KILLED
     }
 }

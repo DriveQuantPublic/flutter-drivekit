@@ -102,6 +102,10 @@ class Vehicle {
 class TripListener {
   /// Creates a TripListener instance
   const TripListener({
+    this.tripRecordingStarted,
+    this.tripRecordingConfirmed,
+    this.tripRecordingCanceled,
+    this.tripRecordingFinished,
     this.tripStarted,
     this.tripPoint,
     this.tripSavedForRepost,
@@ -114,6 +118,25 @@ class TripListener {
     this.crashDetected,
     this.crashFeedbackSent,
   });
+
+  /// Called each time a trip recording starts.
+  /// [DKTripRecordingStartedState] indicates which event starts the trip.
+  final void Function(DKTripRecordingStartedState state)? tripRecordingStarted;
+
+  /// Called each time a trip recording is confirmed.
+  /// [DKTripRecordingConfirmedState] indicates trip recording state details.
+  final void Function(DKTripRecordingConfirmedState state)?
+      tripRecordingConfirmed;
+
+  /// Called each time a trip recording is canceled.
+  /// [DKTripRecordingCanceledState] indicates trip recording state details.
+  final void Function(DKTripRecordingCanceledState state)?
+      tripRecordingCanceled;
+
+  /// Called each time a trip recording is finished.
+  /// [DKTripRecordingFinishedState] indicates trip recording state details.
+  final void Function(DKTripRecordingFinishedState state)?
+      tripRecordingFinished;
 
   /// Called each time a trip is started.
   /// [StartMode] indicates which event starts the trip.
@@ -604,4 +627,138 @@ enum AccuracyLevel {
 
   /// The GPS accuracy is strictly above 30 meters.
   poor,
+}
+
+/// class describing trip recording state
+class DKTripRecordingStartedState {
+  /// Creates a DKTripRecordingStartedState instance
+  DKTripRecordingStartedState({
+    required this.localTripId,
+    required this.recordingStartDate,
+    required this.startMode,
+  });
+
+  /// The localTripId
+  final String localTripId;
+
+  /// The trip recording start date
+  final String recordingStartDate;
+
+  /// The StartMode that triggers the trip recording
+  final StartMode startMode;
+}
+
+/// class describing trip recording confirmed state
+class DKTripRecordingConfirmedState {
+  /// Creates a DKTripRecordingConfirmedState instance
+  DKTripRecordingConfirmedState({
+    required this.localTripId,
+    required this.recordingStartDate,
+    required this.recordingConfirmationDate,
+    required this.startMode,
+  });
+
+  /// The localTripId
+  final String localTripId;
+
+  /// The trip recording start date
+  final String recordingStartDate;
+
+  /// The trip recording confirmation date
+  final String recordingConfirmationDate;
+
+  /// The StartMode that triggers the trip recording
+  final StartMode startMode;
+}
+
+/// class describing trip recording canceled state
+class DKTripRecordingCanceledState {
+  /// Creates a DKTripRecordingCanceledState instance
+  DKTripRecordingCanceledState({
+    required this.localTripId,
+    required this.recordingStartDate,
+    required this.recordingConfirmationDate,
+    required this.startMode,
+    required this.cancelationReason,
+  });
+
+  /// The localTripId
+  final String localTripId;
+
+  /// The trip recording start date
+  final String recordingStartDate;
+
+  /// The trip recording confirmation date
+  final String? recordingConfirmationDate;
+
+  /// The StartMode that triggers the trip recording
+  final StartMode startMode;
+
+  /// The trip cancelation reason
+  final DKTripCancelationReason cancelationReason;
+}
+
+/// Trip cancelation reason enum
+enum DKTripCancelationReason {
+  /// Trip cancelled by calling the method cancelTrip
+  user,
+
+  /// Trip cancelled because speed was too high (train, airplane)
+  highSpeed,
+
+  /// Trip cancelled because speed was too slow to be in a vehicle
+  noSpeed,
+
+  /// Trip cancelled because the beacon was not detected while it was [required](https://docs.drivequant.com/trip-analysis/ios/beacon-usage#beacon-required)
+  noBeacon,
+
+  /// Trip cancelled because DriveKit was not configured
+  missingConfiguration,
+
+  /// Trip cancelled because no GPS data was recorded
+  noLocationData,
+
+  /// Trip cancelled because SDK configuration has been [reset](https://docs.drivequant.com/get-started-drivekit/ios/advanced-configurations#reset-the-module)
+  reset,
+
+  /// Trip cancelled because the beacon is near the smartphone but
+  /// there is no movement (zero or low speed)
+  beaconNoSpeed,
+
+  /// Trip cancelled because the Bluetooth device is missing
+  noBluetoothDevice,
+
+  /// Trip cancelled because the Bluetooth device is connected to the
+  /// smartphone but there was no movement (zero or low speed)
+  bluetoothDeviceNoSpeed,
+
+  /// Trip cancelled because the App was killed
+  appKilled;
+}
+
+/// class describing trip recording finished state
+class DKTripRecordingFinishedState {
+  /// Creates a DKTripRecordingFinishedState instance
+  DKTripRecordingFinishedState({
+    required this.localTripId,
+    required this.recordingStartDate,
+    required this.recordingConfirmationDate,
+    required this.startMode,
+    required this.recordingEndDate,
+  });
+
+  /// The localTripId
+  final String localTripId;
+
+  /// The trip recording start date
+  final String recordingStartDate;
+
+  /// The trip recording confirmation date
+  final String recordingConfirmationDate;
+
+  /// The StartMode that triggers the trip recording
+  final StartMode startMode;
+
+  /// The trip recording end date
+  final String recordingEndDate;
 }
