@@ -253,6 +253,10 @@ void main() {
         var crashFeedbackSentCount = 0;
         var sdkStateChangedCount = 0;
         var significantLocationChangeDetectedCount = 0;
+        var tripRecordingStartedCount = 0;
+        var tripRecordingConfirmedCount = 0;
+        var tripRecordingCanceledCount = 0;
+        var tripRecordingFinishedCount = 0;
         var tripCancelledCount = 0;
         var tripFinishedCount = 0;
         var tripPointCount = 0;
@@ -268,6 +272,10 @@ void main() {
             sdkStateChanged: (state) => sdkStateChangedCount++,
             significantLocationChangeDetected: (state) =>
                 significantLocationChangeDetectedCount++,
+            tripRecordingStarted: (state) => tripRecordingStartedCount++,
+            tripRecordingConfirmed: (state) => tripRecordingConfirmedCount++,
+            tripRecordingCanceled: (state) => tripRecordingCanceledCount++,
+            tripRecordingFinished: (state) => tripRecordingFinishedCount++,
             tripCancelled: (cancelTrip) => tripCancelledCount++,
             tripFinished: (response) => tripFinishedCount++,
             tripPoint: (tripPoint) => tripPointCount++,
@@ -291,6 +299,22 @@ void main() {
 
         flutterTripAnalysisApi.sdkStateChanged(PigeonState.inactive);
         expect(sdkStateChangedCount, 1);
+
+        flutterTripAnalysisApi
+            .tripRecordingStarted(mockPigeonTripRecordingStartedState);
+        expect(tripRecordingStartedCount, 1);
+
+        flutterTripAnalysisApi
+            .tripRecordingConfirmed(mockPigeonTripRecordingConfirmedState);
+        expect(tripRecordingConfirmedCount, 1);
+
+        flutterTripAnalysisApi
+            .tripRecordingCanceled(mockPigeonTripRecordingCanceledState);
+        expect(tripRecordingCanceledCount, 1);
+
+        flutterTripAnalysisApi
+            .tripRecordingFinished(mockPigeonTripRecordingFinishedState);
+        expect(tripRecordingFinishedCount, 1);
 
         flutterTripAnalysisApi.tripCancelled(PigeonCancelTrip.beaconNoSpeed);
         expect(tripCancelledCount, 1);
@@ -321,6 +345,10 @@ void main() {
             sdkStateChanged: (state) => sdkStateChangedCount++,
             significantLocationChangeDetected: (state) =>
                 significantLocationChangeDetectedCount++,
+            tripRecordingStarted: (state) => tripRecordingStartedCount++,
+            tripRecordingConfirmed: (state) => tripRecordingConfirmedCount++,
+            tripRecordingCanceled: (state) => tripRecordingCanceledCount++,
+            tripRecordingFinished: (state) => tripRecordingFinishedCount++,
             tripCancelled: (cancelTrip) => tripCancelledCount++,
             tripFinished: (response) => tripFinishedCount++,
             tripPoint: (tripPoint) => tripPointCount++,
@@ -343,6 +371,22 @@ void main() {
 
         flutterTripAnalysisApi.sdkStateChanged(PigeonState.inactive);
         expect(sdkStateChangedCount, 3);
+
+        flutterTripAnalysisApi
+            .tripRecordingStarted(mockPigeonTripRecordingStartedState);
+        expect(tripRecordingStartedCount, 3);
+
+        flutterTripAnalysisApi
+            .tripRecordingConfirmed(mockPigeonTripRecordingConfirmedState);
+        expect(tripRecordingConfirmedCount, 3);
+
+        flutterTripAnalysisApi
+            .tripRecordingCanceled(mockPigeonTripRecordingCanceledState);
+        expect(tripRecordingCanceledCount, 3);
+
+        flutterTripAnalysisApi
+            .tripRecordingFinished(mockPigeonTripRecordingFinishedState);
+        expect(tripRecordingFinishedCount, 3);
 
         flutterTripAnalysisApi.tripCancelled(PigeonCancelTrip.beaconNoSpeed);
         expect(tripCancelledCount, 3);
@@ -414,6 +458,10 @@ void main() {
         var crashFeedbackSentCount = 0;
         var sdkStateChangedCount = 0;
         var significantLocationChangeDetectedCount = 0;
+        var tripRecordingStartedCount = 0;
+        var tripRecordingConfirmedCount = 0;
+        var tripRecordingCanceledCount = 0;
+        var tripRecordingFinishedCount = 0;
         var tripCancelledCount = 0;
         var tripFinishedCount = 0;
         var tripPointCount = 0;
@@ -428,6 +476,10 @@ void main() {
           sdkStateChanged: (state) => sdkStateChangedCount++,
           significantLocationChangeDetected: (state) =>
               significantLocationChangeDetectedCount++,
+          tripRecordingStarted: (state) => tripRecordingStartedCount++,
+          tripRecordingConfirmed: (state) => tripRecordingConfirmedCount++,
+          tripRecordingCanceled: (state) => tripRecordingCanceledCount++,
+          tripRecordingFinished: (state) => tripRecordingFinishedCount++,
           tripCancelled: (cancelTrip) => tripCancelledCount++,
           tripFinished: (response) => tripFinishedCount++,
           tripPoint: (tripPoint) => tripPointCount++,
@@ -447,6 +499,10 @@ void main() {
             PigeonDKCrashFeedbackSeverity.minor,
           )
           ..sdkStateChanged(PigeonState.inactive)
+          ..tripRecordingStarted(mockPigeonTripRecordingStartedState)
+          ..tripRecordingConfirmed(mockPigeonTripRecordingConfirmedState)
+          ..tripRecordingCanceled(mockPigeonTripRecordingCanceledState)
+          ..tripRecordingFinished(mockPigeonTripRecordingFinishedState)
           ..tripCancelled(PigeonCancelTrip.beaconNoSpeed)
           ..tripFinished(mockPigeonTripResponseStatus)
           ..tripPoint(mockPigeonTripPoint)
@@ -458,6 +514,10 @@ void main() {
         expect(crashFeedbackSentCount, 0);
         expect(sdkStateChangedCount, 0);
         expect(significantLocationChangeDetectedCount, 0);
+        expect(tripRecordingStartedCount, 0);
+        expect(tripRecordingConfirmedCount, 0);
+        expect(tripRecordingCanceledCount, 0);
+        expect(tripRecordingFinishedCount, 0);
         expect(tripCancelledCount, 0);
         expect(tripFinishedCount, 0);
         expect(tripPointCount, 0);
@@ -471,6 +531,10 @@ void main() {
         var crashFeedbackSentCount = 0;
         var sdkStateChangedCount = 0;
         var significantLocationChangeDetectedCount = 0;
+        var tripRecordingStartedCount = 0;
+        var tripRecordingConfirmedCount = 0;
+        var tripRecordingCanceledCount = 0;
+        var tripRecordingFinishedCount = 0;
         var tripCancelledCount = 0;
         var tripFinishedCount = 0;
         var tripPointCount = 0;
@@ -485,6 +549,10 @@ void main() {
           sdkStateChanged: (state) => sdkStateChangedCount++,
           significantLocationChangeDetected: (state) =>
               significantLocationChangeDetectedCount++,
+          tripRecordingStarted: (state) => tripRecordingStartedCount++,
+          tripRecordingConfirmed: (state) => tripRecordingConfirmedCount++,
+          tripRecordingCanceled: (state) => tripRecordingCanceledCount++,
+          tripRecordingFinished: (state) => tripRecordingFinishedCount++,
           tripCancelled: (cancelTrip) => tripCancelledCount++,
           tripFinished: (response) => tripFinishedCount++,
           tripPoint: (tripPoint) => tripPointCount++,
@@ -505,6 +573,10 @@ void main() {
             PigeonDKCrashFeedbackSeverity.minor,
           )
           ..sdkStateChanged(PigeonState.inactive)
+          ..tripRecordingStarted(mockPigeonTripRecordingStartedState)
+          ..tripRecordingConfirmed(mockPigeonTripRecordingConfirmedState)
+          ..tripRecordingCanceled(mockPigeonTripRecordingCanceledState)
+          ..tripRecordingFinished(mockPigeonTripRecordingFinishedState)
           ..tripCancelled(PigeonCancelTrip.beaconNoSpeed)
           ..tripFinished(mockPigeonTripResponseStatus)
           ..tripPoint(mockPigeonTripPoint)
@@ -516,6 +588,10 @@ void main() {
         expect(crashFeedbackSentCount, 0);
         expect(sdkStateChangedCount, 0);
         expect(significantLocationChangeDetectedCount, 0);
+        expect(tripRecordingStartedCount, 0);
+        expect(tripRecordingConfirmedCount, 0);
+        expect(tripRecordingCanceledCount, 0);
+        expect(tripRecordingFinishedCount, 0);
         expect(tripCancelledCount, 0);
         expect(tripFinishedCount, 0);
         expect(tripPointCount, 0);

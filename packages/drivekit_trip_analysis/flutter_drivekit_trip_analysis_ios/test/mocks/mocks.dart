@@ -34,3 +34,32 @@ final mockPigeonTripResponseStatus = PigeonTripResponseStatus(
   info: [],
   error: PigeonTripResponseError.noAccountSet,
 );
+
+final mockPigeonTripRecordingStartedState = PigeonTripRecordingStartedState(
+  localTripId: 'myTripId',
+  recordingStartDate: '2025-01-01T00:00:00.000',
+  startMode: PigeonStartMode.manual,
+);
+
+final mockPigeonTripRecordingConfirmedState = PigeonTripRecordingConfirmedState(
+  localTripId: 'myTripId',
+  recordingStartDate: '2025-01-01T00:00:00.000',
+  startMode: PigeonStartMode.manual,
+  recordingConfirmationDate: '2025-01-01T00:00:20.000',
+);
+
+final mockPigeonTripRecordingCanceledState = PigeonTripRecordingCanceledState(
+  localTripId: 'myTripId',
+  recordingStartDate: '2025-01-01T00:00:00.000',
+  startMode: PigeonStartMode.manual,
+  recordingConfirmationDate: '2025-01-01T00:00:20.000',
+  cancelationReason: PigeonTripCancelationReason.user,
+);
+
+final mockPigeonTripRecordingFinishedState = PigeonTripRecordingFinishedState(
+  localTripId: 'myTripId',
+  recordingStartDate: '2025-01-01T00:00:00.000',
+  startMode: PigeonStartMode.manual,
+  recordingConfirmationDate: '2025-01-01T00:00:20.000',
+  recordingEndDate: '2025-01-01T00:36:50.000',
+);
