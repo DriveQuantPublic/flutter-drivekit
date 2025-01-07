@@ -152,6 +152,7 @@ class DriveKitTripAnalysisAndroid extends DriveKitTripAnalysisPlatform
   @override
   void tripCancelled(PigeonCancelTrip cancelTrip) {
     for (final listener in _listeners) {
+      // ignore: deprecated_member_use
       listener.tripCancelled?.call(cancelTrip.toModelImplementation());
     }
   }
@@ -184,6 +185,7 @@ class DriveKitTripAnalysisAndroid extends DriveKitTripAnalysisPlatform
   @override
   void tripStarted(PigeonStartMode startMode) {
     for (final listener in _listeners) {
+      // ignore: deprecated_member_use
       listener.tripStarted?.call(startMode.toModelImplementation());
     }
   }

@@ -123,7 +123,7 @@ await DriveKitTripAnalysis.instance.activateAutoStart(false);
 
 > ⚠️
 >
-> If a trip is running when automatic trip detection is disabled, the trip will not be cancelled. If you want to cancel the trip, you should also call `cancelTrip` method.
+> If a trip is running when automatic trip detection is disabled, the trip will not be canceled. If you want to cancel the trip, you should also call `cancelTrip` method.
 
 ### startTrip
 
@@ -219,11 +219,15 @@ void addTripListener(TripListener listener);
 
  | Method                            | Description                                                                                                                                                                                                                                               |
 |-----------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| tripRecordingStarted                       | Immediately called when a trip recording starts. This callback is triggered after calling the DriveKit SDK's startTrip() method or after automatic trip detection. `DKTripRecordingStartedState` object is described [here](https://docs.drivequant.com/trip-analysis/ios/references#dktriprecordingstartedstate).                                       |
+| tripRecordingConfirmed                       | Called each time a trip is confirmed. `DKTripRecordingConfirmedState` object is described [here](https://docs.drivequant.com/trip-analysis/ios/references#dktriprecordingconfirmedstate).                                        |
+| tripRecordingCanceled                       | Called when a trip recording is canceled. `DKTripRecordingCanceledState` indicates which event has canceled the trip. `DKTripRecordingCanceledState` object is described [here](https://docs.drivequant.com/trip-analysis/ios/references#dktriprecordingcanceledstate).                               |
+| tripRecordingFinished                       | Called when trip recording has ended, before sending trip data to DriveQuant's servers. `DKTripRecordingFinishedState` object is described [here](https://docs.drivequant.com/trip-analysis/ios/references#dktriprecordingfinishedstate).                               |
 | tripStarted                       | Called each time a trip is started. `StartMode` indicates which event starts the trip.                                                                                                                                                                    |
 | tripPoint                         | Called when a trip is started and confirmed, for each GPS point recorded by the SDK.                                                                                                                                                                      |
 | tripSavedForRepost                | Called if at the end of the trip, the trip can be sent to DriveQuant's server for the analysis. The trip is saved locally on the SDK and will be sent later.                                                                                              |
 | tripFinished                      | Called when a trip has been recorded by the SDK and sent to DriveQuant's server to be analyzed.  `TripResponseStatus` object contains trip response status details. More about this object [here](https://docs.drivequant.com/trip-analysis/ios/references#tripresponsestatus) |
-| tripCancelled                     | Called when a trip is cancelled. `CancelTrip` indicates which event cancels the trip.                                                                                                                                                                     |
+| tripCancelled                     | Called when a trip is canceled. `CancelTrip` indicates which event cancels the trip.                                                                                                                                                                     |
 | potentialTripStart                | Called each time a potential trip is started. `StartMode` indicates which event starts the potential trip.                                                                                                                                                |
 | beaconDetected                    | Called when a beacon sets in the SDK is detected.                                                                                                                                                                                                         |
 | significantLocationChangeDetected | iOS only. Called when a user significant location change is detected.                                                                                                                                                                                     |
