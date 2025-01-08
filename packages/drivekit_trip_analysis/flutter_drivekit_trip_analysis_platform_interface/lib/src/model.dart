@@ -225,7 +225,7 @@ enum StartMode {
 
 /// CancelTrip indicates how the trip was cancelled.
 enum CancelTrip {
-  /// Trip cancelled by calling the method cancelTrip
+  /// Trip cancelled by calling the method `cancelTrip()`
   user,
 
   /// Trip cancelled because speed was too high (train, airplane)
@@ -704,7 +704,7 @@ class DKTripRecordingCanceledState {
 
 /// Trip cancelation reason enum
 enum DKTripCancelationReason {
-  /// Trip canceled by calling the method cancelTrip
+  /// Trip canceled by calling the method `cancelTrip()`
   user,
 
   /// Trip canceled because speed was too high (train, airplane)
