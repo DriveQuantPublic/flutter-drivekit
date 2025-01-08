@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter_drivekit_trip_analysis_ios/flutter_drivekit_trip_analysis_ios.dart';
 import 'package:flutter_drivekit_trip_analysis_ios/src/adapter.dart';
 import 'package:flutter_drivekit_trip_analysis_ios/src/trip_analysis_api.g.dart';

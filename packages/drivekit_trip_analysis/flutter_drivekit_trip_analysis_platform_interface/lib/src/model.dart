@@ -106,12 +106,12 @@ class TripListener {
     this.tripRecordingConfirmed,
     this.tripRecordingCanceled,
     this.tripRecordingFinished,
-    // ignore: deprecated_consistency
+    @Deprecated('Deprecated. Please use tripRecordingConfirmed instead.')
     this.tripStarted,
     this.tripPoint,
     this.tripSavedForRepost,
     this.tripFinished,
-    // ignore: deprecated_consistency
+    @Deprecated('Deprecated. Please use tripRecordingCanceled instead.')
     this.tripCancelled,
     this.potentialTripStart,
     this.beaconDetected,
