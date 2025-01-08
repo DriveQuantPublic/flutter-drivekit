@@ -72,16 +72,6 @@ class _InitializeListenersState extends State<InitializeListeners> {
           );
         }
       },
-      tripCancelled: (cancelTrip) {
-        if (context.mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('Trip: tripCancelled.\ncancelTrip: $cancelTrip'),
-              duration: defaultTripListenerDuration,
-            ),
-          );
-        }
-      },
       tripFinished: (response) {
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -101,16 +91,6 @@ class _InitializeListenersState extends State<InitializeListeners> {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text('Trip: tripSavedForRepost.'),
-              duration: defaultTripListenerDuration,
-            ),
-          );
-        }
-      },
-      tripStarted: (startMode) {
-        if (context.mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('Trip: tripStarted.\nstartMode: $startMode'),
               duration: defaultTripListenerDuration,
             ),
           );
