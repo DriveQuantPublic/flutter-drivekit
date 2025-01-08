@@ -142,7 +142,7 @@ class TripListener {
 
   /// Called each time a trip is started.
   /// [StartMode] indicates which event starts the trip.
-  @Deprecated('Deprecated. Please use tripRecordingStarted instead.')
+  @Deprecated('Deprecated. Please use tripRecordingConfirmed instead.')
   final void Function(StartMode startMode)? tripStarted;
 
   /// Called when a trip is started and confirmed,
