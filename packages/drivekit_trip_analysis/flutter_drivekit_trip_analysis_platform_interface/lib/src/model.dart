@@ -159,7 +159,7 @@ class TripListener {
   /// DriveQuant's server to be analyzed.
   final void Function(TripResponseStatus response)? tripFinished;
 
-  /// Called when a trip is cancelled.
+  /// Called when a trip is canceled.
   /// [CancelTrip] indicates which event cancels the trip.
   @Deprecated('Deprecated. Please use tripRecordingCanceled instead.')
   final void Function(CancelTrip cancelTrip)? tripCancelled;
@@ -223,37 +223,37 @@ enum StartMode {
   connectedCar;
 }
 
-/// CancelTrip indicates how the trip was cancelled.
+/// CancelTrip indicates how the trip was canceled.
 enum CancelTrip {
-  /// Trip cancelled by calling the method `cancelTrip()`
+  /// Trip canceled by calling the method `cancelTrip()`
   user,
 
-  /// Trip cancelled because speed was too high (train, airplane)
+  /// Trip canceled because speed was too high (train, airplane)
   highspeed,
 
-  /// Trip cancelled because speed was too slow to be in a vehicle
+  /// Trip canceled because speed was too slow to be in a vehicle
   noSpeed,
 
-  /// Trip cancelled because the beacon was not detected while it was [required](https://docs.drivequant.com/trip-analysis/ios/beacon-usage#beacon-required)
+  /// Trip canceled because the beacon was not detected while it was [required](https://docs.drivequant.com/trip-analysis/ios/beacon-usage#beacon-required)
   noBeacon,
 
-  /// Trip cancelled because DriveKit was not configured
+  /// Trip canceled because DriveKit was not configured
   missingConfiguration,
 
-  /// Trip cancelled because no GPS data was recorded
+  /// Trip canceled because no GPS data was recorded
   noGpsData,
 
-  /// Trip cancelled because SDK configuration has been [reset](https://docs.drivequant.com/get-started-drivekit/ios/advanced-configurations#reset-the-module)
+  /// Trip canceled because SDK configuration has been [reset](https://docs.drivequant.com/get-started-drivekit/ios/advanced-configurations#reset-the-module)
   reset,
 
-  /// Trip cancelled because the beacon is near the smartphone but
+  /// Trip canceled because the beacon is near the smartphone but
   /// there is no movement (zero or low speed)
   beaconNoSpeed,
 
-  /// Trip cancelled because the Bluetooth device is missing
+  /// Trip canceled because the Bluetooth device is missing
   noBluetoothDevice,
 
-  /// Trip cancelled because the Bluetooth device is connected to the
+  /// Trip canceled because the Bluetooth device is connected to the
   /// smartphone but there was no movement (zero or low speed)
   bluetoothDeviceNoSpeed;
 }

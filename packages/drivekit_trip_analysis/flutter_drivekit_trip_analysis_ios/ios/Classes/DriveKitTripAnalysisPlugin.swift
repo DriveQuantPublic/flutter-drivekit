@@ -216,9 +216,9 @@ extension DriveKitTripAnalysisPlugin: TripListener {
             self.flutterAPI?.tripCancelled(cancelTrip: pigeonValue) { result in
                 switch result {
                 case .success:
-                    print("Trip cancelled.")
+                    print("Trip canceled.")
                 case .failure(let error):
-                    print("Error on trip cancelled: \(error.localizedDescription)")
+                    print("Error on trip canceled: \(error.localizedDescription)")
                 }
             }
         }

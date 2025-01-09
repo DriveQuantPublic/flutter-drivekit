@@ -209,7 +209,7 @@ await DriveKitTripAnalysis.instance.setStopTimeOut(123);
 
 The `TripListener` interface provides useful information and event about trips analyzed by DriveKit.
 
-For example, you can be informed when a trip analysis has started, finished, cancelled, when a crash is detected, etc. by using the method:
+For example, you can be informed when a trip analysis has started, finished, canceled, when a crash is detected, etc. by using the method:
 
 ```dart
 void addTripListener(TripListener listener);
