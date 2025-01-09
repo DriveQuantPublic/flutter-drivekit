@@ -37,7 +37,7 @@ void registerTripListener() {
   WidgetsFlutterBinding.ensureInitialized();
 
   final tripListener = TripListener(
-    tripRecordingStarted: (state) {
+    tripRecordingConfirmed: (state) {
       if (Platform.isIOS) {
         const title = 'Start of trip';
         final message =
