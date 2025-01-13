@@ -721,3 +721,91 @@ extension PigeonAccuracyLevelAdapter on PigeonAccuracyLevel {
     };
   }
 }
+
+/// Adapts the [PigeonTripRecordingStartedState] class to the corresponding
+/// class in the model.
+extension PigeonTripRecordingStartedStateAdapter
+    on PigeonTripRecordingStartedState {
+  /// Converts a [PigeonTripRecordingStartedState] to a corresponding class.
+  DKTripRecordingStartedState toModelImplementation() {
+    return DKTripRecordingStartedState(
+      localTripId: localTripId,
+      recordingStartDate: recordingStartDate,
+      startMode: startMode.toModelImplementation(),
+    );
+  }
+}
+
+/// Adapts the [PigeonTripRecordingConfirmedState] class to the corresponding
+/// class in the model.
+extension PigeonTripRecordingConfirmedStateAdapter
+    on PigeonTripRecordingConfirmedState {
+  /// Converts a [PigeonTripRecordingConfirmedState] to a corresponding class.
+  DKTripRecordingConfirmedState toModelImplementation() {
+    return DKTripRecordingConfirmedState(
+      localTripId: localTripId,
+      recordingStartDate: recordingStartDate,
+      startMode: startMode.toModelImplementation(),
+      recordingConfirmationDate: recordingConfirmationDate,
+    );
+  }
+}
+
+/// Adapts the [PigeonTripRecordingCanceledState] class to the corresponding
+/// class in the model.
+extension PigeonTripRecordingCanceledStateAdapter
+    on PigeonTripRecordingCanceledState {
+  /// Converts a [PigeonTripRecordingCanceledState] to a corresponding class.
+  DKTripRecordingCanceledState toModelImplementation() {
+    return DKTripRecordingCanceledState(
+      localTripId: localTripId,
+      recordingStartDate: recordingStartDate,
+      startMode: startMode.toModelImplementation(),
+      recordingConfirmationDate: recordingConfirmationDate,
+      cancelationReason: cancelationReason.toModelImplementation(),
+    );
+  }
+}
+
+/// Adapt [PigeonTripCancelationReason] class to [DKTripCancelationReason] class
+extension PigeonTripCancelationReasonAdapter on PigeonTripCancelationReason {
+  /// Converts a [PigeonTripCancelationReason] to a [DKTripCancelationReason].
+  DKTripCancelationReason toModelImplementation() {
+    return switch (this) {
+      PigeonTripCancelationReason.user => DKTripCancelationReason.user,
+      PigeonTripCancelationReason.highSpeed =>
+        DKTripCancelationReason.highSpeed,
+      PigeonTripCancelationReason.noSpeed => DKTripCancelationReason.noSpeed,
+      PigeonTripCancelationReason.noBeacon => DKTripCancelationReason.noBeacon,
+      PigeonTripCancelationReason.missingConfiguration =>
+        DKTripCancelationReason.missingConfiguration,
+      PigeonTripCancelationReason.noLocationData =>
+        DKTripCancelationReason.noLocationData,
+      PigeonTripCancelationReason.reset => DKTripCancelationReason.reset,
+      PigeonTripCancelationReason.beaconNoSpeed =>
+        DKTripCancelationReason.beaconNoSpeed,
+      PigeonTripCancelationReason.noBluetoothDevice =>
+        DKTripCancelationReason.noBluetoothDevice,
+      PigeonTripCancelationReason.bluetoothDeviceNoSpeed =>
+        DKTripCancelationReason.bluetoothDeviceNoSpeed,
+      PigeonTripCancelationReason.appKilled =>
+        DKTripCancelationReason.appKilled,
+    };
+  }
+}
+
+/// Adapts the [PigeonTripRecordingFinishedState] class to the corresponding
+/// class in the model.
+extension PigeonTripRecordingFinishedStateAdapter
+    on PigeonTripRecordingFinishedState {
+  /// Converts a [PigeonTripRecordingFinishedState] to a corresponding class.
+  DKTripRecordingFinishedState toModelImplementation() {
+    return DKTripRecordingFinishedState(
+      localTripId: localTripId,
+      recordingStartDate: recordingStartDate,
+      startMode: startMode.toModelImplementation(),
+      recordingConfirmationDate: recordingConfirmationDate,
+      recordingEndDate: recordingEndDate,
+    );
+  }
+}

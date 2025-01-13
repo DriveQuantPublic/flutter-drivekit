@@ -897,3 +897,85 @@ extension PigeonAccuracyLevel {
         }
     }
 }
+
+extension PigeonTripRecordingStartedState {
+    init(from state: DKTripRecordingStartedState) {
+        self.init(
+            localTripId: state.localTripId,
+            recordingStartDate: DateUtils.convertDateToString(date: state.recordingStartDate),
+            startMode: PigeonStartMode.init(from: state.startMode)
+        )
+    }
+}
+
+extension PigeonTripRecordingConfirmedState {
+    init(from state: DKTripRecordingConfirmedState) {
+        self.init(
+            localTripId: state.localTripId,
+            recordingStartDate: DateUtils.convertDateToString(date: state.recordingStartDate),
+            recordingConfirmationDate: DateUtils.convertDateToString(date: state.recordingConfirmationDate),
+            startMode: PigeonStartMode.init(from: state.startMode)
+        )
+    }
+}
+
+extension PigeonTripRecordingCanceledState {
+    init(from state: DKTripRecordingCanceledState) {
+        let recordingConfirmationDate: String?
+        if let date = state.recordingConfirmationDate {
+            recordingConfirmationDate = DateUtils.convertDateToString(date: date)
+        } else {
+            recordingConfirmationDate = nil
+        }
+        self.init(
+            localTripId: state.localTripId,
+            recordingStartDate: DateUtils.convertDateToString(date: state.recordingStartDate),
+            recordingConfirmationDate: recordingConfirmationDate,
+            startMode: PigeonStartMode.init(from: state.startMode),
+            cancelationReason: PigeonTripCancelationReason.init(from: state.cancelationReason)
+        )
+    }
+}
+
+extension PigeonTripCancelationReason {
+    init(from cancelationReason: DKTripCancelationReason) {
+        switch cancelationReason {
+            case .user:
+                self = .user
+            case .highSpeed:
+                self = .highSpeed
+            case .noSpeed:
+                self = .noSpeed
+            case .noBeacon:
+                self = .noBeacon
+            case .noBluetoothDevice:
+                self = .noBluetoothDevice
+            case .missingConfiguration:
+                self = .missingConfiguration
+            case .noLocationData:
+                self = .noLocationData
+            case .reset:
+                self = .reset
+            case .beaconNoSpeed:
+                self = .beaconNoSpeed
+            case .bluetoothDeviceNoSpeed:
+                self = .bluetoothDeviceNoSpeed
+            case .appKilled:
+                self = .appKilled
+            @unknown default:
+            fatalError()
+        }
+    }
+}
+
+extension PigeonTripRecordingFinishedState {
+    init(from state: DKTripRecordingFinishedState) {
+        self.init(
+            localTripId: state.localTripId,
+            recordingStartDate: DateUtils.convertDateToString(date: state.recordingStartDate),
+            recordingConfirmationDate: DateUtils.convertDateToString(date: state.recordingConfirmationDate),
+            startMode: PigeonStartMode.init(from: state.startMode),
+            recordingEndDate: DateUtils.convertDateToString(date: state.recordingEndDate)
+        )
+    }
+}

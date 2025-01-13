@@ -102,10 +102,16 @@ class Vehicle {
 class TripListener {
   /// Creates a TripListener instance
   const TripListener({
+    this.tripRecordingStarted,
+    this.tripRecordingConfirmed,
+    this.tripRecordingCanceled,
+    this.tripRecordingFinished,
+    @Deprecated('Deprecated. Please use tripRecordingConfirmed instead.')
     this.tripStarted,
     this.tripPoint,
     this.tripSavedForRepost,
     this.tripFinished,
+    @Deprecated('Deprecated. Please use tripRecordingCanceled instead.')
     this.tripCancelled,
     this.potentialTripStart,
     this.beaconDetected,
@@ -115,8 +121,28 @@ class TripListener {
     this.crashFeedbackSent,
   });
 
+  /// Called each time a trip recording starts.
+  /// [DKTripRecordingStartedState] indicates which event starts the trip.
+  final void Function(DKTripRecordingStartedState state)? tripRecordingStarted;
+
+  /// Called each time a trip recording is confirmed.
+  /// [DKTripRecordingConfirmedState] indicates trip recording state details.
+  final void Function(DKTripRecordingConfirmedState state)?
+      tripRecordingConfirmed;
+
+  /// Called each time a trip recording is canceled.
+  /// [DKTripRecordingCanceledState] indicates trip recording state details.
+  final void Function(DKTripRecordingCanceledState state)?
+      tripRecordingCanceled;
+
+  /// Called each time a trip recording is finished.
+  /// [DKTripRecordingFinishedState] indicates trip recording state details.
+  final void Function(DKTripRecordingFinishedState state)?
+      tripRecordingFinished;
+
   /// Called each time a trip is started.
   /// [StartMode] indicates which event starts the trip.
+  @Deprecated('Deprecated. Please use tripRecordingConfirmed instead.')
   final void Function(StartMode startMode)? tripStarted;
 
   /// Called when a trip is started and confirmed,
@@ -133,8 +159,9 @@ class TripListener {
   /// DriveQuant's server to be analyzed.
   final void Function(TripResponseStatus response)? tripFinished;
 
-  /// Called when a trip is cancelled.
+  /// Called when a trip is canceled.
   /// [CancelTrip] indicates which event cancels the trip.
+  @Deprecated('Deprecated. Please use tripRecordingCanceled instead.')
   final void Function(CancelTrip cancelTrip)? tripCancelled;
 
   /// Called each time a potential trip is started.
@@ -196,37 +223,37 @@ enum StartMode {
   connectedCar;
 }
 
-/// CancelTrip indicates how the trip was cancelled.
+/// CancelTrip indicates how the trip was canceled.
 enum CancelTrip {
-  /// Trip cancelled by calling the method cancelTrip
+  /// Trip canceled by calling the method `cancelTrip()`
   user,
 
-  /// Trip cancelled because speed was too high (train, airplane)
+  /// Trip canceled because speed was too high (train, airplane)
   highspeed,
 
-  /// Trip cancelled because speed was too slow to be in a vehicle
+  /// Trip canceled because speed was too slow to be in a vehicle
   noSpeed,
 
-  /// Trip cancelled because the beacon was not detected while it was [required](https://docs.drivequant.com/trip-analysis/ios/beacon-usage#beacon-required)
+  /// Trip canceled because the beacon was not detected while it was [required](https://docs.drivequant.com/trip-analysis/ios/beacon-usage#beacon-required)
   noBeacon,
 
-  /// Trip cancelled because DriveKit was not configured
+  /// Trip canceled because DriveKit was not configured
   missingConfiguration,
 
-  /// Trip cancelled because no GPS data was recorded
+  /// Trip canceled because no GPS data was recorded
   noGpsData,
 
-  /// Trip cancelled because SDK configuration has been [reset](https://docs.drivequant.com/get-started-drivekit/ios/advanced-configurations#reset-the-module)
+  /// Trip canceled because SDK configuration has been [reset](https://docs.drivequant.com/get-started-drivekit/ios/advanced-configurations#reset-the-module)
   reset,
 
-  /// Trip cancelled because the beacon is near the smartphone but
+  /// Trip canceled because the beacon is near the smartphone but
   /// there is no movement (zero or low speed)
   beaconNoSpeed,
 
-  /// Trip cancelled because the Bluetooth device is missing
+  /// Trip canceled because the Bluetooth device is missing
   noBluetoothDevice,
 
-  /// Trip cancelled because the Bluetooth device is connected to the
+  /// Trip canceled because the Bluetooth device is connected to the
   /// smartphone but there was no movement (zero or low speed)
   bluetoothDeviceNoSpeed;
 }
@@ -604,4 +631,138 @@ enum AccuracyLevel {
 
   /// The GPS accuracy is strictly above 30 meters.
   poor,
+}
+
+/// class describing trip recording state
+class DKTripRecordingStartedState {
+  /// Creates a DKTripRecordingStartedState instance
+  DKTripRecordingStartedState({
+    required this.localTripId,
+    required this.recordingStartDate,
+    required this.startMode,
+  });
+
+  /// The localTripId
+  final String localTripId;
+
+  /// The trip recording start date
+  final String recordingStartDate;
+
+  /// The StartMode that triggers the trip recording
+  final StartMode startMode;
+}
+
+/// class describing trip recording confirmed state
+class DKTripRecordingConfirmedState {
+  /// Creates a DKTripRecordingConfirmedState instance
+  DKTripRecordingConfirmedState({
+    required this.localTripId,
+    required this.recordingStartDate,
+    required this.recordingConfirmationDate,
+    required this.startMode,
+  });
+
+  /// The localTripId
+  final String localTripId;
+
+  /// The trip recording start date
+  final String recordingStartDate;
+
+  /// The trip recording confirmation date
+  final String recordingConfirmationDate;
+
+  /// The StartMode that triggers the trip recording
+  final StartMode startMode;
+}
+
+/// class describing trip recording canceled state
+class DKTripRecordingCanceledState {
+  /// Creates a DKTripRecordingCanceledState instance
+  DKTripRecordingCanceledState({
+    required this.localTripId,
+    required this.recordingStartDate,
+    required this.recordingConfirmationDate,
+    required this.startMode,
+    required this.cancelationReason,
+  });
+
+  /// The localTripId
+  final String localTripId;
+
+  /// The trip recording start date
+  final String recordingStartDate;
+
+  /// The trip recording confirmation date
+  final String? recordingConfirmationDate;
+
+  /// The StartMode that triggers the trip recording
+  final StartMode startMode;
+
+  /// The trip cancelation reason
+  final DKTripCancelationReason cancelationReason;
+}
+
+/// Trip cancelation reason enum
+enum DKTripCancelationReason {
+  /// Trip canceled by calling the method `cancelTrip()`
+  user,
+
+  /// Trip canceled because speed was too high (train, airplane)
+  highSpeed,
+
+  /// Trip canceled because speed was too slow to be in a vehicle
+  noSpeed,
+
+  /// Trip canceled because the beacon was not detected while it was [required](https://docs.drivequant.com/trip-analysis/ios/beacon-usage#beacon-required)
+  noBeacon,
+
+  /// Trip canceled because DriveKit was not configured
+  missingConfiguration,
+
+  /// Trip canceled because no GPS data was recorded
+  noLocationData,
+
+  /// Trip canceled because SDK configuration has been [reset](https://docs.drivequant.com/get-started-drivekit/ios/advanced-configurations#reset-the-module)
+  reset,
+
+  /// Trip canceled because the beacon is near the smartphone but
+  /// there is no movement (zero or low speed)
+  beaconNoSpeed,
+
+  /// Trip canceled because the Bluetooth device was not detected while it was [required](https://docs.drivequant.com/trip-analysis/ios/bluetooth-usage#bluetooth-device-required).
+  noBluetoothDevice,
+
+  /// Trip canceled because the Bluetooth device is connected to the
+  /// smartphone but there was no movement (zero or low speed)
+  bluetoothDeviceNoSpeed,
+
+  /// Trip canceled because the App was killed
+  appKilled;
+}
+
+/// class describing trip recording finished state
+class DKTripRecordingFinishedState {
+  /// Creates a DKTripRecordingFinishedState instance
+  DKTripRecordingFinishedState({
+    required this.localTripId,
+    required this.recordingStartDate,
+    required this.recordingConfirmationDate,
+    required this.startMode,
+    required this.recordingEndDate,
+  });
+
+  /// The localTripId
+  final String localTripId;
+
+  /// The trip recording start date
+  final String recordingStartDate;
+
+  /// The trip recording confirmation date
+  final String recordingConfirmationDate;
+
+  /// The StartMode that triggers the trip recording
+  final StartMode startMode;
+
+  /// The trip recording end date
+  final String recordingEndDate;
 }

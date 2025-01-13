@@ -116,6 +116,70 @@ public class DriveKitTripAnalysisPlugin: NSObject, FlutterPlugin, IOSTripAnalysi
 }
 
 extension DriveKitTripAnalysisPlugin: TripListener {
+    public func tripRecordingStarted(state: any DKTripRecordingStartedState) {
+        let pigeonTripRecordingStartedState = PigeonTripRecordingStartedState.init(from: state)
+
+        executeOnMainThread {
+            self.flutterAPI?.tripRecordingStarted(
+                state: pigeonTripRecordingStartedState) { result in
+                    switch result {
+                    case .success:
+                        print("tripRecordingStarted event sent with success.")
+                    case .failure(let error):
+                        print("Error when sending tripRecordingStarted event: \(error.localizedDescription)")
+                    }
+                }
+        }
+    }
+
+    public func tripRecordingConfirmed(state: any DKTripRecordingConfirmedState) {
+        let pigeonTripRecordingConfirmedState = PigeonTripRecordingConfirmedState.init(from: state)
+
+        executeOnMainThread {
+            self.flutterAPI?.tripRecordingConfirmed(
+                state: pigeonTripRecordingConfirmedState) { result in
+                    switch result {
+                    case .success:
+                        print("tripRecordingConfirmed event sent with success.")
+                    case .failure(let error):
+                        print("Error when sending tripRecordingConfirmed event: \(error.localizedDescription)")
+                    }
+                }
+        }
+    }
+
+    public func tripRecordingCanceled(state: any DKTripRecordingCanceledState) {
+        let pigeonTripRecordingCanceledState = PigeonTripRecordingCanceledState.init(from: state)
+
+        executeOnMainThread {
+            self.flutterAPI?.tripRecordingCanceled(
+                state: pigeonTripRecordingCanceledState) { result in
+                    switch result {
+                    case .success:
+                        print("tripRecordingCanceled event sent with success.")
+                    case .failure(let error):
+                        print("Error when sending tripRecordingCanceled event: \(error.localizedDescription)")
+                    }
+                }
+        }
+    }
+
+    public func tripRecordingFinished(state: any DKTripRecordingFinishedState) {
+        let pigeonTripRecordingFinishedState = PigeonTripRecordingFinishedState.init(from: state)
+
+        executeOnMainThread {
+            self.flutterAPI?.tripRecordingFinished(
+                state: pigeonTripRecordingFinishedState) { result in
+                    switch result {
+                    case .success:
+                        print("tripRecordingFinished event sent with success.")
+                    case .failure(let error):
+                        print("Error when sending tripRecordingFinished event: \(error.localizedDescription)")
+                    }
+                }
+        }
+    }
+
     public func tripStarted(startMode: DriveKitTripAnalysisModule.StartMode) {
         let pigeonStartMode = PigeonStartMode.init(from: startMode)
         executeOnMainThread {
@@ -152,9 +216,9 @@ extension DriveKitTripAnalysisPlugin: TripListener {
             self.flutterAPI?.tripCancelled(cancelTrip: pigeonValue) { result in
                 switch result {
                 case .success:
-                    print("Trip cancelled.")
+                    print("Trip canceled.")
                 case .failure(let error):
-                    print("Error on trip cancelled: \(error.localizedDescription)")
+                    print("Error on trip canceled: \(error.localizedDescription)")
                 }
             }
         }

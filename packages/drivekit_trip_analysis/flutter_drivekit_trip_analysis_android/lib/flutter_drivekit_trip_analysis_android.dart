@@ -86,6 +86,34 @@ class DriveKitTripAnalysisAndroid extends DriveKitTripAnalysisPlatform
   void removeAllTripListeners() => _listeners.clear();
 
   @override
+  void tripRecordingStarted(PigeonTripRecordingStartedState state) {
+    for (final listener in _listeners) {
+      listener.tripRecordingStarted?.call(state.toModelImplementation());
+    }
+  }
+
+  @override
+  void tripRecordingConfirmed(PigeonTripRecordingConfirmedState state) {
+    for (final listener in _listeners) {
+      listener.tripRecordingConfirmed?.call(state.toModelImplementation());
+    }
+  }
+
+  @override
+  void tripRecordingCanceled(PigeonTripRecordingCanceledState state) {
+    for (final listener in _listeners) {
+      listener.tripRecordingCanceled?.call(state.toModelImplementation());
+    }
+  }
+
+  @override
+  void tripRecordingFinished(PigeonTripRecordingFinishedState state) {
+    for (final listener in _listeners) {
+      listener.tripRecordingFinished?.call(state.toModelImplementation());
+    }
+  }
+
+  @override
   void beaconDetected() {
     for (final listener in _listeners) {
       listener.beaconDetected?.call();
@@ -124,6 +152,7 @@ class DriveKitTripAnalysisAndroid extends DriveKitTripAnalysisPlatform
   @override
   void tripCancelled(PigeonCancelTrip cancelTrip) {
     for (final listener in _listeners) {
+      // ignore: deprecated_member_use
       listener.tripCancelled?.call(cancelTrip.toModelImplementation());
     }
   }
@@ -156,6 +185,7 @@ class DriveKitTripAnalysisAndroid extends DriveKitTripAnalysisPlatform
   @override
   void tripStarted(PigeonStartMode startMode) {
     for (final listener in _listeners) {
+      // ignore: deprecated_member_use
       listener.tripStarted?.call(startMode.toModelImplementation());
     }
   }

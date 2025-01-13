@@ -158,6 +158,20 @@ enum PigeonAccuracyLevel: Int {
   case poor = 2
 }
 
+enum PigeonTripCancelationReason: Int {
+  case user = 0
+  case highSpeed = 1
+  case noSpeed = 2
+  case noBeacon = 3
+  case missingConfiguration = 4
+  case noLocationData = 5
+  case reset = 6
+  case beaconNoSpeed = 7
+  case noBluetoothDevice = 8
+  case bluetoothDeviceNoSpeed = 9
+  case appKilled = 10
+}
+
 /// Generated class from Pigeon that represents data sent in messages.
 struct PigeonVehicle {
   var carTypeIndex: Int64
@@ -1715,6 +1729,134 @@ struct PigeonLastTripLocation {
     ]
   }
 }
+
+/// Generated class from Pigeon that represents data sent in messages.
+struct PigeonTripRecordingStartedState {
+  var localTripId: String
+  var recordingStartDate: String
+  var startMode: PigeonStartMode
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ __pigeon_list: [Any?]) -> PigeonTripRecordingStartedState? {
+    let localTripId = __pigeon_list[0] as! String
+    let recordingStartDate = __pigeon_list[1] as! String
+    let startMode = __pigeon_list[2] as! PigeonStartMode
+
+    return PigeonTripRecordingStartedState(
+      localTripId: localTripId,
+      recordingStartDate: recordingStartDate,
+      startMode: startMode
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      localTripId,
+      recordingStartDate,
+      startMode,
+    ]
+  }
+}
+
+/// Generated class from Pigeon that represents data sent in messages.
+struct PigeonTripRecordingConfirmedState {
+  var localTripId: String
+  var recordingStartDate: String
+  var recordingConfirmationDate: String
+  var startMode: PigeonStartMode
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ __pigeon_list: [Any?]) -> PigeonTripRecordingConfirmedState? {
+    let localTripId = __pigeon_list[0] as! String
+    let recordingStartDate = __pigeon_list[1] as! String
+    let recordingConfirmationDate = __pigeon_list[2] as! String
+    let startMode = __pigeon_list[3] as! PigeonStartMode
+
+    return PigeonTripRecordingConfirmedState(
+      localTripId: localTripId,
+      recordingStartDate: recordingStartDate,
+      recordingConfirmationDate: recordingConfirmationDate,
+      startMode: startMode
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      localTripId,
+      recordingStartDate,
+      recordingConfirmationDate,
+      startMode,
+    ]
+  }
+}
+
+/// Generated class from Pigeon that represents data sent in messages.
+struct PigeonTripRecordingCanceledState {
+  var localTripId: String
+  var recordingStartDate: String
+  var recordingConfirmationDate: String? = nil
+  var startMode: PigeonStartMode
+  var cancelationReason: PigeonTripCancelationReason
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ __pigeon_list: [Any?]) -> PigeonTripRecordingCanceledState? {
+    let localTripId = __pigeon_list[0] as! String
+    let recordingStartDate = __pigeon_list[1] as! String
+    let recordingConfirmationDate: String? = nilOrValue(__pigeon_list[2])
+    let startMode = __pigeon_list[3] as! PigeonStartMode
+    let cancelationReason = __pigeon_list[4] as! PigeonTripCancelationReason
+
+    return PigeonTripRecordingCanceledState(
+      localTripId: localTripId,
+      recordingStartDate: recordingStartDate,
+      recordingConfirmationDate: recordingConfirmationDate,
+      startMode: startMode,
+      cancelationReason: cancelationReason
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      localTripId,
+      recordingStartDate,
+      recordingConfirmationDate,
+      startMode,
+      cancelationReason,
+    ]
+  }
+}
+
+/// Generated class from Pigeon that represents data sent in messages.
+struct PigeonTripRecordingFinishedState {
+  var localTripId: String
+  var recordingStartDate: String
+  var recordingConfirmationDate: String
+  var startMode: PigeonStartMode
+  var recordingEndDate: String
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ __pigeon_list: [Any?]) -> PigeonTripRecordingFinishedState? {
+    let localTripId = __pigeon_list[0] as! String
+    let recordingStartDate = __pigeon_list[1] as! String
+    let recordingConfirmationDate = __pigeon_list[2] as! String
+    let startMode = __pigeon_list[3] as! PigeonStartMode
+    let recordingEndDate = __pigeon_list[4] as! String
+
+    return PigeonTripRecordingFinishedState(
+      localTripId: localTripId,
+      recordingStartDate: recordingStartDate,
+      recordingConfirmationDate: recordingConfirmationDate,
+      startMode: startMode,
+      recordingEndDate: recordingEndDate
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      localTripId,
+      recordingStartDate,
+      recordingConfirmationDate,
+      startMode,
+      recordingEndDate,
+    ]
+  }
+}
 private class IOSTripAnalysisApiPigeonCodecReader: FlutterStandardReader {
   override func readValue(ofType type: UInt8) -> Any? {
     switch type {
@@ -1789,73 +1931,88 @@ private class IOSTripAnalysisApiPigeonCodecReader: FlutterStandardReader {
     case 163:
       return PigeonLastTripLocation.fromList(self.readValue() as! [Any?])
     case 164:
+      return PigeonTripRecordingStartedState.fromList(self.readValue() as! [Any?])
+    case 165:
+      return PigeonTripRecordingConfirmedState.fromList(self.readValue() as! [Any?])
+    case 166:
+      return PigeonTripRecordingCanceledState.fromList(self.readValue() as! [Any?])
+    case 167:
+      return PigeonTripRecordingFinishedState.fromList(self.readValue() as! [Any?])
+    case 168:
       var enumResult: PigeonStartMode? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonStartMode(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 165:
+    case 169:
       var enumResult: PigeonCancelTrip? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonCancelTrip(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 166:
+    case 170:
       var enumResult: PigeonState? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonState(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 167:
+    case 171:
       var enumResult: PigeonDKCrashFeedbackType? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonDKCrashFeedbackType(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 168:
+    case 172:
       var enumResult: PigeonDKCrashFeedbackSeverity? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonDKCrashFeedbackSeverity(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 169:
+    case 173:
       var enumResult: PigeonCrashStatus? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonCrashStatus(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 170:
+    case 174:
       var enumResult: PigeonTripResponseStatusType? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonTripResponseStatusType(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 171:
+    case 175:
       var enumResult: PigeonTripResponseInfo? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonTripResponseInfo(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 172:
+    case 176:
       var enumResult: PigeonTripResponseError? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonTripResponseError(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 173:
+    case 177:
       var enumResult: PigeonAccuracyLevel? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonAccuracyLevel(rawValue: enumResultAsInt)
+      }
+      return enumResult
+    case 178:
+      var enumResult: PigeonTripCancelationReason? = nil
+      let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
+      if let enumResultAsInt = enumResultAsInt {
+        enumResult = PigeonTripCancelationReason(rawValue: enumResultAsInt)
       }
       return enumResult
     default:
@@ -1971,35 +2128,50 @@ private class IOSTripAnalysisApiPigeonCodecWriter: FlutterStandardWriter {
     } else if let value = value as? PigeonLastTripLocation {
       super.writeByte(163)
       super.writeValue(value.toList())
-    } else if let value = value as? PigeonStartMode {
+    } else if let value = value as? PigeonTripRecordingStartedState {
       super.writeByte(164)
-      super.writeValue(value.rawValue)
-    } else if let value = value as? PigeonCancelTrip {
+      super.writeValue(value.toList())
+    } else if let value = value as? PigeonTripRecordingConfirmedState {
       super.writeByte(165)
-      super.writeValue(value.rawValue)
-    } else if let value = value as? PigeonState {
+      super.writeValue(value.toList())
+    } else if let value = value as? PigeonTripRecordingCanceledState {
       super.writeByte(166)
-      super.writeValue(value.rawValue)
-    } else if let value = value as? PigeonDKCrashFeedbackType {
+      super.writeValue(value.toList())
+    } else if let value = value as? PigeonTripRecordingFinishedState {
       super.writeByte(167)
-      super.writeValue(value.rawValue)
-    } else if let value = value as? PigeonDKCrashFeedbackSeverity {
+      super.writeValue(value.toList())
+    } else if let value = value as? PigeonStartMode {
       super.writeByte(168)
       super.writeValue(value.rawValue)
-    } else if let value = value as? PigeonCrashStatus {
+    } else if let value = value as? PigeonCancelTrip {
       super.writeByte(169)
       super.writeValue(value.rawValue)
-    } else if let value = value as? PigeonTripResponseStatusType {
+    } else if let value = value as? PigeonState {
       super.writeByte(170)
       super.writeValue(value.rawValue)
-    } else if let value = value as? PigeonTripResponseInfo {
+    } else if let value = value as? PigeonDKCrashFeedbackType {
       super.writeByte(171)
       super.writeValue(value.rawValue)
-    } else if let value = value as? PigeonTripResponseError {
+    } else if let value = value as? PigeonDKCrashFeedbackSeverity {
       super.writeByte(172)
       super.writeValue(value.rawValue)
-    } else if let value = value as? PigeonAccuracyLevel {
+    } else if let value = value as? PigeonCrashStatus {
       super.writeByte(173)
+      super.writeValue(value.rawValue)
+    } else if let value = value as? PigeonTripResponseStatusType {
+      super.writeByte(174)
+      super.writeValue(value.rawValue)
+    } else if let value = value as? PigeonTripResponseInfo {
+      super.writeByte(175)
+      super.writeValue(value.rawValue)
+    } else if let value = value as? PigeonTripResponseError {
+      super.writeByte(176)
+      super.writeValue(value.rawValue)
+    } else if let value = value as? PigeonAccuracyLevel {
+      super.writeByte(177)
+      super.writeValue(value.rawValue)
+    } else if let value = value as? PigeonTripCancelationReason {
+      super.writeByte(178)
       super.writeValue(value.rawValue)
     } else {
       super.writeValue(value)
@@ -2318,6 +2490,10 @@ class IOSTripAnalysisApiSetup {
 }
 /// Generated protocol from Pigeon that represents Flutter messages that can be called from Swift.
 protocol FlutterTripAnalysisApiProtocol {
+  func tripRecordingStarted(state stateArg: PigeonTripRecordingStartedState, completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void)
+  func tripRecordingConfirmed(state stateArg: PigeonTripRecordingConfirmedState, completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void)
+  func tripRecordingCanceled(state stateArg: PigeonTripRecordingCanceledState, completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void)
+  func tripRecordingFinished(state stateArg: PigeonTripRecordingFinishedState, completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void)
   func tripStarted(startMode startModeArg: PigeonStartMode, completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void)
   func tripPoint(tripPoint tripPointArg: PigeonTripPoint, completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void)
   func tripSavedForRepost(completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void)
@@ -2339,6 +2515,78 @@ class FlutterTripAnalysisApi: FlutterTripAnalysisApiProtocol {
   }
   var codec: IOSTripAnalysisApiPigeonCodec {
     return IOSTripAnalysisApiPigeonCodec.shared
+  }
+  func tripRecordingStarted(state stateArg: PigeonTripRecordingStartedState, completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void) {
+    let channelName: String = "dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripRecordingStarted\(messageChannelSuffix)"
+    let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger, codec: codec)
+    channel.sendMessage([stateArg] as [Any?]) { response in
+      guard let listResponse = response as? [Any?] else {
+        completion(.failure(createConnectionError(withChannelName: channelName)))
+        return
+      }
+      if listResponse.count > 1 {
+        let code: String = listResponse[0] as! String
+        let message: String? = nilOrValue(listResponse[1])
+        let details: String? = nilOrValue(listResponse[2])
+        completion(.failure(FlutterTripAnalysisError(code: code, message: message, details: details)))
+      } else {
+        completion(.success(Void()))
+      }
+    }
+  }
+  func tripRecordingConfirmed(state stateArg: PigeonTripRecordingConfirmedState, completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void) {
+    let channelName: String = "dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripRecordingConfirmed\(messageChannelSuffix)"
+    let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger, codec: codec)
+    channel.sendMessage([stateArg] as [Any?]) { response in
+      guard let listResponse = response as? [Any?] else {
+        completion(.failure(createConnectionError(withChannelName: channelName)))
+        return
+      }
+      if listResponse.count > 1 {
+        let code: String = listResponse[0] as! String
+        let message: String? = nilOrValue(listResponse[1])
+        let details: String? = nilOrValue(listResponse[2])
+        completion(.failure(FlutterTripAnalysisError(code: code, message: message, details: details)))
+      } else {
+        completion(.success(Void()))
+      }
+    }
+  }
+  func tripRecordingCanceled(state stateArg: PigeonTripRecordingCanceledState, completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void) {
+    let channelName: String = "dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripRecordingCanceled\(messageChannelSuffix)"
+    let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger, codec: codec)
+    channel.sendMessage([stateArg] as [Any?]) { response in
+      guard let listResponse = response as? [Any?] else {
+        completion(.failure(createConnectionError(withChannelName: channelName)))
+        return
+      }
+      if listResponse.count > 1 {
+        let code: String = listResponse[0] as! String
+        let message: String? = nilOrValue(listResponse[1])
+        let details: String? = nilOrValue(listResponse[2])
+        completion(.failure(FlutterTripAnalysisError(code: code, message: message, details: details)))
+      } else {
+        completion(.success(Void()))
+      }
+    }
+  }
+  func tripRecordingFinished(state stateArg: PigeonTripRecordingFinishedState, completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void) {
+    let channelName: String = "dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripRecordingFinished\(messageChannelSuffix)"
+    let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger, codec: codec)
+    channel.sendMessage([stateArg] as [Any?]) { response in
+      guard let listResponse = response as? [Any?] else {
+        completion(.failure(createConnectionError(withChannelName: channelName)))
+        return
+      }
+      if listResponse.count > 1 {
+        let code: String = listResponse[0] as! String
+        let message: String? = nilOrValue(listResponse[1])
+        let details: String? = nilOrValue(listResponse[2])
+        completion(.failure(FlutterTripAnalysisError(code: code, message: message, details: details)))
+      } else {
+        completion(.success(Void()))
+      }
+    }
   }
   func tripStarted(startMode startModeArg: PigeonStartMode, completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void) {
     let channelName: String = "dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripStarted\(messageChannelSuffix)"

@@ -37,10 +37,11 @@ void registerTripListener() {
   WidgetsFlutterBinding.ensureInitialized();
 
   final tripListener = TripListener(
-    tripStarted: (startMode) {
+    tripRecordingConfirmed: (state) {
       if (Platform.isIOS) {
         const title = 'Start of trip';
-        final message = 'A trip is recording (startMode = ${startMode.name})';
+        final message =
+            'A trip is recording (startMode = ${state.startMode.name})';
         _showTripNotification(title, message);
       }
     },
@@ -56,8 +57,11 @@ void registerTripListener() {
       }
       await _showTripNotification(null, message);
     },
-    tripCancelled: (cancelTrip) {
-      _showTripNotification(null, 'Trip cancelled: ${cancelTrip.name}');
+    tripRecordingCanceled: (state) {
+      _showTripNotification(
+        null,
+        'Trip canceled: ${state.cancelationReason.name}',
+      );
     },
     tripSavedForRepost: () => {
       _showTripNotification(

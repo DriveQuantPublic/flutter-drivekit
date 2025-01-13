@@ -36,6 +36,10 @@ abstract class IOSTripAnalysisApi {
 
 @FlutterApi()
 abstract class FlutterTripAnalysisApi {
+  void tripRecordingStarted(PigeonTripRecordingStartedState state);
+  void tripRecordingConfirmed(PigeonTripRecordingConfirmedState state);
+  void tripRecordingCanceled(PigeonTripRecordingCanceledState state);
+  void tripRecordingFinished(PigeonTripRecordingFinishedState state);
   void tripStarted(PigeonStartMode startMode);
   void tripPoint(PigeonTripPoint tripPoint);
   void tripSavedForRepost();
@@ -1283,4 +1287,99 @@ enum PigeonAccuracyLevel {
   good,
   fair,
   poor,
+}
+
+class PigeonTripRecordingStartedState {
+  PigeonTripRecordingStartedState({
+    required this.localTripId,
+    required this.recordingStartDate,
+    required this.startMode,
+  });
+
+  final String localTripId;
+
+  final String recordingStartDate;
+
+  final PigeonStartMode startMode;
+}
+
+class PigeonTripRecordingConfirmedState {
+  PigeonTripRecordingConfirmedState({
+    required this.localTripId,
+    required this.recordingStartDate,
+    required this.recordingConfirmationDate,
+    required this.startMode,
+  });
+
+  final String localTripId;
+
+  final String recordingStartDate;
+
+  final String recordingConfirmationDate;
+
+  final PigeonStartMode startMode;
+}
+
+class PigeonTripRecordingCanceledState {
+  PigeonTripRecordingCanceledState({
+    required this.localTripId,
+    required this.recordingStartDate,
+    required this.recordingConfirmationDate,
+    required this.startMode,
+    required this.cancelationReason,
+  });
+
+  final String localTripId;
+
+  final String recordingStartDate;
+
+  final String? recordingConfirmationDate;
+
+  final PigeonStartMode startMode;
+
+  final PigeonTripCancelationReason cancelationReason;
+}
+
+enum PigeonTripCancelationReason {
+  user,
+
+  highSpeed,
+
+  noSpeed,
+
+  noBeacon,
+
+  missingConfiguration,
+
+  noLocationData,
+
+  reset,
+
+  beaconNoSpeed,
+
+  noBluetoothDevice,
+
+  bluetoothDeviceNoSpeed,
+
+  appKilled;
+}
+
+class PigeonTripRecordingFinishedState {
+  PigeonTripRecordingFinishedState({
+    required this.localTripId,
+    required this.recordingStartDate,
+    required this.recordingConfirmationDate,
+    required this.startMode,
+    required this.recordingEndDate,
+  });
+
+  final String localTripId;
+
+  final String recordingStartDate;
+
+  final String recordingConfirmationDate;
+
+  final PigeonStartMode startMode;
+
+  final String recordingEndDate;
 }

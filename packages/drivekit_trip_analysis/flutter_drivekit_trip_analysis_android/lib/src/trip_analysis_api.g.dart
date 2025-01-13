@@ -119,6 +119,20 @@ enum PigeonAccuracyLevel {
   poor,
 }
 
+enum PigeonTripCancelationReason {
+  user,
+  highSpeed,
+  noSpeed,
+  noBeacon,
+  missingConfiguration,
+  noLocationData,
+  reset,
+  beaconNoSpeed,
+  noBluetoothDevice,
+  bluetoothDeviceNoSpeed,
+  appKilled,
+}
+
 class PigeonVehicle {
   PigeonVehicle({
     this.carTypeIndex = 1,
@@ -1944,6 +1958,155 @@ class PigeonLastTripLocation {
   }
 }
 
+class PigeonTripRecordingStartedState {
+  PigeonTripRecordingStartedState({
+    required this.localTripId,
+    required this.recordingStartDate,
+    required this.startMode,
+  });
+
+  String localTripId;
+
+  String recordingStartDate;
+
+  PigeonStartMode startMode;
+
+  Object encode() {
+    return <Object?>[
+      localTripId,
+      recordingStartDate,
+      startMode,
+    ];
+  }
+
+  static PigeonTripRecordingStartedState decode(Object result) {
+    result as List<Object?>;
+    return PigeonTripRecordingStartedState(
+      localTripId: result[0]! as String,
+      recordingStartDate: result[1]! as String,
+      startMode: result[2]! as PigeonStartMode,
+    );
+  }
+}
+
+class PigeonTripRecordingConfirmedState {
+  PigeonTripRecordingConfirmedState({
+    required this.localTripId,
+    required this.recordingStartDate,
+    required this.recordingConfirmationDate,
+    required this.startMode,
+  });
+
+  String localTripId;
+
+  String recordingStartDate;
+
+  String recordingConfirmationDate;
+
+  PigeonStartMode startMode;
+
+  Object encode() {
+    return <Object?>[
+      localTripId,
+      recordingStartDate,
+      recordingConfirmationDate,
+      startMode,
+    ];
+  }
+
+  static PigeonTripRecordingConfirmedState decode(Object result) {
+    result as List<Object?>;
+    return PigeonTripRecordingConfirmedState(
+      localTripId: result[0]! as String,
+      recordingStartDate: result[1]! as String,
+      recordingConfirmationDate: result[2]! as String,
+      startMode: result[3]! as PigeonStartMode,
+    );
+  }
+}
+
+class PigeonTripRecordingCanceledState {
+  PigeonTripRecordingCanceledState({
+    required this.localTripId,
+    required this.recordingStartDate,
+    this.recordingConfirmationDate,
+    required this.startMode,
+    required this.cancelationReason,
+  });
+
+  String localTripId;
+
+  String recordingStartDate;
+
+  String? recordingConfirmationDate;
+
+  PigeonStartMode startMode;
+
+  PigeonTripCancelationReason cancelationReason;
+
+  Object encode() {
+    return <Object?>[
+      localTripId,
+      recordingStartDate,
+      recordingConfirmationDate,
+      startMode,
+      cancelationReason,
+    ];
+  }
+
+  static PigeonTripRecordingCanceledState decode(Object result) {
+    result as List<Object?>;
+    return PigeonTripRecordingCanceledState(
+      localTripId: result[0]! as String,
+      recordingStartDate: result[1]! as String,
+      recordingConfirmationDate: result[2] as String?,
+      startMode: result[3]! as PigeonStartMode,
+      cancelationReason: result[4]! as PigeonTripCancelationReason,
+    );
+  }
+}
+
+class PigeonTripRecordingFinishedState {
+  PigeonTripRecordingFinishedState({
+    required this.localTripId,
+    required this.recordingStartDate,
+    required this.recordingConfirmationDate,
+    required this.startMode,
+    required this.recordingEndDate,
+  });
+
+  String localTripId;
+
+  String recordingStartDate;
+
+  String recordingConfirmationDate;
+
+  PigeonStartMode startMode;
+
+  String recordingEndDate;
+
+  Object encode() {
+    return <Object?>[
+      localTripId,
+      recordingStartDate,
+      recordingConfirmationDate,
+      startMode,
+      recordingEndDate,
+    ];
+  }
+
+  static PigeonTripRecordingFinishedState decode(Object result) {
+    result as List<Object?>;
+    return PigeonTripRecordingFinishedState(
+      localTripId: result[0]! as String,
+      recordingStartDate: result[1]! as String,
+      recordingConfirmationDate: result[2]! as String,
+      startMode: result[3]! as PigeonStartMode,
+      recordingEndDate: result[4]! as String,
+    );
+  }
+}
+
 class _PigeonCodec extends StandardMessageCodec {
   const _PigeonCodec();
   @override
@@ -2050,35 +2213,50 @@ class _PigeonCodec extends StandardMessageCodec {
     } else if (value is PigeonLastTripLocation) {
       buffer.putUint8(162);
       writeValue(buffer, value.encode());
-    } else if (value is PigeonStartMode) {
+    } else if (value is PigeonTripRecordingStartedState) {
       buffer.putUint8(163);
-      writeValue(buffer, value.index);
-    } else if (value is PigeonCancelTrip) {
+      writeValue(buffer, value.encode());
+    } else if (value is PigeonTripRecordingConfirmedState) {
       buffer.putUint8(164);
-      writeValue(buffer, value.index);
-    } else if (value is PigeonState) {
+      writeValue(buffer, value.encode());
+    } else if (value is PigeonTripRecordingCanceledState) {
       buffer.putUint8(165);
-      writeValue(buffer, value.index);
-    } else if (value is PigeonDKCrashFeedbackType) {
+      writeValue(buffer, value.encode());
+    } else if (value is PigeonTripRecordingFinishedState) {
       buffer.putUint8(166);
-      writeValue(buffer, value.index);
-    } else if (value is PigeonDKCrashFeedbackSeverity) {
+      writeValue(buffer, value.encode());
+    } else if (value is PigeonStartMode) {
       buffer.putUint8(167);
       writeValue(buffer, value.index);
-    } else if (value is PigeonCrashStatus) {
+    } else if (value is PigeonCancelTrip) {
       buffer.putUint8(168);
       writeValue(buffer, value.index);
-    } else if (value is PigeonTripResponseStatusType) {
+    } else if (value is PigeonState) {
       buffer.putUint8(169);
       writeValue(buffer, value.index);
-    } else if (value is PigeonTripResponseInfo) {
+    } else if (value is PigeonDKCrashFeedbackType) {
       buffer.putUint8(170);
       writeValue(buffer, value.index);
-    } else if (value is PigeonTripResponseError) {
+    } else if (value is PigeonDKCrashFeedbackSeverity) {
       buffer.putUint8(171);
       writeValue(buffer, value.index);
-    } else if (value is PigeonAccuracyLevel) {
+    } else if (value is PigeonCrashStatus) {
       buffer.putUint8(172);
+      writeValue(buffer, value.index);
+    } else if (value is PigeonTripResponseStatusType) {
+      buffer.putUint8(173);
+      writeValue(buffer, value.index);
+    } else if (value is PigeonTripResponseInfo) {
+      buffer.putUint8(174);
+      writeValue(buffer, value.index);
+    } else if (value is PigeonTripResponseError) {
+      buffer.putUint8(175);
+      writeValue(buffer, value.index);
+    } else if (value is PigeonAccuracyLevel) {
+      buffer.putUint8(176);
+      writeValue(buffer, value.index);
+    } else if (value is PigeonTripCancelationReason) {
+      buffer.putUint8(177);
       writeValue(buffer, value.index);
     } else {
       super.writeValue(buffer, value);
@@ -2157,39 +2335,50 @@ class _PigeonCodec extends StandardMessageCodec {
       case 162:
         return PigeonLastTripLocation.decode(readValue(buffer)!);
       case 163:
+        return PigeonTripRecordingStartedState.decode(readValue(buffer)!);
+      case 164:
+        return PigeonTripRecordingConfirmedState.decode(readValue(buffer)!);
+      case 165:
+        return PigeonTripRecordingCanceledState.decode(readValue(buffer)!);
+      case 166:
+        return PigeonTripRecordingFinishedState.decode(readValue(buffer)!);
+      case 167:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : PigeonStartMode.values[value];
-      case 164:
+      case 168:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : PigeonCancelTrip.values[value];
-      case 165:
+      case 169:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : PigeonState.values[value];
-      case 166:
+      case 170:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : PigeonDKCrashFeedbackType.values[value];
-      case 167:
+      case 171:
         final int? value = readValue(buffer) as int?;
         return value == null
             ? null
             : PigeonDKCrashFeedbackSeverity.values[value];
-      case 168:
+      case 172:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : PigeonCrashStatus.values[value];
-      case 169:
+      case 173:
         final int? value = readValue(buffer) as int?;
         return value == null
             ? null
             : PigeonTripResponseStatusType.values[value];
-      case 170:
+      case 174:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : PigeonTripResponseInfo.values[value];
-      case 171:
+      case 175:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : PigeonTripResponseError.values[value];
-      case 172:
+      case 176:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : PigeonAccuracyLevel.values[value];
+      case 177:
+        final int? value = readValue(buffer) as int?;
+        return value == null ? null : PigeonTripCancelationReason.values[value];
       default:
         return super.readValueOfType(type, buffer);
     }
@@ -2692,6 +2881,14 @@ class AndroidTripAnalysisApi {
 abstract class FlutterTripAnalysisApi {
   static const MessageCodec<Object?> pigeonChannelCodec = _PigeonCodec();
 
+  void tripRecordingStarted(PigeonTripRecordingStartedState state);
+
+  void tripRecordingConfirmed(PigeonTripRecordingConfirmedState state);
+
+  void tripRecordingCanceled(PigeonTripRecordingCanceledState state);
+
+  void tripRecordingFinished(PigeonTripRecordingFinishedState state);
+
   void tripStarted(PigeonStartMode startMode);
 
   void tripPoint(PigeonTripPoint tripPoint);
@@ -2722,6 +2919,122 @@ abstract class FlutterTripAnalysisApi {
   }) {
     messageChannelSuffix =
         messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
+    {
+      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<
+              Object?>(
+          'dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripRecordingStarted$messageChannelSuffix',
+          pigeonChannelCodec,
+          binaryMessenger: binaryMessenger);
+      if (api == null) {
+        __pigeon_channel.setMessageHandler(null);
+      } else {
+        __pigeon_channel.setMessageHandler((Object? message) async {
+          assert(message != null,
+              'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripRecordingStarted was null.');
+          final List<Object?> args = (message as List<Object?>?)!;
+          final PigeonTripRecordingStartedState? arg_state =
+              (args[0] as PigeonTripRecordingStartedState?);
+          assert(arg_state != null,
+              'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripRecordingStarted was null, expected non-null PigeonTripRecordingStartedState.');
+          try {
+            api.tripRecordingStarted(arg_state!);
+            return wrapResponse(empty: true);
+          } on PlatformException catch (e) {
+            return wrapResponse(error: e);
+          } catch (e) {
+            return wrapResponse(
+                error: PlatformException(code: 'error', message: e.toString()));
+          }
+        });
+      }
+    }
+    {
+      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<
+              Object?>(
+          'dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripRecordingConfirmed$messageChannelSuffix',
+          pigeonChannelCodec,
+          binaryMessenger: binaryMessenger);
+      if (api == null) {
+        __pigeon_channel.setMessageHandler(null);
+      } else {
+        __pigeon_channel.setMessageHandler((Object? message) async {
+          assert(message != null,
+              'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripRecordingConfirmed was null.');
+          final List<Object?> args = (message as List<Object?>?)!;
+          final PigeonTripRecordingConfirmedState? arg_state =
+              (args[0] as PigeonTripRecordingConfirmedState?);
+          assert(arg_state != null,
+              'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripRecordingConfirmed was null, expected non-null PigeonTripRecordingConfirmedState.');
+          try {
+            api.tripRecordingConfirmed(arg_state!);
+            return wrapResponse(empty: true);
+          } on PlatformException catch (e) {
+            return wrapResponse(error: e);
+          } catch (e) {
+            return wrapResponse(
+                error: PlatformException(code: 'error', message: e.toString()));
+          }
+        });
+      }
+    }
+    {
+      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<
+              Object?>(
+          'dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripRecordingCanceled$messageChannelSuffix',
+          pigeonChannelCodec,
+          binaryMessenger: binaryMessenger);
+      if (api == null) {
+        __pigeon_channel.setMessageHandler(null);
+      } else {
+        __pigeon_channel.setMessageHandler((Object? message) async {
+          assert(message != null,
+              'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripRecordingCanceled was null.');
+          final List<Object?> args = (message as List<Object?>?)!;
+          final PigeonTripRecordingCanceledState? arg_state =
+              (args[0] as PigeonTripRecordingCanceledState?);
+          assert(arg_state != null,
+              'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripRecordingCanceled was null, expected non-null PigeonTripRecordingCanceledState.');
+          try {
+            api.tripRecordingCanceled(arg_state!);
+            return wrapResponse(empty: true);
+          } on PlatformException catch (e) {
+            return wrapResponse(error: e);
+          } catch (e) {
+            return wrapResponse(
+                error: PlatformException(code: 'error', message: e.toString()));
+          }
+        });
+      }
+    }
+    {
+      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<
+              Object?>(
+          'dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripRecordingFinished$messageChannelSuffix',
+          pigeonChannelCodec,
+          binaryMessenger: binaryMessenger);
+      if (api == null) {
+        __pigeon_channel.setMessageHandler(null);
+      } else {
+        __pigeon_channel.setMessageHandler((Object? message) async {
+          assert(message != null,
+              'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripRecordingFinished was null.');
+          final List<Object?> args = (message as List<Object?>?)!;
+          final PigeonTripRecordingFinishedState? arg_state =
+              (args[0] as PigeonTripRecordingFinishedState?);
+          assert(arg_state != null,
+              'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripRecordingFinished was null, expected non-null PigeonTripRecordingFinishedState.');
+          try {
+            api.tripRecordingFinished(arg_state!);
+            return wrapResponse(empty: true);
+          } on PlatformException catch (e) {
+            return wrapResponse(error: e);
+          } catch (e) {
+            return wrapResponse(
+                error: PlatformException(code: 'error', message: e.toString()));
+          }
+        });
+      }
+    }
     {
       final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<
               Object?>(

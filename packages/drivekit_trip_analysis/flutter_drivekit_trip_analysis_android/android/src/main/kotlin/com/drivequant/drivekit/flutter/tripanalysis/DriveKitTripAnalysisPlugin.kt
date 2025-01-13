@@ -10,11 +10,19 @@ import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeon
 import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeonStartMode
 import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeonState
 import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeonTripPoint
+import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeonTripRecordingCanceledState
+import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeonTripRecordingConfirmedState
+import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeonTripRecordingFinishedState
+import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeonTripRecordingStartedState
 import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeonTripResponseStatus
 import com.drivequant.drivekit.tripanalysis.DriveKitTripAnalysis
 import com.drivequant.drivekit.tripanalysis.TripListener
 import com.drivequant.drivekit.tripanalysis.entity.TripPoint
 import com.drivequant.drivekit.tripanalysis.model.crashdetection.DKCrashInfo
+import com.drivequant.drivekit.tripanalysis.model.triplistener.DKTripRecordingCanceledState
+import com.drivequant.drivekit.tripanalysis.model.triplistener.DKTripRecordingConfirmedState
+import com.drivequant.drivekit.tripanalysis.model.triplistener.DKTripRecordingFinishedState
+import com.drivequant.drivekit.tripanalysis.model.triplistener.DKTripRecordingStartedState
 import com.drivequant.drivekit.tripanalysis.service.crashdetection.feedback.CrashFeedbackSeverity
 import com.drivequant.drivekit.tripanalysis.service.crashdetection.feedback.CrashFeedbackType
 import com.drivequant.drivekit.tripanalysis.service.recorder.CancelTrip
@@ -90,6 +98,30 @@ class DriveKitTripAnalysisPlugin :
     private fun configureTripListener() {
         DriveKitTripAnalysis.addTripListener(
             object : TripListener {
+                override fun tripRecordingStarted(state: DKTripRecordingStartedState) {
+                    flutterApi?.tripRecordingStarted(toPigeonTripRecordingStartedState(state)) { echo ->
+                        Result.success(echo)
+                    }
+                }
+
+                override fun tripRecordingConfirmed(state: DKTripRecordingConfirmedState) {
+                    flutterApi?.tripRecordingConfirmed(toPigeonTripRecordingConfirmedState(state)) { echo ->
+                        Result.success(echo)
+                    }
+                }
+
+                override fun tripRecordingCanceled(state: DKTripRecordingCanceledState) {
+                    flutterApi?.tripRecordingCanceled(toPigeonTripRecordingCanceledState(state)) { echo ->
+                        Result.success(echo)
+                    }
+                }
+
+                override fun tripRecordingFinished(state: DKTripRecordingFinishedState) {
+                    flutterApi?.tripRecordingFinished(toPigeonTripRecordingFinishedState(state)) { echo ->
+                        Result.success(echo)
+                    }
+                }
+
                 override fun tripCancelled(cancelTrip: CancelTrip) {
                     flutterApi?.tripCancelled(toPigeonCancelTrip(cancelTrip)) { echo ->
                         Result.success(echo)

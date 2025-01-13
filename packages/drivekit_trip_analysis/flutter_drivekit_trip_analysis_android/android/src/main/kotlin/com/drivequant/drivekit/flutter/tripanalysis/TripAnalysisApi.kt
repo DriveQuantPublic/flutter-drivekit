@@ -200,6 +200,26 @@ enum class PigeonAccuracyLevel(val raw: Int) {
   }
 }
 
+enum class PigeonTripCancelationReason(val raw: Int) {
+  USER(0),
+  HIGH_SPEED(1),
+  NO_SPEED(2),
+  NO_BEACON(3),
+  MISSING_CONFIGURATION(4),
+  NO_LOCATION_DATA(5),
+  RESET(6),
+  BEACON_NO_SPEED(7),
+  NO_BLUETOOTH_DEVICE(8),
+  BLUETOOTH_DEVICE_NO_SPEED(9),
+  APP_KILLED(10);
+
+  companion object {
+    fun ofRaw(raw: Int): PigeonTripCancelationReason? {
+      return values().firstOrNull { it.raw == raw }
+    }
+  }
+}
+
 /** Generated class from Pigeon that represents data sent in messages. */
 data class PigeonVehicle (
   val carTypeIndex: Long,
@@ -1520,6 +1540,121 @@ data class PigeonLastTripLocation (
     )
   }
 }
+
+/** Generated class from Pigeon that represents data sent in messages. */
+data class PigeonTripRecordingStartedState (
+  val localTripId: String,
+  val recordingStartDate: String,
+  val startMode: PigeonStartMode
+
+) {
+  companion object {
+    @Suppress("LocalVariableName")
+    fun fromList(__pigeon_list: List<Any?>): PigeonTripRecordingStartedState {
+      val localTripId = __pigeon_list[0] as String
+      val recordingStartDate = __pigeon_list[1] as String
+      val startMode = __pigeon_list[2] as PigeonStartMode
+      return PigeonTripRecordingStartedState(localTripId, recordingStartDate, startMode)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      localTripId,
+      recordingStartDate,
+      startMode,
+    )
+  }
+}
+
+/** Generated class from Pigeon that represents data sent in messages. */
+data class PigeonTripRecordingConfirmedState (
+  val localTripId: String,
+  val recordingStartDate: String,
+  val recordingConfirmationDate: String,
+  val startMode: PigeonStartMode
+
+) {
+  companion object {
+    @Suppress("LocalVariableName")
+    fun fromList(__pigeon_list: List<Any?>): PigeonTripRecordingConfirmedState {
+      val localTripId = __pigeon_list[0] as String
+      val recordingStartDate = __pigeon_list[1] as String
+      val recordingConfirmationDate = __pigeon_list[2] as String
+      val startMode = __pigeon_list[3] as PigeonStartMode
+      return PigeonTripRecordingConfirmedState(localTripId, recordingStartDate, recordingConfirmationDate, startMode)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      localTripId,
+      recordingStartDate,
+      recordingConfirmationDate,
+      startMode,
+    )
+  }
+}
+
+/** Generated class from Pigeon that represents data sent in messages. */
+data class PigeonTripRecordingCanceledState (
+  val localTripId: String,
+  val recordingStartDate: String,
+  val recordingConfirmationDate: String? = null,
+  val startMode: PigeonStartMode,
+  val cancelationReason: PigeonTripCancelationReason
+
+) {
+  companion object {
+    @Suppress("LocalVariableName")
+    fun fromList(__pigeon_list: List<Any?>): PigeonTripRecordingCanceledState {
+      val localTripId = __pigeon_list[0] as String
+      val recordingStartDate = __pigeon_list[1] as String
+      val recordingConfirmationDate = __pigeon_list[2] as String?
+      val startMode = __pigeon_list[3] as PigeonStartMode
+      val cancelationReason = __pigeon_list[4] as PigeonTripCancelationReason
+      return PigeonTripRecordingCanceledState(localTripId, recordingStartDate, recordingConfirmationDate, startMode, cancelationReason)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      localTripId,
+      recordingStartDate,
+      recordingConfirmationDate,
+      startMode,
+      cancelationReason,
+    )
+  }
+}
+
+/** Generated class from Pigeon that represents data sent in messages. */
+data class PigeonTripRecordingFinishedState (
+  val localTripId: String,
+  val recordingStartDate: String,
+  val recordingConfirmationDate: String,
+  val startMode: PigeonStartMode,
+  val recordingEndDate: String
+
+) {
+  companion object {
+    @Suppress("LocalVariableName")
+    fun fromList(__pigeon_list: List<Any?>): PigeonTripRecordingFinishedState {
+      val localTripId = __pigeon_list[0] as String
+      val recordingStartDate = __pigeon_list[1] as String
+      val recordingConfirmationDate = __pigeon_list[2] as String
+      val startMode = __pigeon_list[3] as PigeonStartMode
+      val recordingEndDate = __pigeon_list[4] as String
+      return PigeonTripRecordingFinishedState(localTripId, recordingStartDate, recordingConfirmationDate, startMode, recordingEndDate)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      localTripId,
+      recordingStartDate,
+      recordingConfirmationDate,
+      startMode,
+      recordingEndDate,
+    )
+  }
+}
 private object TripAnalysisApiPigeonCodec : StandardMessageCodec() {
   override fun readValueOfType(type: Byte, buffer: ByteBuffer): Any? {
     return when (type) {
@@ -1694,53 +1829,78 @@ private object TripAnalysisApiPigeonCodec : StandardMessageCodec() {
         }
       }
       163.toByte() -> {
-        return (readValue(buffer) as Int?)?.let {
-          PigeonStartMode.ofRaw(it)
+        return (readValue(buffer) as? List<Any?>)?.let {
+          PigeonTripRecordingStartedState.fromList(it)
         }
       }
       164.toByte() -> {
-        return (readValue(buffer) as Int?)?.let {
-          PigeonCancelTrip.ofRaw(it)
+        return (readValue(buffer) as? List<Any?>)?.let {
+          PigeonTripRecordingConfirmedState.fromList(it)
         }
       }
       165.toByte() -> {
-        return (readValue(buffer) as Int?)?.let {
-          PigeonState.ofRaw(it)
+        return (readValue(buffer) as? List<Any?>)?.let {
+          PigeonTripRecordingCanceledState.fromList(it)
         }
       }
       166.toByte() -> {
-        return (readValue(buffer) as Int?)?.let {
-          PigeonDKCrashFeedbackType.ofRaw(it)
+        return (readValue(buffer) as? List<Any?>)?.let {
+          PigeonTripRecordingFinishedState.fromList(it)
         }
       }
       167.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
-          PigeonDKCrashFeedbackSeverity.ofRaw(it)
+          PigeonStartMode.ofRaw(it)
         }
       }
       168.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
-          PigeonCrashStatus.ofRaw(it)
+          PigeonCancelTrip.ofRaw(it)
         }
       }
       169.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
-          PigeonTripResponseStatusType.ofRaw(it)
+          PigeonState.ofRaw(it)
         }
       }
       170.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
-          PigeonTripResponseInfo.ofRaw(it)
+          PigeonDKCrashFeedbackType.ofRaw(it)
         }
       }
       171.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
-          PigeonTripResponseError.ofRaw(it)
+          PigeonDKCrashFeedbackSeverity.ofRaw(it)
         }
       }
       172.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
+          PigeonCrashStatus.ofRaw(it)
+        }
+      }
+      173.toByte() -> {
+        return (readValue(buffer) as Int?)?.let {
+          PigeonTripResponseStatusType.ofRaw(it)
+        }
+      }
+      174.toByte() -> {
+        return (readValue(buffer) as Int?)?.let {
+          PigeonTripResponseInfo.ofRaw(it)
+        }
+      }
+      175.toByte() -> {
+        return (readValue(buffer) as Int?)?.let {
+          PigeonTripResponseError.ofRaw(it)
+        }
+      }
+      176.toByte() -> {
+        return (readValue(buffer) as Int?)?.let {
           PigeonAccuracyLevel.ofRaw(it)
+        }
+      }
+      177.toByte() -> {
+        return (readValue(buffer) as Int?)?.let {
+          PigeonTripCancelationReason.ofRaw(it)
         }
       }
       else -> super.readValueOfType(type, buffer)
@@ -1884,44 +2044,64 @@ private object TripAnalysisApiPigeonCodec : StandardMessageCodec() {
         stream.write(162)
         writeValue(stream, value.toList())
       }
-      is PigeonStartMode -> {
+      is PigeonTripRecordingStartedState -> {
         stream.write(163)
-        writeValue(stream, value.raw)
+        writeValue(stream, value.toList())
       }
-      is PigeonCancelTrip -> {
+      is PigeonTripRecordingConfirmedState -> {
         stream.write(164)
-        writeValue(stream, value.raw)
+        writeValue(stream, value.toList())
       }
-      is PigeonState -> {
+      is PigeonTripRecordingCanceledState -> {
         stream.write(165)
-        writeValue(stream, value.raw)
+        writeValue(stream, value.toList())
       }
-      is PigeonDKCrashFeedbackType -> {
+      is PigeonTripRecordingFinishedState -> {
         stream.write(166)
-        writeValue(stream, value.raw)
+        writeValue(stream, value.toList())
       }
-      is PigeonDKCrashFeedbackSeverity -> {
+      is PigeonStartMode -> {
         stream.write(167)
         writeValue(stream, value.raw)
       }
-      is PigeonCrashStatus -> {
+      is PigeonCancelTrip -> {
         stream.write(168)
         writeValue(stream, value.raw)
       }
-      is PigeonTripResponseStatusType -> {
+      is PigeonState -> {
         stream.write(169)
         writeValue(stream, value.raw)
       }
-      is PigeonTripResponseInfo -> {
+      is PigeonDKCrashFeedbackType -> {
         stream.write(170)
         writeValue(stream, value.raw)
       }
-      is PigeonTripResponseError -> {
+      is PigeonDKCrashFeedbackSeverity -> {
         stream.write(171)
         writeValue(stream, value.raw)
       }
-      is PigeonAccuracyLevel -> {
+      is PigeonCrashStatus -> {
         stream.write(172)
+        writeValue(stream, value.raw)
+      }
+      is PigeonTripResponseStatusType -> {
+        stream.write(173)
+        writeValue(stream, value.raw)
+      }
+      is PigeonTripResponseInfo -> {
+        stream.write(174)
+        writeValue(stream, value.raw)
+      }
+      is PigeonTripResponseError -> {
+        stream.write(175)
+        writeValue(stream, value.raw)
+      }
+      is PigeonAccuracyLevel -> {
+        stream.write(176)
+        writeValue(stream, value.raw)
+      }
+      is PigeonTripCancelationReason -> {
+        stream.write(177)
         writeValue(stream, value.raw)
       }
       else -> super.writeValue(stream, value)
@@ -2283,6 +2463,74 @@ class FlutterTripAnalysisApi(private val binaryMessenger: BinaryMessenger, priva
     /** The codec used by FlutterTripAnalysisApi. */
     val codec: MessageCodec<Any?> by lazy {
       TripAnalysisApiPigeonCodec
+    }
+  }
+  fun tripRecordingStarted(stateArg: PigeonTripRecordingStartedState, callback: (Result<Unit>) -> Unit)
+{
+    val separatedMessageChannelSuffix = if (messageChannelSuffix.isNotEmpty()) ".$messageChannelSuffix" else ""
+    val channelName = "dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripRecordingStarted$separatedMessageChannelSuffix"
+    val channel = BasicMessageChannel<Any?>(binaryMessenger, channelName, codec)
+    channel.send(listOf(stateArg)) {
+      if (it is List<*>) {
+        if (it.size > 1) {
+          callback(Result.failure(FlutterTripAnalysisError(it[0] as String, it[1] as String, it[2] as String?)))
+        } else {
+          callback(Result.success(Unit))
+        }
+      } else {
+        callback(Result.failure(createConnectionError(channelName)))
+      } 
+    }
+  }
+  fun tripRecordingConfirmed(stateArg: PigeonTripRecordingConfirmedState, callback: (Result<Unit>) -> Unit)
+{
+    val separatedMessageChannelSuffix = if (messageChannelSuffix.isNotEmpty()) ".$messageChannelSuffix" else ""
+    val channelName = "dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripRecordingConfirmed$separatedMessageChannelSuffix"
+    val channel = BasicMessageChannel<Any?>(binaryMessenger, channelName, codec)
+    channel.send(listOf(stateArg)) {
+      if (it is List<*>) {
+        if (it.size > 1) {
+          callback(Result.failure(FlutterTripAnalysisError(it[0] as String, it[1] as String, it[2] as String?)))
+        } else {
+          callback(Result.success(Unit))
+        }
+      } else {
+        callback(Result.failure(createConnectionError(channelName)))
+      } 
+    }
+  }
+  fun tripRecordingCanceled(stateArg: PigeonTripRecordingCanceledState, callback: (Result<Unit>) -> Unit)
+{
+    val separatedMessageChannelSuffix = if (messageChannelSuffix.isNotEmpty()) ".$messageChannelSuffix" else ""
+    val channelName = "dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripRecordingCanceled$separatedMessageChannelSuffix"
+    val channel = BasicMessageChannel<Any?>(binaryMessenger, channelName, codec)
+    channel.send(listOf(stateArg)) {
+      if (it is List<*>) {
+        if (it.size > 1) {
+          callback(Result.failure(FlutterTripAnalysisError(it[0] as String, it[1] as String, it[2] as String?)))
+        } else {
+          callback(Result.success(Unit))
+        }
+      } else {
+        callback(Result.failure(createConnectionError(channelName)))
+      } 
+    }
+  }
+  fun tripRecordingFinished(stateArg: PigeonTripRecordingFinishedState, callback: (Result<Unit>) -> Unit)
+{
+    val separatedMessageChannelSuffix = if (messageChannelSuffix.isNotEmpty()) ".$messageChannelSuffix" else ""
+    val channelName = "dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripRecordingFinished$separatedMessageChannelSuffix"
+    val channel = BasicMessageChannel<Any?>(binaryMessenger, channelName, codec)
+    channel.send(listOf(stateArg)) {
+      if (it is List<*>) {
+        if (it.size > 1) {
+          callback(Result.failure(FlutterTripAnalysisError(it[0] as String, it[1] as String, it[2] as String?)))
+        } else {
+          callback(Result.success(Unit))
+        }
+      } else {
+        callback(Result.failure(createConnectionError(channelName)))
+      } 
     }
   }
   fun tripStarted(startModeArg: PigeonStartMode, callback: (Result<Unit>) -> Unit)
