@@ -1,6 +1,6 @@
 name: flutter_drivekit_core
 description: This is the Flutter plugin for DriveQuant's DriveKit Core component.
-version: 1.3.1
+version: 1.4.0
 homepage: https://www.drivequant.com/
 repository: https://github.com/DriveQuantPublic/flutter-drivekit/tree/main/packages/drivekit_core/flutter_drivekit_core
 
@@ -19,9 +19,9 @@ flutter:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_drivekit_core_android: ^1.3.1
-  flutter_drivekit_core_ios: ^1.3.1
-  flutter_drivekit_core_platform_interface: ^1.3.1
+  flutter_drivekit_core_android: ^1.4.0
+  flutter_drivekit_core_ios: ^1.4.0
+  flutter_drivekit_core_platform_interface: ^1.4.0
 
 dev_dependencies:
   flutter_test:
