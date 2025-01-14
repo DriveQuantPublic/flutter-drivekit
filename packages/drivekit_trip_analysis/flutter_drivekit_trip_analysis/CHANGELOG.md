@@ -1,3 +1,8 @@
+# 1.4.0
+
+    - Update DriveKit version to 2.9.1 for iOS
+    - TripAnalysis: Add callbacks to the TripListener to improve monitoring of trip recording states.
+
 # 1.3.1
 
     - Update DriveKit version to 2.9.1 for Android
