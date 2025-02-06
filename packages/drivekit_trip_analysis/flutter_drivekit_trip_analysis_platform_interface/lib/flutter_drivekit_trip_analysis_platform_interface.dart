@@ -116,4 +116,7 @@ abstract class DriveKitTripAnalysisPlatform extends PlatformInterface {
   Future<CreateTripSharingLinkResponse> createTripSharingLink(
     int durationInSeconds,
   );
+
+  /// Revoke a trip sharing link
+  Future<RevokeTripSharingLinkStatus> revokeTripSharingLink();
 }

@@ -153,4 +153,11 @@ class DefaultDriveKitTripAnalysis extends DriveKitTripAnalysisPlatform {
       'createTripSharingLink() has not been implemented.',
     );
   }
+
+  @override
+  Future<RevokeTripSharingLinkStatus> revokeTripSharingLink() {
+    throw UnimplementedError(
+      'revokeTripSharingLink() has not been implemented.',
+    );
+  }
 }

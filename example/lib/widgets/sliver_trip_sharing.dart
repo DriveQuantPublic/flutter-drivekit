@@ -49,6 +49,21 @@ class SliverTripSharing extends StatelessWidget {
           },
           child: const Text('Create link (1 hour)'),
         ),
+        ElevatedButton(
+          onPressed: () async {
+            final response =
+                await DriveKitTripAnalysis.instance.revokeTripSharingLink();
+            if (context.mounted) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  backgroundColor: Theme.of(context).primaryColor,
+                  content: Text('Trip Sharing revokation: ${response.name}'),
+                ),
+              );
+            }
+          },
+          child: const Text('Revoke link'),
+        ),
       ],
     );
   }

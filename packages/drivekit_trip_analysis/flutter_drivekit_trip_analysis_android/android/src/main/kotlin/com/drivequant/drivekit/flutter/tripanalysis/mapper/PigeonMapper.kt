@@ -54,6 +54,7 @@ import com.drivequant.drivekit.flutter.tripanalysis.PigeonLastTripLocation
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonLogbook
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonManeuverData
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonPollutants
+import com.drivequant.drivekit.flutter.tripanalysis.PigeonRevokeTripSharingLinkStatus
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonSafety
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonSafetyContext
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonSafetyEvent
@@ -98,6 +99,7 @@ import com.drivequant.drivekit.tripanalysis.service.recorder.StartMode
 import com.drivequant.drivekit.tripanalysis.service.recorder.State
 import com.drivequant.drivekit.tripanalysis.service.tripsharing.model.CreateTripSharingLinkStatus
 import com.drivequant.drivekit.tripanalysis.service.tripsharing.model.DKTripSharingLink
+import com.drivequant.drivekit.tripanalysis.service.tripsharing.model.RevokeTripSharingLinkStatus
 import com.drivequant.drivekit.tripanalysis.utils.TripResult
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -738,5 +740,14 @@ object PigeonMapper {
             startDate = this.startDate.toDriveKitBackendFormat(),
             endDate = this.endDate.toDriveKitBackendFormat()
         )
+    }
+
+    fun toPigeonRevokeTripSharingLink(status: RevokeTripSharingLinkStatus): PigeonRevokeTripSharingLinkStatus = when (status) {
+        RevokeTripSharingLinkStatus.SUCCESS -> PigeonRevokeTripSharingLinkStatus.SUCCESS
+        RevokeTripSharingLinkStatus.ERROR -> PigeonRevokeTripSharingLinkStatus.ERROR
+        RevokeTripSharingLinkStatus.USER_NOT_CONNECTED -> PigeonRevokeTripSharingLinkStatus.USER_NOT_CONNECTED
+        RevokeTripSharingLinkStatus.UNAUTHENTICATED -> PigeonRevokeTripSharingLinkStatus.UNAUTHENTICATED
+        RevokeTripSharingLinkStatus.FORBIDDEN -> PigeonRevokeTripSharingLinkStatus.FORBIDDEN
+        RevokeTripSharingLinkStatus.NO_ACTIVE_LINK -> PigeonRevokeTripSharingLinkStatus.NO_ACTIVE_LINK
     }
 }

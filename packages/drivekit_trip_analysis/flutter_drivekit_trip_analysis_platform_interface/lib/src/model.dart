@@ -811,6 +811,27 @@ enum CreateTripSharingLinkStatus {
   forbidden,
 }
 
+/// Trip Sharing revokation response status
+enum RevokeTripSharingLinkStatus {
+  /// The link has been successfully revoked.
+  success,
+
+  ///There is no active link for the user.
+  noActiveLink,
+
+  /// An error occurred when trying to revoke the link.
+  error,
+
+  /// The user is not yet connected to DriveKit.
+  userNotConnected,
+
+  /// The user has been disconnected.
+  unauthenticated,
+
+  /// Your API key is not allowed to use the feature.
+  forbidden,
+}
+
 /// Class describing trip sharing link data
 class DKTripSharingLink {
   /// Creates a DKTripSharingLink instance

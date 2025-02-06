@@ -143,6 +143,15 @@ enum PigeonCreateTripSharingLinkStatus {
   forbidden,
 }
 
+enum PigeonRevokeTripSharingLinkStatus {
+  success,
+  noActiveLink,
+  error,
+  userNotConnected,
+  unauthenticated,
+  forbidden,
+}
+
 class PigeonVehicle {
   PigeonVehicle({
     this.carTypeIndex = 1,
@@ -2339,6 +2348,9 @@ class _PigeonCodec extends StandardMessageCodec {
     } else if (value is PigeonCreateTripSharingLinkStatus) {
       buffer.putUint8(180);
       writeValue(buffer, value.index);
+    } else if (value is PigeonRevokeTripSharingLinkStatus) {
+      buffer.putUint8(181);
+      writeValue(buffer, value.index);
     } else {
       super.writeValue(buffer, value);
     }
@@ -2469,6 +2481,11 @@ class _PigeonCodec extends StandardMessageCodec {
         return value == null
             ? null
             : PigeonCreateTripSharingLinkStatus.values[value];
+      case 181:
+        final int? value = readValue(buffer) as int?;
+        return value == null
+            ? null
+            : PigeonRevokeTripSharingLinkStatus.values[value];
       default:
         return super.readValueOfType(type, buffer);
     }
@@ -3023,6 +3040,35 @@ class AndroidTripAnalysisApi {
       );
     } else {
       return (__pigeon_replyList[0] as PigeonCreateTripSharingLinkResponse?)!;
+    }
+  }
+
+  Future<PigeonRevokeTripSharingLinkStatus> revokeTripSharingLink() async {
+    final String __pigeon_channelName =
+        'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.revokeTripSharingLink$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel =
+        BasicMessageChannel<Object?>(
+      __pigeon_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: __pigeon_binaryMessenger,
+    );
+    final List<Object?>? __pigeon_replyList =
+        await __pigeon_channel.send(null) as List<Object?>?;
+    if (__pigeon_replyList == null) {
+      throw _createConnectionError(__pigeon_channelName);
+    } else if (__pigeon_replyList.length > 1) {
+      throw PlatformException(
+        code: __pigeon_replyList[0]! as String,
+        message: __pigeon_replyList[1] as String?,
+        details: __pigeon_replyList[2],
+      );
+    } else if (__pigeon_replyList[0] == null) {
+      throw PlatformException(
+        code: 'null-error',
+        message: 'Host platform returned null value for non-null return value.',
+      );
+    } else {
+      return (__pigeon_replyList[0] as PigeonRevokeTripSharingLinkStatus?)!;
     }
   }
 }

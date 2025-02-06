@@ -212,4 +212,9 @@ class DriveKitTripAnalysis {
   ) {
     return _platform.createTripSharingLink(durationInSeconds);
   }
+
+  /// To revoke a trip sharing link, use the following method.
+  Future<RevokeTripSharingLinkStatus> revokeTripSharingLink() async {
+    return _platform.revokeTripSharingLink();
+  }
 }

@@ -862,3 +862,27 @@ extension PigeonPigeonTripSharingLinkAdapter on PigeonTripSharingLink {
     );
   }
 }
+
+/// Adapt the [PigeonRevokeTripSharingLinkStatus] class to
+/// the [RevokeTripSharingLinkStatus] class.
+extension PigeonRevokeTripSharingLinkStatusAdapter
+    on PigeonRevokeTripSharingLinkStatus {
+  /// Converts a [PigeonRevokeTripSharingLinkStatus] to
+  /// a [RevokeTripSharingLinkStatus].
+  RevokeTripSharingLinkStatus toModelImplementation() {
+    return switch (this) {
+      PigeonRevokeTripSharingLinkStatus.success =>
+        RevokeTripSharingLinkStatus.success,
+      PigeonRevokeTripSharingLinkStatus.noActiveLink =>
+        RevokeTripSharingLinkStatus.noActiveLink,
+      PigeonRevokeTripSharingLinkStatus.error =>
+        RevokeTripSharingLinkStatus.error,
+      PigeonRevokeTripSharingLinkStatus.userNotConnected =>
+        RevokeTripSharingLinkStatus.userNotConnected,
+      PigeonRevokeTripSharingLinkStatus.unauthenticated =>
+        RevokeTripSharingLinkStatus.unauthenticated,
+      PigeonRevokeTripSharingLinkStatus.forbidden =>
+        RevokeTripSharingLinkStatus.forbidden,
+    };
+  }
+}

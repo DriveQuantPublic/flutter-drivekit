@@ -230,4 +230,10 @@ class DriveKitTripAnalysisPlugin :
             callback(Result.success(PigeonMapper.toPigeonCreateTripSharingLink(status, data)))
         }
     }
+
+    override fun revokeTripSharingLink(callback: (Result<PigeonRevokeTripSharingLinkStatus>) -> Unit) {
+        DriveKitTripAnalysis.tripSharing.revokeLink { status ->
+            callback(Result.success(PigeonMapper.toPigeonRevokeTripSharingLink(status)))
+        }
+    }
 }

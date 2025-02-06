@@ -236,6 +236,21 @@ enum class PigeonCreateTripSharingLinkStatus(val raw: Int) {
   }
 }
 
+enum class PigeonRevokeTripSharingLinkStatus(val raw: Int) {
+  SUCCESS(0),
+  NO_ACTIVE_LINK(1),
+  ERROR(2),
+  USER_NOT_CONNECTED(3),
+  UNAUTHENTICATED(4),
+  FORBIDDEN(5);
+
+  companion object {
+    fun ofRaw(raw: Int): PigeonRevokeTripSharingLinkStatus? {
+      return values().firstOrNull { it.raw == raw }
+    }
+  }
+}
+
 /** Generated class from Pigeon that represents data sent in messages. */
 data class PigeonVehicle (
   val carTypeIndex: Long,
@@ -1984,6 +1999,11 @@ private object TripAnalysisApiPigeonCodec : StandardMessageCodec() {
           PigeonCreateTripSharingLinkStatus.ofRaw(it)
         }
       }
+      181.toByte() -> {
+        return (readValue(buffer) as Int?)?.let {
+          PigeonRevokeTripSharingLinkStatus.ofRaw(it)
+        }
+      }
       else -> super.readValueOfType(type, buffer)
     }
   }
@@ -2197,6 +2217,10 @@ private object TripAnalysisApiPigeonCodec : StandardMessageCodec() {
         stream.write(180)
         writeValue(stream, value.raw)
       }
+      is PigeonRevokeTripSharingLinkStatus -> {
+        stream.write(181)
+        writeValue(stream, value.raw)
+      }
       else -> super.writeValue(stream, value)
     }
   }
@@ -2226,6 +2250,7 @@ interface AndroidTripAnalysisApi {
   fun getLastTripLocation(): PigeonLastTripLocation?
   fun isTripSharingAvailable(): Boolean
   fun createTripSharingLink(durationInSeconds: Long, callback: (Result<PigeonCreateTripSharingLinkResponse>) -> Unit)
+  fun revokeTripSharingLink(callback: (Result<PigeonRevokeTripSharingLinkStatus>) -> Unit)
 
   companion object {
     /** The codec used by AndroidTripAnalysisApi. */
@@ -2572,6 +2597,24 @@ interface AndroidTripAnalysisApi {
             val args = message as List<Any?>
             val durationInSecondsArg = args[0].let { num -> if (num is Int) num.toLong() else num as Long }
             api.createTripSharingLink(durationInSecondsArg) { result: Result<PigeonCreateTripSharingLinkResponse> ->
+              val error = result.exceptionOrNull()
+              if (error != null) {
+                reply.reply(wrapError(error))
+              } else {
+                val data = result.getOrNull()
+                reply.reply(wrapResult(data))
+              }
+            }
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.revokeTripSharingLink$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { _, reply ->
+            api.revokeTripSharingLink{ result: Result<PigeonRevokeTripSharingLinkStatus> ->
               val error = result.exceptionOrNull()
               if (error != null) {
                 reply.reply(wrapError(error))

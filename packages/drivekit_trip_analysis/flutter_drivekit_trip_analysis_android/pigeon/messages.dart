@@ -40,6 +40,8 @@ abstract class AndroidTripAnalysisApi {
   PigeonCreateTripSharingLinkResponse createTripSharingLink(
     int durationInSeconds,
   );
+  @async
+  PigeonRevokeTripSharingLinkStatus revokeTripSharingLink();
 }
 
 @FlutterApi()
@@ -1401,6 +1403,15 @@ enum PigeonCreateTripSharingLinkStatus {
   error,
   userNotConnected,
   invalidDuration,
+  unauthenticated,
+  forbidden
+}
+
+enum PigeonRevokeTripSharingLinkStatus {
+  success,
+  noActiveLink,
+  error,
+  userNotConnected,
   unauthenticated,
   forbidden
 }

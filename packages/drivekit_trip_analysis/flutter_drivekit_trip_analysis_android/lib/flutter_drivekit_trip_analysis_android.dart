@@ -252,4 +252,10 @@ class DriveKitTripAnalysisAndroid extends DriveKitTripAnalysisPlatform
     );
     return response.toModelImplementation();
   }
+
+  @override
+  Future<RevokeTripSharingLinkStatus> revokeTripSharingLink() async {
+    final response = await androidTripAnalysisApi.revokeTripSharingLink();
+    return response.toModelImplementation();
+  }
 }
