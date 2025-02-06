@@ -197,4 +197,10 @@ class DriveKitTripAnalysis {
   Future<LastTripLocation?> getLastTripLocation() async {
     return _platform.getLastTripLocation();
   }
+
+  /// Call this method to check if the trip sharing feature is available
+  /// for your company
+  Future<bool> isTripSharingAvailable() async {
+    return _platform.isTripSharingAvailable();
+  }
 }

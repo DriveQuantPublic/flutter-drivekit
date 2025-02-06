@@ -2130,6 +2130,7 @@ interface AndroidTripAnalysisApi {
   fun deleteAllTripMetadata()
   fun getCurrentTripInfo(): PigeonCurrentTripInfo?
   fun getLastTripLocation(): PigeonLastTripLocation?
+  fun isTripSharingAvailable(): Boolean
 
   companion object {
     /** The codec used by AndroidTripAnalysisApi. */
@@ -2445,6 +2446,21 @@ interface AndroidTripAnalysisApi {
           channel.setMessageHandler { _, reply ->
             val wrapped: List<Any?> = try {
               listOf(api.getLastTripLocation())
+            } catch (exception: Throwable) {
+              wrapError(exception)
+            }
+            reply.reply(wrapped)
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.isTripSharingAvailable$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { _, reply ->
+            val wrapped: List<Any?> = try {
+              listOf(api.isTripSharingAvailable())
             } catch (exception: Throwable) {
               wrapError(exception)
             }

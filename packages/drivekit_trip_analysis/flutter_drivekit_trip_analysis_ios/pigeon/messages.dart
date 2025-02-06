@@ -32,6 +32,7 @@ abstract class IOSTripAnalysisApi {
   void deleteAllTripMetadata();
   PigeonCurrentTripInfo? getCurrentTripInfo();
   PigeonLastTripLocation? getLastTripLocation();
+  bool isTripSharingAvailable();
 }
 
 @FlutterApi()

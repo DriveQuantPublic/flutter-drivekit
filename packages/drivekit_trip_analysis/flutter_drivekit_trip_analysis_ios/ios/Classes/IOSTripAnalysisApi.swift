@@ -2214,6 +2214,7 @@ protocol IOSTripAnalysisApi {
   func deleteAllTripMetadata() throws
   func getCurrentTripInfo() throws -> PigeonCurrentTripInfo?
   func getLastTripLocation() throws -> PigeonLastTripLocation?
+  func isTripSharingAvailable() throws -> Bool
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
@@ -2485,6 +2486,19 @@ class IOSTripAnalysisApiSetup {
       }
     } else {
       getLastTripLocationChannel.setMessageHandler(nil)
+    }
+    let isTripSharingAvailableChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.pigeon_trip_analysis_package.IOSTripAnalysisApi.isTripSharingAvailable\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      isTripSharingAvailableChannel.setMessageHandler { _, reply in
+        do {
+          let result = try api.isTripSharingAvailable()
+          reply(wrapResult(result))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      isTripSharingAvailableChannel.setMessageHandler(nil)
     }
   }
 }

@@ -245,4 +245,8 @@ class DriveKitTripAnalysisIOS extends DriveKitTripAnalysisPlatform
       return lastTripLocation.toModelImplementation();
     }
   }
+
+  @override
+  Future<bool> isTripSharingAvailable() =>
+      iosTripAnalysisApi.isAutoStartActivated();
 }

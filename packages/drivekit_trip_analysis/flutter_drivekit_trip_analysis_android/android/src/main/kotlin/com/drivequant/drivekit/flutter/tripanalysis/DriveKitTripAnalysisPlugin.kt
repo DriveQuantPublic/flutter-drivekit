@@ -222,4 +222,6 @@ class DriveKitTripAnalysisPlugin :
 
     override fun getLastTripLocation(): PigeonLastTripLocation? =
         PigeonMapper.toPigeonLastTripLocation(DriveKitTripAnalysis.getLastTripLocation())
+
+    override fun isTripSharingAvailable(): Boolean = DriveKitTripAnalysis.tripSharing.isAvailable()
 }

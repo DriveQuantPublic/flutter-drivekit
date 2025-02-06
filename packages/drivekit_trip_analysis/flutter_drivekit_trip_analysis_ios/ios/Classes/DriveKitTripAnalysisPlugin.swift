@@ -113,6 +113,10 @@ public class DriveKitTripAnalysisPlugin: NSObject, FlutterPlugin, IOSTripAnalysi
         }
         return nil
     }
+
+    func isTripSharingAvailable() -> Bool {
+        return DriveKitTripAnalysis.shared.tripSharing.isAvailable()
+    }
 }
 
 extension DriveKitTripAnalysisPlugin: TripListener {
