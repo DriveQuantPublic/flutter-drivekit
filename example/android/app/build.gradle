@@ -13,7 +13,7 @@ if (localPropertiesFile.exists()) {
 }
 
 android {
-    compileSdk 34
+    compileSdk 35
 
     compileOptions {
         coreLibraryDesugaringEnabled true // Needed for flutter_local_notifications plugin.
@@ -32,8 +32,8 @@ android {
 
     defaultConfig {
         applicationId "com.drivequant.drivekit.flutter.example"
-        minSdkVersion 23
-        targetSdkVersion 34
+        minSdkVersion 26
+        targetSdkVersion 35
         versionCode 1
         versionName "1.0"
     }

@@ -22,7 +22,7 @@ android {
         namespace 'com.drivequant.drivekit.flutter.tripanalysis'
     }
 
-    compileSdk 34
+    compileSdk 35
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
@@ -39,7 +39,7 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion 23
+        minSdkVersion 26
     }
 
     dependencies {
