@@ -224,4 +224,10 @@ class DriveKitTripAnalysisPlugin :
         PigeonMapper.toPigeonLastTripLocation(DriveKitTripAnalysis.getLastTripLocation())
 
     override fun isTripSharingAvailable(): Boolean = DriveKitTripAnalysis.tripSharing.isAvailable()
+
+    override fun createTripSharingLink(durationInSeconds: Long, callback: (Result<PigeonCreateTripSharingLinkResponse>) -> Unit) {
+        DriveKitTripAnalysis.tripSharing.createLink(durationInSeconds.toInt()) { status, data ->
+            callback(Result.success(PigeonMapper.toPigeonCreateTripSharingLink(status, data)))
+        }
+    }
 }

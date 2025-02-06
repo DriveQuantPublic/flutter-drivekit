@@ -242,4 +242,14 @@ class DriveKitTripAnalysisAndroid extends DriveKitTripAnalysisPlatform
   @override
   Future<bool> isTripSharingAvailable() =>
       androidTripAnalysisApi.isTripSharingAvailable();
+
+  @override
+  Future<CreateTripSharingLinkResponse> createTripSharingLink(
+    int durationInSeconds,
+  ) async {
+    final response = await androidTripAnalysisApi.createTripSharingLink(
+      durationInSeconds,
+    );
+    return response.toModelImplementation();
+  }
 }

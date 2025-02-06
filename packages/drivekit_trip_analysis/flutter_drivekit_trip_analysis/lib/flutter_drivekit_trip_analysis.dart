@@ -203,4 +203,13 @@ class DriveKitTripAnalysis {
   Future<bool> isTripSharingAvailable() async {
     return _platform.isTripSharingAvailable();
   }
+
+  /// To generate a link to share trips, use the following method.
+  /// The method takes a durationInSeconds parameter which indicates how long
+  /// in seconds from now the sharing link will be valid.
+  Future<CreateTripSharingLinkResponse> createTripSharingLink(
+    int durationInSeconds,
+  ) {
+    return _platform.createTripSharingLink(durationInSeconds);
+  }
 }

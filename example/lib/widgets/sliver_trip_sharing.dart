@@ -30,8 +30,22 @@ class SliverTripSharing extends StatelessWidget {
           child: const Text('Feature available?'),
         ),
         ElevatedButton(
-          onPressed: () {
-            DriveKitTripAnalysis.instance.activateCrashDetection(false);
+          onPressed: () async {
+            const oneHourInSeconds = 1 * 60 * 60;
+            final response = await DriveKitTripAnalysis.instance
+                .createTripSharingLink(oneHourInSeconds);
+            if (context.mounted) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  backgroundColor: Theme.of(context).primaryColor,
+                  content: Text('Trip Sharing creation: ${response.status.name}'
+                      '\ncode: ${response.data?.code}'
+                      '\nurl: ${response.data?.url}'
+                      '\nstartDate: ${response.data?.startDate}'
+                      '\nendDate: ${response.data?.endDate}'),
+                ),
+              );
+            }
           },
           child: const Text('Create link (1 hour)'),
         ),

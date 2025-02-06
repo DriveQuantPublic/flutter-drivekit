@@ -809,3 +809,56 @@ extension PigeonTripRecordingFinishedStateAdapter
     );
   }
 }
+
+/// Adapts the [PigeonCreateTripSharingLinkResponse] class to the corresponding
+/// class in the model.
+extension PigeonCreateTripSharingLinkResponseAdapter
+    on PigeonCreateTripSharingLinkResponse {
+  /// Converts a [PigeonCreateTripSharingLinkResponse] to a corresponding model class.
+  CreateTripSharingLinkResponse toModelImplementation() {
+    return CreateTripSharingLinkResponse(
+      status: status.toModelImplementation(),
+      data: data?.toModelImplementation(),
+    );
+  }
+}
+
+/// Adapt the [PigeonCreateTripSharingLinkStatus] class to
+/// the [CreateTripSharingLinkStatus] class.
+extension PigeonCreateTripSharingLinkStatusAdapter
+    on PigeonCreateTripSharingLinkStatus {
+  /// Converts a [PigeonCreateTripSharingLinkStatus] to
+  /// a [CreateTripSharingLinkStatus].
+  CreateTripSharingLinkStatus toModelImplementation() {
+    return switch (this) {
+      PigeonCreateTripSharingLinkStatus.success =>
+        CreateTripSharingLinkStatus.success,
+      PigeonCreateTripSharingLinkStatus.activeLinkAlreadyExists =>
+        CreateTripSharingLinkStatus.activeLinkAlreadyExists,
+      PigeonCreateTripSharingLinkStatus.error =>
+        CreateTripSharingLinkStatus.error,
+      PigeonCreateTripSharingLinkStatus.userNotConnected =>
+        CreateTripSharingLinkStatus.userNotConnected,
+      PigeonCreateTripSharingLinkStatus.invalidDuration =>
+        CreateTripSharingLinkStatus.invalidDuration,
+      PigeonCreateTripSharingLinkStatus.unauthenticated =>
+        CreateTripSharingLinkStatus.unauthenticated,
+      PigeonCreateTripSharingLinkStatus.forbidden =>
+        CreateTripSharingLinkStatus.forbidden,
+    };
+  }
+}
+
+/// Adapts the [PigeonTripSharingLink] class to the corresponding class in
+/// the model.
+extension PigeonPigeonTripSharingLinkAdapter on PigeonTripSharingLink {
+  /// Converts a [PigeonTripSharingLink] to a corresponding model class.
+  DKTripSharingLink? toModelImplementation() {
+    return DKTripSharingLink(
+      code: code,
+      url: url,
+      startDate: startDate,
+      endDate: endDate,
+    );
+  }
+}

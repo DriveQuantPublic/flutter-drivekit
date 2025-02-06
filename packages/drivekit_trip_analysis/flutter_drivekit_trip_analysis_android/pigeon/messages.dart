@@ -36,6 +36,10 @@ abstract class AndroidTripAnalysisApi {
   PigeonCurrentTripInfo? getCurrentTripInfo();
   PigeonLastTripLocation? getLastTripLocation();
   bool isTripSharingAvailable();
+  @async
+  PigeonCreateTripSharingLinkResponse createTripSharingLink(
+    int durationInSeconds,
+  );
 }
 
 @FlutterApi()
@@ -1379,4 +1383,41 @@ class PigeonTripRecordingFinishedState {
   final PigeonStartMode startMode;
 
   final String recordingEndDate;
+}
+
+class PigeonCreateTripSharingLinkResponse {
+  PigeonCreateTripSharingLinkResponse({
+    required this.status,
+    required this.data,
+  });
+
+  final PigeonCreateTripSharingLinkStatus status;
+  final PigeonTripSharingLink? data;
+}
+
+enum PigeonCreateTripSharingLinkStatus {
+  success,
+  activeLinkAlreadyExists,
+  error,
+  userNotConnected,
+  invalidDuration,
+  unauthenticated,
+  forbidden
+}
+
+class PigeonTripSharingLink {
+  PigeonTripSharingLink({
+    required this.code,
+    required this.url,
+    required this.startDate,
+    required this.endDate,
+  });
+
+  final String code;
+
+  final String url;
+
+  final String startDate;
+
+  final String endDate;
 }

@@ -111,4 +111,9 @@ abstract class DriveKitTripAnalysisPlatform extends PlatformInterface {
 
   /// Check if the trip sharing feature is available
   Future<bool> isTripSharingAvailable();
+
+  /// Create a trip sharing link
+  Future<CreateTripSharingLinkResponse> createTripSharingLink(
+    int durationInSeconds,
+  );
 }
