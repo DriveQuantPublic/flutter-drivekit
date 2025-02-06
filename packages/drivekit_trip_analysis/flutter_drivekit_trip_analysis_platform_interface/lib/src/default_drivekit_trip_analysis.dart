@@ -155,6 +155,15 @@ class DefaultDriveKitTripAnalysis extends DriveKitTripAnalysisPlatform {
   }
 
   @override
+  Future<GetTripSharingLinkResponse> getTripSharingLink({
+    SynchronizationType synchronizationType = SynchronizationType.defaultSync,
+  }) {
+    throw UnimplementedError(
+      'getTripSharingLink() has not been implemented.',
+    );
+  }
+
+  @override
   Future<RevokeTripSharingLinkStatus> revokeTripSharingLink() {
     throw UnimplementedError(
       'revokeTripSharingLink() has not been implemented.',

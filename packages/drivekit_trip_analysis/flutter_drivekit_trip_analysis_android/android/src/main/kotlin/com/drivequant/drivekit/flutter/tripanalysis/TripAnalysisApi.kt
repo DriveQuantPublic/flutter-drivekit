@@ -47,6 +47,20 @@ class FlutterTripAnalysisError (
   val details: Any? = null
 ) : Throwable()
 
+/** Trip Sharing Synchronization Type */
+enum class PigeonSynchronizationType(val raw: Int) {
+  /** synchronize by calling the DriveQuant servers */
+  DEFAULT_SYNC(0),
+  /** retrieve already synchronized items in the local database */
+  CACHE(1);
+
+  companion object {
+    fun ofRaw(raw: Int): PigeonSynchronizationType? {
+      return values().firstOrNull { it.raw == raw }
+    }
+  }
+}
+
 enum class PigeonStartMode(val raw: Int) {
   GPS(0),
   BEACON(1),
@@ -231,6 +245,21 @@ enum class PigeonCreateTripSharingLinkStatus(val raw: Int) {
 
   companion object {
     fun ofRaw(raw: Int): PigeonCreateTripSharingLinkStatus? {
+      return values().firstOrNull { it.raw == raw }
+    }
+  }
+}
+
+enum class PigeonGetTripSharingLinkStatus(val raw: Int) {
+  SUCCESS(0),
+  FAILED_TO_GET_CACHE_ONLY(1),
+  NO_ACTIVE_LINK(2),
+  USER_NOT_CONNECTED(3),
+  UNAUTHENTICATED(4),
+  FORBIDDEN(5);
+
+  companion object {
+    fun ofRaw(raw: Int): PigeonGetTripSharingLinkStatus? {
       return values().firstOrNull { it.raw == raw }
     }
   }
@@ -1710,6 +1739,28 @@ data class PigeonCreateTripSharingLinkResponse (
 }
 
 /** Generated class from Pigeon that represents data sent in messages. */
+data class PigeonGetTripSharingLinkResponse (
+  val status: PigeonGetTripSharingLinkStatus,
+  val data: PigeonTripSharingLink? = null
+
+) {
+  companion object {
+    @Suppress("LocalVariableName")
+    fun fromList(__pigeon_list: List<Any?>): PigeonGetTripSharingLinkResponse {
+      val status = __pigeon_list[0] as PigeonGetTripSharingLinkStatus
+      val data = __pigeon_list[1] as PigeonTripSharingLink?
+      return PigeonGetTripSharingLinkResponse(status, data)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      status,
+      data,
+    )
+  }
+}
+
+/** Generated class from Pigeon that represents data sent in messages. */
 data class PigeonTripSharingLink (
   val code: String,
   val url: String,
@@ -1936,70 +1987,85 @@ private object TripAnalysisApiPigeonCodec : StandardMessageCodec() {
       }
       168.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          PigeonTripSharingLink.fromList(it)
+          PigeonGetTripSharingLinkResponse.fromList(it)
         }
       }
       169.toByte() -> {
-        return (readValue(buffer) as Int?)?.let {
-          PigeonStartMode.ofRaw(it)
+        return (readValue(buffer) as? List<Any?>)?.let {
+          PigeonTripSharingLink.fromList(it)
         }
       }
       170.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
-          PigeonCancelTrip.ofRaw(it)
+          PigeonSynchronizationType.ofRaw(it)
         }
       }
       171.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
-          PigeonState.ofRaw(it)
+          PigeonStartMode.ofRaw(it)
         }
       }
       172.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
-          PigeonDKCrashFeedbackType.ofRaw(it)
+          PigeonCancelTrip.ofRaw(it)
         }
       }
       173.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
-          PigeonDKCrashFeedbackSeverity.ofRaw(it)
+          PigeonState.ofRaw(it)
         }
       }
       174.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
-          PigeonCrashStatus.ofRaw(it)
+          PigeonDKCrashFeedbackType.ofRaw(it)
         }
       }
       175.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
-          PigeonTripResponseStatusType.ofRaw(it)
+          PigeonDKCrashFeedbackSeverity.ofRaw(it)
         }
       }
       176.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
-          PigeonTripResponseInfo.ofRaw(it)
+          PigeonCrashStatus.ofRaw(it)
         }
       }
       177.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
-          PigeonTripResponseError.ofRaw(it)
+          PigeonTripResponseStatusType.ofRaw(it)
         }
       }
       178.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
-          PigeonAccuracyLevel.ofRaw(it)
+          PigeonTripResponseInfo.ofRaw(it)
         }
       }
       179.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
-          PigeonTripCancelationReason.ofRaw(it)
+          PigeonTripResponseError.ofRaw(it)
         }
       }
       180.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
-          PigeonCreateTripSharingLinkStatus.ofRaw(it)
+          PigeonAccuracyLevel.ofRaw(it)
         }
       }
       181.toByte() -> {
+        return (readValue(buffer) as Int?)?.let {
+          PigeonTripCancelationReason.ofRaw(it)
+        }
+      }
+      182.toByte() -> {
+        return (readValue(buffer) as Int?)?.let {
+          PigeonCreateTripSharingLinkStatus.ofRaw(it)
+        }
+      }
+      183.toByte() -> {
+        return (readValue(buffer) as Int?)?.let {
+          PigeonGetTripSharingLinkStatus.ofRaw(it)
+        }
+      }
+      184.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
           PigeonRevokeTripSharingLinkStatus.ofRaw(it)
         }
@@ -2165,60 +2231,72 @@ private object TripAnalysisApiPigeonCodec : StandardMessageCodec() {
         stream.write(167)
         writeValue(stream, value.toList())
       }
-      is PigeonTripSharingLink -> {
+      is PigeonGetTripSharingLinkResponse -> {
         stream.write(168)
         writeValue(stream, value.toList())
       }
-      is PigeonStartMode -> {
+      is PigeonTripSharingLink -> {
         stream.write(169)
-        writeValue(stream, value.raw)
+        writeValue(stream, value.toList())
       }
-      is PigeonCancelTrip -> {
+      is PigeonSynchronizationType -> {
         stream.write(170)
         writeValue(stream, value.raw)
       }
-      is PigeonState -> {
+      is PigeonStartMode -> {
         stream.write(171)
         writeValue(stream, value.raw)
       }
-      is PigeonDKCrashFeedbackType -> {
+      is PigeonCancelTrip -> {
         stream.write(172)
         writeValue(stream, value.raw)
       }
-      is PigeonDKCrashFeedbackSeverity -> {
+      is PigeonState -> {
         stream.write(173)
         writeValue(stream, value.raw)
       }
-      is PigeonCrashStatus -> {
+      is PigeonDKCrashFeedbackType -> {
         stream.write(174)
         writeValue(stream, value.raw)
       }
-      is PigeonTripResponseStatusType -> {
+      is PigeonDKCrashFeedbackSeverity -> {
         stream.write(175)
         writeValue(stream, value.raw)
       }
-      is PigeonTripResponseInfo -> {
+      is PigeonCrashStatus -> {
         stream.write(176)
         writeValue(stream, value.raw)
       }
-      is PigeonTripResponseError -> {
+      is PigeonTripResponseStatusType -> {
         stream.write(177)
         writeValue(stream, value.raw)
       }
-      is PigeonAccuracyLevel -> {
+      is PigeonTripResponseInfo -> {
         stream.write(178)
         writeValue(stream, value.raw)
       }
-      is PigeonTripCancelationReason -> {
+      is PigeonTripResponseError -> {
         stream.write(179)
         writeValue(stream, value.raw)
       }
-      is PigeonCreateTripSharingLinkStatus -> {
+      is PigeonAccuracyLevel -> {
         stream.write(180)
         writeValue(stream, value.raw)
       }
-      is PigeonRevokeTripSharingLinkStatus -> {
+      is PigeonTripCancelationReason -> {
         stream.write(181)
+        writeValue(stream, value.raw)
+      }
+      is PigeonCreateTripSharingLinkStatus -> {
+        stream.write(182)
+        writeValue(stream, value.raw)
+      }
+      is PigeonGetTripSharingLinkStatus -> {
+        stream.write(183)
+        writeValue(stream, value.raw)
+      }
+      is PigeonRevokeTripSharingLinkStatus -> {
+        stream.write(184)
         writeValue(stream, value.raw)
       }
       else -> super.writeValue(stream, value)
@@ -2250,6 +2328,7 @@ interface AndroidTripAnalysisApi {
   fun getLastTripLocation(): PigeonLastTripLocation?
   fun isTripSharingAvailable(): Boolean
   fun createTripSharingLink(durationInSeconds: Long, callback: (Result<PigeonCreateTripSharingLinkResponse>) -> Unit)
+  fun getTripSharingLink(synchronizationType: PigeonSynchronizationType, callback: (Result<PigeonGetTripSharingLinkResponse>) -> Unit)
   fun revokeTripSharingLink(callback: (Result<PigeonRevokeTripSharingLinkStatus>) -> Unit)
 
   companion object {
@@ -2597,6 +2676,26 @@ interface AndroidTripAnalysisApi {
             val args = message as List<Any?>
             val durationInSecondsArg = args[0].let { num -> if (num is Int) num.toLong() else num as Long }
             api.createTripSharingLink(durationInSecondsArg) { result: Result<PigeonCreateTripSharingLinkResponse> ->
+              val error = result.exceptionOrNull()
+              if (error != null) {
+                reply.reply(wrapError(error))
+              } else {
+                val data = result.getOrNull()
+                reply.reply(wrapResult(data))
+              }
+            }
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.getTripSharingLink$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { message, reply ->
+            val args = message as List<Any?>
+            val synchronizationTypeArg = args[0] as PigeonSynchronizationType
+            api.getTripSharingLink(synchronizationTypeArg) { result: Result<PigeonGetTripSharingLinkResponse> ->
               val error = result.exceptionOrNull()
               if (error != null) {
                 reply.reply(wrapError(error))

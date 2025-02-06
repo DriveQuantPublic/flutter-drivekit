@@ -781,7 +781,7 @@ class CreateTripSharingLinkResponse {
 
 /// Trip Sharing creation status
 enum CreateTripSharingLinkStatus {
-  /// The link has been successfully created. Information is returned in data.
+  /// The link has been successfully created. Information is returned in `data`.
   success,
 
   /// A link already exists for this user.
@@ -789,7 +789,7 @@ enum CreateTripSharingLinkStatus {
   /// You have to call the method to retrieve an existing link in your workflow.
   activeLinkAlreadyExists,
 
-  ///An error occurred, for instance when the user has no network.
+  /// An error occurred, for instance when the user has no network.
   /// Information returned in `data` is `null`.
   error,
 
@@ -801,6 +801,33 @@ enum CreateTripSharingLinkStatus {
   /// The duration parameter must be strictly greater than `0`.
   /// Information returned in `data` is `null`.
   invalidDuration,
+
+  /// The user has been disconnected.
+  /// Information returned in `data` is `null`.
+  unauthenticated,
+
+  /// Your API key is not allowed to use the feature.
+  /// Information returned in `data` is `null`.
+  forbidden,
+}
+
+/// Trip Sharing retrieval status
+enum GetTripSharingLinkStatus {
+  /// The link has been successfully retrieved.
+  /// Information is returned in `data`.
+  success,
+
+  /// An error occurred when trying to retrieve a link.
+  /// Locally trip sharing link, if exists, is returned in data.
+  failedToGetCacheOnly,
+
+  /// There is no active link for the user.
+  /// Information returned in `data` is `null`.
+  noActiveLink,
+
+  /// The user is not yet connected to DriveKit.
+  /// Information returned in `data` is `null`.
+  userNotConnected,
 
   /// The user has been disconnected.
   /// Information returned in `data` is `null`.
@@ -830,6 +857,18 @@ enum RevokeTripSharingLinkStatus {
 
   /// Your API key is not allowed to use the feature.
   forbidden,
+}
+
+/// Trip Sharing retrieval response
+class GetTripSharingLinkResponse {
+  /// Creates a GetTripSharingLinkResponse instance
+  GetTripSharingLinkResponse({required this.status, required this.data});
+
+  /// The trip sharing creation status
+  final GetTripSharingLinkStatus status;
+
+  /// The link data
+  final DKTripSharingLink? data;
 }
 
 /// Class describing trip sharing link data

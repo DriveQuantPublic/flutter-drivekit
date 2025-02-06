@@ -41,6 +41,11 @@ abstract class AndroidTripAnalysisApi {
     int durationInSeconds,
   );
   @async
+  PigeonGetTripSharingLinkResponse getTripSharingLink({
+    PigeonSynchronizationType synchronizationType =
+        PigeonSynchronizationType.defaultSync,
+  });
+  @async
   PigeonRevokeTripSharingLinkStatus revokeTripSharingLink();
 }
 
@@ -64,6 +69,15 @@ abstract class FlutterTripAnalysisApi {
     PigeonDKCrashFeedbackType feedbackType,
     PigeonDKCrashFeedbackSeverity severity,
   );
+}
+
+/// Trip Sharing Synchronization Type
+enum PigeonSynchronizationType {
+  /// synchronize by calling the DriveQuant servers
+  defaultSync,
+
+  /// retrieve already synchronized items in the local database
+  cache
 }
 
 class PigeonVehicle {
@@ -1403,6 +1417,25 @@ enum PigeonCreateTripSharingLinkStatus {
   error,
   userNotConnected,
   invalidDuration,
+  unauthenticated,
+  forbidden
+}
+
+class PigeonGetTripSharingLinkResponse {
+  PigeonGetTripSharingLinkResponse({
+    required this.status,
+    required this.data,
+  });
+
+  final PigeonGetTripSharingLinkStatus status;
+  final PigeonTripSharingLink? data;
+}
+
+enum PigeonGetTripSharingLinkStatus {
+  success,
+  failedToGetCacheOnly,
+  noActiveLink,
+  userNotConnected,
   unauthenticated,
   forbidden
 }

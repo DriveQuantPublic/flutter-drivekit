@@ -3,6 +3,7 @@ package com.drivequant.drivekit.flutter.tripanalysis
 import android.content.Context
 import androidx.core.content.ContextCompat
 import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper
+import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.fromPigeonSynchronizationType
 import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeonCancelTrip
 import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeonDKCrashFeedbackSeverity
 import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeonDKCrashFeedbackType
@@ -228,6 +229,12 @@ class DriveKitTripAnalysisPlugin :
     override fun createTripSharingLink(durationInSeconds: Long, callback: (Result<PigeonCreateTripSharingLinkResponse>) -> Unit) {
         DriveKitTripAnalysis.tripSharing.createLink(durationInSeconds.toInt()) { status, data ->
             callback(Result.success(PigeonMapper.toPigeonCreateTripSharingLink(status, data)))
+        }
+    }
+
+    override fun getTripSharingLink(synchronizationType: PigeonSynchronizationType, callback: (Result<PigeonGetTripSharingLinkResponse>) -> Unit) {
+        DriveKitTripAnalysis.tripSharing.getLink(synchronizationType = synchronizationType.fromPigeonSynchronizationType()) { status, data ->
+            callback(Result.success(PigeonMapper.toPigeonGetTripSharingLink(status, data)))
         }
     }
 

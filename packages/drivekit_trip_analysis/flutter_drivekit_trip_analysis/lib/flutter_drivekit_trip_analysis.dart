@@ -213,6 +213,15 @@ class DriveKitTripAnalysis {
     return _platform.createTripSharingLink(durationInSeconds);
   }
 
+  /// To retrieve a link to share trips, use the following method.
+  /// The method takes a `synchronizationType` parameter.
+  /// It will retrieve locally stored data if the value is `CACHE`,
+  /// otherwise with the `DEFAULT` value it will call the DriveQuant’s servers.
+  Future<GetTripSharingLinkResponse> getTripSharingLink({
+    SynchronizationType synchronizationType = SynchronizationType.defaultSync,
+  }) =>
+      _platform.getTripSharingLink(synchronizationType: synchronizationType);
+
   /// To revoke a trip sharing link, use the following method.
   Future<RevokeTripSharingLinkStatus> revokeTripSharingLink() async {
     return _platform.revokeTripSharingLink();

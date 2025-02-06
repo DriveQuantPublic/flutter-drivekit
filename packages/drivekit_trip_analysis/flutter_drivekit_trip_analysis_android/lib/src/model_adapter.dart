@@ -863,6 +863,44 @@ extension PigeonPigeonTripSharingLinkAdapter on PigeonTripSharingLink {
   }
 }
 
+/// Adapts the [PigeonGetTripSharingLinkResponse] class to the corresponding
+/// class in the model.
+extension PigeonGetTripSharingLinkResponseAdapter
+    on PigeonGetTripSharingLinkResponse {
+  /// Converts a [PigeonGetTripSharingLinkResponse] to a corresponding model
+  /// class.
+  GetTripSharingLinkResponse toModelImplementation() {
+    return GetTripSharingLinkResponse(
+      status: status.toModelImplementation(),
+      data: data?.toModelImplementation(),
+    );
+  }
+}
+
+/// Adapt the [PigeonGetTripSharingLinkStatus] class to
+/// the [GetTripSharingLinkStatus] class.
+extension PigeonGetTripSharingLinkStatusAdapter
+    on PigeonGetTripSharingLinkStatus {
+  /// Converts a [PigeonGetTripSharingLinkStatus] to
+  /// a [GetTripSharingLinkStatus].
+  GetTripSharingLinkStatus toModelImplementation() {
+    return switch (this) {
+      PigeonGetTripSharingLinkStatus.success =>
+        GetTripSharingLinkStatus.success,
+      PigeonGetTripSharingLinkStatus.failedToGetCacheOnly =>
+        GetTripSharingLinkStatus.failedToGetCacheOnly,
+      PigeonGetTripSharingLinkStatus.noActiveLink =>
+        GetTripSharingLinkStatus.noActiveLink,
+      PigeonGetTripSharingLinkStatus.userNotConnected =>
+        GetTripSharingLinkStatus.userNotConnected,
+      PigeonGetTripSharingLinkStatus.unauthenticated =>
+        GetTripSharingLinkStatus.unauthenticated,
+      PigeonGetTripSharingLinkStatus.forbidden =>
+        GetTripSharingLinkStatus.forbidden,
+    };
+  }
+}
+
 /// Adapt the [PigeonRevokeTripSharingLinkStatus] class to
 /// the [RevokeTripSharingLinkStatus] class.
 extension PigeonRevokeTripSharingLinkStatusAdapter

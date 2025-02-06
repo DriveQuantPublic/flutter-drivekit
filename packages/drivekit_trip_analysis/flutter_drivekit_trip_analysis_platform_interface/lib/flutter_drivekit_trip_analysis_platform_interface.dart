@@ -1,5 +1,5 @@
+import 'package:flutter_drivekit_trip_analysis_platform_interface/flutter_drivekit_trip_analysis_platform_interface.dart';
 import 'package:flutter_drivekit_trip_analysis_platform_interface/src/default_drivekit_trip_analysis.dart';
-import 'package:flutter_drivekit_trip_analysis_platform_interface/src/model.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 export 'package:flutter_drivekit_core_platform_interface/src/model.dart';
@@ -116,6 +116,11 @@ abstract class DriveKitTripAnalysisPlatform extends PlatformInterface {
   Future<CreateTripSharingLinkResponse> createTripSharingLink(
     int durationInSeconds,
   );
+
+  /// Retrieve a trip sharing link
+  Future<GetTripSharingLinkResponse> getTripSharingLink({
+    SynchronizationType synchronizationType = SynchronizationType.defaultSync,
+  });
 
   /// Revoke a trip sharing link
   Future<RevokeTripSharingLinkStatus> revokeTripSharingLink();
