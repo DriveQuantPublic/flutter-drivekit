@@ -249,4 +249,30 @@ class DriveKitTripAnalysisIOS extends DriveKitTripAnalysisPlatform
   @override
   Future<bool> isTripSharingAvailable() =>
       iosTripAnalysisApi.isTripSharingAvailable();
+
+  @override
+  Future<CreateTripSharingLinkResponse> createTripSharingLink(
+    int durationInSeconds,
+  ) async {
+    final response = await iosTripAnalysisApi.createTripSharingLink(
+      durationInSeconds,
+    );
+    return response.toModelImplementation();
+  }
+
+  @override
+  Future<RevokeTripSharingLinkStatus> revokeTripSharingLink() async {
+    final response = await iosTripAnalysisApi.revokeTripSharingLink();
+    return response.toModelImplementation();
+  }
+
+  @override
+  Future<GetTripSharingLinkResponse> getTripSharingLink({
+    SynchronizationType synchronizationType = SynchronizationType.defaultSync,
+  }) async {
+    final response = await iosTripAnalysisApi.getTripSharingLink(
+      synchronizationType: synchronizationType.toPigeonImplementation(),
+    );
+    return response.toModelImplementation();
+  }
 }

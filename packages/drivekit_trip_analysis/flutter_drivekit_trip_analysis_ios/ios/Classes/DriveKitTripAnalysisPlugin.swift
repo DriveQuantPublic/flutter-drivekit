@@ -117,6 +117,14 @@ public class DriveKitTripAnalysisPlugin: NSObject, FlutterPlugin, IOSTripAnalysi
     func isTripSharingAvailable() -> Bool {
         return DriveKitTripAnalysis.shared.tripSharing.isAvailable()
     }
+    
+    func createTripSharingLink(durationInSeconds: Int64, completion: @escaping (Result<PigeonCreateTripSharingLinkResponse, Error>) -> Void) {
+    }
+    
+    func getTripSharingLink(synchronizationType: PigeonSynchronizationType, completion: @escaping (Result<PigeonGetTripSharingLinkResponse, Error>) -> Void){
+    }
+    func revokeTripSharingLink(completion: @escaping (Result<PigeonRevokeTripSharingLinkStatus, Error>) -> Void) {
+    }
 }
 
 extension DriveKitTripAnalysisPlugin: TripListener {
