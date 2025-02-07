@@ -248,5 +248,5 @@ class DriveKitTripAnalysisIOS extends DriveKitTripAnalysisPlatform
 
   @override
   Future<bool> isTripSharingAvailable() =>
-      iosTripAnalysisApi.isAutoStartActivated();
+      iosTripAnalysisApi.isTripSharingAvailable();
 }
