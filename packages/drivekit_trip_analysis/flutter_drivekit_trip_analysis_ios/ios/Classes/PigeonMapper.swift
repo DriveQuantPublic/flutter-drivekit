@@ -1003,6 +1003,28 @@ extension PigeonCreateTripSharingLinkStatus {
     }
 }
 
+extension PigeonGetTripSharingLinkStatus {
+    init(from status: DKGetTripSharingLinkStatus) {
+        switch status {
+        case .success:
+            self = .success
+        case .userNotConnected:
+            self = .userNotConnected
+        case .unauthenticated:
+            self = .unauthenticated
+        case .forbidden:
+            self = .forbidden
+        case .failedToGetCacheOnly:
+            self = .failedToGetCacheOnly
+        case .noActiveLink:
+            self = .noActiveLink
+        @unknown default:
+            fatalError()
+        }
+    }
+}
+
+
 
 extension PigeonTripSharingLink {
     init(from data: DKTripSharingLink) {

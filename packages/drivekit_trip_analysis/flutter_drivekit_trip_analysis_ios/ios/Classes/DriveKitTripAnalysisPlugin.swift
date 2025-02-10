@@ -1,5 +1,6 @@
 import Flutter
 import UIKit
+import DriveKitCoreModule
 import DriveKitTripAnalysisModule
 import CoreLocation
 
@@ -131,8 +132,19 @@ public class DriveKitTripAnalysisPlugin: NSObject, FlutterPlugin, IOSTripAnalysi
         }
     }
     
-    func getTripSharingLink(synchronizationType: PigeonSynchronizationType, completion: @escaping (Result<PigeonGetTripSharingLinkResponse, Error>) -> Void){
+    func getTripSharingLink(synchronizationType: PigeonSynchronizationType, completion: @escaping (Result<PigeonGetTripSharingLinkResponse, any Error>) -> Void){
+        DriveKitTripAnalysis.shared.tripSharing.getLink(synchronizationType: SynchronizationType.defaultSync) { status, data in
+            let pigeonStatus = PigeonGetTripSharingLinkStatus(from: status)
+            let pigeonData: PigeonTripSharingLink?
+            if let data {
+                pigeonData = PigeonTripSharingLink.init(from: data)
+            } else {
+                pigeonData = nil
+            }
+            completion(Result.success(PigeonGetTripSharingLinkResponse(status: pigeonStatus, data: pigeonData)))
+        }
     }
+
     func revokeTripSharingLink(completion: @escaping (Result<PigeonRevokeTripSharingLinkStatus, Error>) -> Void) {
     }
 }
