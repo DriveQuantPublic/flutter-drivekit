@@ -119,6 +119,16 @@ public class DriveKitTripAnalysisPlugin: NSObject, FlutterPlugin, IOSTripAnalysi
     }
     
     func createTripSharingLink(durationInSeconds: Int64, completion: @escaping (Result<PigeonCreateTripSharingLinkResponse, Error>) -> Void) {
+        DriveKitTripAnalysis.shared.tripSharing.createLink(durationInSeconds: Int(durationInSeconds)) { status, data in
+            let pigeonStatus = PigeonCreateTripSharingLinkStatus(from: status)
+            let pigeonData: PigeonTripSharingLink?
+            if let data {
+                pigeonData = PigeonTripSharingLink.init(from: data)
+            } else {
+                pigeonData = nil
+            }
+            completion(Result.success(PigeonCreateTripSharingLinkResponse(status: pigeonStatus, data: pigeonData)))
+        }
     }
     
     func getTripSharingLink(synchronizationType: PigeonSynchronizationType, completion: @escaping (Result<PigeonGetTripSharingLinkResponse, Error>) -> Void){

@@ -979,3 +979,38 @@ extension PigeonTripRecordingFinishedState {
         )
     }
 }
+
+extension PigeonCreateTripSharingLinkStatus {
+    init(from status: DKCreateTripSharingLinkStatus) {
+        switch status {
+        case .success:
+            self = .success
+        case .userNotConnected:
+            self = .userNotConnected
+        case .invalidDuration:
+            self = .invalidDuration
+        case .unauthenticated:
+            self = .unauthenticated
+        case .forbidden:
+            self = .forbidden
+        case .activeLinkAlreadyExists:
+            self = .activeLinkAlreadyExists
+        case .error:
+            self = .error
+        @unknown default:
+            fatalError()
+        }
+    }
+}
+
+
+extension PigeonTripSharingLink {
+    init(from data: DKTripSharingLink) {
+        self.init(
+            code: data.code,
+            url: data.url,
+            startDate: DateUtils.convertDateToString(date: data.startDate),
+            endDate: DateUtils.convertDateToString(date: data.endDate)
+        )
+    }
+}
