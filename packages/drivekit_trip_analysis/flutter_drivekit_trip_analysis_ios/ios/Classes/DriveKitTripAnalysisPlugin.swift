@@ -133,7 +133,7 @@ public class DriveKitTripAnalysisPlugin: NSObject, FlutterPlugin, IOSTripAnalysi
     }
     
     func getTripSharingLink(synchronizationType: PigeonSynchronizationType, completion: @escaping (Result<PigeonGetTripSharingLinkResponse, any Error>) -> Void){
-        DriveKitTripAnalysis.shared.tripSharing.getLink(synchronizationType: SynchronizationType.defaultSync) { status, data in
+        DriveKitTripAnalysis.shared.tripSharing.getLink(synchronizationType: SynchronizationType(from: synchronizationType)) { status, data in
             let pigeonStatus = PigeonGetTripSharingLinkStatus(from: status)
             let pigeonData: PigeonTripSharingLink?
             if let data {

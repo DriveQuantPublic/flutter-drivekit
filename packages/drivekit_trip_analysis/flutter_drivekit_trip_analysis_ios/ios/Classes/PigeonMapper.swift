@@ -28,6 +28,17 @@ class PigeonMapper {
     }
 }
 
+extension SynchronizationType {
+    init(from pigeonSynchronizationType: PigeonSynchronizationType) {
+        switch pigeonSynchronizationType {
+        case .defaultSync:
+            self = .defaultSync
+        case .cache:
+            self = .cache
+        }
+    }
+}
+
 extension PigeonStartMode {
     init(from startMode: StartMode) {
         switch startMode {
