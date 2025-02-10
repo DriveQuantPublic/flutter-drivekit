@@ -1024,7 +1024,26 @@ extension PigeonGetTripSharingLinkStatus {
     }
 }
 
-
+extension PigeonRevokeTripSharingLinkStatus {
+    init(from status: DKRevokeTripSharingLinkStatus) {
+        switch status {
+        case .success:
+            self = .success
+        case .userNotConnected:
+            self = .userNotConnected
+        case .unauthenticated:
+            self = .unauthenticated
+        case .forbidden:
+            self = .forbidden
+        case .noActiveLink:
+            self = .noActiveLink
+        case .error:
+            self = .error
+        @unknown default:
+            fatalError()
+        }
+    }
+}
 
 extension PigeonTripSharingLink {
     init(from data: DKTripSharingLink) {

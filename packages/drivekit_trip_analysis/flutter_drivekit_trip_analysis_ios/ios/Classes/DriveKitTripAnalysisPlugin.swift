@@ -146,6 +146,9 @@ public class DriveKitTripAnalysisPlugin: NSObject, FlutterPlugin, IOSTripAnalysi
     }
 
     func revokeTripSharingLink(completion: @escaping (Result<PigeonRevokeTripSharingLinkStatus, Error>) -> Void) {
+        DriveKitTripAnalysis.shared.tripSharing.revokeLink { status in
+            completion(Result.success(PigeonRevokeTripSharingLinkStatus(from: status)))
+        }
     }
 }
 
