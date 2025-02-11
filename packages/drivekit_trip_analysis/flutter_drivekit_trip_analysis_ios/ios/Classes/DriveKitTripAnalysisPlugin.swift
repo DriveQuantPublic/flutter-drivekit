@@ -1,5 +1,6 @@
 import Flutter
 import UIKit
+import DriveKitCoreModule
 import DriveKitTripAnalysisModule
 import CoreLocation
 
@@ -112,6 +113,42 @@ public class DriveKitTripAnalysisPlugin: NSObject, FlutterPlugin, IOSTripAnalysi
             return lastTripLocation
         }
         return nil
+    }
+
+    func isTripSharingAvailable() -> Bool {
+        return DriveKitTripAnalysis.shared.tripSharing.isAvailable()
+    }
+
+    func createTripSharingLink(durationInSeconds: Int64, completion: @escaping (Result<PigeonCreateTripSharingLinkResponse, Error>) -> Void) {
+        DriveKitTripAnalysis.shared.tripSharing.createLink(durationInSeconds: Int(durationInSeconds)) { status, data in
+            let pigeonStatus = PigeonCreateTripSharingLinkStatus(from: status)
+            let pigeonData: PigeonTripSharingLink?
+            if let data {
+                pigeonData = PigeonTripSharingLink.init(from: data)
+            } else {
+                pigeonData = nil
+            }
+            completion(Result.success(PigeonCreateTripSharingLinkResponse(status: pigeonStatus, data: pigeonData)))
+        }
+    }
+
+    func getTripSharingLink(synchronizationType: PigeonSynchronizationType, completion: @escaping (Result<PigeonGetTripSharingLinkResponse, any Error>) -> Void) {
+        DriveKitTripAnalysis.shared.tripSharing.getLink(synchronizationType: SynchronizationType(from: synchronizationType)) { status, data in
+            let pigeonStatus = PigeonGetTripSharingLinkStatus(from: status)
+            let pigeonData: PigeonTripSharingLink?
+            if let data {
+                pigeonData = PigeonTripSharingLink.init(from: data)
+            } else {
+                pigeonData = nil
+            }
+            completion(Result.success(PigeonGetTripSharingLinkResponse(status: pigeonStatus, data: pigeonData)))
+        }
+    }
+
+    func revokeTripSharingLink(completion: @escaping (Result<PigeonRevokeTripSharingLinkStatus, Error>) -> Void) {
+        DriveKitTripAnalysis.shared.tripSharing.revokeLink { status in
+            completion(Result.success(PigeonRevokeTripSharingLinkStatus(from: status)))
+        }
     }
 }
 

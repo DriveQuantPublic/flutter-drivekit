@@ -1,6 +1,19 @@
 import 'package:flutter_drivekit_trip_analysis_android/src/trip_analysis_api.g.dart';
 import 'package:flutter_drivekit_trip_analysis_platform_interface/flutter_drivekit_trip_analysis_platform_interface.dart';
 
+/// Adapts the [SynchronizationType] enum to the corresponding Pigeon enum
+extension SynchronizationTypeAdapter on SynchronizationType {
+  /// Converts a [SynchronizationType] to a corresponding Pigeon enum
+  PigeonSynchronizationType toPigeonImplementation() {
+    switch (this) {
+      case SynchronizationType.defaultSync:
+        return PigeonSynchronizationType.defaultSync;
+      case SynchronizationType.cache:
+        return PigeonSynchronizationType.cache;
+    }
+  }
+}
+
 /// Adapts the [Vehicle] class to the [PigeonVehicle] class.
 extension VehicleAdapter on Vehicle {
   /// Converts a [Vehicle] to a [PigeonVehicle].

@@ -712,5 +712,67 @@ void main() {
         expect(lastTripLocation, null);
       });
     });
+
+    group('Trip Sharing', () {
+      test('isTripSharingAvailable calls Android implementation', () async {
+        //mock
+        when(() => androidTripAnalysisApi.isTripSharingAvailable()).thenAnswer(
+          (_) async => true,
+        );
+
+        //test
+        await DriveKitTripAnalysisPlatform.instance.isTripSharingAvailable();
+        verify(() => androidTripAnalysisApi.isTripSharingAvailable()).called(1);
+      });
+
+      test('createTripSharingLink calls Android implementation', () async {
+        //mock
+        when(() => androidTripAnalysisApi.createTripSharingLink(60)).thenAnswer(
+          (_) async => PigeonCreateTripSharingLinkResponse(
+            status: PigeonCreateTripSharingLinkStatus.success,
+            data: PigeonTripSharingLink(
+              code: 'myCode',
+              url: 'myUrl',
+              startDate: 'startDate',
+              endDate: 'endDate',
+            ),
+          ),
+        );
+
+        //test
+        await DriveKitTripAnalysisPlatform.instance.createTripSharingLink(60);
+        verify(() => androidTripAnalysisApi.createTripSharingLink(60))
+            .called(1);
+      });
+
+      test('getTripSharingLink calls Android implementation', () async {
+        //mock
+        when(() => androidTripAnalysisApi.getTripSharingLink()).thenAnswer(
+          (_) async => PigeonGetTripSharingLinkResponse(
+            status: PigeonGetTripSharingLinkStatus.success,
+            data: PigeonTripSharingLink(
+              code: 'myCode',
+              url: 'myUrl',
+              startDate: 'startDate',
+              endDate: 'endDate',
+            ),
+          ),
+        );
+
+        //test
+        await DriveKitTripAnalysisPlatform.instance.getTripSharingLink();
+        verify(() => androidTripAnalysisApi.getTripSharingLink()).called(1);
+      });
+
+      test('revokeTripSharingLink calls Android implementation', () async {
+        //mock
+        when(() => androidTripAnalysisApi.revokeTripSharingLink())
+            .thenAnswer((_) async => PigeonRevokeTripSharingLinkStatus.success);
+
+        //test
+        await DriveKitTripAnalysisPlatform.instance.revokeTripSharingLink();
+        verify(() => androidTripAnalysisApi.revokeTripSharingLink()).called(1);
+      });
+    });
   });
 }

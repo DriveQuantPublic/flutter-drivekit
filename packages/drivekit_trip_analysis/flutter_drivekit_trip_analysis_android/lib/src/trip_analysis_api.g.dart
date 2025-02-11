@@ -26,6 +26,15 @@ List<Object?> wrapResponse(
   return <Object?>[error.code, error.message, error.details];
 }
 
+/// Trip Sharing Synchronization Type
+enum PigeonSynchronizationType {
+  /// synchronize by calling the DriveQuant servers
+  defaultSync,
+
+  /// retrieve already synchronized items in the local database
+  cache,
+}
+
 enum PigeonStartMode {
   gps,
   beacon,
@@ -131,6 +140,34 @@ enum PigeonTripCancelationReason {
   noBluetoothDevice,
   bluetoothDeviceNoSpeed,
   appKilled,
+}
+
+enum PigeonCreateTripSharingLinkStatus {
+  success,
+  activeLinkAlreadyExists,
+  error,
+  userNotConnected,
+  invalidDuration,
+  unauthenticated,
+  forbidden,
+}
+
+enum PigeonGetTripSharingLinkStatus {
+  success,
+  failedToGetCacheOnly,
+  noActiveLink,
+  userNotConnected,
+  unauthenticated,
+  forbidden,
+}
+
+enum PigeonRevokeTripSharingLinkStatus {
+  success,
+  noActiveLink,
+  error,
+  userNotConnected,
+  unauthenticated,
+  forbidden,
 }
 
 class PigeonVehicle {
@@ -2107,6 +2144,94 @@ class PigeonTripRecordingFinishedState {
   }
 }
 
+class PigeonCreateTripSharingLinkResponse {
+  PigeonCreateTripSharingLinkResponse({
+    required this.status,
+    this.data,
+  });
+
+  PigeonCreateTripSharingLinkStatus status;
+
+  PigeonTripSharingLink? data;
+
+  Object encode() {
+    return <Object?>[
+      status,
+      data,
+    ];
+  }
+
+  static PigeonCreateTripSharingLinkResponse decode(Object result) {
+    result as List<Object?>;
+    return PigeonCreateTripSharingLinkResponse(
+      status: result[0]! as PigeonCreateTripSharingLinkStatus,
+      data: result[1] as PigeonTripSharingLink?,
+    );
+  }
+}
+
+class PigeonGetTripSharingLinkResponse {
+  PigeonGetTripSharingLinkResponse({
+    required this.status,
+    this.data,
+  });
+
+  PigeonGetTripSharingLinkStatus status;
+
+  PigeonTripSharingLink? data;
+
+  Object encode() {
+    return <Object?>[
+      status,
+      data,
+    ];
+  }
+
+  static PigeonGetTripSharingLinkResponse decode(Object result) {
+    result as List<Object?>;
+    return PigeonGetTripSharingLinkResponse(
+      status: result[0]! as PigeonGetTripSharingLinkStatus,
+      data: result[1] as PigeonTripSharingLink?,
+    );
+  }
+}
+
+class PigeonTripSharingLink {
+  PigeonTripSharingLink({
+    required this.code,
+    required this.url,
+    required this.startDate,
+    required this.endDate,
+  });
+
+  String code;
+
+  String url;
+
+  String startDate;
+
+  String endDate;
+
+  Object encode() {
+    return <Object?>[
+      code,
+      url,
+      startDate,
+      endDate,
+    ];
+  }
+
+  static PigeonTripSharingLink decode(Object result) {
+    result as List<Object?>;
+    return PigeonTripSharingLink(
+      code: result[0]! as String,
+      url: result[1]! as String,
+      startDate: result[2]! as String,
+      endDate: result[3]! as String,
+    );
+  }
+}
+
 class _PigeonCodec extends StandardMessageCodec {
   const _PigeonCodec();
   @override
@@ -2225,38 +2350,59 @@ class _PigeonCodec extends StandardMessageCodec {
     } else if (value is PigeonTripRecordingFinishedState) {
       buffer.putUint8(166);
       writeValue(buffer, value.encode());
-    } else if (value is PigeonStartMode) {
+    } else if (value is PigeonCreateTripSharingLinkResponse) {
       buffer.putUint8(167);
-      writeValue(buffer, value.index);
-    } else if (value is PigeonCancelTrip) {
+      writeValue(buffer, value.encode());
+    } else if (value is PigeonGetTripSharingLinkResponse) {
       buffer.putUint8(168);
-      writeValue(buffer, value.index);
-    } else if (value is PigeonState) {
+      writeValue(buffer, value.encode());
+    } else if (value is PigeonTripSharingLink) {
       buffer.putUint8(169);
-      writeValue(buffer, value.index);
-    } else if (value is PigeonDKCrashFeedbackType) {
+      writeValue(buffer, value.encode());
+    } else if (value is PigeonSynchronizationType) {
       buffer.putUint8(170);
       writeValue(buffer, value.index);
-    } else if (value is PigeonDKCrashFeedbackSeverity) {
+    } else if (value is PigeonStartMode) {
       buffer.putUint8(171);
       writeValue(buffer, value.index);
-    } else if (value is PigeonCrashStatus) {
+    } else if (value is PigeonCancelTrip) {
       buffer.putUint8(172);
       writeValue(buffer, value.index);
-    } else if (value is PigeonTripResponseStatusType) {
+    } else if (value is PigeonState) {
       buffer.putUint8(173);
       writeValue(buffer, value.index);
-    } else if (value is PigeonTripResponseInfo) {
+    } else if (value is PigeonDKCrashFeedbackType) {
       buffer.putUint8(174);
       writeValue(buffer, value.index);
-    } else if (value is PigeonTripResponseError) {
+    } else if (value is PigeonDKCrashFeedbackSeverity) {
       buffer.putUint8(175);
       writeValue(buffer, value.index);
-    } else if (value is PigeonAccuracyLevel) {
+    } else if (value is PigeonCrashStatus) {
       buffer.putUint8(176);
       writeValue(buffer, value.index);
-    } else if (value is PigeonTripCancelationReason) {
+    } else if (value is PigeonTripResponseStatusType) {
       buffer.putUint8(177);
+      writeValue(buffer, value.index);
+    } else if (value is PigeonTripResponseInfo) {
+      buffer.putUint8(178);
+      writeValue(buffer, value.index);
+    } else if (value is PigeonTripResponseError) {
+      buffer.putUint8(179);
+      writeValue(buffer, value.index);
+    } else if (value is PigeonAccuracyLevel) {
+      buffer.putUint8(180);
+      writeValue(buffer, value.index);
+    } else if (value is PigeonTripCancelationReason) {
+      buffer.putUint8(181);
+      writeValue(buffer, value.index);
+    } else if (value is PigeonCreateTripSharingLinkStatus) {
+      buffer.putUint8(182);
+      writeValue(buffer, value.index);
+    } else if (value is PigeonGetTripSharingLinkStatus) {
+      buffer.putUint8(183);
+      writeValue(buffer, value.index);
+    } else if (value is PigeonRevokeTripSharingLinkStatus) {
+      buffer.putUint8(184);
       writeValue(buffer, value.index);
     } else {
       super.writeValue(buffer, value);
@@ -2343,42 +2489,66 @@ class _PigeonCodec extends StandardMessageCodec {
       case 166:
         return PigeonTripRecordingFinishedState.decode(readValue(buffer)!);
       case 167:
-        final int? value = readValue(buffer) as int?;
-        return value == null ? null : PigeonStartMode.values[value];
+        return PigeonCreateTripSharingLinkResponse.decode(readValue(buffer)!);
       case 168:
-        final int? value = readValue(buffer) as int?;
-        return value == null ? null : PigeonCancelTrip.values[value];
+        return PigeonGetTripSharingLinkResponse.decode(readValue(buffer)!);
       case 169:
-        final int? value = readValue(buffer) as int?;
-        return value == null ? null : PigeonState.values[value];
+        return PigeonTripSharingLink.decode(readValue(buffer)!);
       case 170:
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : PigeonDKCrashFeedbackType.values[value];
+        return value == null ? null : PigeonSynchronizationType.values[value];
       case 171:
+        final int? value = readValue(buffer) as int?;
+        return value == null ? null : PigeonStartMode.values[value];
+      case 172:
+        final int? value = readValue(buffer) as int?;
+        return value == null ? null : PigeonCancelTrip.values[value];
+      case 173:
+        final int? value = readValue(buffer) as int?;
+        return value == null ? null : PigeonState.values[value];
+      case 174:
+        final int? value = readValue(buffer) as int?;
+        return value == null ? null : PigeonDKCrashFeedbackType.values[value];
+      case 175:
         final int? value = readValue(buffer) as int?;
         return value == null
             ? null
             : PigeonDKCrashFeedbackSeverity.values[value];
-      case 172:
+      case 176:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : PigeonCrashStatus.values[value];
-      case 173:
+      case 177:
         final int? value = readValue(buffer) as int?;
         return value == null
             ? null
             : PigeonTripResponseStatusType.values[value];
-      case 174:
+      case 178:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : PigeonTripResponseInfo.values[value];
-      case 175:
+      case 179:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : PigeonTripResponseError.values[value];
-      case 176:
+      case 180:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : PigeonAccuracyLevel.values[value];
-      case 177:
+      case 181:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : PigeonTripCancelationReason.values[value];
+      case 182:
+        final int? value = readValue(buffer) as int?;
+        return value == null
+            ? null
+            : PigeonCreateTripSharingLinkStatus.values[value];
+      case 183:
+        final int? value = readValue(buffer) as int?;
+        return value == null
+            ? null
+            : PigeonGetTripSharingLinkStatus.values[value];
+      case 184:
+        final int? value = readValue(buffer) as int?;
+        return value == null
+            ? null
+            : PigeonRevokeTripSharingLinkStatus.values[value];
       default:
         return super.readValueOfType(type, buffer);
     }
@@ -2874,6 +3044,125 @@ class AndroidTripAnalysisApi {
       );
     } else {
       return (__pigeon_replyList[0] as PigeonLastTripLocation?);
+    }
+  }
+
+  Future<bool> isTripSharingAvailable() async {
+    final String __pigeon_channelName =
+        'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.isTripSharingAvailable$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel =
+        BasicMessageChannel<Object?>(
+      __pigeon_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: __pigeon_binaryMessenger,
+    );
+    final List<Object?>? __pigeon_replyList =
+        await __pigeon_channel.send(null) as List<Object?>?;
+    if (__pigeon_replyList == null) {
+      throw _createConnectionError(__pigeon_channelName);
+    } else if (__pigeon_replyList.length > 1) {
+      throw PlatformException(
+        code: __pigeon_replyList[0]! as String,
+        message: __pigeon_replyList[1] as String?,
+        details: __pigeon_replyList[2],
+      );
+    } else if (__pigeon_replyList[0] == null) {
+      throw PlatformException(
+        code: 'null-error',
+        message: 'Host platform returned null value for non-null return value.',
+      );
+    } else {
+      return (__pigeon_replyList[0] as bool?)!;
+    }
+  }
+
+  Future<PigeonCreateTripSharingLinkResponse> createTripSharingLink(
+      int durationInSeconds) async {
+    final String __pigeon_channelName =
+        'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.createTripSharingLink$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel =
+        BasicMessageChannel<Object?>(
+      __pigeon_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: __pigeon_binaryMessenger,
+    );
+    final List<Object?>? __pigeon_replyList = await __pigeon_channel
+        .send(<Object?>[durationInSeconds]) as List<Object?>?;
+    if (__pigeon_replyList == null) {
+      throw _createConnectionError(__pigeon_channelName);
+    } else if (__pigeon_replyList.length > 1) {
+      throw PlatformException(
+        code: __pigeon_replyList[0]! as String,
+        message: __pigeon_replyList[1] as String?,
+        details: __pigeon_replyList[2],
+      );
+    } else if (__pigeon_replyList[0] == null) {
+      throw PlatformException(
+        code: 'null-error',
+        message: 'Host platform returned null value for non-null return value.',
+      );
+    } else {
+      return (__pigeon_replyList[0] as PigeonCreateTripSharingLinkResponse?)!;
+    }
+  }
+
+  Future<PigeonGetTripSharingLinkResponse> getTripSharingLink(
+      {PigeonSynchronizationType synchronizationType =
+          PigeonSynchronizationType.defaultSync}) async {
+    final String __pigeon_channelName =
+        'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.getTripSharingLink$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel =
+        BasicMessageChannel<Object?>(
+      __pigeon_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: __pigeon_binaryMessenger,
+    );
+    final List<Object?>? __pigeon_replyList = await __pigeon_channel
+        .send(<Object?>[synchronizationType]) as List<Object?>?;
+    if (__pigeon_replyList == null) {
+      throw _createConnectionError(__pigeon_channelName);
+    } else if (__pigeon_replyList.length > 1) {
+      throw PlatformException(
+        code: __pigeon_replyList[0]! as String,
+        message: __pigeon_replyList[1] as String?,
+        details: __pigeon_replyList[2],
+      );
+    } else if (__pigeon_replyList[0] == null) {
+      throw PlatformException(
+        code: 'null-error',
+        message: 'Host platform returned null value for non-null return value.',
+      );
+    } else {
+      return (__pigeon_replyList[0] as PigeonGetTripSharingLinkResponse?)!;
+    }
+  }
+
+  Future<PigeonRevokeTripSharingLinkStatus> revokeTripSharingLink() async {
+    final String __pigeon_channelName =
+        'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.revokeTripSharingLink$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel =
+        BasicMessageChannel<Object?>(
+      __pigeon_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: __pigeon_binaryMessenger,
+    );
+    final List<Object?>? __pigeon_replyList =
+        await __pigeon_channel.send(null) as List<Object?>?;
+    if (__pigeon_replyList == null) {
+      throw _createConnectionError(__pigeon_channelName);
+    } else if (__pigeon_replyList.length > 1) {
+      throw PlatformException(
+        code: __pigeon_replyList[0]! as String,
+        message: __pigeon_replyList[1] as String?,
+        details: __pigeon_replyList[2],
+      );
+    } else if (__pigeon_replyList[0] == null) {
+      throw PlatformException(
+        code: 'null-error',
+        message: 'Host platform returned null value for non-null return value.',
+      );
+    } else {
+      return (__pigeon_replyList[0] as PigeonRevokeTripSharingLinkStatus?)!;
     }
   }
 }

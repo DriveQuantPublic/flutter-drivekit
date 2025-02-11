@@ -286,5 +286,100 @@ void main() {
             .called(1);
       });
     });
+
+    group('Trip Sharing', () {
+      test('isTripSharingAvailable returns true by default', () async {
+        const isAvailable = true;
+        when(
+          () => driveKitTripAnalysisPlatform.isTripSharingAvailable(),
+        ).thenAnswer((_) async => isAvailable);
+
+        final actualIsTripSharingAvailable =
+            await DriveKitTripAnalysis.instance.isTripSharingAvailable();
+        expect(actualIsTripSharingAvailable, equals(isAvailable));
+      });
+
+      test('calls createTripSharingLink on platform implementation', () async {
+        const mockedValue = 60;
+        final mockedCreateTripSharingLinkResponse =
+            CreateTripSharingLinkResponse(
+          status: CreateTripSharingLinkStatus.success,
+          data: DKTripSharingLink(
+            code: 'myCode',
+            url: 'myUrl',
+            startDate: 'startDate',
+            endDate: 'endDate',
+          ),
+        );
+        when(
+          () => driveKitTripAnalysisPlatform.createTripSharingLink(mockedValue),
+        ).thenAnswer((_) async => mockedCreateTripSharingLinkResponse);
+        await DriveKitTripAnalysis.instance.createTripSharingLink(mockedValue);
+        verify(
+          () => driveKitTripAnalysisPlatform.createTripSharingLink(mockedValue),
+        ).called(1);
+      });
+
+      test('calls getTripSharingLink on platform implementation', () async {
+        when(() => driveKitTripAnalysisPlatform.getTripSharingLink())
+            .thenAnswer(
+          (_) async => GetTripSharingLinkResponse(
+            status: GetTripSharingLinkStatus.success,
+            data: DKTripSharingLink(
+              code: 'myCode',
+              url: 'myUrl',
+              startDate: 'startDate',
+              endDate: 'endDate',
+            ),
+          ),
+        );
+
+        final mockedTripSharingLink = DKTripSharingLink(
+          code: 'myCode',
+          url: 'myUrl',
+          startDate: 'startDate',
+          endDate: 'endDate',
+        );
+
+        final actualTripSharingResponse =
+            await DriveKitTripAnalysis.instance.getTripSharingLink();
+        expect(
+          actualTripSharingResponse.status,
+          GetTripSharingLinkStatus.success,
+        );
+        expect(
+          actualTripSharingResponse.data?.code,
+          mockedTripSharingLink.code,
+        );
+        expect(
+          actualTripSharingResponse.data?.url,
+          mockedTripSharingLink.url,
+        );
+        expect(
+          actualTripSharingResponse.data?.startDate,
+          mockedTripSharingLink.startDate,
+        );
+        expect(
+          actualTripSharingResponse.data?.endDate,
+          mockedTripSharingLink.endDate,
+        );
+      });
+
+      test('calls revokeTripSharingLink on platform implementation', () async {
+        const mockedRevokeTripSharingLinkStatus =
+            RevokeTripSharingLinkStatus.success;
+        when(() => driveKitTripAnalysisPlatform.revokeTripSharingLink())
+            .thenAnswer((_) async => mockedRevokeTripSharingLinkStatus);
+
+        final actualRevokeTripSharingLinkStatus =
+            await DriveKitTripAnalysis.instance.revokeTripSharingLink();
+        expect(
+          actualRevokeTripSharingLinkStatus,
+          equals(
+            mockedRevokeTripSharingLinkStatus,
+          ),
+        );
+      });
+    });
   });
 }
