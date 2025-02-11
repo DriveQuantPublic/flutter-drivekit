@@ -712,5 +712,37 @@ void main() {
         expect(lastTripLocation, null);
       });
     });
+
+    group('Trip Sharing', () {
+      test('isTripSharingAvailable calls Android implementation', () async {
+        //mock
+        when(() => androidTripAnalysisApi.isTripSharingAvailable()).thenAnswer(
+          (_) async => true,
+        );
+
+        //test
+        await DriveKitTripAnalysisPlatform.instance.isTripSharingAvailable();
+        verify(() => androidTripAnalysisApi.isTripSharingAvailable()).called(1);
+      });
+
+      test('createTripSharingLink calls Android implementation', () async {
+        //mock
+        when(() => androidTripAnalysisApi.createTripSharingLink(60)).thenAnswer(
+          (_) async => PigeonCreateTripSharingLinkResponse(
+            status: PigeonCreateTripSharingLinkStatus.success,
+            data: PigeonTripSharingLink(
+                code: 'myCode',
+                url: 'myUrl',
+                startDate: 'startDate',
+                endDate: 'endDate'),
+          ),
+        );
+
+        //test
+        await DriveKitTripAnalysisPlatform.instance.createTripSharingLink(60);
+        verify(() => androidTripAnalysisApi.createTripSharingLink(60))
+            .called(1);
+      });
+    });
   });
 }
