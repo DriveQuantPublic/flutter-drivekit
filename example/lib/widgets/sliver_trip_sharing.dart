@@ -28,7 +28,7 @@ class SliverTripSharing extends StatelessWidget {
               );
             }
           },
-          child: const Text('Feature available?'),
+          child: const Text('Is feature available?'),
         ),
         ElevatedButton(
           onPressed: () async {
