@@ -548,3 +548,117 @@ The method can return null if the user is not authenticated, or didn’t make a 
 | good | The GPS accuracy is strictly below 10 meters. |
 | fair | The GPS accuracy is between 10 and 30 meters. |
 | poor | The GPS accuracy is strictly above 30 meters. |
+
+### isTripSharingAvailable
+
+If the trip sharing feature is enabled for your company, your API key carries out the feature access and a trip sharing link can be generated.
+
+```dart
+Future<bool> isTripSharingAvailable()
+```
+
+To check if the trip sharing feature is available for your API key, you can call the following code:
+
+```dart
+final isAvailable = await DriveKitTripAnalysis.instance.isTripSharingAvailable();
+```
+
+### createTripSharingLink
+
+```dart
+Future<CreateTripSharingLinkResponse> createTripSharingLink(int durationInSeconds)
+```
+
+To generate a link to share trips, use the following code:
+
+```dart
+const oneHourInSeconds = 1 * 60 * 60;
+final response = await DriveKitTripAnalysis.instance.createTripSharingLink(oneHourInSeconds);
+```
+
+The method takes a `durationInSeconds` parameter which indicates how long in seconds from now the sharing link will be valid.
+
+#### CreateTripSharingLinkResponse
+
+| Field  | Type                        | Description                                     |
+| ------ | --------------------------- | ----------------------------------------------- |
+| status | CreateTripSharingLinkStatus | The status of the request                       |
+| data   | DKTripSharingLink           | Can be `null`. Data about the trip sharing link |
+
+#### CreateTripSharingLinkStatus
+
+| Field                   | Description                                                                                                                                                |
+| ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| success                 | The link has been successfully created. Information is returned in `data`                                                                                  |
+| activeLinkAlreadyExists | A link already exists for this user. Information returned in `data` is null. 💡 You have to call the method to retrieve an existing link in your workflow. |
+| error                   | An error occurred, for instance when the user has no network. Information returned in `data` is null.                                                      |
+| userNotConnected        | The user is not yet connected to DriveKit. Information returned in `data` is null.                                                                         |
+| invalidDuration         | An error occurred when trying to create a link. The duration parameter must be strictly greater than 0. Information returned in `data` is null.            |
+| unauthenticated         | The user has been disconnected. Information returned in `data` is null.                                                                                    |
+| forbidden               | Your API key is not allowed to use the feature. Information returned in `data` is null.                                                                    |
+
+#### DKTripSharingLink
+
+| Field     | Type   | Description                                                   |
+| --------- | ------ | ------------------------------------------------------------- |
+| code      | String | Unique trip sharing code.                                     |
+| url       | String | URL of the map that will display the current trip of the user |
+| startDate | String | Link validity start date                                      |
+| endDate   | String | Link expiration date                                          |
+
+### getTripSharingLink
+
+```dart
+Future<GetTripSharingLinkResponse> getTripSharingLink({
+    SynchronizationType synchronizationType = SynchronizationType.defaultSync,
+})
+```
+
+To retrieve a link to share trips, use the following code:
+
+```dart
+final response = await DriveKitTripAnalysis.instance.getTripSharingLink();
+```
+
+The method takes a `synchronizationType` parameter. It will retrieve locally stored data if the value is `cache`, otherwise with the `defaultSync` value it will call the DriveQuant’s servers.
+
+#### GetTripSharingLinkResponse
+
+| Field  | Type                     | Description                                     |
+| ------ | ------------------------ | ----------------------------------------------- |
+| status | GetTripSharingLinkStatus | The status of the request                       |
+| link   | DKTripSharingLink        | Can be `null`. Data about the trip sharing link |
+
+#### GetTripSharingLinkStatus
+
+| Field                | Description                                                                                                    |
+| -------------------- | -------------------------------------------------------------------------------------------------------------- |
+| success              | The link has been successfully retrieved. Information is returned in `data`.                                   |
+| failedToGetCacheOnly | An error occurred when trying to retrieve a link. Locally trip sharing link, if exists, is returned in `data`. |
+| noActiveLink         | There is no active link for the user. Information returned in data is `null`.                                  |
+| userNotConnected     | The user is not yet connected to DriveKit. Information returned in `data` is null.                             |
+| unauthenticated      | The user has been disconnected. Information returned in data is `null`.                                        |
+| forbidden            | Your API key is not allowed to use the feature. Information returned in `data` is null.                        |
+
+### revokeTripSharingLink
+
+```dart
+Future<RevokeTripSharingLinkStatus> revokeTripSharingLink()
+```
+
+To revoke a trip sharing link, use the following code:
+
+```dart
+final response = await DriveKitTripAnalysis.instance.revokeTripSharingLink()
+```
+
+#### RevokeTripSharingLinkStatus
+
+| Field            | Description                                      |
+| ---------------- | ------------------------------------------------ |
+| success          | The link has been successfully revoked           |
+| noActiveLink     | There is no active link for the user             |
+| error            | An error occurred when trying to revoke the link |
+| userNotConnected | The user is not yet connected to DriveKit        |
+| unauthenticated  | The user has been disconnected                   |
+| forbidden        | Your API key is not allowed to use the feature   |
