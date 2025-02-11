@@ -832,7 +832,8 @@ extension PigeonTripRecordingFinishedStateAdapter
 /// class in the model.
 extension PigeonCreateTripSharingLinkResponseAdapter
     on PigeonCreateTripSharingLinkResponse {
-  /// Converts a [PigeonCreateTripSharingLinkResponse] to a corresponding model class.
+  /// Converts a [PigeonCreateTripSharingLinkResponse] to a corresponding model
+  /// class.
   CreateTripSharingLinkResponse toModelImplementation() {
     return CreateTripSharingLinkResponse(
       status: status.toModelImplementation(),
