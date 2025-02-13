@@ -9,7 +9,7 @@ To learn more about DriveKit, please visit our [DriveKit documentation](https://
 To use this plugin, run this command in your project
 
 ```
-flutter pub add drivekit_trip_analysis
+flutter pub add flutter_drivekit_trip_analysis
 ```
 
 Now, you can import `'package:flutter_drivekit_trip_analysis/flutter_drivekit_trip_analysis.dart'` and use `DriveKitTripAnalysis` in your Dart code.

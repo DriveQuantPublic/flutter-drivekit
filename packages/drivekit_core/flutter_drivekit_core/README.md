@@ -9,7 +9,7 @@ To learn more about DriveKit, please visit our [DriveKit documentation](https://
 To use this plugin, run this command in your project
 
 ```
-flutter pub add drivekit_core
+flutter pub add flutter_drivekit_core
 ```
 
 Now, you can import `'package:flutter_drivekit_core/flutter_drivekit_core.dart'` and use `DriveKitCore` in your Dart code.
