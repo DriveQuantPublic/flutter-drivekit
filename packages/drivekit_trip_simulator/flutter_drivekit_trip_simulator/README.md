@@ -9,7 +9,7 @@ To learn more about DriveKit, please visit our [DriveKit documentation](https://
 To use this plugin, run this command in your project
 
 ```
-flutter pub add drivekit_trip_simulator
+flutter pub add flutter_drivekit_trip_simulator
 ```
 
 Now, you can import `'package:flutter_drivekit_trip_simulator/flutter_drivekit_trip_simulator.dart'` and use `DriveKitTripSimulator` in your Dart code.

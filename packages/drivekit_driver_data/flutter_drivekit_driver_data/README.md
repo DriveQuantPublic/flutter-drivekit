@@ -9,7 +9,7 @@ To learn more about DriveKit, please visit our [DriveKit documentation](https://
 To use this plugin, run this command in your project
 
 ```
-flutter pub add drivekit_driver_data
+flutter pub add flutter_drivekit_driver_data
 ```
 
 Now, you can import `'package:flutter_drivekit_driver_data/flutter_drivekit_driver_data.dart'` and use `DriveKitDriverData` in your Dart code.
