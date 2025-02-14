@@ -68,8 +68,3 @@ tasks.formatKotlinMain {
 tasks.lintKotlinMain {
     exclude { it.file.path.contains("com/drivequant/drivekit/flutter/core/CoreApi.kt")}
 }
-
-// To run formating on clean. Can find a better solution on commit hook
-tasks.named('clean') {
-    dependsOn 'formatKotlin'
-}
