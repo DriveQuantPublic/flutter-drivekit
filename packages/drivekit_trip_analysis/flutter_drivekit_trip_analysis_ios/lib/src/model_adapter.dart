@@ -870,7 +870,7 @@ extension PigeonCreateTripSharingLinkStatusAdapter
 
 /// Adapts the [PigeonTripSharingLink] class to the corresponding class in
 /// the model.
-extension PigeonPigeonTripSharingLinkAdapter on PigeonTripSharingLink {
+extension PigeonTripSharingLinkAdapter on PigeonTripSharingLink {
   /// Converts a [PigeonTripSharingLink] to a corresponding model class.
   DKTripSharingLink? toModelImplementation() {
     return DKTripSharingLink(
