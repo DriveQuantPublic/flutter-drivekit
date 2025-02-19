@@ -1,8 +1,10 @@
 // PigeonMapper object with the mapping function
 package com.drivequant.drivekit.flutter.tripanalysis.mapper
 
+import com.drivequant.drivekit.core.SynchronizationType
 import com.drivequant.drivekit.core.common.model.DKCoordinateAccuracy
 import com.drivequant.drivekit.core.common.model.DKTripLocation
+import com.drivequant.drivekit.core.extension.toDriveKitBackendFormat
 import com.drivequant.drivekit.databaseutils.entity.AdvancedEnergyEstimation
 import com.drivequant.drivekit.databaseutils.entity.BrakeWear
 import com.drivequant.drivekit.databaseutils.entity.Call
@@ -35,6 +37,8 @@ import com.drivequant.drivekit.flutter.tripanalysis.PigeonBrakeWear
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonCall
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonCancelTrip
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonCrashStatus
+import com.drivequant.drivekit.flutter.tripanalysis.PigeonCreateTripSharingLinkResponse
+import com.drivequant.drivekit.flutter.tripanalysis.PigeonCreateTripSharingLinkStatus
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonCurrentTripInfo
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonDKCrashFeedbackSeverity
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonDKCrashFeedbackType
@@ -47,10 +51,13 @@ import com.drivequant.drivekit.flutter.tripanalysis.PigeonEnergyEstimation
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonEvaluationData
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonFuelEstimation
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonFuelEstimationContext
+import com.drivequant.drivekit.flutter.tripanalysis.PigeonGetTripSharingLinkResponse
+import com.drivequant.drivekit.flutter.tripanalysis.PigeonGetTripSharingLinkStatus
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonLastTripLocation
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonLogbook
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonManeuverData
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonPollutants
+import com.drivequant.drivekit.flutter.tripanalysis.PigeonRevokeTripSharingLinkStatus
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonSafety
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonSafetyContext
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonSafetyEvent
@@ -58,6 +65,7 @@ import com.drivequant.drivekit.flutter.tripanalysis.PigeonSpeedLimitContext
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonSpeedingStatistics
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonStartMode
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonState
+import com.drivequant.drivekit.flutter.tripanalysis.PigeonSynchronizationType
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonTireWear
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonTrip
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonTripAdviceData
@@ -73,6 +81,7 @@ import com.drivequant.drivekit.flutter.tripanalysis.PigeonTripResponseInfo
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonTripResponseInfoItem
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonTripResponseStatus
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonTripResponseStatusType
+import com.drivequant.drivekit.flutter.tripanalysis.PigeonTripSharingLink
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonTripStatistics
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonVehicle
 import com.drivequant.drivekit.tripanalysis.entity.TripPoint
@@ -92,6 +101,10 @@ import com.drivequant.drivekit.tripanalysis.service.crashdetection.feedback.Cras
 import com.drivequant.drivekit.tripanalysis.service.recorder.CancelTrip
 import com.drivequant.drivekit.tripanalysis.service.recorder.StartMode
 import com.drivequant.drivekit.tripanalysis.service.recorder.State
+import com.drivequant.drivekit.tripanalysis.service.tripsharing.model.CreateTripSharingLinkStatus
+import com.drivequant.drivekit.tripanalysis.service.tripsharing.model.DKTripSharingLink
+import com.drivequant.drivekit.tripanalysis.service.tripsharing.model.GetTripSharingLinkStatus
+import com.drivequant.drivekit.tripanalysis.service.tripsharing.model.RevokeTripSharingLinkStatus
 import com.drivequant.drivekit.tripanalysis.utils.TripResult
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -99,6 +112,11 @@ import java.util.*
 
 object PigeonMapper {
     private const val DATE_PATTERN = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+
+    fun PigeonSynchronizationType.fromPigeonSynchronizationType(): SynchronizationType = when (this) {
+        PigeonSynchronizationType.DEFAULT_SYNC -> SynchronizationType.DEFAULT
+        PigeonSynchronizationType.CACHE -> SynchronizationType.CACHE
+    }
 
     fun fromPigeonVehicle(pigeonVehicle: PigeonVehicle): TripVehicle = TripVehicle(
         carTypeIndex = pigeonVehicle.carTypeIndex.toInt(),
@@ -694,7 +712,7 @@ object PigeonMapper {
         )
     }
 
-    fun toPigeonCancelationReason(reason: DKTripCancelationReason): PigeonTripCancelationReason = when (reason) {
+    private fun toPigeonCancelationReason(reason: DKTripCancelationReason): PigeonTripCancelationReason = when (reason) {
         DKTripCancelationReason.USER -> PigeonTripCancelationReason.USER
         DKTripCancelationReason.HIGH_SPEED -> PigeonTripCancelationReason.HIGH_SPEED
         DKTripCancelationReason.NO_SPEED -> PigeonTripCancelationReason.NO_SPEED
@@ -706,5 +724,54 @@ object PigeonMapper {
         DKTripCancelationReason.BEACON_NO_SPEED -> PigeonTripCancelationReason.BEACON_NO_SPEED
         DKTripCancelationReason.BLUETOOTH_DEVICE_NO_SPEED -> PigeonTripCancelationReason.BLUETOOTH_DEVICE_NO_SPEED
         DKTripCancelationReason.APP_KILLED -> PigeonTripCancelationReason.APP_KILLED
+    }
+
+    fun toPigeonCreateTripSharingLink(status: CreateTripSharingLinkStatus, data: DKTripSharingLink?): PigeonCreateTripSharingLinkResponse = PigeonCreateTripSharingLinkResponse(
+        status = status.toPigeonCreateTripSharingLinkStatus(),
+        data = data?.toPigeonTripSharingLink()
+    )
+
+    private fun CreateTripSharingLinkStatus.toPigeonCreateTripSharingLinkStatus() = when (this) {
+        CreateTripSharingLinkStatus.SUCCESS -> PigeonCreateTripSharingLinkStatus.SUCCESS
+        CreateTripSharingLinkStatus.ERROR -> PigeonCreateTripSharingLinkStatus.ERROR
+        CreateTripSharingLinkStatus.USER_NOT_CONNECTED -> PigeonCreateTripSharingLinkStatus.USER_NOT_CONNECTED
+        CreateTripSharingLinkStatus.INVALID_DURATION -> PigeonCreateTripSharingLinkStatus.INVALID_DURATION
+        CreateTripSharingLinkStatus.UNAUTHENTICATED -> PigeonCreateTripSharingLinkStatus.UNAUTHENTICATED
+        CreateTripSharingLinkStatus.FORBIDDEN -> PigeonCreateTripSharingLinkStatus.FORBIDDEN
+        CreateTripSharingLinkStatus.ACTIVE_LINK_ALREADY_EXISTS -> PigeonCreateTripSharingLinkStatus.ACTIVE_LINK_ALREADY_EXISTS
+    }
+
+    fun toPigeonGetTripSharingLink(status: GetTripSharingLinkStatus, data: DKTripSharingLink?): PigeonGetTripSharingLinkResponse = PigeonGetTripSharingLinkResponse(
+        status = status.toPigeonGetTripSharingLinkStatus(),
+        data = data?.toPigeonTripSharingLink()
+    )
+
+    private fun GetTripSharingLinkStatus.toPigeonGetTripSharingLinkStatus() = when (this) {
+        GetTripSharingLinkStatus.SUCCESS -> PigeonGetTripSharingLinkStatus.SUCCESS
+        GetTripSharingLinkStatus.FAILED_TO_GET_CACHE_ONLY -> PigeonGetTripSharingLinkStatus.FAILED_TO_GET_CACHE_ONLY
+        GetTripSharingLinkStatus.USER_NOT_CONNECTED -> PigeonGetTripSharingLinkStatus.USER_NOT_CONNECTED
+        GetTripSharingLinkStatus.UNAUTHENTICATED -> PigeonGetTripSharingLinkStatus.UNAUTHENTICATED
+        GetTripSharingLinkStatus.FORBIDDEN -> PigeonGetTripSharingLinkStatus.FORBIDDEN
+        GetTripSharingLinkStatus.NO_ACTIVE_LINK -> PigeonGetTripSharingLinkStatus.NO_ACTIVE_LINK
+    }
+
+    private fun DKTripSharingLink?.toPigeonTripSharingLink(): PigeonTripSharingLink? = if (this == null) {
+        null
+    } else {
+        PigeonTripSharingLink(
+            code = this.code,
+            url = this.url,
+            startDate = this.startDate.toDriveKitBackendFormat(),
+            endDate = this.endDate.toDriveKitBackendFormat()
+        )
+    }
+
+    fun toPigeonRevokeTripSharingLink(status: RevokeTripSharingLinkStatus): PigeonRevokeTripSharingLinkStatus = when (status) {
+        RevokeTripSharingLinkStatus.SUCCESS -> PigeonRevokeTripSharingLinkStatus.SUCCESS
+        RevokeTripSharingLinkStatus.ERROR -> PigeonRevokeTripSharingLinkStatus.ERROR
+        RevokeTripSharingLinkStatus.USER_NOT_CONNECTED -> PigeonRevokeTripSharingLinkStatus.USER_NOT_CONNECTED
+        RevokeTripSharingLinkStatus.UNAUTHENTICATED -> PigeonRevokeTripSharingLinkStatus.UNAUTHENTICATED
+        RevokeTripSharingLinkStatus.FORBIDDEN -> PigeonRevokeTripSharingLinkStatus.FORBIDDEN
+        RevokeTripSharingLinkStatus.NO_ACTIVE_LINK -> PigeonRevokeTripSharingLinkStatus.NO_ACTIVE_LINK
     }
 }

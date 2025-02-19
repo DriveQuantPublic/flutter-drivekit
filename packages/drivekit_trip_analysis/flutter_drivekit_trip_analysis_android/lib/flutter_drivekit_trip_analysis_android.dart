@@ -238,4 +238,34 @@ class DriveKitTripAnalysisAndroid extends DriveKitTripAnalysisPlatform
       return lastTripLocation.toModelImplementation();
     }
   }
+
+  @override
+  Future<bool> isTripSharingAvailable() =>
+      androidTripAnalysisApi.isTripSharingAvailable();
+
+  @override
+  Future<CreateTripSharingLinkResponse> createTripSharingLink(
+    int durationInSeconds,
+  ) async {
+    final response = await androidTripAnalysisApi.createTripSharingLink(
+      durationInSeconds,
+    );
+    return response.toModelImplementation();
+  }
+
+  @override
+  Future<RevokeTripSharingLinkStatus> revokeTripSharingLink() async {
+    final response = await androidTripAnalysisApi.revokeTripSharingLink();
+    return response.toModelImplementation();
+  }
+
+  @override
+  Future<GetTripSharingLinkResponse> getTripSharingLink({
+    SynchronizationType synchronizationType = SynchronizationType.defaultSync,
+  }) async {
+    final response = await androidTripAnalysisApi.getTripSharingLink(
+      synchronizationType: synchronizationType.toPigeonImplementation(),
+    );
+    return response.toModelImplementation();
+  }
 }

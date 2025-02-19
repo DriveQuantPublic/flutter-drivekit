@@ -32,6 +32,18 @@ abstract class IOSTripAnalysisApi {
   void deleteAllTripMetadata();
   PigeonCurrentTripInfo? getCurrentTripInfo();
   PigeonLastTripLocation? getLastTripLocation();
+  bool isTripSharingAvailable();
+  @async
+  PigeonCreateTripSharingLinkResponse createTripSharingLink(
+    int durationInSeconds,
+  );
+  @async
+  PigeonGetTripSharingLinkResponse getTripSharingLink({
+    PigeonSynchronizationType synchronizationType =
+        PigeonSynchronizationType.defaultSync,
+  });
+  @async
+  PigeonRevokeTripSharingLinkStatus revokeTripSharingLink();
 }
 
 @FlutterApi()
@@ -55,6 +67,15 @@ abstract class FlutterTripAnalysisApi {
     PigeonDKCrashFeedbackType feedbackType,
     PigeonDKCrashFeedbackSeverity severity,
   );
+}
+
+/// Trip Sharing Synchronization Type
+enum PigeonSynchronizationType {
+  /// synchronize by calling the DriveQuant servers
+  defaultSync,
+
+  /// retrieve already synchronized items in the local database
+  cache
 }
 
 class PigeonVehicle {
@@ -1382,4 +1403,69 @@ class PigeonTripRecordingFinishedState {
   final PigeonStartMode startMode;
 
   final String recordingEndDate;
+}
+
+class PigeonCreateTripSharingLinkResponse {
+  PigeonCreateTripSharingLinkResponse({
+    required this.status,
+    required this.data,
+  });
+
+  final PigeonCreateTripSharingLinkStatus status;
+  final PigeonTripSharingLink? data;
+}
+
+enum PigeonCreateTripSharingLinkStatus {
+  success,
+  activeLinkAlreadyExists,
+  error,
+  userNotConnected,
+  invalidDuration,
+  unauthenticated,
+  forbidden
+}
+
+class PigeonGetTripSharingLinkResponse {
+  PigeonGetTripSharingLinkResponse({
+    required this.status,
+    required this.data,
+  });
+
+  final PigeonGetTripSharingLinkStatus status;
+  final PigeonTripSharingLink? data;
+}
+
+enum PigeonGetTripSharingLinkStatus {
+  success,
+  failedToGetCacheOnly,
+  noActiveLink,
+  userNotConnected,
+  unauthenticated,
+  forbidden
+}
+
+enum PigeonRevokeTripSharingLinkStatus {
+  success,
+  noActiveLink,
+  error,
+  userNotConnected,
+  unauthenticated,
+  forbidden
+}
+
+class PigeonTripSharingLink {
+  PigeonTripSharingLink({
+    required this.code,
+    required this.url,
+    required this.startDate,
+    required this.endDate,
+  });
+
+  final String code;
+
+  final String url;
+
+  final String startDate;
+
+  final String endDate;
 }

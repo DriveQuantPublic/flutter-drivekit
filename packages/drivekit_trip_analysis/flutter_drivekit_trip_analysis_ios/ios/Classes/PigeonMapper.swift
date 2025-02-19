@@ -28,6 +28,17 @@ class PigeonMapper {
     }
 }
 
+extension SynchronizationType {
+    init(from pigeonSynchronizationType: PigeonSynchronizationType) {
+        switch pigeonSynchronizationType {
+        case .defaultSync:
+            self = .defaultSync
+        case .cache:
+            self = .cache
+        }
+    }
+}
+
 extension PigeonStartMode {
     init(from startMode: StartMode) {
         switch startMode {
@@ -907,6 +918,82 @@ extension PigeonTripRecordingFinishedState {
             recordingConfirmationDate: DateUtils.convertDateToString(date: state.recordingConfirmationDate),
             startMode: PigeonStartMode.init(from: state.startMode),
             recordingEndDate: DateUtils.convertDateToString(date: state.recordingEndDate)
+        )
+    }
+}
+
+extension PigeonCreateTripSharingLinkStatus {
+    init(from status: DKCreateTripSharingLinkStatus) {
+        switch status {
+        case .success:
+            self = .success
+        case .userNotConnected:
+            self = .userNotConnected
+        case .invalidDuration:
+            self = .invalidDuration
+        case .unauthenticated:
+            self = .unauthenticated
+        case .forbidden:
+            self = .forbidden
+        case .activeLinkAlreadyExists:
+            self = .activeLinkAlreadyExists
+        case .error:
+            self = .error
+        @unknown default:
+            fatalError()
+        }
+    }
+}
+
+extension PigeonGetTripSharingLinkStatus {
+    init(from status: DKGetTripSharingLinkStatus) {
+        switch status {
+        case .success:
+            self = .success
+        case .userNotConnected:
+            self = .userNotConnected
+        case .unauthenticated:
+            self = .unauthenticated
+        case .forbidden:
+            self = .forbidden
+        case .failedToGetCacheOnly:
+            self = .failedToGetCacheOnly
+        case .noActiveLink:
+            self = .noActiveLink
+        @unknown default:
+            fatalError()
+        }
+    }
+}
+
+extension PigeonRevokeTripSharingLinkStatus {
+    init(from status: DKRevokeTripSharingLinkStatus) {
+        switch status {
+        case .success:
+            self = .success
+        case .userNotConnected:
+            self = .userNotConnected
+        case .unauthenticated:
+            self = .unauthenticated
+        case .forbidden:
+            self = .forbidden
+        case .noActiveLink:
+            self = .noActiveLink
+        case .error:
+            self = .error
+        @unknown default:
+            fatalError()
+        }
+    }
+}
+
+extension PigeonTripSharingLink {
+    init(from data: DKTripSharingLink) {
+        self.init(
+            code: data.code,
+            url: data.url,
+            startDate: DateUtils.convertDateToString(date: data.startDate),
+            endDate: DateUtils.convertDateToString(date: data.endDate)
         )
     }
 }

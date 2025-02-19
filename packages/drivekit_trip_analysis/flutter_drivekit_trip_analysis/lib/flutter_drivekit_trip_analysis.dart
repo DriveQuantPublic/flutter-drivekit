@@ -197,4 +197,33 @@ class DriveKitTripAnalysis {
   Future<LastTripLocation?> getLastTripLocation() async {
     return _platform.getLastTripLocation();
   }
+
+  /// Call this method to check if the trip sharing feature is available
+  /// for your company
+  Future<bool> isTripSharingAvailable() async {
+    return _platform.isTripSharingAvailable();
+  }
+
+  /// To generate a link to share trips, use the following method.
+  /// The method takes a durationInSeconds parameter which indicates how long
+  /// in seconds from now the sharing link will be valid.
+  Future<CreateTripSharingLinkResponse> createTripSharingLink(
+    int durationInSeconds,
+  ) {
+    return _platform.createTripSharingLink(durationInSeconds);
+  }
+
+  /// To retrieve a link to share trips, use the following method.
+  /// The method takes a `synchronizationType` parameter.
+  /// It will retrieve locally stored data if the value is `CACHE`,
+  /// otherwise with the `DEFAULT` value it will call the DriveQuant’s servers.
+  Future<GetTripSharingLinkResponse> getTripSharingLink({
+    SynchronizationType synchronizationType = SynchronizationType.defaultSync,
+  }) =>
+      _platform.getTripSharingLink(synchronizationType: synchronizationType);
+
+  /// To revoke a trip sharing link, use the following method.
+  Future<RevokeTripSharingLinkStatus> revokeTripSharingLink() async {
+    return _platform.revokeTripSharingLink();
+  }
 }
