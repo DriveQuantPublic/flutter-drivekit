@@ -1,3 +1,6 @@
+# 1.5.0
+    - Update DriveKit version to 2.12.0 for iOS and Android
+
 # 1.4.1
     - Do not run ktlint on clean and build tasks (Android)
 
