@@ -60,28 +60,28 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "1.4.1"
+    version: "1.5.0"
   flutter_drivekit_core_android:
     dependency: "direct overridden"
     description:
       path: "../../flutter_drivekit_core_android"
       relative: true
     source: path
-    version: "1.4.1"
+    version: "1.5.0"
   flutter_drivekit_core_ios:
     dependency: "direct overridden"
     description:
       path: "../../flutter_drivekit_core_ios"
       relative: true
     source: path
-    version: "1.4.1"
+    version: "1.5.0"
   flutter_drivekit_core_platform_interface:
     dependency: "direct overridden"
     description:
       path: "../../flutter_drivekit_core_platform_interface"
       relative: true
     source: path
-    version: "1.4.1"
+    version: "1.5.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
