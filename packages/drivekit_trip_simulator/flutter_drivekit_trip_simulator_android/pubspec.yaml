@@ -20,7 +20,7 @@ flutter:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_drivekit_trip_simulator_platform_interface: ^1.4.0
+  flutter_drivekit_trip_simulator_platform_interface: 1.4.0
 
 dev_dependencies:
   flutter_test:
