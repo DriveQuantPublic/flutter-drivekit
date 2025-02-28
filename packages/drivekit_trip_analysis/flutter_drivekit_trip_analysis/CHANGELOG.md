@@ -1,3 +1,7 @@
+# 1.4.1
+
+    - Remove [caret syntax](https://dart.dev/tools/pub/dependencies#caret-syntax) to use the exact DriveKit Flutter SDK version.
+
 # 1.4.0
 
     - Update DriveKit version to 2.9.1 for iOS
