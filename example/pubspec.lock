@@ -5,10 +5,10 @@ packages:
     dependency: transitive
     description:
       name: args
-      sha256: "7cf60b9f0cc88203c5a190b4cd62a99feea42759a7fa695010eb5de1c0b2252a"
+      sha256: bf9f5caeea8d8fe6721a9c358dd8a5c1947b27f1cfaa18b39c301273594919e6
       url: "https://pub.dev"
     source: hosted
-    version: "2.5.0"
+    version: "2.6.0"
   async:
     dependency: transitive
     description:
@@ -53,10 +53,10 @@ packages:
     dependency: transitive
     description:
       name: dbus
-      sha256: "365c771ac3b0e58845f39ec6deebc76e3276aa9922b0cc60840712094d9047ac"
+      sha256: "79e0c23480ff85dc68de79e2cd6334add97e48f7f4865d17686dd6ea81a47e8c"
       url: "https://pub.dev"
     source: hosted
-    version: "0.7.10"
+    version: "0.7.11"
   fake_async:
     dependency: transitive
     description:
@@ -84,120 +84,120 @@ packages:
       path: "../packages/drivekit_core/flutter_drivekit_core"
       relative: true
     source: path
-    version: "1.4.1"
+    version: "1.4.2"
   flutter_drivekit_core_android:
     dependency: "direct overridden"
     description:
       path: "../packages/drivekit_core/flutter_drivekit_core_android"
       relative: true
     source: path
-    version: "1.4.1"
+    version: "1.4.2"
   flutter_drivekit_core_ios:
     dependency: "direct overridden"
     description:
       path: "../packages/drivekit_core/flutter_drivekit_core_ios"
       relative: true
     source: path
-    version: "1.4.1"
+    version: "1.4.2"
   flutter_drivekit_core_platform_interface:
     dependency: "direct overridden"
     description:
       path: "../packages/drivekit_core/flutter_drivekit_core_platform_interface"
       relative: true
     source: path
-    version: "1.4.1"
+    version: "1.4.2"
   flutter_drivekit_driver_data:
     dependency: "direct main"
     description:
       path: "../packages/drivekit_driver_data/flutter_drivekit_driver_data"
       relative: true
     source: path
-    version: "1.4.1"
+    version: "1.4.2"
   flutter_drivekit_driver_data_android:
     dependency: "direct overridden"
     description:
       path: "../packages/drivekit_driver_data/flutter_drivekit_driver_data_android"
       relative: true
     source: path
-    version: "1.4.1"
+    version: "1.4.2"
   flutter_drivekit_driver_data_ios:
     dependency: "direct overridden"
     description:
       path: "../packages/drivekit_driver_data/flutter_drivekit_driver_data_ios"
       relative: true
     source: path
-    version: "1.4.1"
+    version: "1.4.2"
   flutter_drivekit_driver_data_platform_interface:
     dependency: "direct overridden"
     description:
       path: "../packages/drivekit_driver_data/flutter_drivekit_driver_data_platform_interface"
       relative: true
     source: path
-    version: "1.4.1"
+    version: "1.4.2"
   flutter_drivekit_trip_analysis:
     dependency: "direct main"
     description:
       path: "../packages/drivekit_trip_analysis/flutter_drivekit_trip_analysis"
       relative: true
     source: path
-    version: "1.4.1"
+    version: "1.4.2"
   flutter_drivekit_trip_analysis_android:
     dependency: "direct overridden"
     description:
       path: "../packages/drivekit_trip_analysis/flutter_drivekit_trip_analysis_android"
       relative: true
     source: path
-    version: "1.4.1"
+    version: "1.4.2"
   flutter_drivekit_trip_analysis_ios:
     dependency: "direct overridden"
     description:
       path: "../packages/drivekit_trip_analysis/flutter_drivekit_trip_analysis_ios"
       relative: true
     source: path
-    version: "1.4.1"
+    version: "1.4.2"
   flutter_drivekit_trip_analysis_platform_interface:
     dependency: "direct overridden"
     description:
       path: "../packages/drivekit_trip_analysis/flutter_drivekit_trip_analysis_platform_interface"
       relative: true
     source: path
-    version: "1.4.1"
+    version: "1.4.2"
   flutter_drivekit_trip_simulator:
     dependency: "direct main"
     description:
       path: "../packages/drivekit_trip_simulator/flutter_drivekit_trip_simulator"
       relative: true
     source: path
-    version: "1.4.1"
+    version: "1.4.2"
   flutter_drivekit_trip_simulator_android:
     dependency: "direct overridden"
     description:
       path: "../packages/drivekit_trip_simulator/flutter_drivekit_trip_simulator_android"
       relative: true
     source: path
-    version: "1.4.1"
+    version: "1.4.2"
   flutter_drivekit_trip_simulator_ios:
     dependency: "direct overridden"
     description:
       path: "../packages/drivekit_trip_simulator/flutter_drivekit_trip_simulator_ios"
       relative: true
     source: path
-    version: "1.4.1"
+    version: "1.4.2"
   flutter_drivekit_trip_simulator_platform_interface:
     dependency: "direct overridden"
     description:
       path: "../packages/drivekit_trip_simulator/flutter_drivekit_trip_simulator_platform_interface"
       relative: true
     source: path
-    version: "1.4.1"
+    version: "1.4.2"
   flutter_local_notifications:
     dependency: "direct main"
     description:
       name: flutter_local_notifications
-      sha256: c500d5d9e7e553f06b61877ca6b9c8b92c570a4c8db371038702e8ce57f8a50f
+      sha256: "674173fd3c9eda9d4c8528da2ce0ea69f161577495a9cc835a2a4ecd7eadeb35"
       url: "https://pub.dev"
     source: hosted
-    version: "17.2.2"
+    version: "17.2.4"
   flutter_local_notifications_linux:
     dependency: transitive
     description:
@@ -300,34 +300,34 @@ packages:
     dependency: transitive
     description:
       name: permission_handler_android
-      sha256: b29a799ca03be9f999aa6c39f7de5209482d638e6f857f6b93b0875c618b7e54
+      sha256: "71bbecfee799e65aff7c744761a57e817e73b738fedf62ab7afd5593da21f9f1"
       url: "https://pub.dev"
     source: hosted
-    version: "12.0.7"
+    version: "12.0.13"
   permission_handler_apple:
     dependency: transitive
     description:
       name: permission_handler_apple
-      sha256: e6f6d73b12438ef13e648c4ae56bd106ec60d17e90a59c4545db6781229082a0
+      sha256: f84a188e79a35c687c132a0a0556c254747a08561e99ab933f12f6ca71ef3c98
       url: "https://pub.dev"
     source: hosted
-    version: "9.4.5"
+    version: "9.4.6"
   permission_handler_html:
     dependency: transitive
     description:
       name: permission_handler_html
-      sha256: "6cac773d389e045a8d4f85418d07ad58ef9e42a56e063629ce14c4c26344de24"
+      sha256: "38f000e83355abb3392140f6bc3030660cfaef189e1f87824facb76300b4ff24"
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.2"
+    version: "0.1.3+5"
   permission_handler_platform_interface:
     dependency: transitive
     description:
       name: permission_handler_platform_interface
-      sha256: "48d4fcf201a1dad93ee869ab0d4101d084f49136ec82a8a06ed9cfeacab9fd20"
+      sha256: e9c8eadee926c4532d0305dff94b85bf961f16759c3af791486613152af4b4f9
       url: "https://pub.dev"
     source: hosted
-    version: "4.2.1"
+    version: "4.2.3"
   permission_handler_windows:
     dependency: transitive
     description:
@@ -449,18 +449,18 @@ packages:
     dependency: transitive
     description:
       name: web
-      sha256: "97da13628db363c635202ad97068d47c5b8aa555808e7a9411963c533b449b27"
+      sha256: "868d88a33d8a87b18ffc05f9f030ba328ffefba92d6c127917a2ba740f9cfe4a"
       url: "https://pub.dev"
     source: hosted
-    version: "0.5.1"
+    version: "1.1.1"
   xdg_directories:
     dependency: transitive
     description:
       name: xdg_directories
-      sha256: faea9dee56b520b55a566385b84f2e8de55e7496104adada9962e0bd11bcff1d
+      sha256: "7a3f37b05d989967cdddcbb571f1ea834867ae2faa29725fd085180e0883aa15"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.4"
+    version: "1.1.0"
   xml:
     dependency: transitive
     description:

@@ -1,4 +1,9 @@
+# 1.4.2
+
+    - Remove [caret syntax](https://dart.dev/tools/pub/dependencies#caret-syntax) to use the exact DriveKit Flutter SDK version.
+
 # 1.4.1
+
     - Do not run ktlint on clean and build tasks (Android)
 
 # 1.4.0
