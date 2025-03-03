@@ -19,9 +19,9 @@ flutter:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_drivekit_trip_analysis_android: ^1.5.0
-  flutter_drivekit_trip_analysis_ios: ^1.5.0
-  flutter_drivekit_trip_analysis_platform_interface: ^1.5.0
+  flutter_drivekit_trip_analysis_android: 1.5.0
+  flutter_drivekit_trip_analysis_ios: 1.5.0
+  flutter_drivekit_trip_analysis_platform_interface: 1.5.0
 
 dev_dependencies:
   flutter_test:

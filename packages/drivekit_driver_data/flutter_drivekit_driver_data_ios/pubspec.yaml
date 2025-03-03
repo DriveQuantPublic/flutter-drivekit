@@ -20,7 +20,7 @@ dependencies:
   collection: ^1.18.0
   flutter:
     sdk: flutter
-  flutter_drivekit_driver_data_platform_interface: ^1.5.0
+  flutter_drivekit_driver_data_platform_interface: 1.5.0
 
 dev_dependencies:
   flutter_test:
