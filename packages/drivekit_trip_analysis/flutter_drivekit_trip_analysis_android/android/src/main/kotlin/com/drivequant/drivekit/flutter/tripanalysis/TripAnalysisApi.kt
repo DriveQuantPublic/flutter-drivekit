@@ -47,6 +47,20 @@ class FlutterTripAnalysisError (
   val details: Any? = null
 ) : Throwable()
 
+/** Trip Sharing Synchronization Type */
+enum class PigeonSynchronizationType(val raw: Int) {
+  /** synchronize by calling the DriveQuant servers */
+  DEFAULT_SYNC(0),
+  /** retrieve already synchronized items in the local database */
+  CACHE(1);
+
+  companion object {
+    fun ofRaw(raw: Int): PigeonSynchronizationType? {
+      return values().firstOrNull { it.raw == raw }
+    }
+  }
+}
+
 enum class PigeonStartMode(val raw: Int) {
   GPS(0),
   BEACON(1),
@@ -215,6 +229,52 @@ enum class PigeonTripCancelationReason(val raw: Int) {
 
   companion object {
     fun ofRaw(raw: Int): PigeonTripCancelationReason? {
+      return values().firstOrNull { it.raw == raw }
+    }
+  }
+}
+
+enum class PigeonCreateTripSharingLinkStatus(val raw: Int) {
+  SUCCESS(0),
+  ACTIVE_LINK_ALREADY_EXISTS(1),
+  ERROR(2),
+  USER_NOT_CONNECTED(3),
+  INVALID_DURATION(4),
+  UNAUTHENTICATED(5),
+  FORBIDDEN(6);
+
+  companion object {
+    fun ofRaw(raw: Int): PigeonCreateTripSharingLinkStatus? {
+      return values().firstOrNull { it.raw == raw }
+    }
+  }
+}
+
+enum class PigeonGetTripSharingLinkStatus(val raw: Int) {
+  SUCCESS(0),
+  FAILED_TO_GET_CACHE_ONLY(1),
+  NO_ACTIVE_LINK(2),
+  USER_NOT_CONNECTED(3),
+  UNAUTHENTICATED(4),
+  FORBIDDEN(5);
+
+  companion object {
+    fun ofRaw(raw: Int): PigeonGetTripSharingLinkStatus? {
+      return values().firstOrNull { it.raw == raw }
+    }
+  }
+}
+
+enum class PigeonRevokeTripSharingLinkStatus(val raw: Int) {
+  SUCCESS(0),
+  NO_ACTIVE_LINK(1),
+  ERROR(2),
+  USER_NOT_CONNECTED(3),
+  UNAUTHENTICATED(4),
+  FORBIDDEN(5);
+
+  companion object {
+    fun ofRaw(raw: Int): PigeonRevokeTripSharingLinkStatus? {
       return values().firstOrNull { it.raw == raw }
     }
   }
@@ -1655,6 +1715,78 @@ data class PigeonTripRecordingFinishedState (
     )
   }
 }
+
+/** Generated class from Pigeon that represents data sent in messages. */
+data class PigeonCreateTripSharingLinkResponse (
+  val status: PigeonCreateTripSharingLinkStatus,
+  val data: PigeonTripSharingLink? = null
+
+) {
+  companion object {
+    @Suppress("LocalVariableName")
+    fun fromList(__pigeon_list: List<Any?>): PigeonCreateTripSharingLinkResponse {
+      val status = __pigeon_list[0] as PigeonCreateTripSharingLinkStatus
+      val data = __pigeon_list[1] as PigeonTripSharingLink?
+      return PigeonCreateTripSharingLinkResponse(status, data)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      status,
+      data,
+    )
+  }
+}
+
+/** Generated class from Pigeon that represents data sent in messages. */
+data class PigeonGetTripSharingLinkResponse (
+  val status: PigeonGetTripSharingLinkStatus,
+  val data: PigeonTripSharingLink? = null
+
+) {
+  companion object {
+    @Suppress("LocalVariableName")
+    fun fromList(__pigeon_list: List<Any?>): PigeonGetTripSharingLinkResponse {
+      val status = __pigeon_list[0] as PigeonGetTripSharingLinkStatus
+      val data = __pigeon_list[1] as PigeonTripSharingLink?
+      return PigeonGetTripSharingLinkResponse(status, data)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      status,
+      data,
+    )
+  }
+}
+
+/** Generated class from Pigeon that represents data sent in messages. */
+data class PigeonTripSharingLink (
+  val code: String,
+  val url: String,
+  val startDate: String,
+  val endDate: String
+
+) {
+  companion object {
+    @Suppress("LocalVariableName")
+    fun fromList(__pigeon_list: List<Any?>): PigeonTripSharingLink {
+      val code = __pigeon_list[0] as String
+      val url = __pigeon_list[1] as String
+      val startDate = __pigeon_list[2] as String
+      val endDate = __pigeon_list[3] as String
+      return PigeonTripSharingLink(code, url, startDate, endDate)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      code,
+      url,
+      startDate,
+      endDate,
+    )
+  }
+}
 private object TripAnalysisApiPigeonCodec : StandardMessageCodec() {
   override fun readValueOfType(type: Byte, buffer: ByteBuffer): Any? {
     return when (type) {
@@ -1849,58 +1981,93 @@ private object TripAnalysisApiPigeonCodec : StandardMessageCodec() {
         }
       }
       167.toByte() -> {
-        return (readValue(buffer) as Int?)?.let {
-          PigeonStartMode.ofRaw(it)
+        return (readValue(buffer) as? List<Any?>)?.let {
+          PigeonCreateTripSharingLinkResponse.fromList(it)
         }
       }
       168.toByte() -> {
-        return (readValue(buffer) as Int?)?.let {
-          PigeonCancelTrip.ofRaw(it)
+        return (readValue(buffer) as? List<Any?>)?.let {
+          PigeonGetTripSharingLinkResponse.fromList(it)
         }
       }
       169.toByte() -> {
-        return (readValue(buffer) as Int?)?.let {
-          PigeonState.ofRaw(it)
+        return (readValue(buffer) as? List<Any?>)?.let {
+          PigeonTripSharingLink.fromList(it)
         }
       }
       170.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
-          PigeonDKCrashFeedbackType.ofRaw(it)
+          PigeonSynchronizationType.ofRaw(it)
         }
       }
       171.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
-          PigeonDKCrashFeedbackSeverity.ofRaw(it)
+          PigeonStartMode.ofRaw(it)
         }
       }
       172.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
-          PigeonCrashStatus.ofRaw(it)
+          PigeonCancelTrip.ofRaw(it)
         }
       }
       173.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
-          PigeonTripResponseStatusType.ofRaw(it)
+          PigeonState.ofRaw(it)
         }
       }
       174.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
-          PigeonTripResponseInfo.ofRaw(it)
+          PigeonDKCrashFeedbackType.ofRaw(it)
         }
       }
       175.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
-          PigeonTripResponseError.ofRaw(it)
+          PigeonDKCrashFeedbackSeverity.ofRaw(it)
         }
       }
       176.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
-          PigeonAccuracyLevel.ofRaw(it)
+          PigeonCrashStatus.ofRaw(it)
         }
       }
       177.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
+          PigeonTripResponseStatusType.ofRaw(it)
+        }
+      }
+      178.toByte() -> {
+        return (readValue(buffer) as Int?)?.let {
+          PigeonTripResponseInfo.ofRaw(it)
+        }
+      }
+      179.toByte() -> {
+        return (readValue(buffer) as Int?)?.let {
+          PigeonTripResponseError.ofRaw(it)
+        }
+      }
+      180.toByte() -> {
+        return (readValue(buffer) as Int?)?.let {
+          PigeonAccuracyLevel.ofRaw(it)
+        }
+      }
+      181.toByte() -> {
+        return (readValue(buffer) as Int?)?.let {
           PigeonTripCancelationReason.ofRaw(it)
+        }
+      }
+      182.toByte() -> {
+        return (readValue(buffer) as Int?)?.let {
+          PigeonCreateTripSharingLinkStatus.ofRaw(it)
+        }
+      }
+      183.toByte() -> {
+        return (readValue(buffer) as Int?)?.let {
+          PigeonGetTripSharingLinkStatus.ofRaw(it)
+        }
+      }
+      184.toByte() -> {
+        return (readValue(buffer) as Int?)?.let {
+          PigeonRevokeTripSharingLinkStatus.ofRaw(it)
         }
       }
       else -> super.readValueOfType(type, buffer)
@@ -2060,54 +2227,83 @@ private object TripAnalysisApiPigeonCodec : StandardMessageCodec() {
         stream.write(166)
         writeValue(stream, value.toList())
       }
-      is PigeonStartMode -> {
+      is PigeonCreateTripSharingLinkResponse -> {
         stream.write(167)
-        writeValue(stream, value.raw)
+        writeValue(stream, value.toList())
       }
-      is PigeonCancelTrip -> {
+      is PigeonGetTripSharingLinkResponse -> {
         stream.write(168)
-        writeValue(stream, value.raw)
+        writeValue(stream, value.toList())
       }
-      is PigeonState -> {
+      is PigeonTripSharingLink -> {
         stream.write(169)
-        writeValue(stream, value.raw)
+        writeValue(stream, value.toList())
       }
-      is PigeonDKCrashFeedbackType -> {
+      is PigeonSynchronizationType -> {
         stream.write(170)
         writeValue(stream, value.raw)
       }
-      is PigeonDKCrashFeedbackSeverity -> {
+      is PigeonStartMode -> {
         stream.write(171)
         writeValue(stream, value.raw)
       }
-      is PigeonCrashStatus -> {
+      is PigeonCancelTrip -> {
         stream.write(172)
         writeValue(stream, value.raw)
       }
-      is PigeonTripResponseStatusType -> {
+      is PigeonState -> {
         stream.write(173)
         writeValue(stream, value.raw)
       }
-      is PigeonTripResponseInfo -> {
+      is PigeonDKCrashFeedbackType -> {
         stream.write(174)
         writeValue(stream, value.raw)
       }
-      is PigeonTripResponseError -> {
+      is PigeonDKCrashFeedbackSeverity -> {
         stream.write(175)
         writeValue(stream, value.raw)
       }
-      is PigeonAccuracyLevel -> {
+      is PigeonCrashStatus -> {
         stream.write(176)
         writeValue(stream, value.raw)
       }
-      is PigeonTripCancelationReason -> {
+      is PigeonTripResponseStatusType -> {
         stream.write(177)
+        writeValue(stream, value.raw)
+      }
+      is PigeonTripResponseInfo -> {
+        stream.write(178)
+        writeValue(stream, value.raw)
+      }
+      is PigeonTripResponseError -> {
+        stream.write(179)
+        writeValue(stream, value.raw)
+      }
+      is PigeonAccuracyLevel -> {
+        stream.write(180)
+        writeValue(stream, value.raw)
+      }
+      is PigeonTripCancelationReason -> {
+        stream.write(181)
+        writeValue(stream, value.raw)
+      }
+      is PigeonCreateTripSharingLinkStatus -> {
+        stream.write(182)
+        writeValue(stream, value.raw)
+      }
+      is PigeonGetTripSharingLinkStatus -> {
+        stream.write(183)
+        writeValue(stream, value.raw)
+      }
+      is PigeonRevokeTripSharingLinkStatus -> {
+        stream.write(184)
         writeValue(stream, value.raw)
       }
       else -> super.writeValue(stream, value)
     }
   }
 }
+
 
 /** Generated interface from Pigeon that represents a handler of messages from Flutter. */
 interface AndroidTripAnalysisApi {
@@ -2130,6 +2326,10 @@ interface AndroidTripAnalysisApi {
   fun deleteAllTripMetadata()
   fun getCurrentTripInfo(): PigeonCurrentTripInfo?
   fun getLastTripLocation(): PigeonLastTripLocation?
+  fun isTripSharingAvailable(): Boolean
+  fun createTripSharingLink(durationInSeconds: Long, callback: (Result<PigeonCreateTripSharingLinkResponse>) -> Unit)
+  fun getTripSharingLink(synchronizationType: PigeonSynchronizationType, callback: (Result<PigeonGetTripSharingLinkResponse>) -> Unit)
+  fun revokeTripSharingLink(callback: (Result<PigeonRevokeTripSharingLinkStatus>) -> Unit)
 
   companion object {
     /** The codec used by AndroidTripAnalysisApi. */
@@ -2449,6 +2649,79 @@ interface AndroidTripAnalysisApi {
               wrapError(exception)
             }
             reply.reply(wrapped)
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.isTripSharingAvailable$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { _, reply ->
+            val wrapped: List<Any?> = try {
+              listOf(api.isTripSharingAvailable())
+            } catch (exception: Throwable) {
+              wrapError(exception)
+            }
+            reply.reply(wrapped)
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.createTripSharingLink$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { message, reply ->
+            val args = message as List<Any?>
+            val durationInSecondsArg = args[0].let { num -> if (num is Int) num.toLong() else num as Long }
+            api.createTripSharingLink(durationInSecondsArg) { result: Result<PigeonCreateTripSharingLinkResponse> ->
+              val error = result.exceptionOrNull()
+              if (error != null) {
+                reply.reply(wrapError(error))
+              } else {
+                val data = result.getOrNull()
+                reply.reply(wrapResult(data))
+              }
+            }
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.getTripSharingLink$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { message, reply ->
+            val args = message as List<Any?>
+            val synchronizationTypeArg = args[0] as PigeonSynchronizationType
+            api.getTripSharingLink(synchronizationTypeArg) { result: Result<PigeonGetTripSharingLinkResponse> ->
+              val error = result.exceptionOrNull()
+              if (error != null) {
+                reply.reply(wrapError(error))
+              } else {
+                val data = result.getOrNull()
+                reply.reply(wrapResult(data))
+              }
+            }
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.revokeTripSharingLink$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { _, reply ->
+            api.revokeTripSharingLink{ result: Result<PigeonRevokeTripSharingLinkStatus> ->
+              val error = result.exceptionOrNull()
+              if (error != null) {
+                reply.reply(wrapError(error))
+              } else {
+                val data = result.getOrNull()
+                reply.reply(wrapResult(data))
+              }
+            }
           }
         } else {
           channel.setMessageHandler(null)

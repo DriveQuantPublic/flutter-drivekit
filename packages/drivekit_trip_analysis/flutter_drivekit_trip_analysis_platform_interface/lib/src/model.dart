@@ -766,3 +766,130 @@ class DKTripRecordingFinishedState {
   /// The trip recording end date
   final String recordingEndDate;
 }
+
+/// Trip Sharing creation response
+class CreateTripSharingLinkResponse {
+  /// Creates a CreateTripSharingLinkResponse instance
+  CreateTripSharingLinkResponse({required this.status, required this.data});
+
+  /// The trip sharing creation status
+  final CreateTripSharingLinkStatus status;
+
+  /// The link data
+  final DKTripSharingLink? data;
+}
+
+/// Trip Sharing creation status
+enum CreateTripSharingLinkStatus {
+  /// The link has been successfully created. Information is returned in `data`.
+  success,
+
+  /// A link already exists for this user.
+  /// Information returned in `data` is `null`.
+  /// You have to call the method to retrieve an existing link in your workflow.
+  activeLinkAlreadyExists,
+
+  /// An error occurred, for instance when the user has no network.
+  /// Information returned in `data` is `null`.
+  error,
+
+  /// The user is not yet connected to DriveKit.
+  /// Information returned in `data` is `null`.
+  userNotConnected,
+
+  /// An error occurred when trying to create a link.
+  /// The duration parameter must be strictly greater than `0`.
+  /// Information returned in `data` is `null`.
+  invalidDuration,
+
+  /// The user has been disconnected.
+  /// Information returned in `data` is `null`.
+  unauthenticated,
+
+  /// Your API key is not allowed to use the feature.
+  /// Information returned in `data` is `null`.
+  forbidden,
+}
+
+/// Trip Sharing retrieval status
+enum GetTripSharingLinkStatus {
+  /// The link has been successfully retrieved.
+  /// Information is returned in `data`.
+  success,
+
+  /// An error occurred when trying to retrieve a link.
+  /// Locally trip sharing link, if exists, is returned in data.
+  failedToGetCacheOnly,
+
+  /// There is no active link for the user.
+  /// Information returned in `data` is `null`.
+  noActiveLink,
+
+  /// The user is not yet connected to DriveKit.
+  /// Information returned in `data` is `null`.
+  userNotConnected,
+
+  /// The user has been disconnected.
+  /// Information returned in `data` is `null`.
+  unauthenticated,
+
+  /// Your API key is not allowed to use the feature.
+  /// Information returned in `data` is `null`.
+  forbidden,
+}
+
+/// Trip Sharing revokation response status
+enum RevokeTripSharingLinkStatus {
+  /// The link has been successfully revoked.
+  success,
+
+  ///There is no active link for the user.
+  noActiveLink,
+
+  /// An error occurred when trying to revoke the link.
+  error,
+
+  /// The user is not yet connected to DriveKit.
+  userNotConnected,
+
+  /// The user has been disconnected.
+  unauthenticated,
+
+  /// Your API key is not allowed to use the feature.
+  forbidden,
+}
+
+/// Trip Sharing retrieval response
+class GetTripSharingLinkResponse {
+  /// Creates a GetTripSharingLinkResponse instance
+  GetTripSharingLinkResponse({required this.status, required this.data});
+
+  /// The trip sharing creation status
+  final GetTripSharingLinkStatus status;
+
+  /// The link data
+  final DKTripSharingLink? data;
+}
+
+/// Class describing trip sharing link data
+class DKTripSharingLink {
+  /// Creates a DKTripSharingLink instance
+  DKTripSharingLink({
+    required this.code,
+    required this.url,
+    required this.startDate,
+    required this.endDate,
+  });
+
+  /// Unique trip sharing code.
+  final String code;
+
+  /// URL of the map that will display the current trip of the user.
+  final String url;
+
+  /// Link validity start date
+  final String startDate;
+
+  /// Link expiration date.
+  final String endDate;
+}

@@ -690,4 +690,65 @@ void main() {
       expect(lastTripLocation, null);
     });
   });
+
+  group('Trip Sharing', () {
+    test('isTripSharingAvailable calls iOS implementation', () async {
+      //mock
+      when(() => iOSTripAnalysisApi.isTripSharingAvailable()).thenAnswer(
+        (_) async => true,
+      );
+
+      //test
+      await DriveKitTripAnalysisPlatform.instance.isTripSharingAvailable();
+      verify(() => iOSTripAnalysisApi.isTripSharingAvailable()).called(1);
+    });
+
+    test('createTripSharingLink calls iOS implementation', () async {
+      //mock
+      when(() => iOSTripAnalysisApi.createTripSharingLink(60)).thenAnswer(
+        (_) async => PigeonCreateTripSharingLinkResponse(
+          status: PigeonCreateTripSharingLinkStatus.success,
+          data: PigeonTripSharingLink(
+            code: 'myCode',
+            url: 'myUrl',
+            startDate: 'startDate',
+            endDate: 'endDate',
+          ),
+        ),
+      );
+
+      //test
+      await DriveKitTripAnalysisPlatform.instance.createTripSharingLink(60);
+      verify(() => iOSTripAnalysisApi.createTripSharingLink(60)).called(1);
+    });
+
+    test('getTripSharingLink calls iOS implementation', () async {
+      //mock
+      when(() => iOSTripAnalysisApi.getTripSharingLink()).thenAnswer(
+        (_) async => PigeonGetTripSharingLinkResponse(
+          status: PigeonGetTripSharingLinkStatus.success,
+          data: PigeonTripSharingLink(
+            code: 'myCode',
+            url: 'myUrl',
+            startDate: 'startDate',
+            endDate: 'endDate',
+          ),
+        ),
+      );
+
+      //test
+      await DriveKitTripAnalysisPlatform.instance.getTripSharingLink();
+      verify(() => iOSTripAnalysisApi.getTripSharingLink()).called(1);
+    });
+
+    test('revokeTripSharingLink calls iOS implementation', () async {
+      //mock
+      when(() => iOSTripAnalysisApi.revokeTripSharingLink())
+          .thenAnswer((_) async => PigeonRevokeTripSharingLinkStatus.success);
+
+      //test
+      await DriveKitTripAnalysisPlatform.instance.revokeTripSharingLink();
+      verify(() => iOSTripAnalysisApi.revokeTripSharingLink()).called(1);
+    });
+  });
 }

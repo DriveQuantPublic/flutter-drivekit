@@ -2,6 +2,19 @@ import 'package:collection/collection.dart';
 import 'package:flutter_drivekit_trip_analysis_ios/src/trip_analysis_api.g.dart';
 import 'package:flutter_drivekit_trip_analysis_platform_interface/flutter_drivekit_trip_analysis_platform_interface.dart';
 
+/// Adapts the [SynchronizationType] enum to the corresponding Pigeon enum
+extension SynchronizationTypeAdapter on SynchronizationType {
+  /// Converts a [SynchronizationType] to a corresponding Pigeon enum
+  PigeonSynchronizationType toPigeonImplementation() {
+    switch (this) {
+      case SynchronizationType.defaultSync:
+        return PigeonSynchronizationType.defaultSync;
+      case SynchronizationType.cache:
+        return PigeonSynchronizationType.cache;
+    }
+  }
+}
+
 /// Adapts the [PigeonDKCrashInfo] class to the [DKCrashInfo] class.
 extension PigeonDKCrashInfoAdapter on PigeonDKCrashInfo {
   /// Converts a [PigeonDKCrashInfo] to a [DKCrashInfo].
@@ -812,5 +825,121 @@ extension PigeonTripRecordingFinishedStateAdapter
       recordingConfirmationDate: recordingConfirmationDate,
       recordingEndDate: recordingEndDate,
     );
+  }
+}
+
+/// Adapts the [PigeonCreateTripSharingLinkResponse] class to the corresponding
+/// class in the model.
+extension PigeonCreateTripSharingLinkResponseAdapter
+    on PigeonCreateTripSharingLinkResponse {
+  /// Converts a [PigeonCreateTripSharingLinkResponse] to a corresponding model
+  /// class.
+  CreateTripSharingLinkResponse toModelImplementation() {
+    return CreateTripSharingLinkResponse(
+      status: status.toModelImplementation(),
+      data: data?.toModelImplementation(),
+    );
+  }
+}
+
+/// Adapt the [PigeonCreateTripSharingLinkStatus] class to
+/// the [CreateTripSharingLinkStatus] class.
+extension PigeonCreateTripSharingLinkStatusAdapter
+    on PigeonCreateTripSharingLinkStatus {
+  /// Converts a [PigeonCreateTripSharingLinkStatus] to
+  /// a [CreateTripSharingLinkStatus].
+  CreateTripSharingLinkStatus toModelImplementation() {
+    return switch (this) {
+      PigeonCreateTripSharingLinkStatus.success =>
+        CreateTripSharingLinkStatus.success,
+      PigeonCreateTripSharingLinkStatus.activeLinkAlreadyExists =>
+        CreateTripSharingLinkStatus.activeLinkAlreadyExists,
+      PigeonCreateTripSharingLinkStatus.error =>
+        CreateTripSharingLinkStatus.error,
+      PigeonCreateTripSharingLinkStatus.userNotConnected =>
+        CreateTripSharingLinkStatus.userNotConnected,
+      PigeonCreateTripSharingLinkStatus.invalidDuration =>
+        CreateTripSharingLinkStatus.invalidDuration,
+      PigeonCreateTripSharingLinkStatus.unauthenticated =>
+        CreateTripSharingLinkStatus.unauthenticated,
+      PigeonCreateTripSharingLinkStatus.forbidden =>
+        CreateTripSharingLinkStatus.forbidden,
+    };
+  }
+}
+
+/// Adapts the [PigeonTripSharingLink] class to the corresponding class in
+/// the model.
+extension PigeonTripSharingLinkAdapter on PigeonTripSharingLink {
+  /// Converts a [PigeonTripSharingLink] to a corresponding model class.
+  DKTripSharingLink? toModelImplementation() {
+    return DKTripSharingLink(
+      code: code,
+      url: url,
+      startDate: startDate,
+      endDate: endDate,
+    );
+  }
+}
+
+/// Adapts the [PigeonGetTripSharingLinkResponse] class to the corresponding
+/// class in the model.
+extension PigeonGetTripSharingLinkResponseAdapter
+    on PigeonGetTripSharingLinkResponse {
+  /// Converts a [PigeonGetTripSharingLinkResponse] to a corresponding model
+  /// class.
+  GetTripSharingLinkResponse toModelImplementation() {
+    return GetTripSharingLinkResponse(
+      status: status.toModelImplementation(),
+      data: data?.toModelImplementation(),
+    );
+  }
+}
+
+/// Adapt the [PigeonGetTripSharingLinkStatus] class to
+/// the [GetTripSharingLinkStatus] class.
+extension PigeonGetTripSharingLinkStatusAdapter
+    on PigeonGetTripSharingLinkStatus {
+  /// Converts a [PigeonGetTripSharingLinkStatus] to
+  /// a [GetTripSharingLinkStatus].
+  GetTripSharingLinkStatus toModelImplementation() {
+    return switch (this) {
+      PigeonGetTripSharingLinkStatus.success =>
+        GetTripSharingLinkStatus.success,
+      PigeonGetTripSharingLinkStatus.failedToGetCacheOnly =>
+        GetTripSharingLinkStatus.failedToGetCacheOnly,
+      PigeonGetTripSharingLinkStatus.noActiveLink =>
+        GetTripSharingLinkStatus.noActiveLink,
+      PigeonGetTripSharingLinkStatus.userNotConnected =>
+        GetTripSharingLinkStatus.userNotConnected,
+      PigeonGetTripSharingLinkStatus.unauthenticated =>
+        GetTripSharingLinkStatus.unauthenticated,
+      PigeonGetTripSharingLinkStatus.forbidden =>
+        GetTripSharingLinkStatus.forbidden,
+    };
+  }
+}
+
+/// Adapt the [PigeonRevokeTripSharingLinkStatus] class to
+/// the [RevokeTripSharingLinkStatus] class.
+extension PigeonRevokeTripSharingLinkStatusAdapter
+    on PigeonRevokeTripSharingLinkStatus {
+  /// Converts a [PigeonRevokeTripSharingLinkStatus] to
+  /// a [RevokeTripSharingLinkStatus].
+  RevokeTripSharingLinkStatus toModelImplementation() {
+    return switch (this) {
+      PigeonRevokeTripSharingLinkStatus.success =>
+        RevokeTripSharingLinkStatus.success,
+      PigeonRevokeTripSharingLinkStatus.noActiveLink =>
+        RevokeTripSharingLinkStatus.noActiveLink,
+      PigeonRevokeTripSharingLinkStatus.error =>
+        RevokeTripSharingLinkStatus.error,
+      PigeonRevokeTripSharingLinkStatus.userNotConnected =>
+        RevokeTripSharingLinkStatus.userNotConnected,
+      PigeonRevokeTripSharingLinkStatus.unauthenticated =>
+        RevokeTripSharingLinkStatus.unauthenticated,
+      PigeonRevokeTripSharingLinkStatus.forbidden =>
+        RevokeTripSharingLinkStatus.forbidden,
+    };
   }
 }

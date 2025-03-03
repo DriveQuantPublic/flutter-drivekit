@@ -6,7 +6,7 @@ It is a Flutter monorepo containing several federated plugins.
 
 The DriveKit SDK for Flutter is available with:
 - Android 8.0 (API level 26) and later versions, 
-- and iOS 12 and later versions.
+- and iOS 13 and later versions.
 
 This SDK is supported for Flutter `1.20.0` version and above. It is recommended to use a recent version of Flutter.
 
