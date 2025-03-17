@@ -55,7 +55,7 @@ class CrashInfo {
     required this.longitude,
     required this.velocity,
     required this.crashStatus,
-    this.userLocationUrl,
+    required this.userLocationUrl,
   });
 
   /// The crash ID

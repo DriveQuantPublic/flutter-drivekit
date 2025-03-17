@@ -331,6 +331,7 @@ class DKCrashInfo {
     this.crashId,
     this.date,
     this.status,
+    this.userLocationUrl,
   });
 
   /// The crash ID
@@ -353,6 +354,9 @@ class DKCrashInfo {
 
   /// The velocity of the crash in km/h
   final double velocity;
+
+  /// The link to the real-time tracking map
+  final String? userLocationUrl;
 }
 
 /// Indicates the status of a crash feedback.
