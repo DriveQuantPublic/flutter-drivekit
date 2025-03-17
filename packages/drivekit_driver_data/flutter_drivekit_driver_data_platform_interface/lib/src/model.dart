@@ -55,6 +55,7 @@ class CrashInfo {
     required this.longitude,
     required this.velocity,
     required this.crashStatus,
+    this.userLocationUrl,
   });
 
   /// The crash ID
@@ -77,6 +78,9 @@ class CrashInfo {
 
   /// The crash status
   final CrashStatus crashStatus;
+
+  /// The real-time tracking map URL
+  final String? userLocationUrl;
 }
 
 /// CrashStatus enum

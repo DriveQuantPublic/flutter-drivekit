@@ -182,6 +182,7 @@ object PigeonMapper {
             velocity = crashInfo.velocity,
             longitude = crashInfo.longitude,
             latitude = crashInfo.latitude
+            userLocationUrl = crashInfo.userLocationUrl
         )
     }
 

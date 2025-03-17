@@ -14,6 +14,7 @@ extension PigeonDKCrashInfoAdapter on PigeonDKCrashInfo {
       latitude: latitude,
       longitude: longitude,
       velocity: velocity,
+      userLocationUrl: userLocationUrl,
     );
   }
 }

@@ -351,6 +351,7 @@ struct PigeonDKCrashInfo {
   var latitude: Double
   var longitude: Double
   var velocity: Double
+  var userLocationUrl: String? = nil
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
   static func fromList(_ __pigeon_list: [Any?]) -> PigeonDKCrashInfo? {

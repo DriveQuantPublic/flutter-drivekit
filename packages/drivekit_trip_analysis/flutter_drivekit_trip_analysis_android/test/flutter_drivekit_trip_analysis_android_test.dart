@@ -460,6 +460,10 @@ void main() {
             crashDetectedList.first.status?.name,
             mockPigeonDkCrashInfo.status?.name,
           );
+          expect(
+            crashDetectedList.first.userLocationUrl,
+            mockPigeonDkCrashInfo.userLocationUrl,
+          );
         },
       );
 

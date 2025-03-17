@@ -229,6 +229,7 @@ class PigeonDKCrashInfo {
     this.crashId,
     this.date,
     this.status,
+    this.userLocationUrl,
   });
 
   final String? crashId;
@@ -244,6 +245,8 @@ class PigeonDKCrashInfo {
   final double longitude;
 
   final double velocity;
+
+  final String? userLocationUrl;
 }
 
 enum PigeonDKCrashFeedbackType {
