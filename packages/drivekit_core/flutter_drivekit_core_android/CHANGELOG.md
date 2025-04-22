@@ -1,3 +1,9 @@
+# 1.6.0
+
+    - Update DriveKit version to 2.14.0 for Android and 2.14.1 for iOS.
+    - Core: The SDK generates a unique installation identifier to detect if the same account is used on multiple devices. Use the new `getInstallationId()` Core method to retrieve the installation identifier.
+    - TripAnalysis: Added a link to the real-time tracking map in the accident data accessible via new userLocationUrl field in [DKCrashInfo](https://docs.drivequant.com/trip-analysis/android/references#dkcrashinfo) object.
+
 # 1.5.0
 
     - Update DriveKit version to 2.12.0 for iOS and Android
