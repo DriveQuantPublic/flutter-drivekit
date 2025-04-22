@@ -21,6 +21,7 @@ abstract class AndroidCoreApi {
   void setUserId(String userId);
   String? getUserId();
   void updateUserId(String userId);
+  String? getInstallationId();
   @async
   PigeonGetUserInfoResponse getUserInfo({
     PigeonSynchronizationType synchronizationType =

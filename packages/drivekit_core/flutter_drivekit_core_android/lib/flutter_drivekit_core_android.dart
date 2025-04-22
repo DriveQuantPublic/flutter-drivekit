@@ -48,6 +48,9 @@ class DriveKitCoreAndroid extends DriveKitCorePlatform
       androidCoreApi.updateUserId(userId);
 
   @override
+  Future<String?> getInstallationId() => androidCoreApi.getInstallationId();
+
+  @override
   Future<bool> updateUserInfo(UserInfo userInfo) =>
       androidCoreApi.updateUserInfo(userInfo.toPigeonImplementation());
 

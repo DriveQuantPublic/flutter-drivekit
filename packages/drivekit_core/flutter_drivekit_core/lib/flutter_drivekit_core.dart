@@ -47,6 +47,9 @@ class DriveKitCore {
   /// status you have to use [DriveKitListener] listener.
   Future<void> updateUserId(String userId) => _platform.updateUserId(userId);
 
+  /// Get the current installation Id, if exists.
+  Future<String?> getInstallationId() => _platform.getInstallationId();
+
   /// Retrieve user info data
   Future<GetUserInfoResponse> getUserInfo({
     SynchronizationType synchronizationType = SynchronizationType.defaultSync,

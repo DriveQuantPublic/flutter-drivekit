@@ -43,6 +43,11 @@ class DefaultDriveKitCore extends DriveKitCorePlatform {
   }
 
   @override
+  Future<String?> getInstallationId() {
+    throw UnimplementedError('getInstallationId() has not been implemented.');
+  }
+
+  @override
   Future<void> reset() {
     throw UnimplementedError('reset() has not been implemented.');
   }

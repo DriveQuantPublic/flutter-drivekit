@@ -298,6 +298,7 @@ interface AndroidCoreApi {
   fun setUserId(userId: String)
   fun getUserId(): String?
   fun updateUserId(userId: String)
+  fun getInstallationId(): String?
   fun getUserInfo(synchronizationType: PigeonSynchronizationType, callback: (Result<PigeonGetUserInfoResponse>) -> Unit)
   fun updateUserInfo(userInfo: PigeonUserInfo, callback: (Result<Boolean>) -> Unit)
   fun reset()
@@ -377,6 +378,21 @@ interface AndroidCoreApi {
             val wrapped: List<Any?> = try {
               api.updateUserId(userIdArg)
               listOf(null)
+            } catch (exception: Throwable) {
+              wrapError(exception)
+            }
+            reply.reply(wrapped)
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_core_package.AndroidCoreApi.getInstallationId$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { _, reply ->
+            val wrapped: List<Any?> = try {
+              listOf(api.getInstallationId())
             } catch (exception: Throwable) {
               wrapError(exception)
             }

@@ -202,6 +202,18 @@ const userInfo = UserInfo(
 final success = await DriveKitCore.instance.updateUserInfo(userInfo);
 ```
 
+### getInstallationId
+
+```dart
+Future<String?> getInstallationId()
+```
+
+This method can be useful to retrieve the current installationId.
+
+```dart
+final installationId = await DriveKitCore.instance.getInstallationId();
+```
+
 
 ### addDriveKitListener
 
