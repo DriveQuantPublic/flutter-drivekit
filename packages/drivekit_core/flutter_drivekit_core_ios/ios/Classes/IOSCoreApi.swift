@@ -308,6 +308,7 @@ protocol IOSCoreApi {
   func setUserId(userId: String) throws
   func getUserId() throws -> String?
   func updateUserId(userId: String) throws
+  func getInstallationId() throws -> String?
   func getUserInfo(synchronizationType: PigeonSynchronizationType, completion: @escaping (Result<PigeonGetUserInfoResponse, Error>) -> Void)
   func updateUserInfo(userInfo: PigeonUserInfo, completion: @escaping (Result<Bool, Error>) -> Void)
   func reset() throws
@@ -382,6 +383,19 @@ class IOSCoreApiSetup {
       }
     } else {
       updateUserIdChannel.setMessageHandler(nil)
+    }
+    let getInstallationIdChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.pigeon_core_package.IOSCoreApi.getInstallationId\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      getInstallationIdChannel.setMessageHandler { _, reply in
+        do {
+          let result = try api.getInstallationId()
+          reply(wrapResult(result))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      getInstallationIdChannel.setMessageHandler(nil)
     }
     let getUserInfoChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.pigeon_core_package.IOSCoreApi.getUserInfo\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {

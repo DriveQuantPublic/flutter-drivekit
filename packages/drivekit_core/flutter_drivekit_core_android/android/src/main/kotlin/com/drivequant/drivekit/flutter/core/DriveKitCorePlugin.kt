@@ -74,6 +74,8 @@ class DriveKitCorePlugin :
         DriveKit.disableLogging(showInConsole)
     }
 
+    override fun getInstallationId(): String? = DriveKit.installationId
+
     private fun configureDriveKitListener() {
         DriveKit.addDriveKitListener(
             object : DriveKitListener {
