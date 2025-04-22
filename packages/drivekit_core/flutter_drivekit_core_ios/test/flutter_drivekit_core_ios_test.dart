@@ -71,6 +71,18 @@ void main() {
       verify(() => iosCoreApi.updateUserId('newUserId')).called(1);
     });
 
+    test('getInstallationId calls getInstallationId method', () async {
+      const mockedInstallationId = 'InstallationIdTest';
+      //mock
+      when(() => iosCoreApi.getInstallationId())
+          .thenAnswer((_) async => mockedInstallationId);
+
+      //test
+      final installationId =
+          await DriveKitCorePlatform.instance.getInstallationId();
+      expect(installationId, mockedInstallationId);
+    });
+
     test('reset calls reset method', () async {
       //mock
       when(() => iosCoreApi.reset()).thenAnswer((_) async {});
