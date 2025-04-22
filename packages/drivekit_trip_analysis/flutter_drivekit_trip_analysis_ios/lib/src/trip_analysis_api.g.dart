@@ -338,6 +338,7 @@ class PigeonDKCrashInfo {
     required this.latitude,
     required this.longitude,
     required this.velocity,
+    this.userLocationUrl,
   });
 
   String? crashId;
@@ -354,6 +355,8 @@ class PigeonDKCrashInfo {
 
   double velocity;
 
+  String? userLocationUrl;
+
   Object encode() {
     return <Object?>[
       crashId,
@@ -363,6 +366,7 @@ class PigeonDKCrashInfo {
       latitude,
       longitude,
       velocity,
+      userLocationUrl,
     ];
   }
 
@@ -376,6 +380,7 @@ class PigeonDKCrashInfo {
       latitude: result[4]! as double,
       longitude: result[5]! as double,
       velocity: result[6]! as double,
+      userLocationUrl: result[7] as String?,
     );
   }
 }

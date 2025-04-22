@@ -351,6 +351,7 @@ struct PigeonDKCrashInfo {
   var latitude: Double
   var longitude: Double
   var velocity: Double
+  var userLocationUrl: String? = nil
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
   static func fromList(_ __pigeon_list: [Any?]) -> PigeonDKCrashInfo? {
@@ -361,6 +362,7 @@ struct PigeonDKCrashInfo {
     let latitude = __pigeon_list[4] as! Double
     let longitude = __pigeon_list[5] as! Double
     let velocity = __pigeon_list[6] as! Double
+    let userLocationUrl: String? = nilOrValue(__pigeon_list[7])
 
     return PigeonDKCrashInfo(
       crashId: crashId,
@@ -369,7 +371,8 @@ struct PigeonDKCrashInfo {
       probability: probability,
       latitude: latitude,
       longitude: longitude,
-      velocity: velocity
+      velocity: velocity,
+      userLocationUrl: userLocationUrl
     )
   }
   func toList() -> [Any?] {
@@ -381,6 +384,7 @@ struct PigeonDKCrashInfo {
       latitude,
       longitude,
       velocity,
+      userLocationUrl,
     ]
   }
 }

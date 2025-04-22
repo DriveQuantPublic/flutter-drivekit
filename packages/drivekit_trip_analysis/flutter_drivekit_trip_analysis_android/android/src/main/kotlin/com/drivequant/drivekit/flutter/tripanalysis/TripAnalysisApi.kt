@@ -398,7 +398,8 @@ data class PigeonDKCrashInfo (
   val probability: Long,
   val latitude: Double,
   val longitude: Double,
-  val velocity: Double
+  val velocity: Double,
+  val userLocationUrl: String? = null
 
 ) {
   companion object {
@@ -411,7 +412,8 @@ data class PigeonDKCrashInfo (
       val latitude = __pigeon_list[4] as Double
       val longitude = __pigeon_list[5] as Double
       val velocity = __pigeon_list[6] as Double
-      return PigeonDKCrashInfo(crashId, date, status, probability, latitude, longitude, velocity)
+      val userLocationUrl = __pigeon_list[7] as String?
+      return PigeonDKCrashInfo(crashId, date, status, probability, latitude, longitude, velocity, userLocationUrl)
     }
   }
   fun toList(): List<Any?> {
@@ -423,6 +425,7 @@ data class PigeonDKCrashInfo (
       latitude,
       longitude,
       velocity,
+      userLocationUrl,
     )
   }
 }

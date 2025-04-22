@@ -367,7 +367,8 @@ extension PigeonDKCrashInfo {
             probability: Int64(crashInfo.probability),
             latitude: crashInfo.latitude,
             longitude: crashInfo.longitude,
-            velocity: crashInfo.velocity)
+            velocity: crashInfo.velocity,
+            userLocationUrl: crashInfo.userLocationUrl)
     }
 }
 

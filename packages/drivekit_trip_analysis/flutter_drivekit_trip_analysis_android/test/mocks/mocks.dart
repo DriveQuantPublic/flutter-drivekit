@@ -14,6 +14,7 @@ final mockPigeonDkCrashInfo = PigeonDKCrashInfo(
   velocity: 9,
   date: '',
   status: PigeonCrashStatus.confirmed,
+  userLocationUrl: 'https://sharedtrip.drivequant.com/v1/MOCK',
 );
 
 final mockPigeonVehicle = PigeonVehicle();
