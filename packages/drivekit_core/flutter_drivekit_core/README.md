@@ -70,6 +70,7 @@ Now, you can configure the DriveKit Core with the options you want, and use othe
 | [setApiKey()](#setapikey)                                                         | `Future<void>`    | ✅  |   ✅    |
 | [getUserId()](#getuserid)                                                         | `Future<String?>` | ✅  |   ✅    |
 | [setUserId()](#setuserid)                                                         | `Future<void>`    | ✅  |   ✅    |
+| [getInstallationId()](#getinstallationid)                                         | `Future<void>`    | ✅  |   ✅    |
 | [updateUserId()](#updateuserid)                                                   | `Future<void>`    | ✅  |   ✅    |
 | [getUserInfo()](#getuserinfo)                                                     | `Future<void>`    | ✅  |   ✅    |
 | [updateUserInfo()](#updateuserinfo)                                               | `Future<void>`    | ✅  |   ✅    |
