@@ -47,6 +47,9 @@ abstract class DriveKitCorePlatform extends PlatformInterface {
   /// Update the userId
   Future<void> updateUserId(String userId);
 
+  /// Get the installationId.
+  Future<String?> getInstallationId();
+
   /// Retrieve user info data
   Future<GetUserInfoResponse> getUserInfo({
     SynchronizationType synchronizationType = SynchronizationType.defaultSync,

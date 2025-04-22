@@ -104,6 +104,18 @@ void main() {
       });
     });
 
+    group('installationId', () {
+      test('calls geInstallationId on platform implementation', () async {
+        const mockedInstallationId = 'InstallationIdTest';
+        when(() => drivekitCorePlatform.getInstallationId())
+            .thenAnswer((_) async => mockedInstallationId);
+
+        final actuaInstallationId =
+            await DriveKitCore.instance.getInstallationId();
+        expect(actuaInstallationId, equals(mockedInstallationId));
+      });
+    });
+
     group('reset', () {
       test('calls reset on platform implementation', () async {
         when(() => drivekitCorePlatform.reset()).thenAnswer((_) async {});

@@ -85,6 +85,10 @@ public class DriveKitCorePlugin: NSObject, FlutterPlugin, IOSCoreApi {
         }
     }
 
+    func getInstallationId() throws -> String? {
+        return DriveKit.shared.installationId
+    }
+
     private func executeOnMainThread(_ task: @escaping () -> Void) {
         if Thread.isMainThread {
             task()
