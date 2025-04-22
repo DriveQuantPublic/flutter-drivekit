@@ -11,9 +11,6 @@ class SliverInstallationId extends StatefulWidget {
 }
 
 class _SliverInstallationIdState extends State<SliverInstallationId> {
-  final TextEditingController _setUserIdController = TextEditingController();
-  final TextEditingController _updateUserIdController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return MultiSliver(
@@ -30,7 +27,7 @@ class _SliverInstallationIdState extends State<SliverInstallationId> {
                   backgroundColor: Theme.of(context).primaryColor,
                   content: Text(
                     installationId != null
-                        ? 'User ID: $installationId'
+                        ? 'Installation ID: $installationId'
                         : 'No installation ID.',
                   ),
                 ),
