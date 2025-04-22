@@ -209,12 +209,32 @@ final success = await DriveKitCore.instance.updateUserInfo(userInfo);
 Future<String?> getInstallationId()
 ```
 
-This method can be useful to retrieve the current installationId.
+The installation identifier (`installationId`) is not a unique device identifier. It is used to identify an app installation that includes the DriveKit SDK, linked to a specific account on a particular device. 
+
+The `installationId` is generated based on the following attributes: 
+
+- Installation date
+- App
+- User account
+- Device type
+
+The `installationId` helps determine whether a user has logged into a mobile app with the same account across multiple devices.
+
+For a user with one account and a single device, the installationId behaves as follows:
+
+- It remains unchanged if the user logs out and logs back in, as long as the app is not uninstalled.
+- It is updated when the user uninstalls and reinstalls the app.
+
+
+If a user logs into the app on several devices using the same account, each device will have a different `installationId`.
+
+If the user reconnects to the app on the same device but with a different account, the installationId will be updated.
 
 ```dart
 final installationId = await DriveKitCore.instance.getInstallationId();
 ```
 
+The returned `installationId` will be `null` as long as the user is not authenticated to DriveKit.
 
 ### addDriveKitListener
 
