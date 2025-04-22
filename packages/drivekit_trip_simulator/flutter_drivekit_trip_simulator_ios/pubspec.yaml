@@ -1,6 +1,6 @@
 name: flutter_drivekit_trip_simulator_ios
 description: iOS implementation of the flutter_drivekit_trip_simulator plugin
-version: 1.5.0
+version: 1.6.0
 homepage: https://www.drivequant.com/
 repository: https://github.com/DriveQuantPublic/flutter-drivekit/tree/main/packages/drivekit_trip_simulator/flutter_drivekit_trip_simulator_ios
 
@@ -19,7 +19,7 @@ flutter:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_drivekit_trip_simulator_platform_interface: 1.5.0
+  flutter_drivekit_trip_simulator_platform_interface: 1.6.0
 
 dev_dependencies:
   flutter_test:
