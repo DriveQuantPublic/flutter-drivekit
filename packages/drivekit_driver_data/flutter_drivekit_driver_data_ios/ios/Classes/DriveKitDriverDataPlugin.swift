@@ -54,4 +54,11 @@ public class DriveKitDriverDataPlugin: NSObject, FlutterPlugin, IOSDriverDataApi
             completion(Result.success(status))
         }
     }
+    
+    func updateDriverPassengerMode(itinId: String, mode: PigeonDriverPassengerMode, comment: String, completion: @escaping (Result<PigeonUpdateDriverPassengerModeStatus, any Error>) -> Void) {
+        DriveKitDriverData.shared.updateDriverPassengerMode(itinId: itinId, mode: DKDriverPassengerMode.passenger, comment: comment) {
+            status in
+            completion(Result.success(PigeonUpdateDriverPassengerModeStatus(from: status)))
+        }
+    }
 }

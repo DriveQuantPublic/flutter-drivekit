@@ -530,3 +530,24 @@ extension PigeonRoute {
         )
     }
 }
+
+extension PigeonUpdateDriverPassengerModeStatus {
+    init(from status: DKUpdateDriverPassengerModeStatus) {
+        switch status {
+        case .success:
+            self = .success
+        case .userNotConnected:
+            self = .userNotConnected
+        case .invalidTransportationMode:
+            self = .invalidTransportationMode
+        case .commentTooLong:
+            self = .commentTooLong
+        case .failedToUpdateMode:
+            self = .failedToUpdateMode
+        case .invalidItineraryId:
+            self = .invalidItineraryId
+        @unknown default:
+            fatalError()
+        }
+    }
+}

@@ -200,3 +200,42 @@ enum RouteSyncStatus {
   /// Wrong trip identifier
   wrongItinId,
 }
+
+/// Update driver passenger mode status enum
+enum UpdateDriverPassengerModeStatus {
+  /// Success, the data have been updated in the local database
+  success,
+
+  /// Error, the trip was made with an alternative transport
+  invalidTransportationMode,
+
+  /// Error, the itinId is not valid
+  invalidItineraryId,
+
+  /// Error, the comment is too long
+  commentTooLong,
+
+  /// An error occurred, for example when the user has no network
+  failedToUpdateMode,
+
+  /// An error occurred, the user is not yet connected
+  userNotConnected
+}
+
+/// Declare if the trip has been made as driver of passenger
+enum DriverPassengerMode {
+  /// Declare the trip made as driver
+  driver,
+
+  /// Declare the trip made as passenger
+  passenger
+}
+
+/// Trip synchronization status enum
+enum MyEnum {
+  /// Synchronization has been successfully performed
+  success,
+
+  /// error occured
+  error,
+}

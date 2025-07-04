@@ -154,11 +154,13 @@ enum class PigeonUpdateDriverPassengerModeStatus(val raw: Int) {
   /** Error, the trip was made with an alternative transport */
   INVALID_TRANSPORTATION_MODE(1),
   /** Error, the comment is too long */
-  COMMENT_TOO_LONG(2),
+  INVALID_ITINERARY_ID(2),
+  /** Error, the comment is too long */
+  COMMENT_TOO_LONG(3),
   /** An error occurred, for example when the user has no network */
-  FAILED_TO_UPDATE_MODE(3),
+  FAILED_TO_UPDATE_MODE(4),
   /** An error occurred, the user is not yet connected */
-  USER_NOT_CONNECTED(4);
+  USER_NOT_CONNECTED(5);
 
   companion object {
     fun ofRaw(raw: Int): PigeonUpdateDriverPassengerModeStatus? {
