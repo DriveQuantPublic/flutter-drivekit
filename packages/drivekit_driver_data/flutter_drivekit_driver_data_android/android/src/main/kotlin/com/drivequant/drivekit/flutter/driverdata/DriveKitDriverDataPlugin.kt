@@ -10,7 +10,9 @@ import com.drivequant.drivekit.driverdata.trip.TripDeleteQueryListener
 import com.drivequant.drivekit.driverdata.trip.TripQueryListener
 import com.drivequant.drivekit.driverdata.trip.TripsQueryListener
 import com.drivequant.drivekit.driverdata.trip.TripsSyncStatus
+import com.drivequant.drivekit.driverdata.trip.UpdateDriverPassengerModeStatus
 import com.drivequant.drivekit.flutter.driverdata.mapper.PigeonMapper
+import com.drivequant.drivekit.flutter.driverdata.mapper.PigeonMapper.fromPigeonDriverPassengerMode
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 
 class DriveKitDriverDataPlugin :
@@ -118,5 +120,11 @@ class DriveKitDriverDataPlugin :
                 }
             }
         )
+    }
+
+    override fun updateDriverPassengerMode(itinId: String, mode: PigeonDriverPassengerMode, comment: String, callback: (Result<PigeonUpdateDriverPassengerModeStatus>) -> Unit) {
+        DriveKitDriverData.updateDriverPassengerMode(itinId, fromPigeonDriverPassengerMode(mode), comment) {
+            status: UpdateDriverPassengerModeStatus -> callback(Result.success(PigeonMapper.toPigeonUpdateDriverPassengerModeStatus(status)))
+        }
     }
 }

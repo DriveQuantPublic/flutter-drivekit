@@ -19,17 +19,13 @@ PlatformException _createConnectionError(String channelName) {
 enum PigeonTripSyncStatus {
   /// Synchronization has been successfully performed
   success,
-
   /// SynchronizationType has been set to cache.
   cacheDataOnly,
-
   /// Synchronization has failed,
   /// only trips previously synchronized are returned
   failedToSyncTripsCacheOnly,
-
   /// Safety Events synchronization failed
   failedToSyncSafetyEvents,
-
   /// A synchronization is in progress, only trips previously
   /// synchronized are returned until the synchronization is finished
   syncAlreadyInProgress,
@@ -44,7 +40,6 @@ enum PigeonCrashStatus {
 enum PigeonSynchronizationType {
   /// synchronize by calling the DriveQuant servers
   defaultSync,
-
   /// retrieve already synchronized items in the local database
   cache,
 }
@@ -53,40 +48,28 @@ enum PigeonSynchronizationType {
 enum PigeonTransportationMode {
   /// Unknown
   unknown,
-
   /// Car Trip
   car,
-
   /// Motorcycle Trip
   moto,
-
   /// Heavy-duty vehicle Trip
   truck,
-
   /// Bus Trip
   bus,
-
   /// Rail trip
   train,
-
   /// Boat trip
   boat,
-
   /// Bike trip
   bike,
-
   /// Plane Trip
   flight,
-
   /// Ski Trip
   skiing,
-
   /// On foot Trip
   onFoot,
-
   /// Idle
   idle,
-
   /// Other
   other,
 }
@@ -95,10 +78,8 @@ enum PigeonTransportationMode {
 enum PigeonRouteSyncStatus {
   /// Synchronization has been successfully performed
   success,
-
   /// Synchronization failed
   failedToRetrieveRoute,
-
   /// Wrong trip identifier
   wrongItinId,
 }
@@ -362,21 +343,16 @@ class PigeonTrip {
       safetyEvents: (result[20] as List<Object?>?)?.cast<PigeonSafetyEvent?>(),
       speedingStatistics: result[21] as PigeonSpeedingStatistics?,
       energyEstimation: result[22] as PigeonEnergyEstimation?,
-      advancedEnergyEstimation: (result[23] as List<Object?>?)
-          ?.cast<PigeonAdvancedEnergyEstimation?>(),
-      tripAdvicesData:
-          (result[24] as List<Object?>?)?.cast<PigeonTripAdviceData?>(),
+      advancedEnergyEstimation: (result[23] as List<Object?>?)?.cast<PigeonAdvancedEnergyEstimation?>(),
+      tripAdvicesData: (result[24] as List<Object?>?)?.cast<PigeonTripAdviceData?>(),
       maneuverData: result[25] as PigeonManeuverData?,
       evaluationData: result[26] as PigeonEvaluationData?,
-      metadata:
-          (result[27] as Map<Object?, Object?>?)?.cast<String?, String?>(),
+      metadata: (result[27] as Map<Object?, Object?>?)?.cast<String?, String?>(),
       transportationMode: result[28]! as int,
-      declaredTransportationMode:
-          result[29] as PigeonDeclaredTransportationMode?,
+      declaredTransportationMode: result[29] as PigeonDeclaredTransportationMode?,
       unscored: result[30]! as bool,
       calls: (result[31] as List<Object?>?)?.cast<PigeonCall?>(),
-      speedLimitContexts:
-          (result[32] as List<Object?>?)?.cast<PigeonSpeedLimitContext?>(),
+      speedLimitContexts: (result[32] as List<Object?>?)?.cast<PigeonSpeedLimitContext?>(),
     );
   }
 }
@@ -593,8 +569,7 @@ class PigeonAdvancedEcoDriving {
   static PigeonAdvancedEcoDriving decode(Object result) {
     result as List<Object?>;
     return PigeonAdvancedEcoDriving(
-      ecoDrivingContext:
-          (result[0] as List<Object?>?)!.cast<PigeonEcoDrivingContext?>(),
+      ecoDrivingContext: (result[0] as List<Object?>?)!.cast<PigeonEcoDrivingContext?>(),
     );
   }
 }
@@ -615,8 +590,7 @@ class PigeonAdvancedFuelEstimation {
   static PigeonAdvancedFuelEstimation decode(Object result) {
     result as List<Object?>;
     return PigeonAdvancedFuelEstimation(
-      fuelEstimationContext:
-          (result[0] as List<Object?>?)!.cast<PigeonFuelEstimationContext?>(),
+      fuelEstimationContext: (result[0] as List<Object?>?)!.cast<PigeonFuelEstimationContext?>(),
     );
   }
 }
@@ -637,8 +611,7 @@ class PigeonAdvancedSafety {
   static PigeonAdvancedSafety decode(Object result) {
     result as List<Object?>;
     return PigeonAdvancedSafety(
-      safetyContext:
-          (result[0] as List<Object?>?)!.cast<PigeonSafetyContext?>(),
+      safetyContext: (result[0] as List<Object?>?)!.cast<PigeonSafetyContext?>(),
     );
   }
 }
@@ -1726,6 +1699,7 @@ class PigeonGetRouteResponse {
   }
 }
 
+
 class _PigeonCodec extends StandardMessageCodec {
   const _PigeonCodec();
   @override
@@ -1733,109 +1707,109 @@ class _PigeonCodec extends StandardMessageCodec {
     if (value is PigeonGetTripsResponse) {
       buffer.putUint8(129);
       writeValue(buffer, value.encode());
-    } else if (value is PigeonGetTripResponse) {
+    } else     if (value is PigeonGetTripResponse) {
       buffer.putUint8(130);
       writeValue(buffer, value.encode());
-    } else if (value is PigeonTrip) {
+    } else     if (value is PigeonTrip) {
       buffer.putUint8(131);
       writeValue(buffer, value.encode());
-    } else if (value is PigeonTripAdviceData) {
+    } else     if (value is PigeonTripAdviceData) {
       buffer.putUint8(132);
       writeValue(buffer, value.encode());
-    } else if (value is PigeonTripAdviceEvaluation) {
+    } else     if (value is PigeonTripAdviceEvaluation) {
       buffer.putUint8(133);
       writeValue(buffer, value.encode());
-    } else if (value is PigeonManeuverData) {
+    } else     if (value is PigeonManeuverData) {
       buffer.putUint8(134);
       writeValue(buffer, value.encode());
-    } else if (value is PigeonEvaluationData) {
+    } else     if (value is PigeonEvaluationData) {
       buffer.putUint8(135);
       writeValue(buffer, value.encode());
-    } else if (value is PigeonDeclaredTransportationMode) {
+    } else     if (value is PigeonDeclaredTransportationMode) {
       buffer.putUint8(136);
       writeValue(buffer, value.encode());
-    } else if (value is PigeonAdvancedEcoDriving) {
+    } else     if (value is PigeonAdvancedEcoDriving) {
       buffer.putUint8(137);
       writeValue(buffer, value.encode());
-    } else if (value is PigeonAdvancedFuelEstimation) {
+    } else     if (value is PigeonAdvancedFuelEstimation) {
       buffer.putUint8(138);
       writeValue(buffer, value.encode());
-    } else if (value is PigeonAdvancedSafety) {
+    } else     if (value is PigeonAdvancedSafety) {
       buffer.putUint8(139);
       writeValue(buffer, value.encode());
-    } else if (value is PigeonBrakeWear) {
+    } else     if (value is PigeonBrakeWear) {
       buffer.putUint8(140);
       writeValue(buffer, value.encode());
-    } else if (value is PigeonCall) {
+    } else     if (value is PigeonCall) {
       buffer.putUint8(141);
       writeValue(buffer, value.encode());
-    } else if (value is PigeonAdvancedEnergyEstimation) {
+    } else     if (value is PigeonAdvancedEnergyEstimation) {
       buffer.putUint8(142);
       writeValue(buffer, value.encode());
-    } else if (value is PigeonEnergyEstimation) {
+    } else     if (value is PigeonEnergyEstimation) {
       buffer.putUint8(143);
       writeValue(buffer, value.encode());
-    } else if (value is PigeonTripStatistics) {
+    } else     if (value is PigeonTripStatistics) {
       buffer.putUint8(144);
       writeValue(buffer, value.encode());
-    } else if (value is PigeonEcoDriving) {
+    } else     if (value is PigeonEcoDriving) {
       buffer.putUint8(145);
       writeValue(buffer, value.encode());
-    } else if (value is PigeonFuelEstimation) {
+    } else     if (value is PigeonFuelEstimation) {
       buffer.putUint8(146);
       writeValue(buffer, value.encode());
-    } else if (value is PigeonSafety) {
+    } else     if (value is PigeonSafety) {
       buffer.putUint8(147);
       writeValue(buffer, value.encode());
-    } else if (value is PigeonPollutants) {
+    } else     if (value is PigeonPollutants) {
       buffer.putUint8(148);
       writeValue(buffer, value.encode());
-    } else if (value is PigeonTireWear) {
+    } else     if (value is PigeonTireWear) {
       buffer.putUint8(149);
       writeValue(buffer, value.encode());
-    } else if (value is PigeonDriverDistraction) {
+    } else     if (value is PigeonDriverDistraction) {
       buffer.putUint8(150);
       writeValue(buffer, value.encode());
-    } else if (value is PigeonLogbook) {
+    } else     if (value is PigeonLogbook) {
       buffer.putUint8(151);
       writeValue(buffer, value.encode());
-    } else if (value is PigeonSafetyEvent) {
+    } else     if (value is PigeonSafetyEvent) {
       buffer.putUint8(152);
       writeValue(buffer, value.encode());
-    } else if (value is PigeonSpeedingStatistics) {
+    } else     if (value is PigeonSpeedingStatistics) {
       buffer.putUint8(153);
       writeValue(buffer, value.encode());
-    } else if (value is PigeonEcoDrivingContext) {
+    } else     if (value is PigeonEcoDrivingContext) {
       buffer.putUint8(154);
       writeValue(buffer, value.encode());
-    } else if (value is PigeonFuelEstimationContext) {
+    } else     if (value is PigeonFuelEstimationContext) {
       buffer.putUint8(155);
       writeValue(buffer, value.encode());
-    } else if (value is PigeonSafetyContext) {
+    } else     if (value is PigeonSafetyContext) {
       buffer.putUint8(156);
       writeValue(buffer, value.encode());
-    } else if (value is PigeonSpeedLimitContext) {
+    } else     if (value is PigeonSpeedLimitContext) {
       buffer.putUint8(157);
       writeValue(buffer, value.encode());
-    } else if (value is PigeonRoute) {
+    } else     if (value is PigeonRoute) {
       buffer.putUint8(158);
       writeValue(buffer, value.encode());
-    } else if (value is PigeonGetRouteResponse) {
+    } else     if (value is PigeonGetRouteResponse) {
       buffer.putUint8(159);
       writeValue(buffer, value.encode());
-    } else if (value is PigeonTripSyncStatus) {
+    } else     if (value is PigeonTripSyncStatus) {
       buffer.putUint8(160);
       writeValue(buffer, value.index);
-    } else if (value is PigeonCrashStatus) {
+    } else     if (value is PigeonCrashStatus) {
       buffer.putUint8(161);
       writeValue(buffer, value.index);
-    } else if (value is PigeonSynchronizationType) {
+    } else     if (value is PigeonSynchronizationType) {
       buffer.putUint8(162);
       writeValue(buffer, value.index);
-    } else if (value is PigeonTransportationMode) {
+    } else     if (value is PigeonTransportationMode) {
       buffer.putUint8(163);
       writeValue(buffer, value.index);
-    } else if (value is PigeonRouteSyncStatus) {
+    } else     if (value is PigeonRouteSyncStatus) {
       buffer.putUint8(164);
       writeValue(buffer, value.index);
     } else {
@@ -1846,81 +1820,81 @@ class _PigeonCodec extends StandardMessageCodec {
   @override
   Object? readValueOfType(int type, ReadBuffer buffer) {
     switch (type) {
-      case 129:
+      case 129: 
         return PigeonGetTripsResponse.decode(readValue(buffer)!);
-      case 130:
+      case 130: 
         return PigeonGetTripResponse.decode(readValue(buffer)!);
-      case 131:
+      case 131: 
         return PigeonTrip.decode(readValue(buffer)!);
-      case 132:
+      case 132: 
         return PigeonTripAdviceData.decode(readValue(buffer)!);
-      case 133:
+      case 133: 
         return PigeonTripAdviceEvaluation.decode(readValue(buffer)!);
-      case 134:
+      case 134: 
         return PigeonManeuverData.decode(readValue(buffer)!);
-      case 135:
+      case 135: 
         return PigeonEvaluationData.decode(readValue(buffer)!);
-      case 136:
+      case 136: 
         return PigeonDeclaredTransportationMode.decode(readValue(buffer)!);
-      case 137:
+      case 137: 
         return PigeonAdvancedEcoDriving.decode(readValue(buffer)!);
-      case 138:
+      case 138: 
         return PigeonAdvancedFuelEstimation.decode(readValue(buffer)!);
-      case 139:
+      case 139: 
         return PigeonAdvancedSafety.decode(readValue(buffer)!);
-      case 140:
+      case 140: 
         return PigeonBrakeWear.decode(readValue(buffer)!);
-      case 141:
+      case 141: 
         return PigeonCall.decode(readValue(buffer)!);
-      case 142:
+      case 142: 
         return PigeonAdvancedEnergyEstimation.decode(readValue(buffer)!);
-      case 143:
+      case 143: 
         return PigeonEnergyEstimation.decode(readValue(buffer)!);
-      case 144:
+      case 144: 
         return PigeonTripStatistics.decode(readValue(buffer)!);
-      case 145:
+      case 145: 
         return PigeonEcoDriving.decode(readValue(buffer)!);
-      case 146:
+      case 146: 
         return PigeonFuelEstimation.decode(readValue(buffer)!);
-      case 147:
+      case 147: 
         return PigeonSafety.decode(readValue(buffer)!);
-      case 148:
+      case 148: 
         return PigeonPollutants.decode(readValue(buffer)!);
-      case 149:
+      case 149: 
         return PigeonTireWear.decode(readValue(buffer)!);
-      case 150:
+      case 150: 
         return PigeonDriverDistraction.decode(readValue(buffer)!);
-      case 151:
+      case 151: 
         return PigeonLogbook.decode(readValue(buffer)!);
-      case 152:
+      case 152: 
         return PigeonSafetyEvent.decode(readValue(buffer)!);
-      case 153:
+      case 153: 
         return PigeonSpeedingStatistics.decode(readValue(buffer)!);
-      case 154:
+      case 154: 
         return PigeonEcoDrivingContext.decode(readValue(buffer)!);
-      case 155:
+      case 155: 
         return PigeonFuelEstimationContext.decode(readValue(buffer)!);
-      case 156:
+      case 156: 
         return PigeonSafetyContext.decode(readValue(buffer)!);
-      case 157:
+      case 157: 
         return PigeonSpeedLimitContext.decode(readValue(buffer)!);
-      case 158:
+      case 158: 
         return PigeonRoute.decode(readValue(buffer)!);
-      case 159:
+      case 159: 
         return PigeonGetRouteResponse.decode(readValue(buffer)!);
-      case 160:
+      case 160: 
         final int? value = readValue(buffer) as int?;
         return value == null ? null : PigeonTripSyncStatus.values[value];
-      case 161:
+      case 161: 
         final int? value = readValue(buffer) as int?;
         return value == null ? null : PigeonCrashStatus.values[value];
-      case 162:
+      case 162: 
         final int? value = readValue(buffer) as int?;
         return value == null ? null : PigeonSynchronizationType.values[value];
-      case 163:
+      case 163: 
         final int? value = readValue(buffer) as int?;
         return value == null ? null : PigeonTransportationMode.values[value];
-      case 164:
+      case 164: 
         final int? value = readValue(buffer) as int?;
         return value == null ? null : PigeonRouteSyncStatus.values[value];
       default:
@@ -1933,37 +1907,24 @@ class IOSDriverDataApi {
   /// Constructor for [IOSDriverDataApi].  The [binaryMessenger] named argument is
   /// available for dependency injection.  If it is left null, the default
   /// BinaryMessenger will be used which routes to the host platform.
-  IOSDriverDataApi(
-      {BinaryMessenger? binaryMessenger, String messageChannelSuffix = ''})
+  IOSDriverDataApi({BinaryMessenger? binaryMessenger, String messageChannelSuffix = ''})
       : __pigeon_binaryMessenger = binaryMessenger,
-        __pigeon_messageChannelSuffix =
-            messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
+        __pigeon_messageChannelSuffix = messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
   final BinaryMessenger? __pigeon_binaryMessenger;
 
   static const MessageCodec<Object?> pigeonChannelCodec = _PigeonCodec();
 
   final String __pigeon_messageChannelSuffix;
 
-  Future<PigeonGetTripsResponse> getTripsOrderByDateAsc(
-      {PigeonSynchronizationType synchronizationType =
-          PigeonSynchronizationType.defaultSync,
-      List<PigeonTransportationMode?> transportationModes = const [
-        PigeonTransportationMode.unknown,
-        PigeonTransportationMode.car,
-        PigeonTransportationMode.moto,
-        PigeonTransportationMode.truck
-      ]}) async {
-    final String __pigeon_channelName =
-        'dev.flutter.pigeon.pigeon_driver_data_package.IOSDriverDataApi.getTripsOrderByDateAsc$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel =
-        BasicMessageChannel<Object?>(
+  Future<PigeonGetTripsResponse> getTripsOrderByDateAsc({PigeonSynchronizationType synchronizationType = PigeonSynchronizationType.defaultSync, List<PigeonTransportationMode?> transportationModes = const [PigeonTransportationMode.unknown, PigeonTransportationMode.car, PigeonTransportationMode.moto, PigeonTransportationMode.truck]}) async {
+    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_driver_data_package.IOSDriverDataApi.getTripsOrderByDateAsc$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
     );
-    final List<Object?>? __pigeon_replyList = await __pigeon_channel
-            .send(<Object?>[synchronizationType, transportationModes])
-        as List<Object?>?;
+    final List<Object?>? __pigeon_replyList =
+        await __pigeon_channel.send(<Object?>[synchronizationType, transportationModes]) as List<Object?>?;
     if (__pigeon_replyList == null) {
       throw _createConnectionError(__pigeon_channelName);
     } else if (__pigeon_replyList.length > 1) {
@@ -1982,26 +1943,15 @@ class IOSDriverDataApi {
     }
   }
 
-  Future<PigeonGetTripsResponse> getTripsOrderByDateDesc(
-      {PigeonSynchronizationType synchronizationType =
-          PigeonSynchronizationType.defaultSync,
-      List<PigeonTransportationMode?> transportationModes = const [
-        PigeonTransportationMode.unknown,
-        PigeonTransportationMode.car,
-        PigeonTransportationMode.moto,
-        PigeonTransportationMode.truck
-      ]}) async {
-    final String __pigeon_channelName =
-        'dev.flutter.pigeon.pigeon_driver_data_package.IOSDriverDataApi.getTripsOrderByDateDesc$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel =
-        BasicMessageChannel<Object?>(
+  Future<PigeonGetTripsResponse> getTripsOrderByDateDesc({PigeonSynchronizationType synchronizationType = PigeonSynchronizationType.defaultSync, List<PigeonTransportationMode?> transportationModes = const [PigeonTransportationMode.unknown, PigeonTransportationMode.car, PigeonTransportationMode.moto, PigeonTransportationMode.truck]}) async {
+    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_driver_data_package.IOSDriverDataApi.getTripsOrderByDateDesc$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
     );
-    final List<Object?>? __pigeon_replyList = await __pigeon_channel
-            .send(<Object?>[synchronizationType, transportationModes])
-        as List<Object?>?;
+    final List<Object?>? __pigeon_replyList =
+        await __pigeon_channel.send(<Object?>[synchronizationType, transportationModes]) as List<Object?>?;
     if (__pigeon_replyList == null) {
       throw _createConnectionError(__pigeon_channelName);
     } else if (__pigeon_replyList.length > 1) {
@@ -2021,10 +1971,8 @@ class IOSDriverDataApi {
   }
 
   Future<PigeonGetTripResponse> getTrip(String itinId) async {
-    final String __pigeon_channelName =
-        'dev.flutter.pigeon.pigeon_driver_data_package.IOSDriverDataApi.getTrip$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel =
-        BasicMessageChannel<Object?>(
+    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_driver_data_package.IOSDriverDataApi.getTrip$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
@@ -2050,10 +1998,8 @@ class IOSDriverDataApi {
   }
 
   Future<PigeonGetRouteResponse> getRoute(String itinId) async {
-    final String __pigeon_channelName =
-        'dev.flutter.pigeon.pigeon_driver_data_package.IOSDriverDataApi.getRoute$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel =
-        BasicMessageChannel<Object?>(
+    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_driver_data_package.IOSDriverDataApi.getRoute$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
@@ -2079,10 +2025,8 @@ class IOSDriverDataApi {
   }
 
   Future<bool> deleteTrip(String itinId) async {
-    final String __pigeon_channelName =
-        'dev.flutter.pigeon.pigeon_driver_data_package.IOSDriverDataApi.deleteTrip$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel =
-        BasicMessageChannel<Object?>(
+    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_driver_data_package.IOSDriverDataApi.deleteTrip$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,

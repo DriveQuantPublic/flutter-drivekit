@@ -1,5 +1,6 @@
 import 'package:flutter_drivekit_driver_data_android/flutter_drivekit_driver_data_android.dart';
 import 'package:flutter_drivekit_driver_data_android/src/driver_data_api.g.dart';
+import 'package:flutter_drivekit_driver_data_android/src/model_adapter.dart';
 import 'package:flutter_drivekit_driver_data_platform_interface/flutter_drivekit_driver_data_platform_interface.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -103,6 +104,33 @@ void main() {
       final deletionResult =
           await DriveKitDriverDataPlatform.instance.deleteTrip('');
       expect(deletionResult, false);
+    });
+
+    test('Update a trip made as passenger', () async {
+      //mock
+      when(
+        () => androidDriverDataApi.updateDriverPassengerMode(
+          'itinId',
+          PigeonDriverPassengerMode.passenger,
+          'myComment',
+        ),
+      ).thenAnswer(
+        (_) async => PigeonUpdateDriverPassengerModeStatus.success,
+      );
+
+      //test
+      await DriveKitDriverDataPlatform.instance.updateDriverPassengerMode(
+        'itinId',
+        DriverPassengerMode.passenger,
+        'myComment',
+      );
+      verify(
+        () => androidDriverDataApi.updateDriverPassengerMode(
+          'itinId',
+          PigeonDriverPassengerMode.passenger,
+          'myComment',
+        ),
+      ).called(1);
     });
   });
 }

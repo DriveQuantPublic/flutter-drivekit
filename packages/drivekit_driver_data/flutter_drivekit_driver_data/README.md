@@ -60,13 +60,14 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 
 ## API
 
-| Method                                                                | Return Type                     | iOS | Android |
-| --------------------------------------------------------------------- | ------------------------------- | :-: | :-----: |
-| [getTripsOrderByDateAsc()](#getTripsOrderByDateAsc)                   | `Future<GetTripsResponse?>`     | ✅  |   ✅    |
-| [getTripsOrderByDateDesc()](#getTripsOrderByDateDesc)                 | `Future<GetTripsResponse?>`     | ✅  |   ✅    |
-| [getTrip()](#getTrip)                                                 | `Future<GetTripResponse>`       | ✅  |   ✅    |
-| [getRoute()](#getRoute)                                               | `Future<GetRouteResponse>`      | ✅  |   ✅    |
-| [deleteTrip()](#deleteTrip)                                           | `Future<bool>`                  | ✅  |   ✅    |
+| Method                                                    | Return Type                               | iOS | Android |
+| --------------------------------------------------------- | ----------------------------------------- | :-: | :-----: |
+| [getTripsOrderByDateAsc()](#getTripsOrderByDateAsc)       | `Future<GetTripsResponse?>`               | ✅  |   ✅    |
+| [getTripsOrderByDateDesc()](#getTripsOrderByDateDesc)     | `Future<GetTripsResponse?>`               | ✅  |   ✅    |
+| [getTrip()](#getTrip)                                     | `Future<GetTripResponse>`                 | ✅  |   ✅    |
+| [getRoute()](#getRoute)                                   | `Future<GetRouteResponse>`                | ✅  |   ✅    |
+| [deleteTrip()](#deleteTrip)                               | `Future<bool>`                            | ✅  |   ✅    |
+| [updateDriverPassengerMode()](#updateDriverPassengerMode) | `Future<UpdateDriverPassengerModeStatus>` | ✅  |   ✅    |
 
 
 ### getTripsOrderByDateAsc
@@ -170,3 +171,26 @@ To delete a trip, you have to call the following method:
 final result = await DriveKitDriverData.instance.deleteTrip('TRIP_ID_HERE');
 ```
 
+### updateDriverPassengerMode
+
+When a trip is analyzed and the detected transportation mode is car, truck, or motorcycle, it is by default attributed to the driver. However, in some cases, the data may come from a passenger's smartphone.
+
+
+In such cases, it is possible to indicate that the analyzed trip was recorded by an occupant of the vehicle who was not the driver.
+This section describes the method used to declare a trip as having been made as a passenger.
+
+
+With this method, you can add a feature to your application that allows the user to declare that they were not the driver of the vehicle.
+
+Remark: When a user declares that a trip was made as a passenger, it will not modify any scores related to the trip.
+
+To declare a trip as a passenger with a comment, call the following code:
+
+```dart
+const tripId = 'TRIP_ID';
+const comment = 'MY_COMMENT';
+final result = await DriveKitDriverData.instance.updateDriverPassengerMode(tripId, DriverPassengerMode.passenger, comment);
+```
+
+The `itinId` parameter is the unique identifier for a trip.
+The user can add a comment of up to 120 characters with the `comment` parameter.

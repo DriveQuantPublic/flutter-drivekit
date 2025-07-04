@@ -43,4 +43,15 @@ class DefaultDriveKitDriverData extends DriveKitDriverDataPlatform {
   Future<bool> deleteTrip(String itinId) {
     throw UnimplementedError('deleteTrip() has not been implemented.');
   }
+
+  @override
+  Future<UpdateDriverPassengerModeStatus> updateDriverPassengerMode(
+    String itinId,
+    DriverPassengerMode mode,
+    String comment,
+  ) {
+    throw UnimplementedError(
+      'updateDriverPassengerMode() has not been implemented.',
+    );
+  }
 }

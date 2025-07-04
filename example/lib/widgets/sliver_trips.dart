@@ -112,6 +112,41 @@ class SliverTrips extends StatelessWidget {
             'Get route',
           ),
         ),
+        ElevatedButton(
+          onPressed: () async {
+            const tripId = 'TRIP_ID';
+            const comment = 'MY_COMMENT';
+            final result =
+                await DriveKitDriverData.instance.updateDriverPassengerMode(
+              tripId,
+              DriverPassengerMode.passenger,
+              comment,
+            );
+            final alertMessage = 'Update driver passenger mode status: $result';
+            if (context.mounted) {
+              await showDialog<void>(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: const Text('Update Driver/Passenger mode'),
+                    content: Text(alertMessage),
+                    actions: <Widget>[
+                      TextButton(
+                        child: const Text('OK'),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
+                  );
+                },
+              );
+            }
+          },
+          child: const Text(
+            'Update Driver/Passenger mode',
+          ),
+        ),
       ],
     );
   }

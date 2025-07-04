@@ -147,6 +147,40 @@ enum class PigeonRouteSyncStatus(val raw: Int) {
   }
 }
 
+/** Update driver passenger mode status enum */
+enum class PigeonUpdateDriverPassengerModeStatus(val raw: Int) {
+  /** Success, the data have been updated in the local database */
+  SUCCESS(0),
+  /** Error, the trip was made with an alternative transport */
+  INVALID_TRANSPORTATION_MODE(1),
+  /** Error, the comment is too long */
+  COMMENT_TOO_LONG(2),
+  /** An error occurred, for example when the user has no network */
+  FAILED_TO_UPDATE_MODE(3),
+  /** An error occurred, the user is not yet connected */
+  USER_NOT_CONNECTED(4);
+
+  companion object {
+    fun ofRaw(raw: Int): PigeonUpdateDriverPassengerModeStatus? {
+      return values().firstOrNull { it.raw == raw }
+    }
+  }
+}
+
+/** Declare if the trip has been made as driver of passenger */
+enum class PigeonDriverPassengerMode(val raw: Int) {
+  /** Declare the trip made as driver */
+  DRIVER(0),
+  /** Declare the trip made as passenger */
+  PASSENGER(1);
+
+  companion object {
+    fun ofRaw(raw: Int): PigeonDriverPassengerMode? {
+      return values().firstOrNull { it.raw == raw }
+    }
+  }
+}
+
 /**
  * the response returned when gettings trips
  *
@@ -1532,6 +1566,16 @@ private object DriverDataApiPigeonCodec : StandardMessageCodec() {
           PigeonRouteSyncStatus.ofRaw(it)
         }
       }
+      165.toByte() -> {
+        return (readValue(buffer) as Int?)?.let {
+          PigeonUpdateDriverPassengerModeStatus.ofRaw(it)
+        }
+      }
+      166.toByte() -> {
+        return (readValue(buffer) as Int?)?.let {
+          PigeonDriverPassengerMode.ofRaw(it)
+        }
+      }
       else -> super.readValueOfType(type, buffer)
     }
   }
@@ -1681,6 +1725,14 @@ private object DriverDataApiPigeonCodec : StandardMessageCodec() {
         stream.write(164)
         writeValue(stream, value.raw)
       }
+      is PigeonUpdateDriverPassengerModeStatus -> {
+        stream.write(165)
+        writeValue(stream, value.raw)
+      }
+      is PigeonDriverPassengerMode -> {
+        stream.write(166)
+        writeValue(stream, value.raw)
+      }
       else -> super.writeValue(stream, value)
     }
   }
@@ -1694,6 +1746,7 @@ interface AndroidDriverDataApi {
   fun getTrip(itinId: String, callback: (Result<PigeonGetTripResponse>) -> Unit)
   fun getRoute(itinId: String, callback: (Result<PigeonGetRouteResponse>) -> Unit)
   fun deleteTrip(itinId: String, callback: (Result<Boolean>) -> Unit)
+  fun updateDriverPassengerMode(itinId: String, mode: PigeonDriverPassengerMode, comment: String, callback: (Result<PigeonUpdateDriverPassengerModeStatus>) -> Unit)
 
   companion object {
     /** The codec used by AndroidDriverDataApi. */
@@ -1793,6 +1846,28 @@ interface AndroidDriverDataApi {
             val args = message as List<Any?>
             val itinIdArg = args[0] as String
             api.deleteTrip(itinIdArg) { result: Result<Boolean> ->
+              val error = result.exceptionOrNull()
+              if (error != null) {
+                reply.reply(wrapError(error))
+              } else {
+                val data = result.getOrNull()
+                reply.reply(wrapResult(data))
+              }
+            }
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_driver_data_package.AndroidDriverDataApi.updateDriverPassengerMode$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { message, reply ->
+            val args = message as List<Any?>
+            val itinIdArg = args[0] as String
+            val modeArg = args[1] as PigeonDriverPassengerMode
+            val commentArg = args[2] as String
+            api.updateDriverPassengerMode(itinIdArg, modeArg, commentArg) { result: Result<PigeonUpdateDriverPassengerModeStatus> ->
               val error = result.exceptionOrNull()
               if (error != null) {
                 reply.reply(wrapError(error))
