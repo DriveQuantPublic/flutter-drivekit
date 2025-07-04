@@ -1,6 +1,5 @@
 import 'package:flutter_drivekit_driver_data_android/flutter_drivekit_driver_data_android.dart';
 import 'package:flutter_drivekit_driver_data_android/src/driver_data_api.g.dart';
-import 'package:flutter_drivekit_driver_data_android/src/model_adapter.dart';
 import 'package:flutter_drivekit_driver_data_platform_interface/flutter_drivekit_driver_data_platform_interface.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
