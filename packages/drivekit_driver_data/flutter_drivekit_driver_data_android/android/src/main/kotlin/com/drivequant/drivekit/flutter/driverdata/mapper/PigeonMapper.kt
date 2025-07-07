@@ -503,7 +503,7 @@ object PigeonMapper {
         UpdateDriverPassengerModeStatus.SUCCESS -> PigeonUpdateDriverPassengerModeStatus.SUCCESS
         UpdateDriverPassengerModeStatus.USER_NOT_CONNECTED -> PigeonUpdateDriverPassengerModeStatus.USER_NOT_CONNECTED
         UpdateDriverPassengerModeStatus.INVALID_TRANSPORTATION_MODE -> PigeonUpdateDriverPassengerModeStatus.INVALID_TRANSPORTATION_MODE
-        UpdateDriverPassengerModeStatus.INVALID_ITINERARY_ID -> PigeonUpdateDriverPassengerModeStatus.INVALID_TRANSPORTATION_MODE
+        UpdateDriverPassengerModeStatus.INVALID_ITINERARY_ID -> PigeonUpdateDriverPassengerModeStatus.INVALID_ITINERARY_ID
         UpdateDriverPassengerModeStatus.COMMENT_TOO_LONG -> PigeonUpdateDriverPassengerModeStatus.COMMENT_TOO_LONG
         UpdateDriverPassengerModeStatus.FAILED_TO_UPDATE_MODE -> PigeonUpdateDriverPassengerModeStatus.FAILED_TO_UPDATE_MODE
     }
