@@ -191,6 +191,9 @@ class PigeonTrip {
   /// The logbook information
   final PigeonLogbook? logbook;
 
+  /// The occupant role and passenger probability information
+  final PigeonOccupantInfo? occupantInfo;
+
   /// The list of safety events
   final List<PigeonSafetyEvent?>? safetyEvents;
 
@@ -756,6 +759,17 @@ class PigeonLogbook {
   final String? updateDate;
 }
 
+class PigeonOccupantInfo {
+  const PigeonOccupantInfo({
+    required this.role,
+    required this.passengerProbability,
+  });
+
+  final PigeonOccupantRole role;
+
+  final int passengerProbability;
+}
+
 class PigeonSafetyEvent {
   const PigeonSafetyEvent({
     required this.time,
@@ -1032,4 +1046,20 @@ enum PigeonRouteSyncStatus {
 
   /// Wrong trip identifier
   wrongItinId,
+}
+
+/// Occupant role status enum
+enum PigeonOccupantRole {
+  /// DriveKit has determined that the occupant was the driver of the vehicle.
+  driver,
+
+  /// DriveKit determined that the occupant was a passenger of the vehicle.
+  passenger,
+
+  /// It was not possible to determine if the occupant was the driver or
+  /// the passenger.
+  unavailable,
+
+  /// An alternative mode of transportation was detected for this trip.
+  notApplicable,
 }

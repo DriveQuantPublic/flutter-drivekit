@@ -260,6 +260,35 @@ extension PigeonLogbookAdapter on PigeonLogbook {
   }
 }
 
+/// Adapts the [PigeonOccupantInfo] class to the corresponding class in
+/// the model.
+extension PigeonOccupantInfoAdapter on PigeonOccupantInfo {
+  /// Converts a [PigeonOccupantInfo] to a corresponding model class.
+  OccupantInfo toModelImplementation() {
+    return OccupantInfo(
+      role: role.toModelImplementation(),
+      passengerProbability: passengerProbability,
+    );
+  }
+}
+
+/// Adapts the [PigeonOccupantRole] enum to the corresponding model enum
+extension PigeonOccupantRoleAdapter on PigeonOccupantRole {
+  /// Converts a [PigeonOccupantRole] to a corresponding model enum.
+  OccupantRole toModelImplementation() {
+    switch (this) {
+      case PigeonOccupantRole.driver:
+        return OccupantRole.driver;
+      case PigeonOccupantRole.passenger:
+        return OccupantRole.passenger;
+      case PigeonOccupantRole.unavailable:
+        return OccupantRole.unavailable;
+      case PigeonOccupantRole.notApplicable:
+        return OccupantRole.notApplicable;
+    }
+  }
+}
+
 /// Adapts the [PigeonSpeedingStatistics] class to the corresponding class
 /// in the model.
 extension PigeonSpeedingStatisticsAdapter on PigeonSpeedingStatistics {
@@ -337,6 +366,7 @@ extension PigeonTripAdapter on PigeonTrip {
       driverDistraction: driverDistraction?.toModelImplementation(),
       endDate: endDate,
       logbook: logbook?.toModelImplementation(),
+      occupantInfo: occupantInfo?.toModelImplementation(),
       safetyEvents: safetyEvents
           ?.whereNotNull()
           .map((e) => e.toModelImplementation())

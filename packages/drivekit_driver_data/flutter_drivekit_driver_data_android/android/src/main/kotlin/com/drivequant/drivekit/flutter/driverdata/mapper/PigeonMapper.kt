@@ -14,6 +14,8 @@ import com.drivequant.drivekit.databaseutils.entity.FuelEstimation
 import com.drivequant.drivekit.databaseutils.entity.FuelEstimationDrivingContext
 import com.drivequant.drivekit.databaseutils.entity.Logbook
 import com.drivequant.drivekit.databaseutils.entity.ManeuverData
+import com.drivequant.drivekit.databaseutils.entity.OccupantInfo
+import com.drivequant.drivekit.databaseutils.entity.OccupantRole
 import com.drivequant.drivekit.databaseutils.entity.Pollutants
 import com.drivequant.drivekit.databaseutils.entity.Route
 import com.drivequant.drivekit.databaseutils.entity.Safety
@@ -44,6 +46,8 @@ import com.drivequant.drivekit.flutter.driverdata.PigeonFuelEstimation
 import com.drivequant.drivekit.flutter.driverdata.PigeonFuelEstimationContext
 import com.drivequant.drivekit.flutter.driverdata.PigeonLogbook
 import com.drivequant.drivekit.flutter.driverdata.PigeonManeuverData
+import com.drivequant.drivekit.flutter.driverdata.PigeonOccupantInfo
+import com.drivequant.drivekit.flutter.driverdata.PigeonOccupantRole
 import com.drivequant.drivekit.flutter.driverdata.PigeonPollutants
 import com.drivequant.drivekit.flutter.driverdata.PigeonRoute
 import com.drivequant.drivekit.flutter.driverdata.PigeonRouteSyncStatus
@@ -110,6 +114,9 @@ object PigeonMapper {
         val logbook: PigeonLogbook? = trip.logbook?.let {
             this.toPigeonLogbook(it)
         }
+        val occupantInfo: PigeonOccupantInfo? = trip.occupantInfo?.let {
+            this.toPigeonOccupantInfo(it)
+        }
         val safetyEvents: List<PigeonSafetyEvent?>? = trip.safetyEvents?.let { it ->
             it.map {
                 this.toPigeonSafetyEvent(it)
@@ -161,6 +168,7 @@ object PigeonMapper {
             brakeWear = brakeWear,
             driverDistraction = driverDistraction,
             logbook = logbook,
+            occupantInfo = occupantInfo,
             safetyEvents = safetyEvents,
             speedingStatistics = speedingStatistics,
             energyEstimation = energyEstimation,
@@ -336,6 +344,13 @@ object PigeonMapper {
         )
     }
 
+     private fun toPigeonOccupantInfo(occupantInfo: OccupantInfo): PigeonOccupantInfo {
+          return PigeonOccupantInfo(
+            role = toPigeonOccupantRole(occupantInfo.role),
+            passengerProbability = occupantInfo.passengerProbability.toLong()
+        )
+    }
+
     private fun toPigeonSafetyEvent(safetyEvent: SafetyEvent): PigeonSafetyEvent = PigeonSafetyEvent(
         time = safetyEvent.time,
         longitude = safetyEvent.longitude,
@@ -488,5 +503,12 @@ object PigeonMapper {
         RouteStatus.NO_ERROR -> PigeonRouteSyncStatus.SUCCESS
         RouteStatus.FAILED_TO_RETRIEVE_ROUTE -> PigeonRouteSyncStatus.FAILED_TO_RETRIEVE_ROUTE
         RouteStatus.WRONG_ITINID -> PigeonRouteSyncStatus.WRONG_ITIN_ID
+    }
+
+    private fun toPigeonOccupantRole(role: OccupantRole): PigeonOccupantRole = when (role) {
+        OccupantRole.DRIVER -> PigeonOccupantRole.DRIVER
+        OccupantRole.PASSENGER -> PigeonOccupantRole.PASSENGER
+        OccupantRole.NOT_APPLICABLE -> PigeonOccupantRole.NOT_APPLICABLE
+        OccupantRole.UNAVAILABLE -> PigeonOccupantRole.UNAVAILABLE
     }
 }

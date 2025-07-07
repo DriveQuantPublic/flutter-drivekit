@@ -111,6 +111,7 @@ class PigeonTrip {
     required this.brakeWear,
     required this.driverDistraction,
     required this.logbook,
+    required this.occupantInfo,
     required this.safetyEvents,
     required this.speedingStatistics,
     required this.energyEstimation,
@@ -185,6 +186,9 @@ class PigeonTrip {
 
   /// The logbook information
   final PigeonLogbook? logbook;
+
+  /// The occupant role and passenger probability information
+  final PigeonOccupantInfo? occupantInfo;
 
   /// The list of safety events
   final List<PigeonSafetyEvent?>? safetyEvents;
@@ -750,6 +754,19 @@ class PigeonLogbook {
 
   final String? updateDate;
 }
+
+class PigeonOccupantInfo {
+  const PigeonOccupantInfo({
+    required this.role,
+    required this.passengerProbability,
+  });
+
+  final PigeonOccupantRole role;
+
+  final int passengerProbability;
+}
+
+enum PigeonOccupantRole { driver, passenger, unavailable, notApplicable }
 
 class PigeonSafetyEvent {
   const PigeonSafetyEvent({
