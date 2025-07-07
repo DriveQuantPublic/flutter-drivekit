@@ -104,5 +104,32 @@ void main() {
           await DriveKitDriverDataPlatform.instance.deleteTrip('');
       expect(deletionResult, false);
     });
+
+    test('Update a trip made as passenger', () async {
+      //mock
+      when(
+        () => androidDriverDataApi.updateDriverPassengerMode(
+          'itinId',
+          PigeonDriverPassengerMode.passenger,
+          'myComment',
+        ),
+      ).thenAnswer(
+        (_) async => PigeonUpdateDriverPassengerModeStatus.success,
+      );
+
+      //test
+      await DriveKitDriverDataPlatform.instance.updateDriverPassengerMode(
+        'itinId',
+        DriverPassengerMode.passenger,
+        'myComment',
+      );
+      verify(
+        () => androidDriverDataApi.updateDriverPassengerMode(
+          'itinId',
+          PigeonDriverPassengerMode.passenger,
+          'myComment',
+        ),
+      ).called(1);
+    });
   });
 }

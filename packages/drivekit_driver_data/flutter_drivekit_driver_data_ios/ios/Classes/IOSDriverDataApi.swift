@@ -140,6 +140,30 @@ enum PigeonRouteSyncStatus: Int {
   case wrongItinId = 2
 }
 
+/// Update driver passenger mode status enum
+enum PigeonUpdateDriverPassengerModeStatus: Int {
+  /// Success, the data have been updated in the local database
+  case success = 0
+  /// Error, the trip was made with an alternative transport
+  case invalidTransportationMode = 1
+  /// Error, the itinId is not valid
+  case invalidItineraryId = 2
+  /// Error, the comment is too long
+  case commentTooLong = 3
+  /// An error occurred, for example when the user has no network
+  case failedToUpdateMode = 4
+  /// An error occurred, the user is not yet connected
+  case userNotConnected = 5
+}
+
+/// Declare if the trip has been made as driver of passenger
+enum PigeonDriverPassengerMode: Int {
+  /// Declare the trip made as driver
+  case driver = 0
+  /// Declare the trip made as passenger
+  case passenger = 1
+}
+
 /// the response returned when gettings trips
 ///
 /// Generated class from Pigeon that represents data sent in messages.
@@ -1650,6 +1674,20 @@ private class IOSDriverDataApiPigeonCodecReader: FlutterStandardReader {
         enumResult = PigeonRouteSyncStatus(rawValue: enumResultAsInt)
       }
       return enumResult
+    case 167:
+      var enumResult: PigeonUpdateDriverPassengerModeStatus? = nil
+      let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
+      if let enumResultAsInt = enumResultAsInt {
+        enumResult = PigeonUpdateDriverPassengerModeStatus(rawValue: enumResultAsInt)
+      }
+      return enumResult
+    case 168:
+      var enumResult: PigeonDriverPassengerMode? = nil
+      let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
+      if let enumResultAsInt = enumResultAsInt {
+        enumResult = PigeonDriverPassengerMode(rawValue: enumResultAsInt)
+      }
+      return enumResult
     default:
       return super.readValue(ofType: type)
     }
@@ -1772,6 +1810,12 @@ private class IOSDriverDataApiPigeonCodecWriter: FlutterStandardWriter {
     } else if let value = value as? PigeonRouteSyncStatus {
       super.writeByte(166)
       super.writeValue(value.rawValue)
+    } else if let value = value as? PigeonUpdateDriverPassengerModeStatus {
+      super.writeByte(167)
+      super.writeValue(value.rawValue)
+    } else if let value = value as? PigeonDriverPassengerMode {
+      super.writeByte(168)
+      super.writeValue(value.rawValue)
     } else {
       super.writeValue(value)
     }
@@ -1800,6 +1844,7 @@ protocol IOSDriverDataApi {
   func getTrip(itinId: String, completion: @escaping (Result<PigeonGetTripResponse, Error>) -> Void)
   func getRoute(itinId: String, completion: @escaping (Result<PigeonGetRouteResponse, Error>) -> Void)
   func deleteTrip(itinId: String, completion: @escaping (Result<Bool, Error>) -> Void)
+  func updateDriverPassengerMode(itinId: String, mode: PigeonDriverPassengerMode, comment: String, completion: @escaping (Result<PigeonUpdateDriverPassengerModeStatus, Error>) -> Void)
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
@@ -1894,6 +1939,25 @@ class IOSDriverDataApiSetup {
       }
     } else {
       deleteTripChannel.setMessageHandler(nil)
+    }
+    let updateDriverPassengerModeChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.pigeon_driver_data_package.IOSDriverDataApi.updateDriverPassengerMode\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      updateDriverPassengerModeChannel.setMessageHandler { message, reply in
+        let args = message as! [Any?]
+        let itinIdArg = args[0] as! String
+        let modeArg = args[1] as! PigeonDriverPassengerMode
+        let commentArg = args[2] as! String
+        api.updateDriverPassengerMode(itinId: itinIdArg, mode: modeArg, comment: commentArg) { result in
+          switch result {
+          case .success(let res):
+            reply(wrapResult(res))
+          case .failure(let error):
+            reply(wrapError(error))
+          }
+        }
+      }
+    } else {
+      updateDriverPassengerModeChannel.setMessageHandler(nil)
     }
   }
 }

@@ -2,12 +2,14 @@ import 'package:flutter_drivekit_driver_data_platform_interface/flutter_drivekit
 
 export 'package:flutter_drivekit_driver_data_platform_interface/flutter_drivekit_driver_data_platform_interface.dart'
     show
+        DriverPassengerMode,
         Route,
         RouteSyncStatus,
         SynchronizationType,
         TransportationMode,
         Trip,
-        TripSyncStatus;
+        TripSyncStatus,
+        UpdateDriverPassengerModeStatus;
 
 DriveKitDriverDataPlatform get _platform => DriveKitDriverDataPlatform.instance;
 
@@ -59,4 +61,12 @@ class DriveKitDriverData {
 
   /// Delete a trip
   Future<bool> deleteTrip(String itinId) => _platform.deleteTrip(itinId);
+
+  /// Declare a trip made as passenger or driver
+  Future<UpdateDriverPassengerModeStatus> updateDriverPassengerMode(
+    String itinId,
+    DriverPassengerMode mode,
+    String comment,
+  ) =>
+      _platform.updateDriverPassengerMode(itinId, mode, comment);
 }

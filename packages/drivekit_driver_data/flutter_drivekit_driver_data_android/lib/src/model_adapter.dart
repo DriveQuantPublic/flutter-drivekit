@@ -611,3 +611,27 @@ extension PigeonRouteSyncStatusAdapter on PigeonRouteSyncStatus {
     }
   }
 }
+
+/// Adapts the [PigeonUpdateDriverPassengerModeStatus] enum to the corresponding
+/// model enum
+extension PigeonUpdateDriverPassengerModeStatusAdapter
+    on PigeonUpdateDriverPassengerModeStatus {
+  /// Converts a [PigeonUpdateDriverPassengerModeStatus] to a corresponding
+  /// model enum.
+  UpdateDriverPassengerModeStatus toModelImplementation() {
+    switch (this) {
+      case PigeonUpdateDriverPassengerModeStatus.success:
+        return UpdateDriverPassengerModeStatus.success;
+      case PigeonUpdateDriverPassengerModeStatus.invalidTransportationMode:
+        return UpdateDriverPassengerModeStatus.invalidTransportationMode;
+      case PigeonUpdateDriverPassengerModeStatus.commentTooLong:
+        return UpdateDriverPassengerModeStatus.commentTooLong;
+      case PigeonUpdateDriverPassengerModeStatus.failedToUpdateMode:
+        return UpdateDriverPassengerModeStatus.failedToUpdateMode;
+      case PigeonUpdateDriverPassengerModeStatus.userNotConnected:
+        return UpdateDriverPassengerModeStatus.userNotConnected;
+      case PigeonUpdateDriverPassengerModeStatus.invalidItineraryId:
+        return UpdateDriverPassengerModeStatus.invalidItineraryId;
+    }
+  }
+}

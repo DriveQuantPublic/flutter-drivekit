@@ -65,4 +65,18 @@ class DriveKitDriverDataIOS extends DriveKitDriverDataPlatform {
 
   @override
   Future<bool> deleteTrip(String itinId) => iosDriverDataApi.deleteTrip(itinId);
+
+  @override
+  Future<UpdateDriverPassengerModeStatus> updateDriverPassengerMode(
+    String itinId,
+    DriverPassengerMode mode,
+    String comment,
+  ) async {
+    final status = await iosDriverDataApi.updateDriverPassengerMode(
+      itinId,
+      mode.toPigeonImplementation(),
+      comment,
+    );
+    return status.toModelImplementation();
+  }
 }

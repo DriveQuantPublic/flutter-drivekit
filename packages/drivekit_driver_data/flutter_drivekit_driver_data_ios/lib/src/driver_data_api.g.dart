@@ -91,6 +91,30 @@ enum PigeonRouteSyncStatus {
   wrongItinId,
 }
 
+/// Update driver passenger mode status enum
+enum PigeonUpdateDriverPassengerModeStatus {
+  /// Success, the data have been updated in the local database
+  success,
+  /// Error, the trip was made with an alternative transport
+  invalidTransportationMode,
+  /// Error, the itinId is not valid
+  invalidItineraryId,
+  /// Error, the comment is too long
+  commentTooLong,
+  /// An error occurred, for example when the user has no network
+  failedToUpdateMode,
+  /// An error occurred, the user is not yet connected
+  userNotConnected,
+}
+
+/// Declare if the trip has been made as driver of passenger
+enum PigeonDriverPassengerMode {
+  /// Declare the trip made as driver
+  driver,
+  /// Declare the trip made as passenger
+  passenger,
+}
+
 /// the response returned when gettings trips
 class PigeonGetTripsResponse {
   PigeonGetTripsResponse({
@@ -1857,6 +1881,12 @@ class _PigeonCodec extends StandardMessageCodec {
     } else     if (value is PigeonRouteSyncStatus) {
       buffer.putUint8(166);
       writeValue(buffer, value.index);
+    } else     if (value is PigeonUpdateDriverPassengerModeStatus) {
+      buffer.putUint8(167);
+      writeValue(buffer, value.index);
+    } else     if (value is PigeonDriverPassengerMode) {
+      buffer.putUint8(168);
+      writeValue(buffer, value.index);
     } else {
       super.writeValue(buffer, value);
     }
@@ -1947,6 +1977,12 @@ class _PigeonCodec extends StandardMessageCodec {
       case 166: 
         final int? value = readValue(buffer) as int?;
         return value == null ? null : PigeonRouteSyncStatus.values[value];
+      case 167: 
+        final int? value = readValue(buffer) as int?;
+        return value == null ? null : PigeonUpdateDriverPassengerModeStatus.values[value];
+      case 168: 
+        final int? value = readValue(buffer) as int?;
+        return value == null ? null : PigeonDriverPassengerMode.values[value];
       default:
         return super.readValueOfType(type, buffer);
     }
@@ -2098,6 +2134,33 @@ class IOSDriverDataApi {
       );
     } else {
       return (__pigeon_replyList[0] as bool?)!;
+    }
+  }
+
+  Future<PigeonUpdateDriverPassengerModeStatus> updateDriverPassengerMode(String itinId, PigeonDriverPassengerMode mode, String comment) async {
+    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_driver_data_package.IOSDriverDataApi.updateDriverPassengerMode$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+      __pigeon_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: __pigeon_binaryMessenger,
+    );
+    final List<Object?>? __pigeon_replyList =
+        await __pigeon_channel.send(<Object?>[itinId, mode, comment]) as List<Object?>?;
+    if (__pigeon_replyList == null) {
+      throw _createConnectionError(__pigeon_channelName);
+    } else if (__pigeon_replyList.length > 1) {
+      throw PlatformException(
+        code: __pigeon_replyList[0]! as String,
+        message: __pigeon_replyList[1] as String?,
+        details: __pigeon_replyList[2],
+      );
+    } else if (__pigeon_replyList[0] == null) {
+      throw PlatformException(
+        code: 'null-error',
+        message: 'Host platform returned null value for non-null return value.',
+      );
+    } else {
+      return (__pigeon_replyList[0] as PigeonUpdateDriverPassengerModeStatus?)!;
     }
   }
 }

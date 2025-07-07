@@ -30,6 +30,8 @@ import com.drivequant.drivekit.databaseutils.entity.TripAdvice
 import com.drivequant.drivekit.databaseutils.entity.TripStatistics
 import com.drivequant.drivekit.driverdata.trip.RouteStatus
 import com.drivequant.drivekit.driverdata.trip.TripsSyncStatus
+import com.drivequant.drivekit.driverdata.trip.UpdateDriverPassengerModeStatus
+import com.drivequant.drivekit.driverdata.trip.driverpassengermode.DriverPassengerMode
 import com.drivequant.drivekit.flutter.driverdata.PigeonAdvancedEcoDriving
 import com.drivequant.drivekit.flutter.driverdata.PigeonAdvancedEnergyEstimation
 import com.drivequant.drivekit.flutter.driverdata.PigeonAdvancedFuelEstimation
@@ -38,6 +40,7 @@ import com.drivequant.drivekit.flutter.driverdata.PigeonBrakeWear
 import com.drivequant.drivekit.flutter.driverdata.PigeonCall
 import com.drivequant.drivekit.flutter.driverdata.PigeonDeclaredTransportationMode
 import com.drivequant.drivekit.flutter.driverdata.PigeonDriverDistraction
+import com.drivequant.drivekit.flutter.driverdata.PigeonDriverPassengerMode
 import com.drivequant.drivekit.flutter.driverdata.PigeonEcoDriving
 import com.drivequant.drivekit.flutter.driverdata.PigeonEcoDrivingContext
 import com.drivequant.drivekit.flutter.driverdata.PigeonEnergyEstimation
@@ -64,6 +67,7 @@ import com.drivequant.drivekit.flutter.driverdata.PigeonTripAdviceData
 import com.drivequant.drivekit.flutter.driverdata.PigeonTripAdviceEvaluation
 import com.drivequant.drivekit.flutter.driverdata.PigeonTripStatistics
 import com.drivequant.drivekit.flutter.driverdata.PigeonTripSyncStatus
+import com.drivequant.drivekit.flutter.driverdata.PigeonUpdateDriverPassengerModeStatus
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -510,5 +514,19 @@ object PigeonMapper {
         OccupantRole.PASSENGER -> PigeonOccupantRole.PASSENGER
         OccupantRole.NOT_APPLICABLE -> PigeonOccupantRole.NOT_APPLICABLE
         OccupantRole.UNAVAILABLE -> PigeonOccupantRole.UNAVAILABLE
+    }
+    
+    fun fromPigeonDriverPassengerMode(mode: PigeonDriverPassengerMode): DriverPassengerMode = when (mode) {
+        PigeonDriverPassengerMode.DRIVER -> DriverPassengerMode.DRIVER
+        PigeonDriverPassengerMode.PASSENGER -> DriverPassengerMode.PASSENGER
+    }
+
+    fun toPigeonUpdateDriverPassengerModeStatus(status: UpdateDriverPassengerModeStatus): PigeonUpdateDriverPassengerModeStatus = when (status) {
+        UpdateDriverPassengerModeStatus.SUCCESS -> PigeonUpdateDriverPassengerModeStatus.SUCCESS
+        UpdateDriverPassengerModeStatus.USER_NOT_CONNECTED -> PigeonUpdateDriverPassengerModeStatus.USER_NOT_CONNECTED
+        UpdateDriverPassengerModeStatus.INVALID_TRANSPORTATION_MODE -> PigeonUpdateDriverPassengerModeStatus.INVALID_TRANSPORTATION_MODE
+        UpdateDriverPassengerModeStatus.INVALID_ITINERARY_ID -> PigeonUpdateDriverPassengerModeStatus.INVALID_ITINERARY_ID
+        UpdateDriverPassengerModeStatus.COMMENT_TOO_LONG -> PigeonUpdateDriverPassengerModeStatus.COMMENT_TOO_LONG
+        UpdateDriverPassengerModeStatus.FAILED_TO_UPDATE_MODE -> PigeonUpdateDriverPassengerModeStatus.FAILED_TO_UPDATE_MODE
     }
 }

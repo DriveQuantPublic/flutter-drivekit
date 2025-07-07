@@ -41,6 +41,12 @@ abstract class IOSDriverDataApi {
   PigeonGetRouteResponse getRoute(String itinId);
   @async
   bool deleteTrip(String itinId);
+  @async
+  PigeonUpdateDriverPassengerModeStatus updateDriverPassengerMode(
+    String itinId,
+    PigeonDriverPassengerMode mode,
+    String comment,
+  );
 }
 
 /// the response returned when gettings trips
@@ -1044,4 +1050,34 @@ enum PigeonRouteSyncStatus {
 
   /// Wrong trip identifier
   wrongItinId,
+}
+
+/// Update driver passenger mode status enum
+enum PigeonUpdateDriverPassengerModeStatus {
+  /// Success, the data have been updated in the local database
+  success,
+
+  /// Error, the trip was made with an alternative transport
+  invalidTransportationMode,
+
+  /// Error, the itinId is not valid
+  invalidItineraryId,
+
+  /// Error, the comment is too long
+  commentTooLong,
+
+  /// An error occurred, for example when the user has no network
+  failedToUpdateMode,
+
+  /// An error occurred, the user is not yet connected
+  userNotConnected
+}
+
+/// Declare if the trip has been made as driver of passenger
+enum PigeonDriverPassengerMode {
+  /// Declare the trip made as driver
+  driver,
+
+  /// Declare the trip made as passenger
+  passenger
 }

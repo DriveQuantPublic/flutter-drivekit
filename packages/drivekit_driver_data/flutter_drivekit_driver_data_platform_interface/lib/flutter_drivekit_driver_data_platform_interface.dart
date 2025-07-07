@@ -56,4 +56,11 @@ abstract class DriveKitDriverDataPlatform extends PlatformInterface {
 
   /// Delete a trip
   Future<bool> deleteTrip(String itinId);
+
+  /// Declare a trip made as passenger or driver
+  Future<UpdateDriverPassengerModeStatus> updateDriverPassengerMode(
+    String itinId,
+    DriverPassengerMode mode,
+    String comment,
+  );
 }

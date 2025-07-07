@@ -48,3 +48,16 @@ extension SynchronizationTypeAdapter on SynchronizationType {
     }
   }
 }
+
+/// Adapts the [DriverPassengerMode] enum to the corresponding Pigeon enum
+extension DriverPassengerModeAdapter on DriverPassengerMode {
+  /// Converts a [DriverPassengerMode] to a corresponding Pigeon enum
+  PigeonDriverPassengerMode toPigeonImplementation() {
+    switch (this) {
+      case DriverPassengerMode.driver:
+        return PigeonDriverPassengerMode.driver;
+      case DriverPassengerMode.passenger:
+        return PigeonDriverPassengerMode.passenger;
+    }
+  }
+}
