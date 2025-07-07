@@ -111,7 +111,7 @@ enum PigeonUpdateDriverPassengerModeStatus {
   /// Error, the trip was made with an alternative transport
   invalidTransportationMode,
 
-  /// Error, the comment is too long
+  /// Error, invalid itinerary identifier
   invalidItineraryId,
 
   /// Error, the comment is too long
