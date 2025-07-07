@@ -123,8 +123,8 @@ class DriveKitDriverDataPlugin :
     }
 
     override fun updateDriverPassengerMode(itinId: String, mode: PigeonDriverPassengerMode, comment: String, callback: (Result<PigeonUpdateDriverPassengerModeStatus>) -> Unit) {
-        DriveKitDriverData.updateDriverPassengerMode(itinId, fromPigeonDriverPassengerMode(mode), comment) {
-            status: UpdateDriverPassengerModeStatus -> callback(Result.success(PigeonMapper.toPigeonUpdateDriverPassengerModeStatus(status)))
+        DriveKitDriverData.updateDriverPassengerMode(itinId, fromPigeonDriverPassengerMode(mode), comment) { status: UpdateDriverPassengerModeStatus ->
+            callback(Result.success(PigeonMapper.toPigeonUpdateDriverPassengerModeStatus(status)))
         }
     }
 }
