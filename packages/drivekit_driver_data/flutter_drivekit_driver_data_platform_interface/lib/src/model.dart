@@ -230,12 +230,3 @@ enum DriverPassengerMode {
   /// Declare the trip made as passenger
   passenger
 }
-
-/// Trip synchronization status enum
-enum MyEnum {
-  /// Synchronization has been successfully performed
-  success,
-
-  /// error occured
-  error,
-}
