@@ -99,5 +99,30 @@ void main() {
         expect(actualDeletionResult, equals(result));
       });
     });
+
+    group('update driver passenger mode', () {
+      test('Declare trip made as passenger', () async {
+        when(
+          () => drivekitDriverDataPlatform.updateDriverPassengerMode(
+            'itinId',
+            DriverPassengerMode.passenger,
+            'comment',
+          ),
+        ).thenAnswer((_) async => UpdateDriverPassengerModeStatus.success);
+
+        await driveKitDriverData.updateDriverPassengerMode(
+          'itinId',
+          DriverPassengerMode.passenger,
+          'comment',
+        );
+        verify(
+          () => driveKitDriverData.updateDriverPassengerMode(
+            'itinId',
+            DriverPassengerMode.passenger,
+            'comment',
+          ),
+        ).called(1);
+      });
+    });
   });
 }

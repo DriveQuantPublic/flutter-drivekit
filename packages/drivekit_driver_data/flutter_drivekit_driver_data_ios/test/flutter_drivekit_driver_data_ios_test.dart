@@ -97,5 +97,32 @@ void main() {
       final name = await DriveKitDriverDataPlatform.instance.deleteTrip('');
       expect(name, false);
     });
+
+    test('Update a trip made as passenger', () async {
+      //mock
+      when(
+        () => iosDriverDataApi.updateDriverPassengerMode(
+          'itinId',
+          PigeonDriverPassengerMode.passenger,
+          'myComment',
+        ),
+      ).thenAnswer(
+        (_) async => PigeonUpdateDriverPassengerModeStatus.success,
+      );
+
+      //test
+      await DriveKitDriverDataPlatform.instance.updateDriverPassengerMode(
+        'itinId',
+        DriverPassengerMode.passenger,
+        'myComment',
+      );
+      verify(
+        () => iosDriverDataApi.updateDriverPassengerMode(
+          'itinId',
+          PigeonDriverPassengerMode.passenger,
+          'myComment',
+        ),
+      ).called(1);
+    });
   });
 }
