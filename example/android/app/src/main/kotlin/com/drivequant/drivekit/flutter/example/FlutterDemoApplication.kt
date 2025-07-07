@@ -1,14 +1,23 @@
 package com.drivequant.drivekit.flutter.example
 
-import io.flutter.FlutterInjector
-import io.flutter.app.FlutterApplication
+import android.app.Application
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.embedding.engine.dart.DartExecutor
+import io.flutter.embedding.engine.loader.FlutterLoader
 
-class FlutterDemoApplication : FlutterApplication() {
+class FlutterDemoApplication : Application() {
+    private val flutterLoader = FlutterLoader()
+
     override fun onCreate() {
         super.onCreate()
-        val pathToBundle = FlutterInjector.instance().flutterLoader().findAppBundlePath()
-        FlutterEngine(this).dartExecutor.executeDartEntrypoint(DartExecutor.DartEntrypoint(pathToBundle, "registerTripListener"))
+
+        flutterLoader.startInitialization(this)
+        flutterLoader.ensureInitializationComplete(this, null)
+        FlutterEngine(this).dartExecutor.executeDartEntrypoint(
+            DartExecutor.DartEntrypoint(
+                flutterLoader.findAppBundlePath(),
+                "registerTripListener"
+            )
+        )
     }
 }
