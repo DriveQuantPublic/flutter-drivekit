@@ -187,9 +187,9 @@ Remark: When a user declares that a trip was made as a passenger, it will not mo
 To declare a trip as a passenger with a comment, call the following code:
 
 ```dart
-const tripId = 'TRIP_ID';
+const itinId = 'TRIP_ID';
 const comment = 'MY_COMMENT';
-final result = await DriveKitDriverData.instance.updateDriverPassengerMode(tripId, DriverPassengerMode.passenger, comment);
+final result = await DriveKitDriverData.instance.updateDriverPassengerMode(itinId, DriverPassengerMode.passenger, comment);
 ```
 
 The `itinId` parameter is the unique identifier for a trip.
