@@ -120,6 +120,7 @@ class PigeonTrip {
     required this.brakeWear,
     required this.driverDistraction,
     required this.logbook,
+    required this.occupantInfo,
     required this.safetyEvents,
     required this.speedingStatistics,
     required this.energyEstimation,
