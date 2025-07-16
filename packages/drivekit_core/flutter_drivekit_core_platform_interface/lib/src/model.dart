@@ -232,6 +232,7 @@ class Trip {
     required this.brakeWear,
     required this.driverDistraction,
     required this.logbook,
+    required this.occupantInfo,
     required this.safetyEvents,
     required this.speedingStatistics,
     required this.energyEstimation,
@@ -302,6 +303,9 @@ class Trip {
 
   /// The logbook information
   final Logbook? logbook;
+
+  /// The occupant role and passenger probability information
+  final OccupantInfo? occupantInfo;
 
   /// The list of safety events
   final List<SafetyEvent>? safetyEvents;
@@ -1104,6 +1108,37 @@ class Logbook {
 
   /// The update date
   final String? updateDate;
+}
+
+/// OccupantInfo class
+class OccupantInfo {
+  /// Creates an OccupantInfo instance
+  const OccupantInfo({
+    required this.role,
+    required this.passengerProbability,
+  });
+
+  /// Indicates the role of the occupant.
+  final OccupantRole role;
+
+  /// Confidence of the occupant to be a passenger, expressed in percent.
+  final int passengerProbability;
+}
+
+/// Occupant role status enum
+enum OccupantRole {
+  /// DriveKit has determined that the occupant was the driver of the vehicle.
+  driver,
+
+  /// DriveKit determined that the occupant was a passenger of the vehicle.
+  passenger,
+
+  /// It was not possible to determine if the occupant was the driver or
+  /// the passenger.
+  unavailable,
+
+  /// An alternative mode of transportation was detected for this trip.
+  notApplicable,
 }
 
 /// SafetyEvent class

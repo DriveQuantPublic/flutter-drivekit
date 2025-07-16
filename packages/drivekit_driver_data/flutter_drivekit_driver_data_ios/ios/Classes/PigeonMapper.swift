@@ -87,7 +87,9 @@ extension PigeonTrip {
         if let logbook = trip.logbook {
             self.logbook = PigeonLogbook(from: logbook)
         }
-
+        if let occupantInfo = trip.occupantInfo {
+            self.occupantInfo = PigeonOccupantInfo(from: occupantInfo)
+        }
         if let safetyEvents = trip.safetyEvents {
             self.safetyEvents = safetyEvents.map({
                 PigeonSafetyEvent(from: $0)
@@ -335,6 +337,28 @@ extension PigeonLogbook {
         self.init(
             status: Int64(logbook.status),
             updateDate: (logbook.updateDate != nil) ? DateUtils.convertDateToString(date: logbook.updateDate!) : nil
+        )
+    }
+}
+
+extension PigeonOccupantInfo {
+    init(from occupantInfo: DKOccupantInfo) {
+        var role: PigeonOccupantRole
+        switch occupantInfo.role {
+        case .unavailable:
+            role = PigeonOccupantRole.unavailable
+        case .driver:
+            role = PigeonOccupantRole.driver
+        case .passenger:
+            role = PigeonOccupantRole.passenger
+        case .notApplicable:
+            role = PigeonOccupantRole.notApplicable
+        @unknown default:
+            fatalError()
+        }
+        self.init(
+            role: role,
+            passengerProbability: Int64(occupantInfo.passengerProbability)
         )
     }
 }
