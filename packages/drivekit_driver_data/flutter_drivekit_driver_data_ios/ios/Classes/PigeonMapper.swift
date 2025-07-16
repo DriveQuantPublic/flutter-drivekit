@@ -343,8 +343,21 @@ extension PigeonLogbook {
 
 extension PigeonOccupantInfo {
     init(from occupantInfo: DKOccupantInfo) {
+        var role: PigeonOccupantRole
+        switch occupantInfo.role {
+        case .unavailable:
+            role = PigeonOccupantRole.unavailable
+        case .driver:
+            role = PigeonOccupantRole.driver
+        case .passenger:
+            role = PigeonOccupantRole.passenger
+        case .notApplicable:
+            role = PigeonOccupantRole.notApplicable
+        @unknown default:
+            fatalError()
+        }
         self.init(
-            role: PigeonOccupantRole(rawValue: occupantInfo.role.rawValue)!,
+            role: role,
             passengerProbability: Int64(occupantInfo.passengerProbability)
         )
     }
