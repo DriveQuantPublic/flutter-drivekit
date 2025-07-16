@@ -31,7 +31,6 @@ enum PigeonPresetTrip {
   tripWithCrashConfirmed30KmHStillDriving,
 }
 
-
 class _PigeonCodec extends StandardMessageCodec {
   const _PigeonCodec();
   @override
@@ -47,7 +46,7 @@ class _PigeonCodec extends StandardMessageCodec {
   @override
   Object? readValueOfType(int type, ReadBuffer buffer) {
     switch (type) {
-      case 129: 
+      case 129:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : PigeonPresetTrip.values[value];
       default:
@@ -60,9 +59,11 @@ class AndroidTripSimulatorApi {
   /// Constructor for [AndroidTripSimulatorApi].  The [binaryMessenger] named argument is
   /// available for dependency injection.  If it is left null, the default
   /// BinaryMessenger will be used which routes to the host platform.
-  AndroidTripSimulatorApi({BinaryMessenger? binaryMessenger, String messageChannelSuffix = ''})
+  AndroidTripSimulatorApi(
+      {BinaryMessenger? binaryMessenger, String messageChannelSuffix = ''})
       : __pigeon_binaryMessenger = binaryMessenger,
-        __pigeon_messageChannelSuffix = messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
+        __pigeon_messageChannelSuffix =
+            messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
   final BinaryMessenger? __pigeon_binaryMessenger;
 
   static const MessageCodec<Object?> pigeonChannelCodec = _PigeonCodec();
@@ -70,8 +71,10 @@ class AndroidTripSimulatorApi {
   final String __pigeon_messageChannelSuffix;
 
   Future<void> start(PigeonPresetTrip presetTrip) async {
-    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_trip_simulator_package.AndroidTripSimulatorApi.start$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+    final String __pigeon_channelName =
+        'dev.flutter.pigeon.pigeon_trip_simulator_package.AndroidTripSimulatorApi.start$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel =
+        BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
@@ -92,8 +95,10 @@ class AndroidTripSimulatorApi {
   }
 
   Future<void> stop() async {
-    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_trip_simulator_package.AndroidTripSimulatorApi.stop$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+    final String __pigeon_channelName =
+        'dev.flutter.pigeon.pigeon_trip_simulator_package.AndroidTripSimulatorApi.stop$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel =
+        BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,

@@ -15,7 +15,8 @@ PlatformException _createConnectionError(String channelName) {
   );
 }
 
-List<Object?> wrapResponse({Object? result, PlatformException? error, bool empty = false}) {
+List<Object?> wrapResponse(
+    {Object? result, PlatformException? error, bool empty = false}) {
   if (empty) {
     return <Object?>[];
   }
@@ -29,6 +30,7 @@ List<Object?> wrapResponse({Object? result, PlatformException? error, bool empty
 enum PigeonSynchronizationType {
   /// synchronize by calling the DriveQuant servers
   defaultSync,
+
   /// retrieve already synchronized items in the local database
   cache,
 }
@@ -409,7 +411,8 @@ class PigeonAdvancedEcoDriving {
   static PigeonAdvancedEcoDriving decode(Object result) {
     result as List<Object?>;
     return PigeonAdvancedEcoDriving(
-      ecoDrivingContext: (result[0] as List<Object?>?)!.cast<PigeonEcoDrivingContext?>(),
+      ecoDrivingContext:
+          (result[0] as List<Object?>?)!.cast<PigeonEcoDrivingContext?>(),
     );
   }
 }
@@ -430,7 +433,8 @@ class PigeonAdvancedFuelEstimation {
   static PigeonAdvancedFuelEstimation decode(Object result) {
     result as List<Object?>;
     return PigeonAdvancedFuelEstimation(
-      fuelEstimationContext: (result[0] as List<Object?>?)!.cast<PigeonFuelEstimationContext?>(),
+      fuelEstimationContext:
+          (result[0] as List<Object?>?)!.cast<PigeonFuelEstimationContext?>(),
     );
   }
 }
@@ -451,7 +455,8 @@ class PigeonAdvancedSafety {
   static PigeonAdvancedSafety decode(Object result) {
     result as List<Object?>;
     return PigeonAdvancedSafety(
-      safetyContext: (result[0] as List<Object?>?)!.cast<PigeonSafetyContext?>(),
+      safetyContext:
+          (result[0] as List<Object?>?)!.cast<PigeonSafetyContext?>(),
     );
   }
 }
@@ -1677,16 +1682,21 @@ class PigeonTrip {
       safetyEvents: (result[21] as List<Object?>?)?.cast<PigeonSafetyEvent?>(),
       speedingStatistics: result[22] as PigeonSpeedingStatistics?,
       energyEstimation: result[23] as PigeonEnergyEstimation?,
-      advancedEnergyEstimation: (result[24] as List<Object?>?)?.cast<PigeonAdvancedEnergyEstimation?>(),
-      tripAdvicesData: (result[25] as List<Object?>?)?.cast<PigeonTripAdviceData?>(),
+      advancedEnergyEstimation: (result[24] as List<Object?>?)
+          ?.cast<PigeonAdvancedEnergyEstimation?>(),
+      tripAdvicesData:
+          (result[25] as List<Object?>?)?.cast<PigeonTripAdviceData?>(),
       maneuverData: result[26] as PigeonManeuverData?,
       evaluationData: result[27] as PigeonEvaluationData?,
-      metadata: (result[28] as Map<Object?, Object?>?)?.cast<String?, String?>(),
+      metadata:
+          (result[28] as Map<Object?, Object?>?)?.cast<String?, String?>(),
       transportationMode: result[29]! as int,
-      declaredTransportationMode: result[30] as PigeonDeclaredTransportationMode?,
+      declaredTransportationMode:
+          result[30] as PigeonDeclaredTransportationMode?,
       unscored: result[31]! as bool,
       calls: (result[32] as List<Object?>?)?.cast<PigeonCall?>(),
-      speedLimitContexts: (result[33] as List<Object?>?)?.cast<PigeonSpeedLimitContext?>(),
+      speedLimitContexts:
+          (result[33] as List<Object?>?)?.cast<PigeonSpeedLimitContext?>(),
     );
   }
 }
@@ -2266,7 +2276,6 @@ class PigeonTripSharingLink {
   }
 }
 
-
 class _PigeonCodec extends StandardMessageCodec {
   const _PigeonCodec();
   @override
@@ -2274,175 +2283,175 @@ class _PigeonCodec extends StandardMessageCodec {
     if (value is PigeonVehicle) {
       buffer.putUint8(129);
       writeValue(buffer, value.encode());
-    } else     if (value is PigeonTripPoint) {
+    } else if (value is PigeonTripPoint) {
       buffer.putUint8(130);
       writeValue(buffer, value.encode());
-    } else     if (value is PigeonDKCrashInfo) {
+    } else if (value is PigeonDKCrashInfo) {
       buffer.putUint8(131);
       writeValue(buffer, value.encode());
-    } else     if (value is PigeonAdvancedEcoDriving) {
+    } else if (value is PigeonAdvancedEcoDriving) {
       buffer.putUint8(132);
       writeValue(buffer, value.encode());
-    } else     if (value is PigeonAdvancedFuelEstimation) {
+    } else if (value is PigeonAdvancedFuelEstimation) {
       buffer.putUint8(133);
       writeValue(buffer, value.encode());
-    } else     if (value is PigeonAdvancedSafety) {
+    } else if (value is PigeonAdvancedSafety) {
       buffer.putUint8(134);
       writeValue(buffer, value.encode());
-    } else     if (value is PigeonBrakeWear) {
+    } else if (value is PigeonBrakeWear) {
       buffer.putUint8(135);
       writeValue(buffer, value.encode());
-    } else     if (value is PigeonCall) {
+    } else if (value is PigeonCall) {
       buffer.putUint8(136);
       writeValue(buffer, value.encode());
-    } else     if (value is PigeonAdvancedEnergyEstimation) {
+    } else if (value is PigeonAdvancedEnergyEstimation) {
       buffer.putUint8(137);
       writeValue(buffer, value.encode());
-    } else     if (value is PigeonEnergyEstimation) {
+    } else if (value is PigeonEnergyEstimation) {
       buffer.putUint8(138);
       writeValue(buffer, value.encode());
-    } else     if (value is PigeonEcoDriving) {
+    } else if (value is PigeonEcoDriving) {
       buffer.putUint8(139);
       writeValue(buffer, value.encode());
-    } else     if (value is PigeonFuelEstimation) {
+    } else if (value is PigeonFuelEstimation) {
       buffer.putUint8(140);
       writeValue(buffer, value.encode());
-    } else     if (value is PigeonSafety) {
+    } else if (value is PigeonSafety) {
       buffer.putUint8(141);
       writeValue(buffer, value.encode());
-    } else     if (value is PigeonPollutants) {
+    } else if (value is PigeonPollutants) {
       buffer.putUint8(142);
       writeValue(buffer, value.encode());
-    } else     if (value is PigeonTireWear) {
+    } else if (value is PigeonTireWear) {
       buffer.putUint8(143);
       writeValue(buffer, value.encode());
-    } else     if (value is PigeonDriverDistraction) {
+    } else if (value is PigeonDriverDistraction) {
       buffer.putUint8(144);
       writeValue(buffer, value.encode());
-    } else     if (value is PigeonLogbook) {
+    } else if (value is PigeonLogbook) {
       buffer.putUint8(145);
       writeValue(buffer, value.encode());
-    } else     if (value is PigeonOccupantInfo) {
+    } else if (value is PigeonOccupantInfo) {
       buffer.putUint8(146);
       writeValue(buffer, value.encode());
-    } else     if (value is PigeonSafetyEvent) {
+    } else if (value is PigeonSafetyEvent) {
       buffer.putUint8(147);
       writeValue(buffer, value.encode());
-    } else     if (value is PigeonSpeedingStatistics) {
+    } else if (value is PigeonSpeedingStatistics) {
       buffer.putUint8(148);
       writeValue(buffer, value.encode());
-    } else     if (value is PigeonEcoDrivingContext) {
+    } else if (value is PigeonEcoDrivingContext) {
       buffer.putUint8(149);
       writeValue(buffer, value.encode());
-    } else     if (value is PigeonFuelEstimationContext) {
+    } else if (value is PigeonFuelEstimationContext) {
       buffer.putUint8(150);
       writeValue(buffer, value.encode());
-    } else     if (value is PigeonSafetyContext) {
+    } else if (value is PigeonSafetyContext) {
       buffer.putUint8(151);
       writeValue(buffer, value.encode());
-    } else     if (value is PigeonSpeedLimitContext) {
+    } else if (value is PigeonSpeedLimitContext) {
       buffer.putUint8(152);
       writeValue(buffer, value.encode());
-    } else     if (value is PigeonTripResponseStatus) {
+    } else if (value is PigeonTripResponseStatus) {
       buffer.putUint8(153);
       writeValue(buffer, value.encode());
-    } else     if (value is PigeonTripResponseInfoItem) {
+    } else if (value is PigeonTripResponseInfoItem) {
       buffer.putUint8(154);
       writeValue(buffer, value.encode());
-    } else     if (value is PigeonTrip) {
+    } else if (value is PigeonTrip) {
       buffer.putUint8(155);
       writeValue(buffer, value.encode());
-    } else     if (value is PigeonTripStatistics) {
+    } else if (value is PigeonTripStatistics) {
       buffer.putUint8(156);
       writeValue(buffer, value.encode());
-    } else     if (value is PigeonTripAdviceData) {
+    } else if (value is PigeonTripAdviceData) {
       buffer.putUint8(157);
       writeValue(buffer, value.encode());
-    } else     if (value is PigeonTripAdviceEvaluation) {
+    } else if (value is PigeonTripAdviceEvaluation) {
       buffer.putUint8(158);
       writeValue(buffer, value.encode());
-    } else     if (value is PigeonManeuverData) {
+    } else if (value is PigeonManeuverData) {
       buffer.putUint8(159);
       writeValue(buffer, value.encode());
-    } else     if (value is PigeonEvaluationData) {
+    } else if (value is PigeonEvaluationData) {
       buffer.putUint8(160);
       writeValue(buffer, value.encode());
-    } else     if (value is PigeonDeclaredTransportationMode) {
+    } else if (value is PigeonDeclaredTransportationMode) {
       buffer.putUint8(161);
       writeValue(buffer, value.encode());
-    } else     if (value is PigeonCurrentTripInfo) {
+    } else if (value is PigeonCurrentTripInfo) {
       buffer.putUint8(162);
       writeValue(buffer, value.encode());
-    } else     if (value is PigeonLastTripLocation) {
+    } else if (value is PigeonLastTripLocation) {
       buffer.putUint8(163);
       writeValue(buffer, value.encode());
-    } else     if (value is PigeonTripRecordingStartedState) {
+    } else if (value is PigeonTripRecordingStartedState) {
       buffer.putUint8(164);
       writeValue(buffer, value.encode());
-    } else     if (value is PigeonTripRecordingConfirmedState) {
+    } else if (value is PigeonTripRecordingConfirmedState) {
       buffer.putUint8(165);
       writeValue(buffer, value.encode());
-    } else     if (value is PigeonTripRecordingCanceledState) {
+    } else if (value is PigeonTripRecordingCanceledState) {
       buffer.putUint8(166);
       writeValue(buffer, value.encode());
-    } else     if (value is PigeonTripRecordingFinishedState) {
+    } else if (value is PigeonTripRecordingFinishedState) {
       buffer.putUint8(167);
       writeValue(buffer, value.encode());
-    } else     if (value is PigeonCreateTripSharingLinkResponse) {
+    } else if (value is PigeonCreateTripSharingLinkResponse) {
       buffer.putUint8(168);
       writeValue(buffer, value.encode());
-    } else     if (value is PigeonGetTripSharingLinkResponse) {
+    } else if (value is PigeonGetTripSharingLinkResponse) {
       buffer.putUint8(169);
       writeValue(buffer, value.encode());
-    } else     if (value is PigeonTripSharingLink) {
+    } else if (value is PigeonTripSharingLink) {
       buffer.putUint8(170);
       writeValue(buffer, value.encode());
-    } else     if (value is PigeonSynchronizationType) {
+    } else if (value is PigeonSynchronizationType) {
       buffer.putUint8(171);
       writeValue(buffer, value.index);
-    } else     if (value is PigeonStartMode) {
+    } else if (value is PigeonStartMode) {
       buffer.putUint8(172);
       writeValue(buffer, value.index);
-    } else     if (value is PigeonCancelTrip) {
+    } else if (value is PigeonCancelTrip) {
       buffer.putUint8(173);
       writeValue(buffer, value.index);
-    } else     if (value is PigeonState) {
+    } else if (value is PigeonState) {
       buffer.putUint8(174);
       writeValue(buffer, value.index);
-    } else     if (value is PigeonDKCrashFeedbackType) {
+    } else if (value is PigeonDKCrashFeedbackType) {
       buffer.putUint8(175);
       writeValue(buffer, value.index);
-    } else     if (value is PigeonDKCrashFeedbackSeverity) {
+    } else if (value is PigeonDKCrashFeedbackSeverity) {
       buffer.putUint8(176);
       writeValue(buffer, value.index);
-    } else     if (value is PigeonOccupantRole) {
+    } else if (value is PigeonOccupantRole) {
       buffer.putUint8(177);
       writeValue(buffer, value.index);
-    } else     if (value is PigeonCrashStatus) {
+    } else if (value is PigeonCrashStatus) {
       buffer.putUint8(178);
       writeValue(buffer, value.index);
-    } else     if (value is PigeonTripResponseStatusType) {
+    } else if (value is PigeonTripResponseStatusType) {
       buffer.putUint8(179);
       writeValue(buffer, value.index);
-    } else     if (value is PigeonTripResponseInfo) {
+    } else if (value is PigeonTripResponseInfo) {
       buffer.putUint8(180);
       writeValue(buffer, value.index);
-    } else     if (value is PigeonTripResponseError) {
+    } else if (value is PigeonTripResponseError) {
       buffer.putUint8(181);
       writeValue(buffer, value.index);
-    } else     if (value is PigeonAccuracyLevel) {
+    } else if (value is PigeonAccuracyLevel) {
       buffer.putUint8(182);
       writeValue(buffer, value.index);
-    } else     if (value is PigeonTripCancelationReason) {
+    } else if (value is PigeonTripCancelationReason) {
       buffer.putUint8(183);
       writeValue(buffer, value.index);
-    } else     if (value is PigeonCreateTripSharingLinkStatus) {
+    } else if (value is PigeonCreateTripSharingLinkStatus) {
       buffer.putUint8(184);
       writeValue(buffer, value.index);
-    } else     if (value is PigeonGetTripSharingLinkStatus) {
+    } else if (value is PigeonGetTripSharingLinkStatus) {
       buffer.putUint8(185);
       writeValue(buffer, value.index);
-    } else     if (value is PigeonRevokeTripSharingLinkStatus) {
+    } else if (value is PigeonRevokeTripSharingLinkStatus) {
       buffer.putUint8(186);
       writeValue(buffer, value.index);
     } else {
@@ -2453,138 +2462,148 @@ class _PigeonCodec extends StandardMessageCodec {
   @override
   Object? readValueOfType(int type, ReadBuffer buffer) {
     switch (type) {
-      case 129: 
+      case 129:
         return PigeonVehicle.decode(readValue(buffer)!);
-      case 130: 
+      case 130:
         return PigeonTripPoint.decode(readValue(buffer)!);
-      case 131: 
+      case 131:
         return PigeonDKCrashInfo.decode(readValue(buffer)!);
-      case 132: 
+      case 132:
         return PigeonAdvancedEcoDriving.decode(readValue(buffer)!);
-      case 133: 
+      case 133:
         return PigeonAdvancedFuelEstimation.decode(readValue(buffer)!);
-      case 134: 
+      case 134:
         return PigeonAdvancedSafety.decode(readValue(buffer)!);
-      case 135: 
+      case 135:
         return PigeonBrakeWear.decode(readValue(buffer)!);
-      case 136: 
+      case 136:
         return PigeonCall.decode(readValue(buffer)!);
-      case 137: 
+      case 137:
         return PigeonAdvancedEnergyEstimation.decode(readValue(buffer)!);
-      case 138: 
+      case 138:
         return PigeonEnergyEstimation.decode(readValue(buffer)!);
-      case 139: 
+      case 139:
         return PigeonEcoDriving.decode(readValue(buffer)!);
-      case 140: 
+      case 140:
         return PigeonFuelEstimation.decode(readValue(buffer)!);
-      case 141: 
+      case 141:
         return PigeonSafety.decode(readValue(buffer)!);
-      case 142: 
+      case 142:
         return PigeonPollutants.decode(readValue(buffer)!);
-      case 143: 
+      case 143:
         return PigeonTireWear.decode(readValue(buffer)!);
-      case 144: 
+      case 144:
         return PigeonDriverDistraction.decode(readValue(buffer)!);
-      case 145: 
+      case 145:
         return PigeonLogbook.decode(readValue(buffer)!);
-      case 146: 
+      case 146:
         return PigeonOccupantInfo.decode(readValue(buffer)!);
-      case 147: 
+      case 147:
         return PigeonSafetyEvent.decode(readValue(buffer)!);
-      case 148: 
+      case 148:
         return PigeonSpeedingStatistics.decode(readValue(buffer)!);
-      case 149: 
+      case 149:
         return PigeonEcoDrivingContext.decode(readValue(buffer)!);
-      case 150: 
+      case 150:
         return PigeonFuelEstimationContext.decode(readValue(buffer)!);
-      case 151: 
+      case 151:
         return PigeonSafetyContext.decode(readValue(buffer)!);
-      case 152: 
+      case 152:
         return PigeonSpeedLimitContext.decode(readValue(buffer)!);
-      case 153: 
+      case 153:
         return PigeonTripResponseStatus.decode(readValue(buffer)!);
-      case 154: 
+      case 154:
         return PigeonTripResponseInfoItem.decode(readValue(buffer)!);
-      case 155: 
+      case 155:
         return PigeonTrip.decode(readValue(buffer)!);
-      case 156: 
+      case 156:
         return PigeonTripStatistics.decode(readValue(buffer)!);
-      case 157: 
+      case 157:
         return PigeonTripAdviceData.decode(readValue(buffer)!);
-      case 158: 
+      case 158:
         return PigeonTripAdviceEvaluation.decode(readValue(buffer)!);
-      case 159: 
+      case 159:
         return PigeonManeuverData.decode(readValue(buffer)!);
-      case 160: 
+      case 160:
         return PigeonEvaluationData.decode(readValue(buffer)!);
-      case 161: 
+      case 161:
         return PigeonDeclaredTransportationMode.decode(readValue(buffer)!);
-      case 162: 
+      case 162:
         return PigeonCurrentTripInfo.decode(readValue(buffer)!);
-      case 163: 
+      case 163:
         return PigeonLastTripLocation.decode(readValue(buffer)!);
-      case 164: 
+      case 164:
         return PigeonTripRecordingStartedState.decode(readValue(buffer)!);
-      case 165: 
+      case 165:
         return PigeonTripRecordingConfirmedState.decode(readValue(buffer)!);
-      case 166: 
+      case 166:
         return PigeonTripRecordingCanceledState.decode(readValue(buffer)!);
-      case 167: 
+      case 167:
         return PigeonTripRecordingFinishedState.decode(readValue(buffer)!);
-      case 168: 
+      case 168:
         return PigeonCreateTripSharingLinkResponse.decode(readValue(buffer)!);
-      case 169: 
+      case 169:
         return PigeonGetTripSharingLinkResponse.decode(readValue(buffer)!);
-      case 170: 
+      case 170:
         return PigeonTripSharingLink.decode(readValue(buffer)!);
-      case 171: 
+      case 171:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : PigeonSynchronizationType.values[value];
-      case 172: 
+      case 172:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : PigeonStartMode.values[value];
-      case 173: 
+      case 173:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : PigeonCancelTrip.values[value];
-      case 174: 
+      case 174:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : PigeonState.values[value];
-      case 175: 
+      case 175:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : PigeonDKCrashFeedbackType.values[value];
-      case 176: 
+      case 176:
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : PigeonDKCrashFeedbackSeverity.values[value];
-      case 177: 
+        return value == null
+            ? null
+            : PigeonDKCrashFeedbackSeverity.values[value];
+      case 177:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : PigeonOccupantRole.values[value];
-      case 178: 
+      case 178:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : PigeonCrashStatus.values[value];
-      case 179: 
+      case 179:
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : PigeonTripResponseStatusType.values[value];
-      case 180: 
+        return value == null
+            ? null
+            : PigeonTripResponseStatusType.values[value];
+      case 180:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : PigeonTripResponseInfo.values[value];
-      case 181: 
+      case 181:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : PigeonTripResponseError.values[value];
-      case 182: 
+      case 182:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : PigeonAccuracyLevel.values[value];
-      case 183: 
+      case 183:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : PigeonTripCancelationReason.values[value];
-      case 184: 
+      case 184:
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : PigeonCreateTripSharingLinkStatus.values[value];
-      case 185: 
+        return value == null
+            ? null
+            : PigeonCreateTripSharingLinkStatus.values[value];
+      case 185:
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : PigeonGetTripSharingLinkStatus.values[value];
-      case 186: 
+        return value == null
+            ? null
+            : PigeonGetTripSharingLinkStatus.values[value];
+      case 186:
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : PigeonRevokeTripSharingLinkStatus.values[value];
+        return value == null
+            ? null
+            : PigeonRevokeTripSharingLinkStatus.values[value];
       default:
         return super.readValueOfType(type, buffer);
     }
@@ -2595,9 +2614,11 @@ class AndroidTripAnalysisApi {
   /// Constructor for [AndroidTripAnalysisApi].  The [binaryMessenger] named argument is
   /// available for dependency injection.  If it is left null, the default
   /// BinaryMessenger will be used which routes to the host platform.
-  AndroidTripAnalysisApi({BinaryMessenger? binaryMessenger, String messageChannelSuffix = ''})
+  AndroidTripAnalysisApi(
+      {BinaryMessenger? binaryMessenger, String messageChannelSuffix = ''})
       : __pigeon_binaryMessenger = binaryMessenger,
-        __pigeon_messageChannelSuffix = messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
+        __pigeon_messageChannelSuffix =
+            messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
   final BinaryMessenger? __pigeon_binaryMessenger;
 
   static const MessageCodec<Object?> pigeonChannelCodec = _PigeonCodec();
@@ -2605,8 +2626,10 @@ class AndroidTripAnalysisApi {
   final String __pigeon_messageChannelSuffix;
 
   Future<bool> isAutoStartActivated() async {
-    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.isAutoStartActivated$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+    final String __pigeon_channelName =
+        'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.isAutoStartActivated$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel =
+        BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
@@ -2632,8 +2655,10 @@ class AndroidTripAnalysisApi {
   }
 
   Future<void> activateAutoStart(bool activate) async {
-    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.activateAutoStart$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+    final String __pigeon_channelName =
+        'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.activateAutoStart$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel =
+        BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
@@ -2654,8 +2679,10 @@ class AndroidTripAnalysisApi {
   }
 
   Future<bool> isCrashDetectionActivated() async {
-    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.isCrashDetectionActivated$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+    final String __pigeon_channelName =
+        'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.isCrashDetectionActivated$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel =
+        BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
@@ -2681,8 +2708,10 @@ class AndroidTripAnalysisApi {
   }
 
   Future<void> activateCrashDetection(bool activate) async {
-    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.activateCrashDetection$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+    final String __pigeon_channelName =
+        'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.activateCrashDetection$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel =
+        BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
@@ -2703,8 +2732,10 @@ class AndroidTripAnalysisApi {
   }
 
   Future<void> startTrip() async {
-    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.startTrip$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+    final String __pigeon_channelName =
+        'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.startTrip$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel =
+        BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
@@ -2725,8 +2756,10 @@ class AndroidTripAnalysisApi {
   }
 
   Future<void> stopTrip() async {
-    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.stopTrip$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+    final String __pigeon_channelName =
+        'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.stopTrip$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel =
+        BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
@@ -2747,8 +2780,10 @@ class AndroidTripAnalysisApi {
   }
 
   Future<void> cancelTrip() async {
-    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.cancelTrip$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+    final String __pigeon_channelName =
+        'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.cancelTrip$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel =
+        BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
@@ -2769,8 +2804,10 @@ class AndroidTripAnalysisApi {
   }
 
   Future<bool> isTripRunning() async {
-    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.isTripRunning$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+    final String __pigeon_channelName =
+        'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.isTripRunning$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel =
+        BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
@@ -2796,8 +2833,10 @@ class AndroidTripAnalysisApi {
   }
 
   Future<void> setStopTimeOut(int timeOut) async {
-    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.setStopTimeOut$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+    final String __pigeon_channelName =
+        'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.setStopTimeOut$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel =
+        BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
@@ -2818,8 +2857,10 @@ class AndroidTripAnalysisApi {
   }
 
   Future<bool> isMonitoringPotentialTripStart() async {
-    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.isMonitoringPotentialTripStart$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+    final String __pigeon_channelName =
+        'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.isMonitoringPotentialTripStart$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel =
+        BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
@@ -2845,8 +2886,10 @@ class AndroidTripAnalysisApi {
   }
 
   Future<void> setMonitorPotentialTripStart(bool activate) async {
-    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.setMonitorPotentialTripStart$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+    final String __pigeon_channelName =
+        'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.setMonitorPotentialTripStart$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel =
+        BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
@@ -2867,8 +2910,10 @@ class AndroidTripAnalysisApi {
   }
 
   Future<void> setVehicle(PigeonVehicle vehicle) async {
-    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.setVehicle$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+    final String __pigeon_channelName =
+        'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.setVehicle$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel =
+        BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
@@ -2889,8 +2934,10 @@ class AndroidTripAnalysisApi {
   }
 
   Future<Map<String?, String?>?> getTripMetadata() async {
-    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.getTripMetadata$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+    final String __pigeon_channelName =
+        'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.getTripMetadata$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel =
+        BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
@@ -2906,13 +2953,16 @@ class AndroidTripAnalysisApi {
         details: __pigeon_replyList[2],
       );
     } else {
-      return (__pigeon_replyList[0] as Map<Object?, Object?>?)?.cast<String?, String?>();
+      return (__pigeon_replyList[0] as Map<Object?, Object?>?)
+          ?.cast<String?, String?>();
     }
   }
 
   Future<void> updateTripMetadata(String key, String? value) async {
-    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.updateTripMetadata$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+    final String __pigeon_channelName =
+        'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.updateTripMetadata$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel =
+        BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
@@ -2933,8 +2983,10 @@ class AndroidTripAnalysisApi {
   }
 
   Future<void> setTripMetadata(Map<String?, String?>? metadata) async {
-    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.setTripMetadata$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+    final String __pigeon_channelName =
+        'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.setTripMetadata$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel =
+        BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
@@ -2955,8 +3007,10 @@ class AndroidTripAnalysisApi {
   }
 
   Future<void> deleteTripMetadata(String key) async {
-    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.deleteTripMetadata$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+    final String __pigeon_channelName =
+        'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.deleteTripMetadata$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel =
+        BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
@@ -2977,8 +3031,10 @@ class AndroidTripAnalysisApi {
   }
 
   Future<void> deleteAllTripMetadata() async {
-    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.deleteAllTripMetadata$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+    final String __pigeon_channelName =
+        'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.deleteAllTripMetadata$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel =
+        BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
@@ -2999,8 +3055,10 @@ class AndroidTripAnalysisApi {
   }
 
   Future<PigeonCurrentTripInfo?> getCurrentTripInfo() async {
-    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.getCurrentTripInfo$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+    final String __pigeon_channelName =
+        'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.getCurrentTripInfo$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel =
+        BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
@@ -3021,8 +3079,10 @@ class AndroidTripAnalysisApi {
   }
 
   Future<PigeonLastTripLocation?> getLastTripLocation() async {
-    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.getLastTripLocation$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+    final String __pigeon_channelName =
+        'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.getLastTripLocation$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel =
+        BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
@@ -3043,8 +3103,10 @@ class AndroidTripAnalysisApi {
   }
 
   Future<bool> isTripSharingAvailable() async {
-    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.isTripSharingAvailable$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+    final String __pigeon_channelName =
+        'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.isTripSharingAvailable$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel =
+        BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
@@ -3069,15 +3131,18 @@ class AndroidTripAnalysisApi {
     }
   }
 
-  Future<PigeonCreateTripSharingLinkResponse> createTripSharingLink(int durationInSeconds) async {
-    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.createTripSharingLink$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+  Future<PigeonCreateTripSharingLinkResponse> createTripSharingLink(
+      int durationInSeconds) async {
+    final String __pigeon_channelName =
+        'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.createTripSharingLink$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel =
+        BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
     );
-    final List<Object?>? __pigeon_replyList =
-        await __pigeon_channel.send(<Object?>[durationInSeconds]) as List<Object?>?;
+    final List<Object?>? __pigeon_replyList = await __pigeon_channel
+        .send(<Object?>[durationInSeconds]) as List<Object?>?;
     if (__pigeon_replyList == null) {
       throw _createConnectionError(__pigeon_channelName);
     } else if (__pigeon_replyList.length > 1) {
@@ -3096,15 +3161,19 @@ class AndroidTripAnalysisApi {
     }
   }
 
-  Future<PigeonGetTripSharingLinkResponse> getTripSharingLink({PigeonSynchronizationType synchronizationType = PigeonSynchronizationType.defaultSync}) async {
-    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.getTripSharingLink$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+  Future<PigeonGetTripSharingLinkResponse> getTripSharingLink(
+      {PigeonSynchronizationType synchronizationType =
+          PigeonSynchronizationType.defaultSync}) async {
+    final String __pigeon_channelName =
+        'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.getTripSharingLink$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel =
+        BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
     );
-    final List<Object?>? __pigeon_replyList =
-        await __pigeon_channel.send(<Object?>[synchronizationType]) as List<Object?>?;
+    final List<Object?>? __pigeon_replyList = await __pigeon_channel
+        .send(<Object?>[synchronizationType]) as List<Object?>?;
     if (__pigeon_replyList == null) {
       throw _createConnectionError(__pigeon_channelName);
     } else if (__pigeon_replyList.length > 1) {
@@ -3124,8 +3193,10 @@ class AndroidTripAnalysisApi {
   }
 
   Future<PigeonRevokeTripSharingLinkStatus> revokeTripSharingLink() async {
-    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.revokeTripSharingLink$__pigeon_messageChannelSuffix';
-    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+    final String __pigeon_channelName =
+        'dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.revokeTripSharingLink$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel =
+        BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
@@ -3180,22 +3251,33 @@ abstract class FlutterTripAnalysisApi {
 
   void crashDetected(PigeonDKCrashInfo crashInfo);
 
-  void crashFeedbackSent(PigeonDKCrashInfo crashInfo, PigeonDKCrashFeedbackType feedbackType, PigeonDKCrashFeedbackSeverity severity);
+  void crashFeedbackSent(
+      PigeonDKCrashInfo crashInfo,
+      PigeonDKCrashFeedbackType feedbackType,
+      PigeonDKCrashFeedbackSeverity severity);
 
-  static void setUp(FlutterTripAnalysisApi? api, {BinaryMessenger? binaryMessenger, String messageChannelSuffix = '',}) {
-    messageChannelSuffix = messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
+  static void setUp(
+    FlutterTripAnalysisApi? api, {
+    BinaryMessenger? binaryMessenger,
+    String messageChannelSuffix = '',
+  }) {
+    messageChannelSuffix =
+        messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
     {
-      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripRecordingStarted$messageChannelSuffix', pigeonChannelCodec,
+      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<
+              Object?>(
+          'dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripRecordingStarted$messageChannelSuffix',
+          pigeonChannelCodec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
         __pigeon_channel.setMessageHandler(null);
       } else {
         __pigeon_channel.setMessageHandler((Object? message) async {
           assert(message != null,
-          'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripRecordingStarted was null.');
+              'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripRecordingStarted was null.');
           final List<Object?> args = (message as List<Object?>?)!;
-          final PigeonTripRecordingStartedState? arg_state = (args[0] as PigeonTripRecordingStartedState?);
+          final PigeonTripRecordingStartedState? arg_state =
+              (args[0] as PigeonTripRecordingStartedState?);
           assert(arg_state != null,
               'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripRecordingStarted was null, expected non-null PigeonTripRecordingStartedState.');
           try {
@@ -3203,24 +3285,28 @@ abstract class FlutterTripAnalysisApi {
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);
-          }          catch (e) {
-            return wrapResponse(error: PlatformException(code: 'error', message: e.toString()));
+          } catch (e) {
+            return wrapResponse(
+                error: PlatformException(code: 'error', message: e.toString()));
           }
         });
       }
     }
     {
-      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripRecordingConfirmed$messageChannelSuffix', pigeonChannelCodec,
+      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<
+              Object?>(
+          'dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripRecordingConfirmed$messageChannelSuffix',
+          pigeonChannelCodec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
         __pigeon_channel.setMessageHandler(null);
       } else {
         __pigeon_channel.setMessageHandler((Object? message) async {
           assert(message != null,
-          'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripRecordingConfirmed was null.');
+              'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripRecordingConfirmed was null.');
           final List<Object?> args = (message as List<Object?>?)!;
-          final PigeonTripRecordingConfirmedState? arg_state = (args[0] as PigeonTripRecordingConfirmedState?);
+          final PigeonTripRecordingConfirmedState? arg_state =
+              (args[0] as PigeonTripRecordingConfirmedState?);
           assert(arg_state != null,
               'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripRecordingConfirmed was null, expected non-null PigeonTripRecordingConfirmedState.');
           try {
@@ -3228,24 +3314,28 @@ abstract class FlutterTripAnalysisApi {
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);
-          }          catch (e) {
-            return wrapResponse(error: PlatformException(code: 'error', message: e.toString()));
+          } catch (e) {
+            return wrapResponse(
+                error: PlatformException(code: 'error', message: e.toString()));
           }
         });
       }
     }
     {
-      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripRecordingCanceled$messageChannelSuffix', pigeonChannelCodec,
+      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<
+              Object?>(
+          'dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripRecordingCanceled$messageChannelSuffix',
+          pigeonChannelCodec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
         __pigeon_channel.setMessageHandler(null);
       } else {
         __pigeon_channel.setMessageHandler((Object? message) async {
           assert(message != null,
-          'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripRecordingCanceled was null.');
+              'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripRecordingCanceled was null.');
           final List<Object?> args = (message as List<Object?>?)!;
-          final PigeonTripRecordingCanceledState? arg_state = (args[0] as PigeonTripRecordingCanceledState?);
+          final PigeonTripRecordingCanceledState? arg_state =
+              (args[0] as PigeonTripRecordingCanceledState?);
           assert(arg_state != null,
               'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripRecordingCanceled was null, expected non-null PigeonTripRecordingCanceledState.');
           try {
@@ -3253,24 +3343,28 @@ abstract class FlutterTripAnalysisApi {
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);
-          }          catch (e) {
-            return wrapResponse(error: PlatformException(code: 'error', message: e.toString()));
+          } catch (e) {
+            return wrapResponse(
+                error: PlatformException(code: 'error', message: e.toString()));
           }
         });
       }
     }
     {
-      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripRecordingFinished$messageChannelSuffix', pigeonChannelCodec,
+      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<
+              Object?>(
+          'dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripRecordingFinished$messageChannelSuffix',
+          pigeonChannelCodec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
         __pigeon_channel.setMessageHandler(null);
       } else {
         __pigeon_channel.setMessageHandler((Object? message) async {
           assert(message != null,
-          'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripRecordingFinished was null.');
+              'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripRecordingFinished was null.');
           final List<Object?> args = (message as List<Object?>?)!;
-          final PigeonTripRecordingFinishedState? arg_state = (args[0] as PigeonTripRecordingFinishedState?);
+          final PigeonTripRecordingFinishedState? arg_state =
+              (args[0] as PigeonTripRecordingFinishedState?);
           assert(arg_state != null,
               'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripRecordingFinished was null, expected non-null PigeonTripRecordingFinishedState.');
           try {
@@ -3278,22 +3372,25 @@ abstract class FlutterTripAnalysisApi {
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);
-          }          catch (e) {
-            return wrapResponse(error: PlatformException(code: 'error', message: e.toString()));
+          } catch (e) {
+            return wrapResponse(
+                error: PlatformException(code: 'error', message: e.toString()));
           }
         });
       }
     }
     {
-      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripStarted$messageChannelSuffix', pigeonChannelCodec,
+      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<
+              Object?>(
+          'dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripStarted$messageChannelSuffix',
+          pigeonChannelCodec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
         __pigeon_channel.setMessageHandler(null);
       } else {
         __pigeon_channel.setMessageHandler((Object? message) async {
           assert(message != null,
-          'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripStarted was null.');
+              'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripStarted was null.');
           final List<Object?> args = (message as List<Object?>?)!;
           final PigeonStartMode? arg_startMode = (args[0] as PigeonStartMode?);
           assert(arg_startMode != null,
@@ -3303,22 +3400,25 @@ abstract class FlutterTripAnalysisApi {
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);
-          }          catch (e) {
-            return wrapResponse(error: PlatformException(code: 'error', message: e.toString()));
+          } catch (e) {
+            return wrapResponse(
+                error: PlatformException(code: 'error', message: e.toString()));
           }
         });
       }
     }
     {
-      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripPoint$messageChannelSuffix', pigeonChannelCodec,
+      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<
+              Object?>(
+          'dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripPoint$messageChannelSuffix',
+          pigeonChannelCodec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
         __pigeon_channel.setMessageHandler(null);
       } else {
         __pigeon_channel.setMessageHandler((Object? message) async {
           assert(message != null,
-          'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripPoint was null.');
+              'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripPoint was null.');
           final List<Object?> args = (message as List<Object?>?)!;
           final PigeonTripPoint? arg_tripPoint = (args[0] as PigeonTripPoint?);
           assert(arg_tripPoint != null,
@@ -3328,15 +3428,18 @@ abstract class FlutterTripAnalysisApi {
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);
-          }          catch (e) {
-            return wrapResponse(error: PlatformException(code: 'error', message: e.toString()));
+          } catch (e) {
+            return wrapResponse(
+                error: PlatformException(code: 'error', message: e.toString()));
           }
         });
       }
     }
     {
-      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripSavedForRepost$messageChannelSuffix', pigeonChannelCodec,
+      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<
+              Object?>(
+          'dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripSavedForRepost$messageChannelSuffix',
+          pigeonChannelCodec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
         __pigeon_channel.setMessageHandler(null);
@@ -3347,24 +3450,28 @@ abstract class FlutterTripAnalysisApi {
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);
-          }          catch (e) {
-            return wrapResponse(error: PlatformException(code: 'error', message: e.toString()));
+          } catch (e) {
+            return wrapResponse(
+                error: PlatformException(code: 'error', message: e.toString()));
           }
         });
       }
     }
     {
-      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripFinished$messageChannelSuffix', pigeonChannelCodec,
+      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<
+              Object?>(
+          'dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripFinished$messageChannelSuffix',
+          pigeonChannelCodec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
         __pigeon_channel.setMessageHandler(null);
       } else {
         __pigeon_channel.setMessageHandler((Object? message) async {
           assert(message != null,
-          'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripFinished was null.');
+              'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripFinished was null.');
           final List<Object?> args = (message as List<Object?>?)!;
-          final PigeonTripResponseStatus? arg_response = (args[0] as PigeonTripResponseStatus?);
+          final PigeonTripResponseStatus? arg_response =
+              (args[0] as PigeonTripResponseStatus?);
           assert(arg_response != null,
               'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripFinished was null, expected non-null PigeonTripResponseStatus.');
           try {
@@ -3372,24 +3479,28 @@ abstract class FlutterTripAnalysisApi {
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);
-          }          catch (e) {
-            return wrapResponse(error: PlatformException(code: 'error', message: e.toString()));
+          } catch (e) {
+            return wrapResponse(
+                error: PlatformException(code: 'error', message: e.toString()));
           }
         });
       }
     }
     {
-      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripCancelled$messageChannelSuffix', pigeonChannelCodec,
+      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<
+              Object?>(
+          'dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripCancelled$messageChannelSuffix',
+          pigeonChannelCodec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
         __pigeon_channel.setMessageHandler(null);
       } else {
         __pigeon_channel.setMessageHandler((Object? message) async {
           assert(message != null,
-          'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripCancelled was null.');
+              'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripCancelled was null.');
           final List<Object?> args = (message as List<Object?>?)!;
-          final PigeonCancelTrip? arg_cancelTrip = (args[0] as PigeonCancelTrip?);
+          final PigeonCancelTrip? arg_cancelTrip =
+              (args[0] as PigeonCancelTrip?);
           assert(arg_cancelTrip != null,
               'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripCancelled was null, expected non-null PigeonCancelTrip.');
           try {
@@ -3397,22 +3508,25 @@ abstract class FlutterTripAnalysisApi {
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);
-          }          catch (e) {
-            return wrapResponse(error: PlatformException(code: 'error', message: e.toString()));
+          } catch (e) {
+            return wrapResponse(
+                error: PlatformException(code: 'error', message: e.toString()));
           }
         });
       }
     }
     {
-      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.potentialTripStart$messageChannelSuffix', pigeonChannelCodec,
+      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<
+              Object?>(
+          'dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.potentialTripStart$messageChannelSuffix',
+          pigeonChannelCodec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
         __pigeon_channel.setMessageHandler(null);
       } else {
         __pigeon_channel.setMessageHandler((Object? message) async {
           assert(message != null,
-          'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.potentialTripStart was null.');
+              'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.potentialTripStart was null.');
           final List<Object?> args = (message as List<Object?>?)!;
           final PigeonStartMode? arg_startMode = (args[0] as PigeonStartMode?);
           assert(arg_startMode != null,
@@ -3422,15 +3536,18 @@ abstract class FlutterTripAnalysisApi {
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);
-          }          catch (e) {
-            return wrapResponse(error: PlatformException(code: 'error', message: e.toString()));
+          } catch (e) {
+            return wrapResponse(
+                error: PlatformException(code: 'error', message: e.toString()));
           }
         });
       }
     }
     {
-      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.beaconDetected$messageChannelSuffix', pigeonChannelCodec,
+      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<
+              Object?>(
+          'dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.beaconDetected$messageChannelSuffix',
+          pigeonChannelCodec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
         __pigeon_channel.setMessageHandler(null);
@@ -3441,22 +3558,25 @@ abstract class FlutterTripAnalysisApi {
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);
-          }          catch (e) {
-            return wrapResponse(error: PlatformException(code: 'error', message: e.toString()));
+          } catch (e) {
+            return wrapResponse(
+                error: PlatformException(code: 'error', message: e.toString()));
           }
         });
       }
     }
     {
-      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.sdkStateChanged$messageChannelSuffix', pigeonChannelCodec,
+      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<
+              Object?>(
+          'dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.sdkStateChanged$messageChannelSuffix',
+          pigeonChannelCodec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
         __pigeon_channel.setMessageHandler(null);
       } else {
         __pigeon_channel.setMessageHandler((Object? message) async {
           assert(message != null,
-          'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.sdkStateChanged was null.');
+              'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.sdkStateChanged was null.');
           final List<Object?> args = (message as List<Object?>?)!;
           final PigeonState? arg_state = (args[0] as PigeonState?);
           assert(arg_state != null,
@@ -3466,24 +3586,28 @@ abstract class FlutterTripAnalysisApi {
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);
-          }          catch (e) {
-            return wrapResponse(error: PlatformException(code: 'error', message: e.toString()));
+          } catch (e) {
+            return wrapResponse(
+                error: PlatformException(code: 'error', message: e.toString()));
           }
         });
       }
     }
     {
-      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.crashDetected$messageChannelSuffix', pigeonChannelCodec,
+      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<
+              Object?>(
+          'dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.crashDetected$messageChannelSuffix',
+          pigeonChannelCodec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
         __pigeon_channel.setMessageHandler(null);
       } else {
         __pigeon_channel.setMessageHandler((Object? message) async {
           assert(message != null,
-          'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.crashDetected was null.');
+              'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.crashDetected was null.');
           final List<Object?> args = (message as List<Object?>?)!;
-          final PigeonDKCrashInfo? arg_crashInfo = (args[0] as PigeonDKCrashInfo?);
+          final PigeonDKCrashInfo? arg_crashInfo =
+              (args[0] as PigeonDKCrashInfo?);
           assert(arg_crashInfo != null,
               'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.crashDetected was null, expected non-null PigeonDKCrashInfo.');
           try {
@@ -3491,39 +3615,47 @@ abstract class FlutterTripAnalysisApi {
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);
-          }          catch (e) {
-            return wrapResponse(error: PlatformException(code: 'error', message: e.toString()));
+          } catch (e) {
+            return wrapResponse(
+                error: PlatformException(code: 'error', message: e.toString()));
           }
         });
       }
     }
     {
-      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.crashFeedbackSent$messageChannelSuffix', pigeonChannelCodec,
+      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<
+              Object?>(
+          'dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.crashFeedbackSent$messageChannelSuffix',
+          pigeonChannelCodec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
         __pigeon_channel.setMessageHandler(null);
       } else {
         __pigeon_channel.setMessageHandler((Object? message) async {
           assert(message != null,
-          'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.crashFeedbackSent was null.');
+              'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.crashFeedbackSent was null.');
           final List<Object?> args = (message as List<Object?>?)!;
-          final PigeonDKCrashInfo? arg_crashInfo = (args[0] as PigeonDKCrashInfo?);
+          final PigeonDKCrashInfo? arg_crashInfo =
+              (args[0] as PigeonDKCrashInfo?);
           assert(arg_crashInfo != null,
               'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.crashFeedbackSent was null, expected non-null PigeonDKCrashInfo.');
-          final PigeonDKCrashFeedbackType? arg_feedbackType = (args[1] as PigeonDKCrashFeedbackType?);
+          final PigeonDKCrashFeedbackType? arg_feedbackType =
+              (args[1] as PigeonDKCrashFeedbackType?);
           assert(arg_feedbackType != null,
               'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.crashFeedbackSent was null, expected non-null PigeonDKCrashFeedbackType.');
-          final PigeonDKCrashFeedbackSeverity? arg_severity = (args[2] as PigeonDKCrashFeedbackSeverity?);
+          final PigeonDKCrashFeedbackSeverity? arg_severity =
+              (args[2] as PigeonDKCrashFeedbackSeverity?);
           assert(arg_severity != null,
               'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.crashFeedbackSent was null, expected non-null PigeonDKCrashFeedbackSeverity.');
           try {
-            api.crashFeedbackSent(arg_crashInfo!, arg_feedbackType!, arg_severity!);
+            api.crashFeedbackSent(
+                arg_crashInfo!, arg_feedbackType!, arg_severity!);
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);
-          }          catch (e) {
-            return wrapResponse(error: PlatformException(code: 'error', message: e.toString()));
+          } catch (e) {
+            return wrapResponse(
+                error: PlatformException(code: 'error', message: e.toString()));
           }
         });
       }
