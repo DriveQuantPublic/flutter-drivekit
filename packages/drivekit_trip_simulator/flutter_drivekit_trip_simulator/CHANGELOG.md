@@ -1,3 +1,9 @@
+# 1.8.0
+
+    - Update DriveKit version to 2.18.0
+    - Core: The `Trip` object now includes occupant information, indicating whether the occupant was the driver or a passenger.
+    - DriverData: Add a new method `updateDriverPassengerMode()` to declare if the user has been the driver or a passenger of the trip.
+
 # 1.7.0
 
     - Update DriveKit version to 2.15.0 for Android and 2.15.1 for iOS.

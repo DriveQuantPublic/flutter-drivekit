@@ -1,6 +1,6 @@
 name: flutter_drivekit_trip_analysis_android
 description: Android implementation of the flutter_drivekit_trip_analysis plugin
-version: 1.7.0
+version: 1.8.0
 homepage: https://www.drivequant.com/
 repository: https://github.com/DriveQuantPublic/flutter-drivekit/tree/main/packages/drivekit_trip_analysis/flutter_drivekit_trip_analysis_android
 
@@ -21,7 +21,7 @@ dependencies:
   collection: ^1.18.0
   flutter:
     sdk: flutter
-  flutter_drivekit_trip_analysis_platform_interface: 1.7.0
+  flutter_drivekit_trip_analysis_platform_interface: 1.8.0
 
 dev_dependencies:
   flutter_test:

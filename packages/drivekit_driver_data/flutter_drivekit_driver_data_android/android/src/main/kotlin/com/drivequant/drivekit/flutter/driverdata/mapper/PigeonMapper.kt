@@ -348,12 +348,10 @@ object PigeonMapper {
         )
     }
 
-     private fun toPigeonOccupantInfo(occupantInfo: OccupantInfo): PigeonOccupantInfo {
-          return PigeonOccupantInfo(
-            role = toPigeonOccupantRole(occupantInfo.role),
-            passengerProbability = occupantInfo.passengerProbability.toLong()
-        )
-    }
+    private fun toPigeonOccupantInfo(occupantInfo: OccupantInfo): PigeonOccupantInfo = PigeonOccupantInfo(
+        role = toPigeonOccupantRole(occupantInfo.role),
+        passengerProbability = occupantInfo.passengerProbability.toLong()
+    )
 
     private fun toPigeonSafetyEvent(safetyEvent: SafetyEvent): PigeonSafetyEvent = PigeonSafetyEvent(
         time = safetyEvent.time,
@@ -515,7 +513,7 @@ object PigeonMapper {
         OccupantRole.NOT_APPLICABLE -> PigeonOccupantRole.NOT_APPLICABLE
         OccupantRole.UNAVAILABLE -> PigeonOccupantRole.UNAVAILABLE
     }
-    
+
     fun fromPigeonDriverPassengerMode(mode: PigeonDriverPassengerMode): DriverPassengerMode = when (mode) {
         PigeonDriverPassengerMode.DRIVER -> DriverPassengerMode.DRIVER
         PigeonDriverPassengerMode.PASSENGER -> DriverPassengerMode.PASSENGER
