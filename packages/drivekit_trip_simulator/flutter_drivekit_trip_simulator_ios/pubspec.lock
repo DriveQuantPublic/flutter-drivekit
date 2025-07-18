@@ -148,7 +148,7 @@ packages:
       path: "../flutter_drivekit_trip_simulator_platform_interface"
       relative: true
     source: path
-    version: "1.8.0"
+    version: "1.8.1"
   flutter_test:
     dependency: "direct dev"
     description: flutter

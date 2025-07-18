@@ -1,3 +1,7 @@
+# 1.8.1
+
+    - Update DriveKit version for iOS to 2.18.1
+
 # 1.8.0
 
     - Update DriveKit version to 2.18.0
