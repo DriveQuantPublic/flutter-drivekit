@@ -1340,14 +1340,26 @@ struct PigeonTrip {
   var startDate: String? = nil
   /// The end date
   var endDate: String? = nil
+  /// The departure full address
+  var departureAddress: String? = nil
   /// The departure city
   var departureCity: String? = nil
+  /// The departure postal code
+  var departurePostalCode: String? = nil
+  /// The departure state
+  var departureState: String? = nil
+  /// The departure country
+  var departureCountry: String? = nil
+  /// The arrival full address
+  var arrivalAddress: String? = nil
   /// The arrival city
   var arrivalCity: String? = nil
-  /// The departure address
-  var departureAddress: String? = nil
-  /// The arrival address
-  var arrivalAddress: String? = nil
+  /// The arrival postal code
+  var arrivalPostalCode: String? = nil
+  /// The arrival state
+  var arrivalState: String? = nil
+  /// The arrival country
+  var arrivalCountry: String? = nil
   /// The vehicle ID
   var vehicleId: String? = nil
   /// The itinerary statistics
@@ -1408,46 +1420,58 @@ struct PigeonTrip {
     let itinId: String? = nilOrValue(__pigeon_list[0])
     let startDate: String? = nilOrValue(__pigeon_list[1])
     let endDate: String? = nilOrValue(__pigeon_list[2])
-    let departureCity: String? = nilOrValue(__pigeon_list[3])
-    let arrivalCity: String? = nilOrValue(__pigeon_list[4])
-    let departureAddress: String? = nilOrValue(__pigeon_list[5])
-    let arrivalAddress: String? = nilOrValue(__pigeon_list[6])
-    let vehicleId: String? = nilOrValue(__pigeon_list[7])
-    let tripStatistics: PigeonTripStatistics? = nilOrValue(__pigeon_list[8])
-    let ecoDriving: PigeonEcoDriving? = nilOrValue(__pigeon_list[9])
-    let fuelEstimation: PigeonFuelEstimation? = nilOrValue(__pigeon_list[10])
-    let safety: PigeonSafety? = nilOrValue(__pigeon_list[11])
-    let advancedEcoDriving: PigeonAdvancedEcoDriving? = nilOrValue(__pigeon_list[12])
-    let advancedFuelEstimation: PigeonAdvancedFuelEstimation? = nilOrValue(__pigeon_list[13])
-    let advancedSafety: PigeonAdvancedSafety? = nilOrValue(__pigeon_list[14])
-    let pollutants: PigeonPollutants? = nilOrValue(__pigeon_list[15])
-    let tireWear: PigeonTireWear? = nilOrValue(__pigeon_list[16])
-    let brakeWear: PigeonBrakeWear? = nilOrValue(__pigeon_list[17])
-    let driverDistraction: PigeonDriverDistraction? = nilOrValue(__pigeon_list[18])
-    let logbook: PigeonLogbook? = nilOrValue(__pigeon_list[19])
-    let occupantInfo: PigeonOccupantInfo? = nilOrValue(__pigeon_list[20])
-    let safetyEvents: [PigeonSafetyEvent?]? = nilOrValue(__pigeon_list[21])
-    let speedingStatistics: PigeonSpeedingStatistics? = nilOrValue(__pigeon_list[22])
-    let energyEstimation: PigeonEnergyEstimation? = nilOrValue(__pigeon_list[23])
-    let advancedEnergyEstimation: [PigeonAdvancedEnergyEstimation?]? = nilOrValue(__pigeon_list[24])
-    let tripAdvicesData: [PigeonTripAdviceData?]? = nilOrValue(__pigeon_list[25])
-    let maneuverData: PigeonManeuverData? = nilOrValue(__pigeon_list[26])
-    let evaluationData: PigeonEvaluationData? = nilOrValue(__pigeon_list[27])
-    let metadata: [String?: String?]? = nilOrValue(__pigeon_list[28])
-    let transportationMode = __pigeon_list[29] is Int64 ? __pigeon_list[29] as! Int64 : Int64(__pigeon_list[29] as! Int32)
-    let declaredTransportationMode: PigeonDeclaredTransportationMode? = nilOrValue(__pigeon_list[30])
-    let unscored = __pigeon_list[31] as! Bool
-    let calls: [PigeonCall?]? = nilOrValue(__pigeon_list[32])
-    let speedLimitContexts: [PigeonSpeedLimitContext?]? = nilOrValue(__pigeon_list[33])
+    let departureAddress: String? = nilOrValue(__pigeon_list[3])
+    let departureCity: String? = nilOrValue(__pigeon_list[4])
+    let departurePostalCode: String? = nilOrValue(__pigeon_list[5])
+    let departureState: String? = nilOrValue(__pigeon_list[6])
+    let departureCountry: String? = nilOrValue(__pigeon_list[7])
+    let arrivalAddress: String? = nilOrValue(__pigeon_list[8])
+    let arrivalCity: String? = nilOrValue(__pigeon_list[9])
+    let arrivalPostalCode: String? = nilOrValue(__pigeon_list[10])
+    let arrivalState: String? = nilOrValue(__pigeon_list[11])
+    let arrivalCountry: String? = nilOrValue(__pigeon_list[12])
+    let vehicleId: String? = nilOrValue(__pigeon_list[13])
+    let tripStatistics: PigeonTripStatistics? = nilOrValue(__pigeon_list[14])
+    let ecoDriving: PigeonEcoDriving? = nilOrValue(__pigeon_list[15])
+    let fuelEstimation: PigeonFuelEstimation? = nilOrValue(__pigeon_list[16])
+    let safety: PigeonSafety? = nilOrValue(__pigeon_list[17])
+    let advancedEcoDriving: PigeonAdvancedEcoDriving? = nilOrValue(__pigeon_list[18])
+    let advancedFuelEstimation: PigeonAdvancedFuelEstimation? = nilOrValue(__pigeon_list[19])
+    let advancedSafety: PigeonAdvancedSafety? = nilOrValue(__pigeon_list[20])
+    let pollutants: PigeonPollutants? = nilOrValue(__pigeon_list[21])
+    let tireWear: PigeonTireWear? = nilOrValue(__pigeon_list[22])
+    let brakeWear: PigeonBrakeWear? = nilOrValue(__pigeon_list[23])
+    let driverDistraction: PigeonDriverDistraction? = nilOrValue(__pigeon_list[24])
+    let logbook: PigeonLogbook? = nilOrValue(__pigeon_list[25])
+    let occupantInfo: PigeonOccupantInfo? = nilOrValue(__pigeon_list[26])
+    let safetyEvents: [PigeonSafetyEvent?]? = nilOrValue(__pigeon_list[27])
+    let speedingStatistics: PigeonSpeedingStatistics? = nilOrValue(__pigeon_list[28])
+    let energyEstimation: PigeonEnergyEstimation? = nilOrValue(__pigeon_list[29])
+    let advancedEnergyEstimation: [PigeonAdvancedEnergyEstimation?]? = nilOrValue(__pigeon_list[30])
+    let tripAdvicesData: [PigeonTripAdviceData?]? = nilOrValue(__pigeon_list[31])
+    let maneuverData: PigeonManeuverData? = nilOrValue(__pigeon_list[32])
+    let evaluationData: PigeonEvaluationData? = nilOrValue(__pigeon_list[33])
+    let metadata: [String?: String?]? = nilOrValue(__pigeon_list[34])
+    let transportationMode = __pigeon_list[35] is Int64 ? __pigeon_list[35] as! Int64 : Int64(__pigeon_list[35] as! Int32)
+    let declaredTransportationMode: PigeonDeclaredTransportationMode? = nilOrValue(__pigeon_list[36])
+    let unscored = __pigeon_list[37] as! Bool
+    let calls: [PigeonCall?]? = nilOrValue(__pigeon_list[38])
+    let speedLimitContexts: [PigeonSpeedLimitContext?]? = nilOrValue(__pigeon_list[39])
 
     return PigeonTrip(
       itinId: itinId,
       startDate: startDate,
       endDate: endDate,
-      departureCity: departureCity,
-      arrivalCity: arrivalCity,
       departureAddress: departureAddress,
+      departureCity: departureCity,
+      departurePostalCode: departurePostalCode,
+      departureState: departureState,
+      departureCountry: departureCountry,
       arrivalAddress: arrivalAddress,
+      arrivalCity: arrivalCity,
+      arrivalPostalCode: arrivalPostalCode,
+      arrivalState: arrivalState,
+      arrivalCountry: arrivalCountry,
       vehicleId: vehicleId,
       tripStatistics: tripStatistics,
       ecoDriving: ecoDriving,
@@ -1482,10 +1506,16 @@ struct PigeonTrip {
       itinId,
       startDate,
       endDate,
-      departureCity,
-      arrivalCity,
       departureAddress,
+      departureCity,
+      departurePostalCode,
+      departureState,
+      departureCountry,
       arrivalAddress,
+      arrivalCity,
+      arrivalPostalCode,
+      arrivalState,
+      arrivalCountry,
       vehicleId,
       tripStatistics,
       ecoDriving,

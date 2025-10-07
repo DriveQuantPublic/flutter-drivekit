@@ -275,14 +275,26 @@ data class PigeonTrip (
   val startDate: String? = null,
   /** The end date */
   val endDate: String? = null,
+  /** The departure full address */
+  val departureAddress: String? = null,
   /** The departure city */
   val departureCity: String? = null,
+  /** The departure postal code */
+  val departurePostalCode: String? = null,
+  /** The departure state */
+  val departureState: String? = null,
+  /** The departure country */
+  val departureCountry: String? = null,
+  /** The arrival full address */
+  val arrivalAddress: String? = null,
   /** The arrival city */
   val arrivalCity: String? = null,
-  /** The departure address */
-  val departureAddress: String? = null,
-  /** The arrival address */
-  val arrivalAddress: String? = null,
+  /** The arrival postal code */
+  val arrivalPostalCode: String? = null,
+  /** The arrival state */
+  val arrivalState: String? = null,
+  /** The arrival country */
+  val arrivalCountry: String? = null,
   /** The vehicle ID */
   val vehicleId: String? = null,
   /** The trip statistics */
@@ -345,38 +357,44 @@ data class PigeonTrip (
       val itinId = __pigeon_list[0] as String?
       val startDate = __pigeon_list[1] as String?
       val endDate = __pigeon_list[2] as String?
-      val departureCity = __pigeon_list[3] as String?
-      val arrivalCity = __pigeon_list[4] as String?
-      val departureAddress = __pigeon_list[5] as String?
-      val arrivalAddress = __pigeon_list[6] as String?
-      val vehicleId = __pigeon_list[7] as String?
-      val tripStatistics = __pigeon_list[8] as PigeonTripStatistics?
-      val ecoDriving = __pigeon_list[9] as PigeonEcoDriving?
-      val fuelEstimation = __pigeon_list[10] as PigeonFuelEstimation?
-      val safety = __pigeon_list[11] as PigeonSafety?
-      val advancedEcoDriving = __pigeon_list[12] as PigeonAdvancedEcoDriving?
-      val advancedFuelEstimation = __pigeon_list[13] as PigeonAdvancedFuelEstimation?
-      val advancedSafety = __pigeon_list[14] as PigeonAdvancedSafety?
-      val pollutants = __pigeon_list[15] as PigeonPollutants?
-      val tireWear = __pigeon_list[16] as PigeonTireWear?
-      val brakeWear = __pigeon_list[17] as PigeonBrakeWear?
-      val driverDistraction = __pigeon_list[18] as PigeonDriverDistraction?
-      val logbook = __pigeon_list[19] as PigeonLogbook?
-      val occupantInfo = __pigeon_list[20] as PigeonOccupantInfo?
-      val safetyEvents = __pigeon_list[21] as List<PigeonSafetyEvent?>?
-      val speedingStatistics = __pigeon_list[22] as PigeonSpeedingStatistics?
-      val energyEstimation = __pigeon_list[23] as PigeonEnergyEstimation?
-      val advancedEnergyEstimation = __pigeon_list[24] as List<PigeonAdvancedEnergyEstimation?>?
-      val tripAdvicesData = __pigeon_list[25] as List<PigeonTripAdviceData?>?
-      val maneuverData = __pigeon_list[26] as PigeonManeuverData?
-      val evaluationData = __pigeon_list[27] as PigeonEvaluationData?
-      val metadata = __pigeon_list[28] as Map<String?, String?>?
-      val transportationMode = __pigeon_list[29].let { num -> if (num is Int) num.toLong() else num as Long }
-      val declaredTransportationMode = __pigeon_list[30] as PigeonDeclaredTransportationMode?
-      val unscored = __pigeon_list[31] as Boolean
-      val calls = __pigeon_list[32] as List<PigeonCall?>?
-      val speedLimitContexts = __pigeon_list[33] as List<PigeonSpeedLimitContext?>?
-      return PigeonTrip(itinId, startDate, endDate, departureCity, arrivalCity, departureAddress, arrivalAddress, vehicleId, tripStatistics, ecoDriving, fuelEstimation, safety, advancedEcoDriving, advancedFuelEstimation, advancedSafety, pollutants, tireWear, brakeWear, driverDistraction, logbook, occupantInfo, safetyEvents, speedingStatistics, energyEstimation, advancedEnergyEstimation, tripAdvicesData, maneuverData, evaluationData, metadata, transportationMode, declaredTransportationMode, unscored, calls, speedLimitContexts)
+      val departureAddress = __pigeon_list[3] as String?
+      val departureCity = __pigeon_list[4] as String?
+      val departurePostalCode = __pigeon_list[5] as String?
+      val departureState = __pigeon_list[6] as String?
+      val departureCountry = __pigeon_list[7] as String?
+      val arrivalAddress = __pigeon_list[8] as String?
+      val arrivalCity = __pigeon_list[9] as String?
+      val arrivalPostalCode = __pigeon_list[10] as String?
+      val arrivalState = __pigeon_list[11] as String?
+      val arrivalCountry = __pigeon_list[12] as String?
+      val vehicleId = __pigeon_list[13] as String?
+      val tripStatistics = __pigeon_list[14] as PigeonTripStatistics?
+      val ecoDriving = __pigeon_list[15] as PigeonEcoDriving?
+      val fuelEstimation = __pigeon_list[16] as PigeonFuelEstimation?
+      val safety = __pigeon_list[17] as PigeonSafety?
+      val advancedEcoDriving = __pigeon_list[18] as PigeonAdvancedEcoDriving?
+      val advancedFuelEstimation = __pigeon_list[19] as PigeonAdvancedFuelEstimation?
+      val advancedSafety = __pigeon_list[20] as PigeonAdvancedSafety?
+      val pollutants = __pigeon_list[21] as PigeonPollutants?
+      val tireWear = __pigeon_list[22] as PigeonTireWear?
+      val brakeWear = __pigeon_list[23] as PigeonBrakeWear?
+      val driverDistraction = __pigeon_list[24] as PigeonDriverDistraction?
+      val logbook = __pigeon_list[25] as PigeonLogbook?
+      val occupantInfo = __pigeon_list[26] as PigeonOccupantInfo?
+      val safetyEvents = __pigeon_list[27] as List<PigeonSafetyEvent?>?
+      val speedingStatistics = __pigeon_list[28] as PigeonSpeedingStatistics?
+      val energyEstimation = __pigeon_list[29] as PigeonEnergyEstimation?
+      val advancedEnergyEstimation = __pigeon_list[30] as List<PigeonAdvancedEnergyEstimation?>?
+      val tripAdvicesData = __pigeon_list[31] as List<PigeonTripAdviceData?>?
+      val maneuverData = __pigeon_list[32] as PigeonManeuverData?
+      val evaluationData = __pigeon_list[33] as PigeonEvaluationData?
+      val metadata = __pigeon_list[34] as Map<String?, String?>?
+      val transportationMode = __pigeon_list[35].let { num -> if (num is Int) num.toLong() else num as Long }
+      val declaredTransportationMode = __pigeon_list[36] as PigeonDeclaredTransportationMode?
+      val unscored = __pigeon_list[37] as Boolean
+      val calls = __pigeon_list[38] as List<PigeonCall?>?
+      val speedLimitContexts = __pigeon_list[39] as List<PigeonSpeedLimitContext?>?
+      return PigeonTrip(itinId, startDate, endDate, departureAddress, departureCity, departurePostalCode, departureState, departureCountry, arrivalAddress, arrivalCity, arrivalPostalCode, arrivalState, arrivalCountry, vehicleId, tripStatistics, ecoDriving, fuelEstimation, safety, advancedEcoDriving, advancedFuelEstimation, advancedSafety, pollutants, tireWear, brakeWear, driverDistraction, logbook, occupantInfo, safetyEvents, speedingStatistics, energyEstimation, advancedEnergyEstimation, tripAdvicesData, maneuverData, evaluationData, metadata, transportationMode, declaredTransportationMode, unscored, calls, speedLimitContexts)
     }
   }
   fun toList(): List<Any?> {
@@ -384,10 +402,16 @@ data class PigeonTrip (
       itinId,
       startDate,
       endDate,
-      departureCity,
-      arrivalCity,
       departureAddress,
+      departureCity,
+      departurePostalCode,
+      departureState,
+      departureCountry,
       arrivalAddress,
+      arrivalCity,
+      arrivalPostalCode,
+      arrivalState,
+      arrivalCountry,
       vehicleId,
       tripStatistics,
       ecoDriving,
