@@ -46,16 +46,16 @@ extension PigeonTrip {
         if let endDate = trip.endDate {
             self.endDate = DateUtils.convertDateToString(date: endDate)
         }
-        self.departureAddress = trip.departureAddress,
-        self.departureCity = trip.departureCity,
-        self.departurePostalCode = trip.departurePostalCode,
-        self.departureState = trip.departureState,
-        self.departureCountry = trip.departureCountry,
-        self.arrivalAddress = trip.arrivalAddress,
-        self.arrivalCity = trip.arrivalCity,
-        self.arrivalPostalCode = trip.arrivalPostalCode,
-        self.arrivalState = trip.arrivalState,
-        self.arrivalCountry = trip.arrivalCountry,
+        self.departureAddress = trip.departureAddress
+        self.departureCity = trip.departureCity
+        self.departurePostalCode = trip.departurePostalCode
+        self.departureState = trip.departureState
+        self.departureCountry = trip.departureCountry
+        self.arrivalAddress = trip.arrivalAddress
+        self.arrivalCity = trip.arrivalCity
+        self.arrivalPostalCode = trip.arrivalPostalCode
+        self.arrivalState = trip.arrivalState
+        self.arrivalCountry = trip.arrivalCountry
         self.vehicleId = trip.vehicleId
         if let tripStatistics = trip.tripStatistics {
             self.tripStatistics = PigeonTripStatistics(from: tripStatistics)
