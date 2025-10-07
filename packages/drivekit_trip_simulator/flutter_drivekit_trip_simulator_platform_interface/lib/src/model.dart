@@ -24,6 +24,10 @@ enum PresetTrip {
   /// Trip recorded in a boat
   busTrip,
 
+  /// A short trip with a collision at 40 km/h that occurs 132 seconds
+  /// after the trip begins and that corresponds to a confirmed accident
+  tripWithCrashConfirmed40KmH,
+
   /// A short trip with a collision at 30 km/h that occurs 137 seconds
   /// after the trip begins and that corresponds to a confirmed accident
   tripWithCrashConfirmed30KmH,
@@ -31,10 +35,6 @@ enum PresetTrip {
   /// A short trip with a collision at 20 km/h that occurs 141 seconds
   /// after the trip begins and that corresponds to a confirmed accident
   tripWithCrashConfirmed20KmH,
-
-  /// A short trip with a collision at 10 km/h that occurs 146 seconds
-  /// after the trip begins and that corresponds to a confirmed accident
-  tripWithCrashConfirmed10KmH,
 
   /// A short trip with a collision during a vehicle stop that occurs 159
   /// seconds after the trip begins and that corresponds to an unconfirmed

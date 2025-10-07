@@ -19,12 +19,12 @@ class PigeonMapper {
                 return(.boatTrip, nil)
             case .busTrip:
                 return(.busTrip, nil)
-            case .tripWithCrashConfirmed10KmH:
-                return (nil, .confirmed10KmH)
             case .tripWithCrashConfirmed20KmH:
                 return (nil, .confirmed20KmH)
             case .tripWithCrashConfirmed30KmH:
                 return (nil, .confirmed30KmH)
+            case .tripWithCrashConfirmed40KmH:
+                return (nil, .confirmed40KmH)
             case .tripWithCrashUnconfirmed0KmH:
                 return (nil, .unconfirmed0KmH)
             case .tripWithCrashConfirmed30KmHStillDriving:

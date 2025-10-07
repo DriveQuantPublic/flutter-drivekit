@@ -22,12 +22,12 @@ extension PigeonAdapter on PresetTrip {
         return PigeonPresetTrip.boatTrip;
       case PresetTrip.busTrip:
         return PigeonPresetTrip.busTrip;
-      case PresetTrip.tripWithCrashConfirmed10KmH:
-        return PigeonPresetTrip.tripWithCrashConfirmed10KmH;
       case PresetTrip.tripWithCrashConfirmed20KmH:
         return PigeonPresetTrip.tripWithCrashConfirmed20KmH;
       case PresetTrip.tripWithCrashConfirmed30KmH:
         return PigeonPresetTrip.tripWithCrashConfirmed30KmH;
+      case PresetTrip.tripWithCrashConfirmed40KmH:
+        return PigeonPresetTrip.tripWithCrashConfirmed40KmH;
       case PresetTrip.tripWithCrashUnconfirmed0KmH:
         return PigeonPresetTrip.tripWithCrashUnconfirmed0KmH;
       case PresetTrip.tripWithCrashConfirmed30KmHStillDriving:

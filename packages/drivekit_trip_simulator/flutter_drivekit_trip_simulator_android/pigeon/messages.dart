@@ -30,9 +30,9 @@ enum PigeonPresetTrip {
   trainTrip,
   boatTrip,
   busTrip,
-  tripWithCrashConfirmed10KmH,
   tripWithCrashConfirmed20KmH,
   tripWithCrashConfirmed30KmH,
+  tripWithCrashConfirmed40KmH,
   tripWithCrashUnconfirmed0KmH,
   tripWithCrashConfirmed30KmHStillDriving
 }

@@ -73,9 +73,9 @@ enum PigeonPresetTrip: Int {
   case trainTrip = 5
   case boatTrip = 6
   case busTrip = 7
-  case tripWithCrashConfirmed10KmH = 8
-  case tripWithCrashConfirmed20KmH = 9
-  case tripWithCrashConfirmed30KmH = 10
+  case tripWithCrashConfirmed20KmH = 8
+  case tripWithCrashConfirmed30KmH = 9
+  case tripWithCrashConfirmed40KmH = 10
   case tripWithCrashUnconfirmed0KmH = 11
   case tripWithCrashConfirmed30KmHStillDriving = 12
 }
