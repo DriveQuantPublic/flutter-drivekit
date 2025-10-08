@@ -1,3 +1,10 @@
+# 1.9.0
+
+    - Update DriveKit version for iOS to 2.21.0 and Android to 2.20.0
+    - The packages are optimized for iOS 26.
+    - Core: The Trip object now includes more granular address fields: departureState, departurePostalCode, departureCountry, arrivalState, arrivalPostalCode, arrivalCountry
+    - TripSimulator: The preset crash trip scenario has been updated from a 10 km/h confirmed crash to a 40 km/h confirmed crash, providing a more realistic test case.
+
 # 1.8.1
 
     - Update DriveKit version for iOS to 2.18.1
