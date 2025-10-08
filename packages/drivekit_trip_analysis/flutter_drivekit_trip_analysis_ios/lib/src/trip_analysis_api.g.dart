@@ -1504,10 +1504,16 @@ class PigeonTrip {
     this.itinId,
     this.startDate,
     this.endDate,
-    this.departureCity,
-    this.arrivalCity,
     this.departureAddress,
+    this.departureCity,
+    this.departurePostalCode,
+    this.departureState,
+    this.departureCountry,
     this.arrivalAddress,
+    this.arrivalCity,
+    this.arrivalPostalCode,
+    this.arrivalState,
+    this.arrivalCountry,
     this.vehicleId,
     this.tripStatistics,
     this.ecoDriving,
@@ -1546,17 +1552,35 @@ class PigeonTrip {
   /// The end date
   String? endDate;
 
+  /// The departure full address
+  String? departureAddress;
+
   /// The departure city
   String? departureCity;
+
+  /// The departure postal code
+  String? departurePostalCode;
+
+  /// The departure state
+  String? departureState;
+
+  /// The departure country
+  String? departureCountry;
+
+  /// The arrival full address
+  String? arrivalAddress;
 
   /// The arrival city
   String? arrivalCity;
 
-  /// The departure address
-  String? departureAddress;
+  /// The arrival postal code
+  String? arrivalPostalCode;
 
-  /// The arrival address
-  String? arrivalAddress;
+  /// The arrival state
+  String? arrivalState;
+
+  /// The arrival country
+  String? arrivalCountry;
 
   /// The vehicle ID
   String? vehicleId;
@@ -1644,10 +1668,16 @@ class PigeonTrip {
       itinId,
       startDate,
       endDate,
-      departureCity,
-      arrivalCity,
       departureAddress,
+      departureCity,
+      departurePostalCode,
+      departureState,
+      departureCountry,
       arrivalAddress,
+      arrivalCity,
+      arrivalPostalCode,
+      arrivalState,
+      arrivalCountry,
       vehicleId,
       tripStatistics,
       ecoDriving,
@@ -1684,42 +1714,48 @@ class PigeonTrip {
       itinId: result[0] as String?,
       startDate: result[1] as String?,
       endDate: result[2] as String?,
-      departureCity: result[3] as String?,
-      arrivalCity: result[4] as String?,
-      departureAddress: result[5] as String?,
-      arrivalAddress: result[6] as String?,
-      vehicleId: result[7] as String?,
-      tripStatistics: result[8] as PigeonTripStatistics?,
-      ecoDriving: result[9] as PigeonEcoDriving?,
-      fuelEstimation: result[10] as PigeonFuelEstimation?,
-      safety: result[11] as PigeonSafety?,
-      advancedEcoDriving: result[12] as PigeonAdvancedEcoDriving?,
-      advancedFuelEstimation: result[13] as PigeonAdvancedFuelEstimation?,
-      advancedSafety: result[14] as PigeonAdvancedSafety?,
-      pollutants: result[15] as PigeonPollutants?,
-      tireWear: result[16] as PigeonTireWear?,
-      brakeWear: result[17] as PigeonBrakeWear?,
-      driverDistraction: result[18] as PigeonDriverDistraction?,
-      logbook: result[19] as PigeonLogbook?,
-      occupantInfo: result[20] as PigeonOccupantInfo?,
-      safetyEvents: (result[21] as List<Object?>?)?.cast<PigeonSafetyEvent?>(),
-      speedingStatistics: result[22] as PigeonSpeedingStatistics?,
-      energyEstimation: result[23] as PigeonEnergyEstimation?,
-      advancedEnergyEstimation: (result[24] as List<Object?>?)
+      departureAddress: result[3] as String?,
+      departureCity: result[4] as String?,
+      departurePostalCode: result[5] as String?,
+      departureState: result[6] as String?,
+      departureCountry: result[7] as String?,
+      arrivalAddress: result[8] as String?,
+      arrivalCity: result[9] as String?,
+      arrivalPostalCode: result[10] as String?,
+      arrivalState: result[11] as String?,
+      arrivalCountry: result[12] as String?,
+      vehicleId: result[13] as String?,
+      tripStatistics: result[14] as PigeonTripStatistics?,
+      ecoDriving: result[15] as PigeonEcoDriving?,
+      fuelEstimation: result[16] as PigeonFuelEstimation?,
+      safety: result[17] as PigeonSafety?,
+      advancedEcoDriving: result[18] as PigeonAdvancedEcoDriving?,
+      advancedFuelEstimation: result[19] as PigeonAdvancedFuelEstimation?,
+      advancedSafety: result[20] as PigeonAdvancedSafety?,
+      pollutants: result[21] as PigeonPollutants?,
+      tireWear: result[22] as PigeonTireWear?,
+      brakeWear: result[23] as PigeonBrakeWear?,
+      driverDistraction: result[24] as PigeonDriverDistraction?,
+      logbook: result[25] as PigeonLogbook?,
+      occupantInfo: result[26] as PigeonOccupantInfo?,
+      safetyEvents: (result[27] as List<Object?>?)?.cast<PigeonSafetyEvent?>(),
+      speedingStatistics: result[28] as PigeonSpeedingStatistics?,
+      energyEstimation: result[29] as PigeonEnergyEstimation?,
+      advancedEnergyEstimation: (result[30] as List<Object?>?)
           ?.cast<PigeonAdvancedEnergyEstimation?>(),
       tripAdvicesData:
-          (result[25] as List<Object?>?)?.cast<PigeonTripAdviceData?>(),
-      maneuverData: result[26] as PigeonManeuverData?,
-      evaluationData: result[27] as PigeonEvaluationData?,
+          (result[31] as List<Object?>?)?.cast<PigeonTripAdviceData?>(),
+      maneuverData: result[32] as PigeonManeuverData?,
+      evaluationData: result[33] as PigeonEvaluationData?,
       metadata:
-          (result[28] as Map<Object?, Object?>?)?.cast<String?, String?>(),
-      transportationMode: result[29]! as int,
+          (result[34] as Map<Object?, Object?>?)?.cast<String?, String?>(),
+      transportationMode: result[35]! as int,
       declaredTransportationMode:
-          result[30] as PigeonDeclaredTransportationMode?,
-      unscored: result[31]! as bool,
-      calls: (result[32] as List<Object?>?)?.cast<PigeonCall?>(),
+          result[36] as PigeonDeclaredTransportationMode?,
+      unscored: result[37]! as bool,
+      calls: (result[38] as List<Object?>?)?.cast<PigeonCall?>(),
       speedLimitContexts:
-          (result[33] as List<Object?>?)?.cast<PigeonSpeedLimitContext?>(),
+          (result[39] as List<Object?>?)?.cast<PigeonSpeedLimitContext?>(),
     );
   }
 }

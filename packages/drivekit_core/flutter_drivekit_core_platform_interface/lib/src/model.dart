@@ -215,10 +215,16 @@ class Trip {
     required this.itinId,
     required this.startDate,
     required this.endDate,
-    required this.departureCity,
-    required this.arrivalCity,
     required this.departureAddress,
+    required this.departureCity,
+    required this.departurePostalCode,
+    required this.departureState,
+    required this.departureCountry,
     required this.arrivalAddress,
+    required this.arrivalCity,
+    required this.arrivalPostalCode,
+    required this.arrivalState,
+    required this.arrivalCountry,
     required this.vehicleId,
     required this.tripStatistics,
     required this.ecoDriving,
@@ -253,17 +259,35 @@ class Trip {
   /// The end date
   final String? endDate;
 
+  /// The departure full address
+  final String? departureAddress;
+
   /// The departure city
   final String? departureCity;
+
+  /// The departure postal code
+  final String? departurePostalCode;
+
+  /// The departure state
+  final String? departureState;
+
+  /// The departure country
+  final String? departureCountry;
+
+  /// The arrival full address
+  final String? arrivalAddress;
 
   /// The arrival city
   final String? arrivalCity;
 
-  /// The departure address
-  final String? departureAddress;
+  /// The arrival postal code
+  final String? arrivalPostalCode;
 
-  /// The arrival address
-  final String? arrivalAddress;
+  /// The arrival state
+  final String? arrivalState;
+
+  /// The arrival country
+  final String? arrivalCountry;
 
   /// The vehicle ID
   final String? vehicleId;
@@ -1062,37 +1086,6 @@ class DriverDistraction {
 
   /// The call score
   final double? scoreCall;
-}
-
-/// ItineraryData class
-class ItineraryData {
-  /// Creates an ItineraryData instance
-  const ItineraryData({
-    this.startDate,
-    this.endDate,
-    this.departureCity,
-    this.arrivalCity,
-    this.departureAddress,
-    this.arrivalAddress,
-  });
-
-  /// The start date
-  final String? startDate;
-
-  /// The end date
-  final String? endDate;
-
-  /// The departure city
-  final String? departureCity;
-
-  /// The arrival city
-  final String? arrivalCity;
-
-  /// The departure address
-  final String? departureAddress;
-
-  /// The arrival address
-  final String? arrivalAddress;
 }
 
 /// Logbook class

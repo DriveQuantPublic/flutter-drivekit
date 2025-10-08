@@ -1043,10 +1043,16 @@ class PigeonTrip {
     required this.itinId,
     required this.startDate,
     required this.endDate,
-    required this.departureCity,
-    required this.arrivalCity,
     required this.departureAddress,
+    required this.departureCity,
+    required this.departurePostalCode,
+    required this.departureState,
+    required this.departureCountry,
     required this.arrivalAddress,
+    required this.arrivalCity,
+    required this.arrivalPostalCode,
+    required this.arrivalState,
+    required this.arrivalCountry,
     required this.vehicleId,
     required this.tripStatistics,
     required this.ecoDriving,
@@ -1085,17 +1091,35 @@ class PigeonTrip {
   /// The end date
   final String? endDate;
 
+  /// The departure full address
+  final String? departureAddress;
+
   /// The departure city
   final String? departureCity;
+
+  /// The departure postal code
+  final String? departurePostalCode;
+
+  /// The departure state
+  final String? departureState;
+
+  /// The departure country
+  final String? departureCountry;
+
+  /// The arrival full address
+  final String? arrivalAddress;
 
   /// The arrival city
   final String? arrivalCity;
 
-  /// The departure address
-  final String? departureAddress;
+  /// The arrival postal code
+  final String? arrivalPostalCode;
 
-  /// The arrival address
-  final String? arrivalAddress;
+  /// The arrival state
+  final String? arrivalState;
+
+  /// The arrival country
+  final String? arrivalCountry;
 
   /// The vehicle ID
   final String? vehicleId;

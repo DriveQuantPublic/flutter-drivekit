@@ -14,9 +14,9 @@ internal object TripSimulatorPigeonMapper {
         PigeonPresetTrip.TRAIN_TRIP -> PresetTrip.TRAIN_TRIP
         PigeonPresetTrip.BOAT_TRIP -> PresetTrip.BOAT_TRIP
         PigeonPresetTrip.BUS_TRIP -> PresetTrip.BUS_TRIP
-        PigeonPresetTrip.TRIP_WITH_CRASH_CONFIRMED10KM_H -> PresetTrip.TRIP_WITH_CRASH_1(PresetTripCrash1.CONFIRMED_10KMH)
         PigeonPresetTrip.TRIP_WITH_CRASH_CONFIRMED20KM_H -> PresetTrip.TRIP_WITH_CRASH_1(PresetTripCrash1.CONFIRMED_20KMH)
         PigeonPresetTrip.TRIP_WITH_CRASH_CONFIRMED30KM_H -> PresetTrip.TRIP_WITH_CRASH_1(PresetTripCrash1.CONFIRMED_30KMH)
+        PigeonPresetTrip.TRIP_WITH_CRASH_CONFIRMED40KM_H -> PresetTrip.TRIP_WITH_CRASH_1(PresetTripCrash1.CONFIRMED_40KMH)
         PigeonPresetTrip.TRIP_WITH_CRASH_UNCONFIRMED0KM_H -> PresetTrip.TRIP_WITH_CRASH_1(PresetTripCrash1.UNCONFIRMED_0KMH)
         PigeonPresetTrip.TRIP_WITH_CRASH_CONFIRMED30KM_HSTILL_DRIVING -> PresetTrip.TRIP_WITH_CRASH_2_STILL_DRIVING
     }

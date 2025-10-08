@@ -24,5 +24,4 @@ public class DriveKitTripSimulatorPlugin: NSObject, FlutterPlugin, IOSTripSimula
     func stop() throws {
         DriveKitTripSimulator.shared.stop()
     }
-
 }
