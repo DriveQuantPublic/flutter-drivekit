@@ -1,3 +1,7 @@
+# 1.10.0
+
+    - Update DriveKit version for iOS to 2.22.0 and Android to 2.21.0
+
 # 1.9.0
 
     - Update DriveKit version for iOS to 2.21.0 and Android to 2.20.0

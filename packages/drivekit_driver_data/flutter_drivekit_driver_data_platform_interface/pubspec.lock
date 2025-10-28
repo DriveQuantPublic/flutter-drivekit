@@ -60,7 +60,7 @@ packages:
       path: "../../drivekit_core/flutter_drivekit_core_platform_interface"
       relative: true
     source: path
-    version: "1.9.0"
+    version: "1.10.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
