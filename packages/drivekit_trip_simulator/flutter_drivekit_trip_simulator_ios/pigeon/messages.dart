@@ -6,7 +6,7 @@ import 'package:pigeon/pigeon.dart';
   PigeonOptions(
     dartOut: 'lib/src/trip_simulator_api.g.dart',
     dartOptions: DartOptions(),
-    swiftOut: 'ios/Classes/IOSTripSimulatorApi.swift',
+    swiftOut: 'ios/flutter_drivekit_trip_simulator_ios/Sources/flutter_drivekit_trip_simulator_ios/IOSTripSimulatorApi.swift',
     swiftOptions: SwiftOptions(errorClassName: 'FlutterTripSimulatorError'),
     dartPackageName: 'pigeon_trip_simulator_package',
   ),

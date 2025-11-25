@@ -6,7 +6,7 @@ import 'package:pigeon/pigeon.dart';
   PigeonOptions(
     dartOut: 'lib/src/driver_data_api.g.dart',
     dartOptions: DartOptions(),
-    swiftOut: 'ios/Classes/IOSDriverDataApi.swift',
+    swiftOut: 'ios/flutter_drivekit_driver_data_ios/Sources/flutter_drivekit_driver_data_ios/IOSDriverDataApi.swift',
     swiftOptions: SwiftOptions(errorClassName: 'FlutterDriverDataError'),
     dartPackageName: 'pigeon_driver_data_package',
   ),
