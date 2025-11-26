@@ -38,20 +38,20 @@ private func wrapError(_ error: Any) -> [Any?] {
     return [
       pigeonError.code,
       pigeonError.message,
-      pigeonError.details
+      pigeonError.details,
     ]
   }
   if let flutterError = error as? FlutterError {
     return [
       flutterError.code,
       flutterError.message,
-      flutterError.details
+      flutterError.details,
     ]
   }
   return [
     "\(error)",
     "\(type(of: error))",
-    "Stacktrace: \(Thread.callStackSymbols)"
+    "Stacktrace: \(Thread.callStackSymbols)",
   ]
 }
 
@@ -138,9 +138,9 @@ enum PigeonUserInfoSyncStatus: Int {
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 struct PigeonUserInfo {
-  var firstname: String?
-  var lastname: String?
-  var pseudo: String?
+  var firstname: String? = nil
+  var lastname: String? = nil
+  var pseudo: String? = nil
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
   static func fromList(_ __pigeon_list: [Any?]) -> PigeonUserInfo? {
@@ -158,7 +158,7 @@ struct PigeonUserInfo {
     return [
       firstname,
       lastname,
-      pseudo
+      pseudo,
     ]
   }
 }
@@ -171,7 +171,7 @@ struct PigeonGetUserInfoResponse {
   /// final PigeonUserInfoSyncStatus status
   var status: PigeonUserInfoSyncStatus
   /// user info data
-  var userInfo: PigeonUserInfo?
+  var userInfo: PigeonUserInfo? = nil
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
   static func fromList(_ __pigeon_list: [Any?]) -> PigeonGetUserInfoResponse? {
@@ -186,7 +186,7 @@ struct PigeonGetUserInfoResponse {
   func toList() -> [Any?] {
     return [
       status,
-      userInfo
+      userInfo,
     ]
   }
 }
@@ -198,49 +198,49 @@ private class IOSCoreApiPigeonCodecReader: FlutterStandardReader {
     case 130:
       return PigeonGetUserInfoResponse.fromList(self.readValue() as! [Any?])
     case 131:
-      var enumResult: PigeonDeleteAccountStatus?
+      var enumResult: PigeonDeleteAccountStatus? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonDeleteAccountStatus(rawValue: enumResultAsInt)
       }
       return enumResult
     case 132:
-      var enumResult: PigeonRequestError?
+      var enumResult: PigeonRequestError? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonRequestError(rawValue: enumResultAsInt)
       }
       return enumResult
     case 133:
-      var enumResult: PigeonUpdateUserIdStatus?
+      var enumResult: PigeonUpdateUserIdStatus? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonUpdateUserIdStatus(rawValue: enumResultAsInt)
       }
       return enumResult
     case 134:
-      var enumResult: PigeonBackgroundFetchStatus?
+      var enumResult: PigeonBackgroundFetchStatus? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonBackgroundFetchStatus(rawValue: enumResultAsInt)
       }
       return enumResult
     case 135:
-      var enumResult: PigeonDeviceConfigurationEvent?
+      var enumResult: PigeonDeviceConfigurationEvent? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonDeviceConfigurationEvent(rawValue: enumResultAsInt)
       }
       return enumResult
     case 136:
-      var enumResult: PigeonSynchronizationType?
+      var enumResult: PigeonSynchronizationType? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonSynchronizationType(rawValue: enumResultAsInt)
       }
       return enumResult
     case 137:
-      var enumResult: PigeonUserInfoSyncStatus?
+      var enumResult: PigeonUserInfoSyncStatus? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonUserInfoSyncStatus(rawValue: enumResultAsInt)
@@ -300,6 +300,7 @@ private class IOSCoreApiPigeonCodecReaderWriter: FlutterStandardReaderWriter {
 class IOSCoreApiPigeonCodec: FlutterStandardMessageCodec, @unchecked Sendable {
   static let shared = IOSCoreApiPigeonCodec(readerWriter: IOSCoreApiPigeonCodecReaderWriter())
 }
+
 
 /// Generated protocol from Pigeon that represents a handler of messages from Flutter.
 protocol IOSCoreApi {
