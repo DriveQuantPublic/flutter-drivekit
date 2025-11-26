@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "flutter_drivekit_trip_analysis_ios",
     platforms: [
-        .iOS("13.0"),
+        .iOS("13.0")
     ],
     products: [
         .library(name: "flutter-drivekit-trip-analysis-ios", targets: ["flutter_drivekit_trip_analysis_ios"])
