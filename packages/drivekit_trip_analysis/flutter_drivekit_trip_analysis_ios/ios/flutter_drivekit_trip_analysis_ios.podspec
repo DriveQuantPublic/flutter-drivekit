@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
   s.license          = { :type => 'Apache-2.0', :file => '../LICENSE' }
   s.author           = { 'DriveQuant' => 'developer@drivequant.com' }
   s.source           = { :path => '.' }
-  s.source_files = 'Classes/**/*'
+  s.source_files = 'flutter_drivekit_trip_analysis_ios/Sources/flutter_drivekit_trip_analysis_ios/**/*'
   s.dependency 'Flutter'
   s.dependency 'DriveKitTripAnalysis', '2.23.0'
   s.platform = :ios, '13.0'

@@ -6,7 +6,7 @@ import 'package:pigeon/pigeon.dart';
   PigeonOptions(
     dartOut: 'lib/src/trip_analysis_api.g.dart',
     dartOptions: DartOptions(),
-    swiftOut: 'ios/Classes/IOSTripAnalysisApi.swift',
+    swiftOut: 'ios/flutter_drivekit_trip_analysis_ios/Sources/flutter_drivekit_trip_analysis_ios/IOSTripAnalysisApi.swift',
     swiftOptions: SwiftOptions(errorClassName: 'FlutterTripAnalysisError'),
     dartPackageName: 'pigeon_trip_analysis_package',
   ),

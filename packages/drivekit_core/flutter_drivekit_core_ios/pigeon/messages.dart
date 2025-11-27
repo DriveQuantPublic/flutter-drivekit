@@ -6,7 +6,7 @@ import 'package:pigeon/pigeon.dart';
   PigeonOptions(
     dartOut: 'lib/src/core_api.g.dart',
     dartOptions: DartOptions(),
-    swiftOut: 'ios/Classes/IOSCoreApi.swift',
+    swiftOut: 'ios/flutter_drivekit_core_ios/Sources/flutter_drivekit_core_ios/IOSCoreApi.swift',
     swiftOptions: SwiftOptions(errorClassName: 'FlutterCoreError'),
     dartPackageName: 'pigeon_core_package',
   ),

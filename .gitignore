@@ -38,6 +38,7 @@ GeneratedPluginRegistrant.h
 GeneratedPluginRegistrant.m
 GeneratedPluginRegistrant.swift
 build/
+.swiftpm/
 .flutter-plugins
 
 .project

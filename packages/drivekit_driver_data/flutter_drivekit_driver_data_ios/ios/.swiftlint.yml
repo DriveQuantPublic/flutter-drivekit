@@ -1,5 +1,5 @@
 excluded:
-  - Classes/IOSCoreApi.swift # Generated file
+  - flutter_drivekit_driver_data_ios/Sources/flutter_drivekit_driver_data_ios/IOSCoreApi.swift # Generated file
 
 line_length: 180
 function_parameter_count:
