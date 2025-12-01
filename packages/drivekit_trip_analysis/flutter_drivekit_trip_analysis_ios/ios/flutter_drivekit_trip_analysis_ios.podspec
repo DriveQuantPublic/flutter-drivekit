@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
   s.source           = { :path => '.' }
   s.source_files = 'flutter_drivekit_trip_analysis_ios/Sources/flutter_drivekit_trip_analysis_ios/**/*'
   s.dependency 'Flutter'
-  s.dependency 'DriveKitTripAnalysis', '2.23.0'
+  s.dependency 'DriveKitTripAnalysis', '2.23.1'
   s.platform = :ios, '13.0'
 
   # Flutter.framework does not contain a i386 slice.
