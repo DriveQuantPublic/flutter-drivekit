@@ -1,3 +1,8 @@
+# 1.12.0
+
+    - Update DriveKit version for iOS to 2.23.1 and Android to 2.22.1 
+    - DriveKit modules are now retrieved with Swift Package Manager if its support is turned on. Read more [here](https://docs.flutter.dev/packages-and-plugins/swift-package-manager/for-app-developers#how-to-turn-on-swift-package-manager)
+
 # 1.11.0
 
     - Update DriveKit version for iOS to 2.23.0 and Android to 2.22.0
