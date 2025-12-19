@@ -84,6 +84,7 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 | [deleteAllTripMetadata()](#deletealltripmetadata)                   | `Future<void>`                          | ✅  |   ✅    |
 | [getCurrentTripInfo()](#getcurrenttripinfo)                         | `Future<CurrentTripInfo?>`              | ✅  |   ✅    |
 | [getLastTripLocation()](#getlasttriplocation)                       | `Future<LastTripLocation?>`             | ✅  |   ✅    |
+| [getLastVehicleTripLocation()](#getlastvehicletriplocation)         | `Future<LastTripLocation?>`             | ✅  |   ✅    |
 | [isTripSharingAvailable()](#isTripSharingAvailable)                 | `Future<bool>`                          | ✅  |   ✅    |
 | [createTripSharingLink()](#createTripSharingLink)                   | `Future<CreateTripSharingLinkResponse>` | ✅  |   ✅    |
 | [getTripSharingLink()](#getTripSharingLink)                         | `Future<GetTripSharingLinkResponse>`    | ✅  |   ✅    |
@@ -511,8 +512,6 @@ The location is defined by GPS coordinates (latitude and longitude), along with 
 
 You can use the end-of-trip coordinate for a variety of purposes, for example:
 
-- help the user find his vehicle
-
 - alert the customer that the user has reached a specific destination
 
 - create a geofence to locate the vehicle
@@ -548,6 +547,26 @@ The method can return null if the user is not authenticated, or didn’t make a 
 | good | The GPS accuracy is strictly below 10 meters. |
 | fair | The GPS accuracy is between 10 and 30 meters. |
 | poor | The GPS accuracy is strictly above 30 meters. |
+
+### getLastVehicleTripLocation
+
+This function returns the location of the end of the last vehicle trip recorded by the user.
+
+The location is defined by GPS coordinates (latitude and longitude), along with the end date of the last trip and an accuracy indicator for the GPS reading.
+
+You can use the end-of-trip coordinate for example, to help the user find his vehicle
+
+```dart
+Future<LastTripLocation?> getLastVehicleTripLocation()
+```
+
+To retrieve the location at which the last recorded vehicle trip ended, use the following method:
+
+```dart
+await DriveKitTripAnalysis.instance.getLastVehicleTripLocation();
+```
+
+The method can return null if the user is not authenticated, or didn’t make a trip since the authentication, or hasn’t made any valid trips.
 
 ### isTripSharingAvailable
 
