@@ -224,6 +224,9 @@ class DriveKitTripAnalysisPlugin :
     override fun getLastTripLocation(): PigeonLastTripLocation? =
         PigeonMapper.toPigeonLastTripLocation(DriveKitTripAnalysis.getLastTripLocation())
 
+    override fun getLastVehicleTripLocation(): PigeonLastTripLocation? =
+        PigeonMapper.toPigeonLastTripLocation(DriveKitTripAnalysis.getLastVehicleTripLocation())
+
     override fun isTripSharingAvailable(): Boolean = DriveKitTripAnalysis.tripSharing.isAvailable()
 
     override fun createTripSharingLink(durationInSeconds: Long, callback: (Result<PigeonCreateTripSharingLinkResponse>) -> Unit) {
