@@ -715,6 +715,16 @@ void main() {
             await DriveKitTripAnalysisPlatform.instance.getLastTripLocation();
         expect(lastTripLocation, null);
       });
+      test('lastVehicleTripLocation returns a null object by default', () async {
+        //mocks
+        when(androidTripAnalysisApi.getLastVehicleTripLocation)
+            .thenAnswer((_) async => null);
+
+        //test
+        final lastVehicleTripLocation =
+            await DriveKitTripAnalysisPlatform.instance.getLastVehicleTripLocation();
+        expect(lastVehicleTripLocation, null);
+      });
     });
 
     group('Trip Sharing', () {

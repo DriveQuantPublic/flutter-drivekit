@@ -285,6 +285,16 @@ void main() {
         verify(() => driveKitTripAnalysisPlatform.getLastTripLocation())
             .called(1);
       });
+      test('getLastVehicleTripLocation calls platform implementation', () async {
+        when(() => driveKitTripAnalysisPlatform.getLastVehicleTripLocation())
+            .thenAnswer((_) async {
+          return;
+        });
+
+        await DriveKitTripAnalysis.instance.getLastVehicleTripLocation();
+        verify(() => driveKitTripAnalysisPlatform.getLastVehicleTripLocation())
+            .called(1);
+      });
     });
 
     group('Trip Sharing', () {
