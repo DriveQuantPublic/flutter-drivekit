@@ -131,7 +131,8 @@ class SliverTripLifecycle extends StatelessWidget {
         ElevatedButton(
           onPressed: () async {
             final lastTripLocation =
-                await DriveKitTripAnalysis.instance.getLastVehicleTripLocation();
+                await DriveKitTripAnalysis.instance
+                  .getLastVehicleTripLocation();
             final alertMessage = lastTripLocation != null
                 ? 'date: ${lastTripLocation.date}'
                     '\nlatitude: ${lastTripLocation.latitude}'
