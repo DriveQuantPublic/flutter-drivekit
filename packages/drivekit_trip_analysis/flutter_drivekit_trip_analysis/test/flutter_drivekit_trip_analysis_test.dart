@@ -285,7 +285,8 @@ void main() {
         verify(() => driveKitTripAnalysisPlatform.getLastTripLocation())
             .called(1);
       });
-      test('getLastVehicleTripLocation calls platform implementation', () async {
+      test('getLastVehicleTripLocation calls platform implementation',
+          () async {
         when(() => driveKitTripAnalysisPlatform.getLastVehicleTripLocation())
             .thenAnswer((_) async {
           return;
