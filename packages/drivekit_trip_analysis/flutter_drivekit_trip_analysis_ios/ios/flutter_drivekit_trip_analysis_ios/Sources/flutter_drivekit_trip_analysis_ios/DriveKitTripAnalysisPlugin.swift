@@ -115,6 +115,15 @@ public class DriveKitTripAnalysisPlugin: NSObject, FlutterPlugin, IOSTripAnalysi
         return nil
     }
 
+    func getLastVehicleTripLocation() -> PigeonLastTripLocation? {
+        let nativeLastTripLocation = DriveKitTripAnalysis.shared.getLastVehicleTripLocation()
+        if let nativeLastTripLocation {
+            let lastTripLocation = PigeonLastTripLocation.init(from: nativeLastTripLocation)
+            return lastTripLocation
+        }
+        return nil
+    }
+
     func isTripSharingAvailable() -> Bool {
         return DriveKitTripAnalysis.shared.tripSharing.isAvailable()
     }
