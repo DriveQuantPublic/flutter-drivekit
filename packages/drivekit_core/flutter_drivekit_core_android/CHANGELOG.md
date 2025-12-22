@@ -1,3 +1,8 @@
+# 1.13.0
+
+    - Update DriveKit version for iOS to 2.24.0 and Android to 2.23.0
+    - TripAnalysis: Add method to retrieve the last location of the last vehicle trip
+
 # 1.12.0
 
     - Update DriveKit version for iOS to 2.23.1 and Android to 2.22.1 
