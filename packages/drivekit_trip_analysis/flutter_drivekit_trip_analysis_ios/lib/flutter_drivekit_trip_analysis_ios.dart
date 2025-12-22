@@ -247,6 +247,17 @@ class DriveKitTripAnalysisIOS extends DriveKitTripAnalysisPlatform
   }
 
   @override
+  Future<LastTripLocation?> getLastVehicleTripLocation() async {
+    final lastTripLocation = await iosTripAnalysisApi
+        .getLastVehicleTripLocation();
+    if (lastTripLocation == null) {
+      return null;
+    } else {
+      return lastTripLocation.toModelImplementation();
+    }
+  }
+
+  @override
   Future<bool> isTripSharingAvailable() =>
       iosTripAnalysisApi.isTripSharingAvailable();
 

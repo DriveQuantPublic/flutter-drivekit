@@ -198,6 +198,11 @@ class DriveKitTripAnalysis {
     return _platform.getLastTripLocation();
   }
 
+  /// Call this method to retrieve the arrival location of the last vehicle trip
+  Future<LastTripLocation?> getLastVehicleTripLocation() async {
+    return _platform.getLastVehicleTripLocation();
+  }
+
   /// Call this method to check if the trip sharing feature is available
   /// for your company
   Future<bool> isTripSharingAvailable() async {

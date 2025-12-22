@@ -109,6 +109,9 @@ abstract class DriveKitTripAnalysisPlatform extends PlatformInterface {
   /// Get last trip location
   Future<LastTripLocation?> getLastTripLocation();
 
+  /// Get last vehicle trip location
+  Future<LastTripLocation?> getLastVehicleTripLocation();
+
   /// Check if the trip sharing feature is available
   Future<bool> isTripSharingAvailable();
 

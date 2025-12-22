@@ -2467,6 +2467,7 @@ protocol IOSTripAnalysisApi {
   func deleteAllTripMetadata() throws
   func getCurrentTripInfo() throws -> PigeonCurrentTripInfo?
   func getLastTripLocation() throws -> PigeonLastTripLocation?
+  func getLastVehicleTripLocation() throws -> PigeonLastTripLocation?
   func isTripSharingAvailable() throws -> Bool
   func createTripSharingLink(durationInSeconds: Int64, completion: @escaping (Result<PigeonCreateTripSharingLinkResponse, Error>) -> Void)
   func getTripSharingLink(synchronizationType: PigeonSynchronizationType, completion: @escaping (Result<PigeonGetTripSharingLinkResponse, Error>) -> Void)
@@ -2742,6 +2743,19 @@ class IOSTripAnalysisApiSetup {
       }
     } else {
       getLastTripLocationChannel.setMessageHandler(nil)
+    }
+    let getLastVehicleTripLocationChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.pigeon_trip_analysis_package.IOSTripAnalysisApi.getLastVehicleTripLocation\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      getLastVehicleTripLocationChannel.setMessageHandler { _, reply in
+        do {
+          let result = try api.getLastVehicleTripLocation()
+          reply(wrapResult(result))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      getLastVehicleTripLocationChannel.setMessageHandler(nil)
     }
     let isTripSharingAvailableChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.pigeon_trip_analysis_package.IOSTripAnalysisApi.isTripSharingAvailable\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {

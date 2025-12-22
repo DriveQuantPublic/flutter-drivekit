@@ -35,6 +35,7 @@ abstract class AndroidTripAnalysisApi {
   void deleteAllTripMetadata();
   PigeonCurrentTripInfo? getCurrentTripInfo();
   PigeonLastTripLocation? getLastTripLocation();
+  PigeonLastTripLocation? getLastVehicleTripLocation();
   bool isTripSharingAvailable();
   @async
   PigeonCreateTripSharingLinkResponse createTripSharingLink(

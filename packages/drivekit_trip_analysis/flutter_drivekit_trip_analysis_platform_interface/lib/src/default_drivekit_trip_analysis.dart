@@ -139,6 +139,13 @@ class DefaultDriveKitTripAnalysis extends DriveKitTripAnalysisPlatform {
   }
 
   @override
+  Future<LastTripLocation?> getLastVehicleTripLocation() {
+    throw UnimplementedError(
+      'getLastVehicleTripLocation() has not been implemented.',
+    );
+  }
+
+  @override
   Future<bool> isTripSharingAvailable() {
     throw UnimplementedError(
       'isTripSharingAvailable() has not been implemented.',

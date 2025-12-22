@@ -128,6 +128,42 @@ class SliverTripLifecycle extends StatelessWidget {
             'Get LastTripLocation',
           ),
         ),
+        ElevatedButton(
+          onPressed: () async {
+            final lastTripLocation =
+                await DriveKitTripAnalysis.instance
+                  .getLastVehicleTripLocation();
+            final alertMessage = lastTripLocation != null
+                ? 'date: ${lastTripLocation.date}'
+                    '\nlatitude: ${lastTripLocation.latitude}'
+                    '\nlongitude: ${lastTripLocation.longitude}'
+                    '\naccuracymeter: ${lastTripLocation.accuracyMeter}'
+                    '\naccuracyLevel: ${lastTripLocation.accuracyLevel.name}'
+                : 'LastTripLocation is null';
+            if (context.mounted) {
+              await showDialog<void>(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: const Text('Get LastVehicleTripLocation'),
+                    content: Text(alertMessage),
+                    actions: <Widget>[
+                      TextButton(
+                        child: const Text('OK'),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
+                  );
+                },
+              );
+            }
+          },
+          child: const Text(
+            'Get LastVehicleTripLocation',
+          ),
+        ),
       ],
     );
   }
