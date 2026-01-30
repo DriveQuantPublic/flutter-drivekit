@@ -226,20 +226,6 @@ extension DriveKitTripAnalysisPlugin: TripListener {
         }
     }
 
-    public func tripStarted(startMode: DriveKitTripAnalysisModule.StartMode) {
-        let pigeonStartMode = PigeonStartMode.init(from: startMode)
-        executeOnMainThread {
-            self.flutterAPI?.tripStarted(startMode: pigeonStartMode) { result in
-                switch result {
-                case .success:
-                    print("Trip did start.")
-                case .failure(let error):
-                    print("Error on trip start: \(error.localizedDescription)")
-                }
-            }
-        }
-    }
-
     public func tripFinished(responseStatus: TripResponseStatus) {
         let pigeonTripResponseStatus = PigeonTripResponseStatus.init(from: responseStatus)
 
@@ -253,20 +239,6 @@ extension DriveKitTripAnalysisPlugin: TripListener {
                         print("Error when sending tripFinished event: \(error.localizedDescription)")
                     }
                 }
-        }
-    }
-
-    public func tripCancelled(cancelTrip: DriveKitTripAnalysisModule.CancelTrip) {
-        let pigeonValue = PigeonCancelTrip.init(from: cancelTrip)
-        executeOnMainThread {
-            self.flutterAPI?.tripCancelled(cancelTrip: pigeonValue) { result in
-                switch result {
-                case .success:
-                    print("Trip canceled.")
-                case .failure(let error):
-                    print("Error on trip canceled: \(error.localizedDescription)")
-                }
-            }
         }
     }
 

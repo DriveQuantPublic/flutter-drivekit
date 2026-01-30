@@ -2827,11 +2827,9 @@ protocol FlutterTripAnalysisApiProtocol {
   func tripRecordingConfirmed(state stateArg: PigeonTripRecordingConfirmedState, completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void)
   func tripRecordingCanceled(state stateArg: PigeonTripRecordingCanceledState, completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void)
   func tripRecordingFinished(state stateArg: PigeonTripRecordingFinishedState, completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void)
-  func tripStarted(startMode startModeArg: PigeonStartMode, completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void)
   func tripPoint(tripPoint tripPointArg: PigeonTripPoint, completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void)
   func tripSavedForRepost(completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void)
   func tripFinished(response responseArg: PigeonTripResponseStatus, completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void)
-  func tripCancelled(cancelTrip cancelTripArg: PigeonCancelTrip, completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void)
   func potentialTripStart(startMode startModeArg: PigeonStartMode, completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void)
   func beaconDetected(completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void)
   func significantLocationChangeDetected(location locationArg: PigeonLocation, completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void)
@@ -2921,24 +2919,6 @@ class FlutterTripAnalysisApi: FlutterTripAnalysisApiProtocol {
       }
     }
   }
-  func tripStarted(startMode startModeArg: PigeonStartMode, completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void) {
-    let channelName: String = "dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripStarted\(messageChannelSuffix)"
-    let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger, codec: codec)
-    channel.sendMessage([startModeArg] as [Any?]) { response in
-      guard let listResponse = response as? [Any?] else {
-        completion(.failure(createConnectionError(withChannelName: channelName)))
-        return
-      }
-      if listResponse.count > 1 {
-        let code: String = listResponse[0] as! String
-        let message: String? = nilOrValue(listResponse[1])
-        let details: String? = nilOrValue(listResponse[2])
-        completion(.failure(FlutterTripAnalysisError(code: code, message: message, details: details)))
-      } else {
-        completion(.success(Void()))
-      }
-    }
-  }
   func tripPoint(tripPoint tripPointArg: PigeonTripPoint, completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void) {
     let channelName: String = "dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripPoint\(messageChannelSuffix)"
     let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger, codec: codec)
@@ -2979,24 +2959,6 @@ class FlutterTripAnalysisApi: FlutterTripAnalysisApiProtocol {
     let channelName: String = "dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripFinished\(messageChannelSuffix)"
     let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger, codec: codec)
     channel.sendMessage([responseArg] as [Any?]) { response in
-      guard let listResponse = response as? [Any?] else {
-        completion(.failure(createConnectionError(withChannelName: channelName)))
-        return
-      }
-      if listResponse.count > 1 {
-        let code: String = listResponse[0] as! String
-        let message: String? = nilOrValue(listResponse[1])
-        let details: String? = nilOrValue(listResponse[2])
-        completion(.failure(FlutterTripAnalysisError(code: code, message: message, details: details)))
-      } else {
-        completion(.success(Void()))
-      }
-    }
-  }
-  func tripCancelled(cancelTrip cancelTripArg: PigeonCancelTrip, completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void) {
-    let channelName: String = "dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripCancelled\(messageChannelSuffix)"
-    let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger, codec: codec)
-    channel.sendMessage([cancelTripArg] as [Any?]) { response in
       guard let listResponse = response as? [Any?] else {
         completion(.failure(createConnectionError(withChannelName: channelName)))
         return

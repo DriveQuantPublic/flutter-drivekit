@@ -106,13 +106,9 @@ class TripListener {
     this.tripRecordingConfirmed,
     this.tripRecordingCanceled,
     this.tripRecordingFinished,
-    @Deprecated('Deprecated. Please use tripRecordingConfirmed instead.')
-    this.tripStarted,
     this.tripPoint,
     this.tripSavedForRepost,
     this.tripFinished,
-    @Deprecated('Deprecated. Please use tripRecordingCanceled instead.')
-    this.tripCancelled,
     this.potentialTripStart,
     this.beaconDetected,
     this.significantLocationChangeDetected,
@@ -140,11 +136,6 @@ class TripListener {
   final void Function(DKTripRecordingFinishedState state)?
       tripRecordingFinished;
 
-  /// Called each time a trip is started.
-  /// [StartMode] indicates which event starts the trip.
-  @Deprecated('Deprecated. Please use tripRecordingConfirmed instead.')
-  final void Function(StartMode startMode)? tripStarted;
-
   /// Called when a trip is started and confirmed,
   /// for each GPS point recorded by the SDK.
   final void Function(TripPoint tripPoint)? tripPoint;
@@ -158,11 +149,6 @@ class TripListener {
   /// Called when a trip has been recorded by the SDK and sent to
   /// DriveQuant's server to be analyzed.
   final void Function(TripResponseStatus response)? tripFinished;
-
-  /// Called when a trip is canceled.
-  /// [CancelTrip] indicates which event cancels the trip.
-  @Deprecated('Deprecated. Please use tripRecordingCanceled instead.')
-  final void Function(CancelTrip cancelTrip)? tripCancelled;
 
   /// Called each time a potential trip is started.
   /// [StartMode] indicates which event starts the potential trip.

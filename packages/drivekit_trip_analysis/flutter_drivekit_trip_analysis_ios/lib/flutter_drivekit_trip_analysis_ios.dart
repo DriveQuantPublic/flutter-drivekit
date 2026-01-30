@@ -149,14 +149,6 @@ class DriveKitTripAnalysisIOS extends DriveKitTripAnalysisPlatform
   }
 
   @override
-  void tripCancelled(PigeonCancelTrip cancelTrip) {
-    for (final listener in _listeners) {
-      // ignore: deprecated_member_use
-      listener.tripCancelled?.call(cancelTrip.toModelImplementation());
-    }
-  }
-
-  @override
   void tripFinished(
     PigeonTripResponseStatus response,
   ) {
@@ -178,14 +170,6 @@ class DriveKitTripAnalysisIOS extends DriveKitTripAnalysisPlatform
   void tripSavedForRepost() {
     for (final listener in _listeners) {
       listener.tripSavedForRepost?.call();
-    }
-  }
-
-  @override
-  void tripStarted(PigeonStartMode startMode) {
-    for (final listener in _listeners) {
-      // ignore: deprecated_member_use
-      listener.tripStarted?.call(startMode.toModelImplementation());
     }
   }
 

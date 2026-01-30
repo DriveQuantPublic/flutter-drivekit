@@ -3321,15 +3321,11 @@ abstract class FlutterTripAnalysisApi {
 
   void tripRecordingFinished(PigeonTripRecordingFinishedState state);
 
-  void tripStarted(PigeonStartMode startMode);
-
   void tripPoint(PigeonTripPoint tripPoint);
 
   void tripSavedForRepost();
 
   void tripFinished(PigeonTripResponseStatus response);
-
-  void tripCancelled(PigeonCancelTrip cancelTrip);
 
   void potentialTripStart(PigeonStartMode startMode);
 
@@ -3472,34 +3468,6 @@ abstract class FlutterTripAnalysisApi {
     {
       final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<
               Object?>(
-          'dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripStarted$messageChannelSuffix',
-          pigeonChannelCodec,
-          binaryMessenger: binaryMessenger);
-      if (api == null) {
-        __pigeon_channel.setMessageHandler(null);
-      } else {
-        __pigeon_channel.setMessageHandler((Object? message) async {
-          assert(message != null,
-              'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripStarted was null.');
-          final List<Object?> args = (message as List<Object?>?)!;
-          final PigeonStartMode? arg_startMode = (args[0] as PigeonStartMode?);
-          assert(arg_startMode != null,
-              'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripStarted was null, expected non-null PigeonStartMode.');
-          try {
-            api.tripStarted(arg_startMode!);
-            return wrapResponse(empty: true);
-          } on PlatformException catch (e) {
-            return wrapResponse(error: e);
-          } catch (e) {
-            return wrapResponse(
-                error: PlatformException(code: 'error', message: e.toString()));
-          }
-        });
-      }
-    }
-    {
-      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<
-              Object?>(
           'dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripPoint$messageChannelSuffix',
           pigeonChannelCodec,
           binaryMessenger: binaryMessenger);
@@ -3566,35 +3534,6 @@ abstract class FlutterTripAnalysisApi {
               'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripFinished was null, expected non-null PigeonTripResponseStatus.');
           try {
             api.tripFinished(arg_response!);
-            return wrapResponse(empty: true);
-          } on PlatformException catch (e) {
-            return wrapResponse(error: e);
-          } catch (e) {
-            return wrapResponse(
-                error: PlatformException(code: 'error', message: e.toString()));
-          }
-        });
-      }
-    }
-    {
-      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<
-              Object?>(
-          'dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripCancelled$messageChannelSuffix',
-          pigeonChannelCodec,
-          binaryMessenger: binaryMessenger);
-      if (api == null) {
-        __pigeon_channel.setMessageHandler(null);
-      } else {
-        __pigeon_channel.setMessageHandler((Object? message) async {
-          assert(message != null,
-              'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripCancelled was null.');
-          final List<Object?> args = (message as List<Object?>?)!;
-          final PigeonCancelTrip? arg_cancelTrip =
-              (args[0] as PigeonCancelTrip?);
-          assert(arg_cancelTrip != null,
-              'Argument for dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripCancelled was null, expected non-null PigeonCancelTrip.');
-          try {
-            api.tripCancelled(arg_cancelTrip!);
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);

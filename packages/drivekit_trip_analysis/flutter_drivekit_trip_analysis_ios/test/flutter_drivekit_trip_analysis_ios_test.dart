@@ -259,11 +259,10 @@ void main() {
         var tripRecordingConfirmedCount = 0;
         var tripRecordingCanceledCount = 0;
         var tripRecordingFinishedCount = 0;
-        var tripCancelledCount = 0;
         var tripFinishedCount = 0;
         var tripPointCount = 0;
         var tripSavedForRepostCount = 0;
-        var tripStartedCount = 0;
+
         //test
         DriveKitTripAnalysisPlatform.instance.addTripListener(
           TripListener(
@@ -278,11 +277,9 @@ void main() {
             tripRecordingConfirmed: (state) => tripRecordingConfirmedCount++,
             tripRecordingCanceled: (state) => tripRecordingCanceledCount++,
             tripRecordingFinished: (state) => tripRecordingFinishedCount++,
-            tripCancelled: (cancelTrip) => tripCancelledCount++,
             tripFinished: (response) => tripFinishedCount++,
             tripPoint: (tripPoint) => tripPointCount++,
             tripSavedForRepost: () => tripSavedForRepostCount++,
-            tripStarted: (startMode) => tripStartedCount++,
           ),
         );
         flutterTripAnalysisApi.beaconDetected();
@@ -318,9 +315,6 @@ void main() {
             .tripRecordingFinished(mockPigeonTripRecordingFinishedState);
         expect(tripRecordingFinishedCount, 1);
 
-        flutterTripAnalysisApi.tripCancelled(PigeonCancelTrip.beaconNoSpeed);
-        expect(tripCancelledCount, 1);
-
         flutterTripAnalysisApi.tripFinished(mockPigeonTripResponseStatus);
         expect(tripFinishedCount, 1);
 
@@ -329,9 +323,6 @@ void main() {
 
         flutterTripAnalysisApi.tripSavedForRepost();
         expect(tripSavedForRepostCount, 1);
-
-        flutterTripAnalysisApi.tripStarted(PigeonStartMode.bluetooth);
-        expect(tripStartedCount, 1);
 
         flutterTripAnalysisApi.significantLocationChangeDetected(
           PigeonLocation(longitude: 40, latitude: 2),
@@ -351,11 +342,9 @@ void main() {
             tripRecordingConfirmed: (state) => tripRecordingConfirmedCount++,
             tripRecordingCanceled: (state) => tripRecordingCanceledCount++,
             tripRecordingFinished: (state) => tripRecordingFinishedCount++,
-            tripCancelled: (cancelTrip) => tripCancelledCount++,
             tripFinished: (response) => tripFinishedCount++,
             tripPoint: (tripPoint) => tripPointCount++,
             tripSavedForRepost: () => tripSavedForRepostCount++,
-            tripStarted: (startMode) => tripStartedCount++,
           ),
         );
         flutterTripAnalysisApi.beaconDetected();
@@ -390,9 +379,6 @@ void main() {
             .tripRecordingFinished(mockPigeonTripRecordingFinishedState);
         expect(tripRecordingFinishedCount, 3);
 
-        flutterTripAnalysisApi.tripCancelled(PigeonCancelTrip.beaconNoSpeed);
-        expect(tripCancelledCount, 3);
-
         flutterTripAnalysisApi.tripFinished(mockPigeonTripResponseStatus);
         expect(tripFinishedCount, 3);
 
@@ -401,9 +387,6 @@ void main() {
 
         flutterTripAnalysisApi.tripSavedForRepost();
         expect(tripSavedForRepostCount, 3);
-
-        flutterTripAnalysisApi.tripStarted(PigeonStartMode.bluetooth);
-        expect(tripStartedCount, 3);
 
         flutterTripAnalysisApi.significantLocationChangeDetected(
           PigeonLocation(longitude: 40, latitude: 2),
@@ -468,11 +451,9 @@ void main() {
         var tripRecordingConfirmedCount = 0;
         var tripRecordingCanceledCount = 0;
         var tripRecordingFinishedCount = 0;
-        var tripCancelledCount = 0;
         var tripFinishedCount = 0;
         var tripPointCount = 0;
         var tripSavedForRepostCount = 0;
-        var tripStartedCount = 0;
 
         final listener = TripListener(
           beaconDetected: () => beaconDetectedCount++,
@@ -486,11 +467,9 @@ void main() {
           tripRecordingConfirmed: (state) => tripRecordingConfirmedCount++,
           tripRecordingCanceled: (state) => tripRecordingCanceledCount++,
           tripRecordingFinished: (state) => tripRecordingFinishedCount++,
-          tripCancelled: (cancelTrip) => tripCancelledCount++,
           tripFinished: (response) => tripFinishedCount++,
           tripPoint: (tripPoint) => tripPointCount++,
           tripSavedForRepost: () => tripSavedForRepostCount++,
-          tripStarted: (startMode) => tripStartedCount++,
         );
         //test
         DriveKitTripAnalysisPlatform.instance.addTripListener(listener);
@@ -509,11 +488,9 @@ void main() {
           ..tripRecordingConfirmed(mockPigeonTripRecordingConfirmedState)
           ..tripRecordingCanceled(mockPigeonTripRecordingCanceledState)
           ..tripRecordingFinished(mockPigeonTripRecordingFinishedState)
-          ..tripCancelled(PigeonCancelTrip.beaconNoSpeed)
           ..tripFinished(mockPigeonTripResponseStatus)
           ..tripPoint(mockPigeonTripPoint)
           ..tripSavedForRepost()
-          ..tripStarted(PigeonStartMode.bluetooth);
 
         expect(beaconDetectedCount, 0);
         expect(crashDetectedCount, 0);
@@ -524,11 +501,9 @@ void main() {
         expect(tripRecordingConfirmedCount, 0);
         expect(tripRecordingCanceledCount, 0);
         expect(tripRecordingFinishedCount, 0);
-        expect(tripCancelledCount, 0);
         expect(tripFinishedCount, 0);
         expect(tripPointCount, 0);
         expect(tripSavedForRepostCount, 0);
-        expect(tripStartedCount, 0);
       });
 
       test('can remove all listeners at once', () async {
@@ -541,11 +516,9 @@ void main() {
         var tripRecordingConfirmedCount = 0;
         var tripRecordingCanceledCount = 0;
         var tripRecordingFinishedCount = 0;
-        var tripCancelledCount = 0;
         var tripFinishedCount = 0;
         var tripPointCount = 0;
         var tripSavedForRepostCount = 0;
-        var tripStartedCount = 0;
 
         final listener = TripListener(
           beaconDetected: () => beaconDetectedCount++,
@@ -559,11 +532,9 @@ void main() {
           tripRecordingConfirmed: (state) => tripRecordingConfirmedCount++,
           tripRecordingCanceled: (state) => tripRecordingCanceledCount++,
           tripRecordingFinished: (state) => tripRecordingFinishedCount++,
-          tripCancelled: (cancelTrip) => tripCancelledCount++,
           tripFinished: (response) => tripFinishedCount++,
           tripPoint: (tripPoint) => tripPointCount++,
           tripSavedForRepost: () => tripSavedForRepostCount++,
-          tripStarted: (startMode) => tripStartedCount++,
         );
         DriveKitTripAnalysisPlatform.instance.addTripListener(listener);
         DriveKitTripAnalysisPlatform.instance.addTripListener(listener);
@@ -583,11 +554,9 @@ void main() {
           ..tripRecordingConfirmed(mockPigeonTripRecordingConfirmedState)
           ..tripRecordingCanceled(mockPigeonTripRecordingCanceledState)
           ..tripRecordingFinished(mockPigeonTripRecordingFinishedState)
-          ..tripCancelled(PigeonCancelTrip.beaconNoSpeed)
           ..tripFinished(mockPigeonTripResponseStatus)
           ..tripPoint(mockPigeonTripPoint)
-          ..tripSavedForRepost()
-          ..tripStarted(PigeonStartMode.bluetooth);
+          ..tripSavedForRepost();
 
         expect(beaconDetectedCount, 2);
         expect(crashDetectedCount, 0);
@@ -598,11 +567,9 @@ void main() {
         expect(tripRecordingConfirmedCount, 0);
         expect(tripRecordingCanceledCount, 0);
         expect(tripRecordingFinishedCount, 0);
-        expect(tripCancelledCount, 0);
         expect(tripFinishedCount, 0);
         expect(tripPointCount, 0);
         expect(tripSavedForRepostCount, 0);
-        expect(tripStartedCount, 0);
       });
     });
   });

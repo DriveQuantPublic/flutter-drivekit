@@ -73,26 +73,6 @@ extension PigeonStateAdapter on PigeonState {
   }
 }
 
-/// Adapts the [PigeonCancelTrip] class to the [CancelTrip] class.
-extension PigeonCancelTripAdapter on PigeonCancelTrip {
-  /// Converts a [PigeonCancelTrip] to a [CancelTrip].
-  CancelTrip toModelImplementation() {
-    return switch (this) {
-      PigeonCancelTrip.user => CancelTrip.user,
-      PigeonCancelTrip.highspeed => CancelTrip.highspeed,
-      PigeonCancelTrip.noSpeed => CancelTrip.noSpeed,
-      PigeonCancelTrip.noBeacon => CancelTrip.noBeacon,
-      PigeonCancelTrip.missingConfiguration => CancelTrip.missingConfiguration,
-      PigeonCancelTrip.noGpsData => CancelTrip.noGpsData,
-      PigeonCancelTrip.reset => CancelTrip.reset,
-      PigeonCancelTrip.beaconNoSpeed => CancelTrip.beaconNoSpeed,
-      PigeonCancelTrip.bluetoothDeviceNoSpeed =>
-        CancelTrip.bluetoothDeviceNoSpeed,
-      PigeonCancelTrip.noBluetoothDevice => CancelTrip.noBluetoothDevice,
-    };
-  }
-}
-
 /// Adapt the [PigeonStartMode] class to the [TripPoint] class.
 extension PigeonStartModeAdapter on PigeonStartMode {
   /// Converts a [PigeonStartMode] to a [StartMode].
