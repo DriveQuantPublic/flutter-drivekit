@@ -565,7 +565,7 @@ void main() {
           ..tripRecordingFinished(mockPigeonTripRecordingFinishedState)
           ..tripFinished(mockPigeonTripResponseStatus)
           ..tripPoint(mockPigeonTripPoint)
-          ..tripSavedForRepost()
+          ..tripSavedForRepost();
 
         expect(beaconDetectedCount, 2);
         expect(crashDetectedCount, 0);
