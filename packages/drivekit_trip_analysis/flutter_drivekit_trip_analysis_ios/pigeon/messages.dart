@@ -151,28 +151,6 @@ enum PigeonStartMode {
   unknownBluetooth,
 }
 
-enum PigeonCancelTrip {
-  user,
-
-  highspeed,
-
-  noSpeed,
-
-  noBeacon,
-
-  missingConfiguration,
-
-  noGpsData,
-
-  reset,
-
-  beaconNoSpeed,
-
-  noBluetoothDevice,
-
-  bluetoothDeviceNoSpeed;
-}
-
 class PigeonTripPoint {
   const PigeonTripPoint({
     required this.latitude,
