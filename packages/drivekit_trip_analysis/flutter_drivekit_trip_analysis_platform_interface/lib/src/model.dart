@@ -209,41 +209,6 @@ enum StartMode {
   connectedCar;
 }
 
-/// CancelTrip indicates how the trip was canceled.
-enum CancelTrip {
-  /// Trip canceled by calling the method `cancelTrip()`
-  user,
-
-  /// Trip canceled because speed was too high (train, airplane)
-  highspeed,
-
-  /// Trip canceled because speed was too slow to be in a vehicle
-  noSpeed,
-
-  /// Trip canceled because the beacon was not detected while it was [required](https://docs.drivequant.com/trip-analysis/ios/beacon-usage#beacon-required)
-  noBeacon,
-
-  /// Trip canceled because DriveKit was not configured
-  missingConfiguration,
-
-  /// Trip canceled because no GPS data was recorded
-  noGpsData,
-
-  /// Trip canceled because SDK configuration has been [reset](https://docs.drivequant.com/get-started-drivekit/ios/advanced-configurations#reset-the-module)
-  reset,
-
-  /// Trip canceled because the beacon is near the smartphone but
-  /// there is no movement (zero or low speed)
-  beaconNoSpeed,
-
-  /// Trip canceled because the Bluetooth device is missing
-  noBluetoothDevice,
-
-  /// Trip canceled because the Bluetooth device is connected to the
-  /// smartphone but there was no movement (zero or low speed)
-  bluetoothDeviceNoSpeed;
-}
-
 /// Contains data for each location registered by the SDK.
 class TripPoint {
   /// Creates a TripPoint instance
