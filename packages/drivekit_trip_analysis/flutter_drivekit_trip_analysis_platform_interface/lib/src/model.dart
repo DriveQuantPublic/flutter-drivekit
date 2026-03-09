@@ -106,13 +106,9 @@ class TripListener {
     this.tripRecordingConfirmed,
     this.tripRecordingCanceled,
     this.tripRecordingFinished,
-    @Deprecated('Deprecated. Please use tripRecordingConfirmed instead.')
-    this.tripStarted,
     this.tripPoint,
     this.tripSavedForRepost,
     this.tripFinished,
-    @Deprecated('Deprecated. Please use tripRecordingCanceled instead.')
-    this.tripCancelled,
     this.potentialTripStart,
     this.beaconDetected,
     this.significantLocationChangeDetected,
@@ -140,11 +136,6 @@ class TripListener {
   final void Function(DKTripRecordingFinishedState state)?
       tripRecordingFinished;
 
-  /// Called each time a trip is started.
-  /// [StartMode] indicates which event starts the trip.
-  @Deprecated('Deprecated. Please use tripRecordingConfirmed instead.')
-  final void Function(StartMode startMode)? tripStarted;
-
   /// Called when a trip is started and confirmed,
   /// for each GPS point recorded by the SDK.
   final void Function(TripPoint tripPoint)? tripPoint;
@@ -158,11 +149,6 @@ class TripListener {
   /// Called when a trip has been recorded by the SDK and sent to
   /// DriveQuant's server to be analyzed.
   final void Function(TripResponseStatus response)? tripFinished;
-
-  /// Called when a trip is canceled.
-  /// [CancelTrip] indicates which event cancels the trip.
-  @Deprecated('Deprecated. Please use tripRecordingCanceled instead.')
-  final void Function(CancelTrip cancelTrip)? tripCancelled;
 
   /// Called each time a potential trip is started.
   /// [StartMode] indicates which event starts the potential trip.
@@ -221,41 +207,6 @@ enum StartMode {
   /// Automatic start when the SDK detects that your smartphone has been
   /// connected to an Android Auto or Automotive OS system
   connectedCar;
-}
-
-/// CancelTrip indicates how the trip was canceled.
-enum CancelTrip {
-  /// Trip canceled by calling the method `cancelTrip()`
-  user,
-
-  /// Trip canceled because speed was too high (train, airplane)
-  highspeed,
-
-  /// Trip canceled because speed was too slow to be in a vehicle
-  noSpeed,
-
-  /// Trip canceled because the beacon was not detected while it was [required](https://docs.drivequant.com/trip-analysis/ios/beacon-usage#beacon-required)
-  noBeacon,
-
-  /// Trip canceled because DriveKit was not configured
-  missingConfiguration,
-
-  /// Trip canceled because no GPS data was recorded
-  noGpsData,
-
-  /// Trip canceled because SDK configuration has been [reset](https://docs.drivequant.com/get-started-drivekit/ios/advanced-configurations#reset-the-module)
-  reset,
-
-  /// Trip canceled because the beacon is near the smartphone but
-  /// there is no movement (zero or low speed)
-  beaconNoSpeed,
-
-  /// Trip canceled because the Bluetooth device is missing
-  noBluetoothDevice,
-
-  /// Trip canceled because the Bluetooth device is connected to the
-  /// smartphone but there was no movement (zero or low speed)
-  bluetoothDeviceNoSpeed;
 }
 
 /// Contains data for each location registered by the SDK.

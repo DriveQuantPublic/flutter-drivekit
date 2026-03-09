@@ -85,19 +85,6 @@ enum PigeonStartMode: Int {
   case unknownBluetooth = 5
 }
 
-enum PigeonCancelTrip: Int {
-  case user = 0
-  case highspeed = 1
-  case noSpeed = 2
-  case noBeacon = 3
-  case missingConfiguration = 4
-  case noGpsData = 5
-  case reset = 6
-  case beaconNoSpeed = 7
-  case noBluetoothDevice = 8
-  case bluetoothDeviceNoSpeed = 9
-}
-
 enum PigeonState: Int {
   case inactive = 0
   case starting = 1
@@ -2143,97 +2130,90 @@ private class IOSTripAnalysisApiPigeonCodecReader: FlutterStandardReader {
       }
       return enumResult
     case 174:
-      var enumResult: PigeonCancelTrip? = nil
-      let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
-      if let enumResultAsInt = enumResultAsInt {
-        enumResult = PigeonCancelTrip(rawValue: enumResultAsInt)
-      }
-      return enumResult
-    case 175:
       var enumResult: PigeonState? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonState(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 176:
+    case 175:
       var enumResult: PigeonDKCrashFeedbackType? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonDKCrashFeedbackType(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 177:
+    case 176:
       var enumResult: PigeonDKCrashFeedbackSeverity? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonDKCrashFeedbackSeverity(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 178:
+    case 177:
       var enumResult: PigeonOccupantRole? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonOccupantRole(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 179:
+    case 178:
       var enumResult: PigeonCrashStatus? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonCrashStatus(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 180:
+    case 179:
       var enumResult: PigeonTripResponseStatusType? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonTripResponseStatusType(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 181:
+    case 180:
       var enumResult: PigeonTripResponseInfo? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonTripResponseInfo(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 182:
+    case 181:
       var enumResult: PigeonTripResponseError? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonTripResponseError(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 183:
+    case 182:
       var enumResult: PigeonAccuracyLevel? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonAccuracyLevel(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 184:
+    case 183:
       var enumResult: PigeonTripCancelationReason? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonTripCancelationReason(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 185:
+    case 184:
       var enumResult: PigeonCreateTripSharingLinkStatus? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonCreateTripSharingLinkStatus(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 186:
+    case 185:
       var enumResult: PigeonGetTripSharingLinkStatus? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonGetTripSharingLinkStatus(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 187:
+    case 186:
       var enumResult: PigeonRevokeTripSharingLinkStatus? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
@@ -2383,47 +2363,44 @@ private class IOSTripAnalysisApiPigeonCodecWriter: FlutterStandardWriter {
     } else if let value = value as? PigeonStartMode {
       super.writeByte(173)
       super.writeValue(value.rawValue)
-    } else if let value = value as? PigeonCancelTrip {
+    } else if let value = value as? PigeonState {
       super.writeByte(174)
       super.writeValue(value.rawValue)
-    } else if let value = value as? PigeonState {
+    } else if let value = value as? PigeonDKCrashFeedbackType {
       super.writeByte(175)
       super.writeValue(value.rawValue)
-    } else if let value = value as? PigeonDKCrashFeedbackType {
+    } else if let value = value as? PigeonDKCrashFeedbackSeverity {
       super.writeByte(176)
       super.writeValue(value.rawValue)
-    } else if let value = value as? PigeonDKCrashFeedbackSeverity {
+    } else if let value = value as? PigeonOccupantRole {
       super.writeByte(177)
       super.writeValue(value.rawValue)
-    } else if let value = value as? PigeonOccupantRole {
+    } else if let value = value as? PigeonCrashStatus {
       super.writeByte(178)
       super.writeValue(value.rawValue)
-    } else if let value = value as? PigeonCrashStatus {
+    } else if let value = value as? PigeonTripResponseStatusType {
       super.writeByte(179)
       super.writeValue(value.rawValue)
-    } else if let value = value as? PigeonTripResponseStatusType {
+    } else if let value = value as? PigeonTripResponseInfo {
       super.writeByte(180)
       super.writeValue(value.rawValue)
-    } else if let value = value as? PigeonTripResponseInfo {
+    } else if let value = value as? PigeonTripResponseError {
       super.writeByte(181)
       super.writeValue(value.rawValue)
-    } else if let value = value as? PigeonTripResponseError {
+    } else if let value = value as? PigeonAccuracyLevel {
       super.writeByte(182)
       super.writeValue(value.rawValue)
-    } else if let value = value as? PigeonAccuracyLevel {
+    } else if let value = value as? PigeonTripCancelationReason {
       super.writeByte(183)
       super.writeValue(value.rawValue)
-    } else if let value = value as? PigeonTripCancelationReason {
+    } else if let value = value as? PigeonCreateTripSharingLinkStatus {
       super.writeByte(184)
       super.writeValue(value.rawValue)
-    } else if let value = value as? PigeonCreateTripSharingLinkStatus {
+    } else if let value = value as? PigeonGetTripSharingLinkStatus {
       super.writeByte(185)
       super.writeValue(value.rawValue)
-    } else if let value = value as? PigeonGetTripSharingLinkStatus {
-      super.writeByte(186)
-      super.writeValue(value.rawValue)
     } else if let value = value as? PigeonRevokeTripSharingLinkStatus {
-      super.writeByte(187)
+      super.writeByte(186)
       super.writeValue(value.rawValue)
     } else {
       super.writeValue(value)
@@ -2827,11 +2804,9 @@ protocol FlutterTripAnalysisApiProtocol {
   func tripRecordingConfirmed(state stateArg: PigeonTripRecordingConfirmedState, completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void)
   func tripRecordingCanceled(state stateArg: PigeonTripRecordingCanceledState, completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void)
   func tripRecordingFinished(state stateArg: PigeonTripRecordingFinishedState, completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void)
-  func tripStarted(startMode startModeArg: PigeonStartMode, completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void)
   func tripPoint(tripPoint tripPointArg: PigeonTripPoint, completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void)
   func tripSavedForRepost(completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void)
   func tripFinished(response responseArg: PigeonTripResponseStatus, completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void)
-  func tripCancelled(cancelTrip cancelTripArg: PigeonCancelTrip, completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void)
   func potentialTripStart(startMode startModeArg: PigeonStartMode, completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void)
   func beaconDetected(completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void)
   func significantLocationChangeDetected(location locationArg: PigeonLocation, completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void)
@@ -2921,24 +2896,6 @@ class FlutterTripAnalysisApi: FlutterTripAnalysisApiProtocol {
       }
     }
   }
-  func tripStarted(startMode startModeArg: PigeonStartMode, completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void) {
-    let channelName: String = "dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripStarted\(messageChannelSuffix)"
-    let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger, codec: codec)
-    channel.sendMessage([startModeArg] as [Any?]) { response in
-      guard let listResponse = response as? [Any?] else {
-        completion(.failure(createConnectionError(withChannelName: channelName)))
-        return
-      }
-      if listResponse.count > 1 {
-        let code: String = listResponse[0] as! String
-        let message: String? = nilOrValue(listResponse[1])
-        let details: String? = nilOrValue(listResponse[2])
-        completion(.failure(FlutterTripAnalysisError(code: code, message: message, details: details)))
-      } else {
-        completion(.success(Void()))
-      }
-    }
-  }
   func tripPoint(tripPoint tripPointArg: PigeonTripPoint, completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void) {
     let channelName: String = "dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripPoint\(messageChannelSuffix)"
     let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger, codec: codec)
@@ -2979,24 +2936,6 @@ class FlutterTripAnalysisApi: FlutterTripAnalysisApiProtocol {
     let channelName: String = "dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripFinished\(messageChannelSuffix)"
     let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger, codec: codec)
     channel.sendMessage([responseArg] as [Any?]) { response in
-      guard let listResponse = response as? [Any?] else {
-        completion(.failure(createConnectionError(withChannelName: channelName)))
-        return
-      }
-      if listResponse.count > 1 {
-        let code: String = listResponse[0] as! String
-        let message: String? = nilOrValue(listResponse[1])
-        let details: String? = nilOrValue(listResponse[2])
-        completion(.failure(FlutterTripAnalysisError(code: code, message: message, details: details)))
-      } else {
-        completion(.success(Void()))
-      }
-    }
-  }
-  func tripCancelled(cancelTrip cancelTripArg: PigeonCancelTrip, completion: @escaping (Result<Void, FlutterTripAnalysisError>) -> Void) {
-    let channelName: String = "dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripCancelled\(messageChannelSuffix)"
-    let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger, codec: codec)
-    channel.sendMessage([cancelTripArg] as [Any?]) { response in
       guard let listResponse = response as? [Any?] else {
         completion(.failure(createConnectionError(withChannelName: channelName)))
         return

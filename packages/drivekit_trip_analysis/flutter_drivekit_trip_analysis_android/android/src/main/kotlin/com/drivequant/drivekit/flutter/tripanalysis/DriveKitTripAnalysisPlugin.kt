@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.core.content.ContextCompat
 import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper
 import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.fromPigeonSynchronizationType
-import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeonCancelTrip
 import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeonDKCrashFeedbackSeverity
 import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeonDKCrashFeedbackType
 import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeonDKCrashInfo
@@ -26,7 +25,6 @@ import com.drivequant.drivekit.tripanalysis.model.triplistener.DKTripRecordingFi
 import com.drivequant.drivekit.tripanalysis.model.triplistener.DKTripRecordingStartedState
 import com.drivequant.drivekit.tripanalysis.service.crashdetection.feedback.CrashFeedbackSeverity
 import com.drivequant.drivekit.tripanalysis.service.crashdetection.feedback.CrashFeedbackType
-import com.drivequant.drivekit.tripanalysis.service.recorder.CancelTrip
 import com.drivequant.drivekit.tripanalysis.service.recorder.StartMode
 import com.drivequant.drivekit.tripanalysis.service.recorder.State
 import com.drivequant.drivekit.tripanalysis.utils.TripResult
@@ -123,12 +121,6 @@ class DriveKitTripAnalysisPlugin :
                     }
                 }
 
-                override fun tripCancelled(cancelTrip: CancelTrip) {
-                    flutterApi?.tripCancelled(toPigeonCancelTrip(cancelTrip)) { echo ->
-                        Result.success(echo)
-                    }
-                }
-
                 override fun tripFinished(result: TripResult) {
                     flutterApi?.tripFinished(
                         responseArg = toPigeonTripResponseStatus(result)
@@ -139,12 +131,6 @@ class DriveKitTripAnalysisPlugin :
 
                 override fun tripSavedForRepost() {
                     flutterApi?.tripSavedForRepost { echo ->
-                        Result.success(echo)
-                    }
-                }
-
-                override fun tripStarted(startMode: StartMode) {
-                    flutterApi?.tripStarted(toPigeonStartMode(startMode)) { echo ->
                         Result.success(echo)
                     }
                 }

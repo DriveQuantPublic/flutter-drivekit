@@ -78,25 +78,6 @@ enum class PigeonStartMode(val raw: Int) {
   }
 }
 
-enum class PigeonCancelTrip(val raw: Int) {
-  USER(0),
-  HIGHSPEED(1),
-  NO_SPEED(2),
-  NO_BEACON(3),
-  MISSING_CONFIGURATION(4),
-  NO_GPS_DATA(5),
-  RESET(6),
-  BEACON_NO_SPEED(7),
-  NO_BLUETOOTH_DEVICE(8),
-  BLUETOOTH_DEVICE_NO_SPEED(9);
-
-  companion object {
-    fun ofRaw(raw: Int): PigeonCancelTrip? {
-      return values().firstOrNull { it.raw == raw }
-    }
-  }
-}
-
 enum class PigeonState(val raw: Int) {
   INACTIVE(0),
   STARTING(1),
@@ -2078,70 +2059,65 @@ private object TripAnalysisApiPigeonCodec : StandardMessageCodec() {
       }
       173.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
-          PigeonCancelTrip.ofRaw(it)
+          PigeonState.ofRaw(it)
         }
       }
       174.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
-          PigeonState.ofRaw(it)
+          PigeonDKCrashFeedbackType.ofRaw(it)
         }
       }
       175.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
-          PigeonDKCrashFeedbackType.ofRaw(it)
+          PigeonDKCrashFeedbackSeverity.ofRaw(it)
         }
       }
       176.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
-          PigeonDKCrashFeedbackSeverity.ofRaw(it)
+          PigeonOccupantRole.ofRaw(it)
         }
       }
       177.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
-          PigeonOccupantRole.ofRaw(it)
+          PigeonCrashStatus.ofRaw(it)
         }
       }
       178.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
-          PigeonCrashStatus.ofRaw(it)
+          PigeonTripResponseStatusType.ofRaw(it)
         }
       }
       179.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
-          PigeonTripResponseStatusType.ofRaw(it)
+          PigeonTripResponseInfo.ofRaw(it)
         }
       }
       180.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
-          PigeonTripResponseInfo.ofRaw(it)
+          PigeonTripResponseError.ofRaw(it)
         }
       }
       181.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
-          PigeonTripResponseError.ofRaw(it)
+          PigeonAccuracyLevel.ofRaw(it)
         }
       }
       182.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
-          PigeonAccuracyLevel.ofRaw(it)
+          PigeonTripCancelationReason.ofRaw(it)
         }
       }
       183.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
-          PigeonTripCancelationReason.ofRaw(it)
+          PigeonCreateTripSharingLinkStatus.ofRaw(it)
         }
       }
       184.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
-          PigeonCreateTripSharingLinkStatus.ofRaw(it)
-        }
-      }
-      185.toByte() -> {
-        return (readValue(buffer) as Int?)?.let {
           PigeonGetTripSharingLinkStatus.ofRaw(it)
         }
       }
-      186.toByte() -> {
+      185.toByte() -> {
         return (readValue(buffer) as Int?)?.let {
           PigeonRevokeTripSharingLinkStatus.ofRaw(it)
         }
@@ -2327,60 +2303,56 @@ private object TripAnalysisApiPigeonCodec : StandardMessageCodec() {
         stream.write(172)
         writeValue(stream, value.raw)
       }
-      is PigeonCancelTrip -> {
+      is PigeonState -> {
         stream.write(173)
         writeValue(stream, value.raw)
       }
-      is PigeonState -> {
+      is PigeonDKCrashFeedbackType -> {
         stream.write(174)
         writeValue(stream, value.raw)
       }
-      is PigeonDKCrashFeedbackType -> {
+      is PigeonDKCrashFeedbackSeverity -> {
         stream.write(175)
         writeValue(stream, value.raw)
       }
-      is PigeonDKCrashFeedbackSeverity -> {
+      is PigeonOccupantRole -> {
         stream.write(176)
         writeValue(stream, value.raw)
       }
-      is PigeonOccupantRole -> {
+      is PigeonCrashStatus -> {
         stream.write(177)
         writeValue(stream, value.raw)
       }
-      is PigeonCrashStatus -> {
+      is PigeonTripResponseStatusType -> {
         stream.write(178)
         writeValue(stream, value.raw)
       }
-      is PigeonTripResponseStatusType -> {
+      is PigeonTripResponseInfo -> {
         stream.write(179)
         writeValue(stream, value.raw)
       }
-      is PigeonTripResponseInfo -> {
+      is PigeonTripResponseError -> {
         stream.write(180)
         writeValue(stream, value.raw)
       }
-      is PigeonTripResponseError -> {
+      is PigeonAccuracyLevel -> {
         stream.write(181)
         writeValue(stream, value.raw)
       }
-      is PigeonAccuracyLevel -> {
+      is PigeonTripCancelationReason -> {
         stream.write(182)
         writeValue(stream, value.raw)
       }
-      is PigeonTripCancelationReason -> {
+      is PigeonCreateTripSharingLinkStatus -> {
         stream.write(183)
         writeValue(stream, value.raw)
       }
-      is PigeonCreateTripSharingLinkStatus -> {
+      is PigeonGetTripSharingLinkStatus -> {
         stream.write(184)
         writeValue(stream, value.raw)
       }
-      is PigeonGetTripSharingLinkStatus -> {
-        stream.write(185)
-        writeValue(stream, value.raw)
-      }
       is PigeonRevokeTripSharingLinkStatus -> {
-        stream.write(186)
+        stream.write(185)
         writeValue(stream, value.raw)
       }
       else -> super.writeValue(stream, value)
@@ -2906,23 +2878,6 @@ class FlutterTripAnalysisApi(private val binaryMessenger: BinaryMessenger, priva
       } 
     }
   }
-  fun tripStarted(startModeArg: PigeonStartMode, callback: (Result<Unit>) -> Unit)
-{
-    val separatedMessageChannelSuffix = if (messageChannelSuffix.isNotEmpty()) ".$messageChannelSuffix" else ""
-    val channelName = "dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripStarted$separatedMessageChannelSuffix"
-    val channel = BasicMessageChannel<Any?>(binaryMessenger, channelName, codec)
-    channel.send(listOf(startModeArg)) {
-      if (it is List<*>) {
-        if (it.size > 1) {
-          callback(Result.failure(FlutterTripAnalysisError(it[0] as String, it[1] as String, it[2] as String?)))
-        } else {
-          callback(Result.success(Unit))
-        }
-      } else {
-        callback(Result.failure(createConnectionError(channelName)))
-      } 
-    }
-  }
   fun tripPoint(tripPointArg: PigeonTripPoint, callback: (Result<Unit>) -> Unit)
 {
     val separatedMessageChannelSuffix = if (messageChannelSuffix.isNotEmpty()) ".$messageChannelSuffix" else ""
@@ -2963,23 +2918,6 @@ class FlutterTripAnalysisApi(private val binaryMessenger: BinaryMessenger, priva
     val channelName = "dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripFinished$separatedMessageChannelSuffix"
     val channel = BasicMessageChannel<Any?>(binaryMessenger, channelName, codec)
     channel.send(listOf(responseArg)) {
-      if (it is List<*>) {
-        if (it.size > 1) {
-          callback(Result.failure(FlutterTripAnalysisError(it[0] as String, it[1] as String, it[2] as String?)))
-        } else {
-          callback(Result.success(Unit))
-        }
-      } else {
-        callback(Result.failure(createConnectionError(channelName)))
-      } 
-    }
-  }
-  fun tripCancelled(cancelTripArg: PigeonCancelTrip, callback: (Result<Unit>) -> Unit)
-{
-    val separatedMessageChannelSuffix = if (messageChannelSuffix.isNotEmpty()) ".$messageChannelSuffix" else ""
-    val channelName = "dev.flutter.pigeon.pigeon_trip_analysis_package.FlutterTripAnalysisApi.tripCancelled$separatedMessageChannelSuffix"
-    val channel = BasicMessageChannel<Any?>(binaryMessenger, channelName, codec)
-    channel.send(listOf(cancelTripArg)) {
       if (it is List<*>) {
         if (it.size > 1) {
           callback(Result.failure(FlutterTripAnalysisError(it[0] as String, it[1] as String, it[2] as String?)))

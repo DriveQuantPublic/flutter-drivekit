@@ -35,7 +35,6 @@ import com.drivequant.drivekit.flutter.tripanalysis.PigeonAdvancedFuelEstimation
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonAdvancedSafety
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonBrakeWear
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonCall
-import com.drivequant.drivekit.flutter.tripanalysis.PigeonCancelTrip
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonCrashStatus
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonCreateTripSharingLinkResponse
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonCreateTripSharingLinkStatus
@@ -98,7 +97,6 @@ import com.drivequant.drivekit.tripanalysis.model.triplistener.DKTripRecordingSt
 import com.drivequant.drivekit.tripanalysis.service.crashdetection.CrashStatus
 import com.drivequant.drivekit.tripanalysis.service.crashdetection.feedback.CrashFeedbackSeverity
 import com.drivequant.drivekit.tripanalysis.service.crashdetection.feedback.CrashFeedbackType
-import com.drivequant.drivekit.tripanalysis.service.recorder.CancelTrip
 import com.drivequant.drivekit.tripanalysis.service.recorder.StartMode
 import com.drivequant.drivekit.tripanalysis.service.recorder.State
 import com.drivequant.drivekit.tripanalysis.service.tripsharing.model.CreateTripSharingLinkStatus
@@ -148,19 +146,6 @@ object PigeonMapper {
         StartMode.UNKNOWN_BLUETOOTH -> PigeonStartMode.UNKNOWN_BLUETOOTH
         StartMode.BICYCLE_ACTIVITY -> PigeonStartMode.BICYCLE_ACTIVITY
         StartMode.CONNECTED_CAR -> PigeonStartMode.CONNECTED_CAR
-    }
-
-    fun toPigeonCancelTrip(cancelTrip: CancelTrip): PigeonCancelTrip = when (cancelTrip) {
-        CancelTrip.USER -> PigeonCancelTrip.USER
-        CancelTrip.HIGHSPEED -> PigeonCancelTrip.HIGHSPEED
-        CancelTrip.NO_SPEED -> PigeonCancelTrip.NO_SPEED
-        CancelTrip.NO_BEACON -> PigeonCancelTrip.NO_BEACON
-        CancelTrip.NO_BLUETOOTH_DEVICE -> PigeonCancelTrip.NO_BLUETOOTH_DEVICE
-        CancelTrip.MISSING_CONFIGURATION -> PigeonCancelTrip.MISSING_CONFIGURATION
-        CancelTrip.NO_GPS_DATA -> PigeonCancelTrip.NO_GPS_DATA
-        CancelTrip.RESET -> PigeonCancelTrip.RESET
-        CancelTrip.BEACON_NO_SPEED -> PigeonCancelTrip.BEACON_NO_SPEED
-        CancelTrip.BLUETOOTH_DEVICE_NO_SPEED -> PigeonCancelTrip.BLUETOOTH_DEVICE_NO_SPEED
     }
 
     fun toPigeonState(state: State): PigeonState = when (state) {
