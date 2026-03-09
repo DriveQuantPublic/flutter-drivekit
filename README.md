@@ -75,4 +75,4 @@ val pathToBundle = FlutterInjector.instance().flutterLoader().findAppBundlePath(
 FlutterEngine(this).dartExecutor.executeDartEntrypoint(DartExecutor.DartEntrypoint(pathToBundle, "registerTripListener"))
 ```
 
-It will run the `registerTripListener` dart entry point method. In our demo app, the method is in the [`main.dart`](/example/lib/maint.dart) file.
+It will run the `registerTripListener` dart entry point method. In our demo app, the method is in the [`main.dart`](/example/lib/main.dart) file.
