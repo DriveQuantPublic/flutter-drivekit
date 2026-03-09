@@ -1,3 +1,9 @@
+# 2.0.0
+
+	- Update DriveKit version for Android and iOS to 3.0.0
+	- `tripStarted` method in `TripListener` has been removed and replaced by `tripRecordingConfirmed()`
+	- `tripCancelled` method in `TripListener` has been removed and replaced by `tripRecordingCanceled()`
+
 # 1.16.0
 
     - Update DriveKit version for Android to 2.26.0
