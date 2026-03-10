@@ -929,6 +929,9 @@ class PigeonTrip {
     required this.ecoDriving,
     required this.fuelEstimation,
     required this.safety,
+    required this.advancedEcoDriving,
+    required this.advancedFuelEstimation,
+    required this.advancedSafety,
     required this.pollutants,
     required this.tireWear,
     required this.brakeWear,
@@ -1003,6 +1006,15 @@ class PigeonTrip {
 
   /// The safety information
   final PigeonSafety? safety;
+
+  /// The advanced eco driving information
+  final PigeonAdvancedEcoDriving? advancedEcoDriving;
+
+  /// The advanced fuel estimation information
+  final PigeonAdvancedFuelEstimation? advancedFuelEstimation;
+
+  /// The advanced safety information
+  final PigeonAdvancedSafety? advancedSafety;
 
   /// The pollutants information
   final PigeonPollutants? pollutants;
