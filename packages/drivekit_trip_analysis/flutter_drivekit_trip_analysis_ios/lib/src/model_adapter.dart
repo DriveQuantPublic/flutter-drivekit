@@ -15,6 +15,18 @@ extension SynchronizationTypeAdapter on SynchronizationType {
   }
 }
 
+/// Adapts the [PigeonBeaconData] class to the [BeaconData] class.
+extension PigeonBeaconDataAdapter on PigeonBeaconData {
+  /// Converts a [PigeonBeaconData] to a [BeaconData].
+  BeaconData toModelImplementation() {
+    return BeaconData(
+      proximityUuid: proximityUuid,
+      major: major,
+      minor: minor,
+    );
+  }
+}
+
 /// Adapts the [PigeonDKCrashInfo] class to the [DKCrashInfo] class.
 extension PigeonDKCrashInfoAdapter on PigeonDKCrashInfo {
   /// Converts a [PigeonDKCrashInfo] to a [DKCrashInfo].

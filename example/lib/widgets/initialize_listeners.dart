@@ -31,6 +31,15 @@ class _InitializeListenersState extends State<InitializeListeners> {
           );
         }
       },
+      beaconConfirmed: (beacon) {
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Trip: beaconConfirmed.\nbeacon: $beacon'),
+            ),
+          );
+        }
+      },
       crashDetected: (crashInfo) {
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(

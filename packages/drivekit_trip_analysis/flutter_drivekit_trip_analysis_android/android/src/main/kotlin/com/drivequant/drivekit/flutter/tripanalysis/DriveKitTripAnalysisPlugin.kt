@@ -2,8 +2,10 @@ package com.drivequant.drivekit.flutter.tripanalysis
 
 import android.content.Context
 import androidx.core.content.ContextCompat
+import com.drivequant.beaconutils.BeaconData
 import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper
 import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.fromPigeonSynchronizationType
+import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeonBeaconData
 import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeonDKCrashFeedbackSeverity
 import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeonDKCrashFeedbackType
 import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeonDKCrashInfo
@@ -137,6 +139,12 @@ class DriveKitTripAnalysisPlugin :
 
                 override fun beaconDetected() {
                     flutterApi?.beaconDetected { echo ->
+                        Result.success(echo)
+                    }
+                }
+
+                override fun beaconConfirmed(beacon: BeaconData) {
+                    flutterApi?.beaconConfirmed(toPigeonBeaconData(beacon)) { echo ->
                         Result.success(echo)
                     }
                 }

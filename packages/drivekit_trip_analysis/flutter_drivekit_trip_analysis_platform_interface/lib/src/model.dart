@@ -111,6 +111,7 @@ class TripListener {
     this.tripFinished,
     this.potentialTripStart,
     this.beaconDetected,
+    this.beaconConfirmed,
     this.significantLocationChangeDetected,
     this.sdkStateChanged,
     this.crashDetected,
@@ -154,8 +155,15 @@ class TripListener {
   /// [StartMode] indicates which event starts the potential trip.
   final void Function(StartMode startMode)? potentialTripStart;
 
-  /// Called when a beacon sets in the SDK is detected.
+  /// Called when a beacon sets in the SDK is detected. It is triggered
+  /// exclusively if the trip recording has not been started yet
+  /// (i.e. during the INACTIVE state).
   final void Function()? beaconDetected;
+
+  /// Called when a beacon set in the SDK is detected and confirmed during a
+  /// trip. It is triggered exclusively if the trip recording has started
+  /// (i.e. during the RUNNING state).
+  final void Function(BeaconData beacon)? beaconConfirmed;
 
   /// iOS only.
   ///

@@ -2,6 +2,18 @@ import 'package:collection/collection.dart';
 import 'package:flutter_drivekit_trip_analysis_android/src/trip_analysis_api.g.dart';
 import 'package:flutter_drivekit_trip_analysis_platform_interface/flutter_drivekit_trip_analysis_platform_interface.dart';
 
+/// Adapts the [PigeonBeaconData] class to the [BeaconData] class.
+extension PigeonBeaconDataAdapter on PigeonBeaconData {
+  /// Converts a [PigeonBeaconData] to a [BeaconData].
+  BeaconData toModelImplementation() {
+    return BeaconData(
+      proximityUuid: proximityUuid,
+      major: major,
+      minor: minor,
+    );
+  }
+}
+
 /// Adapts the [PigeonDKCrashInfo] class to the [DKCrashInfo] class.
 extension PigeonDKCrashInfoAdapter on PigeonDKCrashInfo {
   /// Converts a [PigeonDKCrashInfo] to a [DKCrashInfo].

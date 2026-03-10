@@ -120,6 +120,13 @@ class DriveKitTripAnalysisIOS extends DriveKitTripAnalysisPlatform
   }
 
   @override
+  void beaconConfirmed(PigeonBeaconData beacon) {
+    for (final listener in _listeners) {
+      listener.beaconConfirmed?.call(beacon.toModelImplementation());
+    }
+  }
+
+  @override
   void crashDetected(PigeonDKCrashInfo crashInfo) {
     for (final listener in _listeners) {
       listener.crashDetected?.call(crashInfo.toModelImplementation());
