@@ -384,63 +384,6 @@ struct PigeonDKCrashInfo {
 }
 
 /// Generated class from Pigeon that represents data sent in messages.
-struct PigeonAdvancedEcoDriving {
-  var ecoDrivingContext: [PigeonEcoDrivingContext?]
-
-  // swift-format-ignore: AlwaysUseLowerCamelCase
-  static func fromList(_ __pigeon_list: [Any?]) -> PigeonAdvancedEcoDriving? {
-    let ecoDrivingContext = __pigeon_list[0] as! [PigeonEcoDrivingContext?]
-
-    return PigeonAdvancedEcoDriving(
-      ecoDrivingContext: ecoDrivingContext
-    )
-  }
-  func toList() -> [Any?] {
-    return [
-      ecoDrivingContext
-    ]
-  }
-}
-
-/// Generated class from Pigeon that represents data sent in messages.
-struct PigeonAdvancedFuelEstimation {
-  var fuelEstimationContext: [PigeonFuelEstimationContext?]
-
-  // swift-format-ignore: AlwaysUseLowerCamelCase
-  static func fromList(_ __pigeon_list: [Any?]) -> PigeonAdvancedFuelEstimation? {
-    let fuelEstimationContext = __pigeon_list[0] as! [PigeonFuelEstimationContext?]
-
-    return PigeonAdvancedFuelEstimation(
-      fuelEstimationContext: fuelEstimationContext
-    )
-  }
-  func toList() -> [Any?] {
-    return [
-      fuelEstimationContext
-    ]
-  }
-}
-
-/// Generated class from Pigeon that represents data sent in messages.
-struct PigeonAdvancedSafety {
-  var safetyContext: [PigeonSafetyContext?]
-
-  // swift-format-ignore: AlwaysUseLowerCamelCase
-  static func fromList(_ __pigeon_list: [Any?]) -> PigeonAdvancedSafety? {
-    let safetyContext = __pigeon_list[0] as! [PigeonSafetyContext?]
-
-    return PigeonAdvancedSafety(
-      safetyContext: safetyContext
-    )
-  }
-  func toList() -> [Any?] {
-    return [
-      safetyContext
-    ]
-  }
-}
-
-/// Generated class from Pigeon that represents data sent in messages.
 struct PigeonBrakeWear {
   var frontBrakeAutonomy: Int64
   var frontBrakeDistance: Int64
@@ -1059,147 +1002,6 @@ struct PigeonSpeedingStatistics {
 }
 
 /// Generated class from Pigeon that represents data sent in messages.
-struct PigeonEcoDrivingContext {
-  var contextId: Int64
-  var distance: Double
-  var duration: Double
-  var efficiencyScore: Double
-  var scoreAccel: Double
-  var scoreMain: Double
-  var scoreDecel: Double
-
-  // swift-format-ignore: AlwaysUseLowerCamelCase
-  static func fromList(_ __pigeon_list: [Any?]) -> PigeonEcoDrivingContext? {
-    let contextId = __pigeon_list[0] is Int64 ? __pigeon_list[0] as! Int64 : Int64(__pigeon_list[0] as! Int32)
-    let distance = __pigeon_list[1] as! Double
-    let duration = __pigeon_list[2] as! Double
-    let efficiencyScore = __pigeon_list[3] as! Double
-    let scoreAccel = __pigeon_list[4] as! Double
-    let scoreMain = __pigeon_list[5] as! Double
-    let scoreDecel = __pigeon_list[6] as! Double
-
-    return PigeonEcoDrivingContext(
-      contextId: contextId,
-      distance: distance,
-      duration: duration,
-      efficiencyScore: efficiencyScore,
-      scoreAccel: scoreAccel,
-      scoreMain: scoreMain,
-      scoreDecel: scoreDecel
-    )
-  }
-  func toList() -> [Any?] {
-    return [
-      contextId,
-      distance,
-      duration,
-      efficiencyScore,
-      scoreAccel,
-      scoreMain,
-      scoreDecel,
-    ]
-  }
-}
-
-/// Generated class from Pigeon that represents data sent in messages.
-struct PigeonFuelEstimationContext {
-  var contextId: Int64
-  var distance: Double
-  var duration: Double
-  var co2Mass: Double
-  var co2Emission: Double
-  var fuelVolume: Double
-  var fuelConsumption: Double
-
-  // swift-format-ignore: AlwaysUseLowerCamelCase
-  static func fromList(_ __pigeon_list: [Any?]) -> PigeonFuelEstimationContext? {
-    let contextId = __pigeon_list[0] is Int64 ? __pigeon_list[0] as! Int64 : Int64(__pigeon_list[0] as! Int32)
-    let distance = __pigeon_list[1] as! Double
-    let duration = __pigeon_list[2] as! Double
-    let co2Mass = __pigeon_list[3] as! Double
-    let co2Emission = __pigeon_list[4] as! Double
-    let fuelVolume = __pigeon_list[5] as! Double
-    let fuelConsumption = __pigeon_list[6] as! Double
-
-    return PigeonFuelEstimationContext(
-      contextId: contextId,
-      distance: distance,
-      duration: duration,
-      co2Mass: co2Mass,
-      co2Emission: co2Emission,
-      fuelVolume: fuelVolume,
-      fuelConsumption: fuelConsumption
-    )
-  }
-  func toList() -> [Any?] {
-    return [
-      contextId,
-      distance,
-      duration,
-      co2Mass,
-      co2Emission,
-      fuelVolume,
-      fuelConsumption,
-    ]
-  }
-}
-
-/// Generated class from Pigeon that represents data sent in messages.
-struct PigeonSafetyContext {
-  var contextId: Int64
-  var distance: Double
-  var duration: Double
-  var nbAdh: Int64
-  var nbAccel: Int64
-  var nbDecel: Int64
-  var nbAdhCrit: Int64
-  var nbAccelCrit: Int64
-  var nbDecelCrit: Int64
-  var safetyScore: Double
-
-  // swift-format-ignore: AlwaysUseLowerCamelCase
-  static func fromList(_ __pigeon_list: [Any?]) -> PigeonSafetyContext? {
-    let contextId = __pigeon_list[0] is Int64 ? __pigeon_list[0] as! Int64 : Int64(__pigeon_list[0] as! Int32)
-    let distance = __pigeon_list[1] as! Double
-    let duration = __pigeon_list[2] as! Double
-    let nbAdh = __pigeon_list[3] is Int64 ? __pigeon_list[3] as! Int64 : Int64(__pigeon_list[3] as! Int32)
-    let nbAccel = __pigeon_list[4] is Int64 ? __pigeon_list[4] as! Int64 : Int64(__pigeon_list[4] as! Int32)
-    let nbDecel = __pigeon_list[5] is Int64 ? __pigeon_list[5] as! Int64 : Int64(__pigeon_list[5] as! Int32)
-    let nbAdhCrit = __pigeon_list[6] is Int64 ? __pigeon_list[6] as! Int64 : Int64(__pigeon_list[6] as! Int32)
-    let nbAccelCrit = __pigeon_list[7] is Int64 ? __pigeon_list[7] as! Int64 : Int64(__pigeon_list[7] as! Int32)
-    let nbDecelCrit = __pigeon_list[8] is Int64 ? __pigeon_list[8] as! Int64 : Int64(__pigeon_list[8] as! Int32)
-    let safetyScore = __pigeon_list[9] as! Double
-
-    return PigeonSafetyContext(
-      contextId: contextId,
-      distance: distance,
-      duration: duration,
-      nbAdh: nbAdh,
-      nbAccel: nbAccel,
-      nbDecel: nbDecel,
-      nbAdhCrit: nbAdhCrit,
-      nbAccelCrit: nbAccelCrit,
-      nbDecelCrit: nbDecelCrit,
-      safetyScore: safetyScore
-    )
-  }
-  func toList() -> [Any?] {
-    return [
-      contextId,
-      distance,
-      duration,
-      nbAdh,
-      nbAccel,
-      nbDecel,
-      nbAdhCrit,
-      nbAccelCrit,
-      nbDecelCrit,
-      safetyScore,
-    ]
-  }
-}
-
-/// Generated class from Pigeon that represents data sent in messages.
 struct PigeonSpeedLimitContext {
   var speedLimit: Int64
   var distance: Int64
@@ -1357,12 +1159,6 @@ struct PigeonTrip {
   var fuelEstimation: PigeonFuelEstimation? = nil
   /// The safety information
   var safety: PigeonSafety? = nil
-  /// The advanced eco driving information
-  var advancedEcoDriving: PigeonAdvancedEcoDriving? = nil
-  /// The advanced fuel estimation information
-  var advancedFuelEstimation: PigeonAdvancedFuelEstimation? = nil
-  /// The advanced safety information
-  var advancedSafety: PigeonAdvancedSafety? = nil
   /// The pollutants information
   var pollutants: PigeonPollutants? = nil
   /// The tire wear information
@@ -1422,28 +1218,25 @@ struct PigeonTrip {
     let ecoDriving: PigeonEcoDriving? = nilOrValue(__pigeon_list[15])
     let fuelEstimation: PigeonFuelEstimation? = nilOrValue(__pigeon_list[16])
     let safety: PigeonSafety? = nilOrValue(__pigeon_list[17])
-    let advancedEcoDriving: PigeonAdvancedEcoDriving? = nilOrValue(__pigeon_list[18])
-    let advancedFuelEstimation: PigeonAdvancedFuelEstimation? = nilOrValue(__pigeon_list[19])
-    let advancedSafety: PigeonAdvancedSafety? = nilOrValue(__pigeon_list[20])
-    let pollutants: PigeonPollutants? = nilOrValue(__pigeon_list[21])
-    let tireWear: PigeonTireWear? = nilOrValue(__pigeon_list[22])
-    let brakeWear: PigeonBrakeWear? = nilOrValue(__pigeon_list[23])
-    let driverDistraction: PigeonDriverDistraction? = nilOrValue(__pigeon_list[24])
-    let logbook: PigeonLogbook? = nilOrValue(__pigeon_list[25])
-    let occupantInfo: PigeonOccupantInfo? = nilOrValue(__pigeon_list[26])
-    let safetyEvents: [PigeonSafetyEvent?]? = nilOrValue(__pigeon_list[27])
-    let speedingStatistics: PigeonSpeedingStatistics? = nilOrValue(__pigeon_list[28])
-    let energyEstimation: PigeonEnergyEstimation? = nilOrValue(__pigeon_list[29])
-    let advancedEnergyEstimation: [PigeonAdvancedEnergyEstimation?]? = nilOrValue(__pigeon_list[30])
-    let tripAdvicesData: [PigeonTripAdviceData?]? = nilOrValue(__pigeon_list[31])
-    let maneuverData: PigeonManeuverData? = nilOrValue(__pigeon_list[32])
-    let evaluationData: PigeonEvaluationData? = nilOrValue(__pigeon_list[33])
-    let metadata: [String?: String?]? = nilOrValue(__pigeon_list[34])
-    let transportationMode = __pigeon_list[35] is Int64 ? __pigeon_list[35] as! Int64 : Int64(__pigeon_list[35] as! Int32)
-    let declaredTransportationMode: PigeonDeclaredTransportationMode? = nilOrValue(__pigeon_list[36])
-    let unscored = __pigeon_list[37] as! Bool
-    let calls: [PigeonCall?]? = nilOrValue(__pigeon_list[38])
-    let speedLimitContexts: [PigeonSpeedLimitContext?]? = nilOrValue(__pigeon_list[39])
+    let pollutants: PigeonPollutants? = nilOrValue(__pigeon_list[18])
+    let tireWear: PigeonTireWear? = nilOrValue(__pigeon_list[19])
+    let brakeWear: PigeonBrakeWear? = nilOrValue(__pigeon_list[20])
+    let driverDistraction: PigeonDriverDistraction? = nilOrValue(__pigeon_list[21])
+    let logbook: PigeonLogbook? = nilOrValue(__pigeon_list[22])
+    let occupantInfo: PigeonOccupantInfo? = nilOrValue(__pigeon_list[23])
+    let safetyEvents: [PigeonSafetyEvent?]? = nilOrValue(__pigeon_list[24])
+    let speedingStatistics: PigeonSpeedingStatistics? = nilOrValue(__pigeon_list[25])
+    let energyEstimation: PigeonEnergyEstimation? = nilOrValue(__pigeon_list[26])
+    let advancedEnergyEstimation: [PigeonAdvancedEnergyEstimation?]? = nilOrValue(__pigeon_list[27])
+    let tripAdvicesData: [PigeonTripAdviceData?]? = nilOrValue(__pigeon_list[28])
+    let maneuverData: PigeonManeuverData? = nilOrValue(__pigeon_list[29])
+    let evaluationData: PigeonEvaluationData? = nilOrValue(__pigeon_list[30])
+    let metadata: [String?: String?]? = nilOrValue(__pigeon_list[31])
+    let transportationMode = __pigeon_list[32] is Int64 ? __pigeon_list[32] as! Int64 : Int64(__pigeon_list[32] as! Int32)
+    let declaredTransportationMode: PigeonDeclaredTransportationMode? = nilOrValue(__pigeon_list[33])
+    let unscored = __pigeon_list[34] as! Bool
+    let calls: [PigeonCall?]? = nilOrValue(__pigeon_list[35])
+    let speedLimitContexts: [PigeonSpeedLimitContext?]? = nilOrValue(__pigeon_list[36])
 
     return PigeonTrip(
       itinId: itinId,
@@ -1464,9 +1257,6 @@ struct PigeonTrip {
       ecoDriving: ecoDriving,
       fuelEstimation: fuelEstimation,
       safety: safety,
-      advancedEcoDriving: advancedEcoDriving,
-      advancedFuelEstimation: advancedFuelEstimation,
-      advancedSafety: advancedSafety,
       pollutants: pollutants,
       tireWear: tireWear,
       brakeWear: brakeWear,
@@ -1508,9 +1298,6 @@ struct PigeonTrip {
       ecoDriving,
       fuelEstimation,
       safety,
-      advancedEcoDriving,
-      advancedFuelEstimation,
-      advancedSafety,
       pollutants,
       tireWear,
       brakeWear,
@@ -2036,184 +1823,172 @@ private class IOSTripAnalysisApiPigeonCodecReader: FlutterStandardReader {
     case 131:
       return PigeonDKCrashInfo.fromList(self.readValue() as! [Any?])
     case 132:
-      return PigeonAdvancedEcoDriving.fromList(self.readValue() as! [Any?])
-    case 133:
-      return PigeonAdvancedFuelEstimation.fromList(self.readValue() as! [Any?])
-    case 134:
-      return PigeonAdvancedSafety.fromList(self.readValue() as! [Any?])
-    case 135:
       return PigeonBrakeWear.fromList(self.readValue() as! [Any?])
-    case 136:
+    case 133:
       return PigeonCall.fromList(self.readValue() as! [Any?])
-    case 137:
+    case 134:
       return PigeonAdvancedEnergyEstimation.fromList(self.readValue() as! [Any?])
-    case 138:
+    case 135:
       return PigeonEnergyEstimation.fromList(self.readValue() as! [Any?])
-    case 139:
+    case 136:
       return PigeonEcoDriving.fromList(self.readValue() as! [Any?])
-    case 140:
+    case 137:
       return PigeonFuelEstimation.fromList(self.readValue() as! [Any?])
-    case 141:
+    case 138:
       return PigeonSafety.fromList(self.readValue() as! [Any?])
-    case 142:
+    case 139:
       return PigeonPollutants.fromList(self.readValue() as! [Any?])
-    case 143:
+    case 140:
       return PigeonTireWear.fromList(self.readValue() as! [Any?])
-    case 144:
+    case 141:
       return PigeonDriverDistraction.fromList(self.readValue() as! [Any?])
-    case 145:
+    case 142:
       return PigeonLogbook.fromList(self.readValue() as! [Any?])
-    case 146:
+    case 143:
       return PigeonOccupantInfo.fromList(self.readValue() as! [Any?])
-    case 147:
+    case 144:
       return PigeonSafetyEvent.fromList(self.readValue() as! [Any?])
-    case 148:
+    case 145:
       return PigeonSpeedingStatistics.fromList(self.readValue() as! [Any?])
-    case 149:
-      return PigeonEcoDrivingContext.fromList(self.readValue() as! [Any?])
-    case 150:
-      return PigeonFuelEstimationContext.fromList(self.readValue() as! [Any?])
-    case 151:
-      return PigeonSafetyContext.fromList(self.readValue() as! [Any?])
-    case 152:
+    case 146:
       return PigeonSpeedLimitContext.fromList(self.readValue() as! [Any?])
-    case 153:
+    case 147:
       return PigeonLocation.fromList(self.readValue() as! [Any?])
-    case 154:
+    case 148:
       return PigeonTripResponseStatus.fromList(self.readValue() as! [Any?])
-    case 155:
+    case 149:
       return PigeonTripResponseInfoItem.fromList(self.readValue() as! [Any?])
-    case 156:
+    case 150:
       return PigeonTrip.fromList(self.readValue() as! [Any?])
-    case 157:
+    case 151:
       return PigeonTripStatistics.fromList(self.readValue() as! [Any?])
-    case 158:
+    case 152:
       return PigeonTripAdviceData.fromList(self.readValue() as! [Any?])
-    case 159:
+    case 153:
       return PigeonTripAdviceEvaluation.fromList(self.readValue() as! [Any?])
-    case 160:
+    case 154:
       return PigeonManeuverData.fromList(self.readValue() as! [Any?])
-    case 161:
+    case 155:
       return PigeonEvaluationData.fromList(self.readValue() as! [Any?])
-    case 162:
+    case 156:
       return PigeonDeclaredTransportationMode.fromList(self.readValue() as! [Any?])
-    case 163:
+    case 157:
       return PigeonCurrentTripInfo.fromList(self.readValue() as! [Any?])
-    case 164:
+    case 158:
       return PigeonLastTripLocation.fromList(self.readValue() as! [Any?])
-    case 165:
+    case 159:
       return PigeonTripRecordingStartedState.fromList(self.readValue() as! [Any?])
-    case 166:
+    case 160:
       return PigeonTripRecordingConfirmedState.fromList(self.readValue() as! [Any?])
-    case 167:
+    case 161:
       return PigeonTripRecordingCanceledState.fromList(self.readValue() as! [Any?])
-    case 168:
+    case 162:
       return PigeonTripRecordingFinishedState.fromList(self.readValue() as! [Any?])
-    case 169:
+    case 163:
       return PigeonCreateTripSharingLinkResponse.fromList(self.readValue() as! [Any?])
-    case 170:
+    case 164:
       return PigeonGetTripSharingLinkResponse.fromList(self.readValue() as! [Any?])
-    case 171:
+    case 165:
       return PigeonTripSharingLink.fromList(self.readValue() as! [Any?])
-    case 172:
+    case 166:
       var enumResult: PigeonSynchronizationType? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonSynchronizationType(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 173:
+    case 167:
       var enumResult: PigeonStartMode? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonStartMode(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 174:
+    case 168:
       var enumResult: PigeonState? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonState(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 175:
+    case 169:
       var enumResult: PigeonDKCrashFeedbackType? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonDKCrashFeedbackType(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 176:
+    case 170:
       var enumResult: PigeonDKCrashFeedbackSeverity? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonDKCrashFeedbackSeverity(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 177:
+    case 171:
       var enumResult: PigeonOccupantRole? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonOccupantRole(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 178:
+    case 172:
       var enumResult: PigeonCrashStatus? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonCrashStatus(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 179:
+    case 173:
       var enumResult: PigeonTripResponseStatusType? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonTripResponseStatusType(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 180:
+    case 174:
       var enumResult: PigeonTripResponseInfo? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonTripResponseInfo(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 181:
+    case 175:
       var enumResult: PigeonTripResponseError? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonTripResponseError(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 182:
+    case 176:
       var enumResult: PigeonAccuracyLevel? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonAccuracyLevel(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 183:
+    case 177:
       var enumResult: PigeonTripCancelationReason? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonTripCancelationReason(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 184:
+    case 178:
       var enumResult: PigeonCreateTripSharingLinkStatus? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonCreateTripSharingLinkStatus(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 185:
+    case 179:
       var enumResult: PigeonGetTripSharingLinkStatus? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
         enumResult = PigeonGetTripSharingLinkStatus(rawValue: enumResultAsInt)
       }
       return enumResult
-    case 186:
+    case 180:
       var enumResult: PigeonRevokeTripSharingLinkStatus? = nil
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as? Int)
       if let enumResultAsInt = enumResultAsInt {
@@ -2237,170 +2012,152 @@ private class IOSTripAnalysisApiPigeonCodecWriter: FlutterStandardWriter {
     } else if let value = value as? PigeonDKCrashInfo {
       super.writeByte(131)
       super.writeValue(value.toList())
-    } else if let value = value as? PigeonAdvancedEcoDriving {
+    } else if let value = value as? PigeonBrakeWear {
       super.writeByte(132)
       super.writeValue(value.toList())
-    } else if let value = value as? PigeonAdvancedFuelEstimation {
+    } else if let value = value as? PigeonCall {
       super.writeByte(133)
       super.writeValue(value.toList())
-    } else if let value = value as? PigeonAdvancedSafety {
+    } else if let value = value as? PigeonAdvancedEnergyEstimation {
       super.writeByte(134)
       super.writeValue(value.toList())
-    } else if let value = value as? PigeonBrakeWear {
+    } else if let value = value as? PigeonEnergyEstimation {
       super.writeByte(135)
       super.writeValue(value.toList())
-    } else if let value = value as? PigeonCall {
+    } else if let value = value as? PigeonEcoDriving {
       super.writeByte(136)
       super.writeValue(value.toList())
-    } else if let value = value as? PigeonAdvancedEnergyEstimation {
+    } else if let value = value as? PigeonFuelEstimation {
       super.writeByte(137)
       super.writeValue(value.toList())
-    } else if let value = value as? PigeonEnergyEstimation {
+    } else if let value = value as? PigeonSafety {
       super.writeByte(138)
       super.writeValue(value.toList())
-    } else if let value = value as? PigeonEcoDriving {
+    } else if let value = value as? PigeonPollutants {
       super.writeByte(139)
       super.writeValue(value.toList())
-    } else if let value = value as? PigeonFuelEstimation {
+    } else if let value = value as? PigeonTireWear {
       super.writeByte(140)
       super.writeValue(value.toList())
-    } else if let value = value as? PigeonSafety {
+    } else if let value = value as? PigeonDriverDistraction {
       super.writeByte(141)
       super.writeValue(value.toList())
-    } else if let value = value as? PigeonPollutants {
+    } else if let value = value as? PigeonLogbook {
       super.writeByte(142)
       super.writeValue(value.toList())
-    } else if let value = value as? PigeonTireWear {
+    } else if let value = value as? PigeonOccupantInfo {
       super.writeByte(143)
       super.writeValue(value.toList())
-    } else if let value = value as? PigeonDriverDistraction {
+    } else if let value = value as? PigeonSafetyEvent {
       super.writeByte(144)
       super.writeValue(value.toList())
-    } else if let value = value as? PigeonLogbook {
+    } else if let value = value as? PigeonSpeedingStatistics {
       super.writeByte(145)
       super.writeValue(value.toList())
-    } else if let value = value as? PigeonOccupantInfo {
+    } else if let value = value as? PigeonSpeedLimitContext {
       super.writeByte(146)
       super.writeValue(value.toList())
-    } else if let value = value as? PigeonSafetyEvent {
+    } else if let value = value as? PigeonLocation {
       super.writeByte(147)
       super.writeValue(value.toList())
-    } else if let value = value as? PigeonSpeedingStatistics {
+    } else if let value = value as? PigeonTripResponseStatus {
       super.writeByte(148)
       super.writeValue(value.toList())
-    } else if let value = value as? PigeonEcoDrivingContext {
+    } else if let value = value as? PigeonTripResponseInfoItem {
       super.writeByte(149)
       super.writeValue(value.toList())
-    } else if let value = value as? PigeonFuelEstimationContext {
+    } else if let value = value as? PigeonTrip {
       super.writeByte(150)
       super.writeValue(value.toList())
-    } else if let value = value as? PigeonSafetyContext {
+    } else if let value = value as? PigeonTripStatistics {
       super.writeByte(151)
       super.writeValue(value.toList())
-    } else if let value = value as? PigeonSpeedLimitContext {
+    } else if let value = value as? PigeonTripAdviceData {
       super.writeByte(152)
       super.writeValue(value.toList())
-    } else if let value = value as? PigeonLocation {
+    } else if let value = value as? PigeonTripAdviceEvaluation {
       super.writeByte(153)
       super.writeValue(value.toList())
-    } else if let value = value as? PigeonTripResponseStatus {
+    } else if let value = value as? PigeonManeuverData {
       super.writeByte(154)
       super.writeValue(value.toList())
-    } else if let value = value as? PigeonTripResponseInfoItem {
+    } else if let value = value as? PigeonEvaluationData {
       super.writeByte(155)
       super.writeValue(value.toList())
-    } else if let value = value as? PigeonTrip {
+    } else if let value = value as? PigeonDeclaredTransportationMode {
       super.writeByte(156)
       super.writeValue(value.toList())
-    } else if let value = value as? PigeonTripStatistics {
+    } else if let value = value as? PigeonCurrentTripInfo {
       super.writeByte(157)
       super.writeValue(value.toList())
-    } else if let value = value as? PigeonTripAdviceData {
+    } else if let value = value as? PigeonLastTripLocation {
       super.writeByte(158)
       super.writeValue(value.toList())
-    } else if let value = value as? PigeonTripAdviceEvaluation {
+    } else if let value = value as? PigeonTripRecordingStartedState {
       super.writeByte(159)
       super.writeValue(value.toList())
-    } else if let value = value as? PigeonManeuverData {
+    } else if let value = value as? PigeonTripRecordingConfirmedState {
       super.writeByte(160)
       super.writeValue(value.toList())
-    } else if let value = value as? PigeonEvaluationData {
+    } else if let value = value as? PigeonTripRecordingCanceledState {
       super.writeByte(161)
       super.writeValue(value.toList())
-    } else if let value = value as? PigeonDeclaredTransportationMode {
+    } else if let value = value as? PigeonTripRecordingFinishedState {
       super.writeByte(162)
       super.writeValue(value.toList())
-    } else if let value = value as? PigeonCurrentTripInfo {
+    } else if let value = value as? PigeonCreateTripSharingLinkResponse {
       super.writeByte(163)
       super.writeValue(value.toList())
-    } else if let value = value as? PigeonLastTripLocation {
+    } else if let value = value as? PigeonGetTripSharingLinkResponse {
       super.writeByte(164)
       super.writeValue(value.toList())
-    } else if let value = value as? PigeonTripRecordingStartedState {
+    } else if let value = value as? PigeonTripSharingLink {
       super.writeByte(165)
       super.writeValue(value.toList())
-    } else if let value = value as? PigeonTripRecordingConfirmedState {
-      super.writeByte(166)
-      super.writeValue(value.toList())
-    } else if let value = value as? PigeonTripRecordingCanceledState {
-      super.writeByte(167)
-      super.writeValue(value.toList())
-    } else if let value = value as? PigeonTripRecordingFinishedState {
-      super.writeByte(168)
-      super.writeValue(value.toList())
-    } else if let value = value as? PigeonCreateTripSharingLinkResponse {
-      super.writeByte(169)
-      super.writeValue(value.toList())
-    } else if let value = value as? PigeonGetTripSharingLinkResponse {
-      super.writeByte(170)
-      super.writeValue(value.toList())
-    } else if let value = value as? PigeonTripSharingLink {
-      super.writeByte(171)
-      super.writeValue(value.toList())
     } else if let value = value as? PigeonSynchronizationType {
-      super.writeByte(172)
+      super.writeByte(166)
       super.writeValue(value.rawValue)
     } else if let value = value as? PigeonStartMode {
-      super.writeByte(173)
+      super.writeByte(167)
       super.writeValue(value.rawValue)
     } else if let value = value as? PigeonState {
-      super.writeByte(174)
+      super.writeByte(168)
       super.writeValue(value.rawValue)
     } else if let value = value as? PigeonDKCrashFeedbackType {
-      super.writeByte(175)
+      super.writeByte(169)
       super.writeValue(value.rawValue)
     } else if let value = value as? PigeonDKCrashFeedbackSeverity {
-      super.writeByte(176)
+      super.writeByte(170)
       super.writeValue(value.rawValue)
     } else if let value = value as? PigeonOccupantRole {
-      super.writeByte(177)
+      super.writeByte(171)
       super.writeValue(value.rawValue)
     } else if let value = value as? PigeonCrashStatus {
-      super.writeByte(178)
+      super.writeByte(172)
       super.writeValue(value.rawValue)
     } else if let value = value as? PigeonTripResponseStatusType {
-      super.writeByte(179)
+      super.writeByte(173)
       super.writeValue(value.rawValue)
     } else if let value = value as? PigeonTripResponseInfo {
-      super.writeByte(180)
+      super.writeByte(174)
       super.writeValue(value.rawValue)
     } else if let value = value as? PigeonTripResponseError {
-      super.writeByte(181)
+      super.writeByte(175)
       super.writeValue(value.rawValue)
     } else if let value = value as? PigeonAccuracyLevel {
-      super.writeByte(182)
+      super.writeByte(176)
       super.writeValue(value.rawValue)
     } else if let value = value as? PigeonTripCancelationReason {
-      super.writeByte(183)
+      super.writeByte(177)
       super.writeValue(value.rawValue)
     } else if let value = value as? PigeonCreateTripSharingLinkStatus {
-      super.writeByte(184)
+      super.writeByte(178)
       super.writeValue(value.rawValue)
     } else if let value = value as? PigeonGetTripSharingLinkStatus {
-      super.writeByte(185)
+      super.writeByte(179)
       super.writeValue(value.rawValue)
     } else if let value = value as? PigeonRevokeTripSharingLinkStatus {
-      super.writeByte(186)
+      super.writeByte(180)
       super.writeValue(value.rawValue)
     } else {
       super.writeValue(value)
