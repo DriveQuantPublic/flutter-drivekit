@@ -237,6 +237,30 @@ enum PigeonDKCrashFeedbackSeverity {
   critical;
 }
 
+class PigeonAdvancedEcoDriving {
+  const PigeonAdvancedEcoDriving({
+    required this.ecoDrivingContext,
+  });
+
+  final List<PigeonEcoDrivingContext?> ecoDrivingContext;
+}
+
+class PigeonAdvancedFuelEstimation {
+  const PigeonAdvancedFuelEstimation({
+    required this.fuelEstimationContext,
+  });
+
+  final List<PigeonFuelEstimationContext?> fuelEstimationContext;
+}
+
+class PigeonAdvancedSafety {
+  const PigeonAdvancedSafety({
+    required this.safetyContext,
+  });
+
+  final List<PigeonSafetyContext?> safetyContext;
+}
+
 class PigeonBeaconData {
   const PigeonBeaconData({
     required this.proximityUuid,
@@ -806,6 +830,93 @@ class PigeonRoute {
   final List<int?> yaw;
 
   final List<int?> gyroscopeNormVar;
+}
+
+class PigeonEcoDrivingContext {
+  const PigeonEcoDrivingContext({
+    required this.contextId,
+    required this.distance,
+    required this.duration,
+    required this.efficiencyScore,
+    required this.scoreAccel,
+    required this.scoreMain,
+    required this.scoreDecel,
+  });
+
+  final int contextId;
+
+  final double distance;
+
+  final double duration;
+
+  final double efficiencyScore;
+
+  final double scoreAccel;
+
+  final double scoreMain;
+
+  final double scoreDecel;
+}
+
+class PigeonFuelEstimationContext {
+  const PigeonFuelEstimationContext({
+    required this.contextId,
+    required this.distance,
+    required this.duration,
+    required this.co2Mass,
+    required this.co2Emission,
+    required this.fuelVolume,
+    required this.fuelConsumption,
+  });
+
+  final int contextId;
+
+  final double distance;
+
+  final double duration;
+
+  final double co2Mass;
+
+  final double co2Emission;
+
+  final double fuelVolume;
+
+  final double fuelConsumption;
+}
+
+class PigeonSafetyContext {
+  const PigeonSafetyContext({
+    required this.contextId,
+    required this.distance,
+    required this.duration,
+    required this.nbAdh,
+    required this.nbAccel,
+    required this.nbDecel,
+    required this.nbAdhCrit,
+    required this.nbAccelCrit,
+    required this.nbDecelCrit,
+    required this.safetyScore,
+  });
+
+  final int contextId;
+
+  final double distance;
+
+  final double duration;
+
+  final int nbAdh;
+
+  final int nbAccel;
+
+  final int nbDecel;
+
+  final int nbAdhCrit;
+
+  final int nbAccelCrit;
+
+  final int nbDecelCrit;
+
+  final double safetyScore;
 }
 
 enum PigeonCrashStatus {
