@@ -291,8 +291,8 @@ extension PigeonBeaconData {
     init(from beacon: BeaconData) {
         self.init(
             proximityUuid: beacon.proximityUuid,
-            major: beacon.major,
-            minor: beacon.minor
+            major: Int64(beacon.major),
+            minor: Int64(beacon.minor)
         )
     }
 }
