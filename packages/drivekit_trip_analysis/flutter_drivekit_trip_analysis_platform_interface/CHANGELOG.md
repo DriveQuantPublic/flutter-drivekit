@@ -1,3 +1,7 @@
+# 2.0.1
+
+	- Remove some unused extensions in TripAnalysis iOS package
+
 # 2.0.0
 
 	- Update DriveKit version for Android and iOS to 3.0.0
