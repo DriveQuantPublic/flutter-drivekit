@@ -5,6 +5,12 @@ class MockIOSTripAnalysisApi extends Mock implements IOSTripAnalysisApi {}
 
 class MockPigeonVehicle extends Mock implements PigeonVehicle {}
 
+final mockPigeonBeaconData = PigeonBeaconData(
+  proximityUuid: '000',
+  major: 0,
+  minor: 0,
+);
+
 final mockPigeonDkCrashInfo = PigeonDKCrashInfo(
   crashId: 'crashId',
   latitude: 0,
