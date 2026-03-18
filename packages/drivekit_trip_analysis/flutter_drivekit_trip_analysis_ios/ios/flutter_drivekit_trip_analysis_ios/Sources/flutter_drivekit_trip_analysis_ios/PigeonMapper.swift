@@ -287,6 +287,16 @@ extension PigeonCrashStatus {
     }
 }
 
+extension PigeonBeaconData {
+    init(from beacon: BeaconData) {
+        self.init(
+            proximityUuid: beacon.proximityUuid,
+            major: Int64(beacon.major),
+            minor: Int64(beacon.minor)
+        )
+    }
+}
+
 extension PigeonLocation {
     init(from location: CLLocation) {
         self.init(

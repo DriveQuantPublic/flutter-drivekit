@@ -59,6 +59,7 @@ abstract class FlutterTripAnalysisApi {
   void tripFinished(PigeonTripResponseStatus response);
   void potentialTripStart(PigeonStartMode startMode);
   void beaconDetected();
+  void beaconConfirmed(PigeonBeaconData beacon);
   void significantLocationChangeDetected(PigeonLocation location);
   void sdkStateChanged(PigeonState state);
   void crashDetected(PigeonDKCrashInfo crashInfo);

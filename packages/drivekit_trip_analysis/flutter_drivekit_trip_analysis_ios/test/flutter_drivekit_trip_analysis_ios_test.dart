@@ -251,6 +251,7 @@ void main() {
     group('TripListener', () {
       test('can listen several listeners', () async {
         var beaconDetectedCount = 0;
+        var beaconConfirmedCount = 0;
         var crashDetectedCount = 0;
         var crashFeedbackSentCount = 0;
         var sdkStateChangedCount = 0;
@@ -267,6 +268,7 @@ void main() {
         DriveKitTripAnalysisPlatform.instance.addTripListener(
           TripListener(
             beaconDetected: () => beaconDetectedCount++,
+            beaconConfirmed: (beacon) => beaconConfirmedCount++,
             crashDetected: (crashInfo) => crashDetectedCount++,
             crashFeedbackSent: (crashInfo, feedbackType, severity) =>
                 crashFeedbackSentCount++,
@@ -284,6 +286,10 @@ void main() {
         );
         flutterTripAnalysisApi.beaconDetected();
         expect(beaconDetectedCount, 1);
+
+        flutterTripAnalysisApi.beaconConfirmed(mockPigeonBeaconData);
+        expect(beaconConfirmedCount, 1);
+
         expect(crashDetectedCount, 0);
 
         flutterTripAnalysisApi.crashDetected(mockPigeonDkCrashInfo);
@@ -332,6 +338,7 @@ void main() {
         DriveKitTripAnalysisPlatform.instance.addTripListener(
           TripListener(
             beaconDetected: () => beaconDetectedCount++,
+            beaconConfirmed: (beacon) => beaconConfirmedCount++,
             crashDetected: (crashInfo) => crashDetectedCount++,
             crashFeedbackSent: (crashInfo, feedbackType, severity) =>
                 crashFeedbackSentCount++,
@@ -349,6 +356,9 @@ void main() {
         );
         flutterTripAnalysisApi.beaconDetected();
         expect(beaconDetectedCount, 3);
+
+        flutterTripAnalysisApi.beaconConfirmed(mockPigeonBeaconData);
+        expect(beaconConfirmedCount, 3);
 
         flutterTripAnalysisApi.crashDetected(mockPigeonDkCrashInfo);
         expect(crashDetectedCount, 3);
@@ -443,6 +453,7 @@ void main() {
 
       test('can remove a listener', () async {
         var beaconDetectedCount = 0;
+        var beaconConfirmedCount = 0;
         var crashDetectedCount = 0;
         var crashFeedbackSentCount = 0;
         var sdkStateChangedCount = 0;
@@ -457,6 +468,7 @@ void main() {
 
         final listener = TripListener(
           beaconDetected: () => beaconDetectedCount++,
+          beaconConfirmed: (beacon) => beaconConfirmedCount++,
           crashDetected: (crashInfo) => crashDetectedCount++,
           crashFeedbackSent: (crashInfo, feedbackType, severity) =>
               crashFeedbackSentCount++,
@@ -477,6 +489,7 @@ void main() {
 
         flutterTripAnalysisApi
           ..beaconDetected()
+          ..beaconConfirmed(mockPigeonBeaconData)
           ..crashDetected(mockPigeonDkCrashInfo)
           ..crashFeedbackSent(
             mockPigeonDkCrashInfo,
@@ -493,6 +506,7 @@ void main() {
           ..tripSavedForRepost();
 
         expect(beaconDetectedCount, 0);
+        expect(beaconConfirmedCount, 0);
         expect(crashDetectedCount, 0);
         expect(crashFeedbackSentCount, 0);
         expect(sdkStateChangedCount, 0);
@@ -508,6 +522,7 @@ void main() {
 
       test('can remove all listeners at once', () async {
         var beaconDetectedCount = 0;
+        var beaconConfirmedCount = 0;
         var crashDetectedCount = 0;
         var crashFeedbackSentCount = 0;
         var sdkStateChangedCount = 0;
@@ -522,6 +537,7 @@ void main() {
 
         final listener = TripListener(
           beaconDetected: () => beaconDetectedCount++,
+          beaconConfirmed: (beacon) => beaconConfirmedCount++,
           crashDetected: (crashInfo) => crashDetectedCount++,
           crashFeedbackSent: (crashInfo, feedbackType, severity) =>
               crashFeedbackSentCount++,
@@ -538,11 +554,14 @@ void main() {
         );
         DriveKitTripAnalysisPlatform.instance.addTripListener(listener);
         DriveKitTripAnalysisPlatform.instance.addTripListener(listener);
-        flutterTripAnalysisApi.beaconDetected();
+        flutterTripAnalysisApi
+          ..beaconDetected()
+          ..beaconConfirmed(mockPigeonBeaconData);
         DriveKitTripAnalysisPlatform.instance.removeAllTripListeners();
 
         flutterTripAnalysisApi
           ..beaconDetected()
+          ..beaconConfirmed(mockPigeonBeaconData)
           ..crashDetected(mockPigeonDkCrashInfo)
           ..crashFeedbackSent(
             mockPigeonDkCrashInfo,
@@ -559,6 +578,7 @@ void main() {
           ..tripSavedForRepost();
 
         expect(beaconDetectedCount, 2);
+        expect(beaconConfirmedCount, 2);
         expect(crashDetectedCount, 0);
         expect(crashFeedbackSentCount, 0);
         expect(sdkStateChangedCount, 0);

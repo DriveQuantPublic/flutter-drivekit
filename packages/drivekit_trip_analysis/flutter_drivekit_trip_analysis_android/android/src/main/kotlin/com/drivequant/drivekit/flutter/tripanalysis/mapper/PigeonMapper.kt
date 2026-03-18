@@ -1,6 +1,7 @@
 // PigeonMapper object with the mapping function
 package com.drivequant.drivekit.flutter.tripanalysis.mapper
 
+import com.drivequant.beaconutils.BeaconData
 import com.drivequant.drivekit.core.SynchronizationType
 import com.drivequant.drivekit.core.common.model.DKCoordinateAccuracy
 import com.drivequant.drivekit.core.common.model.DKTripLocation
@@ -33,6 +34,7 @@ import com.drivequant.drivekit.flutter.tripanalysis.PigeonAdvancedEcoDriving
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonAdvancedEnergyEstimation
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonAdvancedFuelEstimation
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonAdvancedSafety
+import com.drivequant.drivekit.flutter.tripanalysis.PigeonBeaconData
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonBrakeWear
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonCall
 import com.drivequant.drivekit.flutter.tripanalysis.PigeonCrashStatus
@@ -155,6 +157,12 @@ object PigeonMapper {
         State.STOPPING -> PigeonState.STOPPING
         State.SENDING -> PigeonState.SENDING
     }
+
+    fun toPigeonBeaconData(beacon: BeaconData): PigeonBeaconData = PigeonBeaconData(
+        proximityUuid = beacon.proximityUuid,
+        major = beacon.major.toLong(),
+        minor = beacon.minor.toLong()
+    )
 
     fun toPigeonDKCrashInfo(crashInfo: DKCrashInfo): PigeonDKCrashInfo {
         val backendDateFormat: DateFormat = SimpleDateFormat(DATE_PATTERN, Locale.getDefault())
