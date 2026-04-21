@@ -78,7 +78,7 @@ abstract class DriveKitTripAnalysisPlatform extends PlatformInterface {
   Future<void> setVehicle(Vehicle vehicle);
 
     /// Set the user's beacons.
-  Future<void> setBeacons(List<BeaconData> beacon);
+  Future<void> setBeacons(List<BeaconData> beacons);
 
   /// Add a listener to receive events concerning trips.
   void addTripListener(TripListener listener);
