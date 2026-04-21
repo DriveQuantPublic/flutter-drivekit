@@ -139,6 +139,10 @@ object PigeonMapper {
         driveWheels = pigeonVehicle.driveWheels.toInt()
     )
 
+    fun fromPigeonBeaconData(pigeonBeaconData: PigeonBeaconData): BeaconData = BeaconData(
+        pigeonBeaconData.proximityUuid, pigeonBeaconData.major.toInt(), pigeonBeaconData.minor.toInt()
+    )
+
     fun toPigeonStartMode(startMode: StartMode): PigeonStartMode = when (startMode) {
         StartMode.GPS -> PigeonStartMode.GPS
         StartMode.BEACON -> PigeonStartMode.BEACON
