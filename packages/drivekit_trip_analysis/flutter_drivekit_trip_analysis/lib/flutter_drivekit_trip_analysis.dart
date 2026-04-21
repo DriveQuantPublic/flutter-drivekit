@@ -2,6 +2,7 @@ import 'package:flutter_drivekit_trip_analysis_platform_interface/flutter_drivek
 
 export 'package:flutter_drivekit_trip_analysis_platform_interface/flutter_drivekit_trip_analysis_platform_interface.dart'
     show
+        BeaconData,
         TripListener,
         TripResponseError,
         TripResponseInfo,
@@ -146,6 +147,11 @@ class DriveKitTripAnalysis {
   ///   driveWheels = 0
   Future<void> setVehicle(Vehicle vehicle) async {
     await _platform.setVehicle(vehicle);
+  }
+
+  /// Sets the list of beacons to be used for trip analysis
+  Future<void> setBeacons(List<BeaconData> beacons) async {
+    await _platform.setBeacons(beacons);
   }
 
   /// Add a listener to be notified of trip events
