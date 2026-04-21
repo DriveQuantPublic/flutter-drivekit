@@ -73,6 +73,12 @@ public class DriveKitTripAnalysisPlugin: NSObject, FlutterPlugin, IOSTripAnalysi
         )
     }
 
+    func setBeacons(beacons: [PigeonBeaconData]) throws {
+        DriveKitTripAnalysis.shared.setBeacons(
+            beacons: beacons.map { PigeonMapper.initTripBeacon(from: $0) }
+        )
+    }
+
     private func configureDriveTripDelegate() {
         DriveKitTripAnalysis.shared.addTripListener(self)
     }
