@@ -2969,7 +2969,7 @@ class IOSTripAnalysisApi {
     }
   }
 
-  Future<void> setBeacons(List<PigeonBeaconData?> beacon) async {
+  Future<void> setBeacons(List<PigeonBeaconData?> beacons) async {
     final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_trip_analysis_package.IOSTripAnalysisApi.setBeacons$__pigeon_messageChannelSuffix';
     final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
@@ -2977,7 +2977,7 @@ class IOSTripAnalysisApi {
       binaryMessenger: __pigeon_binaryMessenger,
     );
     final List<Object?>? __pigeon_replyList =
-        await __pigeon_channel.send(<Object?>[beacon]) as List<Object?>?;
+        await __pigeon_channel.send(<Object?>[beacons]) as List<Object?>?;
     if (__pigeon_replyList == null) {
       throw _createConnectionError(__pigeon_channelName);
     } else if (__pigeon_replyList.length > 1) {

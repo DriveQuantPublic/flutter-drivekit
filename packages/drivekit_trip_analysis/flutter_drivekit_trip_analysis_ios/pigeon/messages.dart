@@ -26,7 +26,7 @@ abstract class IOSTripAnalysisApi {
   bool isMonitoringPotentialTripStart();
   void setMonitorPotentialTripStart(bool activate);
   void setVehicle(PigeonVehicle vehicle);
-  void setBeacons(List<PigeonBeaconData> beacon);
+  void setBeacons(List<PigeonBeaconData> beacons);
   Map<String, String>? getTripMetadata();
   void updateTripMetadata(String key, String? value);
   void setTripMetadata(Map<String, String>? metadata);

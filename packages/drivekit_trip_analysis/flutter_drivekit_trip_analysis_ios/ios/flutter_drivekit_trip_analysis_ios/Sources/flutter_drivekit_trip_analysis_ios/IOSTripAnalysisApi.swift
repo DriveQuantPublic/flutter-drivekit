@@ -2469,7 +2469,7 @@ protocol IOSTripAnalysisApi {
   func isMonitoringPotentialTripStart() throws -> Bool
   func setMonitorPotentialTripStart(activate: Bool) throws
   func setVehicle(vehicle: PigeonVehicle) throws
-  func setBeacons(beacon: [PigeonBeaconData]) throws
+  func setBeacons(beacons: [PigeonBeaconData]) throws
   func getTripMetadata() throws -> [String: String]?
   func updateTripMetadata(key: String, value: String?) throws
   func setTripMetadata(metadata: [String: String]?) throws
@@ -2660,9 +2660,9 @@ class IOSTripAnalysisApiSetup {
     if let api = api {
       setBeaconsChannel.setMessageHandler { message, reply in
         let args = message as! [Any?]
-        let beaconArg = args[0] as! [PigeonBeaconData]
+        let beaconsArg = args[0] as! [PigeonBeaconData]
         do {
-          try api.setBeacons(beacon: beaconArg)
+          try api.setBeacons(beacons: beaconsArg)
           reply(wrapResult(nil))
         } catch {
           reply(wrapError(error))

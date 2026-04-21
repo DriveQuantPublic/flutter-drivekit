@@ -2409,7 +2409,7 @@ interface AndroidTripAnalysisApi {
   fun isMonitoringPotentialTripStart(): Boolean
   fun setMonitorPotentialTripStart(activate: Boolean)
   fun setVehicle(vehicle: PigeonVehicle)
-  fun setBeacons(beacon: List<PigeonBeaconData>)
+  fun setBeacons(beacons: List<PigeonBeaconData>)
   fun getTripMetadata(): Map<String, String>?
   fun updateTripMetadata(key: String, value: String?)
   fun setTripMetadata(metadata: Map<String, String>?)
@@ -2635,9 +2635,9 @@ interface AndroidTripAnalysisApi {
         if (api != null) {
           channel.setMessageHandler { message, reply ->
             val args = message as List<Any?>
-            val beaconArg = args[0] as List<PigeonBeaconData>
+            val beaconsArg = args[0] as List<PigeonBeaconData>
             val wrapped: List<Any?> = try {
-              api.setBeacons(beaconArg)
+              api.setBeacons(beaconsArg)
               listOf(null)
             } catch (exception: Throwable) {
               wrapError(exception)
