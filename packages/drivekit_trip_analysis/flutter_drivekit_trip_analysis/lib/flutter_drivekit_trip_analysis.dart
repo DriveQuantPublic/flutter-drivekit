@@ -150,6 +150,8 @@ class DriveKitTripAnalysis {
   }
 
   /// Sets the list of beacons to be used for trip analysis
+  /// You can use "-1" value for major and minor to match
+  /// all beacons with the same proximityUuid
   Future<void> setBeacons(List<BeaconData> beacons) async {
     await _platform.setBeacons(beacons);
   }
