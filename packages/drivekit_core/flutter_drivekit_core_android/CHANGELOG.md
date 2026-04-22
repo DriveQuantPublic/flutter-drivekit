@@ -1,3 +1,8 @@
+# 2.1.0
+
+    - Update DriveKit version for iOS to 3.1.0
+    - TripAnalysis: Add method to set the beacons uuid/major/minor of a user
+
 # 2.0.1
 
 	- Remove some unused extensions in TripAnalysis iOS package
