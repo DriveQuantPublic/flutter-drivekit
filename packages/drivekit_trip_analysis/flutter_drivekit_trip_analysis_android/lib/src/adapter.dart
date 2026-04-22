@@ -41,6 +41,18 @@ extension VehicleAdapter on Vehicle {
   }
 }
 
+/// Adapts the [BeaconData] class to the [PigeonBeaconData] class.
+extension BeaconDataAdapter on BeaconData {
+  /// Converts a [BeaconData] to a [PigeonBeaconData].
+  PigeonBeaconData toPigeonImplementation() {
+    return PigeonBeaconData(
+      proximityUuid: proximityUuid,
+      major: major,
+      minor: minor,
+    );
+  }
+}
+
 /// Adapts the [AdvancedEnergyEstimation] class to the corresponding Pigeon
 extension AdvancedEnergyEstimationAdapter on AdvancedEnergyEstimation {
   /// Converts a [AdvancedEnergyEstimation] to a corresponding Pigeon

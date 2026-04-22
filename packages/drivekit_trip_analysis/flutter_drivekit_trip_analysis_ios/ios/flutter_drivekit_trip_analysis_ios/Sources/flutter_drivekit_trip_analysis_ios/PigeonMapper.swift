@@ -26,6 +26,14 @@ class PigeonMapper {
         tripVehicle.driveWheels = Int(pigeonVehicle.driveWheels)
         return tripVehicle
     }
+
+    static func initTripBeacon(from pigeonBeacon: PigeonBeaconData) -> BeaconData {
+        return BeaconData(
+            proximityUuid: pigeonBeacon.proximityUuid,
+            major: Int(pigeonBeacon.major),
+            minor: Int(pigeonBeacon.minor)
+        )
+    }
 }
 
 extension SynchronizationType {
