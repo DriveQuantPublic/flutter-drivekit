@@ -96,6 +96,10 @@ class DriveKitTripAnalysisPlugin :
         DriveKitTripAnalysis.setVehicle(PigeonMapper.fromPigeonVehicle(vehicle))
     }
 
+    override fun setBeacons(beacons: List<PigeonBeaconData>) {
+        DriveKitTripAnalysis.setBeacons(beacons.map{ PigeonMapper.fromPigeonBeaconData(it)} )
+    }
+
     private fun configureTripListener() {
         DriveKitTripAnalysis.addTripListener(
             object : TripListener {

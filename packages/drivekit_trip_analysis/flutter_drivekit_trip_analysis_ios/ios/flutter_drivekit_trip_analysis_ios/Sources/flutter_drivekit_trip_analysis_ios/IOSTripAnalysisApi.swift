@@ -2469,6 +2469,7 @@ protocol IOSTripAnalysisApi {
   func isMonitoringPotentialTripStart() throws -> Bool
   func setMonitorPotentialTripStart(activate: Bool) throws
   func setVehicle(vehicle: PigeonVehicle) throws
+  func setBeacons(beacons: [PigeonBeaconData]) throws
   func getTripMetadata() throws -> [String: String]?
   func updateTripMetadata(key: String, value: String?) throws
   func setTripMetadata(metadata: [String: String]?) throws
@@ -2654,6 +2655,21 @@ class IOSTripAnalysisApiSetup {
       }
     } else {
       setVehicleChannel.setMessageHandler(nil)
+    }
+    let setBeaconsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.pigeon_trip_analysis_package.IOSTripAnalysisApi.setBeacons\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      setBeaconsChannel.setMessageHandler { message, reply in
+        let args = message as! [Any?]
+        let beaconsArg = args[0] as! [PigeonBeaconData]
+        do {
+          try api.setBeacons(beacons: beaconsArg)
+          reply(wrapResult(nil))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      setBeaconsChannel.setMessageHandler(nil)
     }
     let getTripMetadataChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.pigeon_trip_analysis_package.IOSTripAnalysisApi.getTripMetadata\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
