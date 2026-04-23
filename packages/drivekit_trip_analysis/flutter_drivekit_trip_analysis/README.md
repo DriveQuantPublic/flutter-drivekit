@@ -419,7 +419,7 @@ DriveKitTripAnalysis.instance.setBeacons(
 ```
 
 If you want to ignore major and minor values for trip detection, set them to -1.
-If you want to remove beacons from SDK configuration, call the method with an empty array.
+If you want to remove beacons from SDK configuration, call the method with an empty list.
 
 ### getTripMetadata
 
