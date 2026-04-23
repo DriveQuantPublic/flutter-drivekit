@@ -77,8 +77,8 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 | [activateCrashDetection()](#activatecrashdetection)                 | `Future<void>`                          | ✅  |   ✅    |
 | [isMonitoringPotentialTripStart()](#ismonitoringpotentialtripstart) | `Future<bool>`                          | ✅  |   ✅    |
 | [setMonitorPotentialTripStart()](#setmonitorpotentialtripstart)     | `Future<void>`                          | ✅  |   ✅    |
-| [setVehicle()](#setvehicle)                                         | `Future<bool>`                          | ✅  |   ✅    |
-| [setBeacons()](#setBeacons)                                         | `Future<bool>`                          | ✅  |   ✅    |
+| [setVehicle()](#setvehicle)                                         | `Future<void>`                          | ✅  |   ✅    |
+| [setBeacons()](#setBeacons)                                         | `Future<void>`                          | ✅  |   ✅    |
 | [getTripMetadata()](#gettripmetadata)                               | `Future<Map<String, String>?`           | ✅  |   ✅    |
 | [updateTripMetadata()](#updatetripmetadata)                         | `Future<void>`                          | ✅  |   ✅    |
 | [deleteTripMetadata()](#deletetripmetadata)                         | `Future<void>`                          | ✅  |   ✅    |
