@@ -2410,6 +2410,7 @@ interface AndroidTripAnalysisApi {
   fun setMonitorPotentialTripStart(activate: Boolean)
   fun setVehicle(vehicle: PigeonVehicle)
   fun setBeacons(beacons: List<PigeonBeaconData>)
+  fun setBeaconRequired(required: Boolean)
   fun getTripMetadata(): Map<String, String>?
   fun updateTripMetadata(key: String, value: String?)
   fun setTripMetadata(metadata: Map<String, String>?)
@@ -2638,6 +2639,24 @@ interface AndroidTripAnalysisApi {
             val beaconsArg = args[0] as List<PigeonBeaconData>
             val wrapped: List<Any?> = try {
               api.setBeacons(beaconsArg)
+              listOf(null)
+            } catch (exception: Throwable) {
+              wrapError(exception)
+            }
+            reply.reply(wrapped)
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.pigeon_trip_analysis_package.AndroidTripAnalysisApi.setBeaconRequired$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { message, reply ->
+            val args = message as List<Any?>
+            val requiredArg = args[0] as Boolean
+            val wrapped: List<Any?> = try {
+              api.setBeaconRequired(requiredArg)
               listOf(null)
             } catch (exception: Throwable) {
               wrapError(exception)
