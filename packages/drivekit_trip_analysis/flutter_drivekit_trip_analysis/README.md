@@ -79,6 +79,7 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 | [setMonitorPotentialTripStart()](#setmonitorpotentialtripstart)     | `Future<void>`                          | ✅  |   ✅    |
 | [setVehicle()](#setvehicle)                                         | `Future<void>`                          | ✅  |   ✅    |
 | [setBeacons()](#setBeacons)                                         | `Future<void>`                          | ✅  |   ✅    |
+| [setBeaconRequired()](#setBeaconRequired)                           | `Future<void>`                          | ✅  |   ✅    |
 | [getTripMetadata()](#gettripmetadata)                               | `Future<Map<String, String>?`           | ✅  |   ✅    |
 | [updateTripMetadata()](#updatetripmetadata)                         | `Future<void>`                          | ✅  |   ✅    |
 | [deleteTripMetadata()](#deletetripmetadata)                         | `Future<void>`                          | ✅  |   ✅    |
@@ -421,6 +422,14 @@ DriveKitTripAnalysis.instance.setBeacons(
 
 If you want to ignore major and minor values for trip detection, set them to -1.
 If you want to remove beacons from SDK configuration, call the method with an empty list.
+
+### setBeaconRequired
+```dart
+Future<void> setBeaconRequired(bool required)
+```
+To avoid the recording of unwanted trips (trips performed outside the vehicle where the beacon is placed), it is possible to automatically cancel the trip if the beacon is not "seen" several times during the trip. Generally, a trip will be cancelled in less than 6 minutes if the beacon is not in the vehicle.
+
+By default, this setting is disabled but you can enable/disable it by calling the `setBeaconRequired` method
 
 ### getTripMetadata
 
