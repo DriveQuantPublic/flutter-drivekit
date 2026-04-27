@@ -82,6 +82,9 @@ class DriveKitTripAnalysisAndroid extends DriveKitTripAnalysisPlatform
         beacons.map((b) => b.toPigeonImplementation(),
       ).toList(),);
 
+  @override
+  Future<void> setBeaconRequired(bool required) =>
+      androidTripAnalysisApi.setBeaconRequired(required);
 
   @override
   void addTripListener(TripListener listener) => _listeners.add(listener);

@@ -86,6 +86,11 @@ class DefaultDriveKitTripAnalysis extends DriveKitTripAnalysisPlatform {
   }
 
   @override
+  Future<void> setBeaconRequired(bool required) {
+    throw UnimplementedError('setBeaconRequired() has not been implemented.');
+  }
+
+  @override
   Future<void> addTripListener(TripListener listener) {
     throw UnimplementedError('setTripParameters() has not been implemented.');
   }

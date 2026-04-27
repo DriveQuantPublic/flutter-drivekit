@@ -2991,6 +2991,28 @@ class IOSTripAnalysisApi {
     }
   }
 
+  Future<void> setBeaconRequired(bool required) async {
+    final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_trip_analysis_package.IOSTripAnalysisApi.setBeaconRequired$__pigeon_messageChannelSuffix';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+      __pigeon_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: __pigeon_binaryMessenger,
+    );
+    final List<Object?>? __pigeon_replyList =
+        await __pigeon_channel.send(<Object?>[required]) as List<Object?>?;
+    if (__pigeon_replyList == null) {
+      throw _createConnectionError(__pigeon_channelName);
+    } else if (__pigeon_replyList.length > 1) {
+      throw PlatformException(
+        code: __pigeon_replyList[0]! as String,
+        message: __pigeon_replyList[1] as String?,
+        details: __pigeon_replyList[2],
+      );
+    } else {
+      return;
+    }
+  }
+
   Future<Map<String?, String?>?> getTripMetadata() async {
     final String __pigeon_channelName = 'dev.flutter.pigeon.pigeon_trip_analysis_package.IOSTripAnalysisApi.getTripMetadata$__pigeon_messageChannelSuffix';
     final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
