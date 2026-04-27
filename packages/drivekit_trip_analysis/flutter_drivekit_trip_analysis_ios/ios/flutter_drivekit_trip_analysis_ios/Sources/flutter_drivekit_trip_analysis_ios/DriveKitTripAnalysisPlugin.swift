@@ -79,6 +79,10 @@ public class DriveKitTripAnalysisPlugin: NSObject, FlutterPlugin, IOSTripAnalysi
         )
     }
 
+    func setBeaconRequired(required: Bool) {
+        DriveKitTripAnalysis.shared.setBeaconRequired(required: required)
+    }
+
     private func configureDriveTripDelegate() {
         DriveKitTripAnalysis.shared.addTripListener(self)
     }
