@@ -156,6 +156,11 @@ class DriveKitTripAnalysis {
     await _platform.setBeacons(beacons);
   }
 
+  /// Sets whether beacons are required for trip analysis
+  Future<void> setBeaconRequired(bool required) async {
+    await _platform.setBeaconRequired(required);
+  }
+
   /// Add a listener to be notified of trip events
   void addTripListener(TripListener listener) {
     _platform.addTripListener(listener);

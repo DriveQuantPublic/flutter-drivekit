@@ -82,6 +82,10 @@ class DriveKitTripAnalysisIOS extends DriveKitTripAnalysisPlatform
       ).toList(),);
 
   @override
+  Future<void> setBeaconRequired(bool required) =>
+      iosTripAnalysisApi.setBeaconRequired(required);
+
+  @override
   void addTripListener(TripListener listener) => _listeners.add(listener);
 
   @override

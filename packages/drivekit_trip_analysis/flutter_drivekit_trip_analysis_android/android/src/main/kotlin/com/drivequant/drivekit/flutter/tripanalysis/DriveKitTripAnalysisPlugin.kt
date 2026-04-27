@@ -100,6 +100,10 @@ class DriveKitTripAnalysisPlugin :
         DriveKitTripAnalysis.setBeacons(beacons.map{ PigeonMapper.fromPigeonBeaconData(it)} )
     }
 
+    override fun setBeaconRequired(required: Boolean) {
+        DriveKitTripAnalysis.setBeaconRequired(required)
+    }
+
     private fun configureTripListener() {
         DriveKitTripAnalysis.addTripListener(
             object : TripListener {
