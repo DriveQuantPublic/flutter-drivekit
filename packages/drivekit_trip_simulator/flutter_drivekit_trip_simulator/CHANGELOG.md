@@ -1,7 +1,8 @@
 # 2.1.0
 
     - Update DriveKit version for iOS to 3.1.0
-    - TripAnalysis: Add method to set the beacons uuid/major/minor of a user
+    - TripAnalysis: Add setBeacons method to configure beacons identifiers 
+    - TripAnalysis: Add setBeaconRequired method to activate/deactivate trip cancellation when no beacon is detected
 
 # 2.0.1
 
