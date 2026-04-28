@@ -236,6 +236,61 @@ void main() {
       expect(pigeonVehicle.driveWheels, vehicle.driveWheels);
     });
 
+    test('setBeacons calls android implementation', () async {
+      //mock
+      const mockBeacons = [BeaconData(
+        proximityUuid: 'uuid',
+        major: 1,
+        minor: 2,
+      ),];
+      when(() => androidTripAnalysisApi.setBeacons(any()))
+          .thenAnswer((_) async {
+        return;
+      });
+
+      //test
+      await DriveKitTripAnalysisPlatform.instance.setBeacons(mockBeacons);
+      final captured = verify(
+        () => androidTripAnalysisApi.setBeacons(captureAny()),
+      ).captured;
+  
+      expect(captured.length, 1);
+
+      final capturedBeacons = captured.single as List<PigeonBeaconData>;
+      expect(capturedBeacons[0].proximityUuid, 'uuid');
+      expect(capturedBeacons[0].major, 1);
+      expect(capturedBeacons[0].minor, 2);
+    });
+
+    test('beacon toPigeonImplementation mirrors beacon properties', () {
+      //mock
+      const beacon = BeaconData(
+        proximityUuid: 'uuid',
+        major: 1,
+        minor: 2,
+      );
+
+      //test
+      final pigeonBeacon = beacon.toPigeonImplementation();
+      expect(pigeonBeacon.proximityUuid, beacon.proximityUuid);
+      expect(pigeonBeacon.major, beacon.major);
+      expect(pigeonBeacon.minor, beacon.minor);
+    });
+
+    test('setBeaconRequired calls android implementation', () async {
+      //mock
+      when(() => androidTripAnalysisApi.setBeaconRequired(any()))
+          .thenAnswer((_) async {
+        return;
+      });
+
+      //test
+      await DriveKitTripAnalysisPlatform.instance.setBeaconRequired(true);
+      verify(
+        () => androidTripAnalysisApi.setBeaconRequired(any()),
+      ).called(1);
+    });
+
     test(
         'null vehicle.toPigeonImplementation includes null attributes'
         ' and includes default attributes value if not possible to be null',

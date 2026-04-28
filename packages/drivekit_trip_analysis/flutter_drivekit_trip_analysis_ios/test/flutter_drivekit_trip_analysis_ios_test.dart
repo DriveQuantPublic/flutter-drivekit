@@ -248,6 +248,62 @@ void main() {
       expect(pigeonVehicle.driveWheels, 0);
     });
 
+    test('setBeacons calls android implementation', () async {
+      //mock
+      const mockBeacons = [BeaconData(
+        proximityUuid: 'uuid',
+        major: 1,
+        minor: 2,
+      ),];
+      when(() => iOSTripAnalysisApi.setBeacons(any()))
+          .thenAnswer((_) async {
+        return;
+      });
+
+      //test
+      await DriveKitTripAnalysisPlatform.instance.setBeacons(mockBeacons);
+      final captured = verify(
+        () => iOSTripAnalysisApi.setBeacons(captureAny()),
+      ).captured;
+  
+      expect(captured.length, 1);
+
+      final capturedBeacons = captured.single as List<PigeonBeaconData>;
+      expect(capturedBeacons[0].proximityUuid, 'uuid');
+      expect(capturedBeacons[0].major, 1);
+      expect(capturedBeacons[0].minor, 2);
+    });
+
+    test('beacon toPigeonImplementation mirrors beacon properties', () {
+      //mock
+      const beacon = BeaconData(
+        proximityUuid: 'uuid',
+        major: 1,
+        minor: 2,
+      );
+
+      //test
+      final pigeonBeacon = beacon.toPigeonImplementation();
+      expect(pigeonBeacon.proximityUuid, beacon.proximityUuid);
+      expect(pigeonBeacon.major, beacon.major);
+      expect(pigeonBeacon.minor, beacon.minor);
+    });
+
+    test('setBeaconRequired calls android implementation', () async {
+      //mock
+      when(() => iOSTripAnalysisApi.setBeaconRequired(any()))
+          .thenAnswer((_) async {
+        return;
+      });
+
+      //test
+      await DriveKitTripAnalysisPlatform.instance.setBeaconRequired(true);
+      verify(
+        () => iOSTripAnalysisApi.setBeaconRequired(any()),
+      ).called(1);
+    });
+
+
     group('TripListener', () {
       test('can listen several listeners', () async {
         var beaconDetectedCount = 0;
