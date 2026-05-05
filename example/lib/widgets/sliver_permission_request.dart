@@ -16,6 +16,7 @@ class _SliverPermissionRequestState extends State<SliverPermissionRequest> {
   PermissionStatus backgroundLocationStatus = PermissionStatus.denied;
   PermissionStatus ignoreBatteryOptimizationsStatus = PermissionStatus.denied;
   PermissionStatus activityRecognitionStatus = PermissionStatus.denied;
+  PermissionStatus bluetoothPermissionStatus = PermissionStatus.denied;
   PermissionStatus notificationStatus = PermissionStatus.denied;
 
   @override
@@ -51,6 +52,20 @@ class _SliverPermissionRequestState extends State<SliverPermissionRequest> {
       setState(() {
         if (Platform.isIOS) {
           activityRecognitionStatus = status;
+        }
+      });
+    });
+    Permission.bluetoothScan.status.then((status) {
+      setState(() {
+        if (Platform.isAndroid) {
+          bluetoothPermissionStatus = status;
+        }
+      });
+    });
+    Permission.bluetooth.status.then((status) {
+      setState(() {
+        if (Platform.isIOS) {
+          bluetoothPermissionStatus = status;
         }
       });
     });
@@ -93,6 +108,16 @@ class _SliverPermissionRequestState extends State<SliverPermissionRequest> {
             ),
             const Gap(4),
             Text(
+              '${Platform.isIOS ? 'Bluetooth' : 'Nearby devices'} permission '
+              'status : '
+              '${switch (bluetoothPermissionStatus) {
+                PermissionStatus.granted => '✅',
+                PermissionStatus.permanentlyDenied => 'permanently denied',
+                _ => '❌',
+              }}',
+            ),
+            const Gap(4),
+            Text(
               'Notification permission status : '
               '${switch (notificationStatus) {
                 PermissionStatus.granted => '✅',
@@ -118,11 +143,12 @@ class _SliverPermissionRequestState extends State<SliverPermissionRequest> {
                     locationWhenInUseStatus,
                     backgroundLocationStatus,
                     activityRecognitionStatus,
+                    bluetoothPermissionStatus,
                     notificationStatus,
                     ignoreBatteryOptimizationsStatus,
                   )) {
                     // Background location is permanently denied
-                    (_, PermissionStatus.permanentlyDenied, _, _, _) =>
+                    (_, PermissionStatus.permanentlyDenied, _, _, _, _) =>
                       ElevatedButton(
                         onPressed: openSettings,
                         child: const Text(
@@ -132,7 +158,7 @@ class _SliverPermissionRequestState extends State<SliverPermissionRequest> {
                       ),
 
                     // Activity recognition is permanently denied
-                    (_, _, PermissionStatus.permanentlyDenied, _, _) =>
+                    (_, _, PermissionStatus.permanentlyDenied, _, _, _) =>
                       ElevatedButton(
                         onPressed: openSettings,
                         child: const Text(
@@ -141,8 +167,21 @@ class _SliverPermissionRequestState extends State<SliverPermissionRequest> {
                         ),
                       ),
 
+                    // Nearby devices is permanently denied
+                    (_, _, _, PermissionStatus.permanentlyDenied, _, _) =>
+                      ElevatedButton(
+                        onPressed: openSettings,
+                        child: Text(
+                          Platform.isIOS
+                              ? 'Open settings to allow Bluetooth access'
+                              : 'Open settings to allow nearby devices access',
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+
                     // All OK, display well done message
                     (
+                      PermissionStatus.granted,
                       PermissionStatus.granted,
                       PermissionStatus.granted,
                       PermissionStatus.granted,
@@ -163,6 +202,7 @@ class _SliverPermissionRequestState extends State<SliverPermissionRequest> {
                       PermissionStatus.granted,
                       PermissionStatus.granted,
                       PermissionStatus.granted,
+                      PermissionStatus.granted,
                       _
                     ) =>
                       ElevatedButton(
@@ -178,6 +218,7 @@ class _SliverPermissionRequestState extends State<SliverPermissionRequest> {
                       PermissionStatus.granted,
                       PermissionStatus.granted,
                       PermissionStatus.granted,
+                      PermissionStatus.granted,
                       _,
                       _,
                     ) =>
@@ -188,11 +229,32 @@ class _SliverPermissionRequestState extends State<SliverPermissionRequest> {
                         ),
                       ),
 
-                    // Missing activity, notification, and ignore battery
-                    // optimisation so ask for activity recognition.
+                    // Missing nearby devices/Bluetooth, notification, and ignore battery
+                    // optimisation so ask for nearby devices/Bluetooth.
                     (
                       PermissionStatus.granted,
                       PermissionStatus.granted,
+                      PermissionStatus.granted,
+                      _,
+                      _,
+                      _,
+                    ) =>
+                      ElevatedButton(
+                        onPressed: requestNearbyDevicesPermission,
+                        child: Text(
+                          Platform.isIOS
+                              ? 'Ask for Bluetooth permission'
+                              : 'Ask for nearby devices permission',
+                        ),
+                      ),
+
+                    // Missing activity, nearby devices, notification, and
+                    // ignore battery optimisation so ask for activity
+                    // recognition.
+                    (
+                      PermissionStatus.granted,
+                      PermissionStatus.granted,
+                      _,
                       _,
                       _,
                       _,
@@ -204,11 +266,12 @@ class _SliverPermissionRequestState extends State<SliverPermissionRequest> {
                         ),
                       ),
 
-                    // Missing background location, activity, notification,
-                    // and ignore battery optimisation
+                    // Missing background location, activity, nearby devices,
+                    // notification, and ignore battery optimisation
                     // so ask for background location permission.
                     (
                       PermissionStatus.granted,
+                      _,
                       _,
                       _,
                       _,
@@ -250,10 +313,19 @@ class _SliverPermissionRequestState extends State<SliverPermissionRequest> {
     } else {
       newActivityRecognitionStatus = PermissionStatus.granted;
     }
+    final PermissionStatus newNearbyDevicesStatus;
+    if (Platform.isAndroid) {
+      newNearbyDevicesStatus = await Permission.bluetoothScan.status;
+    } else if (Platform.isIOS) {
+      newNearbyDevicesStatus = await Permission.bluetooth.status;
+    } else {
+      newNearbyDevicesStatus = PermissionStatus.granted;
+    }
     final newNotificationStatus = await Permission.notification.status;
     setState(() {
       backgroundLocationStatus = newBackgroundLocationStatus;
       activityRecognitionStatus = newActivityRecognitionStatus;
+      bluetoothPermissionStatus = newNearbyDevicesStatus;
       notificationStatus = newNotificationStatus;
     });
   }
@@ -291,6 +363,20 @@ class _SliverPermissionRequestState extends State<SliverPermissionRequest> {
     setState(() {
       locationWhenInUseStatus = status;
     });
+  }
+
+  Future<void> requestNearbyDevicesPermission() async {
+    if (Platform.isAndroid) {
+      final status = await Permission.bluetoothScan.request();
+      setState(() {
+        bluetoothPermissionStatus = status;
+      });
+    } else if (Platform.isIOS) {
+      final status = await Permission.bluetooth.request();
+      setState(() {
+        bluetoothPermissionStatus = status;
+      });
+    }
   }
 
   Future<void> requestNotificationPermission() async {
