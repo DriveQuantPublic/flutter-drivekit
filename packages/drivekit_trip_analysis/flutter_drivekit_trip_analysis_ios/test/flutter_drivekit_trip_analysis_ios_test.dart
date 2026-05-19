@@ -250,13 +250,14 @@ void main() {
 
     test('setBeacons calls android implementation', () async {
       //mock
-      const mockBeacons = [BeaconData(
-        proximityUuid: 'uuid',
-        major: 1,
-        minor: 2,
-      ),];
-      when(() => iOSTripAnalysisApi.setBeacons(any()))
-          .thenAnswer((_) async {
+      const mockBeacons = [
+        BeaconData(
+          proximityUuid: 'uuid',
+          major: 1,
+          minor: 2,
+        ),
+      ];
+      when(() => iOSTripAnalysisApi.setBeacons(any())).thenAnswer((_) async {
         return;
       });
 
@@ -265,7 +266,7 @@ void main() {
       final captured = verify(
         () => iOSTripAnalysisApi.setBeacons(captureAny()),
       ).captured;
-  
+
       expect(captured.length, 1);
 
       final capturedBeacons = captured.single as List<PigeonBeaconData>;
@@ -302,7 +303,6 @@ void main() {
         () => iOSTripAnalysisApi.setBeaconRequired(any()),
       ).called(1);
     });
-
 
     group('TripListener', () {
       test('can listen several listeners', () async {

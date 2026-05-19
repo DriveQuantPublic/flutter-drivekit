@@ -238,11 +238,13 @@ void main() {
 
     test('setBeacons calls android implementation', () async {
       //mock
-      const mockBeacons = [BeaconData(
-        proximityUuid: 'uuid',
-        major: 1,
-        minor: 2,
-      ),];
+      const mockBeacons = [
+        BeaconData(
+          proximityUuid: 'uuid',
+          major: 1,
+          minor: 2,
+        ),
+      ];
       when(() => androidTripAnalysisApi.setBeacons(any()))
           .thenAnswer((_) async {
         return;
@@ -253,7 +255,7 @@ void main() {
       final captured = verify(
         () => androidTripAnalysisApi.setBeacons(captureAny()),
       ).captured;
-  
+
       expect(captured.length, 1);
 
       final capturedBeacons = captured.single as List<PigeonBeaconData>;
