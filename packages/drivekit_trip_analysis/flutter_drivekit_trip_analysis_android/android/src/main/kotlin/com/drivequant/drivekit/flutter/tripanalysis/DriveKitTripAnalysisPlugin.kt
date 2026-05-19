@@ -97,7 +97,7 @@ class DriveKitTripAnalysisPlugin :
     }
 
     override fun setBeacons(beacons: List<PigeonBeaconData>) {
-        DriveKitTripAnalysis.setBeacons(beacons.map{ PigeonMapper.fromPigeonBeaconData(it)} )
+        DriveKitTripAnalysis.setBeacons(beacons.map { PigeonMapper.fromPigeonBeaconData(it) })
     }
 
     override fun setBeaconRequired(required: Boolean) {

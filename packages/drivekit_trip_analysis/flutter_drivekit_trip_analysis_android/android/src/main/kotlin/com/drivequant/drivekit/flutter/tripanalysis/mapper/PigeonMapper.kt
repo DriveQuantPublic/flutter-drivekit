@@ -140,7 +140,9 @@ object PigeonMapper {
     )
 
     fun fromPigeonBeaconData(pigeonBeaconData: PigeonBeaconData): BeaconData = BeaconData(
-        pigeonBeaconData.proximityUuid, pigeonBeaconData.major.toInt(), pigeonBeaconData.minor.toInt()
+        pigeonBeaconData.proximityUuid,
+        pigeonBeaconData.major.toInt(),
+        pigeonBeaconData.minor.toInt()
     )
 
     fun toPigeonStartMode(startMode: StartMode): PigeonStartMode = when (startMode) {
