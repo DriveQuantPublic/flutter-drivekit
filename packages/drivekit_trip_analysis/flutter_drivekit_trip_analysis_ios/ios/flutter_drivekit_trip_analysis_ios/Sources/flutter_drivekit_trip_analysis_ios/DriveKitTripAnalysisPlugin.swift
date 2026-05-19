@@ -292,7 +292,7 @@ extension DriveKitTripAnalysisPlugin: TripListener {
         }
     }
 
-    public func beaconConfirmed(beacon: DriveKitTripAnalysisModule.BeaconData) {
+    public func beaconConfirmed(beacon: DriveKitCoreModule.BeaconData) {
         let beaconDataValue = PigeonBeaconData(from: beacon)
         executeOnMainThread {
             self.flutterAPI?.beaconConfirmed(beacon: beaconDataValue) { result in

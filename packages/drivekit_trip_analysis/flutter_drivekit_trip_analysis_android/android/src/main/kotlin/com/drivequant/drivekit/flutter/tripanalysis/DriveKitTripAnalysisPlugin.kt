@@ -2,7 +2,7 @@ package com.drivequant.drivekit.flutter.tripanalysis
 
 import android.content.Context
 import androidx.core.content.ContextCompat
-import com.drivequant.beaconutils.BeaconData
+import com.drivequant.drivekit.core.beacon.BeaconData
 import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper
 import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.fromPigeonSynchronizationType
 import com.drivequant.drivekit.flutter.tripanalysis.mapper.PigeonMapper.toPigeonBeaconData
