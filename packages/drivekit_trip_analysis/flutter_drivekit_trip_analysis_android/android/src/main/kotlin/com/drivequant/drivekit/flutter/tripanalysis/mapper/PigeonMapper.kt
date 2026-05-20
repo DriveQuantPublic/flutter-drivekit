@@ -1,8 +1,8 @@
 // PigeonMapper object with the mapping function
 package com.drivequant.drivekit.flutter.tripanalysis.mapper
 
-import com.drivequant.beaconutils.BeaconData
 import com.drivequant.drivekit.core.SynchronizationType
+import com.drivequant.drivekit.core.beacon.BeaconData
 import com.drivequant.drivekit.core.common.model.DKCoordinateAccuracy
 import com.drivequant.drivekit.core.common.model.DKTripLocation
 import com.drivequant.drivekit.core.extension.toDriveKitBackendFormat
@@ -140,7 +140,9 @@ object PigeonMapper {
     )
 
     fun fromPigeonBeaconData(pigeonBeaconData: PigeonBeaconData): BeaconData = BeaconData(
-        pigeonBeaconData.proximityUuid, pigeonBeaconData.major.toInt(), pigeonBeaconData.minor.toInt()
+        pigeonBeaconData.proximityUuid,
+        pigeonBeaconData.major.toInt(),
+        pigeonBeaconData.minor.toInt()
     )
 
     fun toPigeonStartMode(startMode: StartMode): PigeonStartMode = when (startMode) {
