@@ -13,7 +13,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/DriveQuantPublic/drivekit-sdk-spm.git",
-                 exact: "3.2.0")
+                 exact: "3.2.1")
     ],
     targets: [
         .target(
