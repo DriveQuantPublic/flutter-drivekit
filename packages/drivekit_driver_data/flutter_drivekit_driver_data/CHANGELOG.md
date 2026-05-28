@@ -1,4 +1,11 @@
+# 2.2.1
+
+    - Update DriveKit version for iOS to 3.2.1 and Android to 3.1.1
+    - Adjust BeaconData imports
+
+
 # 2.2.0
+
     - Update DriveKit version for iOS to 3.2.0 and Android to 3.1.0
     - Adjust BeaconData imports
 
