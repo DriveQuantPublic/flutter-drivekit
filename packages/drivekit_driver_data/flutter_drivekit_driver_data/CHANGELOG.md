@@ -1,3 +1,7 @@
+# 2.2.2
+
+    - Update DriveKit version for iOS to 3.2.2
+
 # 2.2.1
 
     - Update DriveKit version for iOS to 3.2.1 and Android to 3.1.1
