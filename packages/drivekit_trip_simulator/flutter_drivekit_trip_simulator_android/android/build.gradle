@@ -19,7 +19,7 @@ android {
         namespace 'com.drivequant.drivekit.flutter.tripsimulator'
     }
 
-    compileSdk 37
+    compileSdk 35
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
