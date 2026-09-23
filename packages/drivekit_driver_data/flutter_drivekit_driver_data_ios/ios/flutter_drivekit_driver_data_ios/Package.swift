@@ -6,14 +6,14 @@ import PackageDescription
 let package = Package(
     name: "flutter_drivekit_driver_data_ios",
     platforms: [
-        .iOS("13.0")
+        .iOS("15.0")
     ],
     products: [
         .library(name: "flutter-drivekit-driver-data-ios", targets: ["flutter_drivekit_driver_data_ios"])
     ],
     dependencies: [
         .package(url: "https://github.com/DriveQuantPublic/drivekit-sdk-spm.git",
-                 exact: "3.4.0")
+                 exact: "4.0.0-beta1")
     ],
     targets: [
         .target(
