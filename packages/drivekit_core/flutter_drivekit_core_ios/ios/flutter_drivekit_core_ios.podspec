@@ -14,8 +14,8 @@ Pod::Spec.new do |s|
   s.source           = { :path => '.' }  
   s.source_files = 'flutter_drivekit_core_ios/Sources/flutter_drivekit_core_ios/**/*'
   s.dependency 'Flutter'
-  s.dependency 'DriveKitCore', '3.3.1'
-  s.platform = :ios, '13.0'
+  s.dependency 'DriveKitCore', '4.0.0-beta1'
+  s.platform = :ios, '15.0'
 
   # Flutter.framework does not contain a i386 slice.
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386' }
