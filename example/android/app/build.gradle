@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     id "com.android.application"
     id "kotlin-android"
@@ -13,16 +15,12 @@ if (localPropertiesFile.exists()) {
 }
 
 android {
-    compileSdk 35
+    compileSdk 37
 
     compileOptions {
         coreLibraryDesugaringEnabled true // Needed for flutter_local_notifications plugin.
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
-    }
-
-    kotlinOptions {
-        jvmTarget = "17"
     }
 
     namespace = "com.drivequant.drivekit.flutter.example"
@@ -33,7 +31,7 @@ android {
     defaultConfig {
         applicationId "com.drivequant.drivekit.flutter.example"
         minSdkVersion 26
-        targetSdkVersion 35
+        targetSdkVersion 37
         versionCode 1
         versionName "1.0"
     }
@@ -44,6 +42,12 @@ android {
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.debug
         }
+    }
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget = JvmTarget.JVM_17
     }
 }
 
