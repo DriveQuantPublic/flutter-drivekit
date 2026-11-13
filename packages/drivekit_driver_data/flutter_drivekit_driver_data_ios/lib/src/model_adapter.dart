@@ -309,8 +309,7 @@ extension PigeonAdvancedSafetyAdapter on PigeonAdvancedSafety {
   /// Converts a [PigeonAdvancedSafety] to a corresponding model class.
   AdvancedSafety toModelImplementation() {
     return AdvancedSafety(
-      safetyContext: safetyContext
-          .nonNulls
+      safetyContext: safetyContext.nonNulls
           .map((PigeonSafetyContext e) => e.toModelImplementation())
           .toList(),
     );
@@ -323,8 +322,7 @@ extension PigeonAdvancedEcoDrivingAdapter on PigeonAdvancedEcoDriving {
   /// Converts a [PigeonAdvancedEcoDriving] to a corresponding model class.
   AdvancedEcoDriving toModelImplementation() {
     return AdvancedEcoDriving(
-      ecoDrivingContext: ecoDrivingContext
-          .nonNulls
+      ecoDrivingContext: ecoDrivingContext.nonNulls
           .map((e) => e.toModelImplementation())
           .toList(),
     );
@@ -337,8 +335,7 @@ extension PigeonAdvancedFuelEstimationAdapter on PigeonAdvancedFuelEstimation {
   /// Converts a [PigeonAdvancedFuelEstimation] to a corresponding model class.
   AdvancedFuelEstimation toModelImplementation() {
     return AdvancedFuelEstimation(
-      fuelEstimationContext: fuelEstimationContext
-          .nonNulls
+      fuelEstimationContext: fuelEstimationContext.nonNulls
           .map((e) => e.toModelImplementation())
           .toList(),
     );
@@ -366,14 +363,11 @@ extension PigeonTripAdapter on PigeonTrip {
       endDate: endDate,
       logbook: logbook?.toModelImplementation(),
       occupantInfo: occupantInfo?.toModelImplementation(),
-      safetyEvents: safetyEvents
-          ?.nonNulls
-          .map((e) => e.toModelImplementation())
-          .toList(),
+      safetyEvents:
+          safetyEvents?.nonNulls.map((e) => e.toModelImplementation()).toList(),
       speedingStatistics: speedingStatistics?.toModelImplementation(),
       energyEstimation: energyEstimation?.toModelImplementation(),
-      advancedEnergyEstimation: advancedEnergyEstimation
-          ?.nonNulls
+      advancedEnergyEstimation: advancedEnergyEstimation?.nonNulls
           .map((e) => e.toModelImplementation())
           .toList(),
       startDate: startDate,
@@ -391,10 +385,8 @@ extension PigeonTripAdapter on PigeonTrip {
       metaData: convertMetadata(metadata),
       transportationMode: transportationMode,
       unscored: unscored,
-      calls:
-          calls?.nonNulls.map((e) => e.toModelImplementation()).toList(),
-      speedLimitContexts: speedLimitContexts
-          ?.nonNulls
+      calls: calls?.nonNulls.map((e) => e.toModelImplementation()).toList(),
+      speedLimitContexts: speedLimitContexts?.nonNulls
           .map((PigeonSpeedLimitContext e) => e.toModelImplementation())
           .toList(),
     );
@@ -484,8 +476,7 @@ extension PigeonGetTripsResponseAdapter on PigeonGetTripsResponse {
   GetTripsResponse toModelImplementation() {
     return GetTripsResponse(
       status: status.toModelImplementation(),
-      trips:
-          trips.nonNulls.map((e) => e.toModelImplementation()).toList(),
+      trips: trips.nonNulls.map((e) => e.toModelImplementation()).toList(),
     );
   }
 }
