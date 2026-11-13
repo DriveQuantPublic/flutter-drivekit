@@ -1,4 +1,3 @@
-import 'package:collection/collection.dart';
 import 'package:flutter_drivekit_trip_analysis_ios/src/trip_analysis_api.g.dart';
 import 'package:flutter_drivekit_trip_analysis_platform_interface/flutter_drivekit_trip_analysis_platform_interface.dart';
 
@@ -417,8 +416,7 @@ extension PigeonAdvancedSafetyAdapter on PigeonAdvancedSafety {
   /// Converts a [PigeonAdvancedSafety] to a corresponding model class.
   AdvancedSafety toModelImplementation() {
     return AdvancedSafety(
-      safetyContext: safetyContext
-          .whereNotNull()
+      safetyContext: safetyContext.nonNulls
           .map((PigeonSafetyContext e) => e.toModelImplementation())
           .toList(),
     );
@@ -431,8 +429,7 @@ extension PigeonAdvancedEcoDrivingAdapter on PigeonAdvancedEcoDriving {
   /// Converts a [PigeonAdvancedEcoDriving] to a corresponding model class.
   AdvancedEcoDriving toModelImplementation() {
     return AdvancedEcoDriving(
-      ecoDrivingContext: ecoDrivingContext
-          .whereNotNull()
+      ecoDrivingContext: ecoDrivingContext.nonNulls
           .map((e) => e.toModelImplementation())
           .toList(),
     );
@@ -445,8 +442,7 @@ extension PigeonAdvancedFuelEstimationAdapter on PigeonAdvancedFuelEstimation {
   /// Converts a [PigeonAdvancedFuelEstimation] to a corresponding model class.
   AdvancedFuelEstimation toModelImplementation() {
     return AdvancedFuelEstimation(
-      fuelEstimationContext: fuelEstimationContext
-          .whereNotNull()
+      fuelEstimationContext: fuelEstimationContext.nonNulls
           .map((e) => e.toModelImplementation())
           .toList(),
     );
@@ -554,7 +550,7 @@ extension PigeonTripResponseStatusAdapter on PigeonTripResponseStatus {
       status: status.toModelImplementation(),
       itinId: itinId,
       hasSafetyAndEcoDrivingScore: hasSafetyAndEcoDrivingScore,
-      info: info.whereNotNull().map((e) => e.toModelImplementation()).toList(),
+      info: info.nonNulls.map((e) => e.toModelImplementation()).toList(),
       error: error?.toModelImplementation(),
       trip: trip?.toModelImplementation(),
     );
@@ -673,14 +669,11 @@ extension PigeonTripAdapter on PigeonTrip {
       endDate: endDate,
       logbook: logbook?.toModelImplementation(),
       occupantInfo: occupantInfo?.toModelImplementation(),
-      safetyEvents: safetyEvents
-          ?.whereNotNull()
-          .map((e) => e.toModelImplementation())
-          .toList(),
+      safetyEvents:
+          safetyEvents?.nonNulls.map((e) => e.toModelImplementation()).toList(),
       speedingStatistics: speedingStatistics?.toModelImplementation(),
       energyEstimation: energyEstimation?.toModelImplementation(),
-      advancedEnergyEstimation: advancedEnergyEstimation
-          ?.whereNotNull()
+      advancedEnergyEstimation: advancedEnergyEstimation?.nonNulls
           .map((e) => e.toModelImplementation())
           .toList(),
       startDate: startDate,
@@ -698,10 +691,8 @@ extension PigeonTripAdapter on PigeonTrip {
       metaData: convertMetadata(metadata),
       transportationMode: transportationMode,
       unscored: unscored,
-      calls:
-          calls?.whereNotNull().map((e) => e.toModelImplementation()).toList(),
-      speedLimitContexts: speedLimitContexts
-          ?.whereNotNull()
+      calls: calls?.nonNulls.map((e) => e.toModelImplementation()).toList(),
+      speedLimitContexts: speedLimitContexts?.nonNulls
           .map((PigeonSpeedLimitContext e) => e.toModelImplementation())
           .toList(),
     );
