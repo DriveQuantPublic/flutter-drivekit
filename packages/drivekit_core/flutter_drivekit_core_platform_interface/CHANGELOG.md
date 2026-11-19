@@ -1,6 +1,6 @@
 # 3.0.0
 
-    - Update DriveKit version for Android and iOS to 4.0.0
+    - Update DriveKit version for Android and iOS to 4.1.0
     - Add support for iOS 27. iOS min version is now 15
     - Add support for Android 17 (upgrade compileSdk and targetSdk to 37)
     - Example app: upgrade Kotlin to 2.2.21, AGP to 9.4.1, Gradle to 9.6.0, and adopt UIScene
